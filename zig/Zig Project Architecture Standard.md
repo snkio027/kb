@@ -1,15 +1,10 @@
 # Zig Project Architecture Standard
 
 **Version:** 1.0
-
 **Status:** Frozen Baseline
-
 **Language Baseline:** Zig 0.16 series，语义核验基于 Zig 0.16.0
-
 **Verified:** 2026-08-14
-
 **Scope:** Zig Application / CLI / Library / Systems Tool / Multi-Artifact Project / Multi-Package Repository
-
 **Purpose:** Source Organization, Semantic Boundaries, Module Architecture, Package Lifecycle, Artifact Topology, Build Graph, Testing, Naming & Evolution
 
 ---
@@ -116,7 +111,6 @@ Official Semantic Delta Audit
         ├── wording update
         ├── API example update
         └── architecture implication change
-
 ```
 
 Architecture Standard **MUST NOT** 将特定版本偶然存在的 API 误写成永恒的 Zig 架构真理。
@@ -166,7 +160,6 @@ Module
 Package
 Artifact
 Build Step
-
 ```
 
 这些对象不是同一个抽象层。本标准禁止建立如下机械映射：
@@ -175,7 +168,6 @@ Build Step
 Directory = Module
 Module    = Package
 Package   = Artifact
-
 ```
 
 也不采用这样的伪线性层级模型：
@@ -188,7 +180,6 @@ File
 Module
     ↓
 Package
-
 ```
 
 更准确的架构模型是多个相互关联、但彼此正交的视图。
@@ -211,7 +202,6 @@ src/
 ├── engine/
 ├── protocol/
 └── platform/
-
 ```
 
 它表达 **Physical Organization**，而不是 **Dependency Graph**。Directory 首先解决的是定位、聚类与认知导航问题。
@@ -249,7 +239,6 @@ Application
  ├───────────┐
  ▼           ▼
 Protocol   Platform
-
 ```
 
 这是 **Compilation Dependency Architecture**，而不是目录树。
@@ -271,7 +260,6 @@ Zig 不会简单递归扫描目录中的全部 `.zig` 文件。0.16 Compilation 
 File exists        ≠  File is discovered
 Declaration exists ≠  Declaration is analyzed
 Test exists        ≠  Test is necessarily part of this test compilation
-
 ```
 
 Discovery 是 Architecture Reality 的一部分。
@@ -310,7 +298,6 @@ Package **SHOULD NOT** 只是“更大的目录”。
              │       │       │
              ▼       ▼       ▼
            exe     exe     test artifact
-
 ```
 
 Zig Build System 可以构建 executable、static/dynamic library、test compilation 等产品，并将它们放入更大的 build topology。
@@ -331,7 +318,6 @@ Zig Build System 将项目表示为由 Steps 构成的 Directed Acyclic Graph；
 
 ```text
 Module Dependency Graph ≠ Build Step DAG
-
 ```
 
 尤其重要的是：`Module Graph` 官方允许 cycle；而 `Build Step Graph` 本质上是 DAG。
@@ -392,7 +378,6 @@ pub fn encode(...) ... {
 pub fn decode(...) ... {
     // ...
 }
-
 ```
 
 如果这些 declarations 共同表达一个紧密的 protocol capability，就没有必要机械拆成 `Header.zig`, `Message.zig`, `Kind.zig`, `Encoder.zig`, `Decoder.zig`。只有当某个对象已经产生足够强的独立语义压力时，才 SHOULD 拆分 Source File。
@@ -409,7 +394,6 @@ src/
 ├── protocol/
 ├── runtime/
 └── storage/
-
 ```
 
 绝不自动意味着存在 `config module`, `protocol module`, `runtime module`, `storage module`。
@@ -456,7 +440,6 @@ Independent Dependency Lifecycle
 + Independent Distribution
 + Independent Version / Release Concern
 + Independent Build Ownership
-
 ```
 
 并不是每一个 Module 都值得成为 Package。
@@ -465,7 +448,6 @@ Independent Dependency Lifecycle
 
 ```text
 one package + multiple modules + multiple artifacts
-
 ```
 
 完全可以是一个成熟大型 Zig 项目的正确形态。
@@ -491,14 +473,12 @@ Artifact 回答：**What gets built?**
 
 ```text
 repository membership ≠ compilation membership
-
 ```
 
 同样：
 
 ```text
 test source exists ≠ test is discovered ≠ test artifact is executed
-
 ```
 
 Source / Test membership SHOULD 可以从 import graph、root source files、test roots、Build Graph 清晰推理出来。
@@ -522,7 +502,6 @@ compiler/
 ├── semantic/
 ├── backend/
 └── linker/
-
 ```
 
 只要每一层都表达真实语义，就是合理结构。应该消灭的是 **Artificial Hierarchy**，而不是 **Hierarchy itself**。
@@ -542,7 +521,6 @@ helpers.zig
 common.zig
 managers/
 contexts/
-
 ```
 
 除非项目能够清楚解释其真正语义。例如 `utils.zig` 更可能应该成为 `checksum.zig`, `path.zig`, `encoding.zig`, `process.zig`。
@@ -618,7 +596,6 @@ Dynamic library
 Test artifact
 Object artifact
 Code generator executable
-
 ```
 
 不要为了某个代码目录创建 Artifact。Artifact 是 **Runtime / Linking / Testing Boundary**，不是 **Organizational Folder Boundary**。
@@ -664,7 +641,6 @@ Config.zig
 protocol.zig
 checksum.zig
 process.zig
-
 ```
 
 ### 9.2 File-as-Type
@@ -685,14 +661,12 @@ pub fn init(buffer: []const u8) Parser {
         .position = 0,
     };
 }
-
 ```
 
 然后：
 
 ```zig
 const Parser = @import("Parser.zig");
-
 ```
 
 这直接利用 Source File Struct，而不是人为模拟 OOP class。
@@ -710,7 +684,6 @@ const Parser = @import("Parser.zig");
 ```zig
 const parser = @import("parser.zig");
 const codec = @import("internal/codec.zig");
-
 ```
 
 它表达 **local implementation relationship**。
@@ -721,7 +694,6 @@ const codec = @import("internal/codec.zig");
 
 ```zig
 const protocol = @import("protocol");
-
 ```
 
 表达 **explicit compilation dependency**。
@@ -730,7 +702,6 @@ const protocol = @import("protocol");
 
 ```zig
 @import("../../../../common/protocol.zig");
-
 ```
 
 如果这条路径穿越了真实 architecture boundary，它意味着 **Filesystem Navigation is encoding Architecture Dependency**。
@@ -779,7 +750,6 @@ pub const Error = error{
     InvalidConfiguration,
     ConnectionFailed,
 };
-
 ```
 
 内部 `internal/parser.zig`, `wire.zig`, `platform_posix.zig` 不需要机械 re-export。
@@ -839,7 +809,6 @@ pub fn main(init: std.process.Init) !void {
         args,
     );
 }
-
 ```
 
 核心不是特定函数签名，而是 architecture direction：
@@ -853,7 +822,6 @@ OS / std.start
       │ translate ambient process capabilities
       ▼
  Application Core
-
 ```
 
 因此：
@@ -874,7 +842,6 @@ pub const lexer = @import("lexer.zig");
 pub const cache = @import("cache.zig");
 pub const wire = @import("wire.zig");
 pub const internal = @import("internal.zig");
-
 ```
 
 如果 consumer 最终依赖 `module internal directory topology`，那么 physical refactor 将演变成 API break。
@@ -885,7 +852,6 @@ pub const internal = @import("internal.zig");
 pub const Client = @import("Client.zig");
 pub const Config = @import("Config.zig");
 pub const Request = @import("request.zig").Request;
-
 ```
 
 **Conformance test：**
@@ -913,7 +879,6 @@ Application
  ├─────────────┐
  ▼             ▼
 Protocol     Platform
-
 ```
 
 Architecture Review MUST 能回答：**哪个 Module 被允许依赖哪个 Module？**，而不是：“反正文件能 import 到就行。”
@@ -940,7 +905,6 @@ Zig 官方明确允许 Module dependency loops。但本标准规定：
      / \
     ▼   ▼
     A   B
-
 ```
 
 但：
@@ -964,7 +928,6 @@ Application Root
    Library
       │
       └──── @import("root")
-
 ```
 
 这种关系 MAY 是有意设计的 host-provided configuration。
@@ -1010,7 +973,6 @@ Zig Build System 可以声明和配置 build artifacts、options、tests、gener
 
 ```text
 compile, generate, verify, package, run project tool, run system tool, install, test
-
 ```
 
 官方 Build System 本身支持 generated files、system tools 与 project tools。因此本标准不是：“任何外部命令都不能放进 build.zig。”
@@ -1034,7 +996,6 @@ desired production state
 continuous reconciliation
       ↓
 failure recovery
-
 ```
 
 不属于 `Build Step DAG`。即使 Zig Build API 在技术上可以启动某些程序，也不意味着 Build System 应该拥有其运行时语义。
@@ -1058,7 +1019,6 @@ fn decodeFrame(...) !Frame {
 test "decodeFrame rejects truncated header" {
     // ...
 }
-
 ```
 
 因为 unit test 测试的是 **Local Semantic Contract**，应尽可能保持 `implementation + local invariant + unit test` 的 locality。
@@ -1072,7 +1032,6 @@ tests/
 ├── root.zig
 ├── integration.zig
 └── fixtures/
-
 ```
 
 然后由 Build System 显式创建相应 Test Compilation。
@@ -1087,7 +1046,6 @@ Zig test discovery 依赖 Compilation Discovery，而不是递归扫描 `tests/`
 test {
     _ = @import("integration.zig");
 }
-
 ```
 
 因此：
@@ -1108,7 +1066,6 @@ test {
 
 ```text
 Test Exists → Discovered → Compiled → Run Step Exists → Executed
-
 ```
 
 这些状态 MUST 被区分。
@@ -1172,14 +1129,12 @@ Multiple Modules
 Multiple Artifacts
     ↓
 Multiple Packages
-
 ```
 
 这是一种可能的 evolution path，不是一条必须逐级经过的状态机。禁止：
 
 ```text
 New Project → Generate Enterprise Architecture
-
 ```
 
 抽象必须通过真实复杂性获得存在资格。
@@ -1195,7 +1150,6 @@ New Project → Generate Enterprise Architecture
 ```text
 hello/
 └── main.zig
-
 ```
 
 已经足够。甚至不一定需要 Build System。不要为了显得专业，从第一天创建 `src/`, `internal/`, `packages/`, `modules/`, `tests/`。
@@ -1216,7 +1170,6 @@ project/
     ├── main.zig
     ├── config.zig
     └── process.zig
-
 ```
 
 仍然完全可以只有一个 project Module。
@@ -1250,7 +1203,6 @@ project/
 │
 └── tests/
     └── root.zig
-
 ```
 
 可能的 logical relationship：
@@ -1268,7 +1220,6 @@ root.zig facade
    ├── Engine
    ├── protocol
    └── implementation files
-
 ```
 
 这里所有文件名和目录都是 **Good Defaults**，不是 Zig language requirements。
@@ -1297,7 +1248,6 @@ project/
     │
     └── daemon/
         └── main.zig
-
 ```
 
 Module Graph：
@@ -1308,7 +1258,6 @@ Module Graph：
       /      \
      /        \
    cli       daemon
-
 ```
 
 Artifact Graph：
@@ -1318,7 +1267,6 @@ core
  ├── CLI executable
  ├── daemon executable
  └── test artifacts
-
 ```
 
 Physical Tree、Module Graph、Artifact Graph 明确不同。
@@ -1344,7 +1292,6 @@ project/
 │
 └── apps/
     └── cli/
-
 ```
 
 不要因为 `protocol/` “看起来很独立”，就立即升级为 Package。Package Boundary 是 **lifecycle decision**，而不是 **folder size decision**。
@@ -1359,7 +1306,6 @@ project/
 
 ```zig
 @import("../../../../foo/bar.zig");
-
 ```
 
 跨越真实 architecture boundary 时，用物理路径编码逻辑依赖。
@@ -1368,7 +1314,6 @@ project/
 
 ```text
 folder → module
-
 ```
 
 机械一一对应。这只是重新引入 **Directory-as-Package thinking**。
@@ -1377,7 +1322,6 @@ folder → module
 
 ```text
 module → package
-
 ```
 
 忽略两者生命周期语义完全不同。
@@ -1392,7 +1336,6 @@ Thin `main.zig` 不意味着：把所有实现搬进 `root.zig`。正确目标�
 
 ```text
 root.zig → Intentional Public Surface → Coherent Implementation
-
 ```
 
 ### AP-06 — Runtime Control Plane in `build.zig`
@@ -1545,7 +1488,6 @@ build.zig owns construction topology
 Long-lived runtime semantics stay outside build.zig
 Naming must reveal semantic ownership
 Structure must be earned by real complexity
-
 ```
 
 这些属于 **Architecture choices derived from Zig semantics**，而不是 Zig 语言本身的 universal requirements。
@@ -1570,7 +1512,6 @@ Package Dependency / Lifecycle View
 Artifact / Product Graph
         │
 Build Step DAG
-
 ```
 
 这些不是一张图，也不是一个机械层级。它们共同构成项目的 Architecture Model。
@@ -1610,7 +1551,6 @@ src/
 ├── main.zig
 ├── root.zig
 └── ...
-
 ```
 
 这样的目录模板。
@@ -1623,7 +1563,6 @@ src/
 
 ```text
 File ≠ Directory ≠ Module ≠ Package ≠ Artifact ≠ Build Step
-
 ```
 
 这些对象拥有不同职责。只有当真实语义产生新的 boundary pressure 时，结构才应该增长。

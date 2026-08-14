@@ -40,7 +40,7 @@ Atlas 明确区分：
 
 ---
 
-# 1. 架构愿景与定位
+## 1. 架构愿景与定位
 
 Atlas 是面向云原生数据基础设施与流处理场景的内部开发者平台（Internal Developer Platform, IDP）参考架构。
 
@@ -76,17 +76,17 @@ Atlas 不将自身定位为若干云原生工具的集合，而将平台视为�
 
 ---
 
-# 2. 核心设计原则
+## 2. 核心设计原则
 
 Atlas 建立在以下不可妥协的架构原则之上。
 
 ---
 
-## 2.1 Bootstrap ≠ GitOps
+### 2.1 Bootstrap ≠ GitOps
 
 `bootstrap/` 与 `gitops/` 属于完全不同的生命周期域。
 
-### Bootstrap
+#### Bootstrap
 
 Bootstrap 是一次性、命令式、可退出的控制面建立过程。
 
@@ -105,7 +105,7 @@ Bootstrap MUST NOT 长期参与平台稳态资源管理。
 
 > Bootstrap MUST terminate as an active control authority.
 
-### GitOps
+#### GitOps
 
 `gitops/` 保存平台长期 Desired State。
 
@@ -137,11 +137,11 @@ Steady State
 
 ---
 
-## 2.2 四阶控制权模型
+### 2.2 四阶控制权模型
 
 Atlas 将系统控制权划分为四个不同的 Authority Domain。
 
-### Git owns Definition
+#### Git owns Definition
 
 Git 是平台期望状态的定义权威。
 
@@ -161,7 +161,7 @@ Git 回答：
 
 ---
 
-### Bootstrap owns Instantiation
+#### Bootstrap owns Instantiation
 
 Bootstrap 拥有初始实例化权。
 
@@ -178,7 +178,7 @@ Bootstrap 回答：
 
 ---
 
-### Argo CD owns GitOps Reconciliation
+#### Argo CD owns GitOps Reconciliation
 
 Argo CD 是 Atlas GitOps Desired-State Domain 中唯一的持续同步权威。
 
@@ -195,7 +195,7 @@ Argo CD 不拥有应用内部运行时行为。
 
 ---
 
-### Operators own Runtime Behavior
+#### Operators own Runtime Behavior
 
 资源进入 Kubernetes API 后，其运行时生命周期由 Kubernetes 原生 Controller 或 Domain Operator 负责。
 
@@ -235,7 +235,7 @@ Runtime Cluster
 
 ---
 
-# 2.3 External Root Anchor + Two-Level Reconciliation DAG
+### 2.3 External Root Anchor + Two-Level Reconciliation DAG
 
 Atlas 正式采用：
 
@@ -247,7 +247,7 @@ Atlas 正式采用：
 
 ---
 
-## 2.3.1 External Root Anchor
+#### 2.3.1 External Root Anchor
 
 External Root Anchor 是 Atlas GitOps 控制图的外部信任锚点。
 
@@ -286,7 +286,7 @@ External Root Anchor MUST NOT 被设计为自我管理 Application。
 
 ---
 
-## 2.3.2 Level 1 — Root Macro DAG
+#### 2.3.2 Level 1 — Root Macro DAG
 
 Root 层只表达：
 
@@ -321,7 +321,7 @@ External Root Anchor
 
 ---
 
-## 2.3.3 Level 2 — Platform Capability DAG
+#### 2.3.3 Level 2 — Platform Capability DAG
 
 平台组件的实际依赖关系由：
 
@@ -363,7 +363,7 @@ Platform Control Healthy?
 
 ---
 
-## 2.3.4 Root manages trust transitions
+#### 2.3.4 Root manages trust transitions
 
 正式约束：
 
@@ -381,7 +381,7 @@ Platform Control Healthy?
 
 ---
 
-## 2.3.5 Leaf Application 是最小失败隔离单元
+#### 2.3.5 Leaf Application 是最小失败隔离单元
 
 Atlas 将独立 Argo CD Application 视为最小的：
 
@@ -409,7 +409,7 @@ Application 不应仅因为文件系统存在子目录而进一步嵌套。
 
 ---
 
-## 2.3.6 Application 嵌套深度限制
+#### 2.3.6 Application 嵌套深度限制
 
 External Root Anchor 以下默认最多允许两个 Application orchestration hops：
 
@@ -451,17 +451,17 @@ Resources
 
 ---
 
-# 2.4 Directory Ownership ≠ Dependency Ordering
+### 2.4 Directory Ownership ≠ Dependency Ordering
 
 Atlas 强制区分两个正交维度：
 
-### Directory
+#### Directory
 
 回答：
 
 > 这个能力属于哪个领域？
 
-### Sync Wave
+#### Sync Wave
 
 回答：
 
@@ -514,7 +514,7 @@ networking/
 
 ---
 
-# 2.5 GitOps Reconciliation Authority
+### 2.5 GitOps Reconciliation Authority
 
 Argo CD 是 Atlas GitOps Desired-State Domain 的唯一持续同步权威。
 
@@ -542,11 +542,11 @@ Atlas MUST NOT 依赖 Helm Release History 作为平台稳态的一部分。
 
 ---
 
-# 2.6 Artifacts ≠ Intent
+### 2.6 Artifacts ≠ Intent
 
 Atlas 将软件发行产物与平台治理意图彻底分离。
 
-### Artifacts
+#### Artifacts
 
 第三方发行制品属于 Supply Chain Artifact。
 
@@ -559,7 +559,7 @@ Atlas 将软件发行产物与平台治理意图彻底分离。
 
 复杂第三方 Helm Chart SHOULD 以不可变形式缓存，并在 Root DAG 启动前完成本地可用性准备。
 
-### Intent
+#### Intent
 
 Atlas 自身的治理意图属于 Git Desired State，例如：
 
@@ -584,7 +584,7 @@ Hydrated Desired State
 
 ---
 
-## 2.6.1 Offline Supply Chain Invariant
+#### 2.6.1 Offline Supply Chain Invariant
 
 “完全离线”不只意味着 Helm Chart 本地可用。
 
@@ -608,11 +608,11 @@ Required CRDs
 
 ---
 
-# 2.7 Developer Cognitive Load Reduction
+### 2.7 Developer Cognitive Load Reduction
 
 Atlas 根据使用者角色分级暴露复杂性。
 
-### Platform Infrastructure
+#### Platform Infrastructure
 
 平台基础设施允许使用 Helm。
 
@@ -622,7 +622,7 @@ Atlas 根据使用者角色分级暴露复杂性。
 - 平台团队拥有治理复杂性的能力；
 - 应最大化复用成熟发行资产。
 
-### Developer Workloads
+#### Developer Workloads
 
 普通业务工作负载优先使用：
 
@@ -631,7 +631,7 @@ Atlas 根据使用者角色分级暴露复杂性。
 
 避免将 Helm Template Complexity 暴露给普通开发者。
 
-### Future Platform API
+#### Future Platform API
 
 长期演进方向为：
 
@@ -652,7 +652,7 @@ kind: StreamingApplication
 
 ---
 
-# 3. 标准目录与物理信任边界
+## 3. 标准目录与物理信任边界
 
 Atlas 的目录结构同时表达：
 
@@ -724,7 +724,7 @@ atlas/
 
 ---
 
-## 3.1 `gitops/root/`
+### 3.1 `gitops/root/`
 
 `gitops/root/` 属于 Tier-0 Architecture Trust Boundary。
 
@@ -746,7 +746,7 @@ Tier-0 的自主修改必须经过 Human Judgment Gate。
 
 ---
 
-## 3.2 `gitops/platform/applications/`
+### 3.2 `gitops/platform/applications/`
 
 该目录不是新的 Platform Domain。
 
@@ -789,7 +789,7 @@ WHEN may it converge?
 
 ---
 
-# 4. Atlas 控制拓扑
+## 4. Atlas 控制拓扑
 
 Atlas 的逻辑控制图如下：
 
@@ -838,15 +838,15 @@ Sync Wave 不构成全平台共享的“绝对时间轴”。
 
 ---
 
-# 5. 工程约束与防御机制
+## 5. 工程约束与防御机制
 
 ---
 
-## 5.1 Dual Deletion Protection
+### 5.1 Dual Deletion Protection
 
 Atlas 将两类完全不同的灾难模型分开处理。
 
-### Git-side Accidental Deletion
+#### Git-side Accidental Deletion
 
 针对由 Parent Application 管理的 Tier-0 / Tier-1 Child Application CR：
 
@@ -866,7 +866,7 @@ Human confirmation required
 
 ---
 
-### Explicit Application Deletion
+#### Explicit Application Deletion
 
 Atlas 的核心 Tier-0 / Tier-1 Application 默认：
 
@@ -886,7 +886,7 @@ Managed runtime resources survive
 
 ---
 
-## 5.1.1 Protection Scope
+#### 5.1.1 Protection Scope
 
 Dual Deletion Protection 主要保护的是：
 
@@ -918,7 +918,7 @@ StatefulSet / PVC / Cluster CR
 
 ---
 
-# 5.2 Bootstrap Adoption Invariant
+### 5.2 Bootstrap Adoption Invariant
 
 Bootstrap Seed 与 `argocd-self` MUST 满足无损接管契约：
 
@@ -934,11 +934,11 @@ CRD Compatibility
 Bootstrap Adoption Contract
 ```
 
-### Object Identity Parity
+#### Object Identity Parity
 
 Namespace、核心对象身份和关键资源命名必须兼容。
 
-### Version Parity
+#### Version Parity
 
 Bootstrap 与 `argocd-self` MUST 使用同一份：
 
@@ -948,11 +948,11 @@ versions.lock
 
 作为版本权威。
 
-### Health Capability Parity
+#### Health Capability Parity
 
 Seed 与 Full Desired State MUST 注入相同的 Application Health Capability。
 
-### CRD Compatibility
+#### CRD Compatibility
 
 恢复 Seed 不得造成：
 
@@ -970,13 +970,13 @@ Bootstrap 的目标不是：
 
 ---
 
-# 5.3 Zero-Plaintext Secret
+### 5.3 Zero-Plaintext Secret
 
 任何未加密的 Secret，包括 Base64 编码内容：
 
 > MUST NOT enter Git.
 
-### Phase 1
+#### Phase 1
 
 采用 Sealed Secrets：
 
@@ -1002,7 +1002,7 @@ Secret Consumers
 
 任何 Secret Consumer 不得先于 Secret Materialization Capability Ready。
 
-### Phase 2A
+#### Phase 2A
 
 演进至：
 
@@ -1021,7 +1021,7 @@ External Secret Manager
 
 ---
 
-# 5.4 Tier-0 Human Judgment
+### 5.4 Tier-0 Human Judgment
 
 Atlas 不允许 AI Agent 在平台最核心的信任根拥有完全自治权。
 
@@ -1044,13 +1044,13 @@ Atlas 的目标是：
 
 ---
 
-# 6. Unified Telemetry & Observability
+## 6. Unified Telemetry & Observability
 
 Atlas 将统一观测能力视为平台基础能力，而非应用上线后的附加功能。
 
 ---
 
-## 6.1 Metrics
+### 6.1 Metrics
 
 采用：
 
@@ -1067,7 +1067,7 @@ Atlas 将统一观测能力视为平台基础能力，而非应用上线后的�
 
 ---
 
-## 6.2 Collection
+### 6.2 Collection
 
 统一采集代理采用：
 
@@ -1076,7 +1076,7 @@ Atlas 将统一观测能力视为平台基础能力，而非应用上线后的�
 
 ---
 
-## 6.3 Logs
+### 6.3 Logs
 
 采用 Loki 作为日志后端，解决：
 
@@ -1088,7 +1088,7 @@ Atlas 将统一观测能力视为平台基础能力，而非应用上线后的�
 
 ---
 
-## 6.4 Traces
+### 6.4 Traces
 
 采用 Tempo 作为 Trace Backend。
 
@@ -1109,7 +1109,7 @@ OTLP
 
 ---
 
-# 7. Disaster Recovery Boundaries
+## 7. Disaster Recovery Boundaries
 
 Atlas 严格区分：
 
@@ -1119,7 +1119,7 @@ Atlas 严格区分：
 
 ---
 
-## 7.1 Disposable State
+### 7.1 Disposable State
 
 以下状态默认可丢弃：
 
@@ -1133,15 +1133,15 @@ Atlas 严格区分：
 
 ---
 
-## 7.2 Must-Backup State
+### 7.2 Must-Backup State
 
 以下资产必须拥有独立备份方案：
 
-### Git Repository
+#### Git Repository
 
 Git 是 Desired State 唯一权威。
 
-### Cluster Trust Roots
+#### Cluster Trust Roots
 
 包括：
 
@@ -1150,7 +1150,7 @@ Git 是 Desired State 唯一权威。
 - 外部密钥系统恢复凭证；
 - 其他平台 Trust Material。
 
-### Business Data
+#### Business Data
 
 包括：
 
@@ -1161,7 +1161,7 @@ Git 是 Desired State 唯一权威。
 
 ---
 
-## 7.3 Application-consistent Recovery
+### 7.3 Application-consistent Recovery
 
 Atlas 明确规定：
 
@@ -1169,14 +1169,14 @@ Atlas 明确规定：
 
 例如：
 
-### Flink
+#### Flink
 
 依赖：
 
 - Checkpoint；
 - Savepoint。
 
-### Kafka / Redpanda
+#### Kafka / Redpanda
 
 依赖：
 
@@ -1184,14 +1184,14 @@ Atlas 明确规定：
 - Cluster Metadata；
 - Operator-aware Recovery。
 
-### Database
+#### Database
 
 依赖：
 
 - Database-native Backup / Restore；
 - WAL / Binlog / Snapshot Semantics。
 
-### Object Storage
+#### Object Storage
 
 依赖：
 
@@ -1204,7 +1204,7 @@ PVC Snapshot 只能作为底层能力，不得替代领域恢复语义。
 
 ---
 
-# 8. Break-Glass Architecture Principle
+## 8. Break-Glass Architecture Principle
 
 Atlas 在灾难情况下执行：
 
@@ -1242,7 +1242,7 @@ External Root Resume
 
 ---
 
-# 9. Architecture Invariants
+## 9. Architecture Invariants
 
 Atlas v1.0.2 正式冻结以下平台级不变量。
 
@@ -1312,7 +1312,7 @@ Trust-boundary-changing operations MUST remain human-gated unless explicitly aut
 
 ---
 
-# 10. Conformance Model
+## 10. Conformance Model
 
 任何 Atlas 实现只有在同时满足：
 
@@ -1343,7 +1343,7 @@ SHOULD
 
 ---
 
-# 11. Architecture Freeze Statement
+## 11. Architecture Freeze Statement
 
 Atlas Architecture Design v1.0.2 正式冻结以下核心架构：
 

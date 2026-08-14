@@ -6,7 +6,7 @@
 
 ---
 
-# 0. 文档职责与规范语义
+## 0. 文档职责与规范语义
 
 本文档是：
 
@@ -33,7 +33,7 @@
 
 ---
 
-# 1. GitOps Ownership & Trust Boundary
+## 1. GitOps Ownership & Trust Boundary
 
 Atlas GitOps 控制面采用四阶控制权模型。
 
@@ -53,7 +53,7 @@ Kubernetes Controllers / Operators
 
 ---
 
-## 1.1 Git owns Definition
+### 1.1 Git owns Definition
 
 Git 保存：
 
@@ -70,7 +70,7 @@ Git 是 Desired State Definition Authority。
 
 ---
 
-## 1.2 Bootstrap owns Instantiation
+### 1.2 Bootstrap owns Instantiation
 
 Bootstrap 负责：
 
@@ -84,7 +84,7 @@ Bootstrap 完成后退出。
 
 ---
 
-## 1.3 Argo CD owns GitOps Reconciliation
+### 1.3 Argo CD owns GitOps Reconciliation
 
 Argo CD 对所有进入 GitOps Domain 的资源负责：
 
@@ -100,7 +100,7 @@ External Root Anchor 不存在 Parent Application，因此不属于 parent-drive
 
 ---
 
-## 1.4 Operators own Runtime Behavior
+### 1.4 Operators own Runtime Behavior
 
 例如：
 
@@ -118,7 +118,7 @@ Argo CD 不尝试取代 Domain Operator。
 
 ---
 
-# 2. Canonical AppProject Model
+## 2. Canonical AppProject Model
 
 Atlas 正式冻结三个 Canonical AppProject Identifier。
 
@@ -140,11 +140,11 @@ bootstrap-project
 
 ---
 
-# 3. Three-Tier Trust Isolation
+## 3. Three-Tier Trust Isolation
 
 ---
 
-## 3.1 Tier-0 — `atlas-bootstrap`
+### 3.1 Tier-0 — `atlas-bootstrap`
 
 `atlas-bootstrap` 由 Bootstrap 命令式创建。
 
@@ -166,7 +166,7 @@ bootstrap-project
 
 ---
 
-## 3.2 Tier-1 — `platform-project`
+### 3.2 Tier-1 — `platform-project`
 
 由 Project Bootstrap 声明式创建。
 
@@ -185,7 +185,7 @@ bootstrap-project
 
 ---
 
-## 3.3 Tier-2 — `workload-project`
+### 3.3 Tier-2 — `workload-project`
 
 由 Project Bootstrap 声明式创建。
 
@@ -214,7 +214,7 @@ Namespaced：
 
 ---
 
-# 4. Bootstrap Trust Chain
+## 4. Bootstrap Trust Chain
 
 Atlas 的完整无环 Bootstrap Chain 为：
 
@@ -256,7 +256,7 @@ Project requires same Application
 
 ---
 
-# 5. External Root Anchor
+## 5. External Root Anchor
 
 External Root Anchor 是整个 GitOps Control Graph 的外部根节点。
 
@@ -290,7 +290,7 @@ env/
 
 ---
 
-## 5.1 Root Anchor Security Consequence
+### 5.1 Root Anchor Security Consequence
 
 由于 Root Anchor 不被父级 Argo CD Application 修复：
 
@@ -319,7 +319,7 @@ Git Template
 
 ---
 
-# 6. Two-Level Reconciliation DAG
+## 6. Two-Level Reconciliation DAG
 
 Atlas v1.0.3 正式放弃：
 
@@ -335,7 +335,7 @@ Atlas v1.0.3 正式放弃：
 
 ---
 
-# 7. Level 1 — Root Macro DAG
+## 7. Level 1 — Root Macro DAG
 
 `gitops/root/` 只负责 Trust Transition。
 
@@ -371,7 +371,7 @@ tempo
 
 ---
 
-## 7.1 Root Macro Waves
+### 7.1 Root Macro Waves
 
 Root Synchronization Scope 定义：
 
@@ -399,7 +399,7 @@ Root 的 Wave 与 Platform Control 内部 Wave 属于不同 Sync Scope。
 
 ---
 
-# 8. Level 2 — Platform Capability DAG
+## 8. Level 2 — Platform Capability DAG
 
 Platform Control Application 指向：
 
@@ -436,7 +436,7 @@ gitops/platform/applications/
 
 ---
 
-# 9. Platform Capability Wave DAG
+## 9. Platform Capability Wave DAG
 
 Platform Control Synchronization Scope 内采用：
 
@@ -473,7 +473,7 @@ Platform Control Synchronization Scope 内采用：
 
 ---
 
-## 9.1 Wave -100 — Foundation
+### 9.1 Wave -100 — Foundation
 
 包括：
 
@@ -486,7 +486,7 @@ Platform Control Synchronization Scope 内采用：
 
 ---
 
-## 9.2 Wave -90 — Management Plane
+### 9.2 Wave -90 — Management Plane
 
 包括：
 
@@ -502,7 +502,7 @@ Platform Control Synchronization Scope 内采用：
 
 ---
 
-## 9.3 Wave -50 — Operators
+### 9.3 Wave -50 — Operators
 
 包括：
 
@@ -519,7 +519,7 @@ Platform Control Synchronization Scope 内采用：
 
 ---
 
-## 9.4 Wave -30 — Infrastructure Controllers
+### 9.4 Wave -30 — Infrastructure Controllers
 
 包括：
 
@@ -549,7 +549,7 @@ platform/controllers/
 
 ---
 
-## 9.5 Wave -10 — Platform Services
+### 9.5 Wave -10 — Platform Services
 
 包括：
 
@@ -562,7 +562,7 @@ platform/controllers/
 
 ---
 
-# 10. Domain Ontology
+## 10. Domain Ontology
 
 目录只表达 Domain Ownership。
 
@@ -580,7 +580,7 @@ gitops/platform/
 
 ---
 
-## 10.1 `applications/`
+### 10.1 `applications/`
 
 不是业务领域。
 
@@ -594,13 +594,13 @@ gitops/platform/
 
 ---
 
-## 10.2 `foundation/`
+### 10.2 `foundation/`
 
 Kubernetes 原生逻辑边界。
 
 ---
 
-## 10.3 `management/`
+### 10.3 `management/`
 
 平台自身治理能力：
 
@@ -627,7 +627,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-## 10.4 `operators/`
+### 10.4 `operators/`
 
 领域扩展 API Controller：
 
@@ -637,7 +637,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-## 10.5 `networking/`
+### 10.5 `networking/`
 
 网络与流量能力：
 
@@ -649,7 +649,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-## 10.6 `observability/`
+### 10.6 `observability/`
 
 统一遥测：
 
@@ -662,7 +662,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-## 10.7 `messaging/`
+### 10.7 `messaging/`
 
 异步事件总线：
 
@@ -671,7 +671,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-## 10.8 `storage/`
+### 10.8 `storage/`
 
 数据持久化平台：
 
@@ -680,7 +680,7 @@ Project Bootstrap Application 只是使用 `atlas-bootstrap` 去同步这些对�
 
 ---
 
-# 11. Leaf Application Contract
+## 11. Leaf Application Contract
 
 每个可独立：
 
@@ -731,7 +731,7 @@ Resources
 
 ---
 
-# 12. Application Health Gate Contract
+## 12. Application Health Gate Contract
 
 Sync Wave 只有结合 Health Gate 才构成真正的依赖图。
 
@@ -751,7 +751,7 @@ Deterministic Application DAG
 
 ---
 
-## 12.1 Application Health Capability
+### 12.1 Application Health Capability
 
 Bootstrap Seed 与 `argocd-self` 必须注入同一份：
 
@@ -773,7 +773,7 @@ Steady-state health semantics
 
 ---
 
-## 12.2 Child Automated Sync
+### 12.2 Child Automated Sync
 
 所有作为 DAG 前置条件的 Child Application：
 
@@ -798,7 +798,7 @@ Wave -30 prerequisite
 
 ---
 
-## 12.3 Macro Health Gate
+### 12.3 Macro Health Gate
 
 Root 不需要理解 Platform 内部组件。
 
@@ -836,7 +836,7 @@ Workload Control may proceed
 
 ---
 
-# 13. Workload Control Model
+## 13. Workload Control Model
 
 Workload Control 必须区分：
 
@@ -850,7 +850,7 @@ Workload Control 必须区分：
 
 ---
 
-## 13.1 Workload Control Application
+### 13.1 Workload Control Application
 
 Root 中：
 
@@ -882,7 +882,7 @@ project: workload-project
 
 ---
 
-## 13.2 Tenant Leaf Applications
+### 13.2 Tenant Leaf Applications
 
 由 Workload Control 生成或管理的最终业务 Application：
 
@@ -911,7 +911,7 @@ Developer Namespace
 
 ---
 
-## 13.3 Why
+### 13.3 Why
 
 禁止让 `workload-project` 为了创建 Argo CD Application/ApplicationSet 而获得：
 
@@ -926,7 +926,7 @@ Developer Namespace
 
 ---
 
-# 14. Workload Directory
+## 14. Workload Directory
 
 建议标准：
 
@@ -966,7 +966,7 @@ applications/
 
 ---
 
-# 15. Data Bootstrap Jobs
+## 15. Data Bootstrap Jobs
 
 数据初始化逻辑不得因为某个 Wave 到达就默认具有破坏性执行权。
 
@@ -982,7 +982,7 @@ applications/
 
 ---
 
-## 15.1 Safe Initialization
+### 15.1 Safe Initialization
 
 允许进入自动 DAG。
 
@@ -996,7 +996,7 @@ applications/
 
 ---
 
-## 15.2 Destructive Migration
+### 15.2 Destructive Migration
 
 例如：
 
@@ -1013,7 +1013,7 @@ applications/
 
 ---
 
-# 16. Sync Wave Scope
+## 16. Sync Wave Scope
 
 Atlas 正式规定：
 
@@ -1053,7 +1053,7 @@ Root：
 
 ---
 
-# 17. Environment Hydration
+## 17. Environment Hydration
 
 Environment-specific state 与通用 Platform Domain 必须分离。
 
@@ -1079,7 +1079,7 @@ gitops/
 
 ---
 
-## 17.1 Root Hydration
+### 17.1 Root Hydration
 
 Bootstrap 选择：
 
@@ -1091,7 +1091,7 @@ root/overlays/<environment>
 
 ---
 
-## 17.2 Platform Hydration
+### 17.2 Platform Hydration
 
 `platform-control-app` 选择：
 
@@ -1103,7 +1103,7 @@ platform/applications/overlays/<environment>
 
 ---
 
-## 17.3 Environment-specific K8s State
+### 17.3 Environment-specific K8s State
 
 例如：
 
@@ -1124,7 +1124,7 @@ gitops/environments/<environment>/
 
 ---
 
-# 18. Bootstrap Adoption Contract
+## 18. Bootstrap Adoption Contract
 
 Bootstrap 恢复必须满足：
 
@@ -1142,7 +1142,7 @@ Bootstrap Adoption Contract
 
 ---
 
-## 18.1 `versions.lock`
+### 18.1 `versions.lock`
 
 Bootstrap 与 GitOps Self-management 必须共同消费：
 
@@ -1166,7 +1166,7 @@ argocd-self desired version
 
 ---
 
-## 18.2 Recovery Seed
+### 18.2 Recovery Seed
 
 Break-Glass Seed 的目标是：
 
@@ -1176,13 +1176,13 @@ Break-Glass Seed 的目标是：
 
 ---
 
-# 19. Dual Deletion Protection
+## 19. Dual Deletion Protection
 
 Atlas 实施两层独立保护。
 
 ---
 
-## 19.1 Parent-level Prune Protection
+### 19.1 Parent-level Prune Protection
 
 所有由 Parent Application 管理的 Tier-0 / Tier-1 Child Application CR 应具有：
 
@@ -1204,7 +1204,7 @@ Human confirmation
 
 ---
 
-## 19.2 No Cascading Finalizer
+### 19.2 No Cascading Finalizer
 
 核心 Tier-0 / Tier-1 Application 默认不得携带级联资源删除 finalizer。
 
@@ -1220,7 +1220,7 @@ Managed resources survive
 
 ---
 
-## 19.3 Protection Boundary
+### 19.3 Protection Boundary
 
 上述保护主要针对：
 
@@ -1247,7 +1247,7 @@ Namespace
 
 ---
 
-# 20. Secret Dependency Contract
+## 20. Secret Dependency Contract
 
 Phase 1 使用 Sealed Secrets 时：
 
@@ -1277,7 +1277,7 @@ Consumer
 
 ---
 
-# 21. Emergency Recovery & Blast Radius Freeze
+## 21. Emergency Recovery & Blast Radius Freeze
 
 Atlas 使用：
 
@@ -1285,7 +1285,7 @@ Atlas 使用：
 
 ---
 
-## 21.1 Detect
+### 21.1 Detect
 
 确认：
 
@@ -1297,7 +1297,7 @@ Atlas 使用：
 
 ---
 
-## 21.2 Freeze Outside-In
+### 21.2 Freeze Outside-In
 
 首先冻结：
 
@@ -1320,7 +1320,7 @@ External Root Anchor
 
 ---
 
-## 21.3 Snapshot
+### 21.3 Snapshot
 
 备份：
 
@@ -1332,13 +1332,13 @@ External Root Anchor
 
 ---
 
-## 21.4 Restore Seed
+### 21.4 Restore Seed
 
 使用 Bootstrap 恢复满足 Adoption Contract 的 Argo CD Seed。
 
 ---
 
-## 21.5 Repair Git
+### 21.5 Repair Git
 
 Git 必须回到：
 
@@ -1348,7 +1348,7 @@ Git 必须回到：
 
 ---
 
-## 21.6 Resume Inside-Out
+### 21.6 Resume Inside-Out
 
 推荐顺序：
 
@@ -1374,7 +1374,7 @@ External Root normal reconciliation
 
 ---
 
-# 22. ApplicationSet Boundary
+## 22. ApplicationSet Boundary
 
 ApplicationSet 是 Atlas Phase 2B Tenant Platform 的核心候选机制，但不作为 v1.0.3 平台 Bootstrap Correctness 的必要基础。
 
@@ -1401,7 +1401,7 @@ ApplicationSet 不应取代 Tier-0 Root Trust Model。
 
 ---
 
-# 23. AI & Human Control Boundary
+## 23. AI & Human Control Boundary
 
 `gitops/root/`：
 
@@ -1438,11 +1438,11 @@ Agent Autonomy
 
 ---
 
-# 24. Phase 2 Governance Roadmap
+## 24. Phase 2 Governance Roadmap
 
 ---
 
-## Phase 2A — Safety Foundation
+### Phase 2A — Safety Foundation
 
 引入：
 
@@ -1454,7 +1454,7 @@ Agent Autonomy
 
 ---
 
-## Phase 2B — Tenant Platform
+### Phase 2B — Tenant Platform
 
 建设：
 
@@ -1466,7 +1466,7 @@ Agent Autonomy
 
 ---
 
-## Phase 2C — Developer Experience
+### Phase 2C — Developer Experience
 
 建设：
 
@@ -1478,7 +1478,7 @@ Agent Autonomy
 
 ---
 
-## Phase 2D — Agent Automation
+### Phase 2D — Agent Automation
 
 在 Guardrail 完成后，开放：
 
@@ -1492,7 +1492,7 @@ Agent 自治权不得跨越 Tier-0 Human Judgment Boundary。
 
 ---
 
-# 25. GitOps Control Plane Invariants
+## 25. GitOps Control Plane Invariants
 
 Atlas GitOps Control Plane v1.0.3 冻结以下领域不变量。
 
@@ -1560,7 +1560,7 @@ Destructive data mutation MUST NOT be triggered merely by automatic Wave progres
 
 ---
 
-# 26. Final Frozen Control Graph
+## 26. Final Frozen Control Graph
 
 Atlas v1.0.3 的最终规范拓扑为：
 
@@ -1643,7 +1643,7 @@ gitops/root/
 
 ---
 
-# 27. Architecture Freeze Statement
+## 27. Architecture Freeze Statement
 
 Atlas GitOps v1.0.3 正式冻结以下模式：
 

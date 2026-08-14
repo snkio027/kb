@@ -1,4 +1,3 @@
----
 # AI-Native Platform Control Plane Architecture Standard
 
 **Version:** 1.5
@@ -8,7 +7,7 @@
 
 ---
 
-# 0. Normative References & Document Authority
+## 0. Normative References & Document Authority
 
 本标准定义 Atlas 平台中 AI Agent、自动化能力、上下文系统、执行接口、策略护栏与运行时智能反馈之间的架构关系。
 
@@ -29,9 +28,9 @@
 
 ---
 
-# 1. Introduction
+## 1. Introduction
 
-## 1.1 The Paradigm Shift
+### 1.1 The Paradigm Shift
 
 软件工程正在从：
 
@@ -101,7 +100,7 @@ AI Agent 不构成第三个竞争调和器。
 
 ---
 
-## 1.2 Design Goals
+### 1.2 Design Goals
 
 本标准旨在将 AI 从：
 
@@ -127,9 +126,9 @@ AI Agent 不构成第三个竞争调和器。
 
 ---
 
-# 2. Fundamental Control Authority Model
+## 2. Fundamental Control Authority Model
 
-## 2.1 AI Agent Is Not a Reconciler
+### 2.1 AI Agent Is Not a Reconciler
 
 Atlas 正式规定：
 
@@ -156,7 +155,7 @@ AI Agent MUST NOT：
 
 ---
 
-## 2.2 Canonical Authority Chain
+### 2.2 Canonical Authority Chain
 
 Atlas 的完整控制权关系为：
 
@@ -200,13 +199,13 @@ Atlas 的完整控制权关系为：
 
 ---
 
-# 3. Five-Plane Architecture
+## 3. Five-Plane Architecture
 
 AI-Native Platform Control Plane 采用五个正交 Plane，而不是一条简单工具调用流水线。
 
 ---
 
-## 3.1 Intent & Decision Plane
+### 3.1 Intent & Decision Plane
 
 负责：
 
@@ -235,7 +234,7 @@ Planner
 
 ---
 
-## 3.2 Safety & Identity Plane
+### 3.2 Safety & Identity Plane
 
 负责：
 
@@ -262,7 +261,7 @@ LLM 不拥有最终安全裁决权。
 
 ---
 
-## 3.3 Execution Plane
+### 3.3 Execution Plane
 
 负责将授权后的 Plan 路由到正确的 State Owner。
 
@@ -282,7 +281,7 @@ Execution Plane MUST NOT 自行重新解释 Intent。
 
 ---
 
-## 3.4 Runtime Plane
+### 3.4 Runtime Plane
 
 包括：
 
@@ -300,7 +299,7 @@ Runtime Plane 是事实状态真正存在的地方。
 
 ---
 
-## 3.5 Intelligence Plane
+### 3.5 Intelligence Plane
 
 负责将大量低层运行时信号转换为高阶、可推理的状态证据。
 
@@ -324,7 +323,7 @@ Runtime Plane 是事实状态真正存在的地方。
 
 ---
 
-## 3.6 Cross-Cutting Audit Plane
+### 3.6 Cross-Cutting Audit Plane
 
 Audit / Provenance 横跨全部 Plane。
 
@@ -346,9 +345,9 @@ What was the final outcome?
 
 ---
 
-# 4. Agent Bootstrap & Instruction Hierarchy
+## 4. Agent Bootstrap & Instruction Hierarchy
 
-## 4.1 Agent Bootstrap Profile
+### 4.1 Agent Bootstrap Profile
 
 Agent Bootstrapper 为通用模型注入平台身份、行为边界和知识入口。
 
@@ -365,7 +364,7 @@ Agent Bootstrapper 为通用模型注入平台身份、行为边界和知识入�
 
 ---
 
-## 4.2 Mandatory Bootstrap Principles
+### 4.2 Mandatory Bootstrap Principles
 
 Agent Bootstrap Profile MUST 至少包含：
 
@@ -385,7 +384,7 @@ Read architecture constraints before infrastructure mutation.
 
 ---
 
-## 4.3 Instruction Authority
+### 4.3 Instruction Authority
 
 不同来源的文本不得拥有相同指令权威。
 
@@ -411,9 +410,9 @@ Runtime Logs、HTTP Response、README、Issue、第三方网页等即使包含�
 
 ---
 
-# 5. Context Engineering
+## 5. Context Engineering
 
-## 5.1 Context Budget
+### 5.1 Context Budget
 
 每个 Agent Task MUST 在有限上下文预算内执行。
 
@@ -425,7 +424,7 @@ Context Router 应按任务动态选择信息。
 
 按照相关性分类：
 
-### Primary Context
+#### Primary Context
 
 任务必须读取的直接约束。
 
@@ -435,7 +434,7 @@ Context Router 应按任务动态选择信息。
 - GitOps Control Plane Design；
 - Stateful Recovery Standard。
 
-### Secondary Context
+#### Secondary Context
 
 任务直接相关的组件规范。
 
@@ -445,7 +444,7 @@ Context Router 应按任务动态选择信息。
 - Flink Operator Configuration；
 - Envoy Gateway Contract。
 
-### Reference Only
+#### Reference Only
 
 仅在特定条件出现时加载。
 
@@ -457,7 +456,7 @@ Context Router 应按任务动态选择信息。
 
 ---
 
-# 6. Context Trust Model
+## 6. Context Trust Model
 
 Context Budget 解决：
 
@@ -471,11 +470,11 @@ Context Trust 解决：
 
 ---
 
-## 6.1 Trust Classes
+### 6.1 Trust Classes
 
 Atlas 定义四级 Context Trust：
 
-### T0 — Normative
+#### T0 — Normative
 
 决定系统行为边界。
 
@@ -488,7 +487,7 @@ Atlas 定义四级 Context Trust：
 
 ---
 
-### T1 — Authoritative State
+#### T1 — Authoritative State
 
 代表当前真实或期望状态。
 
@@ -504,7 +503,7 @@ Authoritative State 可以决定“事实是什么”，但不得自动成为新
 
 ---
 
-### T2 — Advisory
+#### T2 — Advisory
 
 提供参考，但不能独立改变权限或架构边界。
 
@@ -517,7 +516,7 @@ Authoritative State 可以决定“事实是什么”，但不得自动成为新
 
 ---
 
-### T3 — Untrusted Evidence
+#### T3 — Untrusted Evidence
 
 可能用于诊断，但必须视为潜在攻击面。
 
@@ -532,7 +531,7 @@ Authoritative State 可以决定“事实是什么”，但不得自动成为新
 
 ---
 
-## 6.2 Prompt Injection Boundary
+### 6.2 Prompt Injection Boundary
 
 任何 T2/T3 Context 中出现的：
 
@@ -555,7 +554,7 @@ disable policy ...
 
 ---
 
-# 7. Context Provenance & Freshness
+## 7. Context Provenance & Freshness
 
 Context Router 输出的不是无来源文本，而应形成：
 
@@ -586,7 +585,7 @@ content_hash
 
 ---
 
-## 7.1 Freshness Rule
+### 7.1 Freshness Rule
 
 Agent MUST NOT 将未知时间点的状态默认为 Current State。
 
@@ -599,9 +598,9 @@ Agent MUST NOT 将未知时间点的状态默认为 Current State。
 
 ---
 
-# 8. Agent Control Interface
+## 8. Agent Control Interface
 
-## 8.1 Definition
+### 8.1 Definition
 
 `atlas-cli` 是 Atlas 推荐的：
 
@@ -622,7 +621,7 @@ Agent MUST NOT 将未知时间点的状态默认为 Current State。
 
 ---
 
-## 8.2 Raw Tool Boundary
+### 8.2 Raw Tool Boundary
 
 正常自动化路径中，Agent SHOULD NOT 直接使用：
 
@@ -645,7 +644,7 @@ Read-only diagnostics 可以通过受控能力使用底层查询工具。
 
 ---
 
-## 8.3 Helm Semantics
+### 8.3 Helm Semantics
 
 在 Atlas GitOps Domain 中：
 
@@ -655,7 +654,7 @@ Agent MUST NOT 使用 `helm upgrade` 绕过 Argo CD 修改 Git-owned Kubernetes 
 
 ---
 
-# 9. State Ownership Routing
+## 9. State Ownership Routing
 
 任何写操作之前，Agent MUST 回答：
 
@@ -695,7 +694,7 @@ What blast radius does the mutation have?
 
 ---
 
-# 10. Action Classification
+## 10. Action Classification
 
 每个 Write Action MUST 在执行前被分类。
 
@@ -703,7 +702,7 @@ Atlas 定义五类 Action。
 
 ---
 
-## A0 — Observation
+### A0 — Observation
 
 无状态修改的读取操作。
 
@@ -720,7 +719,7 @@ Atlas 定义五类 Action。
 
 ---
 
-## A1 — Declarative Desired-State Change
+### A1 — Declarative Desired-State Change
 
 修改长期 Desired State。
 
@@ -754,7 +753,7 @@ Agent MUST NOT 直接 Patch Runtime 来模拟长期 Desired-State 管理。
 
 ---
 
-## A2 — Bounded Operational Action
+### A2 — Bounded Operational Action
 
 不会成为长期 Desired State 的受控运行时操作。
 
@@ -776,7 +775,7 @@ Agent MUST NOT 直接 Patch Runtime 来模拟长期 Desired-State 管理。
 
 ---
 
-## A3 — Stateful Recovery Action
+### A3 — Stateful Recovery Action
 
 可能影响：
 
@@ -794,7 +793,7 @@ Agent MUST NOT 直接 Patch Runtime 来模拟长期 Desired-State 管理。
 
 ---
 
-## A4 — Break-Glass Action
+### A4 — Break-Glass Action
 
 仅用于：
 
@@ -815,7 +814,7 @@ Break-Glass 不得演化成正常运维捷径。
 
 ---
 
-# 11. Declarative / Operational / Recovery Path Separation
+## 11. Declarative / Operational / Recovery Path Separation
 
 三类写路径必须保持物理和权限隔离：
 
@@ -842,7 +841,7 @@ Agent MUST NOT 因为某条路径被 Policy 阻止而自动选择另一条路径
 
 ---
 
-# 12. Plan Before Action
+## 12. Plan Before Action
 
 AI Agent 不得从 Intent 直接跳到 Mutation。
 
@@ -866,7 +865,7 @@ Execution
 
 ---
 
-## 12.1 Concrete Plan
+### 12.1 Concrete Plan
 
 授权必须作用于具体计划，而不是模糊意图。
 
@@ -905,7 +904,7 @@ Redpanda Healthy + no OOMKilled for observation window
 
 ---
 
-## 12.2 Authorized Plan Immutability
+### 12.2 Authorized Plan Immutability
 
 一旦 Plan 获得 Policy 或 Human Approval：
 
@@ -929,7 +928,7 @@ change JVM flags
 
 ---
 
-# 13. TOCTOU & Preconditions
+## 13. TOCTOU & Preconditions
 
 AI Agent 计划和执行之间天然存在：
 
@@ -951,7 +950,7 @@ resourceVersion = 152
 
 ---
 
-## 13.1 Preconditions
+### 13.1 Preconditions
 
 所有高价值 Write Skill SHOULD 支持：
 
@@ -966,7 +965,7 @@ expected_generation
 
 ---
 
-## 13.2 Material State Change
+### 13.2 Material State Change
 
 若执行前发现目标状态已发生实质变化：
 
@@ -986,9 +985,9 @@ Re-plan
 
 ---
 
-# 14. Executable Skill Layer
+## 14. Executable Skill Layer
 
-## 14.1 Definition
+### 14.1 Definition
 
 Skill 不是 Markdown 指南。
 
@@ -1000,13 +999,13 @@ Skill 是：
 
 ---
 
-# 15. The Seven Skill Contracts
+## 15. The Seven Skill Contracts
 
 所有可执行 Skill MUST 满足七个契约。
 
 ---
 
-## 15.1 Typed
+### 15.1 Typed
 
 输入、输出、目标资源、允许操作和错误必须具有明确 Schema。
 
@@ -1014,7 +1013,7 @@ Skill 是：
 
 ---
 
-## 15.2 State-Aware
+### 15.2 State-Aware
 
 Skill 必须理解：
 
@@ -1028,7 +1027,7 @@ State Owner
 
 ---
 
-## 15.3 Replay-Safe
+### 15.3 Replay-Safe
 
 Skill 必须：
 
@@ -1052,7 +1051,7 @@ Skill 必须：
 
 ---
 
-## 15.4 Failure-Aware
+### 15.4 Failure-Aware
 
 Skill 必须定义：
 
@@ -1067,7 +1066,7 @@ Skill 必须定义：
 
 ---
 
-## 15.5 Observable
+### 15.5 Observable
 
 Skill 必须产生结构化：
 
@@ -1081,7 +1080,7 @@ Skill 必须产生结构化：
 
 ---
 
-## 15.6 Authorized
+### 15.6 Authorized
 
 Skill 必须声明：
 
@@ -1096,7 +1095,7 @@ Authorization 必须在模型之外可强制执行。
 
 ---
 
-## 15.7 Verifiable
+### 15.7 Verifiable
 
 Skill 必须定义：
 
@@ -1126,7 +1125,7 @@ Platform converged successfully.
 
 ---
 
-# 16. Skill State Machine
+## 16. Skill State Machine
 
 标准 Executable Skill 生命周期：
 
@@ -1165,9 +1164,9 @@ retry forever
 
 ---
 
-# 17. Identity & Delegated Authorization
+## 17. Identity & Delegated Authorization
 
-## 17.1 Agent Identity
+### 17.1 Agent Identity
 
 所有执行 Agent MUST 有独立、可识别身份。
 
@@ -1179,7 +1178,7 @@ retry forever
 
 ---
 
-## 17.2 Delegation
+### 17.2 Delegation
 
 Agent 应明确记录：
 
@@ -1206,7 +1205,7 @@ Human / Service Principal
 
 ---
 
-## 17.3 Credential Requirements
+### 17.3 Credential Requirements
 
 执行凭证 SHOULD：
 
@@ -1220,7 +1219,7 @@ Human / Service Principal
 
 ---
 
-# 18. Risk Classification
+## 18. Risk Classification
 
 Action Class 回答：
 
@@ -1236,7 +1235,7 @@ Atlas 定义参考风险等级：
 
 ---
 
-## R0 — Read Only
+### R0 — Read Only
 
 无 Mutation。
 
@@ -1244,7 +1243,7 @@ Atlas 定义参考风险等级：
 
 ---
 
-## R1 — Proposal Only
+### R1 — Proposal Only
 
 生成：
 
@@ -1259,7 +1258,7 @@ Atlas 定义参考风险等级：
 
 ---
 
-## R2 — Bounded & Reversible
+### R2 — Bounded & Reversible
 
 小范围、明确可逆、低数据风险。
 
@@ -1267,7 +1266,7 @@ Atlas 定义参考风险等级：
 
 ---
 
-## R3 — Privileged / High Blast Radius
+### R3 — Privileged / High Blast Radius
 
 例如：
 
@@ -1281,7 +1280,7 @@ Atlas 定义参考风险等级：
 
 ---
 
-## R4 — Critical Judgment
+### R4 — Critical Judgment
 
 包括：
 
@@ -1296,7 +1295,7 @@ MUST Human-Gated。
 
 ---
 
-# 19. Action Budget
+## 19. Action Budget
 
 Agent Autonomy 不仅需要：
 
@@ -1315,7 +1314,7 @@ How long?
 
 ---
 
-## 19.1 Budget Dimensions
+### 19.1 Budget Dimensions
 
 Action Budget MAY 包括：
 
@@ -1344,7 +1343,7 @@ cooldown_window
 
 ---
 
-## 19.2 Budget Exhaustion
+### 19.2 Budget Exhaustion
 
 超过 Budget：
 
@@ -1360,9 +1359,9 @@ Agent MUST NOT 自动提高自己的 Budget。
 
 ---
 
-# 20. Runtime State Intelligence
+## 20. Runtime State Intelligence
 
-## 20.1 Role
+### 20.1 Role
 
 Runtime State Intelligence 不是格式转换器。
 
@@ -1378,7 +1377,7 @@ Runtime State Intelligence 不是格式转换器。
 
 ---
 
-## 20.2 Intelligence Does Not Authorize
+### 20.2 Intelligence Does Not Authorize
 
 State Intelligence 可以输出：
 
@@ -1423,7 +1422,7 @@ REQUIRE_APPROVAL
 
 ---
 
-# 21. Confidence Semantics
+## 21. Confidence Semantics
 
 LLM 或 Detector 输出：
 
@@ -1469,7 +1468,7 @@ restore database
 
 ---
 
-# 22. Observation & Verification
+## 22. Observation & Verification
 
 一次 Action 完成后必须进入：
 
@@ -1491,7 +1490,7 @@ success
 
 ---
 
-## 22.1 Observation Window
+### 22.1 Observation Window
 
 某些修复只有经过时间窗口才能验证。
 
@@ -1511,7 +1510,7 @@ Verified
 
 ---
 
-# 23. Anti-Oscillation Controls
+## 23. Anti-Oscillation Controls
 
 闭环自动化必须防止 Control Loop Oscillation。
 
@@ -1531,7 +1530,7 @@ repeat indefinitely
 
 ---
 
-## 23.1 Required Controls
+### 23.1 Required Controls
 
 对于 Autonomous Remediation SHOULD 支持：
 
@@ -1545,7 +1544,7 @@ repeat indefinitely
 
 ---
 
-## 23.2 Repeat Suppression
+### 23.2 Repeat Suppression
 
 同一组件、同一原因、同一 remediation 在 Cooldown Window 内：
 
@@ -1553,9 +1552,9 @@ repeat indefinitely
 
 ---
 
-# 24. Stateful Data Protection Boundary
+## 24. Stateful Data Protection Boundary
 
-## 24.1 Fundamental Rule
+### 24.1 Fundamental Rule
 
 > **Stateful recovery is a domain workflow decision, not a generic rollback operation.**
 
@@ -1563,7 +1562,7 @@ repeat indefinitely
 
 ---
 
-## 24.2 Domain-Native Self-Healing
+### 24.2 Domain-Native Self-Healing
 
 允许系统自身自动执行：
 
@@ -1578,7 +1577,7 @@ repeat indefinitely
 
 ---
 
-## 24.3 Bounded Stateful Operations
+### 24.3 Bounded Stateful Operations
 
 非破坏性、领域明确支持的操作 MAY 在 Policy 下自动执行。
 
@@ -1590,7 +1589,7 @@ repeat indefinitely
 
 ---
 
-## 24.4 Consistency-Changing Recovery
+### 24.4 Consistency-Changing Recovery
 
 以下操作默认属于高风险：
 
@@ -1624,7 +1623,7 @@ Verification
 
 ---
 
-# 25. Policy & Guardrail Architecture
+## 25. Policy & Guardrail Architecture
 
 Policy 不应只是 Kubernetes Admission 中的一个方框。
 
@@ -1650,7 +1649,7 @@ Runtime
 
 ---
 
-# 26. Independent Safety Principle
+## 26. Independent Safety Principle
 
 > **The model MUST NOT be the final safety boundary.**
 
@@ -1672,7 +1671,7 @@ DENY
 
 ---
 
-# 27. Policy Ownership
+## 27. Policy Ownership
 
 | Domain          | Policy Scope                                          | Policy Owner                       | Default Enforcement |
 | --------------- | ----------------------------------------------------- | ---------------------------------- | ------------------- |
@@ -1686,13 +1685,13 @@ DENY
 
 ---
 
-# 28. Workload & Tier Boundary
+## 28. Workload & Tier Boundary
 
 AI Autonomy 必须服从 Atlas Trust Tiers。
 
 ---
 
-## Tier-0
+### Tier-0
 
 包括：
 
@@ -1714,7 +1713,7 @@ APPLY      Human-Gated
 
 ---
 
-## Tier-1
+### Tier-1
 
 平台基线与控制面。
 
@@ -1733,7 +1732,7 @@ APPLY      Human-Gated
 
 ---
 
-## Tier-2
+### Tier-2
 
 Developer Workload Domain。
 
@@ -1743,7 +1742,7 @@ Developer Workload Domain。
 
 ---
 
-# 29. Human Judgment Model
+## 29. Human Judgment Model
 
 Human Judgment 不应意味着：
 
@@ -1776,7 +1775,7 @@ R4  Tier-0 / destructive / break-glass
 
 ---
 
-# 30. Audit & Decision Provenance
+## 30. Audit & Decision Provenance
 
 每个 Agent Run MUST 有全局唯一：
 
@@ -1797,7 +1796,7 @@ approval_id
 
 ---
 
-## 30.1 Minimum Audit Record
+### 30.1 Minimum Audit Record
 
 至少记录：
 
@@ -1824,7 +1823,7 @@ final_result
 
 ---
 
-## 30.2 AI-Native Observability
+### 30.2 AI-Native Observability
 
 Agent 自身必须成为可观测对象。
 
@@ -1849,7 +1848,7 @@ Agent 自身必须成为可观测对象。
 
 ---
 
-# 31. Failure Semantics
+## 31. Failure Semantics
 
 Agent Failure 不应扩大 Runtime Failure。
 
@@ -1877,7 +1876,7 @@ Agent Failure 不应扩大 Runtime Failure。
 
 ---
 
-# 32. Break-Glass Contract
+## 32. Break-Glass Contract
 
 Break-Glass 不是 Agent 的高级权限模式，而是灾难恢复协议。
 
@@ -1885,7 +1884,7 @@ Break-Glass 不是 Agent 的高级权限模式，而是灾难恢复协议。
 
 ---
 
-## 32.1 Requirements
+### 32.1 Requirements
 
 Break-Glass MUST：
 
@@ -1899,7 +1898,7 @@ Break-Glass MUST：
 
 ---
 
-## 32.2 Exit
+### 32.2 Exit
 
 恢复正常控制面后：
 
@@ -1919,7 +1918,7 @@ Agent MUST NOT 持续保留 Break-Glass Capability。
 
 ---
 
-# 33. Architecture Governance Lifecycle
+## 33. Architecture Governance Lifecycle
 
 架构治理不要求所有变化都进入同一重量级流程。
 
@@ -1945,7 +1944,7 @@ Release
 
 ---
 
-## 33.1 Implementation Change
+### 33.1 Implementation Change
 
 不改变：
 
@@ -1957,7 +1956,7 @@ Release
 
 ---
 
-## 33.2 ADR-required Change
+### 33.2 ADR-required Change
 
 涉及：
 
@@ -1971,7 +1970,7 @@ Release
 
 ---
 
-## 33.3 Standard Change
+### 33.3 Standard Change
 
 改变长期架构规则、Trust Boundary 或治理模型时：
 
@@ -1979,7 +1978,7 @@ Release
 
 ---
 
-# 34. Conformance Rules
+## 34. Conformance Rules
 
 任何声称符合本标准的 AI-Native Platform Agent 必须至少证明：
 
@@ -2001,7 +2000,7 @@ Tier-0 remains human-gated.
 
 ---
 
-# 35. AI-Native Architecture Invariants
+## 35. AI-Native Architecture Invariants
 
 本标准正式冻结以下不变量。
 
@@ -2099,7 +2098,7 @@ When authorization or state validity cannot be established, mutation MUST fail c
 
 ---
 
-# 36. Canonical AI-Native Control Loop
+## 36. Canonical AI-Native Control Loop
 
 Atlas v1.5 的标准闭环为：
 
@@ -2203,7 +2202,7 @@ Agent 只负责：
 
 ---
 
-# 37. Relationship to Atlas GitOps Control Plane
+## 37. Relationship to Atlas GitOps Control Plane
 
 Atlas 的三层架构关系正式定义为：
 
@@ -2242,55 +2241,55 @@ GitOps 不负责 AI Decision。
 
 ---
 
-# 38. Final Manifesto
+## 38. Final Manifesto
 
 Atlas AI-Native Platform Engineering 的最终哲学为：
 
 > **Architecture gives Intent.**
 > 架构定义不可突破的系统原则。
-
+>
 > **Context gives Understanding.**
 > 上下文让 Agent 理解局部问题。
-
+>
 > **Evidence gives Grounding.**
 > 证据让推理建立在现实而不是猜测之上。
-
+>
 > **Agent gives Decision.**
 > Agent 负责分析、计划与选择候选行动。
-
+>
 > **Identity gives Accountability.**
 > 身份明确谁在代表谁行动。
-
+>
 > **Policy gives Authority.**
 > 策略决定什么可以执行。
-
+>
 > **Skill gives Capability.**
 > Skill 将意图转换为受控工程能力。
-
+>
 > **Tool gives Execution.**
 > Tool 负责完成已授权的具体动作。
-
+>
 > **GitOps gives Desired-State Reconciliation.**
 > Argo CD 负责维护声明式期望状态。
-
+>
 > **Operators give Runtime Reconciliation.**
 > Controller 与 Operator 负责运行时生命周期。
-
+>
 > **Observability gives Reality.**
 > 观测系统告诉平台真实发生了什么。
-
+>
 > **State Intelligence gives Understanding of Reality.**
 > 智能层将噪音转化为证据和状态判断。
-
+>
 > **Audit gives Accountability.**
 > 每次自主行为都必须能够被解释与追溯。
-
+>
 > **Human gives Judgment.**
 > 人类负责系统无法安全机械化的最终裁决。
 
 ---
 
-# 39. Architecture Freeze Statement
+## 39. Architecture Freeze Statement
 
 AI-Native Platform Control Plane Architecture Standard v1.5 正式冻结以下核心模式：
 
