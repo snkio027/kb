@@ -1,0 +1,1675 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.3cm,right=2.3cm}
+
+\usepackage{xeCJK}
+\setCJKmainfont{PingFang SC}[BoldFont=PingFang SC Semibold]
+\setCJKsansfont{PingFang SC}
+\setCJKmonofont{PingFang SC}
+
+\setmainfont{Helvetica Neue}[BoldFont=Helvetica Neue Bold]
+\setsansfont{Helvetica Neue}
+\setmonofont{Menlo}[Scale=0.88]
+
+\usepackage{xcolor}
+\definecolor{navyblue}{HTML}{0F172A}
+\definecolor{accentblue}{HTML}{0284C7}
+\definecolor{borderblue}{HTML}{38BDF8}
+\definecolor{bgblue}{HTML}{F0F9FF}
+
+\definecolor{warnamber}{HTML}{D97706}
+\definecolor{borderamber}{HTML}{F59E0B}
+\definecolor{bgamber}{HTML}{FFFBEB}
+
+\definecolor{dangerred}{HTML}{DC2626}
+\definecolor{borderred}{HTML}{EF4444}
+\definecolor{bgred}{HTML}{FEF2F2}
+
+\definecolor{tipgreen}{HTML}{16A34A}
+\definecolor{bordergreen}{HTML}{22C55E}
+\definecolor{bggreen}{HTML}{F0FDF4}
+
+\definecolor{noteslate}{HTML}{475569}
+\definecolor{borderslate}{HTML}{94A3B8}
+\definecolor{bgslate}{HTML}{F8FAFC}
+
+\definecolor{codebg}{HTML}{F1F5F9}
+\definecolor{codeframe}{HTML}{CBD5E1}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Custom GFM Alert Boxes
+\newtcolorbox{gfmImportant}[1][]{
+  colback=bgblue,
+  colframe=accentblue,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{navyblue} IMPORTANT #1}},
+  coltitle=navyblue
+}
+
+\newtcolorbox{gfmWarning}[1][]{
+  colback=bgamber,
+  colframe=warnamber,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{warnamber} WARNING #1}},
+  coltitle=warnamber
+}
+
+\newtcolorbox{gfmNote}[1][]{
+  colback=bgslate,
+  colframe=noteslate,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{noteslate} NOTE #1}},
+  coltitle=noteslate
+}
+
+\newtcolorbox{gfmTip}[1][]{
+  colback=bggreen,
+  colframe=tipgreen,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{tipgreen} TIP #1}},
+  coltitle=tipgreen
+}
+
+\newtcolorbox{gfmCaution}[1][]{
+  colback=bgred,
+  colframe=dangerred,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{dangerred} CAUTION #1}},
+  coltitle=dangerred
+}
+
+\newtcolorbox{gfmBlockquote}[1][]{
+  colback=bgslate,
+  colframe=borderslate,
+  leftrule=3pt,
+  rightrule=0.2pt,
+  toprule=0.2pt,
+  bottomrule=0.2pt,
+  arc=2pt,
+  boxsep=3pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  breakable
+}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  keywordstyle=\color{accentblue}\bfseries,
+  commentstyle=\color{noteslate}\itshape,
+  stringstyle=\color{tipgreen}
+}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentblue,
+  urlcolor=accentblue,
+  citecolor=accentblue,
+  pdfborder={0 0 0}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{noteslate}Atlas GitOps Control Plane Design}
+\fancyhead[R]{\small\color{noteslate}Atlas Architecture Specification}
+\fancyfoot[C]{\small\color{noteslate}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{\textbf{\Large Atlas GitOps Control Plane Design}}
+\author{Atlas Architecture Group}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\textbf{Version:} v1.0.3
+
+\textbf{Status:} Frozen Production Baseline (Two-Level DAG Architecture Freeze Point)
+
+\textbf{Domain:} GitOps Control Plane / Platform Engineering
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{0. 文档职责与规范语义}
+本文档是：
+
+\begin{gfmBlockquote}
+\textbf{Atlas Architecture Design v1.0.2}
+\end{gfmBlockquote}
+在 GitOps / Argo CD 领域中的规范性执行设计。
+
+本文档负责定义：
+
+\begin{itemize}
+  \item External Root Anchor；
+  \item AppProject Trust Chain；
+  \item Root Macro DAG；
+  \item Platform Capability DAG；
+  \item Workload Control Model；
+  \item Sync Wave；
+  \item Application Health Gate；
+  \item Environment Hydration；
+  \item Child Automated Sync；
+  \item Deletion Protection；
+  \item Bootstrap Adoption；
+  \item Break-Glass Recovery。
+\end{itemize}
+本文不得改变 Architecture Design 中定义的平台级不变量。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{1. GitOps Ownership \& Trust Boundary}
+Atlas GitOps 控制面采用四阶控制权模型。
+
+\begin{lstlisting}[language=text]
+Git
+ │ Definition
+ ▼
+Bootstrap
+ │ Instantiation
+ ▼
+Argo CD
+ │ Desired-State Reconciliation
+ ▼
+Kubernetes Controllers / Operators
+   Runtime Behavior
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{1.1 Git owns Definition}
+Git 保存：
+
+\begin{itemize}
+  \item Root Anchor Template；
+  \item Application Graph；
+  \item AppProject；
+  \item Platform Desired State；
+  \item Workload Desired State；
+  \item Policy；
+  \item Overlay；
+  \item Version Lock。
+\end{itemize}
+Git 是 Desired State Definition Authority。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{1.2 Bootstrap owns Instantiation}
+Bootstrap 负责：
+
+\begin{enumerate}
+  \item 安装最小 Argo CD Seed；
+  \item 创建 \_\_INLINE\_CODE\_0\_\_；
+  \item 注入与 Full Desired State 相同的 Application Health Capability；
+  \item 根据环境上下文渲染 Root Anchor；
+  \item 将 External Root Anchor 注入 Kubernetes。
+\end{enumerate}
+Bootstrap 完成后退出。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{1.3 Argo CD owns GitOps Reconciliation}
+Argo CD 对所有进入 GitOps Domain 的资源负责：
+
+\begin{itemize}
+  \item Sync；
+  \item Drift Detection；
+  \item Reconciliation；
+  \item Health；
+  \item Prune。
+\end{itemize}
+External Root Anchor 本身除外。
+
+External Root Anchor 不存在 Parent Application，因此不属于 parent-driven steady-state reconciliation。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{1.4 Operators own Runtime Behavior}
+例如：
+
+\begin{lstlisting}[language=text]
+Argo CD
+ ↓
+FlinkDeployment
+ ↓
+Flink Operator
+ ↓
+Runtime
+\end{lstlisting}
+Argo CD 不尝试取代 Domain Operator。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{2. Canonical AppProject Model}
+Atlas 正式冻结三个 Canonical AppProject Identifier。
+
+\begin{lstlisting}[language=text]
+atlas-bootstrap
+platform-project
+workload-project
+\end{lstlisting}
+任何实现、图示、Manifest 与 Conformance Audit MUST 使用上述准确名称。
+
+禁止使用以下模糊别名代替实际资源名称：
+
+\begin{lstlisting}[language=text]
+platform
+workload
+bootstrap-project
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{3. Three-Tier Trust Isolation}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{3.1 Tier-0 — \_\_INLINE\_CODE\_0\_\_}
+\_\_INLINE\_CODE\_0\_\_ 由 Bootstrap 命令式创建。
+
+其唯一职责是承载完成 Trust Chain 自举所必需的 Application。
+
+允许：
+
+\begin{itemize}
+  \item External Root Anchor；
+  \item Project Bootstrap。
+\end{itemize}
+禁止：
+
+\begin{itemize}
+  \item 普通 Platform Application；
+  \item Workload Application；
+  \item Developer Workload；
+  \item 日常平台组件。
+\end{itemize}
+\_\_INLINE\_CODE\_0\_\_ 是 Bootstrap Capability Sandbox，不是普通租户 Project。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{3.2 Tier-1 — \_\_INLINE\_CODE\_0\_\_}
+由 Project Bootstrap 声明式创建。
+
+负责：
+
+\begin{itemize}
+  \item Platform Control；
+  \item Argo CD Self-Management；
+  \item Infrastructure；
+  \item Governance；
+  \item Operator；
+  \item Controller；
+  \item Workload Orchestrator；
+  \item 需要高权限的管理组件。
+\end{itemize}
+权限必须采用显式 allow-list，而不是无约束开放。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{3.3 Tier-2 — \_\_INLINE\_CODE\_0\_\_}
+由 Project Bootstrap 声明式创建。
+
+用于最终业务工作负载。
+
+其原则是：
+
+\begin{gfmBlockquote}
+Restricted by default.
+\end{gfmBlockquote}
+必须禁止或严格限制：
+
+\begin{itemize}
+  \item CRD；
+  \item ClusterRole；
+  \item ClusterRoleBinding；
+  \item Cluster-wide privileged resources；
+  \item 任意 Platform Namespace；
+  \item Argo CD Control Namespace。
+\end{itemize}
+Namespaced：
+
+\begin{itemize}
+  \item ServiceAccount；
+  \item Role；
+  \item RoleBinding；
+\end{itemize}
+按平台策略受控开放。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{4. Bootstrap Trust Chain}
+Atlas 的完整无环 Bootstrap Chain 为：
+
+\begin{lstlisting}[language=text]
+                 Bootstrap
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+     Argo CD Seed       atlas-bootstrap
+                          AppProject
+                               │
+                               ▼
+                  External Root Anchor
+                  project: atlas-bootstrap
+                               │
+                               ▼
+                 Project Bootstrap App
+                      wave: -110
+                  project: atlas-bootstrap
+                               │
+                ┌──────────────┴──────────────┐
+                ▼                             ▼
+        platform-project               workload-project
+                │                             │
+                └──────────────┬──────────────┘
+                               ▼
+                    Normal GitOps Control
+\end{lstlisting}
+不存在：
+
+\begin{lstlisting}[language=text]
+Application requires Project
+        ↑
+Project requires same Application
+\end{lstlisting}
+的循环依赖。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{5. External Root Anchor}
+External Root Anchor 是整个 GitOps Control Graph 的外部根节点。
+
+其模板位于：
+
+\begin{lstlisting}[language=text]
+bootstrap/argocd/root-app.yaml.tpl
+\end{lstlisting}
+Bootstrap 根据：
+
+\begin{lstlisting}[language=text]
+env/
+\end{lstlisting}
+中的环境上下文进行渲染，并将实例写入：
+
+\begin{lstlisting}[language=text]
+.state/root-app.yaml
+\end{lstlisting}
+随后注入 Kubernetes。
+
+其 Desired Definition 来源于 Git，但该活体对象不存在 Parent Application。
+
+因此：
+
+\begin{gfmBlockquote}
+Git owns its contract, Bootstrap owns its instantiation, but no parent Application owns its reconciliation.
+\end{gfmBlockquote}
+这是有意设计，不属于配置缺陷。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{5.1 Root Anchor Security Consequence}
+由于 Root Anchor 不被父级 Argo CD Application 修复：
+
+\begin{lstlisting}[language=text]
+kubectl edit Application <root>
+\end{lstlisting}
+理论上可以导致：
+
+\begin{lstlisting}[language=text]
+Live Root
+≠
+Git Template
+\end{lstlisting}
+因此 External Root Anchor 必须通过其他控制机制保护：
+
+\begin{itemize}
+  \item Kubernetes RBAC；
+  \item Argo RBAC；
+  \item Admission Policy；
+  \item Audit；
+  \item Tier-0 Human Judgment；
+  \item Drift Detection。
+\end{itemize}
+未来 Kyverno / 等价准入治理应成为该 Trust Boundary 的重要补强。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{6. Two-Level Reconciliation DAG}
+Atlas v1.0.3 正式放弃：
+
+\begin{gfmBlockquote}
+Flat Global Root Component DAG
+\end{gfmBlockquote}
+同时禁止：
+
+\begin{gfmBlockquote}
+Filesystem-shaped Deep Nested DAG.
+\end{gfmBlockquote}
+正式模型为：
+
+\begin{gfmBlockquote}
+\textbf{Minimal Root Macro DAG + Flat Capability DAG}
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{7. Level 1 — Root Macro DAG}
+\_\_INLINE\_CODE\_0\_\_ 只负责 Trust Transition。
+
+标准结构：
+
+\begin{lstlisting}[language=text]
+gitops/root/
+├── base/
+│   ├── kustomization.yaml
+│   ├── project-bootstrap-app.yaml
+│   ├── platform-control-app.yaml
+│   └── workload-control-app.yaml
+│
+└── overlays/
+    ├── local-orbstack/
+    │   └── kustomization.yaml
+    └── prod/
+        └── kustomization.yaml
+\end{lstlisting}
+Root SHALL NOT 直接列举：
+
+\begin{lstlisting}[language=text]
+flink
+envoy
+prometheus
+redpanda
+minio
+loki
+tempo
+...
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{7.1 Root Macro Waves}
+Root Synchronization Scope 定义：
+
+\begin{lstlisting}[language=text]
+-110  Project Bootstrap
+-100  Platform Control
+   0  Workload Control
+\end{lstlisting}
+控制流程：
+
+\begin{lstlisting}[language=text]
+Project Bootstrap Healthy
+          ↓
+Platform Control starts
+          ↓
+Platform Control Healthy
+          ↓
+Workload Control starts
+\end{lstlisting}
+Root 的 Wave 与 Platform Control 内部 Wave 属于不同 Sync Scope。
+
+数字相同不表示同一全局时间点。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{8. Level 2 — Platform Capability DAG}
+Platform Control Application 指向：
+
+\begin{lstlisting}[language=text]
+gitops/platform/applications/overlays/<environment>/
+\end{lstlisting}
+例如：
+
+\begin{lstlisting}[language=text]
+gitops/platform/applications/
+├── base/
+│   ├── kustomization.yaml
+│   ├── foundation-app.yaml
+│   ├── argocd-self-app.yaml
+│   ├── sealed-secrets-app.yaml
+│   ├── cert-manager-app.yaml
+│   ├── flink-operator-app.yaml
+│   ├── envoy-gateway-app.yaml
+│   ├── kube-prometheus-stack-app.yaml
+│   ├── redpanda-app.yaml
+│   └── minio-app.yaml
+│
+└── overlays/
+    ├── local-orbstack/
+    └── prod/
+\end{lstlisting}
+这里保存的是：
+
+\begin{gfmBlockquote}
+Application Graph Metadata
+\end{gfmBlockquote}
+而不是组件实现。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{9. Platform Capability Wave DAG}
+Platform Control Synchronization Scope 内采用：
+
+\begin{lstlisting}[language=text]
+-100 Foundation
+ -90 Management Plane
+ -50 Operators
+ -30 Infrastructure Controllers
+ -10 Platform Services
+\end{lstlisting}
+逻辑如下：
+
+\begin{lstlisting}[language=text]
+                    -100
+                 Foundation
+                     │
+                     ▼
+                     -90
+               Management Plane
+                     │
+                     ▼
+                     -50
+                  Operators
+                     │
+                     ▼
+                     -30
+           Infrastructure Controllers
+                     │
+                     ▼
+                     -10
+              Platform Services
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{9.1 Wave -100 — Foundation}
+包括：
+
+\begin{itemize}
+  \item Namespaces；
+  \item ResourceQuotas；
+  \item LimitRanges；
+  \item 其他 Kubernetes 原生逻辑边界。
+\end{itemize}
+环境强绑定资源必须通过 Environment Hydration 进入。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{9.2 Wave -90 — Management Plane}
+包括：
+
+\begin{itemize}
+  \item \_\_INLINE\_CODE\_0\_\_；
+  \item Sealed Secrets；
+  \item cert-manager；
+  \item OIDC；
+  \item Policy Engine；
+  \item ESO；
+  \item 其他平台自身管理与治理能力。
+\end{itemize}
+其中 Secret Management Controller 必须早于其 Consumer。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{9.3 Wave -50 — Operators}
+包括：
+
+\begin{itemize}
+  \item Flink Kubernetes Operator；
+  \item Spark Operator；
+  \item 其他扩展 Kubernetes API 的 Domain Operator。
+\end{itemize}
+必须在对应 CR 出现前确保：
+
+\begin{itemize}
+  \item CRD 已注册；
+  \item Controller Ready；
+  \item Webhook Ready；
+  \item Application Healthy。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{9.4 Wave -30 — Infrastructure Controllers}
+包括：
+
+\begin{itemize}
+  \item Envoy Gateway Controller；
+  \item Prometheus Operator；
+  \item 其他底层 Controller。
+\end{itemize}
+“Controller”是依赖角色，不是目录领域。
+
+例如：
+
+\begin{lstlisting}[language=text]
+Envoy Gateway
+\end{lstlisting}
+仍然属于：
+
+\begin{lstlisting}[language=text]
+platform/networking/
+\end{lstlisting}
+而不是：
+
+\begin{lstlisting}[language=text]
+platform/controllers/
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{9.5 Wave -10 — Platform Services}
+包括：
+
+\begin{itemize}
+  \item Redpanda / Kafka；
+  \item MinIO；
+  \item Database；
+  \item 其他 Stateful Platform Services。
+\end{itemize}
+“Platform Service”同样是 DAG Role，不是 Domain Directory。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{10. Domain Ontology}
+目录只表达 Domain Ownership。
+
+\begin{lstlisting}[language=text]
+gitops/platform/
+├── applications/
+├── foundation/
+├── management/
+├── operators/
+├── networking/
+├── observability/
+├── messaging/
+└── storage/
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.1 \_\_INLINE\_CODE\_0\_\_}
+不是业务领域。
+
+仅保存：
+
+\begin{itemize}
+  \item Application；
+  \item Kustomization；
+  \item Application DAG Overlay；
+  \item Wave Metadata；
+  \item Parent-level protection metadata。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.2 \_\_INLINE\_CODE\_0\_\_}
+Kubernetes 原生逻辑边界。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.3 \_\_INLINE\_CODE\_0\_\_}
+平台自身治理能力：
+
+\begin{itemize}
+  \item Argo CD Self Management；
+  \item AppProjects；
+  \item RBAC；
+  \item OIDC；
+  \item Sealed Secrets；
+  \item ESO；
+  \item cert-manager；
+  \item Policy Engine。
+\end{itemize}
+AppProject Desired State 必须归属：
+
+\begin{lstlisting}[language=text]
+platform/management/projects/
+\end{lstlisting}
+Project Bootstrap Application 只是使用 \_\_INLINE\_CODE\_0\_\_ 去同步这些对象。
+
+因此：
+
+\begin{gfmBlockquote}
+Bootstrap lifecycle ≠ AppProject domain ownership.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.4 \_\_INLINE\_CODE\_0\_\_}
+领域扩展 API Controller：
+
+\begin{itemize}
+  \item Flink Operator；
+  \item Spark Operator；
+  \item 其他平台领域 Operator。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.5 \_\_INLINE\_CODE\_0\_\_}
+网络与流量能力：
+
+\begin{itemize}
+  \item Envoy Gateway；
+  \item Gateway API；
+  \item Gateway；
+  \item HTTPRoute；
+  \item NetworkPolicy-related resources。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.6 \_\_INLINE\_CODE\_0\_\_}
+统一遥测：
+
+\begin{itemize}
+  \item Kube-Prometheus-Stack；
+  \item Alloy；
+  \item OpenTelemetry Collector；
+  \item Loki；
+  \item Tempo；
+  \item OTLP Transport。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.7 \_\_INLINE\_CODE\_0\_\_}
+异步事件总线：
+
+\begin{itemize}
+  \item Redpanda；
+  \item Kafka。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{10.8 \_\_INLINE\_CODE\_0\_\_}
+数据持久化平台：
+
+\begin{itemize}
+  \item MinIO；
+  \item 未来其他存储服务。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{11. Leaf Application Contract}
+每个可独立：
+
+\begin{itemize}
+  \item 失败；
+  \item 暂停；
+  \item 升级；
+  \item 回滚；
+  \item 观察；
+  \item 恢复；
+\end{itemize}
+的平台能力 SHOULD 成为独立 Leaf Application。
+
+Leaf Application 是：
+
+\begin{gfmBlockquote}
+Minimum Reconciliation and Failure Isolation Unit.
+\end{gfmBlockquote}
+禁止仅因为：
+
+\begin{lstlisting}[language=text]
+platform/observability/
+\end{lstlisting}
+存在子目录，就形成：
+
+\begin{lstlisting}[language=text]
+platform-app
+ ↓
+observability-app
+ ↓
+prometheus-app
+\end{lstlisting}
+这种目录镜像式 Application 链。
+
+默认最大结构为：
+
+\begin{lstlisting}[language=text]
+External Root
+      ↓
+Platform Control
+      ↓
+Leaf Application
+      ↓
+Resources
+\end{lstlisting}
+任何额外 Application 层 MUST 由 ADR 证明其具有真实控制边界价值。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{12. Application Health Gate Contract}
+Sync Wave 只有结合 Health Gate 才构成真正的依赖图。
+
+Atlas 的 DAG Contract 是：
+
+\begin{lstlisting}[language=text]
+Sync Wave
++
+Child Automated Sync
++
+Application Health
+=
+Deterministic Application DAG
+\end{lstlisting}
+三者缺一不可。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{12.1 Application Health Capability}
+Bootstrap Seed 与 \_\_INLINE\_CODE\_0\_\_ 必须注入同一份：
+
+\begin{lstlisting}[language=text]
+argoproj.io/Application
+\end{lstlisting}
+健康评估能力。
+
+该 Capability MUST 来自同一份受版本控制资产。
+
+禁止：
+
+\begin{lstlisting}[language=text]
+Bootstrap health semantics
+≠
+Steady-state health semantics
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{12.2 Child Automated Sync}
+所有作为 DAG 前置条件的 Child Application：
+
+\begin{gfmBlockquote}
+MUST enable Automated Sync
+\end{gfmBlockquote}
+或者使用一个外部确定性触发机制。
+
+禁止出现：
+
+\begin{lstlisting}[language=text]
+Wave -50 App
+Healthy only after manual sync
+\end{lstlisting}
+却被用作：
+
+\begin{lstlisting}[language=text]
+Wave -30 prerequisite
+\end{lstlisting}
+否则 DAG 会永久阻塞。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{12.3 Macro Health Gate}
+Root 不需要理解 Platform 内部组件。
+
+Root 只判断：
+
+\begin{lstlisting}[language=text]
+platform-control = Healthy
+\end{lstlisting}
+因此：
+
+\begin{lstlisting}[language=text]
+Foundation
++
+Management
++
+Operators
++
+Controllers
++
+Platform Services
+        ↓
+Converged
+        ↓
+Platform Control Healthy
+        ↓
+Workload Control may proceed
+\end{lstlisting}
+这将：
+
+\begin{gfmBlockquote}
+Platform Ready
+\end{gfmBlockquote}
+从人类经验判断转化为机器可判定状态。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{13. Workload Control Model}
+Workload Control 必须区分：
+
+\begin{gfmBlockquote}
+Control-plane Orchestrator
+\end{gfmBlockquote}
+与：
+
+\begin{gfmBlockquote}
+Tenant Payload Application.
+\end{gfmBlockquote}
+这是 Tier-1 / Tier-2 权限隔离的核心。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{13.1 Workload Control Application}
+Root 中：
+
+\begin{lstlisting}[language=text]
+workload-control-app.yaml
+\end{lstlisting}
+如果其职责是创建：
+
+\begin{itemize}
+  \item Application；
+  \item ApplicationSet；
+  \item 其他 Argo CD Control Objects；
+\end{itemize}
+则其本质属于：
+
+\begin{gfmBlockquote}
+Tier-1 Control Plane.
+\end{gfmBlockquote}
+因此：
+
+\begin{lstlisting}[language=text]
+project: platform-project
+\end{lstlisting}
+而不是：
+
+\begin{lstlisting}[language=text]
+project: workload-project
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{13.2 Tenant Leaf Applications}
+由 Workload Control 生成或管理的最终业务 Application：
+
+\begin{lstlisting}[language=text]
+project: workload-project
+\end{lstlisting}
+其资源只能进入被允许的 Workload Namespace。
+
+控制关系：
+
+\begin{lstlisting}[language=text]
+Workload Control
+project: platform-project
+          │
+          ▼
+Application / ApplicationSet
+          │
+          ▼
+Tenant Leaf Application
+project: workload-project
+          │
+          ▼
+Developer Namespace
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{13.3 Why}
+禁止让 \_\_INLINE\_CODE\_0\_\_ 为了创建 Argo CD Application/ApplicationSet 而获得：
+
+\begin{itemize}
+  \item Argo CD Namespace 写权限；
+  \item Platform CR 写权限；
+  \item 高危 Cluster Capability。
+\end{itemize}
+原则是：
+
+\begin{gfmBlockquote}
+WHO creates tenant Applications → Tier-1
+WHAT tenant Applications may deploy → Tier-2
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{14. Workload Directory}
+建议标准：
+
+\begin{lstlisting}[language=text]
+gitops/workloads/
+├── applications/
+│   ├── base/
+│   └── overlays/
+│
+└── apps/
+    ├── clickstream-processor/
+    ├── example-streaming-job/
+    └── ...
+\end{lstlisting}
+其中：
+
+\begin{lstlisting}[language=text]
+applications/
+\end{lstlisting}
+保存 Workload Orchestration Metadata。
+
+\begin{lstlisting}[language=text]
+apps/
+\end{lstlisting}
+保存真正的业务 Desired State。
+
+Phase 2B 可以将：
+
+\begin{lstlisting}[language=text]
+applications/
+\end{lstlisting}
+演进为 ApplicationSet Tenant Model。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{15. Data Bootstrap Jobs}
+数据初始化逻辑不得因为某个 Wave 到达就默认具有破坏性执行权。
+
+安全初始化必须：
+
+\begin{gfmBlockquote}
+100\% Idempotent.
+\end{gfmBlockquote}
+例如：
+
+\begin{itemize}
+  \item create-if-not-exists；
+  \item schema initialization；
+  \item non-destructive seed。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{15.1 Safe Initialization}
+允许进入自动 DAG。
+
+推荐作为 Workload Control Scope 中：
+
+\begin{lstlisting}[language=text]
++10
+\end{lstlisting}
+级别的初始化单元。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{15.2 Destructive Migration}
+例如：
+
+\begin{itemize}
+  \item DROP；
+  \item destructive schema rewrite；
+  \item irreversible state conversion；
+  \item mass data deletion；
+\end{itemize}
+不得依赖普通 AutoSync 自动执行。
+
+必须转化为：
+
+\begin{gfmBlockquote}
+Human-gated Workflow.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{16. Sync Wave Scope}
+Atlas 正式规定：
+
+\begin{gfmBlockquote}
+Sync Wave is parent synchronization-scope local.
+\end{gfmBlockquote}
+因此：
+
+Root：
+
+\begin{lstlisting}[language=text]
+-110 Project Bootstrap
+-100 Platform Control
+   0 Workload Control
+\end{lstlisting}
+与 Platform Control：
+
+\begin{lstlisting}[language=text]
+-100 Foundation
+ -90 Management
+ -50 Operators
+ -30 Controllers
+ -10 Services
+\end{lstlisting}
+虽然存在相同数字：
+
+\begin{lstlisting}[language=text]
+-100
+\end{lstlisting}
+但它们不属于同一个全局调度空间。
+
+禁止将所有 Wave 理解成：
+
+\begin{gfmBlockquote}
+Cluster-wide absolute sequence number.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{17. Environment Hydration}
+Environment-specific state 与通用 Platform Domain 必须分离。
+
+标准结构：
+
+\begin{lstlisting}[language=text]
+gitops/
+├── root/
+│   └── overlays/
+│       ├── local-orbstack/
+│       └── prod/
+│
+├── environments/
+│   ├── local-orbstack/
+│   └── prod/
+│
+└── platform/
+    └── applications/
+        └── overlays/
+            ├── local-orbstack/
+            └── prod/
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{17.1 Root Hydration}
+Bootstrap 选择：
+
+\begin{lstlisting}[language=text]
+root/overlays/<environment>
+\end{lstlisting}
+作为 External Root Source。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{17.2 Platform Hydration}
+\_\_INLINE\_CODE\_0\_\_ 选择：
+
+\begin{lstlisting}[language=text]
+platform/applications/overlays/<environment>
+\end{lstlisting}
+作为 Platform DAG。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{17.3 Environment-specific K8s State}
+例如：
+
+\begin{itemize}
+  \item local StorageClass；
+  \item Cloud-specific CSI；
+  \item environment-specific Gateway address；
+  \item substrate-specific configuration；
+\end{itemize}
+必须位于：
+
+\begin{lstlisting}[language=text]
+gitops/environments/<environment>/
+\end{lstlisting}
+或由对应 Overlay 显式引用。
+
+不得污染通用 Platform Domain。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{18. Bootstrap Adoption Contract}
+Bootstrap 恢复必须满足：
+
+\begin{lstlisting}[language=text]
+Object Identity Parity
++
+Version Parity
++
+Health Capability Parity
++
+CRD Compatibility
+=
+Bootstrap Adoption Contract
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{18.1 \_\_INLINE\_CODE\_0\_\_}
+Bootstrap 与 GitOps Self-management 必须共同消费：
+
+\begin{lstlisting}[language=text]
+versions.lock
+\end{lstlisting}
+禁止：
+
+\begin{lstlisting}[language=text]
+bootstrap Argo version
+≠
+argocd-self desired version
+\end{lstlisting}
+所导致的隐式：
+
+\begin{itemize}
+  \item downgrade；
+  \item upgrade；
+  \item CRD incompatibility。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{18.2 Recovery Seed}
+Break-Glass Seed 的目标是：
+
+\begin{gfmBlockquote}
+Minimal but adoption-compatible.
+\end{gfmBlockquote}
+不是重新建立另一套独立控制平面。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{19. Dual Deletion Protection}
+Atlas 实施两层独立保护。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{19.1 Parent-level Prune Protection}
+所有由 Parent Application 管理的 Tier-0 / Tier-1 Child Application CR 应具有：
+
+\begin{lstlisting}[language=text]
+argocd.argoproj.io/sync-options: Prune=confirm
+\end{lstlisting}
+保护链：
+
+\begin{lstlisting}[language=text]
+Git accidentally removes child Application
+                 ↓
+Parent attempts prune
+                 ↓
+Prune suspended
+                 ↓
+Human confirmation
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{19.2 No Cascading Finalizer}
+核心 Tier-0 / Tier-1 Application 默认不得携带级联资源删除 finalizer。
+
+因此：
+
+\begin{lstlisting}[language=text]
+delete Application
+        ↓
+Application CR deleted
+        ↓
+Managed resources survive
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{19.3 Protection Boundary}
+上述保护主要针对：
+
+\begin{gfmBlockquote}
+Application Control Graph.
+\end{gfmBlockquote}
+并不意味着：
+
+\begin{lstlisting}[language=text]
+StatefulSet
+PVC
+Kafka Cluster CR
+Database
+Namespace
+\end{lstlisting}
+自动获得相同保护。
+
+对于高价值 Leaf Resources，必须根据风险显式配置：
+
+\begin{itemize}
+  \item resource-level \_\_INLINE\_CODE\_0\_\_；
+  \item \_\_INLINE\_CODE\_0\_\_；
+  \item Admission Policy；
+  \item Domain-specific retention mechanism。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{20. Secret Dependency Contract}
+Phase 1 使用 Sealed Secrets 时：
+
+\begin{lstlisting}[language=text]
+Sealed Secrets Controller
+          ↓
+Controller Healthy
+          ↓
+SealedSecret Reconciliation
+          ↓
+Secret Exists
+          ↓
+Consumer Application
+\end{lstlisting}
+Consumer 不得在 Secret Capability Ready 前进入强依赖路径。
+
+Phase 2A 切换 ESO 时同样遵守：
+
+\begin{lstlisting}[language=text]
+ESO
+ ↓
+External Secret Materialization
+ ↓
+Consumer
+\end{lstlisting}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{21. Emergency Recovery \& Blast Radius Freeze}
+Atlas 使用：
+
+\begin{gfmBlockquote}
+Freeze Outside-In, Resume Inside-Out.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.1 Detect}
+确认：
+
+\begin{itemize}
+  \item 错误 Revision；
+  \item 受影响 Application；
+  \item 数据面状态；
+  \item 爆炸半径；
+  \item 是否仍有危险 AutoSync。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.2 Freeze Outside-In}
+首先冻结：
+
+\begin{lstlisting}[language=text]
+External Root Anchor
+\end{lstlisting}
+然后依次关闭受影响 Control Application 的 AutoSync。
+
+重点包括：
+
+\begin{itemize}
+  \item Platform Control；
+  \item argocd-self；
+  \item 受影响 Leaf Applications；
+  \item Workload Control。
+\end{itemize}
+目标不是删除资源，而是：
+
+\begin{gfmBlockquote}
+Stop propagation.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.3 Snapshot}
+备份：
+
+\begin{itemize}
+  \item Application 状态；
+  \item AppProject 状态；
+  \item 当前 Revision；
+  \item Controller Configuration；
+  \item 关键 Event / Audit Evidence。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.4 Restore Seed}
+使用 Bootstrap 恢复满足 Adoption Contract 的 Argo CD Seed。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.5 Repair Git}
+Git 必须回到：
+
+\begin{gfmBlockquote}
+Known-Good Revision.
+\end{gfmBlockquote}
+不得依赖长期 Live Edit 作为恢复终态。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{21.6 Resume Inside-Out}
+推荐顺序：
+
+\begin{lstlisting}[language=text]
+Argo Seed
+   ↓
+argocd-self
+   ↓
+Management Capability
+   ↓
+Platform Capability DAG
+   ↓
+Platform Control Healthy
+   ↓
+Workload Control
+   ↓
+Tenant Workloads
+   ↓
+External Root normal reconciliation
+\end{lstlisting}
+必须逐级验证 Health。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{22. ApplicationSet Boundary}
+ApplicationSet 是 Atlas Phase 2B Tenant Platform 的核心候选机制，但不作为 v1.0.3 平台 Bootstrap Correctness 的必要基础。
+
+当前 Frozen Baseline 的平台启动正确性依赖：
+
+\begin{lstlisting}[language=text]
+Application
++
+App-of-Apps
++
+Sync Wave
++
+Application Health
+\end{lstlisting}
+ApplicationSet 的主要目标为：
+
+\begin{itemize}
+  \item Tenant Expansion；
+  \item Multi-cluster Workload Generation；
+  \item Developer Self-Service；
+  \item Fleet-style Application Generation。
+\end{itemize}
+ApplicationSet 不应取代 Tier-0 Root Trust Model。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{23. AI \& Human Control Boundary}
+\_\_INLINE\_CODE\_0\_\_：
+
+\begin{lstlisting}[language=text]
+READ      allowed
+ANALYZE   allowed
+PROPOSE   allowed
+GENERATE  allowed
+MERGE     human-gated
+APPLY     human-gated
+\end{lstlisting}
+Tier-1：
+
+允许未来在 Policy Guardrail 成熟后开放更高程度 Agent Autonomy。
+
+Tier-2：
+
+是最适合 AI Agent 自治执行的主要区域。
+
+治理演进顺序必须是：
+
+\begin{lstlisting}[language=text]
+Guardrail
+   ↓
+Auditability
+   ↓
+Policy Enforcement
+   ↓
+Agent Autonomy
+\end{lstlisting}
+而不是先开放自治，再补安全机制。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{24. Phase 2 Governance Roadmap}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{Phase 2A — Safety Foundation}
+引入：
+
+\begin{itemize}
+  \item Kyverno / equivalent policy engine；
+  \item NetworkPolicy baseline；
+  \item ESO；
+  \item Root Anchor admission protection；
+  \item stronger audit controls。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{Phase 2B — Tenant Platform}
+建设：
+
+\begin{itemize}
+  \item ApplicationSet；
+  \item Tenant Model；
+  \item Namespace lifecycle；
+  \item workload-project policy；
+  \item multi-tenant boundaries。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{Phase 2C — Developer Experience}
+建设：
+
+\begin{itemize}
+  \item Backstage；
+  \item Golden Path；
+  \item Templates；
+  \item Platform API；
+  \item developer self-service。
+\end{itemize}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsubsection{Phase 2D — Agent Automation}
+在 Guardrail 完成后，开放：
+
+\begin{itemize}
+  \item Agent-generated PR；
+  \item Policy-verified changes；
+  \item limited auto-merge；
+  \item bounded autonomous remediation；
+  \item declarative platform operation。
+\end{itemize}
+Agent 自治权不得跨越 Tier-0 Human Judgment Boundary。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{25. GitOps Control Plane Invariants}
+Atlas GitOps Control Plane v1.0.3 冻结以下领域不变量。
+
+\subsubsection{GITOPS-01}
+External Root Anchor MUST remain outside parent Application reconciliation.
+
+\subsubsection{GITOPS-02}
+Canonical AppProjects MUST be:
+
+\begin{lstlisting}[language=text]
+atlas-bootstrap
+platform-project
+workload-project
+\end{lstlisting}
+\subsubsection{GITOPS-03}
+Root MUST contain only macro trust/readiness control Applications.
+
+\subsubsection{GITOPS-04}
+Platform components MUST be orchestrated by Platform Control rather than enumerated directly under Root.
+
+\subsubsection{GITOPS-05}
+Directory hierarchy MUST NOT be mechanically mirrored as Application hierarchy.
+
+\subsubsection{GITOPS-06}
+Leaf Application SHOULD be the minimum failure-isolation unit.
+
+\subsubsection{GITOPS-07}
+Sync Wave MUST be interpreted within its parent synchronization scope.
+
+\subsubsection{GITOPS-08}
+Any Child Application acting as a DAG prerequisite MUST have deterministic synchronization.
+
+\subsubsection{GITOPS-09}
+Bootstrap and argocd-self MUST share Application Health semantics.
+
+\subsubsection{GITOPS-10}
+Bootstrap and argocd-self MUST share \_\_INLINE\_CODE\_0\_\_.
+
+\subsubsection{GITOPS-11}
+Workload orchestrators creating Argo CD control objects MUST operate in Tier-1.
+
+\subsubsection{GITOPS-12}
+Tenant payload Applications MUST operate in \_\_INLINE\_CODE\_0\_\_.
+
+\subsubsection{GITOPS-13}
+Tier-0 / Tier-1 control graph deletion MUST NOT implicitly destroy descendant runtime resources.
+
+\subsubsection{GITOPS-14}
+Destructive data mutation MUST NOT be triggered merely by automatic Wave progression.
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{26. Final Frozen Control Graph}
+Atlas v1.0.3 的最终规范拓扑为：
+
+\begin{lstlisting}[language=text]
+                         Bootstrap
+                             │
+                 ┌───────────┴───────────┐
+                 ▼                       ▼
+             Argo Seed             atlas-bootstrap
+                                        │
+                                        ▼
+                             External Root Anchor
+                                        │
+                         Root Macro Sync Scope
+                                        │
+                 ┌──────────────────────┼─────────────────────┐
+                 │                      │                     │
+                 ▼                      ▼                     ▼
+       -110 Project Bootstrap   -100 Platform Control    0 Workload Control
+          atlas-bootstrap          platform-project        platform-project
+                 │                      │                     │
+        ┌────────┴────────┐             │                     │
+        ▼                 ▼             ▼                     ▼
+platform-project   workload-project   Platform DAG       Workload Orchestration
+                                        │                     │
+                           Platform Sync Scope                  │
+                                        │                     ▼
+                    ┌───────────────────┼──────────────┐  Tenant Applications
+                    │                   │              │   workload-project
+                    ▼                   ▼              ▼
+               Foundation          Management       Operators
+                  -100                -90             -50
+                                                           │
+                                                           ▼
+                                                      Controllers
+                                                         -30
+                                                           │
+                                                           ▼
+                                                   Platform Services
+                                                         -10
+                                                           │
+                                                           ▼
+                                                     Platform Healthy
+                                                           │
+                                                           ▼
+                                                     Workloads Enabled
+\end{lstlisting}
+这张图是 Atlas GitOps Control Plane v1.0.3 的架构冻结点。
+
+未来：
+
+\begin{itemize}
+  \item 增加 Redpanda；
+  \item 增加 ClickHouse；
+  \item 增加 Spark；
+  \item 增加 Loki；
+  \item 增加 Tempo；
+  \item 增加新的 Operator；
+\end{itemize}
+均应优先修改：
+
+\begin{lstlisting}[language=text]
+gitops/platform/
+\end{lstlisting}
+而不是：
+
+\begin{lstlisting}[language=text]
+gitops/root/
+\end{lstlisting}
+只有当：
+
+\begin{itemize}
+  \item Trust Domain 改变；
+  \item Control Ownership 改变；
+  \item Macro Readiness Boundary 改变；
+  \item Bootstrap Chain 改变；
+\end{itemize}
+时，才允许修改 Tier-0 Root Architecture。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{27. Architecture Freeze Statement}
+Atlas GitOps v1.0.3 正式冻结以下模式：
+
+\begin{gfmBlockquote}
+\textbf{External Root Anchor
+
+- Minimal Root Macro DAG
+- Flat Platform Capability DAG
+- Tier-1 Workload Orchestration
+- Tier-2 Workload Execution}
+\end{gfmBlockquote}
+其核心目标不是创建最复杂的 GitOps 拓扑，而是创建：
+
+\begin{gfmBlockquote}
+\textbf{最容易证明、最容易恢复、最容易审计、最不容易被人类或 AI Agent 误操作的控制图。}
+\end{gfmBlockquote}
+从本版本开始，任何将 Root 重新扩张为 Platform Component Catalog，或仅为了匹配目录层次而引入深层 App-of-Apps 的实现，应默认视为对 Frozen Baseline 的偏离，并进入正式 Architecture Review。
+
+\end{document}

@@ -1,0 +1,1679 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.3cm,right=2.3cm}
+
+\usepackage{xeCJK}
+\setCJKmainfont{PingFang SC}[BoldFont=PingFang SC Semibold]
+\setCJKsansfont{PingFang SC}
+\setCJKmonofont{PingFang SC}
+
+\setmainfont{Helvetica Neue}[BoldFont=Helvetica Neue Bold]
+\setsansfont{Helvetica Neue}
+\setmonofont{Menlo}[Scale=0.88]
+
+\usepackage{xcolor}
+\definecolor{navyblue}{HTML}{0F172A}
+\definecolor{accentblue}{HTML}{0284C7}
+\definecolor{borderblue}{HTML}{38BDF8}
+\definecolor{bgblue}{HTML}{F0F9FF}
+
+\definecolor{warnamber}{HTML}{D97706}
+\definecolor{borderamber}{HTML}{F59E0B}
+\definecolor{bgamber}{HTML}{FFFBEB}
+
+\definecolor{dangerred}{HTML}{DC2626}
+\definecolor{borderred}{HTML}{EF4444}
+\definecolor{bgred}{HTML}{FEF2F2}
+
+\definecolor{tipgreen}{HTML}{16A34A}
+\definecolor{bordergreen}{HTML}{22C55E}
+\definecolor{bggreen}{HTML}{F0FDF4}
+
+\definecolor{noteslate}{HTML}{475569}
+\definecolor{borderslate}{HTML}{94A3B8}
+\definecolor{bgslate}{HTML}{F8FAFC}
+
+\definecolor{codebg}{HTML}{F1F5F9}
+\definecolor{codeframe}{HTML}{CBD5E1}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Custom GFM Alert Boxes
+\newtcolorbox{gfmImportant}[1][]{
+  colback=bgblue,
+  colframe=accentblue,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{navyblue} IMPORTANT #1}},
+  coltitle=navyblue
+}
+
+\newtcolorbox{gfmWarning}[1][]{
+  colback=bgamber,
+  colframe=warnamber,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{warnamber} WARNING #1}},
+  coltitle=warnamber
+}
+
+\newtcolorbox{gfmNote}[1][]{
+  colback=bgslate,
+  colframe=noteslate,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{noteslate} NOTE #1}},
+  coltitle=noteslate
+}
+
+\newtcolorbox{gfmTip}[1][]{
+  colback=bggreen,
+  colframe=tipgreen,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{tipgreen} TIP #1}},
+  coltitle=tipgreen
+}
+
+\newtcolorbox{gfmCaution}[1][]{
+  colback=bgred,
+  colframe=dangerred,
+  leftrule=4pt,
+  rightrule=0.5pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  arc=3pt,
+  boxsep=4pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  breakable,
+  title={\textbf{\color{dangerred} CAUTION #1}},
+  coltitle=dangerred
+}
+
+\newtcolorbox{gfmBlockquote}[1][]{
+  colback=bgslate,
+  colframe=borderslate,
+  leftrule=3pt,
+  rightrule=0.2pt,
+  toprule=0.2pt,
+  bottomrule=0.2pt,
+  arc=2pt,
+  boxsep=3pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  breakable
+}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  keywordstyle=\color{accentblue}\bfseries,
+  commentstyle=\color{noteslate}\itshape,
+  stringstyle=\color{tipgreen}
+}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentblue,
+  urlcolor=accentblue,
+  citecolor=accentblue,
+  pdfborder={0 0 0}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{noteslate}Zig Project Architecture Standard}
+\fancyhead[R]{\small\color{noteslate}Atlas Architecture Specification}
+\fancyfoot[C]{\small\color{noteslate}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{\textbf{\Large Zig Project Architecture Standard}}
+\author{Atlas Architecture Group}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\textbf{Version:} 1.0
+
+\textbf{Status:} Frozen Baseline
+
+\textbf{Language Baseline:} Zig 0.16 series，语义核验基于 Zig 0.16.0
+
+\textbf{Verified:} 2026-08-14
+
+\textbf{Scope:} Zig Application / CLI / Library / Systems Tool / Multi-Artifact Project / Multi-Package Repository
+
+\textbf{Purpose:} Source Organization, Semantic Boundaries, Module Architecture, Package Lifecycle, Artifact Topology, Build Graph, Testing, Naming \& Evolution
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{0. Standard Positioning}
+\subsubsection{0.1 Purpose}
+本标准不是为了定义一套“唯一正确”的 Zig 项目目录模板。
+
+Zig 官方定义的是语言与工具链机制，例如：
+
+\begin{itemize}
+  \item Source File Semantics；
+  \item Compilation Model；
+  \item Module；
+  \item root module；
+  \item \_\_INLINE\_CODE\_0\_\_；
+  \item File / Declaration Discovery；
+  \item Build System；
+  \item Package Management；
+  \item Naming Style；
+  \item Testing Model。
+\end{itemize}
+在这些机制之上，项目仍然必须作出大量 Architecture Decision。
+
+因此，本标准的目标是建立一套：
+
+\begin{gfmBlockquote}
+\textbf{Zig-native Architecture Reasoning Model}
+\end{gfmBlockquote}
+使项目能够明确回答：
+
+\begin{itemize}
+  \item 一个 declaration 为什么属于这里；
+  \item 一个 file 为什么应该存在；
+  \item 一个 directory 表达什么语义；
+  \item 一个 dependency 为什么跨越 Module；
+  \item 一个 Module 为什么值得成为独立 boundary；
+  \item 一个 Package 为什么具有独立生命周期；
+  \item 一个 Artifact 为什么需要独立构建；
+  \item 哪些代码实际上会进入 compilation；
+  \item 哪些 tests 实际上会被发现和执行；
+  \item \_\_INLINE\_CODE\_0\_\_ 究竟拥有哪部分系统拓扑。
+\end{itemize}
+本标准冻结的是：
+
+\begin{gfmBlockquote}
+\textbf{Architecture reasoning rules}
+\end{gfmBlockquote}
+而不是某一棵固定目录树。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{1. Authority Model}
+本标准严格区分 Zig 官方事实与项目工程规则。
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{| X | X | X |}
+\hline
+\rowcolor{codebg}
+\textbf{标记} & \textbf{Authority} & \textbf{定义} \\ \hline
+\textbf{[O-S]} & Official Semantics & Zig 官方语言、编译器、标准库或 Build System 明确定义的语义 \\ \hline
+\rowcolor{codebg!50} \textbf{[O-G]} & Official Guidance & Zig 官方 Style Guide / Documentation 给出的指导性建议 \\ \hline
+\textbf{[E]} & Engineering Standard & 基于 Zig 机制推导出的本标准工程规则 \\ \hline
+\rowcolor{codebg!50} \textbf{[P]} & Project Preference & 推荐默认值或项目结构偏好，不代表 Zig 普遍要求 \\ \hline
+\end{tabularx}
+\end{table}
+本标准中的：
+
+\begin{itemize}
+  \item \textbf{MUST}
+  \item \textbf{MUST NOT}
+  \item \textbf{SHOULD}
+  \item \textbf{SHOULD NOT}
+  \item \textbf{MAY}
+\end{itemize}
+仅表达：
+
+\begin{gfmBlockquote}
+\textbf{采用本 Architecture Standard 后的工程约束强度。}
+\end{gfmBlockquote}
+它们不意味着 Zig 编译器本身强制要求这些结构。这是本标准最重要的认识论边界。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{2. Versioning Boundary}
+Zig 尚未进入 1.0，语言、标准库、Build System 与 Package Management 仍可能发生较大变化。
+
+截至本标准核验日期，Zig 官方将 \textbf{0.16.0} 列为最新稳定版本。
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{本标准的 [O-S] 与 [O-G] 内容 MUST 与明确的 Zig Toolchain Baseline 绑定。}
+\end{gfmBlockquote}
+当项目升级 Zig baseline 时：
+
+\begin{itemize}
+  \item \_\_INLINE\_CODE\_0\_\_ MUST 重新核验；
+  \item \_\_INLINE\_CODE\_0\_\_ MUST 重新核验；
+  \item \_\_INLINE\_CODE\_0\_\_ SHOULD 检查其原始语义依据是否仍然成立；
+  \item \_\_INLINE\_CODE\_0\_\_ 不因 Zig 版本变化自动获得或失去权威性。
+\end{itemize}
+换言之：
+
+\begin{lstlisting}[language=text]
+Zig Version Upgrade
+        │
+        ▼
+Official Semantic Delta Audit
+        │
+        ├── unchanged
+        ├── wording update
+        ├── API example update
+        └── architecture implication change
+\end{lstlisting}
+Architecture Standard \textbf{MUST NOT} 将特定版本偶然存在的 API 误写成永恒的 Zig 架构真理。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{3. Core Thesis — Explicit Architecture}
+Zig 项目架构不应该被简化为：
+
+\begin{gfmBlockquote}
+Flat Architecture
+\end{gfmBlockquote}
+也不应该被简化为：
+
+\begin{gfmBlockquote}
+Layered Architecture
+\end{gfmBlockquote}
+本标准采用的核心原则是：
+
+\begin{gfmBlockquote}
+\textbf{Explicit Architecture}
+\end{gfmBlockquote}
+结构必须来源于真实的软件语义和依赖压力，而不是来源于预制框架模板。
+
+\begin{itemize}
+  \item 当 declarations 共同表达一个紧密语义能力时：\textbf{keep them together}
+  \item 当一个 type 已经形成独立、复杂、可理解的行为边界时：\textbf{give it a coherent source file}
+  \item 当两个子系统之间存在真正的 compilation / dependency boundary 时：\textbf{introduce a Module}
+  \item 当一个组件拥有独立 dependency、identity、distribution 或 release lifecycle 时：\textbf{consider a Package}
+  \item 当系统需要产生一个独立执行、链接、测试或工具产品时：\textbf{introduce an Artifact}
+\end{itemize}
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Structure follows semantic pressure.}
+\end{gfmBlockquote}
+而不是：
+
+\begin{gfmBlockquote}
+Structure follows framework convention.
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{4. Zig Architecture Ontology}
+Zig 项目不能通过一棵目录树完整描述。必须首先区分：
+
+\begin{lstlisting}[language=text]
+File
+Directory
+Module
+Package
+Artifact
+Build Step
+\end{lstlisting}
+这些对象不是同一个抽象层。本标准禁止建立如下机械映射：
+
+\begin{lstlisting}[language=text]
+Directory = Module
+Module    = Package
+Package   = Artifact
+\end{lstlisting}
+也不采用这样的伪线性层级模型：
+
+\begin{lstlisting}[language=text]
+Declaration
+    ↓
+File
+    ↓
+Module
+    ↓
+Package
+\end{lstlisting}
+更准确的架构模型是多个相互关联、但彼此正交的视图。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{5. Seven Independent Architecture Views}
+成熟 Zig 项目 SHOULD 能够同时解释以下七张图。
+
+\subsubsection{5.1 Physical Source Tree}
+回答：\textbf{源码物理上放在哪里？}
+
+例如：
+
+\begin{lstlisting}[language=text]
+src/
+├── cli/
+├── engine/
+├── protocol/
+└── platform/
+\end{lstlisting}
+它表达 \textbf{Physical Organization}，而不是 \textbf{Dependency Graph}。Directory 首先解决的是定位、聚类与认知导航问题。
+
+\subsubsection{5.2 Semantic Container / Namespace View}
+回答：\textbf{哪些 declarations 属于同一个语义 container？}
+
+Zig 0.16 明确定义：每个 Zig source file 隐式都是一个 \_\_INLINE\_CODE\_0\_\_ declaration，文件顶层可以包含 declarations，也可以包含 fields；拥有 fields 的 source file 可以直接作为可实例化 type。
+
+因此，\_\_INLINE\_CODE\_0\_\_ 并不只是“装代码的文本文件”。它本身拥有语言级 container 语义。
+
+一个 source file 可以自然表达：
+
+\begin{itemize}
+  \item coherent namespace；
+  \item coherent type；
+  \item type + closely related operations；
+  \item domain contract；
+  \item implementation-local semantic cluster。
+\end{itemize}
+\subsubsection{5.3 Module Dependency Graph}
+回答：\textbf{哪个 compilation boundary 可以依赖哪个 boundary？}
+
+Zig Compilation 被划分为 Modules。每个 Module 是一组 source files，其中一个是 root source file；Module 可以依赖其他 Module，并通过 module name 使用 \_\_INLINE\_CODE\_0\_\_ 导入其 root source file。官方同时明确允许 Module Dependency Graph 出现 dependency loops。
+
+例如：
+
+\begin{lstlisting}[language=text]
+CLI
+ │
+ ▼
+Application
+ │
+ ├───────────┐
+ ▼           ▼
+Protocol   Platform
+\end{lstlisting}
+这是 \textbf{Compilation Dependency Architecture}，而不是目录树。
+
+\subsubsection{5.4 Declaration Discovery Graph}
+回答：\textbf{编译器实际上会发现并分析哪些源码和 declarations？}
+
+Zig 不会简单递归扫描目录中的全部 \_\_INLINE\_CODE\_0\_\_ 文件。0.16 Compilation Model 明确定义 discovery rules，包括：
+
+\begin{itemize}
+  \item 被分析的 \_\_INLINE\_CODE\_0\_\_ 会发现目标 file；
+  \item 被分析的 type/file 会进一步发现其中相关 \_\_INLINE\_CODE\_0\_\_ / \_\_INLINE\_CODE\_1\_\_；
+  \item test compilation 对 root module 中被分析 type/file 的 test declarations 有额外 discovery 行为；
+  \item 被使用的 named declaration 才进一步进入 semantic analysis。
+\end{itemize}
+因此：
+
+\begin{lstlisting}[language=text]
+File exists        ≠  File is discovered
+Declaration exists ≠  Declaration is analyzed
+Test exists        ≠  Test is necessarily part of this test compilation
+\end{lstlisting}
+Discovery 是 Architecture Reality 的一部分。
+
+\subsubsection{5.5 Package Dependency / Lifecycle View}
+回答：\textbf{哪些组件拥有独立 dependency identity 与 distribution lifecycle？}
+
+Zig Package Management 使用 \_\_INLINE\_CODE\_0\_\_ 等机制描述 package metadata 和 dependencies；0.16 package management 继续强化了 package identity，例如 dependency override 会涉及 package \_\_INLINE\_CODE\_1\_\_ 与 \_\_INLINE\_CODE\_2\_\_。
+
+但是，\textbf{Package = independent lifecycle boundary} 是本标准的工程解释 \textbf{[E]}，而不是对 Zig 官方 Package 概念的穷尽性定义。
+
+本标准用 Package 表达：
+
+\begin{itemize}
+  \item dependency lifecycle；
+  \item identity；
+  \item external consumption；
+  \item independent distribution；
+  \item independent version/release concerns；
+  \item independent build ownership。
+\end{itemize}
+Package \textbf{SHOULD NOT} 只是“更大的目录”。
+
+\subsubsection{5.6 Artifact / Product Graph}
+回答：\textbf{最终构建什么？}
+
+例如：
+
+\begin{lstlisting}[language=text]
+                   core
+                /    |    \
+               /     |     \
+              ▼      ▼      ▼
+            CLI    Daemon   Tests
+             │       │       │
+             ▼       ▼       ▼
+           exe     exe     test artifact
+\end{lstlisting}
+Zig Build System 可以构建 executable、static/dynamic library、test compilation 等产品，并将它们放入更大的 build topology。
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Artifact Graph MUST NOT be mechanically derived from Module Graph.}
+\end{gfmBlockquote}
+同一个 Module 可以服务多个 Artifacts。一个 Artifact 也可以组合多个 Modules。
+
+\subsubsection{5.7 Build Step DAG}
+回答：\textbf{构建任务之间存在什么 dependency constraints？}
+
+Zig Build System 将项目表示为由 Steps 构成的 Directed Acyclic Graph；无依赖的步骤可以独立、并发运行。
+
+所以：
+
+\begin{lstlisting}[language=text]
+Module Dependency Graph ≠ Build Step DAG
+\end{lstlisting}
+尤其重要的是：\_\_INLINE\_CODE\_0\_\_ 官方允许 cycle；而 \_\_INLINE\_CODE\_1\_\_ 本质上是 DAG。
+
+因此本标准使用：
+
+\begin{gfmBlockquote}
+\textbf{Build Graph gives construction dependencies and scheduling constraints.}
+\end{gfmBlockquote}
+而不是错误地把 Build Graph 描述成一个全局线性 construction order。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{6. Fundamental Distinction}
+整份标准建立在以下区别之上：
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{| X | X |}
+\hline
+\rowcolor{codebg}
+\textbf{Entity} & \textbf{Primary Responsibility} \\ \hline
+\textbf{Declaration} & 最小命名语义单元 \\ \hline
+\rowcolor{codebg!50} \textbf{Source File} & semantic container / namespace / type locality \\ \hline
+\textbf{Directory} & physical organization \\ \hline
+\rowcolor{codebg!50} \textbf{Module} & compilation dependency boundary \\ \hline
+\textbf{Package} & dependency / identity / distribution lifecycle \\ \hline
+\rowcolor{codebg!50} \textbf{Artifact} & executable / linking / testing product \\ \hline
+\textbf{Build Step} & construction dependency / task topology \\ \hline
+\end{tabularx}
+\end{table}
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Logical Architecture MUST NOT be mechanically derived from Physical Structure.}
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{7. The Eight Architecture Laws}
+\subsubsection{ZIG-ARCH-01 — Source Files Are Semantic Containers}
+\textbf{Authority:} [O-S] + [E]
+
+Source File 不只是物理文本文件。它 SHOULD 表达：
+
+\begin{gfmBlockquote}
+\textbf{one coherent type or one coherent namespace}
+\end{gfmBlockquote}
+例如：
+
+\begin{lstlisting}[language=zig]
+pub const Header = struct {
+    // ...
+};
+
+pub const Message = union(enum) {
+    // ...
+};
+
+pub fn encode(...) ... {
+    // ...
+}
+
+pub fn decode(...) ... {
+    // ...
+}
+\end{lstlisting}
+如果这些 declarations 共同表达一个紧密的 protocol capability，就没有必要机械拆成 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_。只有当某个对象已经产生足够强的独立语义压力时，才 SHOULD 拆分 Source File。
+
+\subsubsection{ZIG-ARCH-02 — Filesystem Hierarchy Is Not the Dependency Graph}
+\textbf{Authority:} [O-S] + [E]
+
+例如：
+
+\begin{lstlisting}[language=text]
+src/
+├── config/
+├── protocol/
+├── runtime/
+└── storage/
+\end{lstlisting}
+绝不自动意味着存在 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_。
+
+Directory 提供 Physical Organization。Module 提供 Compilation Dependency。
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Filesystem hierarchy MUST NOT be treated as the Module Graph.}
+\end{gfmBlockquote}
+\subsubsection{ZIG-ARCH-03 — Modules Are Explicit Compilation Boundaries}
+\textbf{Authority:} [O-S] + [E]
+
+真正的跨子系统 dependency SHOULD 通过 Module Graph 显式表达。
+
+Module SHOULD 在出现以下 Architecture Driver 时建立：
+
+\begin{itemize}
+  \item independent public surface；
+  \item cross-subsystem dependency；
+  \item dependency isolation；
+  \item different compilation configuration；
+  \item shared use by multiple artifacts；
+  \item stable subsystem boundary；
+  \item architecture topology需要在 \_\_INLINE\_CODE\_0\_\_ 中显式表达。
+\end{itemize}
+Module MUST NOT 因为“这里有个目录”而自动创建。
+
+同时必须注意：
+
+\begin{gfmBlockquote}
+\textbf{Module 是 dependency boundary，不是安全边界，也不是传统 OOP 意义上的 private namespace。}
+\end{gfmBlockquote}
+不要把 Module 神化成 Zig 并未提供的访问控制系统。
+
+\subsubsection{ZIG-ARCH-04 — Packages Represent Independent Lifecycle Boundaries}
+\textbf{Authority:} [O-S foundation] + [E]
+
+Package SHOULD 在组件真正出现以下压力时建立：
+
+\begin{lstlisting}[language=text]
+Independent Dependency Lifecycle
++ Independent Identity
++ Independent Distribution
++ Independent Version / Release Concern
++ Independent Build Ownership
+\end{lstlisting}
+并不是每一个 Module 都值得成为 Package。
+
+因此：
+
+\begin{lstlisting}[language=text]
+one package + multiple modules + multiple artifacts
+\end{lstlisting}
+完全可以是一个成熟大型 Zig 项目的正确形态。
+
+\subsubsection{ZIG-ARCH-05 — Artifacts Are Orthogonal to Modules}
+\textbf{Authority:} [O-S] + [E]
+
+Module 回答：\textbf{What code depends on what code?}
+
+Artifact 回答：\textbf{What gets built?}
+
+例如一个 \_\_INLINE\_CODE\_0\_\_ 可以同时服务 \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_, \_\_INLINE\_CODE\_5\_\_。
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Module Graph MUST NOT be derived from Artifact Graph, and Artifact Graph MUST NOT be derived from directory structure.}
+\end{gfmBlockquote}
+\subsubsection{ZIG-ARCH-06 — Discovery Must Be Intentional}
+\textbf{Authority:} [O-S] + [E]
+
+项目 MUST 明确理解：
+
+\begin{lstlisting}[language=text]
+repository membership ≠ compilation membership
+\end{lstlisting}
+同样：
+
+\begin{lstlisting}[language=text]
+test source exists ≠ test is discovered ≠ test artifact is executed
+\end{lstlisting}
+Source / Test membership SHOULD 可以从 import graph、root source files、test roots、Build Graph 清晰推理出来。
+
+\subsubsection{ZIG-ARCH-07 — Structure Follows Semantic Pressure}
+\textbf{Authority:} [E]
+
+本标准既不追求 \textbf{Flatness}，也不崇拜 \textbf{Layering}。正确目标是：
+
+\begin{gfmBlockquote}
+\textbf{the minimum structural depth required to express real semantic boundaries}
+\end{gfmBlockquote}
+因此：
+
+\begin{lstlisting}[language=text]
+compiler/
+├── frontend/
+│   ├── lexer/
+│   ├── parser/
+│   └── ast/
+├── semantic/
+├── backend/
+└── linker/
+\end{lstlisting}
+只要每一层都表达真实语义，就是合理结构。应该消灭的是 \textbf{Artificial Hierarchy}，而不是 \textbf{Hierarchy itself}。
+
+\subsubsection{ZIG-ARCH-08 — Naming Must Reveal Semantics}
+\textbf{Authority:} [O-G] + [E]
+
+Zig 0.16 Style Guide 明确警告在 type names 中使用过度泛化的 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_, \_\_INLINE\_CODE\_5\_\_, \_\_INLINE\_CODE\_6\_\_，因为这些词往往没有提供真正的分类信息。
+
+本标准将这一原则扩展到 Architecture Naming。以下名称 SHOULD 被视为 semantic smell：
+
+\begin{lstlisting}[language=text]
+utils.zig
+misc.zig
+helpers.zig
+common.zig
+managers/
+contexts/
+\end{lstlisting}
+除非项目能够清楚解释其真正语义。例如 \_\_INLINE\_CODE\_0\_\_ 更可能应该成为 \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_。
+
+命名本身就是 Architecture Design。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{8. Boundary Decision Framework}
+结构不能按照“项目越来越大”机械升级。正确方式是根据 boundary pressure 作决定。
+
+\subsubsection{8.1 When to Create a New File?}
+创建新 Source File SHOULD 至少满足一项：
+
+\begin{itemize}
+  \item 一个 coherent type 已经足够 substantial；
+  \item 一个 namespace 已经形成独立语义；
+  \item 当前 file 混合了多个不相关 responsibilities；
+  \item 拆分可以明显改善 locality；
+  \item 拆分可以形成更清晰的 semantic container。
+\end{itemize}
+不要默认 \_\_INLINE\_CODE\_0\_\_，也不要无限维持 \_\_INLINE\_CODE\_1\_\_。
+
+\subsubsection{8.2 When to Create a Directory?}
+Directory SHOULD 解决：
+
+\begin{itemize}
+  \item physical navigation；
+  \item semantic grouping；
+  \item large subsystem organization；
+  \item platform/backend grouping；
+  \item fixtures/assets 等资源定位。
+\end{itemize}
+Directory 本身 \textbf{SHOULD NOT} 被认为产生 Module、Package、Public API、Artifact。创建 Directory 的理由可以只是：“这些文件在语义和认知上属于一起。”这已经足够。
+
+\subsubsection{8.3 When to Create a Module?}
+创建新 Module SHOULD 至少存在一个明确 driver：
+
+\begin{itemize}
+  \item independent dependency boundary；
+  \item independent public surface；
+  \item dependency isolation；
+  \item compilation configuration difference；
+  \item multiple artifact reuse；
+  \item architectural dependency direction；
+  \item stable subsystem contract。
+\end{itemize}
+如果唯一理由是“这里已经有一个目录”，则 \textbf{SHOULD NOT} 创建 Module。
+
+\subsubsection{8.4 When to Create a Package?}
+Package SHOULD 解决：
+
+\begin{itemize}
+  \item dependency lifecycle；
+  \item package identity；
+  \item external consumption；
+  \item independent distribution；
+  \item independent release/version concern；
+  \item independent ownership。
+\end{itemize}
+如果一个 component 永远和主项目一起发布、使用相同 dependency policy、没有 external consumer、没有独立 ownership、不需要独立 distribution，那么它大概率只是 \textbf{Module or internal source subsystem} 而不是 Package。
+
+\subsubsection{8.5 When to Create an Artifact?}
+Artifact SHOULD 对应一个真正 Build Product：
+
+\begin{lstlisting}[language=text]
+CLI executable
+Daemon executable
+Static library
+Dynamic library
+Test artifact
+Object artifact
+Code generator executable
+\end{lstlisting}
+不要为了某个代码目录创建 Artifact。Artifact 是 \textbf{Runtime / Linking / Testing Boundary}，不是 \textbf{Organizational Folder Boundary}。
+
+\subsubsection{8.6 When to Create a Build Step?}
+Build Step SHOULD 表达一个真正的 construction dependency，例如：
+
+\begin{itemize}
+  \item compile；
+  \item install；
+  \item run；
+  \item test；
+  \item code generation；
+  \item asset generation；
+  \item packaging；
+  \item verification；
+  \item invocation of finite build tools。
+\end{itemize}
+不要为了“视觉上有阶段”而人为制造没有 dependency 意义的 Steps。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{9. Source Organization Standard}
+\subsubsection{9.1 File Naming}
+\textbf{Authority:} [O-G]
+
+Zig Style Guide 将 source files 分成 type-like 与 namespace-like 两类：
+
+\begin{itemize}
+  \item 文件拥有 top-level fields、表达可实例化 type 时，SHOULD 使用 \_\_INLINE\_CODE\_0\_\_；
+  \item 否则作为 namespace-like file，SHOULD 使用 \_\_INLINE\_CODE\_0\_\_；
+  \item directories SHOULD 使用 \_\_INLINE\_CODE\_0\_\_。
+\end{itemize}
+官方同时明确指出这些是 general rules of thumb，有合理理由时可以偏离。
+
+例如：
+
+\begin{lstlisting}[language=text]
+Client.zig
+Parser.zig
+Config.zig
+
+protocol.zig
+checksum.zig
+process.zig
+\end{lstlisting}
+\subsubsection{9.2 File-as-Type}
+File-as-Type 是 Zig source-file struct 语义的自然使用方式，不是模仿 class。
+
+例如：
+
+\begin{lstlisting}[language=zig]
+buffer: []const u8,
+position: usize,
+
+const Parser = @This();
+
+pub fn init(buffer: []const u8) Parser {
+    return .{
+        .buffer = buffer,
+        .position = 0,
+    };
+}
+\end{lstlisting}
+然后：
+
+\begin{lstlisting}[language=zig]
+const Parser = @import("Parser.zig");
+\end{lstlisting}
+这直接利用 Source File Struct，而不是人为模拟 OOP class。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{10. Import Architecture}
+\subsubsection{10.1 Local Implementation Relationship}
+\textbf{Authority:} [E]
+
+同一 Module 内部的 implementation composition MAY 使用相对 source-file import：
+
+\begin{lstlisting}[language=zig]
+const parser = @import("parser.zig");
+const codec = @import("internal/codec.zig");
+\end{lstlisting}
+它表达 \textbf{local implementation relationship}。
+
+\subsubsection{10.2 Cross-Boundary Relationship}
+跨稳定 Architecture Boundary 时 SHOULD 优先使用 Named Module：
+
+\begin{lstlisting}[language=zig]
+const protocol = @import("protocol");
+\end{lstlisting}
+表达 \textbf{explicit compilation dependency}。
+
+因此应高度警惕：
+
+\begin{lstlisting}[language=zig]
+@import("../../../../common/protocol.zig");
+\end{lstlisting}
+如果这条路径穿越了真实 architecture boundary，它意味着 \textbf{Filesystem Navigation is encoding Architecture Dependency}。
+
+本标准规定：
+
+\begin{gfmBlockquote}
+\textbf{Relative imports SHOULD remain within a coherent local implementation boundary. Cross-subsystem dependencies SHOULD normally be represented as named Module dependencies.}
+\end{gfmBlockquote}
+这是 \_\_INLINE\_CODE\_0\_\_，而不是 Zig 编译器的普遍代码风格要求。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{11. \_\_INLINE\_CODE\_0\_\_ Standard}
+\subsubsection{11.1 Root Source File ≠ \_\_INLINE\_CODE\_0\_\_}
+\textbf{Authority:} [O-S] + [P]
+
+必须严格区分 \_\_INLINE\_CODE\_0\_\_ 与 \_\_INLINE\_CODE\_1\_\_。
+
+Zig Compilation 中存在特殊 root module，且 \_\_INLINE\_CODE\_0\_\_ 指向它的 root source file；这个文件并不必须叫 \_\_INLINE\_CODE\_1\_\_。
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{\_\_INLINE\_CODE\_0\_\_ has no intrinsic language magic merely because of its filename.}
+\end{gfmBlockquote}
+当前官方 \_\_INLINE\_CODE\_0\_\_ 会生成 \_\_INLINE\_CODE\_1\_\_ 和 \_\_INLINE\_CODE\_2\_\_，说明这种 topology 是官方脚手架展示的自然默认之一，但不是语言要求。
+
+\subsubsection{11.2 Module Root as Intentional Public Surface}
+\textbf{Authority:} [E]
+
+当项目选择 \_\_INLINE\_CODE\_0\_\_ 作为 reusable Module root 时，SHOULD 将它视为：
+
+\begin{gfmBlockquote}
+\textbf{Module Facade / Intentional Public Surface}
+\end{gfmBlockquote}
+例如：
+
+\begin{lstlisting}[language=zig]
+pub const Client = @import("Client.zig");
+pub const Config = @import("Config.zig");
+
+pub const protocol = @import("protocol.zig");
+
+pub const Error = error{
+    InvalidConfiguration,
+    ConnectionFailed,
+};
+\end{lstlisting}
+内部 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_ 不需要机械 re-export。
+
+Module Root SHOULD 回答：\textbf{外部 consumer 被允许长期依赖什么？} 而不是：\textbf{当前目录里有哪些文件？}
+
+因此：
+
+\begin{gfmBlockquote}
+\textbf{A Module Root SHOULD expose a domain contract, not a source-file inventory.}
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{12. Process Boundary Standard}
+\subsubsection{12.1 Thin \_\_INLINE\_CODE\_0\_\_}
+\textbf{Authority:} [E]
+
+对于 Application / CLI：
+
+\begin{gfmBlockquote}
+\textbf{\_\_INLINE\_CODE\_0\_\_ SHOULD represent the process boundary.}
+\end{gfmBlockquote}
+它通常负责：
+
+\begin{itemize}
+  \item process entry；
+  \item process capabilities；
+  \item argument/environment acquisition；
+  \item top-level I/O capability；
+  \item allocator/resource boundary；
+  \item fatal-error translation；
+  \item exit semantics；
+  \item translation from ambient process state into explicit application inputs。
+\end{itemize}
+它 \textbf{SHOULD NOT} 成为 CLI parsing + configuration engine + networking + storage + retry policy + protocol implementation + state machine + business workflow 的总容器。
+
+\subsubsection{12.2 Zig 0.16 Process Capability Model}
+Zig 0.16 引入 \_\_INLINE\_CODE\_0\_\_ 作为 \_\_INLINE\_CODE\_1\_\_ 的可选参数，为程序提供预初始化的 allocator、arena、I/O、environment map、argv 等 process-level capabilities。
+
+因此，本标准将传统 \_\_INLINE\_CODE\_0\_\_ 提升为更准确的：
+
+\begin{gfmBlockquote}
+\textbf{\_\_INLINE\_CODE\_0\_\_ owns the process capability boundary.}
+\end{gfmBlockquote}
+典型形态：
+
+\begin{lstlisting}[language=zig]
+const std = @import("std");
+const app = @import("app");
+
+pub fn main(init: std.process.Init) !void {
+    const args =
+        try init.minimal.args.toSlice(init.arena.allocator());
+
+    try app.run(
+        init.gpa,
+        init.io,
+        args,
+    );
+}
+\end{lstlisting}
+核心不是特定函数签名，而是 architecture direction：
+
+\begin{lstlisting}[language=text]
+OS / std.start
+      │
+      ▼
+   main.zig
+      │
+      │ translate ambient process capabilities
+      ▼
+ Application Core
+\end{lstlisting}
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Application Core SHOULD receive explicit capabilities rather than rediscover ambient process state throughout the codebase.}
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{13. Public API Standard}
+Public API 是 Architecture Asset。Module Root SHOULD 公开 \textbf{semantic contract}，而不是 \textbf{physical implementation layout}。
+
+警惕：
+
+\begin{lstlisting}[language=zig]
+pub const parser = @import("parser.zig");
+pub const lexer = @import("lexer.zig");
+pub const cache = @import("cache.zig");
+pub const wire = @import("wire.zig");
+pub const internal = @import("internal.zig");
+\end{lstlisting}
+如果 consumer 最终依赖 \_\_INLINE\_CODE\_0\_\_，那么 physical refactor 将演变成 API break。
+
+更稳定的 surface：
+
+\begin{lstlisting}[language=zig]
+pub const Client = @import("Client.zig");
+pub const Config = @import("Config.zig");
+pub const Request = @import("request.zig").Request;
+\end{lstlisting}
+\textbf{Conformance test：}
+
+\begin{gfmBlockquote}
+\textbf{Can the implementation directory be reorganized without forcing consumers to change imports?}
+\end{gfmBlockquote}
+如果答案始终是否定的，Public Boundary 可能尚未形成。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{14. Dependency Architecture Standard}
+\subsubsection{14.1 Dependency Direction Must Be Explainable}
+成熟项目 SHOULD 能够画出 Module Dependency Graph。
+
+例如：
+
+\begin{lstlisting}[language=text]
+CLI
+ │
+ ▼
+Application
+ │
+ ├─────────────┐
+ ▼             ▼
+Protocol     Platform
+\end{lstlisting}
+Architecture Review MUST 能回答：\textbf{哪个 Module 被允许依赖哪个 Module？}，而不是：“反正文件能 import 到就行。”
+
+\subsubsection{14.2 Dependency Cycles}
+\textbf{Authority:} [O-S] + [E]
+
+Zig 官方明确允许 Module dependency loops。但本标准规定：
+
+\begin{gfmBlockquote}
+\textbf{Semantic ownership cycles SHOULD be avoided by default.}
+\end{gfmBlockquote}
+如果出现 \_\_INLINE\_CODE\_0\_\_，第一步 SHOULD 检查：
+
+\begin{itemize}
+  \item ownership 是否混乱；
+  \item API 是否双向泄漏；
+  \item 是否缺少共同 semantic abstraction；
+  \item 是否应该重新划分 subsystem boundary。
+\end{itemize}
+可能的重构：
+
+\begin{lstlisting}[language=text]
+      C
+     / \
+    ▼   ▼
+    A   B
+\end{lstlisting}
+但：
+
+\begin{gfmBlockquote}
+\textbf{不要机械地为了消灭 graph cycle 而制造毫无语义价值的 \_\_INLINE\_CODE\_0\_\_ Module。}
+\end{gfmBlockquote}
+如果所谓 \_\_INLINE\_CODE\_0\_\_ 只是垃圾桶（\_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_），那通常只是把问题移动了位置。
+
+\subsubsection{14.3 Deliberate Root Backreferences}
+root module 被隐式暴露为 \_\_INLINE\_CODE\_0\_\_，官方也描述了 library 读取 root declarations 以获取应用级全局配置的模式。
+
+因此必须区分 \_\_INLINE\_CODE\_0\_\_ 与 \_\_INLINE\_CODE\_1\_\_。
+
+例如：
+
+\begin{lstlisting}[language=text]
+Application Root
+      │
+      ▼
+   Library
+      │
+      └──── @import("root")
+\end{lstlisting}
+这种关系 MAY 是有意设计的 host-provided configuration。
+
+所以：
+
+\begin{gfmBlockquote}
+\textbf{Do not mechanically equate every graph backreference with broken ownership.}
+\end{gfmBlockquote}
+真正需要审查的是：\textbf{semantic ownership 是否循环。}
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{15. Build Architecture Standard}
+\subsubsection{15.1 \_\_INLINE\_CODE\_0\_\_ Owns Build Topology}
+\textbf{Authority:} [O-S] + [E]
+
+Zig Build System 可以声明和配置 build artifacts、options、tests、generated files、system/project tools 等，并以 Step DAG 组织任务。
+
+因此 \_\_INLINE\_CODE\_0\_\_ SHOULD 拥有：
+
+\begin{itemize}
+  \item Modules；
+  \item module dependency wiring；
+  \item Artifacts；
+  \item targets；
+  \item optimization configuration；
+  \item package dependencies；
+  \item build options；
+  \item test compilations；
+  \item run steps；
+  \item code generation；
+  \item packaging-related tasks；
+  \item build dependency topology。
+\end{itemize}
+核心原则：
+
+\begin{gfmBlockquote}
+\textbf{\_\_INLINE\_CODE\_0\_\_ owns construction topology, not application semantics.}
+\end{gfmBlockquote}
+\subsubsection{15.2 Permitted Build Work}
+\_\_INLINE\_CODE\_0\_\_ MAY 编排 finite、reproducible、build-related 的操作，例如：
+
+\begin{lstlisting}[language=text]
+compile, generate, verify, package, run project tool, run system tool, install, test
+\end{lstlisting}
+官方 Build System 本身支持 generated files、system tools 与 project tools。因此本标准不是：“任何外部命令都不能放进 build.zig。”
+
+\subsubsection{15.3 Runtime Boundary}
+\_\_INLINE\_CODE\_0\_\_ \textbf{SHOULD NOT} 成为以下行为的长期所有者：
+
+\begin{itemize}
+  \item application runtime state；
+  \item business workflow；
+  \item production reconciliation；
+  \item long-lived deployment control plane；
+  \item runtime recovery policy；
+  \item operational state machine。
+\end{itemize}
+例如：
+
+\begin{lstlisting}[language=text]
+desired production state
+      ↓
+continuous reconciliation
+      ↓
+failure recovery
+\end{lstlisting}
+不属于 \_\_INLINE\_CODE\_0\_\_。即使 Zig Build API 在技术上可以启动某些程序，也不意味着 Build System 应该拥有其运行时语义。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{16. Test Architecture Standard}
+\subsubsection{16.1 Unit Tests Near Semantics}
+\textbf{Authority:} [E]
+
+默认情况下 Unit Test SHOULD 与被测试 declaration 共置。
+
+例如：
+
+\begin{lstlisting}[language=zig]
+fn decodeFrame(...) !Frame {
+    // ...
+}
+
+test "decodeFrame rejects truncated header" {
+    // ...
+}
+\end{lstlisting}
+因为 unit test 测试的是 \textbf{Local Semantic Contract}，应尽可能保持 \_\_INLINE\_CODE\_0\_\_ 的 locality。
+
+\subsubsection{16.2 Integration Tests Use Explicit Test Roots}
+Integration / System Tests SHOULD 使用独立 test root，例如：
+
+\begin{lstlisting}[language=text]
+tests/
+├── root.zig
+├── integration.zig
+└── fixtures/
+\end{lstlisting}
+然后由 Build System 显式创建相应 Test Compilation。
+
+\subsubsection{16.3 Test Discovery Must Be Explicit}
+Zig test discovery 依赖 Compilation Discovery，而不是递归扫描 \_\_INLINE\_CODE\_0\_\_。官方给出的常见 discovery strategy 包括在 \_\_INLINE\_CODE\_1\_\_ / \_\_INLINE\_CODE\_2\_\_ block 中显式 \_\_INLINE\_CODE\_3\_\_ 需要发现的源码。
+
+例如：
+
+\begin{lstlisting}[language=zig]
+test {
+    _ = @import("integration.zig");
+}
+\end{lstlisting}
+因此：
+
+\begin{gfmBlockquote}
+\textbf{Test membership SHOULD be visible from the import/discovery graph.}
+\end{gfmBlockquote}
+\subsubsection{16.4 Dependency Module Tests Are Not Automatically the Root Suite}
+0.16 discovery rules 对 test declarations 的自动发现明确关联：\textbf{type/file 是否位于该 test compilation 的 root module。}
+
+因此多 Module 项目 SHOULD 显式决定 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_ 分别属于哪个 Test Compilation。不要假设：“依赖 Module 里写了 test，所以 root test suite 一定自动运行它们。”
+
+\subsubsection{16.5 Test Compile ≠ Test Run}
+使用 Zig Build System 时，test compilation 与 test execution 是不同 Build Steps。官方明确指出：如果没有通过 \_\_INLINE\_CODE\_0\_\_ 等方式建立 Run Step dependency，仅创建 test compilation 并不会执行 tests。
+
+因此：
+
+\begin{lstlisting}[language=text]
+Test Exists → Discovered → Compiled → Run Step Exists → Executed
+\end{lstlisting}
+这些状态 MUST 被区分。
+
+\subsubsection{16.6 \_\_INLINE\_CODE\_0\_\_ Is Not the Architecture Baseline}
+\textbf{Authority:} [E]
+
+本标准不规定 \_\_INLINE\_CODE\_0\_\_ 作为项目标准 test membership mechanism。
+
+默认策略是让 membership 通过 explicit test roots、\_\_INLINE\_CODE\_0\_\_、discovery graph、Build Graph 清晰可推理。
+
+目标是：
+
+\begin{gfmBlockquote}
+\textbf{Test topology should be explicit rather than recovered from broad reflection tricks.}
+\end{gfmBlockquote}
+特定项目 MAY 使用 \_\_INLINE\_CODE\_0\_\_，但必须知道自己希望解决的问题是什么。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{17. Naming and Semantic Cohesion Standard}
+\subsubsection{17.1 Generic Names Require Evidence}
+名称 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_, \_\_INLINE\_CODE\_5\_\_, \_\_INLINE\_CODE\_6\_\_, \_\_INLINE\_CODE\_7\_\_, \_\_INLINE\_CODE\_8\_\_ 不自动禁止。
+
+但使用它们时 SHOULD 能回答：
+
+\begin{gfmBlockquote}
+What state? What context? What is actually managed? What is actually common?
+\end{gfmBlockquote}
+例如 \_\_INLINE\_CODE\_0\_\_ 可能真正意味着 \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_, \_\_INLINE\_CODE\_5\_\_；而 \_\_INLINE\_CODE\_6\_\_ 可能真正意味着 \_\_INLINE\_CODE\_7\_\_, \_\_INLINE\_CODE\_8\_\_, \_\_INLINE\_CODE\_9\_\_, \_\_INLINE\_CODE\_10\_\_, \_\_INLINE\_CODE\_11\_\_, \_\_INLINE\_CODE\_12\_\_。命名越准确，Architecture Ownership 越清晰。
+
+\subsubsection{17.2 Avoid Ceremonial Layers}
+本标准不禁止 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_，也不默认推荐它们。如果问题本身确实具有这些变化边界和 dependency direction，它们完全合理。
+
+但不要为了模仿 Clean Architecture, Hexagonal Architecture, DDD 而预先生成 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_, \_\_INLINE\_CODE\_5\_\_。
+
+Architecture Boundary SHOULD 至少表达：
+
+\begin{itemize}
+  \item independent semantics；
+  \item independent dependency pressure；
+  \item independent reason to change。
+\end{itemize}
+否则它只是 \textbf{Ceremonial Architecture}。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{18. Evolution Standard — Structure Must Be Earned}
+项目 SHOULD 按真实 complexity 演化：
+
+\begin{lstlisting}[language=text]
+Single File
+    ↓
+Several Semantic Files
+    ↓
+Intentional Public Surface
+    ↓
+Multiple Modules
+    ↓
+Multiple Artifacts
+    ↓
+Multiple Packages
+\end{lstlisting}
+这是一种可能的 evolution path，不是一条必须逐级经过的状态机。禁止：
+
+\begin{lstlisting}[language=text]
+New Project → Generate Enterprise Architecture
+\end{lstlisting}
+抽象必须通过真实复杂性获得存在资格。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{19. Reference Pattern A — Minimal Program}
+\textbf{Authority:} [P]
+
+真正简单时：
+
+\begin{lstlisting}[language=text]
+hello/
+└── main.zig
+\end{lstlisting}
+已经足够。甚至不一定需要 Build System。不要为了显得专业，从第一天创建 \_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{20. Reference Pattern B — Small Application}
+\textbf{Authority:} [P]
+
+随着第一个真实 semantic boundary 出现：
+
+\begin{lstlisting}[language=text]
+project/
+├── build.zig
+├── build.zig.zon
+└── src/
+    ├── main.zig
+    ├── config.zig
+    └── process.zig
+\end{lstlisting}
+仍然完全可以只有一个 project Module。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{21. Reference Pattern C — Medium Application}
+\textbf{Authority:} [P]
+
+当核心逻辑需要与 process boundary 分离：
+
+\begin{lstlisting}[language=text]
+project/
+├── build.zig
+├── build.zig.zon
+│
+├── src/
+│   ├── main.zig
+│   ├── root.zig
+│   │
+│   ├── Config.zig
+│   ├── Engine.zig
+│   │
+│   ├── protocol.zig
+│   ├── process.zig
+│   │
+│   └── platform/
+│       ├── posix.zig
+│       └── windows.zig
+│
+└── tests/
+    └── root.zig
+\end{lstlisting}
+可能的 logical relationship：
+
+\begin{lstlisting}[language=text]
+main.zig
+   │
+   ▼
+Application Module
+   │
+   ▼
+root.zig facade
+   │
+   ├── Config
+   ├── Engine
+   ├── protocol
+   └── implementation files
+\end{lstlisting}
+这里所有文件名和目录都是 \textbf{Good Defaults}，不是 Zig language requirements。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{22. Reference Pattern D — Multi-Artifact System}
+\textbf{Authority:} [P]
+
+当同一个 Core 服务多个独立 executable：
+
+\begin{lstlisting}[language=text]
+project/
+├── build.zig
+├── build.zig.zon
+│
+└── src/
+    ├── core/
+    │   ├── root.zig
+    │   ├── Engine.zig
+    │   └── protocol.zig
+    │
+    ├── cli/
+    │   └── main.zig
+    │
+    └── daemon/
+        └── main.zig
+\end{lstlisting}
+Module Graph：
+
+\begin{lstlisting}[language=text]
+        core
+       ▲    ▲
+      /      \
+     /        \
+   cli       daemon
+\end{lstlisting}
+Artifact Graph：
+
+\begin{lstlisting}[language=text]
+core
+ ├── CLI executable
+ ├── daemon executable
+ └── test artifacts
+\end{lstlisting}
+Physical Tree、Module Graph、Artifact Graph 明确不同。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{23. Reference Pattern E — Multi-Package Repository}
+\textbf{Authority:} [P]
+
+只有出现真正 independent lifecycle 时再考虑：
+
+\begin{lstlisting}[language=text]
+project/
+├── packages/
+│   ├── protocol/
+│   │   ├── build.zig
+│   │   └── build.zig.zon
+│   │
+│   └── engine/
+│       ├── build.zig
+│       └── build.zig.zon
+│
+└── apps/
+    └── cli/
+\end{lstlisting}
+不要因为 \_\_INLINE\_CODE\_0\_\_ “看起来很独立”，就立即升级为 Package。Package Boundary 是 \textbf{lifecycle decision}，而不是 \textbf{folder size decision}。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{24. Consolidated Anti-Patterns}
+以下模式默认视为 Architecture Smell。
+
+\subsubsection{AP-01 — Filesystem as Dependency Injection}
+\begin{lstlisting}[language=zig]
+@import("../../../../foo/bar.zig");
+\end{lstlisting}
+跨越真实 architecture boundary 时，用物理路径编码逻辑依赖。
+
+\subsubsection{AP-02 — Module per Folder}
+\begin{lstlisting}[language=text]
+folder → module
+\end{lstlisting}
+机械一一对应。这只是重新引入 \textbf{Directory-as-Package thinking}。
+
+\subsubsection{AP-03 — Package per Module}
+\begin{lstlisting}[language=text]
+module → package
+\end{lstlisting}
+忽略两者生命周期语义完全不同。
+
+\subsubsection{AP-04 — Fat \_\_INLINE\_CODE\_0\_\_}
+Process Entry 直接拥有 storage、networking、retry、protocol、state machine、business semantics。
+
+\subsubsection{AP-05 — God \_\_INLINE\_CODE\_0\_\_}
+Thin \_\_INLINE\_CODE\_0\_\_ 不意味着：把所有实现搬进 \_\_INLINE\_CODE\_1\_\_。正确目标是：
+
+\begin{lstlisting}[language=text]
+root.zig → Intentional Public Surface → Coherent Implementation
+\end{lstlisting}
+\subsubsection{AP-06 — Runtime Control Plane in \_\_INLINE\_CODE\_0\_\_}
+长期 operational state、runtime reconciliation 或 recovery policy 被塞进 Build Graph。
+
+\subsubsection{AP-07 — Forced Flatness}
+因为“Zig 喜欢简单”而拒绝所有合理的 subsystem hierarchy。
+
+\subsubsection{AP-08 — Ceremonial Architecture}
+因为某个 Architecture Pattern 流行，就提前创建没有语义压力的抽象层。
+
+\subsubsection{AP-09 — Semantic Garbage Buckets}
+\_\_INLINE\_CODE\_0\_\_, \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_ 不断吸收无法分类的逻辑。
+
+\subsubsection{AP-10 — Premature Shared Module}
+看到 \_\_INLINE\_CODE\_0\_\_ 立刻创建 \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_，却没有真正发现 shared semantic contract。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{25. Architecture Decision Matrix}
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{| X | X | X |}
+\hline
+\rowcolor{codebg}
+\textbf{Question} & \textbf{Create} & \textbf{Primary Reason} \\ \hline
+一个 type/namespace 已形成独立 cohesive semantics？ & \textbf{File} & Semantic locality \\ \hline
+\rowcolor{codebg!50} 多个 files 需要更好的物理导航？ & \textbf{Directory} & Physical organization \\ \hline
+出现稳定 compilation dependency boundary？ & \textbf{Module} & Dependency architecture \\ \hline
+\rowcolor{codebg!50} 出现独立 identity/distribution lifecycle？ & \textbf{Package} & Lifecycle boundary \\ \hline
+出现独立 executable/link/test product？ & \textbf{Artifact} & Product boundary \\ \hline
+\rowcolor{codebg!50} 构建任务之间出现明确 dependency constraint？ & \textbf{Build Step} & Construction topology \\ \hline
+\end{tabularx}
+\end{table}
+任何 Architecture Review 在新增结构前 SHOULD 先回答：
+
+\begin{gfmBlockquote}
+\textbf{What pressure is this boundary responding to?}
+\end{gfmBlockquote}
+如果答案只是：“这样看起来更标准”，通常不应创建该 boundary。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{26. Conformance Review}
+Code Review / Architecture Review 不应该首先问：“这个文件应该放哪个标准目录？”，而应该按以下顺序检查。
+
+\subsubsection{Semantic Ownership}
+\begin{enumerate}
+  \item What semantic responsibility does this declaration own?
+  \item Does that responsibility deserve a separate file?
+  \item Is the file a coherent type or namespace?
+\end{enumerate}
+\subsubsection{Dependency}
+\begin{enumerate}
+  \item Is this relationship local implementation or cross-boundary dependency?
+  \item Does this boundary deserve a Module?
+  \item Can the Module Dependency Graph be explained?
+  \item Is a dependency cycle representing real semantic ownership confusion?
+\end{enumerate}
+\subsubsection{Lifecycle}
+\begin{enumerate}
+  \item Does this component really need independent Package identity or lifecycle?
+\end{enumerate}
+\subsubsection{Product}
+\begin{enumerate}
+  \item Is this a Module boundary or an Artifact boundary?
+\end{enumerate}
+\subsubsection{Discovery \& Testing}
+\begin{enumerate}
+  \item Will this source actually enter the Discovery Graph?
+  \item Will this test actually be discovered?
+  \item Is its Test Compilation actually executed?
+\end{enumerate}
+\subsubsection{Build}
+\begin{enumerate}
+  \item Does \_\_INLINE\_CODE\_0\_\_ describe construction topology or application runtime behavior?
+\end{enumerate}
+\subsubsection{API}
+\begin{enumerate}
+  \item Can the public API survive internal directory reorganization?
+\end{enumerate}
+\subsubsection{Naming}
+\begin{enumerate}
+  \item Does the chosen name reveal semantics or hide missing semantics?
+\end{enumerate}
+如果这些问题都有清晰答案：\textbf{目录结构通常会自然变得正确。}
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{27. Conformance Levels}
+\subsubsection{Required}
+所有 \_\_INLINE\_CODE\_0\_\_ 和 \_\_INLINE\_CODE\_1\_\_ 构成本标准的强制 Architecture Contract。
+
+\subsubsection{Recommended}
+所有 \_\_INLINE\_CODE\_0\_\_ 和 \_\_INLINE\_CODE\_1\_\_ 允许存在有理由的 deviation。但 deviation SHOULD 可以回答：
+
+\begin{gfmBlockquote}
+Why is this exception architecturally better here?
+\end{gfmBlockquote}
+\subsubsection{Preference}
+所有 \_\_INLINE\_CODE\_0\_\_ 只是 recommended baseline。例如 \_\_INLINE\_CODE\_1\_\_, \_\_INLINE\_CODE\_2\_\_, \_\_INLINE\_CODE\_3\_\_, \_\_INLINE\_CODE\_4\_\_ 均不构成 conformance requirement。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{28. Official Semantic Traceability}
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{| X | X | X | X |}
+\hline
+\rowcolor{codebg}
+\textbf{ID} & \textbf{Statement} & \textbf{Authority} & \textbf{Official Basis} \\ \hline
+ZIG-SEM-01 & Every source file is implicitly a \_\_INLINE\_CODE\_0\_\_ & O-S & Zig 0.16 Compilation Model \\ \hline
+\rowcolor{codebg!50} ZIG-SEM-02 & Module has a root source file & O-S & Compilation Model \\ \hline
+ZIG-SEM-03 & Modules can depend on Modules by name & O-S & Compilation Model \\ \hline
+\rowcolor{codebg!50} ZIG-SEM-04 & Module dependency loops are allowed & O-S & Compilation Model \\ \hline
+ZIG-SEM-05 & \_\_INLINE\_CODE\_0\_\_ refers to root module & O-S & Compilation Model \\ \hline
+\rowcolor{codebg!50} ZIG-SEM-06 & Discovery follows explicit recursive rules & O-S & File and Declaration Discovery \\ \hline
+ZIG-SEM-07 & Root-module test discovery has special semantics & O-S & File and Declaration Discovery \\ \hline
+\rowcolor{codebg!50} ZIG-BUILD-01 & Build System is modeled as a Step DAG & O-S & Zig Build System \\ \hline
+ZIG-BUILD-02 & Test Compile and Test Run are distinct Steps & O-S & Zig Build System Testing \\ \hline
+\rowcolor{codebg!50} ZIG-STYLE-01 & File-as-type uses TitleCase by convention & O-G & Style Guide \\ \hline
+ZIG-STYLE-02 & Namespace-like files/directories use snake\_case & O-G & Style Guide \\ \hline
+\rowcolor{codebg!50} ZIG-STYLE-03 & Generic names such as Manager/State/utils/misc are discouraged & O-G & Style Guide \\ \hline
+ZIG-PROC-01 & \_\_INLINE\_CODE\_0\_\_ exposes process capabilities to \_\_INLINE\_CODE\_1\_\_ & O-S/API & Zig 0.16 Release Notes \\ \hline
+\rowcolor{codebg!50} ZIG-PKG-01 & 0.16 package identity uses package metadata including name/fingerprint in override resolution & O-S/tooling & Zig 0.16 Release Notes \\ \hline
+ZIG-PREF-01 & Current \_\_INLINE\_CODE\_0\_\_ emits \_\_INLINE\_CODE\_1\_\_ and \_\_INLINE\_CODE\_2\_\_ & O-G/example & Official Getting Started \\ \hline
+\end{tabularx}
+\end{table}
+这张表是 Architecture Standard 与当前 Zig 官方语义之间的 Traceability Boundary。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{29. Frozen Engineering Decisions}
+在 Zig 0.16 baseline 下，本标准冻结以下工程结论：
+
+\begin{lstlisting}[language=text]
+Thin main.zig
+Intentional Module Root
+Relative imports stay local by default
+Named Modules express cross-subsystem dependencies
+Do not create one Module per directory
+Do not create one Package per Module
+Unit tests live near local semantics by default
+Integration tests use explicit test roots
+Test membership must be intentional
+Semantic dependency cycles are smells by default
+Public API must not mirror file inventory
+build.zig owns construction topology
+Long-lived runtime semantics stay outside build.zig
+Naming must reveal semantic ownership
+Structure must be earned by real complexity
+\end{lstlisting}
+这些属于 \textbf{Architecture choices derived from Zig semantics}，而不是 Zig 语言本身的 universal requirements。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{30. Final Architecture Model}
+成熟 Zig 项目不应该只展示 \_\_INLINE\_CODE\_0\_\_ 目录树。它 SHOULD 能够同时解释：
+
+\begin{lstlisting}[language=text]
+Physical Source Tree
+        │
+Semantic Container / Namespace View
+        │
+Module Dependency Graph
+        │
+Declaration Discovery Graph
+        │
+Package Dependency / Lifecycle View
+        │
+Artifact / Product Graph
+        │
+Build Step DAG
+\end{lstlisting}
+这些不是一张图，也不是一个机械层级。它们共同构成项目的 Architecture Model。
+
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{31. Final Manifesto}
+Zig 项目架构的目标不是创造最漂亮的目录树。
+
+不是最大程度减少文件数量。
+
+不是模仿 Java Package。
+
+不是模仿 Go Package。
+
+不是模仿 Rust Crate。
+
+不是因为 Zig 强调简单就拒绝 Architecture。
+
+也不是因为大型系统复杂，就提前制造 Enterprise Ceremony。
+
+真正应该保持的是：
+
+\begin{gfmBlockquote}
+\textbf{File gives semantic locality.}
+\textbf{Directory gives physical organization.}
+\textbf{Module gives explicit compilation dependencies.}
+\textbf{Package gives lifecycle identity.}
+\textbf{Artifact gives build products.}
+\textbf{Discovery determines compilation reality.}
+\textbf{Build DAG gives construction dependencies.}
+\textbf{Naming communicates semantic intent.}
+\textbf{Explicitness gives architecture clarity.}
+\end{gfmBlockquote}
+\vspace{0.5em}\hrule\vspace{0.5em}
+\subsection{32. Architecture Freeze Statement}
+本 Standard v1.0 最终冻结的不是：
+
+\begin{lstlisting}[language=text]
+src/
+├── main.zig
+├── root.zig
+└── ...
+\end{lstlisting}
+这样的目录模板。
+
+它冻结的是以下 Architecture Reasoning Model：
+
+\begin{gfmBlockquote}
+\textbf{Do not derive logical architecture mechanically from physical structure.}
+\end{gfmBlockquote}
+在 Zig 中：
+
+\begin{lstlisting}[language=text]
+File ≠ Directory ≠ Module ≠ Package ≠ Artifact ≠ Build Step
+\end{lstlisting}
+这些对象拥有不同职责。只有当真实语义产生新的 boundary pressure 时，结构才应该增长。
+
+因此，本标准最终坚持：
+
+\begin{gfmBlockquote}
+\textbf{Neither flatness nor layering is the Zig architecture ideal. Explicitness is.}
+\end{gfmBlockquote}
+项目应该：
+
+\begin{gfmBlockquote}
+\textbf{Start simple.}
+\textbf{Discover real boundaries.}
+\textbf{Make those boundaries explicit.}
+\textbf{Keep dependency direction explainable.}
+\textbf{Keep compilation reality observable.}
+\textbf{Stop abstracting when the semantics are already clear.}
+\end{gfmBlockquote}
+\end{document}
