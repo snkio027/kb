@@ -1,0 +1,21 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  lane/.style={font=\sffamily\bfseries\scriptsize\color{ESDAccentDark}},
+  arr/.style={-{Stealth[length=1.8mm]},draw=ESDAccent,line width=.65pt},
+  note/.style={fill=ESDAccentTint,draw=ESDAccent,rounded corners=1pt,font=\sffamily\scriptsize,align=center,inner sep=2mm}
+]
+\foreach \name/\x in {Worker/0,State/4.3,Store/8.6}{
+  \node[lane] at (\x,0) {\name};
+  \draw[ESDLine] (\x,-.25)--(\x,-4.4);
+}
+\draw[arr] (0,-.8)--node[above,font=\scriptsize]{claim idempotency key}(4.3,-.8);
+\draw[arr] (0,-1.6)--node[above,font=\scriptsize]{write partial object}(8.6,-1.6);
+\draw[arr] (0,-2.4)--node[above,font=\scriptsize]{verify digest / metadata}(8.6,-2.4);
+\draw[arr] (0,-3.2)--node[above,font=\scriptsize]{commit authoritative result}(4.3,-3.2);
+\draw[arr] (4.3,-4.0)--node[above,font=\scriptsize]{ACK only after commit}(0,-4.0);
+\node[note] at (8.6,-3.45) {partial output\\never becomes formal};
+\end{tikzpicture}
+\ESDFigureCaption{图 3　幂等键、partial output 与权威提交的顺序约束}
+\end{figure}
+

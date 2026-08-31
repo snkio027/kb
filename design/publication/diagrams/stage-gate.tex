@@ -1,0 +1,17 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  stage/.style={circle,draw=ESDAccent,fill=ESDAccentTint,minimum size=8.5mm,font=\sffamily\bfseries\scriptsize},
+  arr/.style={-{Stealth[length=1.8mm]},draw=ESDAccent,line width=.65pt}
+]
+\foreach \i/\x in {0/0,1/1.45,2/2.9,3/4.35,4/5.8,5/7.25,6/8.7,7/10.15,8/11.6,9/13.05}{
+  \node[stage] (s\i) at (\x,0) {\i};
+  \ifnum\i>0 \pgfmathtruncatemacro{\p}{\i-1}\draw[arr] (s\p)--(s\i);\fi
+}
+\node[font=\sffamily\scriptsize\color{ESDMuted},align=center] at (2.9,-.9) {语义与\\状态闭合};
+\node[font=\sffamily\scriptsize\color{ESDMuted},align=center] at (7.25,-.9) {架构与\\运行闭合};
+\node[font=\sffamily\scriptsize\color{ESDMuted},align=center] at (11.6,-.9) {证据与\\准入闭合};
+\end{tikzpicture}
+\ESDFigureCaption{图 1　Stage 0--9：每个阶段均以可裁决 Gate 收敛}
+\end{figure}
+

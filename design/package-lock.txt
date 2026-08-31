@@ -1,0 +1,11 @@
+pandoc=3.11
+lualatex=LuaHBTeX 1.24.0
+latex-kernel=2025-11-01
+latexmk=4.88
+ctex=2.5.10
+fontspec=2.9g
+poppler=pdftoppm,pdfinfo,pdftotext,pdffonts
+pypdf=6.10.0
+pypdfium2=5.13.0
+pillow=12.3.0
+profile=Professional Release

@@ -1,0 +1,14 @@
+# ESD PDF font lock — 2026-08-31
+
+Latin serif: Source Serif 4 (TeX Live 2026, embedded OpenType)
+Latin sans: Source Sans 3 (TeX Live 2026, embedded OpenType)
+Latin mono: Source Code Pro (TeX Live 2026, embedded OpenType)
+CJK serif: FandolSong Regular/Bold (TeX Live 2026, embedded OpenType)
+CJK sans: FandolHei Regular/Bold (TeX Live 2026, embedded OpenType)
+CJK mono fallback: FandolFang Regular (TeX Live 2026, embedded OpenType)
+
+Preferred editorial family: Source Han Serif SC / Source Han Sans SC.
+Build deviation: the locally available Source Han packages are variable OTC/TTC
+collections that LuaHBTeX 1.24 cannot embed reliably (loca-table failure).
+The release profile therefore uses the metrically stable, redistributable Fandol
+families. This is a typography-only deviation and does not alter source content.

@@ -1,0 +1,53 @@
+\documentclass{esdbook}
+
+$if(methodology)$
+\ESDSetupMethod
+$else$
+\ESDSetupReference
+$endif$
+
+\renewcommand{\ESDDocumentID}{$document_id$}
+\renewcommand{\ESDDocumentVersion}{$version$}
+\renewcommand{\ESDSuiteName}{$suite$}
+\renewcommand{\ESDHeaderRole}{$role$}
+
+\hypersetup{
+  pdftitle={$title$},
+  pdfauthor={$owner$},
+  pdfsubject={$role$},
+  pdfkeywords={system design, architecture review, engineering assurance, $document_id$}
+}
+
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+\providecommand{\pandocbounded}[1]{#1}
+\newcommand{\real}[1]{#1}
+\newcounter{none}
+\renewcommand{\thenone}{}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+$if(methodology)$
+\ESDCover{$cover_kicker$}{$title$}{$subtitle$}{$document_id$}{$version$}{$status$}{$owner$}
+$else$
+\ESDCover{$cover_kicker$}{优秀系统设计：\\[1.5mm]从约束、不变量到证据}{$subtitle$}{$document_id$}{$version$}{$status$}{$owner$}
+$endif$
+\hypersetup{pageanchor=true}
+\frontmatter
+\ESDControlPage{$document_id$}{$version$}{$status$}{$role$}{$suite$}{$date$}{$owner$}{$review_cycle$}
+$if(methodology)$
+\ESDRelationshipMethod
+$else$
+\ESDRelationshipReference
+$endif$
+\chapter*{版本与变更}
+\addcontentsline{toc}{chapter}{版本与变更}
+本版为 \textbf{v$version$} 基线，取代 front matter 中列出的早期版本。后续任何语义、门禁或证据要求变更，应先更新权威 Markdown，再重新生成本 PDF 与构建清单。
+
+\tableofcontents
+\clearpage
+$body$
+\ESDBackMatterNote
+\end{document}

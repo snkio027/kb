@@ -1,0 +1,22 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm and 5mm,
+  box/.style={draw=ESDAccent,fill=ESDAccentTint,rounded corners=2pt,minimum height=9mm,text width=27mm,align=center,font=\sffamily\scriptsize},
+  arr/.style={-{Stealth[length=2mm]},draw=ESDAccent,line width=.7pt}
+]
+\node[box] (problem) {问题与业务结果};
+\node[box,right=of problem] (inputs) {约束·工作负载·风险};
+\node[box,right=of inputs] (props) {关键性质与优先级};
+\node[box,right=of props] (state) {状态·身份·所有权};
+\node[box,below=10mm of state] (evidence) {验证·证据·边界};
+\node[box,left=of evidence] (ops) {运营·恢复·演进};
+\node[box,left=of ops] (mechanism) {语义·机制·平面};
+\node[box,left=of mechanism] (bounds) {资源上界·容量·成本};
+\draw[arr] (problem)--(inputs); \draw[arr] (inputs)--(props); \draw[arr] (props)--(state);
+\draw[arr] (state)--(evidence); \draw[arr] (evidence)--(ops); \draw[arr] (ops)--(mechanism); \draw[arr] (mechanism)--(bounds);
+\draw[arr,dashed] (evidence.south) -- ++(0,-5mm) -| (inputs.south);
+\end{tikzpicture}
+\ESDFigureCaption{图 1　从问题与约束到证据边界的完整推导链}
+\end{figure}
+

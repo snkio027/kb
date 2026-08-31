@@ -1,0 +1,18 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  plane/.style={draw=ESDAccent,rounded corners=2pt,minimum height=24mm,text width=65mm,align=left,inner sep=4mm,font=\small},
+  label/.style={font=\sffamily\bfseries\color{ESDAccentDark}}
+]
+\node[plane,fill=ESDAccentTint] (control) {\textsf{\textbf{控制面}}\\策略、期望状态、调度与变更决策};
+\node[plane,fill=white,right=6mm of control] (data) {\textsf{\textbf{数据面}}\\在线流量、数据处理与核心业务路径};
+\node[plane,fill=white,below=6mm of control] (manage) {\textsf{\textbf{管理面}}\\配置、发布、身份、运维与生命周期};
+\node[plane,fill=ESDAccentTint,below=6mm of data] (assure) {\textsf{\textbf{保证面}}\\主张、验证、证据、门禁与漂移监测};
+\draw[-{Stealth},ESDAccent] (control)--(data);
+\draw[-{Stealth},ESDAccent] (manage)--(control);
+\draw[-{Stealth},ESDAccent,dashed] (assure)--(data);
+\draw[-{Stealth},ESDAccent,dashed] (assure)--(control);
+\end{tikzpicture}
+\ESDFigureCaption{图 2　控制面、数据面、管理面与保证面的责任分离}
+\end{figure}
+

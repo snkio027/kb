@@ -1,0 +1,19 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=7mm,
+  box/.style={draw=ESDAccent,fill=ESDAccentTint,rounded corners=2pt,minimum height=10mm,text width=27mm,align=center,font=\sffamily\scriptsize},
+  arr/.style={-{Stealth[length=2mm]},draw=ESDAccent,line width=.75pt}
+]
+\node[box] (claim) {设计主张};
+\node[box,right=of claim] (property) {已编码属性};
+\node[box,right=of property] (verify) {验证机制};
+\node[box,right=of verify] (evidence) {绑定证据};
+\node[box,below=10mm of evidence] (decision) {门禁决策};
+\node[box,left=of decision] (runtime) {运行反馈};
+\draw[arr] (claim)--(property); \draw[arr] (property)--(verify); \draw[arr] (verify)--(evidence); \draw[arr] (evidence)--(decision);
+\draw[arr] (decision)--(runtime); \draw[arr,dashed] (runtime.west) -| (claim.south);
+\end{tikzpicture}
+\ESDFigureCaption{图 3　从设计主张到运行反馈的持续保证链}
+\end{figure}
+

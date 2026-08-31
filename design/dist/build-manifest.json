@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-31T00:00:00Z",
+  "source_date_epoch": 1788134400,
+  "profile": "Professional Release",
+  "source_of_truth": "Markdown",
+  "sources": [
+    "01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+  ],
+  "artifacts": {
+    "01-优秀系统设计与工程保证方法论-v1.1.0.pdf": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+    "02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb"
+  },
+  "toolchain": {
+    "pandoc": "pandoc 3.11",
+    "lualatex": "This is LuaHBTeX, Version 1.24.0 (TeX Live 2026)",
+    "latex_kernel": "2025-11-01",
+    "latexmk": "Latexmk, John Collins, 9 March 2026. Version 4.88"
+  },
+  "publication_source_sha256": {
+    "publication/esdbook.cls": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+    "publication/esd-theme.sty": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+    "publication/template.tex": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+    "publication/filters/normalize-headings.lua": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+    "publication/filters/semantic-blocks.lua": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+    "publication/filters/tables.lua": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+    "publication/filters/code-blocks.lua": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+    "publication/filters/cross-references.lua": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+    "publication/filters/pdf-metadata.lua": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55"
+  },
+  "locks": [
+    "package-lock.txt",
+    "texlive.profile",
+    "fonts.lock"
+  ],
+  "pdf_ua_claim": null,
+  "accessibility_status": "UNKNOWN / NOT RELEASE-QUALIFIED"
+}

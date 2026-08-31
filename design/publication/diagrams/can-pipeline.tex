@@ -1,0 +1,19 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm,
+  box/.style={draw=ESDAccent,fill=ESDAccentTint,rounded corners=2pt,minimum height=10mm,text width=28mm,align=center,font=\sffamily\scriptsize},
+  arr/.style={-{Stealth[length=2mm]},draw=ESDAccent,line width=.75pt}
+]
+\node[box] (object) {对象存储\\权威输入};
+\node[box,right=of object] (admit) {准入与任务状态};
+\node[box,right=of admit] (stream) {有界流式下载};
+\node[box,right=of stream] (chunk) {切块与 CPU 调度};
+\node[box,below=10mm of chunk] (publish) {幂等发布\\正式结果};
+\node[box,left=of publish] (verify) {校验与证据};
+\draw[arr] (object)--(admit); \draw[arr] (admit)--(stream); \draw[arr] (stream)--(chunk); \draw[arr] (chunk)--(publish); \draw[arr] (publish)--(verify);
+\draw[arr,dashed] (verify.west) -| (admit.south);
+\end{tikzpicture}
+\ESDFigureCaption{图 2　CAN 案例的有界处理与正式结果发布路径}
+\end{figure}
+
