@@ -26,12 +26,13 @@
 | [项目计划 · KB-PLAN-001 v0.2.0](project/plan.md) | 唯一当前维护入口；补齐阶段、工作包及验收边界，仍为 `DRAFT / PROPOSED PLAN` |
 | [出版系统设计 · KB-PUB-DESIGN-001 v0.1.0](project/publication-design.md) | 阅读产品、保真/引用/分页合同及分批边界；保持设计提案身份 |
 | [B1-A 入口隔离实施记录](project/publication-b1a.md) | 预览输入准备、旧入口关闭及验证边界；不代表 PDF 或发布验收 |
+| [可用 PDF 预览实施记录](project/publication-preview.md) | 六篇独立草案与合订工作版、沙箱编译、保真/导航/视觉检查及使用边界 |
 | [资产接收登记](project/asset-register.md) | 区分实际可用资产、历史提及但未接收的材料及待核验证据 |
 | [审阅闭合记录](reviews/a67fb25-review-status.md) | 保存限定范围的 P1/P2 闭合结论及验证边界，不代替正式批准 |
 
 此前 `KB-WP-01` 的原稿接收与维护稿补齐已通过限定范围复审。原始附件 v0.1.0 作为不可变来源归档，旧维护稿 v0.1.0 由 Git 保存，来源与摘要见 [资产登记 §7](project/asset-register.md)。项目计划仍为 v0.2.0 草案，不改变 ESD/ECD 或出版工具版本，不代表整套路线已采纳。
 
-出版设计已通过限定范围复审，版本仍为 v0.1.0 / DRAFT。本轮另获授权实施 B1-A：旧写入入口关闭，只开放隔离的预览输入准备。B1-B 身份渲染、真实 PDF 编译/渲染、试件、候选与发布仍未实施或开放，不能把整个 WP-02 或 P0 标为完成。检查、提交及推送后停止；ECD 源码、报告和原始日志仍待接收。
+出版设计已通过限定范围复审，版本仍为 v0.1.0 / DRAFT。后续交付改为完整能力增量：本批将身份修正、真实内容试件、六篇全文与合订编排及必要检查一起实现，不再逐内部步骤审批。当前提供隔离的草案 PDF 预览；六个旧写入入口、候选与正式发布继续关闭，不据此把完整 WP-02 或 P0 标为完成。ECD 源码、报告和原始日志仍待接收。
 
 已有 [Atlas 抽样记录](examples/pilots/README.md) 保留为非规范性示例：两个 mock 契约测试、单评审者初评，不等于完整采用试点或生产验证。本轮不继续推进 Atlas 实施；kb 构建流程与真实 CAN 系统是计划中的候选，尚待确认对象和风险等级。
 
@@ -41,9 +42,9 @@
 - [工程参考卷 · v1.1.0](dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf)
 - [构建清单](dist/build-manifest.json) · [SHA-256 校验和](dist/sha256sums.txt)
 
-本轮不修改 PDF。以下 PDF 保留 v1.1.0 历史内容，不是当前 Markdown 草案的同步视图；后续正式发布需另行构建与验证。
+以上 PDF 保留 v1.1.0 历史内容，未被本批改写，不是当前 Markdown 草案的同步视图。新版草案预览位于隔离的本地构建目录；后续正式发布需另行授权与验证。
 
-PDF 统一保存在 `dist/`。发布版本不声明 PDF/UA 合规；字体替代记录见 [fonts.lock](fonts.lock)。
+历史发布 PDF 保存在 `dist/`；预览不得写入该目录。两类制品均不声明 PDF/UA 合规；历史字体替代记录见 [fonts.lock](fonts.lock)，新预览记录实际使用的字体与 TeX 输入摘要。
 
 ## 目录约定
 
@@ -57,14 +58,30 @@ PDF 统一保存在 `dist/`。发布版本不声明 PDF/UA 合规；字体替代
 | [publication/](publication/) | LaTeX 模板、主题、过滤器、图表与配置 |
 | [scripts/](scripts/) | 构建、预检、渲染与比较工具 |
 | [dist/](dist/) | 唯一受版本控制的 PDF 发布目录 |
-| `build/preview/<build-id>/<attempt-id>/` | B1-A 本地输入快照与准备记录，已忽略；不包含 PDF |
+| `build/preview/<preparation-id>/<attempt-id>/` | 本地输入快照、准备/PDF 分层终态及 `work/` 中的七份预览、检查与渲染，已忽略 |
 | `tmp/` | 历史本地渲染预览与缓存，已忽略；旧写入入口已关闭 |
 
 ## 构建与检查
 
-> **当前只开放输入准备，不生成 PDF。** 旧 build、preflight、render、compare 和 manifest 写入入口均非零退出且不执行后端；普通预览、候选和发布仍关闭。B1-A 只建立准备阶段的隔离，PDF 身份准确性须由 B1-B 单独修正，外部编译/渲染子进程的隔离也须在开放前另验。
+> **当前开放完整草案预览，不开放正式发布。** 一次调用生成六篇独立 PDF 与一份合订工作版，自动执行内容/结构检查并渲染所有页。旧 build、preflight、render、compare 和 manifest 入口仍拒绝执行。
 
-B1-A 入口及隔离测试仅依赖 Python 3.9+ 标准库和 Git（当前在 macOS 验证；要求 POSIX 目录句柄与 no-follow 支持）。不调用 Pandoc、TeX 或 PDF 库。历史依赖声明保留在 [package-lock.txt](package-lock.txt)、[texlive.profile](texlive.profile) 与 [fonts.lock](fonts.lock)，本轮不重新核验其安装状态或兼容性。
+完整预览当前要求 **macOS + sandbox-exec**、Python 3.9+、[pypdf](publication/requirements-preview.txt)、Git、Pandoc、LuaLaTeX 与 Poppler `pdftoppm`。工具须在 PATH 中；TeX Live 需含 ctex、Fandol、Source Serif/Sans/Code 字体及模板所用宏包。缺少依赖或隔离后端时失败，不回退到无沙箱编译。实际验证版本见 [实施记录](project/publication-preview.md)。
+
+如需独立 Python 环境，可自行创建 venv 并安装锁定的检查依赖（不修改系统 Python）：
+
+```sh
+python3 -m venv design/build/preview-tools
+design/build/preview-tools/bin/python -m pip install -r design/publication/requirements-preview.txt
+PDF_PYTHON=design/build/preview-tools/bin/python sh design/scripts/preview.sh
+```
+
+已有依赖时，整套构建只需：
+
+```sh
+python3 -B design/scripts/pub.py preview
+```
+
+命令输出本次目录。七份 PDF 位于 `work/output/pdf/`，入口为 `work/output/README.md`；原文副本在 `work/output/source/`，全页 PNG 在 `work/renders/`。目录中的标识是准备身份；包含实际工具、检查库与 TeX 输入的执行身份另记在 `work/preview-audit.json`。新增文档只需更新 [源目录](publication/source-catalog.json)，标题、ID、版本、状态从源 Front Matter 读取，不维护第二份标题表。
 
 准备当前实际输入，可包含未提交修改；不接受自定义输出路径：
 
@@ -72,7 +89,7 @@ B1-A 入口及隔离测试仅依赖 Python 3.9+ 标准库和 Git（当前在 mac
 python3 -B design/scripts/pub.py preview --prepare-only
 ```
 
-输出中的 `PREPARED` 仅表示已复制并记录输入，不表示 PDF、保真、视觉或阅读任务通过。每次尝试独立保留；失败或取消不覆盖历史 `dist/`，没有有效完成记录的目录视为未完成。完整输入、身份及失败合同见 [B1-A 实施记录](project/publication-b1a.md)。
+`result.json: PREPARED` 仅表示输入准备完成；只有独立的 `preview-result.json: PREVIEW_READY` 才表示本次七份 PDF 通过实现中的自动检查与渲染。两者都不等于视觉批准、规范批准或正式发布。`.pending`、孤立 PDF、缺失或失败的最终记录不得当作成功。每次尝试独立保留，失败/取消不覆盖旧尝试及历史 `dist/`。准备协议见 [B1-A 记录](project/publication-b1a.md)，完整预览合同见 [本批记录](project/publication-preview.md)。
 
 运行临时仓库中的隔离测试，不编译或渲染 PDF：
 
@@ -80,4 +97,12 @@ python3 -B design/scripts/pub.py preview --prepare-only
 python3 -B design/scripts/test-publication-isolation.py
 ```
 
-`content-audit.py` 仍依赖旧编译输出，不是当前准备阶段的验收入口；`pdf-structure-audit.py` 仍是只读结构诊断，运行结果不授予发布资格。本轮未运行这两项。仅核对历史文件校验和时，可在 `design/` 中执行 `sha256sum -c dist/sha256sums.txt`，无需重建。
+运行真实编译、沙箱拒绝写入及取消回归（需要完整依赖；全部使用一次性仓库）：
+
+```sh
+python3 -B design/scripts/test-preview.py
+```
+
+`content-audit.py` 仍依赖旧编译输出；新预览使用 `preview.py` 内置的源块、表格行关系及 PDF 检查。`pdf-structure-audit.py` 保留为旧只读诊断，本批未以其结果授予资格。仅核对历史文件校验和时，可在 `design/` 中执行 `shasum -a 256 -c dist/sha256sums.txt`，无需重建。
+
+当前限制：仅验证 macOS 单一引擎；不提供可访问性认证、填写表单或正式发布事务。代码自动换行属于阅读视图，复制执行请使用随附的权威 Markdown；ASCII 空间图不静默折行。合订版提供内部跨篇定位，独立版的外部源链接依赖阅读器与网络，未提交源变更则使用随附快照。视觉/阅读自查范围及未验证项分别记录，不把全自动检查通过扩大为全面正确性保证。

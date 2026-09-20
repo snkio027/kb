@@ -1,0 +1,4 @@
+{
+  "source_patterns": ["00-*.md", "01-*.md", "02-*.md", "03-*.md", "04-*.md", "05-*.md"],
+  "note": "Each pattern selects exactly one authoritative source. IDs, titles, versions and states are read from its front matter."
+}

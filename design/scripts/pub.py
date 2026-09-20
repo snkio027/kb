@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""B1-A only: prepare isolated inputs; all PDF and release operations stay closed."""
+"""Prepare inputs or build sandboxed draft previews. Candidate/publish stay closed."""
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -22,7 +23,7 @@ REQUIRED_PUBLICATION = ("publication/template.tex", "publication/profiles/releas
 POLICY = {
     "schema_version": 2,
     "operation": "PREVIEW_INPUT_PREPARATION",
-    "pdf_build": "DISABLED_PENDING_B1B",
+    "pdf_build": "SANDBOXED_DRAFT_PREVIEW_AVAILABLE",
     "candidate": "DISABLED",
     "publish": "DISABLED",
     "output_policy": "build/preview/<build-id>/<attempt-id>",
@@ -91,10 +92,20 @@ def regular_bytes(parent_fd, name):
 def input_snapshot(root_fd):
     result = {}
     names = os.listdir(root_fd)
-    for number in range(6):
-        matches = [name for name in names if name.startswith(f"{number:02d}-") and name.endswith(".md")]
+    patterns = [f"{number:02d}-*.md" for number in range(6)]
+    with directory(root_fd, "publication") as publication_fd:
+        if "source-catalog.json" in os.listdir(publication_fd):
+            patterns = json.loads(regular_bytes(publication_fd, "source-catalog.json"))["source_patterns"]
+    if not isinstance(patterns, list) or not patterns:
+        raise PreparationError("source catalog must contain a nonempty pattern list")
+    for pattern in patterns:
+        if not isinstance(pattern, str) or "/" in pattern or not pattern.endswith(".md"):
+            raise PreparationError("source catalog only accepts root Markdown filename patterns")
+        matches = [name for name in names if fnmatch.fnmatchcase(name, pattern)]
         if len(matches) != 1:
-            raise PreparationError(f"expected exactly one {number:02d} Markdown source")
+            raise PreparationError(f"expected exactly one Markdown source for {pattern}")
+        if matches[0] in result:
+            raise PreparationError("duplicate source catalog selection")
         result[matches[0]] = regular_bytes(root_fd, matches[0])
     for name in LOCKS:
         result[name] = regular_bytes(root_fd, name)
@@ -233,15 +244,18 @@ class ResultCommit:
     for diagnosis and must never be interpreted as terminal results.
     """
 
-    def __init__(self, fd):
+    def __init__(self, fd, final_name="result.json"):
         self.fd = fd
         self.pending = None
+        if final_name not in ("result.json", "preview-result.json"):
+            raise PreparationError("unsupported terminal record name")
+        self.final_name = final_name
 
     def commit(self, value):
         self.pending = ".result-" + uuid.uuid4().hex + ".pending"
         write_json(self.fd, self.pending, value)
         # Unlike replace()/ordinary rename(), link fails if result.json exists.
-        os.link(self.pending, "result.json", src_dir_fd=self.fd, dst_dir_fd=self.fd,
+        os.link(self.pending, self.final_name, src_dir_fd=self.fd, dst_dir_fd=self.fd,
                 follow_symlinks=False)
 
     def is_committed(self):
@@ -249,7 +263,7 @@ class ResultCommit:
             return False
         try:
             staged = os.stat(self.pending, dir_fd=self.fd, follow_symlinks=False)
-            final = os.stat("result.json", dir_fd=self.fd, follow_symlinks=False)
+            final = os.stat(self.final_name, dir_fd=self.fd, follow_symlinks=False)
         except OSError:
             return False
         return (stat.S_ISREG(staged.st_mode) and stat.S_ISREG(final.st_mode)
@@ -311,24 +325,33 @@ def main(argv=None):
     parser.add_argument("operation", choices=("preview", "build", "check", "render", "candidate", "publish"))
     parser.add_argument("--prepare-only", action="store_true")
     args = parser.parse_args(argv)
-    if args.operation != "preview" or not args.prepare_only:
-        parser.error("B1-A only permits preview --prepare-only; PDF operations and publication are disabled")
+    if args.operation != "preview":
+        parser.error("only preview [--prepare-only] is enabled; candidate and publication are disabled")
 
     def cancel(signum, _frame):
         raise Cancelled(signum)
 
     previous = {signum: signal.signal(signum, cancel) for signum in (signal.SIGINT, signal.SIGTERM)}
     try:
-        print(json.dumps(prepare(ROOT), ensure_ascii=False))
+        if not args.prepare_only:
+            sys.dont_write_bytecode = True
+            import preview
+            preview.preflight()
+        prepared = prepare(ROOT)
+        if args.prepare_only:
+            outcome = prepared
+        else:
+            outcome = preview.run_preview(prepared, ROOT, sys.modules[__name__])
+        print(json.dumps(outcome, ensure_ascii=False))
         return 0
     except Cancelled as error:
-        print("INTERRUPTED: consult result.json if committed; no terminal state is overwritten", file=sys.stderr)
+        print("INTERRUPTED: consult result.json (preparation) and preview-result.json (PDF); committed states are retained", file=sys.stderr)
         return 128 + error.signum
     except KeyboardInterrupt:
         print("INTERRUPTED: consult result.json if committed; no terminal state is overwritten", file=sys.stderr)
         return 130
-    except (PreparationError, OSError, subprocess.SubprocessError) as error:
-        print("ERROR: " + str(error) + "; a committed result.json remains authoritative", file=sys.stderr)
+    except (PreparationError, OSError, subprocess.SubprocessError, RuntimeError) as error:
+        print("ERROR: " + str(error) + "; result.json is preparation only; consult preview-result.json for PDF completion", file=sys.stderr)
         return 1
     finally:
         for signum, handler in previous.items():

@@ -1,0 +1,67 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preview-theme}[2026/09/21 Draft reading views]
+\usepackage{fontspec,geometry,xcolor,graphicx,booktabs,longtable,array,calc}
+\usepackage{titlesec,fancyhdr,hyperref,bookmark,xurl,enumitem,needspace}
+\usepackage{fvextra,tcolorbox,amssymb,seqsplit}
+\tcbuselibrary{breakable,skins}
+\geometry{left=22mm,right=22mm,top=22mm,bottom=24mm,headheight=22pt,headsep=6mm,footskip=11mm}
+\setmainfont{SourceSerif4-Regular.otf}[BoldFont=SourceSerif4-Bold.otf,ItalicFont=SourceSerif4-RegularIt.otf,Ligatures=TeX]
+\setsansfont{SourceSans3-Regular.otf}[BoldFont=SourceSans3-Bold.otf,ItalicFont=SourceSans3-RegularIt.otf,Ligatures=TeX]
+\setmonofont{SourceCodePro-Regular.otf}[BoldFont=SourceCodePro-Bold.otf,Ligatures=NoCommon]
+\setCJKmainfont{FandolSong-Regular.otf}[BoldFont=FandolSong-Bold.otf,ItalicFont=FandolKai-Regular.otf]
+\setCJKsansfont{FandolHei-Regular.otf}[BoldFont=FandolHei-Bold.otf]
+\setCJKmonofont{FandolFang-Regular.otf}
+\definecolor{PreviewNavy}{HTML}{17324A}
+\definecolor{PreviewInk}{HTML}{202C36}
+\definecolor{PreviewTeal}{HTML}{176B67}
+\definecolor{PreviewMuted}{HTML}{607383}
+\definecolor{PreviewLine}{HTML}{CAD5DD}
+\definecolor{PreviewPaper}{HTML}{F2F6F8}
+\color{PreviewInk}
+\linespread{1.22}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\setlength{\emergencystretch}{4em}
+\raggedbottom\clubpenalty=10000\widowpenalty=10000
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\setlist{leftmargin=2em,itemsep=2pt,parsep=2pt,topsep=4pt}
+\setcounter{secnumdepth}{-1}\setcounter{tocdepth}{1}
+\renewcommand{\contentsname}{目录}
+% Document boundaries start a page; source chapters may share a page.
+\titleclass{\chapter}{straight}
+\titleformat{\chapter}[block]{\sffamily\bfseries\color{PreviewNavy}\fontsize{23}{29}\selectfont}{}{0pt}{}
+\titlespacing*{\chapter}{0pt}{22pt}{14pt}
+\titleformat{\section}{\sffamily\bfseries\large\color{PreviewTeal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{15pt}{7pt}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{PreviewNavy}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+\titleformat{\subsubsection}[block]{\sffamily\bfseries\normalsize}{}{0pt}{}
+\newcommand{\PreviewID}{ESD · PREVIEW}
+\newcommand{\PreviewVersion}{DRAFT}
+\newcommand{\PreviewStatus}{DRAFT}
+\newcommand{\PreviewSetIdentity}[3]{\gdef\PreviewID{#1}\gdef\PreviewVersion{#2}\gdef\PreviewStatus{#3}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewMuted}\PreviewID\quad v\PreviewVersion}
+\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewTeal}PREVIEW / DRAFT}
+\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\color{PreviewMuted}\PreviewStatus}
+\fancyfoot[R]{\sffamily\small\color{PreviewMuted}\thepage}
+\renewcommand{\headrulewidth}{.3pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\PreviewID\quad v\PreviewVersion}\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont PREVIEW / DRAFT}\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\PreviewStatus}\fancyfoot[R]{\sffamily\small\thepage}}
+\hypersetup{unicode=true,colorlinks=true,linkcolor=PreviewTeal,urlcolor=PreviewTeal,pdfdisplaydoctitle=true,bookmarksopen=false,pdflang={zh-CN}}
+\urlstyle{same}
+\DeclareRobustCommand{\PreviewInlineCode}[1]{\texttt{\seqsplit{#1}}}
+\pdfstringdefDisableCommands{\def\PreviewInlineCode#1{#1}}
+\makeatletter
+\newcommand{\PreviewHeading}[3]{\par\Needspace{6\baselineskip}\hypertarget{#2}{}\csname #1\endcsname*{#3}\def\@currentHref{#2}\label{#2}\addcontentsline{toc}{#1}{#3}}
+\makeatother
+\providecommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{1pt}}
+\providecommand{\passthrough}[1]{#1}
+\providecommand{\pandocbounded}[1]{#1}
+\newcounter{none}
+\newtcolorbox{PreviewQuote}{enhanced,breakable,colback=PreviewPaper,colframe=PreviewLine,boxrule=0pt,borderline west={1.5pt}{0pt}{PreviewTeal},arc=0pt,left=8pt,right=8pt,top=5pt,bottom=5pt,before skip=7pt,after skip=7pt}
+\newenvironment{PreviewTable}{\begingroup\fontsize{9.5}{13}\selectfont\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.2}}{\endgroup}
+\newtcolorbox{PreviewRecordBox}[1]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewTeal,fonttitle=\sffamily\bfseries\small,title={#1},title after break={#1 · 续},boxrule=.3pt,arc=0pt,left=7pt,right=7pt,top=4pt,bottom=4pt,before skip=7pt,after skip=7pt}
+\newtcolorbox{PreviewCodeBox}[1]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewMuted,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#1 · 原文代码／流程},title after break={#1 · 续},boxrule=.3pt,arc=0pt,left=5pt,right=5pt,top=4pt,bottom=4pt,before skip=7pt,after skip=7pt}
+\newcommand{\PreviewCodeFormat}{\hyphenpenalty=50\relax\exhyphenpenalty=50\relax}
+\DefineVerbatimEnvironment{PreviewCode}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,breaklines=true,breakanywhere=true,breakanywheresymbolpre={},breaksymbolleft={},breaksymbolright={},tabsize=4}
+\DefineVerbatimEnvironment{PreviewFlow}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,breaklines=false,tabsize=4}

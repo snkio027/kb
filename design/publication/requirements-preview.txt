@@ -1,0 +1,2 @@
+# Python 3.9+; tested PDF text/structure reader. Compilation uses system tools.
+pypdf==6.10.0

@@ -245,7 +245,7 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(list((self.root / "build").rglob("result.json")), [])
 
     def test_closed_operations_and_redirects_do_not_write(self):
-        cases = [[name] for name in ("preview", "build", "check", "render", "candidate", "publish")]
+        cases = [[name] for name in ("build", "check", "render", "candidate", "publish")]
         cases += [["publish", "--prepare-only"], ["preview", "--prepare-only", "--output", str(self.dist)],
                   ["preview", "--prepare-only", "--root", str(self.dist)]]
         for args in cases:
