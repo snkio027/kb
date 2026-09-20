@@ -406,20 +406,20 @@ Callee-Saved：被调用方若修改这些寄存器，必须在退出前恢复�
 
 \subsection{5.7 Apple Silicon ARM64 核心寄存器速查}
 \begin{table}[htbp]
-\centering
-\small
-\begin{tabularx}{\textwidth}{| X | X | X |}
-\hline
-\rowcolor{codebg}
-\textbf{寄存器} & \textbf{约定类别} & \textbf{主要用途与角色} \\ \hline
-x0 - x7 & Caller-Saved & 参数传递 / 返回值传递（低 32 位为 w0 - w7） \\ \hline
-\rowcolor{codebg!50} x9 - x15 & Caller-Saved & 临时通用计算寄存器 \\ \hline
-x19 - x28 & Callee-Saved & 长期局部变量与跨调用状态保存 \\ \hline
-\rowcolor{codebg!50} x29 (FP) & Callee-Saved & 栈帧指针（Frame Pointer） \\ \hline
-x30 (LR) & Caller-Saved (特殊) & 链接寄存器（Link Register，保存返回地址） \\ \hline
-\rowcolor{codebg!50} SP & 专职寄存器 & 栈指针（Stack Pointer，需保持 16 字节对齐） \\ \hline
-v0 - v31 & 混合 & 浮点与 SIMD 向量寄存器（d0-d31 / s0-s31） \\ \hline
-\end{tabularx}
+	\centering
+	\small
+	\begin{tabularx}{\textwidth}{| X | X | X |}
+		\hline
+		\rowcolor{codebg}
+		\textbf{寄存器}                  & \textbf{约定类别}     & \textbf{主要用途与角色}                \\ \hline
+		x0 - x7                       & Caller-Saved      & 参数传递 / 返回值传递（低 32 位为 w0 - w7）   \\ \hline
+		\rowcolor{codebg!50} x9 - x15 & Caller-Saved      & 临时通用计算寄存器                       \\ \hline
+		x19 - x28                     & Callee-Saved      & 长期局部变量与跨调用状态保存                  \\ \hline
+		\rowcolor{codebg!50} x29 (FP) & Callee-Saved      & 栈帧指针（Frame Pointer）             \\ \hline
+		x30 (LR)                      & Caller-Saved (特殊) & 链接寄存器（Link Register，保存返回地址）     \\ \hline
+		\rowcolor{codebg!50} SP       & 专职寄存器             & 栈指针（Stack Pointer，需保持 16 字节对齐）  \\ \hline
+		v0 - v31                      & 混合                & 浮点与 SIMD 向量寄存器（d0-d31 / s0-s31） \\ \hline
+	\end{tabularx}
 \end{table}
 \subsection{5.8 Register Spill 与 As-if 规则}
 Spill：当 register pressure、calling convention、debug/codegen strategy（如 -O0）等使某个值无法或不适合继续保存在寄存器中时，编译器可能把它 spill 到 stack。
@@ -456,25 +456,25 @@ CMake、Ninja、Make、Zig Build 的核心是管理 Artifact Derivation Graph（
 
 \subsection{6.4 G0 自测清单}
 \begin{itemize}
-  \item 能否清晰解释 .cpp 到 CPU 执行的完整阶段与各个中间工件？
-  \item 为什么只有 Declaration 也能成功生成包含调用的 .o 文件？
-  \item Relocation 到底解决了单文件编译时的什么核心问题？
-  \item .a 静态库与 .dylib 动态库在链接和加载时有何本质区别？
-  \item 为什么 public struct 调整字段顺序属于破坏 ABI？
-  \item ARM64 的 LR 与 FP 在非叶子函数调用中分别承担什么职责？
-  \item 为什么局部变量退出作用域后原地址可能还能读出旧数据，但这依然是严重 UB？
+	\item 能否清晰解释 .cpp 到 CPU 执行的完整阶段与各个中间工件？
+	\item 为什么只有 Declaration 也能成功生成包含调用的 .o 文件？
+	\item Relocation 到底解决了单文件编译时的什么核心问题？
+	\item .a 静态库与 .dylib 动态库在链接和加载时有何本质区别？
+	\item 为什么 public struct 调整字段顺序属于破坏 ABI？
+	\item ARM64 的 LR 与 FP 在非叶子函数调用中分别承担什么职责？
+	\item 为什么局部变量退出作用域后原地址可能还能读出旧数据，但这依然是严重 UB？
 \end{itemize}
 \subsection{6.5 十条不可动摇的核心铁律}
 \begin{enumerate}
-  \item C++ 程序不等于 .cpp：原生程序是 Source → TU → Object → Link → Load → Process 的系统化结果。
-  \item Translation Unit 是传统 C++ 分离编译的核心独立单元。
-  \item Declaration 提供接口契约，Definition 真正提供实体实现。
-  \item Object File 是结构化的二进制工件，包含机器码、Sections、符号表与重定位记录。
-  \item Linker 的核心职责 是符号解析（Symbol Resolution）与地址重定位（Relocation）。
-  \item 静态库是 .o 归档包；动态库是独立的运行时镜像。
-  \item API 是源码级调用契约，ABI 是机器码级协作契约。
-  \item 源码变量、对象生命周期与物理内存栈槽是完全解耦的概念。
-  \item 函数调用在底层统一落地为寄存器传参、栈对齐、返回地址保存与 ABI 规范。
-  \item 源码仅描述程序语义，不等于机器执行模型；系统级分析必须能够下沉至二进制与硬件层。
+	\item C++ 程序不等于 .cpp：原生程序是 Source → TU → Object → Link → Load → Process 的系统化结果。
+	\item Translation Unit 是传统 C++ 分离编译的核心独立单元。
+	\item Declaration 提供接口契约，Definition 真正提供实体实现。
+	\item Object File 是结构化的二进制工件，包含机器码、Sections、符号表与重定位记录。
+	\item Linker 的核心职责 是符号解析（Symbol Resolution）与地址重定位（Relocation）。
+	\item 静态库是 .o 归档包；动态库是独立的运行时镜像。
+	\item API 是源码级调用契约，ABI 是机器码级协作契约。
+	\item 源码变量、对象生命周期与物理内存栈槽是完全解耦的概念。
+	\item 函数调用在底层统一落地为寄存器传参、栈对齐、返回地址保存与 ABI 规范。
+	\item 源码仅描述程序语义，不等于机器执行模型；系统级分析必须能够下沉至二进制与硬件层。
 \end{enumerate}
 \end{document}

@@ -1,5 +1,23 @@
+# macOS metadata
+.DS_Store
+
+# LaTeX intermediates (keep .tex sources and published .pdf files)
 *.aux
 *.log
 *.out
 *.toc
-.DS_Store
+*.fls
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.xdv
+
+# Local Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local credentials; example configuration may be committed
+.env
+.env.*
+!.env.example

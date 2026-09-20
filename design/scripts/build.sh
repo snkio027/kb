@@ -7,8 +7,7 @@ cd "$design_dir"
 export SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-1788134400}"
 export FORCE_SOURCE_DATE=1
 
-mkdir -p build dist output/pdf tmp/pdfs/texmf-var tmp/pdfs/texmf-cache
-rm -f dist/SHA256SUMS.txt dist/build-manifest.txt
+mkdir -p build dist tmp/pdfs/texmf-var tmp/pdfs/texmf-cache
 
 filters=(
   publication/filters/pdf-metadata.lua
@@ -37,7 +36,6 @@ build_one() {
     -outdir=build "$tex"
 
   cp "$pdf" "dist/${stem}.pdf"
-  cp "$pdf" "output/pdf/${stem}.pdf"
 }
 
 build_one "01-优秀系统设计与工程保证方法论-v1.1.0.md"

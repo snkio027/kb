@@ -18,14 +18,14 @@ rm -f \
   tmp/pdfs/render-method-pdfium/page-*.png \
   tmp/pdfs/render-reference-pdfium/page-*.png
 
-pdftoppm -png -r "$dpi" output/pdf/01-优秀系统设计与工程保证方法论-v1.1.0.pdf tmp/pdfs/render-method-poppler/page
-pdftoppm -png -r "$dpi" output/pdf/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf tmp/pdfs/render-reference-poppler/page
+pdftoppm -png -r "$dpi" dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf tmp/pdfs/render-method-poppler/page
+pdftoppm -png -r "$dpi" dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf tmp/pdfs/render-reference-poppler/page
 
 "$python_cmd" scripts/render-pdfium.py \
-  output/pdf/01-优秀系统设计与工程保证方法论-v1.1.0.pdf \
+  dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf \
   tmp/pdfs/render-method-pdfium \
   "$dpi"
 "$python_cmd" scripts/render-pdfium.py \
-  output/pdf/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf \
+  dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf \
   tmp/pdfs/render-reference-pdfium \
   "$dpi"

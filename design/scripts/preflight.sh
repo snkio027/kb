@@ -4,6 +4,7 @@ set -euo pipefail
 design_dir="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$design_dir"
 python_cmd="${PYTHON_BIN:-python3}"
+mkdir -p tmp/pdfs
 
 resolve_pdf_tool() {
   local tool_name="$1"
@@ -42,7 +43,7 @@ if [[ -z "$pdftotext_cmd" ]]; then
 fi
 
 fail=0
-for pdf in output/pdf/*.pdf; do
+for pdf in dist/*.pdf; do
   echo "== $pdf =="
   pdfinfo "$pdf" | rg '^(Title|Author|Pages|Page size|PDF version|Tagged):'
   "$pdffonts_cmd" "$pdf" | sed -n '1,12p'
@@ -64,14 +65,14 @@ for log in build/*.log; do
 done
 
 for stem in 01-优秀系统设计与工程保证方法论-v1.1.0 02-优秀系统设计-从约束不变量到证据-v1.1.0; do
-  "$pdftotext_cmd" -layout "output/pdf/${stem}.pdf" "tmp/pdfs/${stem}.txt"
+  "$pdftotext_cmd" -layout "dist/${stem}.pdf" "tmp/pdfs/${stem}.txt"
 done
 
 rg -q '最终判定标准' tmp/pdfs/01-优秀系统设计与工程保证方法论-v1.1.0.txt || fail=1
 rg -q '最小 19 问设计清单' tmp/pdfs/02-优秀系统设计-从约束不变量到证据-v1.1.0.txt || fail=1
 rg -q '两篇文档的最终边界' tmp/pdfs/02-优秀系统设计-从约束不变量到证据-v1.1.0.txt || fail=1
 
-"$python_cmd" scripts/pdf-structure-audit.py output/pdf/*.pdf || fail=1
+"$python_cmd" scripts/pdf-structure-audit.py dist/*.pdf || fail=1
 "$python_cmd" scripts/content-audit.py || fail=1
 
 exit "$fail"
