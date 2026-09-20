@@ -20,12 +20,14 @@ ROOT = Path(__file__).resolve().parent.parent
 LOCKS = ("fonts.lock", "package-lock.txt", "texlive.profile")
 REQUIRED_PUBLICATION = ("publication/template.tex", "publication/profiles/release.yaml")
 POLICY = {
-    "schema_version": 1,
+    "schema_version": 2,
     "operation": "PREVIEW_INPUT_PREPARATION",
     "pdf_build": "DISABLED_PENDING_B1B",
     "candidate": "DISABLED",
     "publish": "DISABLED",
     "output_policy": "build/preview/<build-id>/<attempt-id>",
+    "git_probe_policy": "reject-content-filters-and-gitlinks-v1",
+    "result_commit_policy": "file-fsync-then-no-replace-link-v1",
 }
 DIRECTORY_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
 
@@ -132,17 +134,38 @@ def git_context(root):
 
     def git(*args):
         return subprocess.check_output(
-            ["git", "-c", "core.fsmonitor=false", "-C", str(root), *args], env=env,
+            ["git", "--no-pager", "-c", "core.fsmonitor=false", "-C", str(root), *args], env=env,
             stderr=subprocess.PIPE,
         )
 
+    # Read effective configuration (all scopes and conditional includes) before
+    # any status/content comparison. Even an unused or empty filter is refused.
+    # This query reads configuration; it does not execute a configured filter.
+    try:
+        filters = git("config", "--includes", "--null", "--name-only", "--get-regexp",
+                      r"^filter\..*\.(clean|smudge|process)$")
+    except subprocess.CalledProcessError as error:
+        if error.returncode != 1 or error.output:
+            raise
+        # A launcher may also emit a nonfatal temporary-directory warning.
+        filters = b""  # git config returns 1 for no matching keys, not for success.
+    if filters:
+        names = [os.fsdecode(name) for name in filters.split(b"\0") if name]
+        raise PreparationError("unsupported Git filter configuration: " + json.dumps(names))
+
     if Path(os.fsdecode(git("rev-parse", "--show-toplevel")).strip()).resolve() != root.parent.resolve():
         raise PreparationError("design must belong to its parent Git repository")
-    status = git("status", "--porcelain=v1", "-z", "--untracked-files=all")
+    # Do not recurse into submodule repositories with separately configured helpers.
+    # ls-files reads index entries without refreshing worktree content.
+    entries = git("ls-files", "--stage", "-z", "--", ":/").split(b"\0")
+    if any(entry.startswith(b"160000 ") for entry in entries):
+        raise PreparationError("unsupported Git submodule index entries")
+    status = git("status", "--porcelain=v1", "-z", "--untracked-files=all", "--ignore-submodules=all")
     return {
         "commit": git("rev-parse", "HEAD").decode("ascii").strip(),
         "dirty": bool(status),
         "worktree_status_sha256": digest(status),
+        "status_policy": POLICY["git_probe_policy"],
     }
 
 
@@ -193,11 +216,44 @@ def write_json(fd, name, value):
 
 def result(status, **details):
     return {
+        "schema_version": 2,
+        "commit_protocol": POLICY["result_commit_policy"],
         "status": status, "finished_at": now(),
         "meaning": "Input preparation only; not a PDF or publication approval",
         "checks": {key: "NOT_RUN" for key in ("pdf", "content_fidelity", "visual", "reading")},
         **details,
     }
+
+
+class ResultCommit:
+    """Only the final hard-link name is a committed, immutable terminal record.
+
+    File fsync precedes the link. This is a local visibility commit, not a claim
+    of directory-tree durability across power loss. Pending files are retained
+    for diagnosis and must never be interpreted as terminal results.
+    """
+
+    def __init__(self, fd):
+        self.fd = fd
+        self.pending = None
+
+    def commit(self, value):
+        self.pending = ".result-" + uuid.uuid4().hex + ".pending"
+        write_json(self.fd, self.pending, value)
+        # Unlike replace()/ordinary rename(), link fails if result.json exists.
+        os.link(self.pending, "result.json", src_dir_fd=self.fd, dst_dir_fd=self.fd,
+                follow_symlinks=False)
+
+    def is_committed(self):
+        if self.pending is None:
+            return False
+        try:
+            staged = os.stat(self.pending, dir_fd=self.fd, follow_symlinks=False)
+            final = os.stat("result.json", dir_fd=self.fd, follow_symlinks=False)
+        except OSError:
+            return False
+        return (stat.S_ISREG(staged.st_mode) and stat.S_ISREG(final.st_mode)
+                and (staged.st_dev, staged.st_ino) == (final.st_dev, final.st_ino))
 
 
 def prepare(root):
@@ -209,10 +265,12 @@ def prepare(root):
         build_id = digest(canonical(description))
         attempt_id = uuid.uuid4().hex
         relative = f"build/preview/{build_id}/{attempt_id}"
+        outcome = {"status": "PREPARED", "build_id": build_id, "path": str(root / relative)}
         with directory(root_fd, f"build/preview/{build_id}", create=True) as build_fd:
             # A collision is a failure, never permission to reuse an old attempt.
             os.mkdir(attempt_id, mode=0o700, dir_fd=build_fd)
             with directory(build_fd, attempt_id) as run_fd:
+                completion = ResultCommit(run_fd)
                 try:
                     write_json(run_fd, "run.json", {
                         "status": "PREPARING", "channel": "PREVIEW", "started_at": now(),
@@ -224,15 +282,19 @@ def prepare(root):
                         raise PreparationError("inputs or Git context changed during preparation")
                     if runtime_identity() != runtime:
                         raise PreparationError("preparation runtime changed during preparation")
-                    write_json(run_fd, "result.json", result("PREPARED"))
+                    completion.commit(result("PREPARED"))
                 except (Exception, KeyboardInterrupt) as error:
+                    # A signal/error can arrive just after link() succeeded but
+                    # before Python returns. The inode witness resolves that window.
+                    if completion.is_committed():
+                        return {**outcome, "notice": "interrupted after completion commit; PREPARED retained"}
                     status = "CANCELLED" if isinstance(error, (Cancelled, KeyboardInterrupt)) else "FAILED"
                     try:
-                        write_json(run_fd, "result.json", result(status, diagnostic=str(error)))
+                        ResultCommit(run_fd).commit(result(status, diagnostic=str(error)))
                     except (OSError, Cancelled, KeyboardInterrupt):
-                        pass  # Incomplete or malformed result is never success.
+                        pass  # Pending files are never terminal results.
                     raise
-        return {"status": "PREPARED", "build_id": build_id, "path": str(root / relative)}
+        return outcome
 
 
 @contextmanager
@@ -260,13 +322,13 @@ def main(argv=None):
         print(json.dumps(prepare(ROOT), ensure_ascii=False))
         return 0
     except Cancelled as error:
-        print("CANCELLED: input preparation interrupted", file=sys.stderr)
+        print("INTERRUPTED: consult result.json if committed; no terminal state is overwritten", file=sys.stderr)
         return 128 + error.signum
     except KeyboardInterrupt:
-        print("CANCELLED: input preparation interrupted", file=sys.stderr)
+        print("INTERRUPTED: consult result.json if committed; no terminal state is overwritten", file=sys.stderr)
         return 130
     except (PreparationError, OSError, subprocess.SubprocessError) as error:
-        print("FAILED: " + str(error), file=sys.stderr)
+        print("ERROR: " + str(error) + "; a committed result.json remains authoritative", file=sys.stderr)
         return 1
     finally:
         for signum, handler in previous.items():
