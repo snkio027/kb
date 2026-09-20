@@ -15,11 +15,21 @@
 
 ## 当前文档修订
 
-六篇 Markdown 正在进行 `2.0.0-draft.1` 语义校准；仍处于待评审草案，尚未完成项目试运行。旧文件名暂作稳定入口，版本以正文元数据为准。批准、校准与试运行状态见 [00 §13](00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md)。
+六篇 Markdown 为 `2.0.0-draft.1`。本轮跟踪的文档缺陷已在限定复审范围内关闭，见 [a67fb25 审阅记录](reviews/a67fb25-review-status.md)；这不等于整套批准或实践验证，六篇仍为未获发布批准的草案，尚未完成 R1/R2 采用试点。旧文件名暂作稳定入口，版本以正文元数据为准。批准、校准与试运行状态见 [00 §13](00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md)。
 
-## 项目试点
+## 项目建设入口
 
-已开始 [Atlas 试点评审](examples/pilots/README.md)：先用固定提交的状态契约测试试填评审记录，检验对象身份、证据边界和状态判定是否清楚。当前仅完成单评审者的首个检查切片，风险定级、独立复评及生产验证尚未完成；不改变六篇规范的草案状态。
+当前主任务是完善工程文档体系的可采用性，不继续增加宏观规范，也不以项目实施代替文档建设。
+
+| 入口 | 用途 |
+| --- | --- |
+| [项目计划 · KB-PLAN-001](project/plan.md) | ESD、ECD 与受控出版的阶段、依赖和工作包；状态为 `DRAFT / PROPOSED PLAN` |
+| [资产接收登记](project/asset-register.md) | 区分实际可用资产、历史提及但未接收的材料及待核验证据 |
+| [审阅闭合记录](reviews/a67fb25-review-status.md) | 保存限定范围的 P1/P2 闭合结论及验证边界，不代替正式批准 |
+
+本次仅交付 `KB-WP-01` 的收口材料；`KB-WP-02` 预览与发布隔离尚未实施，不能把整个 P0 标为完成。后续优先最小模板、规则反例与采用反馈；ECD 先接收源码和证据，再继续实现验证。
+
+已有 [Atlas 抽样记录](examples/pilots/README.md) 保留为非规范性示例：两个 mock 契约测试、单评审者初评，不等于完整采用试点或生产验证。本轮不继续推进 Atlas 实施；kb 构建流程与真实 CAN 系统是计划中的候选，尚待确认对象和风险等级。
 
 ## 已发布 PDF
 
@@ -36,6 +46,8 @@ PDF 统一保存在 `dist/`。发布版本不声明 PDF/UA 合规；字体替代
 | 路径 | 用途 |
 | --- | --- |
 | `00-…md` 至 `05-…md` | 权威文档 |
+| [project/](project/) | 非规范性项目计划与资产接收事实 |
+| [reviews/](reviews/) | 范围明确的审阅记录，不自动授予发布批准 |
 | [examples/pilots/](examples/pilots/) | 非规范性项目试点记录与原始执行证据 |
 | [to-pdf.md](to-pdf.md) | PDF 出版设计与实现约束 |
 | [publication/](publication/) | LaTeX 模板、主题、过滤器、图表与配置 |
@@ -46,9 +58,11 @@ PDF 统一保存在 `dist/`。发布版本不声明 PDF/UA 合规；字体替代
 
 ## 构建与检查
 
+> **当前入口尚未完成发布隔离。** `scripts/build.sh` 会把当前 Markdown 编译结果复制到历史 `dist/*-v1.1.0.pdf` 路径，并更新校验和及清单。当前正文已是新草案，因此不要将下列历史流程当作普通预览命令执行。`KB-WP-02` 将单独修复该边界；本轮不运行构建、不修改 PDF 或构建行为。
+
 依赖 Pandoc、TeX Live / LuaLaTeX、latexmk、Poppler、Python 3，以及预检使用的 ripgrep 和 Perl。Python 检查与渲染依赖 `pypdf`、`pypdfium2`、Pillow；已验证的版本见 [package-lock.txt](package-lock.txt)、[texlive.profile](texlive.profile) 与 [fonts.lock](fonts.lock)。
 
-从仓库根目录执行：
+以下保留现有出版流程供维护核对，**不是本轮执行步骤**：
 
 ```sh
 bash design/scripts/build.sh
@@ -56,7 +70,7 @@ bash design/scripts/preflight.sh
 bash design/scripts/render-verify.sh
 ```
 
-预检需要构建生成的 LaTeX 和日志，因此应先运行构建。渲染结果位于 `design/tmp/pdfs/`，用于人工检查版面。如检查依赖安装在独立 Python 环境中，可通过 `PYTHON_BIN` 指定其解释器路径。
+现有预检依赖构建生成的 LaTeX 和日志；不要为运行预检而重建历史 dist。`KB-WP-02` 将一并核对入口与检查对象。现有渲染结果位于 `design/tmp/pdfs/`，用于人工检查版面；检查依赖安装在独立 Python 环境中时，可通过 `PYTHON_BIN` 指定其解释器路径。
 
 比较两个版本的页面：
 
