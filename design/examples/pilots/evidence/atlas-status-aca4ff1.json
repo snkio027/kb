@@ -1,0 +1,65 @@
+{
+  "record_id": "ATLAS-PILOT-STATUS-001",
+  "repository": "https://github.com/snkio027/atlas",
+  "source_commit": "aca4ff137a1d254cfeceaec24526e0699b585e92",
+  "kb_reference_commit": "a67fb259d9a37bfcfc0c3b6b6418aeb06bd6aac2",
+  "execution_type": "repository contract tests with mocks; no live cluster",
+  "environment": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "architecture": "arm64",
+    "bash": "5.3.15(1)-release",
+    "variables": {
+      "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "TMPDIR": "/private/tmp/",
+      "LC_ALL": "C"
+    },
+    "inherited_environment": false
+  },
+  "isolation": {
+    "method": "git archive of explicit seven-file test closure",
+    "test_closure_matches_source_commit": true,
+    "source_files_unchanged_after_run": true,
+    "working_tree_unchanged": true,
+    "excluded_dirty_paths": [
+      "bootstrap/argocd/handoff.sh",
+      "bootstrap/argocd/render.sh",
+      "clusters/kind/local-orbstack.yaml"
+    ]
+  },
+  "file_sha256": {
+    "tests/bootstrap/status-contract.sh": "8ff2726aa62a19e72f4edf7674206b5142cd9e179025882d00e4ec9a3c347596",
+    "tests/bootstrap/status-exit-contract.sh": "3b2f4d68a6c8b40ef9582e9239894d8992ad1d16a119f3c293cce1eb311f0494",
+    "tests/lib/assert.sh": "3a9eb7ac181cf9b20a8dd8757f2baa3766af1d160a152971538853547f4e4cb3",
+    "bootstrap/lib/runtime.sh": "b3f2fbe7f17b8c9bd7dbdde3d392c3b8f173f5783a9e17ac4985f0c7343e5eec",
+    "bootstrap/argocd/status.sh": "abbfaa8ef806351dfee95c786dcf18b6db7a05f2f19db2b25e1682eec086dd54",
+    "bootstrap/atlas": "26ba8821bf5bfcccef3c722b1a5b0826c1e8c343f4a67873b42fdb87793e9eed",
+    "bootstrap/status/report.sh": "bb114f93881406a99221cfa704a754e95577192b4629dbd0d19a9ec0b2063f67"
+  },
+  "runs": [
+    {
+      "test": "tests/bootstrap/status-contract.sh",
+      "command": "/opt/homebrew/bin/bash tests/bootstrap/status-contract.sh",
+      "started_at": "2026-09-20T18:18:51.625Z",
+      "completed_at": "2026-09-20T18:18:51.668Z",
+      "duration_ms": 42,
+      "exit_code": 0,
+      "signal": null,
+      "stdout": "PASS: READY requires every Seed control-plane workload\nPASS: status distinguishes API errors from absence\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "test": "tests/bootstrap/status-exit-contract.sh",
+      "command": "/opt/homebrew/bin/bash tests/bootstrap/status-exit-contract.sh",
+      "started_at": "2026-09-20T18:18:51.668Z",
+      "completed_at": "2026-09-20T18:18:52.690Z",
+      "duration_ms": 1022,
+      "exit_code": 0,
+      "signal": null,
+      "stdout": "PASS: status --check succeeds only for the complete ready report\nPASS: known absent, drifted, degraded, and unhealthy states return 1\nPASS: unknown Argo states or versions and malformed or incomplete reports fail closed with 2\nPASS: one cluster snapshot governs downstream Argo CD inspection\nPASS: --check is status-only and argument errors remain profile-free\n",
+      "stderr": "",
+      "error": null
+    }
+  ]
+}
