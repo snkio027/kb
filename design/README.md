@@ -32,7 +32,7 @@
 
 此前 `KB-WP-01` 的原稿接收与维护稿补齐已通过限定范围复审。原始附件 v0.1.0 作为不可变来源归档，旧维护稿 v0.1.0 由 Git 保存，来源与摘要见 [资产登记 §7](project/asset-register.md)。项目计划仍为 v0.2.0 草案，不改变 ESD/ECD 或出版工具版本，不代表整套路线已采纳。
 
-出版设计已通过限定范围复审，版本仍为 v0.1.0 / DRAFT。后续交付改为完整能力增量：本批将身份修正、真实内容试件、六篇全文与合订编排及必要检查一起实现，不再逐内部步骤审批。当前提供隔离的草案 PDF 预览；六个旧写入入口、候选与正式发布继续关闭，不据此把完整 WP-02 或 P0 标为完成。ECD 源码、报告和原始日志仍待接收。
+出版设计已通过限定范围复审，版本仍为 v0.1.0 / DRAFT。后续按完整能力增量交付，不再逐内部步骤审批。当前提供隔离的草案 PDF 预览，并完成阅读完善、保真回归和本地复审候选冻结；六个旧写入入口与正式发布继续关闭，不据此把完整 WP-02 或 P0 标为完成。ECD 源码、报告和原始日志仍待接收。
 
 已有 [Atlas 抽样记录](examples/pilots/README.md) 保留为非规范性示例：两个 mock 契约测试、单评审者初评，不等于完整采用试点或生产验证。本轮不继续推进 Atlas 实施；kb 构建流程与真实 CAN 系统是计划中的候选，尚待确认对象和风险等级。
 
@@ -59,11 +59,12 @@
 | [scripts/](scripts/) | 构建、预检、渲染与比较工具 |
 | [dist/](dist/) | 唯一受版本控制的 PDF 发布目录 |
 | `build/preview/<preparation-id>/<attempt-id>/` | 本地输入快照、准备/PDF 分层终态及 `work/` 中的七份预览、检查与渲染，已忽略 |
+| `build/candidate/<candidate-id>/<attempt-id>/` | 复制已检查原字节形成的本地复审候选及清单、终态；不是正式发布，已忽略 |
 | `tmp/` | 历史本地渲染预览与缓存，已忽略；旧写入入口已关闭 |
 
 ## 构建与检查
 
-> **当前开放完整草案预览，不开放正式发布。** 一次调用生成六篇独立 PDF 与一份合订工作版，自动执行内容/结构检查并渲染所有页。旧 build、preflight、render、compare 和 manifest 入口仍拒绝执行。
+> **当前开放完整草案预览及本地候选冻结，不开放正式发布。** 一次调用生成六篇独立 PDF 与一份合订工作版，自动执行内容/结构检查并渲染所有页。候选只复制已检查字节，不重新编译。旧 build、preflight、render、compare 和 manifest 入口仍拒绝执行。
 
 完整预览当前要求 **macOS + sandbox-exec**、Python 3.9+、[pypdf](publication/requirements-preview.txt)、Git、Pandoc、LuaLaTeX 与 Poppler `pdftoppm`。工具须在 PATH 中；TeX Live 需含 ctex、Fandol、Source Serif/Sans/Code 字体及模板所用宏包。缺少依赖或隔离后端时失败，不回退到无沙箱编译。实际验证版本见 [实施记录](project/publication-preview.md)。
 
@@ -91,6 +92,26 @@ python3 -B design/scripts/pub.py preview --prepare-only
 
 `result.json: PREPARED` 仅表示输入准备完成；只有独立的 `preview-result.json: PREVIEW_READY` 才表示本次七份 PDF 通过实现中的自动检查与渲染。两者都不等于视觉批准、规范批准或正式发布。`.pending`、孤立 PDF、缺失或失败的最终记录不得当作成功。每次尝试独立保留，失败/取消不覆盖旧尝试及历史 `dist/`。准备协议见 [B1-A 记录](project/publication-b1a.md)，完整预览合同见 [本批记录](project/publication-preview.md)。
 
+### 阅读布局与保真
+
+合订版按“文档 → 章节 → 条款”组织书签，前部仅保留六篇入口，条款索引同时提供页码与链接；不改变源编号。比较矩阵与长记录通过 [布局选择](publication/table-layouts.json) 区分。显式选择绑定文档 ID、准确标题、表序及表头；漂移时失败，不猜测相近表。未指定的表仍采用保守默认。
+
+行内代码保留原字符与空格，优先在空格、下划线、斜杠等位置断行；无分隔符的超长 token 才允许 28 字符后的应急断行。标题链与首块共同预留空间。新增检查以真实 PDF 目标限定章节，按源顺序消耗匹配、不得复用重复块；行内字面量不采用正文的去空白或 NFKC 策略。说明页书签/目录目标、文档分组和索引纸面页码也检查实际位置。不把这些检查等同于全页逐字校对或代码块缩进认证。
+
+### 准备集中复审候选
+
+先完成整套预览与阅读自查，再将命令输出中的本次路径换成 **design 相对路径**：
+
+```sh
+python3 -B design/scripts/pub.py candidate --from-preview build/preview/<preparation-id>/<attempt-id>
+```
+
+仅接受已有 `PREVIEW_READY` 及完整新增检查；摘要、输入、源稿附件或文件集合不匹配时拒绝。输出位于 `build/candidate/<candidate-id>/<attempt-id>/`，包括原字节 `output/`、输入快照、执行/检查记录及 `candidate-manifest.json`。不包含字体、缓存或全页 PNG。工具和字体的实际身份由执行审计绑定，不声称已打包整个运行环境。
+
+如需随候选保留人工自查，在预览尝试根目录提供 `reading-review.json`，至少以 `artifacts` 和 `audit_sha256` 绑定 `preview-result.json` 的同名字段；正文分别写明检查范围、结果及限制，不写成独立批准。缺少此记录会明确登记 `NOT_ATTACHED`，不得推定视觉检查已执行。
+
+只有 `candidate-result.json: CANDIDATE_PREPARED_FOR_REVIEW` 是本地冻结完成事实。它不意味着定稿批准、公开授权或 ESD BASELINE；候选清单始终为 `AWAITING_INDEPENDENT_REVIEW`。每次冻结使用新的尝试目录，不覆盖旧候选。暂存、失败或缺少终态的目录不能当作候选成功；本地文件同步与不覆盖提交不构成断电持久性承诺。`publish` 仍拒绝执行。
+
 运行临时仓库中的隔离测试，不编译或渲染 PDF：
 
 ```sh
@@ -101,6 +122,12 @@ python3 -B design/scripts/test-publication-isolation.py
 
 ```sh
 python3 -B design/scripts/test-preview.py
+```
+
+候选目录、失败/取消、输入漂移和提交点回归（不编译 PDF）：
+
+```sh
+python3 -B design/scripts/test-candidate.py
 ```
 
 `content-audit.py` 仍依赖旧编译输出；新预览使用 `preview.py` 内置的源块、表格行关系及 PDF 检查。`pdf-structure-audit.py` 保留为旧只读诊断，本批未以其结果授予资格。仅核对历史文件校验和时，可在 `design/` 中执行 `shasum -a 256 -c dist/sha256sums.txt`，无需重建。

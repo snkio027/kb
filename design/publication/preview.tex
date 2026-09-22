@@ -15,8 +15,7 @@
 \vspace{10mm}
 {\small 权威内容来源为 Markdown。本件仅供阅读与评审，未获正式发布批准。\par}
 \clearpage\nopagecolor\color{PreviewInk}\pagestyle{fancy}
-\chapter*{阅读与版本说明}
-\addcontentsline{toc}{chapter}{阅读与版本说明}
+\PreviewHeading{chapter}{part}{generated-preface}{阅读与版本说明}
 \noindent\textbf{PREVIEW / DRAFT · 非权威阅读视图}
 
 本件保留源文档的标题、条款编号、版本与草案状态，不构成新的规范权威。封面、导航、索引与排版标签为生成内容，不能代替正文中的适用范围、条件或批准记录。
@@ -29,7 +28,14 @@
 \noindent\textbf{准备标识}\quad\texttt{$build_short$}\par
 \noindent\textbf{使用方式}\quad 目录与书签可跳转；合订版中的核心文档链接跳转到本件对应篇章。独立版在源字节匹配时提供固定 commit 链接，否则指向随附的 source 快照。完整输入以准备记录为准，可能包含未提交变更；正文原有编号不重新连续编号。
 
-$composition$
+$for(composition)$
+\par\noindent\hyperlink{$composition.anchor$}{\textbf{$composition.id$}}\quad v$composition.version$\quad $composition.status$\par
+$endfor$
+$if(combined)$
+\medskip\noindent\hyperlink{generated-requirement-index}{\textbf{按条款 ID 查找}}\quad 末尾索引含可点击标题和纸面页码。完整章节与条款通过分组书签定位。
+\setcounter{tocdepth}{-1}
+$endif$
+\clearpage
 \tableofcontents
 \clearpage
 $body$

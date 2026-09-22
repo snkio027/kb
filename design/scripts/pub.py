@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare inputs or build sandboxed draft previews. Candidate/publish stay closed."""
+"""Build sandboxed draft previews or freeze review candidates. Publish stays closed."""
 
 import argparse
 import fnmatch
@@ -24,7 +24,7 @@ POLICY = {
     "schema_version": 2,
     "operation": "PREVIEW_INPUT_PREPARATION",
     "pdf_build": "SANDBOXED_DRAFT_PREVIEW_AVAILABLE",
-    "candidate": "DISABLED",
+    "candidate": "FREEZE_EXISTING_PREVIEW_FOR_REVIEW_ONLY",
     "publish": "DISABLED",
     "output_policy": "build/preview/<build-id>/<attempt-id>",
     "git_probe_policy": "reject-content-filters-and-gitlinks-v1",
@@ -247,7 +247,7 @@ class ResultCommit:
     def __init__(self, fd, final_name="result.json"):
         self.fd = fd
         self.pending = None
-        if final_name not in ("result.json", "preview-result.json"):
+        if final_name not in ("result.json", "preview-result.json", "candidate-result.json"):
             raise PreparationError("unsupported terminal record name")
         self.final_name = final_name
 
@@ -324,15 +324,23 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("operation", choices=("preview", "build", "check", "render", "candidate", "publish"))
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--from-preview", help="design-relative build/preview/<id>/<attempt>; candidate only")
     args = parser.parse_args(argv)
-    if args.operation != "preview":
-        parser.error("only preview [--prepare-only] is enabled; candidate and publication are disabled")
+    if args.operation not in ("preview", "candidate"):
+        parser.error("only preview and candidate freezing are enabled; publication is disabled")
+    if (args.operation == "candidate" and (not args.from_preview or args.prepare_only)) or (args.operation == "preview" and args.from_preview):
+        parser.error("candidate requires --from-preview and forbids --prepare-only; preview forbids --from-preview")
 
     def cancel(signum, _frame):
         raise Cancelled(signum)
 
     previous = {signum: signal.signal(signum, cancel) for signum in (signal.SIGINT, signal.SIGTERM)}
     try:
+        if args.operation == "candidate":
+            sys.dont_write_bytecode = True
+            import candidate
+            print(json.dumps(candidate.freeze(ROOT, args.from_preview, sys.modules[__name__]), ensure_ascii=False))
+            return 0
         if not args.prepare_only:
             sys.dont_write_bytecode = True
             import preview

@@ -5,6 +5,7 @@ import ctypes
 import hashlib
 import json
 import os
+import posixpath
 import re
 import shutil
 import signal
@@ -15,7 +16,7 @@ import time
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from urllib.parse import unquote, quote
+from urllib.parse import unquote, quote, urlsplit, urlunsplit
 
 
 def sha(path):
@@ -118,28 +119,45 @@ def verify_sandbox(work, origin):
         raise RuntimeError("worker requires verified write confinement; do not invoke --worker directly")
 
 
-def tables_to_records(blocks, doc_id, ledger):
+def tables_to_records(blocks, doc_id, ledger, policies=()):
     output = []
     table_number = 0
+    section, section_title, section_table = "", "", 0
+    used = set()
     for block in blocks:
+        if block["t"] == "Header":
+            section, section_title, section_table = block["c"][1][0], text(block), 0
         if block["t"] != "Table":
             output.append(block)
             continue
         table_number += 1
+        section_table += 1
         attr, caption, specs, head, bodies, foot = block["c"]
         rows = [row for body in bodies for row in body[2] + body[3]]
         headings = head[1][0][1] if head[1] else []
         if len(head[1]) > 1 or foot[1] or any(cell[2:4] != [1, 1] for row in head[1] + rows for cell in row[1]):
             raise RuntimeError("unsupported spanning table; requires explicit layout review")
-        if len(specs) <= 3:
+        override = None
+        for n, policy in enumerate(policies):
+            if policy["document"] == doc_id and policy["section"] == section_title and policy.get("table", 1) == section_table:
+                if override is not None or policy["headers"] != [text(c[4]) for c in headings]:
+                    raise RuntimeError("ambiguous or drifted table layout: " + section_title)
+                override = policy
+                used.add(n)
+        if override and override["layout"] not in ("matrix", "records"):
+            raise RuntimeError("unsupported table layout")
+        if (override and override["layout"] == "matrix") or (not override and len(specs) <= 3):
             # Fixed generous widths; long prose goes into records instead.
             lengths = [max([len(text(row[1][i][4])) for row in rows] + [len(text(headings[i][4]))]) for i in range(len(specs))]
             long_token = any(re.search(r"[A-Za-z0-9_/–—-]{26}", text(cell[4])) for row in rows for cell in row[1])
-            if max(lengths, default=0) < 100 and not long_token:
-                weights = [max(14, min(n, 55)) for n in lengths]
+            if override or (max(lengths, default=0) < 100 and not long_token):
+                weights = override.get("weights") if override else None
+                weights = weights or [max(14, min(n, 55)) for n in lengths]
+                if len(weights) != len(specs) or any(w <= 0 for w in weights):
+                    raise RuntimeError("invalid table widths")
                 block["c"][2] = [[spec[0], {"t": "ColWidth", "c": w / sum(weights)}] for spec, w in zip(specs, weights)]
                 output.append(block)
-                ledger.append({"table": f"{doc_id}-T{table_number:02}", "layout": "matrix", "row_text": ["".join(text(c[4]) for c in row[1]) for row in rows]})
+                ledger.append({"table": f"{doc_id}-T{table_number:02}", "section": section, "section_title": section_title, "layout": "matrix", "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "row_text": ["".join(text(c[4]) for c in row[1]) for row in rows]})
                 continue
         table_id = f"{doc_id}-T{table_number:02}"
         output.append(para(f"表 {table_number} · 字段记录视图（列名与原单元格逐项对应）"))
@@ -162,13 +180,39 @@ def tables_to_records(blocks, doc_id, ledger):
                 mapping.append({"row": number, "column": column + 1, "label": text(label), "value": text(cell[4])})
             output.append(raw(r"\end{PreviewRecordBox}"))
         row_text = [table_id + f" / 记录 {n}" + "".join(c["label"] + c["value"] for c in mapping if c["row"] == n) for n in range(1, len(rows) + 1)]
-        ledger.append({"table": table_id, "layout": "records", "cells": mapping, "row_text": row_text})
+        ledger.append({"table": table_id, "section": section, "section_title": section_title, "layout": "records", "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "cells": mapping, "row_text": row_text})
+    if any(n not in used for n, p in enumerate(policies) if p["document"] == doc_id):
+        raise RuntimeError("unused/drifted explicit table layout for " + doc_id)
     return output
 
 
-def compose(documents, selected, combined, source_commit):
+def rewrite_link(target, doc, by_path, combined, source_commit):
+    uri = urlsplit(target)
+    # External/historical URIs (including //host/path) never become local by name.
+    if uri.scheme or uri.netloc or uri.path.startswith("/") or uri.query:
+        return target
+    filename, fragment = unquote(uri.path), unquote(uri.fragment)
+    current = doc.get("relative_path", doc["path"].name)
+    relative = posixpath.normpath(posixpath.join(posixpath.dirname(current), filename)) if filename else current
+    dest = by_path.get(relative)
+    if dest:
+        dest_id = dest["anchors"].get(fragment) if fragment else dest["first_anchor"]
+        if not dest_id:
+            raise RuntimeError("missing local reference: " + target)
+        if combined or dest is doc:
+            return "#" + dest_id
+        base = dest.get("source_href", f"https://github.com/snkio027/kb/blob/{source_commit}/design/" + quote(relative))
+        return base + ("#" + quote(fragment) if fragment else "")
+    # Resolve the whole repository-relative path, not just a basename.
+    repo_path = posixpath.normpath(posixpath.join("design", relative))
+    if repo_path == ".." or repo_path.startswith("../"):
+        raise RuntimeError("relative reference escapes repository: " + target)
+    return f"https://github.com/snkio027/kb/blob/{source_commit}/" + quote(repo_path) + ("#" + quote(fragment) if fragment else "")
+
+
+def compose(documents, selected, combined, source_commit, policies=()):
     blocks, ledger = [], []
-    by_file = {d["path"].name: d for d in documents}
+    by_path = {d.get("relative_path", d["path"].name): d for d in documents}
     for doc in selected:
         meta, doc_id = doc["meta"], doc["id"]
         # Clear the preceding page before updating its running identity.
@@ -183,21 +227,11 @@ def compose(documents, selected, combined, source_commit):
                 original = item["c"][1][0]
                 item["c"][1][0] = doc["anchors"][original]
                 item["c"][1][1].append("unnumbered")
+                nav = "part" if doc["anchors"][original] == doc["first_anchor"] else ("chapter", "section", "subsection", "subsubsection", "paragraph", "subparagraph")[item["c"][0] - 1]
+                item["c"][1][2].append(["preview-nav", nav])
             elif tag == "Link":
                 target = item["c"][2][0]
-                filename, _, fragment = unquote(target).partition("#")
-                dest = by_file.get(Path(filename).name) if filename else doc
-                if dest:
-                    dest_id = dest["anchors"].get(fragment) if fragment else dest["first_anchor"]
-                    if not dest_id:
-                        raise RuntimeError("missing local reference: " + target)
-                    if combined or dest is doc:
-                        item["c"][2][0] = "#" + dest_id
-                    else:
-                        base = dest.get("source_href", f"https://github.com/snkio027/kb/blob/{source_commit}/design/" + quote(dest["path"].name))
-                        item["c"][2][0] = base + ("#" + quote(fragment) if fragment else "")
-                elif not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", target):
-                    item["c"][2][0] = f"https://github.com/snkio027/kb/blob/{source_commit}/design/" + quote(filename)
+                item["c"][2][0] = rewrite_link(target, doc, by_path, combined, source_commit)
             elif tag == "CodeBlock":
                 code_number += 1
                 code = item["c"][1]
@@ -209,16 +243,19 @@ def compose(documents, selected, combined, source_commit):
                     raise RuntimeError("spatial diagram exceeds readable portrait width")
                 item["c"][0][2].append(["preview-flow", str(spatial).lower()])
                 item["c"][0][2].append(["preview-code-id", f"{doc_id}-C{code_number:02}"])
-        body = tables_to_records(body, doc_id, ledger)
+        body = tables_to_records(body, doc_id, ledger, policies)
         blocks.extend(body)
     if combined:
-        blocks.append(raw(r"\clearpage\PreviewSetIdentity{ESD-HANDBOOK}{preview.1}{DRAFT / COMBINED WORKING VIEW}"))
-        blocks.append({"t": "Header", "c": [1, ["generated-requirement-index", ["unnumbered"], []], [s("条款定位索引（生成导航）")]]})
+        blocks.append(raw(r"\clearpage\PreviewSetIdentity{ESD-HANDBOOK}{preview.2}{DRAFT / COMBINED WORKING VIEW}"))
+        blocks.append({"t": "Header", "c": [1, ["generated-requirement-index", ["unnumbered"], [["preview-nav", "part"]]], [s("条款定位索引（生成导航）")]]})
         for doc in selected:
+            requirements = [x for x in walk(doc["ast"]["blocks"]) if x.get("t") == "Header" and "-REQ-" in text(x)]
+            if not requirements:
+                continue
             blocks.append(para(doc["id"] + " · " + doc["meta"]["title"]))
-            for header in (x for x in walk(doc["ast"]["blocks"]) if x.get("t") == "Header" and "-REQ-" in text(x)):
+            for header in requirements:
                 dest = doc["anchors"][header["c"][1][0]]
-                blocks.append({"t": "Para", "c": [{"t": "Link", "c": [["", [], []], copy.deepcopy(header["c"][2]), ["#" + dest, ""]]}]})
+                blocks.append(raw(r"\PreviewIndexEntry{" + dest + "}{" + escape(text(header)) + "}"))
     return blocks, ledger
 
 
@@ -227,15 +264,18 @@ def build_view(view, documents, work, inputs, tools, record):
     selected = documents if combined else [d for d in documents if d["id"] == view]
     title = "系统设计与工程保证工作手册" if combined else selected[0]["meta"]["title"]
     meta = {"title": title, "subtitle": "六篇完整草案 · 合订工作版" if combined else selected[0]["meta"].get("subtitle", "完整草案阅读版"),
-            "document_id": view, "version": "preview.1" if combined else selected[0]["meta"]["version"],
+            "document_id": view, "version": "preview.2" if combined else selected[0]["meta"]["version"],
             "status": "DRAFT / COMBINED WORKING VIEW" if combined else selected[0]["meta"]["status"],
             "owner": selected[0]["meta"].get("owner", ""), "source_commit": record["identity"]["source"]["commit"],
             "build_short": record["build_id"][:24]}
     meta["subject"] = f'{view} | v{meta["version"]} | {meta["status"]} | PREVIEW'
     meta["keywords"] = ", ".join(d["id"] + " " + d["meta"]["version"] + " " + d["meta"]["status"] for d in selected)
-    meta["composition"] = "\n\n".join(d["id"] + " · v" + d["meta"]["version"] + " · " + d["meta"]["status"] for d in selected)
-    blocks, ledger = compose(documents, selected, combined, meta["source_commit"])
+    policy_path = inputs / "publication/table-layouts.json"
+    policies = json.loads(policy_path.read_text())["tables"] if policy_path.exists() else []
+    blocks, ledger = compose(documents, selected, combined, meta["source_commit"], policies)
     ast = {"pandoc-api-version": selected[0]["ast"]["pandoc-api-version"], "meta": {k: {"t": "MetaString", "c": v} for k, v in meta.items()}, "blocks": blocks}
+    ast["meta"]["composition"] = {"t": "MetaList", "c": [{"t": "MetaMap", "c": {k: {"t": "MetaString", "c": v} for k, v in {"anchor": d["first_anchor"], "id": d["id"], "version": d["meta"]["version"], "status": d["meta"]["status"]}.items()}} for d in selected]}
+    ast["meta"]["combined"] = {"t": "MetaBool", "c": combined}
     folder = work / "typeset" / view
     folder.mkdir(parents=True)
     dump(folder / "composed.json", ast)
@@ -301,6 +341,9 @@ def build_view(view, documents, work, inputs, tools, record):
     for doc in selected:
         if not set(doc["anchors"].values()) <= set(names):
             raise RuntimeError("source heading missing from PDF destinations")
+    from preview_audit import section_audit
+    scoped = section_audit(reader, selected, ledger, ignored_labels)
+    dump(folder / "section-audit.json", scoped)
     identity_changes = {0: meta}
     for doc in selected:
         identity_changes[reader.get_destination_page_number(names[doc["first_anchor"]])] = doc["meta"]
@@ -338,6 +381,10 @@ def build_view(view, documents, work, inputs, tools, record):
              "extraction_policy": {"body_band_pt": [52, 782], "normalization": "NFKC + whitespace + soft hyphen removal; unchecked ballot/square equivalence", "ignored_generated_labels": ignored_labels},
              "overfull_hbox_pt": [float(n) for n in overfull], "rendered_pages": len(list(render.glob("page-*.png"))),
              "visual_review": "REQUIRED; automated checks are not visual approval"}
+    audit.update({k: scoped[k] for k in ("section_errors", "inline_literal_errors", "orphan_headings", "navigation_errors", "preface_page", "index_entries_checked", "top_level_bookmarks")})
+    audit["source_sections_checked"] = len(scoped["sections"])
+    audit["ordered_units_checked"] = sum(s["expected_units"] for s in scoped["sections"])
+    audit["inline_literals_checked"] = sum(s["inline_literals_checked"] for s in scoped["sections"])
     dump(folder / "audit.json", audit)
     print(f'{view}: {len(reader.pages)} pages, {len(missing)} text blocks requiring review', flush=True)
     return audit
@@ -412,7 +459,7 @@ def worker(run, origin):
               "execution_id": execution_id, "execution_identity": execution_identity,
               "official_release": False, "pdf_ua_claim": None}
     dump(work / "preview-audit.json", report)
-    if any(a["missing_text_blocks"] or a["missing_table_row_relations"] or a["rendered_pages"] != a["pages"] or any(w > 2 for w in a["overfull_hbox_pt"]) for a in audits):
+    if any(a["missing_text_blocks"] or a["missing_table_row_relations"] or a["section_errors"] or a["inline_literal_errors"] or a["orphan_headings"] or a["navigation_errors"] or a["rendered_pages"] != a["pages"] or any(w > 2 for w in a["overfull_hbox_pt"]) for a in audits):
         raise RuntimeError("review blockers: inspect work/preview-audit.json before accepting this run")
     index = "# ESD 草案阅读预览\n\nPREVIEW / DRAFT，不是发布批准。请优先使用合订版进行跨篇阅读。\n\n"
     for a in audits:
