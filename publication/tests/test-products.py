@@ -127,7 +127,7 @@ class ProductTests(unittest.TestCase):
                'anchors':{'section':f'D{i}-s'},'aliases':{f'explicit-{i}':'section'},'first_anchor':f'D{i}-s'} for i in range(2)]
         combined=Resolver(docs,docs,'https://example.org',self.root,{},pub,preview.command,self.root,preview.walk)
         single=Resolver(docs,docs[:1],'https://example.org',self.root,{},pub,preview.command,self.root,preview.walk)
-        self.assertEqual(combined.resolve('1.md#explicit-1',docs[0]),'#explicit-1')
+        self.assertEqual(combined.resolve('1.md#explicit-1',docs[0]),'#D1-s')
         self.assertEqual(single.resolve('1.md#explicit-1',docs[0]),'https://example.org/frozen/1.md#explicit-1')
         with self.assertRaises(RuntimeError): combined.resolve('1.md#missing',docs[0])
 

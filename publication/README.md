@@ -4,6 +4,8 @@
 
 已接受的 12 份制品、八组组件 A/B、语义样页、接受记录与已知非阻塞限制见[阅读版定稿化审核入口](reviews/reading-finalization/README.md)。[上一轮阅读版](reviews/reading-edition/README.md)与 [v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。它们均不是 release 或可维护的正文源。
 
+G0–G12 全书接入与合订候选见[Full Handbook 审核入口](reviews/full-handbook/README.md)。全书使用冻结视觉规则，不重开设计；候选仍待独立集中审核，不随既有 Visual Profile 接受而自动获批。
+
 ## 分层与权威
 
 | 层 | 责任 | 不承担的责任 |
@@ -16,7 +18,7 @@
 
 产品配置采用 `profile.json`（包含 source catalog 与 views），避免为两个产品引入配置语言或插件发现框架。`adapter.py` 只在受限 worker 中从冻结输入加载；产品模板与 theme 可以覆盖共享默认样式。可信仓库 profile 仍是执行输入，不承诺运行任意不可信 Python 插件。
 
-当前 ESD profile 读取六篇工作树 Markdown 的 Front Matter。C++ profile 固定读取 `8f479deaf660533b2ad82e1f721eb41a363112b6` 下 G6/G7，解析书名式 H1、正文版本与稳定锚点；不把当前 HEAD 当作 C++ 内容版本。没有把 C++ 文件复制到 `design/` 充当新来源。
+当前 ESD profile 读取六篇工作树 Markdown 的 Front Matter。C++ Pilot `cpp-handbook` 固定读取 `8f479deaf660533b2ad82e1f721eb41a363112b6` 下 G6/G7；`cpp-handbook-full` 读取同一冻结提交的 G0–G12，解析书名式 H1、正文版本与稳定锚点。不把当前 HEAD 当作 C++ 内容版本，不把 C++ 文件复制到 `design/` 充当新来源。
 
 ## 运行
 
@@ -27,6 +29,7 @@
 ```sh
 python3 -B publication/engine/pub.py preview --profile esd
 python3 -B publication/engine/pub.py preview --profile cpp-handbook
+python3 -B publication/engine/pub.py preview --profile cpp-handbook-full
 
 # 仅选择一个逻辑视图；省略 --view 时构建该 profile 的全部视图。
 python3 -B publication/engine/pub.py preview --profile cpp-handbook --view G6
@@ -37,6 +40,8 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook --prepare-on
 ```
 
 主制品为 ESD 六份独立版与一份合订版，以及 C++ G6、G7 与 G6+G7 三份 PDF。默认构建还包含两份 Compact 对照样张：`ESD-REFERENCE-001-COMPACT` 和 `CPP-PILOT-G6-G7-COMPACT`；两个 profile 合计 12 份。Compact 只改变留白、目录和表格行距，不缩小正文或代码字号。合订版由多源 AST 组成一个逻辑视图后编译，不拼接独立 PDF。
+
+新增 `cpp-handbook-full` 只生成一份 Balanced 全书 `CPP-HANDBOOK`，不重建旧 12 份，不增加全书 Compact 比较或十三份独立版。
 
 输出路径固定为 `publication/build/preview/<preparation-id>/<attempt-id>/`。`inputs/sources/<repository-path>` 保留嵌套源身份；`work/output/pdf/` 是 PDF，`work/output/source/` 为同路径原始源码，`work/renders/<view>/` 为所有页面 PNG。本次尝试入口为 `work/output/README.md`。
 
@@ -73,11 +78,12 @@ python3 -B publication/tests/test-candidate.py
 python3 -B publication/tests/test-products.py
 python3 -B publication/tests/test-preview.py
 python3 -B publication/tests/test-reading.py
+python3 -B publication/tests/test-full-handbook.py
 ```
 
 前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号，同时检查长模板／危险代码续页和软折行断点反例；第五组检查阅读组件、代码头尾、角色绑定、字段基线、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
 
-自动提取采用有界的文本、顺序、行内字面量、表格关系和定位检查，不声称逐字形、代码缩进、所有视觉缺陷或可访问性认证。人工阅读必须查看实际渲染，且单独注明范围。当前视觉基线已获用户接受；既有本地执行与自查证据保留原身份。本次接受登记不重建 PDF、不重跑技术实验，也不启动全 G0～G12 构建或正式发布。
+自动提取采用有界的文本、顺序、行内字面量、表格关系和定位检查，不声称逐字形、代码缩进、所有视觉缺陷或可访问性认证。人工阅读必须查看实际渲染，且单独注明范围。当前视觉基线已获用户接受；既有本地执行与自查证据保留原身份。全书构建是接受登记之后单独获授权的批次，出版回归不等于重跑 C++ 技术实验，也不等于正式发布。
 
 可选视觉辅助命令为 `python3 -B publication/tools/inspect-pages.py <preview-attempt>`，另需 Pillow；它只从已绑定的渲染生成 contact sheets，不自动授予人工阅读通过状态。
 

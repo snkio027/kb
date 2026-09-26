@@ -53,8 +53,8 @@ def pdf_fragments(reader):
     return pages
 
 
-def destination_position(reader, name):
-    target = reader.named_destinations[name]
+def destination_position(reader, name, destinations=None):
+    target = (reader.named_destinations if destinations is None else destinations)[name]
     return reader.get_destination_page_number(target), -float(target["/Top"])
 
 
@@ -80,6 +80,11 @@ def window(pages, start, end, ignored, normalize):
 def section_audit(reader, documents, ledger, ignored, profile, combined):
     from preview import normalize, text, walk
     pages = pdf_fragments(reader)
+    # pypdf rebuilds this dictionary on each property access. A full handbook
+    # has thousands of targets; bind one read-only map without changing any
+    # destination, ordering, ownership or text-check criterion.
+    destinations = reader.named_destinations
+    def at(name):return destination_position(reader, name, destinations)
     navigation = profile["navigation"]
     index_policy = profile.get("index") if combined else None
     sections = []
@@ -104,10 +109,10 @@ def section_audit(reader, documents, ledger, ignored, profile, combined):
             section["literals"].extend(text(n) for n in walk(block) if n["t"] == "Code")
 
     results, errors, literal_errors, orphans = [], [], [], []
-    positions = [destination_position(reader, s["anchor"]) for s in sections]
+    positions = [at(s["anchor"]) for s in sections]
     if positions != sorted(positions) or len(positions) != len(set(positions)):
         raise RuntimeError("source headings reversed or share the same PDF position")
-    finish = destination_position(reader, index_policy["id"]) if index_policy else (len(pages), 0)
+    finish = at(index_policy["id"]) if index_policy else (len(pages), 0)
     for index, section in enumerate(sections):
         start = positions[index]
         end = positions[index + 1] if index + 1 < len(positions) else finish
@@ -137,7 +142,7 @@ def section_audit(reader, documents, ledger, ignored, profile, combined):
         if meaningful and item["title_end_page"] != meaningful["first_body_page"]:
             orphans.append({"anchor": item["anchor"], "title": item["title"], "title_page": item["title_end_page"], "first_body_page": meaningful["first_body_page"]})
     # Generated preface is validated against actual content, not name existence.
-    preface = destination_position(reader, navigation["preface_id"])
+    preface = at(navigation["preface_id"])
     _, preface_text, _ = window(pages, preface, (preface[0] + 1, -10000), (), normalize)
     if not preface_text.startswith(normalize(navigation["preface_title"])):
         errors.append({"anchor": navigation["preface_id"], "reason": "wrong target region"})
@@ -155,9 +160,9 @@ def section_audit(reader, documents, ledger, ignored, profile, combined):
                 previous = position
     outline_walk(reader.outline)
     for doc in documents:
-        first = destination_position(reader, doc['anchors'][next(iter(doc['anchors']))])
+        first = at(doc['anchors'][next(iter(doc['anchors']))])
         for identifier in doc['anchors'].values():
-            position = destination_position(reader, identifier)
+            position = at(identifier)
             found = outline_targets.get(position)
             if found is None or (position != first and (not found[0] or found[0][0] != first)):
                 navigation_errors.append({'anchor': identifier, 'reason': 'bookmark absent or outside owning document group'})
@@ -187,7 +192,7 @@ def section_audit(reader, documents, ledger, ignored, profile, combined):
         for doc in documents:
             for header in (n for n in walk(doc['ast']['blocks']) if n['t'] == 'Header' and re.search(index_policy['heading_pattern'], text(n))):
                 target = doc['anchors'][header['c'][1][0]]
-                page = destination_position(reader, target)[0] + 1
+                page = at(target)[0] + 1
                 if normalize(text(header)) + str(page) not in index_text:
                     navigation_errors.append({'anchor': target, 'reason': 'printed generated index page does not match PDF destination'})
                 index_entries += 1

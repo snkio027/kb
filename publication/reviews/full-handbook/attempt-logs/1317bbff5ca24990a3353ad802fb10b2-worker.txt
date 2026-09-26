@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/inputs/publication/engine/preview.py", line 630, in <module>
+    worker(Path(sys.argv[2]).resolve(), Path(sys.argv[3]).resolve())
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/inputs/publication/engine/preview.py", line 547, in worker
+    audits = list(pool.map(lambda view: build_view(view, documents, work, inputs, tools, record, profile, origin), views))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/inputs/publication/engine/preview.py", line 547, in <lambda>
+    audits = list(pool.map(lambda view: build_view(view, documents, work, inputs, tools, record, profile, origin), views))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/inputs/publication/engine/preview.py", line 345, in build_view
+    blocks, ledger = compose(documents, selected, view_config, profile, resolver, policies)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/inputs/publication/engine/preview.py", line 258, in compose
+    raise RuntimeError("raw source markup needs explicit review")
+RuntimeError: raw source markup needs explicit review

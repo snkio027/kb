@@ -1,0 +1,1 @@
+{"diagnostic":"received signal 2","status":"CANCELLED"}

@@ -1,0 +1,345 @@
+{
+  "role": "DERIVED_REVIEW_NOT_CANDIDATE_PAYLOAD",
+  "files": [
+    {
+      "path": "full-review/page-001.png",
+      "sha256": "77b4e4d1a5a9707a0db3c8d0f6ed2749d4212ca6f194574d2ef273abffb41d2c",
+      "bytes": 50104
+    },
+    {
+      "path": "full-review/page-002.png",
+      "sha256": "4cf8aaafad562169ad9427b8a4a82cc5ac2f41e56f3879c6862783d45eec711c",
+      "bytes": 269011
+    },
+    {
+      "path": "full-review/page-003.png",
+      "sha256": "b7283034146bcb4261025716369a8134d2f6fe1817a17a82efcc01f27acc6268",
+      "bytes": 173609
+    },
+    {
+      "path": "full-review/page-011.png",
+      "sha256": "386d65512cf366b8ef803f8a94242085f8acf93c01552e281ed8a581d182bbc6",
+      "bytes": 75171
+    },
+    {
+      "path": "full-review/page-012.png",
+      "sha256": "93a9f75244ae3b2f29332043f59344908f22f64da7099119d9392d595eb9ed45",
+      "bytes": 281313
+    },
+    {
+      "path": "full-review/page-014.png",
+      "sha256": "0fcac676423adcb2946388637590c9e97dfb486a6409a844e30df1a066be32ee",
+      "bytes": 276308
+    },
+    {
+      "path": "full-review/page-018.png",
+      "sha256": "6c0ed0081cd415b633753e60f6fc6f3dae85ff2f3c1ae5a72c45c27c26a37941",
+      "bytes": 99233
+    },
+    {
+      "path": "full-review/page-020.png",
+      "sha256": "c34b7ad631ef34818a3a82f6fcc30dbc6792a074e96728f66e2a4d60069c9062",
+      "bytes": 242442
+    },
+    {
+      "path": "full-review/page-023.png",
+      "sha256": "31734e3facb57efb52f1420e5b18abc4682584846aec510b47e52f6843a4fa41",
+      "bytes": 226766
+    },
+    {
+      "path": "full-review/page-024.png",
+      "sha256": "923a81a999bca45f3f9215a4dfb4d04a7324669231c4cc4f510a3fb82f52db1e",
+      "bytes": 306036
+    },
+    {
+      "path": "full-review/page-028.png",
+      "sha256": "86a9e7fd6097864ac4ac2770db5669a46f26c5a6a2e615da9e50641ba7cfd4db",
+      "bytes": 283166
+    },
+    {
+      "path": "full-review/page-044.png",
+      "sha256": "0b9979ba85969c05250afaa4ab5da0bf072b6d414505cb647f9e7ce9752f00d9",
+      "bytes": 213875
+    },
+    {
+      "path": "full-review/page-045.png",
+      "sha256": "da3297ef7b3af647aec654979b8ef74b257f185bc4c520ee1dee28dd8d4e4a95",
+      "bytes": 204528
+    },
+    {
+      "path": "full-review/page-064.png",
+      "sha256": "45bfe807ac0106106e8a4ce620444e2f540f69fa57f24479f8415942842f40b4",
+      "bytes": 225620
+    },
+    {
+      "path": "full-review/page-068.png",
+      "sha256": "00f972c7369686b8ef47374472c9906fcf0944eb4be11e188cfcd2049e34280e",
+      "bytes": 286372
+    },
+    {
+      "path": "full-review/page-071.png",
+      "sha256": "12e2050a15dfd48fba3f00cbc2895f6b1b0b7e38d53dcdaae19e67a1707a16e5",
+      "bytes": 247215
+    },
+    {
+      "path": "full-review/page-072.png",
+      "sha256": "bbb10ff9282b92d40111c4ab062b47bfacece0eef3ad2535baf9d66d2aceeb94",
+      "bytes": 174183
+    },
+    {
+      "path": "full-review/page-109.png",
+      "sha256": "c877fc982c17932435220935503d4beefac286e761a1f72d7dd53c55294237c8",
+      "bytes": 196022
+    },
+    {
+      "path": "full-review/page-113.png",
+      "sha256": "5a1b6f818d6e2e7e2eeeafeecacb356992e380a5d40f2fe4679e0f548cb581ac",
+      "bytes": 285215
+    },
+    {
+      "path": "full-review/page-142.png",
+      "sha256": "3c0dcefd3b3bb17a38e12ecab844e0896e880f3d7a92cfeea88322c7d0aa9bab",
+      "bytes": 192061
+    },
+    {
+      "path": "full-review/page-143.png",
+      "sha256": "907da19eab7216ac6e9e6c59e85d4eef88b60e671fa80f8d1c447a3164729a0c",
+      "bytes": 143254
+    },
+    {
+      "path": "full-review/page-144.png",
+      "sha256": "8b644f19edf8cea40241f152b2dff56a4e3f91508f52c2eab967a4f2d91b6f57",
+      "bytes": 354170
+    },
+    {
+      "path": "full-review/page-165.png",
+      "sha256": "d6be552357ffcbaea3b2b32e203e20d26225df783c6233f30557cf33d2efcf98",
+      "bytes": 210362
+    },
+    {
+      "path": "full-review/page-170.png",
+      "sha256": "ec690186cbf1d7e22feae49bc7d4b1c8968a6efd7b023b784ad6d77f3d91bbc5",
+      "bytes": 249800
+    },
+    {
+      "path": "full-review/page-194.png",
+      "sha256": "21ac5826e931a36d247d2485ce7f0ba2ec58c1a4591f46688804fd42f7165837",
+      "bytes": 243919
+    },
+    {
+      "path": "full-review/page-195.png",
+      "sha256": "8013242de2c038c0062bc22418d6408e5767096f9358b80ce0263b35bf5db3e4",
+      "bytes": 275405
+    },
+    {
+      "path": "full-review/page-201.png",
+      "sha256": "00eeb0d2e7f60748bc631faa8748d58e5a71cada9171a467546d19e5da0a538f",
+      "bytes": 240263
+    },
+    {
+      "path": "full-review/page-235.png",
+      "sha256": "ec2c6ed9ad41f62ef5a62942aa9fa0653a68de5b18d96cae77a1520e78069f05",
+      "bytes": 215165
+    },
+    {
+      "path": "full-review/page-236.png",
+      "sha256": "cd0ae669b5bfba2897e38c2fdfa91ec91d0cfa1f66ac61e9927d75601b41250e",
+      "bytes": 214752
+    },
+    {
+      "path": "full-review/page-246.png",
+      "sha256": "f1fe588a8d58afcb14ff0f295de4b035054e13b95457256704a44c4195223147",
+      "bytes": 249428
+    },
+    {
+      "path": "full-review/page-277.png",
+      "sha256": "1515d459afd96e88add3b3d19e2e347b4fae37c734b35078c02beec3a2ac2ceb",
+      "bytes": 184172
+    },
+    {
+      "path": "full-review/page-278.png",
+      "sha256": "6949537883516f9aa56786c9cd1545cb978c5e9154f537b22a15fb96880ec62b",
+      "bytes": 136359
+    },
+    {
+      "path": "full-review/page-279.png",
+      "sha256": "d18d6bbb92328a04f3bb8c90eaebd5491c2c0cadee3921248487b42ef3130c45",
+      "bytes": 233267
+    },
+    {
+      "path": "full-review/page-287.png",
+      "sha256": "64d3c0ca587789cb96cfb38a4e09e56d6844a4275df24203fcb88fe1e72369ce",
+      "bytes": 284019
+    },
+    {
+      "path": "full-review/page-294.png",
+      "sha256": "e43082a3530c0c1276da9eaeebf2be643d8cd4b8e809a8221eb3baa39e83d64f",
+      "bytes": 278471
+    },
+    {
+      "path": "full-review/page-303.png",
+      "sha256": "0b1b314cc8138c1aac03844aa6491cf73b1a41b94fdaf17447dddee329a64f3f",
+      "bytes": 191760
+    },
+    {
+      "path": "full-review/page-304.png",
+      "sha256": "bf7e62d54480ce8d7804feba32702dab323f134072a684ab170a8f36261dacfd",
+      "bytes": 201628
+    },
+    {
+      "path": "full-review/page-312.png",
+      "sha256": "7ffa0baf4676da42a7f25eef4d5c29a036ad998d2eaa9ff2d07ca9aae03b83eb",
+      "bytes": 289785
+    },
+    {
+      "path": "full-review/page-316.png",
+      "sha256": "bd0a9aa3bead506c7fa02cd64d5205e6384f098f1d06ba5f4c6e6fffc199a030",
+      "bytes": 371991
+    },
+    {
+      "path": "full-review/page-325.png",
+      "sha256": "0ebe78003ea3877440bef4d995b6bbdd1d099a5a2fee0dd363b662db1bdac0a4",
+      "bytes": 270358
+    },
+    {
+      "path": "full-review/page-331.png",
+      "sha256": "d5379e48b9ab298736bb82bf1238c86fbb1aa334bd122ec0e8aec291ab3ca995",
+      "bytes": 184071
+    },
+    {
+      "path": "full-review/page-337.png",
+      "sha256": "6f616aa1450f1c8d22e50de9881de7f3324944f9806fa0ca2a3a6dea20ead73a",
+      "bytes": 265535
+    },
+    {
+      "path": "full-review/page-351.png",
+      "sha256": "24af1ee617b85e8166e931866405893af2166aa99b6513535562f10c4fe195cf",
+      "bytes": 167203
+    },
+    {
+      "path": "full-review/page-353.png",
+      "sha256": "fa8b77d0162b4a8a1a65aa42f89b4f5dd50f6ba66267ecb29ed69fae34e57d2c",
+      "bytes": 164137
+    },
+    {
+      "path": "full-review/page-355.png",
+      "sha256": "05c68ede37f9a5160d31fc596fdaf24fa406cabf8295b200f6fe99bb59226fc4",
+      "bytes": 185373
+    },
+    {
+      "path": "full-review/page-369.png",
+      "sha256": "6cfe2f62eaaf0d70f06f6c9144275490edab1ecca125e5927368cbbb075e7db0",
+      "bytes": 271709
+    },
+    {
+      "path": "full-review/page-381.png",
+      "sha256": "5d937a354599b264fa0083ab7344f310b2247553af13daf6c7869f46cdd036c7",
+      "bytes": 182021
+    },
+    {
+      "path": "full-review/page-382.png",
+      "sha256": "220a6bac34eb5cd2bcedaa0ef5119a7422869705abc095137367b9c7144e930e",
+      "bytes": 187286
+    },
+    {
+      "path": "full-review/page-383.png",
+      "sha256": "c05d40d966ca8d7548a754cb47df58286eeabd0cd153a5bc8a88f05df1338d94",
+      "bytes": 185855
+    },
+    {
+      "path": "full-review/page-391.png",
+      "sha256": "fe3729ffd3f41b4b9db2c844ec9ac86c5afa54bd4c5ba5b130c7b2df4d01ac90",
+      "bytes": 268954
+    },
+    {
+      "path": "full-review/page-396.png",
+      "sha256": "d97ddf90af00f6605eb901de7b34db3d5d44f7123f6c21182703f485969eb9c4",
+      "bytes": 347072
+    },
+    {
+      "path": "full-review/page-399.png",
+      "sha256": "5e3904a473bb3ec85aa9290e0b89a22fc2727086ea5ec1139db17314b1785305",
+      "bytes": 402482
+    },
+    {
+      "path": "full-review/page-403.png",
+      "sha256": "3611fa25821f1e9ae845b5432200dbf2c0305f757fb34666eaaee84077947c8c",
+      "bytes": 238030
+    },
+    {
+      "path": "full-review/page-407.png",
+      "sha256": "7a4f744a7f831fcc0679248dced8e54a50f9822ccb29c692ef94dbba0e6dc8c0",
+      "bytes": 205262
+    },
+    {
+      "path": "full-review/structure.json",
+      "sha256": "72027bc485ec90980ab981a1053e6f11f06155392a3e0a3a031731f2365b4c03",
+      "bytes": 18591
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-237.png",
+      "sha256": "787cec65d1127a72fedf505f29a69138a87f8f6c5b96085b59ebec1ff0417f70",
+      "bytes": 142943
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-238.png",
+      "sha256": "73dd151f008020febd042284cca150a0ccfb85f0999a4bbb09afb8b1907673e7",
+      "bytes": 122896
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-245.png",
+      "sha256": "8917f0d4d70f3164543909429632a8f8a6326ccc5021aa152bd68854409f7f7d",
+      "bytes": 96904
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-246.png",
+      "sha256": "f1fe588a8d58afcb14ff0f295de4b035054e13b95457256704a44c4195223147",
+      "bytes": 249428
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-248.png",
+      "sha256": "f6517683265ea87c64284ab6aa043c986d58f9b44be421da79062a62cfc0036e",
+      "bytes": 187053
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-261.png",
+      "sha256": "e0073258e2996fed60784322f485565995bd480f02313e57866c921b68cb45b1",
+      "bytes": 149193
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-277.png",
+      "sha256": "1515d459afd96e88add3b3d19e2e347b4fae37c734b35078c02beec3a2ac2ceb",
+      "bytes": 184172
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-278.png",
+      "sha256": "6949537883516f9aa56786c9cd1545cb978c5e9154f537b22a15fb96880ec62b",
+      "bytes": 136359
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-279.png",
+      "sha256": "d18d6bbb92328a04f3bb8c90eaebd5491c2c0cadee3921248487b42ef3130c45",
+      "bytes": 233267
+    },
+    {
+      "path": "reading-regression/CPP-HANDBOOK-286.png",
+      "sha256": "fec1859d0625d75b7cf900ce6dcc563e78cdc7c0c535e54e655dbfe1def51091",
+      "bytes": 192266
+    },
+    {
+      "path": "reading-regression/geometry-disposition.json",
+      "sha256": "bd777db0fd5c6b9ea9459658abba2a55f5f254a64b466aa8f72b35b1028b7563",
+      "bytes": 59683
+    },
+    {
+      "path": "reading-regression/geometry.json",
+      "sha256": "a6a1f4f6a0ed833dd2852b69efaed6e96353375a2bda263b842bcecbfc0069bf",
+      "bytes": 115745
+    },
+    {
+      "path": "reading-regression/page-map.json",
+      "sha256": "ae130f55d47971ec6863999d667741a438c6b0bfc74bd706f406bd8893de6300",
+      "bytes": 109260
+    }
+  ]
+}

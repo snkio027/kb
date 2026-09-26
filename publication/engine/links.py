@@ -25,7 +25,11 @@ class Resolver:
         fragment = unquote(uri.fragment)
         dest = self.documents.get(path)
         if dest:
-            destination = (dest['anchors'].get(fragment) or (fragment if fragment in dest['aliases'] else None)) if fragment else dest['first_anchor']
+            # HTML aliases have PDF destinations but are not LaTeX labels.
+            # Pandoc emits \hyperref for internal links, so target the owning
+            # heading's real label; retain the original URI in the ledger and
+            # preserve the alias destination for external/direct navigation.
+            destination = (dest['anchors'].get(fragment) or dest['anchors'].get(dest['aliases'].get(fragment))) if fragment else dest['first_anchor']
             if not destination:
                 raise RuntimeError('unresolved source anchor: ' + target)
             if dest['id'] in self.selected:

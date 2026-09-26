@@ -1,0 +1,11 @@
+{
+  "profile": "cpp-handbook-full",
+  "candidate_id": "ecdca3ee3aa9654d60eef16fa99c324d6fec5a782a754761c14a07a4e33104b2",
+  "visual_baseline": "1c11c5940c05fe29c46c4500935d5efb673d46a7",
+  "content_baseline": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+  "pdf": "cpp-handbook-full/output/pdf/CPP-HANDBOOK-draft.pdf",
+  "sha256": "80aabc252ef41eccb04a67504af1401e3f89211a43a1a89d761980143b225b26",
+  "pages": 407,
+  "status": "PUBLICATION_CANDIDATE_FOR_REVIEW",
+  "formal_release": false
+}

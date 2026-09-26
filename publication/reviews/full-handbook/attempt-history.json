@@ -1,0 +1,220 @@
+{
+  "scope": "This new full-book profile only; intermediate failures/cancellations are not delivered artifacts",
+  "attempts": [
+    {
+      "attempt": "publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2",
+      "started_at": "2026-09-26T22:25:02.510655+00:00",
+      "run_sha256": "16e64357d6838cddb9896533bd14136c441b3f540cb2c174b6bb091f94e555ef",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3a8bb1740211664d336c63c18dae779645185815da354ae1a46239412096897c/1317bbff5ca24990a3353ad802fb10b2/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/1317bbff5ca24990a3353ad802fb10b2-worker.txt",
+        "sha256": "98d7ff56329d2b1a59d30d338892f2e7b900fee6fc6110eb3a4c536e5ca940e7"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/1317bbff5ca24990a3353ad802fb10b2-terminal.txt",
+        "sha256": "c93b1caa2a27c2e21a3414313becf942d2040200a61ea6c6094ba4c23c038a93"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/be72fc7209cc9205fb628945a8aa417e2e3e249ebb61118d0bfe271e09f124fd/3e126555262649a398cffda7c763fd57",
+      "started_at": "2026-09-26T22:26:32.805806+00:00",
+      "run_sha256": "268447880e2733865dec12f0505cd1350791abe0f73af6f5628c07aff8a8feb2",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/be72fc7209cc9205fb628945a8aa417e2e3e249ebb61118d0bfe271e09f124fd/3e126555262649a398cffda7c763fd57/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/3e126555262649a398cffda7c763fd57-worker.txt",
+        "sha256": "fd0a27c041fbc69c8b89c55ac9c36e4855d038822ff998960c5b891d1ea3fbe9"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/3e126555262649a398cffda7c763fd57-terminal.txt",
+        "sha256": "4b956faf847489b6925c389ca27ede497ceaa694d5ccd4b47d50db4fa86245c2"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/e91aa14609d8c8c9c5bb4ff21af15a2c876c172b7feac45a4f7d6e939ba35278/4108d8688fac4dcb9c6c585f8716b034",
+      "started_at": "2026-09-26T22:29:13.517748+00:00",
+      "run_sha256": "879d72a41145b2cc823a9ddd3e4b0b0d104d56b426ba5e56a6a116619502e573",
+      "terminal": {
+        "diagnostic": "received signal 2",
+        "status": "CANCELLED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/4108d8688fac4dcb9c6c585f8716b034-worker.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/4108d8688fac4dcb9c6c585f8716b034-terminal.txt",
+        "sha256": "93339ad387e31c262f933a41d83bf2c6dbf62087dfc337ac0bad3dd40fa5d29b"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/b5f102dc35e7d0c6f563d55155638e83d1a4e3979501024b9818beb63d41f57e/198a1e807a6042bdbcaef750851ea491",
+      "started_at": "2026-09-26T22:30:29.882839+00:00",
+      "run_sha256": "46aeaa47e9e3b055a38b212fa4e28628c27b2155faf5520386799c59ffb749da",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/b5f102dc35e7d0c6f563d55155638e83d1a4e3979501024b9818beb63d41f57e/198a1e807a6042bdbcaef750851ea491/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/198a1e807a6042bdbcaef750851ea491-worker.txt",
+        "sha256": "d6c5906216db73f432a07a204959b5230820f867ccfdf477d0d9b4452ecf97cd"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/198a1e807a6042bdbcaef750851ea491-terminal.txt",
+        "sha256": "ed4377bedf4790e8878899f712c52ebd7d424b7b07f69acf7908e6c1fb0e3784"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/3c7fcada26c01be5aca9f5cc30bad16b06c56cba29b4542dc449f76f547dbaf8/6a36df6fc7144350a1710f244c573e2d",
+      "started_at": "2026-09-26T22:34:51.610696+00:00",
+      "run_sha256": "c137f7e107a36cef10207ac18f7579e59bf76902e7681aa541660e4a75243bbc",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3c7fcada26c01be5aca9f5cc30bad16b06c56cba29b4542dc449f76f547dbaf8/6a36df6fc7144350a1710f244c573e2d/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/6a36df6fc7144350a1710f244c573e2d-worker.txt",
+        "sha256": "0662a65ce107a4494d2268848a9765eb6f1c98dd6c588b726a1a1f2982ba4423"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/6a36df6fc7144350a1710f244c573e2d-terminal.txt",
+        "sha256": "d81ba61804bf5c7957c38966077f310d3986a59c6138d5d2e2bfd5d813b73328"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/2891eb7fba53a239c7882f8fa20c06f659460da4b2da80764e7bee8f605eb106/fae83d387eb74cefbd83cb7c14a2551e",
+      "started_at": "2026-09-26T22:40:07.164765+00:00",
+      "run_sha256": "045f3aa9036dd58275a7f2e27992ad36aaac2f428e9e4e32afd2463e1c5abefb",
+      "terminal": {
+        "diagnostic": "received signal 2",
+        "status": "CANCELLED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/fae83d387eb74cefbd83cb7c14a2551e-worker.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/fae83d387eb74cefbd83cb7c14a2551e-terminal.txt",
+        "sha256": "93339ad387e31c262f933a41d83bf2c6dbf62087dfc337ac0bad3dd40fa5d29b"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/46b08924718d125f093c7e83ebf9934eae21c5da3abc10d73b5c2521e3d703a5/d905d188a7c04daaac750b217ec216d5",
+      "started_at": "2026-09-26T22:44:12.778528+00:00",
+      "run_sha256": "9e29f67beadd2fcc017bfe492aa4cf9d50fe31b161bd2ef4ca579b8a19f9dc36",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/46b08924718d125f093c7e83ebf9934eae21c5da3abc10d73b5c2521e3d703a5/d905d188a7c04daaac750b217ec216d5/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/d905d188a7c04daaac750b217ec216d5-worker.txt",
+        "sha256": "9c3922df0a50f56e441c0f1a0b79d53c5dc1df9ea808d3577998a867f61d6eb6"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/d905d188a7c04daaac750b217ec216d5-terminal.txt",
+        "sha256": "51c4f8e3142bbffa40910972c6df29949ef13143d21a1d150db2919d8ec4a573"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/562c103aefd5f1f0444563a47e91ca94d647c56bbff89be5d7129fa9893e7406/ac7a32ab19ed474e8286b4c8620822ee",
+      "started_at": "2026-09-26T22:49:58.499574+00:00",
+      "run_sha256": "000027ae7fd270978336f0b43c215d1322b6b6705767291e040fcaf1ca98fdb0",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/562c103aefd5f1f0444563a47e91ca94d647c56bbff89be5d7129fa9893e7406/ac7a32ab19ed474e8286b4c8620822ee/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/ac7a32ab19ed474e8286b4c8620822ee-worker.txt",
+        "sha256": "1c7871e43e3b01843417b6bd4c902ef743b7e4581871ef1548d9e4e432da49cd"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/ac7a32ab19ed474e8286b4c8620822ee-terminal.txt",
+        "sha256": "f28e5ad41ec50e7ea3c6ab3265945baedf289ff1f09f7e31f0314191911209fc"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/c04405e52318df8c1063b1996597f153f6d39e0f851400aaa797b4a8650ba092/07dfacd16994464eb7352fc4409e1a05",
+      "started_at": "2026-09-26T22:52:58.589280+00:00",
+      "run_sha256": "4c4b7e0d5cdce7c3759df60bb2211c94cac6f80e480df4f2fcdd95591b22040c",
+      "terminal": {
+        "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/c04405e52318df8c1063b1996597f153f6d39e0f851400aaa797b4a8650ba092/07dfacd16994464eb7352fc4409e1a05/work/worker.log",
+        "status": "FAILED"
+      },
+      "delivered": false,
+      "worker_evidence": {
+        "path": "attempt-logs/07dfacd16994464eb7352fc4409e1a05-worker.txt",
+        "sha256": "aabcd5f3fcc0f3887343d156c1b2092101daa1048ed884fe61156ddfc8171c5e"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/07dfacd16994464eb7352fc4409e1a05-terminal.txt",
+        "sha256": "8e2fea3cc1ede889a5cf3719b1888d8d6f2b0496d37c3276f7574a50d99a11ef"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/e04d48f25c552e510ad997ddeab0090e2eb345627eab5b6c6b76d77724d5cf04/c7faa95652a04e0696f8497677bb972d",
+      "started_at": "2026-09-26T22:58:46.948344+00:00",
+      "run_sha256": "0ee6394c830ab476a07ee3402fbeef28bf89d244acf980f888ade76d03ca9e37",
+      "terminal": {
+        "artifacts": {
+          "output/pdf/CPP-HANDBOOK-draft.pdf": "2d4d349700fed27b3ee4fda886b5e47107ce124c0d1d859d6f66ddeca8314a8f"
+        },
+        "audit_sha256": "feee0e966b255a3f2770f801a53b24e61a9c398ce4d884d4088a942dcb1da2c7",
+        "checks": "See work/preview-audit.json",
+        "commit_protocol": "file-fsync-then-no-replace-link-v1",
+        "execution_id": "9a515aedbe41c12d5dd3bc929b815cab8d11bc8b0ddf33dcab3dddc42c7c28a0",
+        "meaning": "Draft reading artifacts; not formal publication or visual approval",
+        "schema_version": 1,
+        "status": "PREVIEW_READY"
+      },
+      "delivered": false,
+      "disposition": "NOT_DELIVERED: independent body-link audit found missing alias click areas; superseded by repaired candidate",
+      "worker_evidence": {
+        "path": "attempt-logs/c7faa95652a04e0696f8497677bb972d-worker.txt",
+        "sha256": "2de44755cc441c602d28c2f28cf270c2dab15cc39c17016c9afefaddc9cf77ae"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/c7faa95652a04e0696f8497677bb972d-terminal.txt",
+        "sha256": "19f125997c29ad4257b65e433ac53d0cbf7ba584a1d17a038acd1943355a726c"
+      }
+    },
+    {
+      "attempt": "publication/build/preview/cbf823ee0b542ea284a520c9855fac51e7fdf41e7b8613a97195b5789be2a5e4/bf7b6b4fb9b84f53b0093e93a5855785",
+      "started_at": "2026-09-26T23:05:04.781747+00:00",
+      "run_sha256": "214a91e28ce8c7424ee379eed7af5852f59c9db1055d01e2dfaae5dabe235a82",
+      "terminal": {
+        "artifacts": {
+          "output/pdf/CPP-HANDBOOK-draft.pdf": "80aabc252ef41eccb04a67504af1401e3f89211a43a1a89d761980143b225b26"
+        },
+        "audit_sha256": "c7c9f2cf263f77981c500b7bb570990f499e8519797ceab4f6981758c9ef3350",
+        "checks": "See work/preview-audit.json",
+        "commit_protocol": "file-fsync-then-no-replace-link-v1",
+        "execution_id": "f442dd6405030e7018f4be43ff97c9adf452b2443fd95ea27e991511e1a99cd8",
+        "meaning": "Draft reading artifacts; not formal publication or visual approval",
+        "schema_version": 1,
+        "status": "PREVIEW_READY"
+      },
+      "delivered": true,
+      "worker_evidence": {
+        "path": "attempt-logs/bf7b6b4fb9b84f53b0093e93a5855785-worker.txt",
+        "sha256": "2de44755cc441c602d28c2f28cf270c2dab15cc39c17016c9afefaddc9cf77ae"
+      },
+      "terminal_evidence": {
+        "path": "attempt-logs/bf7b6b4fb9b84f53b0093e93a5855785-terminal.txt",
+        "sha256": "ff59f51d9b1dc6cc775a2f254843df3070f1de0942da6ebf0958faa015afde23"
+      }
+    }
+  ]
+}

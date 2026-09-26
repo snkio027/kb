@@ -1,0 +1,2365 @@
+{
+  "raw_geometry_sha256": "a6a1f4f6a0ed833dd2852b69efaed6e96353375a2bda263b842bcecbfc0069bf",
+  "interpretation": "Bounded classification of CJK punctuation side bearings/protrusion; raw observations remain unchanged. Not a visual proof.",
+  "explained": [
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 12,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 727.21,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 13,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 208.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 225.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 13,
+      "text": "、",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 246.89,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 342.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 15,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 256.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 15,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 352.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 21,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 231.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 21,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 499.94,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 333.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 25,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 264.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 25,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 566.95,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 27,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 113.62,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 27,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 167.19,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 28,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 568.46,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 30,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 398.54,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 30,
+      "text": "、",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 517.64,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 31,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 190.89,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 31,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 732.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 35,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 345.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 44,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 552.48,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 47,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 519.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 66,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 731.56,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 67,
+      "text": "。",
+      "x0": 527.07,
+      "x1": 537.98,
+      "bottom": 74.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 68,
+      "text": "。",
+      "x0": 527.2,
+      "x1": 538.11,
+      "bottom": 488.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 70,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 131.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 70,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 657.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 71,
+      "text": "，",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 389.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 79,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 423.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 79,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 440.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 80,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 358.11,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 111,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 336.48,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 112,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 247.31,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 113,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 250.1,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 113,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 521.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 114,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 714.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 115,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 182.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 115,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 449.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 122,
+      "text": "；",
+      "x0": 527.47,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 137,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 358.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 144,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 492.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 147,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 373.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 157,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 417.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 167,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 284.89,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 170,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 250.61,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 171,
+      "text": "（",
+      "x0": 56.91,
+      "x1": 67.82,
+      "bottom": 468.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 171,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 563.93,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 179,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 235.1,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 179,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 496.49,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 180,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 463.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 182,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 171.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 185,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 255.96,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 185,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 356.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 189,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 776.04,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 192,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 329.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 195,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 441.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 195,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 628.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 196,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 135.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 398.79,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 527.79,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 615.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 694.82,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 765.93,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 200,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 530.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 200,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 706.26,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 207,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 280.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 209,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 527.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 210,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 655.08,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 211,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 332.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 213,
+      "text": "：",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 289.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 213,
+      "text": "（",
+      "x0": 56.91,
+      "x1": 67.82,
+      "bottom": 432.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 213,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 533.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 214,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 399.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 217,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 103.95,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 217,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 439.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 217,
+      "text": "。",
+      "x0": 527.24,
+      "x1": 538.15,
+      "bottom": 600.58,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 218,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 562.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 219,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 190.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 219,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 581.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 221,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 265.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 223,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 400.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 224,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 754.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 225,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 164.66,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 225,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 448.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 233,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 234,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 614.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 236,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 531.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 238,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 207.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 193.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 360.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 481.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 665.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 242,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 698.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 243,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 154.24,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 243,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 192.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 243,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 537.37,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 243,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 574.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 244,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 667.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 246,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 422.86,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 248,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 454.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 249,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 249,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 121.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 250,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 251,
+      "text": "）",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 252,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 678.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 253,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 206.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 257,
+      "text": "。",
+      "x0": 527.29,
+      "x1": 538.2,
+      "bottom": 238.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 258,
+      "text": "。",
+      "x0": 526.82,
+      "x1": 537.73,
+      "bottom": 773.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 259,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 341.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 262,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 673.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 262,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 689.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 270,
+      "text": "？",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 274.64,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 270,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 413.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 275,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 457.09,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 275,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 633.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 279,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 520.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 283,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 522.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 283,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 540.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 284,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 110.56,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 284,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 467.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 285,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 293.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 286,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 496.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 288,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 437.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 288,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 610.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 289,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 335.56,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 290,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 290,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.37,
+      "bottom": 768.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 291,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 508.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 292,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 177.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 292,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 294.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 293,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 347.77,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 293,
+      "text": "、",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 493.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 293,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 728.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 294,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 92.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 294,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 187.97,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 295,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 347.45,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 295,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 497.96,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 295,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 577.36,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 296,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 296,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 171.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 297,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 347.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 297,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 401.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 297,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 610.1,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 298,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 495.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 298,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 533.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 298,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 667.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 299,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 160.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 300,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 300,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 594.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 302,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 315.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 304,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 519.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 308,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 308,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 488.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 309,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 324.94,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 310,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 216.19,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 310,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 405.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 310,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 479.49,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 310,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 574.1,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 312,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 384.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 313,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 367.89,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 314,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 270.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 314,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 308.57,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 314,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 758.2,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 315,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 271.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 315,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 631.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 317,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 231.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 317,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 494.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 318,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 344.27,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 318,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 508.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 319,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 475.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 319,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 602.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 320,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 92.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 320,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 242.54,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 320,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 693.66,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 321,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 323,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 121.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 323,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 419.88,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 323,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 584.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 324,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 160.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 324,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 459.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 325,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 329,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 333,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 625.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 334,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 212.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 334,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 328.92,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 338,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 365.9,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 338,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 561.04,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 339,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 244.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 339,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 336.95,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 339,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 551.26,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 339,
+      "text": "：",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 701.77,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 340,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 327.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 340,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 542.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 341,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 160.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 341,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 198.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 341,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 382.26,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 341,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 558.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 342,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 430.55,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 342,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.37,
+      "bottom": 518.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 343,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 714.02,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 344,
+      "text": "、",
+      "x0": 527.47,
+      "x1": 538.37,
+      "bottom": 160.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 344,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 177.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 344,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 382.26,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 344,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 492.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 344,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 563.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 345,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 311.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 345,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 642.92,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 345,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 664.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 346,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 142.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 346,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 742.98,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 347,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 411.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 366,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 329.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 367,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 367,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 565.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 368,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 267.61,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 370,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 257.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 371,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 645.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 371,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 700.31,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 372,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 372,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 507.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 373,
+      "text": "，",
+      "x0": 527.47,
+      "x1": 538.37,
+      "bottom": 683.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 374,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 374,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 121.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 374,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 436.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 374,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 452.94,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 376,
+      "text": "、",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 377,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 546.98,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 377,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 642.92,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 378,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 195.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 384,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 408.66,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 385,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 388,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 212.91,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 388,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 349.46,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 388,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 427.54,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 388,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 584.61,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 389,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 510.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 389,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 721.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 390,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 141.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 391,
+      "text": "。",
+      "x0": 526.85,
+      "x1": 537.76,
+      "bottom": 250.61,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 392,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 497.88,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 392,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 657.62,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 393,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 302.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 393,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 738.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 394,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 369.22,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 395,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 271.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 396,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 294.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 397,
+      "text": "。",
+      "x0": 526.16,
+      "x1": 537.07,
+      "bottom": 385.79,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 397,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 684.49,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 397,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 722.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 398,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 398,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 619.52,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 399,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 337.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 399,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 648.2,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 400,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 256.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 400,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 407.26,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 401,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 370.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 401,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 504.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 401,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 597.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 405,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 367.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 406,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 254.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-HANDBOOK-draft.pdf",
+      "page": 406,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 661.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    }
+  ],
+  "unresolved": []
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "repository": "https://github.com/snkio027/kb",
+  "navigation": {
+    "preface_title": "阅读与版本说明",
+    "preface_id": "generated-preface"
+  },
+  "dependencies": [
+    "publication/profiles/cpp-handbook/adapter.py"
+  ],
+  "standalone_links": "repository-source-or-attached-snapshot",
+  "artifact_channel": "PREVIEW",
+  "id": "cpp-handbook-full",
+  "reading": {
+    "density": "balanced",
+    "heading_roles": {
+      "2": "section",
+      "3": "subsection"
+    },
+    "source_snapshot_note": true,
+    "local_navigation_titles": [
+      "章节目录"
+    ],
+    "min_head_lines": 4,
+    "min_tail_lines": 6,
+    "short_table_lines": 12,
+    "closing_groups": {
+      "G6": "18. 从机器观察转向语言并发模型"
+    }
+  },
+  "sources": [
+    {
+      "id": "G0",
+      "path": "c++/g00-native-toolchain.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.2.1"
+    },
+    {
+      "id": "G1",
+      "path": "c++/g01-object-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.2.1"
+    },
+    {
+      "id": "G2",
+      "path": "c++/g02-raii-and-ownership.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.2.1"
+    },
+    {
+      "id": "G3",
+      "path": "c++/g03-value-semantics-and-performance.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.2.1"
+    },
+    {
+      "id": "G4",
+      "path": "c++/g04-stl-and-ranges.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.2.1"
+    },
+    {
+      "id": "G5",
+      "path": "c++/g05-generics-and-compile-time.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G6",
+      "path": "c++/g06-memory-and-performance.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G7",
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G8",
+      "path": "c++/g08-abi-and-c-interop.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G9",
+      "path": "c++/g09-build-and-native-ecosystem.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G10",
+      "path": "c++/g10-systems-runtime-project.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G11",
+      "path": "c++/g11-robotics.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G12",
+      "path": "c++/g12-cpp-zig-rust.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    }
+  ],
+  "views": [
+    {
+      "id": "CPP-HANDBOOK",
+      "documents": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9",
+        "G10",
+        "G11",
+        "G12"
+      ],
+      "title": "Modern C++ 工程学习手册",
+      "subtitle": "G0–G12 · 全书阅读候选",
+      "version": "candidate.1",
+      "status": "ACCEPTED CONTENT / FULL HANDBOOK PREVIEW"
+    }
+  ],
+  "toc_depth": 1,
+  "combined_toc_depth": 1,
+  "required_headings": [
+    "Final Gate",
+    "Final Gate · 参考答案"
+  ],
+  "new_page_heading_patterns": [
+    "^\\d+\\. Final Gate",
+    "^8\\. 编译期元数据与外部生成$"
+  ],
+  "index": null
+}

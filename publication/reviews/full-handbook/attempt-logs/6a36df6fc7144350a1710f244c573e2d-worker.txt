@@ -1,0 +1,7 @@
+CPP-HANDBOOK: 410 pages, 4 text blocks requiring review
+Traceback (most recent call last):
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3c7fcada26c01be5aca9f5cc30bad16b06c56cba29b4542dc449f76f547dbaf8/6a36df6fc7144350a1710f244c573e2d/inputs/publication/engine/preview.py", line 630, in <module>
+    worker(Path(sys.argv[2]).resolve(), Path(sys.argv[3]).resolve())
+  File "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/3c7fcada26c01be5aca9f5cc30bad16b06c56cba29b4542dc449f76f547dbaf8/6a36df6fc7144350a1710f244c573e2d/inputs/publication/engine/preview.py", line 567, in worker
+    raise RuntimeError("review blockers: inspect work/preview-audit.json before accepting this run")
+RuntimeError: review blockers: inspect work/preview-audit.json before accepting this run

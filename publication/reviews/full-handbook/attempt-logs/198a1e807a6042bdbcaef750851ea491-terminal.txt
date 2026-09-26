@@ -1,0 +1,1 @@
+{"diagnostic":"preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/b5f102dc35e7d0c6f563d55155638e83d1a4e3979501024b9818beb63d41f57e/198a1e807a6042bdbcaef750851ea491/work/worker.log","status":"FAILED"}
