@@ -1,10 +1,12 @@
 # G1 · 对象模型与生命周期
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+**版本：** 1.2.1 · Professional Handbook · 全书一致性修订
 
-编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-呈现修订稿 1.2 · C++23。前置：能用 G0 的语言层/机器层区分法解释“源码变量不一定有独立栈槽”。
+**语言基线与范围：** C++23。前置为 G0 的语言层与机器层区分；本章建立合法访问模型。
+
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
 
 [上一章：G0](g00-native-toolchain.md) · [全系列导航](README.md) · [下一章：G2](g02-raii-and-ownership.md)
 
@@ -12,7 +14,7 @@ Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
 
 本章的问题是：**指针非空、地址可读，为什么还可能不能合法访问？**
 
-首次按第 1～5 节阅读，完成两个实验，再做 Gate。第 6 节的跨语言对照只作回查，不要求先学 Zig 或 Rust。本章先建立合法访问模型；谁负责清理留给 G2，复制和移动的成本留给 G3。
+首次按第 1～5 节阅读，完成两个实验，再做 Gate。第 6 节的跨语言对照只作回查，不要求先学 Zig 或 Rust。本章先建立合法访问模型；清理责任转入 [G2 §1](g02-raii-and-ownership.md#g2-section-1)，复制和移动的成本转入 [G3 §4](g03-value-semantics-and-performance.md#g3-section-4)，这里不重复两章的操作与成本推导。
 
 - [1. 同一个地址，不等于同一个活对象](#g1-object)
 - [2. 指针、引用与别名](#g1-access)
@@ -186,7 +188,7 @@ int main() {
 
 ### 4.2 G1-L2：一个明确的错误读取
 
-这是**必须被拒绝的 UB 反例**，不是建议写法。只在新建临时目录的独立进程中运行，并启用 AddressSanitizer。
+这是**必须被拒绝的未定义行为（undefined behavior，UB）反例**，不是建议写法。只在新建临时目录的独立进程中运行，并启用 AddressSanitizer。
 
 <!-- g-lab {"id":"G1-L2","mode":"asan_negative","diagnostic":"AddressSanitizer: heap-use-after-free"} -->
 [反例 · 未定义行为；仅限隔离检测 · G1-L2 · main.cpp]

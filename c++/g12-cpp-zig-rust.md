@@ -1,12 +1,14 @@
 # G12 · 统一系统模型与工程审查
 
-**版本：** 1.1 · Professional Handbook Edition · 综合与应用卷
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-**主线：** C++23；Unified Systems Model；Rust/Zig 仅作第二层机制对照。
+**语言基线与范围：** C++23。Unified Systems Model；承接 G0～G11，Rust/Zig 仅作第二层机制对照。
 
-**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)，保持 v1.0。
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G11](g11-robotics.md) · [全系列导航](README.md)
 
 ## 阅读入口
 
@@ -55,9 +57,9 @@
 
 ### 1.2 比较的基线与限制
 
-C++ 基线为 C++23/N4950；Rust 以 2024 Edition 的所有权/借用模型为对照，涉及 unsafe 规则时以官方 Reference 的当前说明为边界；Zig 机制回查固定 0.15.2 文档，不使用含糊的“Modern Zig”版本。本批不运行 Rust/Zig 编译器，所有比较均为解释模型，不构成交叉语言兼容性或性能验证。
+C++ 基线为 C++23/N4950；Rust 保留 2024 edition 对照口径，所有权、布局与 unsafe 概念回查固定到 1.85.0 随附官方文档，读取日期与摘要见[引用约定](handbook-guide.md#4-参考资料的版本与访问身份)；Zig 机制回查固定 0.15.2 文档，不使用含糊的“Modern Zig”版本。本批不运行 Rust/Zig 编译器，所有比较均为解释模型，不构成交叉语言兼容性或性能验证。
 
-C++ 提供 RAII、值类型、模板与机器表示控制，但许多非法访问要由程序员排除；safe Rust 把更多借用和线程共享合法性放进静态约束，仍依赖 unsafe 实现 soundness；Zig 的 allocator、错误和清理表达更显式，却不提供同样的 borrow-checking 保证。不要把示意风格画成优劣坐标。
+C++ 提供 RAII、值类型、模板与机器表示控制，但许多非法访问要由程序员排除；safe Rust 把更多借用和线程共享合法性放进静态约束，仍依赖 unsafe 实现的健全性（soundness）；Zig 的 allocator、错误和清理表达更显式，却不提供同样的 borrow-checking 保证。不要把示意风格画成优劣坐标。
 
 <a id="g12-section-2"></a>
 
@@ -78,7 +80,7 @@ C++ 提供 RAII、值类型、模板与机器表示控制，但许多非法访�
 
 ### 2.1 用 C++ 对象模型打开问题
 
-storage 是存放对象的资源，object 是具有类型与生命周期的语言实体，value 是其状态；三者不能互换。取得足够对齐的存储不普遍意味着已经构造任意 T；手工构造、销毁与复用继续受 [G1](g01-object-model.md) 的规则约束。Rust 的 value/place 与 Zig 的 typed storage 不是逐字对应 C++ 标准术语，但都要回答初始化、访问有效期和存储回收。
+storage 是存放对象的资源，object 是具有类型与生命周期的语言实体，value 是其状态；三者不能互换。取得足够对齐的存储不普遍意味着已经构造任意 T；手工构造、销毁与复用继续受 [G1](g01-object-model.md#g1-object) 的规则约束。Rust 的 value/place 与 Zig 的 typed storage 不是逐字对应 C++ 标准术语，但都要回答初始化、访问有效期和存储回收。
 
 owner.reset 后旧指针仍有地址，并不意味着对象仍活着。RAII 可以可靠安排 owner 的释放，却不能自动证明所有 borrower 都已结束。Rust 静态借用规则能排除许多此类 safe-code 路径；Zig 的 defer 让配对可见，却不会检查整个借用图。
 
@@ -115,7 +117,7 @@ C++ 的析构函数和 Rust Drop 可把资源清理能力绑定到拥有类型�
 
 C++ 的 value、unique_ptr、shared_ptr、引用和 span 可表达不同意图；裸 T* 仍可能表示 owner、nullable borrow 或外部句柄，必须有合同。`span<const T>` 只禁止经该视图修改元素，不保证底层不可被其他别名修改，更不会延长 owner 生命周期；它与仅将视图对象声明为 `const span<T>` 不同。
 
-Rust &T 的共享访问需考虑 UnsafeCell 内部可变性，不能粗暴说“所有内容永远 immutable”；&mut T 提供受规则约束的独占访问。unsafe/raw pointer 并不免除别名与有效性义务，精确 unsafe 模型也不能被几句口号替代。[Rust Reference](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)
+Rust &T 的共享访问需考虑 UnsafeCell 内部可变性，不能粗暴说“所有内容永远 immutable”；&mut T 提供受规则约束的独占访问。unsafe/raw pointer 并不免除别名与有效性义务，精确 unsafe 模型也不能被几句口号替代。[Rust Reference](https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html)
 
 Zig 的 []const T、[]T、指针形状表达访问方式与长度，但不静态证明整个 borrower graph。三种 slice 在机器层可能都类似地址+长度，不能据此跨 ABI 假定布局，也不能认为语言保证相同。
 
@@ -123,7 +125,7 @@ Zig 的 []const T、[]T、指针形状表达访问方式与长度，但不静态
 
 C++ std::move 是表达式转换，实际调用由重载决议决定；用户定义的 move 可转移资源，也可没有期望的廉价行为，移后源对象还存在并受其类型合同约束。Rust 非 Copy 值移动使原 binding 不再可用，不是调用用户 move constructor；Copy 也不是“成本必定很小”的性能保证。
 
-Zig 普通赋值没有 Rust 式源值不可用的所有权状态转移。拥有资源的 struct 若普通复制后两边都 deinit，可能重复释放。语言不同，但审查仍应画 owner、借用期限、别名和 mutation authority，再检查复制/移动究竟改变了哪条边，详见 [G2](g02-raii-and-ownership.md) 与 [G3](g03-value-semantics-and-performance.md)。
+Zig 普通赋值没有 Rust 式源值不可用的所有权状态转移。拥有资源的 struct 若普通复制后两边都 deinit，可能重复释放。语言不同，但审查仍应画 owner、借用期限、别名和写入权限（mutation authority），再检查复制/移动究竟改变了哪条边，详见 [G2](g02-raii-and-ownership.md#g2-section-1) 与 [G3](g03-value-semantics-and-performance.md#g3-section-4)。
 
 <a id="g12-section-4"></a>
 
@@ -180,7 +182,7 @@ expected、Result 与 Zig error union 都可把预期失败作为值传播；C++
 
 C++ templates/concepts、Rust generics/traits 与 Zig comptime 都能让静态已知信息形成专门代码；具体机制、约束检查和实例化时机不同。C++ concepts 不证明任意运行时语义，Rust trait bounds 不自动证明业务合同，comptime 也不意味着所有成本免费。
 
-特化可能减少运行时分支并促进内联，同时增加构建时间、二进制体积、调试复杂度与指令缓存压力。动态 virtual、trait object、函数表或类型擦除可能更紧凑，但带来间接分派及生命周期接口。选择依据实际变化维度，参见 [G5](g05-generics-and-compile-time.md)。
+特化可能减少运行时分支并促进内联，同时增加构建时间、二进制体积、调试复杂度与指令缓存压力。动态 virtual、trait object、函数表或类型擦除可能更紧凑，但带来间接分派及生命周期接口。选择依据实际变化维度，参见 [G5](g05-generics-and-compile-time.md#g5-section-9)。
 
 ### 5.2 相似容器背后仍有失效规则
 
@@ -220,11 +222,11 @@ vector、Vec 与 allocator-backed dynamic array 都可能拥有连续存储；sp
 
 ### 6.1 类型安全不能取消缓存与同步成本
 
-连续性、对齐、working set、指针追逐、TLB 和 AoS/SoA 取决于具体访问路径。shared_ptr、Arc 或自建原子引用计数都可能付出间接访问和缓存行竞争；安全拥有不是 contention-free。零额外抽象成本也不意味着所选算法、分配和同步本身免费，仍要测具体实现，详见 [G6](g06-memory-and-performance.md)。
+连续性、对齐、working set、指针追逐、TLB 和 AoS/SoA 取决于具体访问路径。shared_ptr、Arc 或自建原子引用计数都可能付出间接访问和缓存行竞争；安全拥有不是 contention-free。零额外抽象成本也不意味着所选算法、分配和同步本身免费，仍要测具体实现，详见 [G6](g06-memory-and-performance.md#g6-section-9)。
 
 ### 6.2 数据竞争安全不等于协议正确
 
-C++ 通过 mutex/atomic 建立 happens-before；safe Rust 的 Send/Sync 与借用约束排除一大类非法跨线程访问，但不能自动排除死锁、错误关闭顺序、过载或原子状态机的逻辑错误。实现 Send/Sync 的 unsafe 责任不能交给命名猜测。[Rustonomicon](https://doc.rust-lang.org/nomicon/send-and-sync.html)
+C++ 通过 mutex/atomic 建立 happens-before；safe Rust 的 Send/Sync 与借用约束排除一大类非法跨线程访问，但不能自动排除死锁、错误关闭顺序、过载或原子状态机的逻辑错误。实现 Send/Sync 的 unsafe 责任不能交给命名猜测。[Rustonomicon](https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html)
 
 单写者、分片、不可变 generation 与消息传递能简化三种语言中的共享图。队列交接仍有接收点、失败、背压和析构责任；C++ 的 std::move 不像 Rust 一样禁止随后使用源变量。原子 acquire/release 只在具体读写关系满足条件时发布数据，不能把“用了 acquire”当普遍 barrier。
 
@@ -259,13 +261,13 @@ lock-free 描述系统进展，不保证每个线程在限定步骤内完成，�
 
 C++ 与 Rust 原生 ABI 都不应被当作跨任意工具链版本的长期通用合同，Zig native 表示也不能直接等同 C。明确目标平台的 C ABI、版本化结构、不透明句柄和创建者销毁接口能缩小互操作表面，但仍须规定大小/对齐、空值、范围、借用、回调、线程与错误。
 
-Rust raw pointer FFI 无法由编译器推断 C 库是否保留指针、能否并发销毁；错误的 safe wrapper 可以把不成立的 unsafe 假设暴露给所有调用者。C++ private vector 成员仍参与公开类布局，只有真正隐藏对象或合适 PImpl 等边界才能隔离，不能把 private 误认成 ABI 不可见。参见 [G8](g08-abi-and-c-interop.md)。
+Rust raw pointer FFI 无法由编译器推断 C 库是否保留指针、能否并发销毁；错误的 safe wrapper 可以把不成立的 unsafe 假设暴露给所有调用者。C++ private vector 成员仍参与公开类布局，只有真正隐藏对象或合适 PImpl 等边界才能隔离，不能把 private 误认成 ABI 不可见。参见 [G8](g08-abi-and-c-interop.md#g8-section-4)。
 
 ### 7.2 工具整合度不同，依赖图仍存在
 
 CMake/Ninja 与包管理器分工，Cargo 整合 package/build/test 流程，Zig toolchain 提供构建图工具。它们都有制品节点、输入与依赖边；遗漏生成器输入、工具身份或链接依赖，仍会造成陈旧或不完整产物。
 
-C++ 文本包含、宏配置、翻译单元与历史 ABI 增加一些语言特有复杂性；Rust cfg 与 Zig comptime/build options 用不同机制表达配置，但不会消除条件组合测试。源码能编译、能链接、能运行、能安装消费是不同 Gate，详见 [G9](g09-build-and-native-ecosystem.md)。
+C++ 文本包含、宏配置、翻译单元与历史 ABI 增加一些语言特有复杂性；Rust cfg 与 Zig comptime/build options 用不同机制表达配置，但不会消除条件组合测试。源码能编译、能链接、能运行、能安装消费是不同 Gate，详见 [G9](g09-build-and-native-ecosystem.md#g9-section-7)。
 
 <a id="g12-section-8"></a>
 
@@ -313,7 +315,7 @@ C++ 文本包含、宏配置、翻译单元与历史 ABI 增加一些语言特�
 
 C++ 的析构、Rust 的 Drop、Zig 的 defer 都可能执行有成本的清理；通用 allocator、OS 调度、锁与 I/O 仍可能无可用上界。memory-safe 或 allocation-explicit 都不是 deadline 证明。嵌入式语言选择还受目标工具链、vendor SDK、no_std/runtime 支持、调试与认证约束。
 
-实时需求必须在平台、负载、输入上界与故障模型下分析，不能用桌面 microbenchmark 代替。[G11](g11-robotics.md) 的 timing observation 与物理时限论证分开，是这个原则的具体例子。
+实时需求必须在平台、负载、输入上界与故障模型下分析，不能用桌面 microbenchmark 代替。[G11](g11-robotics.md#g11-section-16) 的 timing observation 与物理时限论证分开，是这个原则的具体例子。
 
 ### 9.2 性能比较必须比较同一个命题
 
@@ -619,9 +621,9 @@ G10 无论由哪种语言实现，仍要保证 accepted work 有结果、队列�
 
 ### 17.2 正文到 G12 封顶
 
-本书不再追加 G13。下一阶段是实际使用、跨章术语/引用/重复审计，然后才做出版试件，不扩成新百科。原稿末尾的全系列 COMPLETE 只表示主题目录闭环，不能覆盖当前审核状态、平台限制和 PDF 未构建事实。
+本书不再追加 G13。后续维护围绕实际使用、全书一致性和出版视图，不扩成新百科。原稿末尾的全系列 COMPLETE 只表示主题目录闭环，不能覆盖当前审核状态、平台限制和 PDF 未构建事实。
 
-G0～G9 已接受，G10～G12 本批待集中审核；全系列一致性清理、PDF Pilot、出版系统和正式发布均未在本批自动启动。学习成果应体现为能解释一个真实设计的责任与反例，而不是不断增加章节。
+G0～G12 已接受源稿与本轮 Editorial Sweep 修订按[系列状态](README.md#基线与证据状态)分开：本轮形成待集中审核的内容冻结候选，未启动 PDF Pilot 或正式发布。学习成果应体现为能解释一个真实设计的责任与反例，而不是不断增加章节。
 
 <a id="g12-section-18"></a>
 
@@ -834,6 +836,6 @@ G0～G9 已接受，G10～G12 本批待集中审核；全系列一致性清理�
 
 ## 22. 参考资料与验证边界
 
-C++ 语义使用 [N4950](https://timsong-cpp.github.io/cppwp/n4950/)及前面章节的定向条款；Rust 比较回查 [Reference 的未定义行为边界](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)、[Send/Sync](https://doc.rust-lang.org/nomicon/send-and-sync.html)、[Ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)；Zig 回查 [0.15.2 文档](https://ziglang.org/documentation/0.15.2/)。Rust 2024 是 edition，不是具体编译器版本。本批未执行 Rust/Zig，不声明这些机制已在本机编译验证。编辑去向、审查练习与平台边界见[批次记录](learning/synthesis-revision.md)。
+C++ 语义使用 [N4950](https://timsong-cpp.github.io/cppwp/n4950/)及前面章节的定向条款；Rust 比较回查 [Reference 的未定义行为边界](https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html)、[Send/Sync](https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html)、[Ownership](https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html)；Zig 回查 [0.15.2 文档](https://ziglang.org/documentation/0.15.2/)。Rust 2024 是 edition，不是具体编译器版本。本批未执行 Rust/Zig，不声明这些机制已在本机编译验证。编辑去向、审查练习与平台边界见[批次记录](learning/synthesis-revision.md)。
 
-本章使用 [Editorial Profile v1.0](editorial-profile.md)，Markdown 是内容与完整实验事实源。PDF **NOT BUILT / NOT VALIDATED**；长文件与表格的源稿风险不等于实际分页已验收。
+引用版本与证据解释统一见[全书约定](handbook-guide.md)。正文在 G12 结束。可沿 [§12 的审查协议](#g12-section-12)用于新项目；后续是全书一致性和出版视图，不增加新的技术章。

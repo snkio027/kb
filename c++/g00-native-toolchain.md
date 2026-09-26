@@ -1,12 +1,14 @@
 # G0 · 原生工具链与机器边界
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+**版本：** 1.2.1 · Professional Handbook · 全书一致性修订
 
-编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-呈现修订稿 1.2 · C++23 · 主实验适用 Clang / Apple Clang。机器观察以 macOS / Apple Silicon 为例，不把本机 ABI 当作语言规则。
+**语言基线与范围：** C++23。主实验适用 Clang / Apple Clang；macOS / Apple Silicon 机器观察不代表通用 ABI。
 
-[全系列导航](README.md) · [下一章：G1 对象模型](g01-object-model.md)
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[全系列导航](README.md) · [下一章：G1](g01-object-model.md)
 
 ## 阅读入口
 
@@ -30,7 +32,7 @@ Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
 
 ### 1.1 问题：编译器没看到函数体，凭什么生成调用？
 
-普通、非模板函数的声明 `int add(int, int);` 足够让当前翻译单元检查调用的参数和结果类型。编译器按照目标 ABI 生成调用所需信息，把尚未解决的符号交给链接阶段。它不需要此刻读到另一个 `.cpp` 的函数体。
+普通、非模板函数的声明 `int add(int, int);` 足够让当前翻译单元（translation unit，TU）检查调用的参数和结果类型。编译器按照目标应用二进制接口（application binary interface，ABI）约定生成调用所需信息，把尚未解决的符号交给链接阶段。它不需要此刻读到另一个 `.cpp` 的函数体。
 
 例如，把声明放入 `math.hpp`，实现放入 `math.cpp`，调用放入 `main.cpp`：
 
@@ -137,7 +139,7 @@ clang++ main.o math.o -o demo
 
 “编译报错”可以口语化，但排查时必须落到具体阶段。构建日志中的最后一行不一定是根因；先找第一条有意义的诊断，再检查实际执行命令。
 
-构建系统（CMake、Ninja、Make 等）管理的是输入到工件的依赖关系和执行规则。它们不能消除 C++ 的 TU、ODR 和 ABI 要求；缓存了错误配置，照样可能稳定地产生错误工件。
+构建系统（CMake、Ninja、Make 等）管理的是输入到工件的依赖关系和执行规则。它们不能消除 C++ 的 TU、单一定义规则（One Definition Rule，ODR）和 ABI 要求；缓存了错误配置，照样可能稳定地产生错误工件。
 
 <a id="g0-binary"></a>
 
@@ -173,7 +175,7 @@ C++ name mangling 支持在二进制层区分重载等实体。Itanium C++ ABI �
 
 ## 5. API、ABI 与跨语言边界
 
-API 决定源码如何调用；ABI 决定独立编译的机器码怎样协同，包括调用约定、数据布局、符号与语言运行时规则。重新编译后源码仍可用，不等于旧二进制还能使用新库。
+应用编程接口（application programming interface，API）决定源码如何调用；ABI 决定独立编译的机器码怎样协同，包括调用约定、数据布局、符号与语言运行时规则。重新编译后源码仍可用，不等于旧二进制还能使用新库。
 
 例如下面是**布局观察片段，不是跨平台常量**：
 
@@ -275,4 +277,4 @@ int* bad() {
 
 **完成标准：**不看答案复现缺失定义的链接失败，补齐后运行成功；能把每个工件的责任讲给未来的自己听。汇编细节暂时看不懂，不阻塞进入 G1。
 
-参考：[Clang 驱动器选项](https://clang.llvm.org/docs/CommandGuide/clang.html)；机器层规则按具体 ABI 查证。G0-L1 不涵盖动态部署、LTO、Modules 或所有 ODR 违规。
+参考：[Clang 驱动器选项](https://clang.llvm.org/docs/CommandGuide/clang.html)；机器层规则按具体 ABI 查证。G0-L1 不涵盖动态部署、LTO、Modules 或所有 ODR 违规。二进制接口的完整合同转入 [G8 §1](g08-abi-and-c-interop.md#g8-section-1)，构建与安装依赖转入 [G9 §1](g09-build-and-native-ecosystem.md#g9-section-1)；首次阅读先沿 [G1 §1](g01-object-model.md#g1-object)区分存储迹象与对象生命周期。

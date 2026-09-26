@@ -1,19 +1,16 @@
 # G3 · 值语义、移动与成本模型
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+**版本：** 1.2.1 · Professional Handbook · 全书一致性修订
 
-编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-- **Version:** 1.2 · 呈现修订稿
-- **Prerequisite:** G1 Object Model & Lifetime, G2 RAII & Ownership Architecture
-- **Language Baseline:** C++23
-- **Comparison Languages:** Zig / Rust
-- **Scope:** Value Semantics / Copy / Move / Copy Elision / RVO / NRVO / Parameter Passing / Container Relocation / SSO / SBO / Representation / Performance Architecture
-- **Purpose:** 作为进入 G4 STL & Abstraction 前的长期 C++ Value / Cost Model 复习与 Code Review 基线
+**语言基线与范围：** C++23。前置为 G1/G2；覆盖值、复制/移动、返回、参数与表示成本；Zig/Rust 仅作对照。
 
-## 阅读入口
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
 
 [上一章：G2](g02-raii-and-ownership.md) · [全系列导航](README.md) · [下一章：G4](g04-stl-and-ranges.md)
+
+## 阅读入口
 
 本章的问题是：**同样写 `auto b = a;`，为什么有时复制数据、有时只多一条访问路径？写 std::move 又改变了什么？**
 
@@ -52,7 +49,7 @@ Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
 
 ### 1.1 本章的工程问题
 
-G1 检查访问有效性，G2 检查清理责任，G3 追问值在系统流动时支付了什么成本。正确性是前提，但“用了智能指针”或“写了 move”都不能直接推出性能。
+[G1 §1](g01-object-model.md#g1-object)检查访问有效性，[G2 §1](g02-raii-and-ownership.md#g2-section-1)检查清理责任，G3 追问值在系统流动时支付了什么成本。正确性是前提，但“用了智能指针”或“写了 move”都不能直接推出性能。
 
 本章按三步阅读表达式：类型表示什么逻辑值；操作允许改变哪些状态；表示如何映射到分配、元素操作和间接访问。
 
@@ -309,7 +306,7 @@ b reuses/transfers a's existing state/resource
 
 **问题：**如果类型只有复制构造，写 std::move 会强行生成移动构造吗？
 
-不会。对对象表达式，std::move 提供 xvalue；其概念形式是 `static_cast<std::remove_reference_t<T>&&>(x)`，其中 T 是推导出的模板参数。后续初始化、赋值或消费函数才选择并执行实际操作。
+不会。对对象表达式，std::move 提供 xvalue（值类别定义见 [G1 §5](g01-object-model.md#g1-category)）；其概念形式是 `static_cast<std::remove_reference_t<T>&&>(x)`，其中 T 是推导出的模板参数。后续初始化、赋值或消费函数才选择并执行实际操作。
 
 不能把“调用者允许消费源状态”说成语言已经证明可以安全消费。候选中可能有移动、有可绑定右值的复制，或者有被删除的最优函数而直接报错。“没声明移动”和“显式删除移动”不是同一个重载集合。下面实验先验证最常混淆的 const 和 copy-only 两条路径。
 
@@ -2785,9 +2782,7 @@ Efficiently represented and moved?
 
 我们已经回答：**一个C++ value在程序中流动时，它的copy、move、return、parameter passing和container relocation究竟意味着什么成本。**
 
-G4 接下来不再围绕单个 object。
-
-而要扩大到：
+[G4 §1](g04-stl-and-ranges.md#g4-section-1)把本章的值与表示模型用于整个数据集合。下面是问题之间的依赖，不是需要重新背诵的术语目录。
 
 ```text
 Container

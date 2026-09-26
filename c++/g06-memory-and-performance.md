@@ -1,18 +1,18 @@
 # G6 · 内存布局、机器成本与性能测量
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md) 编辑状态：Professional Handbook Edition。PDF：NOT BUILT / NOT VALIDATED。
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-- **Version:** 1.1
-- **Status:** Professional Handbook Edition · 待集中审核
-- **Language Baseline:** C++23
-- **Track:** Modern C++ Systems Track
-- **Prerequisites:** G0 Native Toolchain & Machine Boundary, G1 Object Model, G2 RAII & Ownership, G3 Value Semantics, G5 Generic Programming
-- **Scope:** Object Layout / Alignment / Padding / Cache / Locality / AoS / SoA / Allocation / Arena / Pool / PMR / Virtual Memory / TLB / Branch Prediction / Cache Coherence / False Sharing / Benchmarking / Profiling
-- **Purpose:** 建立从 C++ object representation 一直追踪到 CPU、Cache、Virtual Memory、多核和性能证据的统一分析模型。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
+
+**语言基线与范围：** C++23。前置为 G0～G3/G5；追踪布局、局部性、分配、虚拟内存与跨核成本，以测量检验假设。
+
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G5](g05-generics-and-compile-time.md) · [全系列导航](README.md) · [下一章：G7](g07-concurrency-and-memory-model.md)
 
 ## 阅读入口
 
-主线从对象布局（object layout）追到局部性（locality）、分配（allocation）、虚拟内存（virtual memory）、控制流和跨核协调，再用测量（measurement）与性能剖析（profiling）检验假设。数组结构布局（AoS，array of structures）与结构数组布局（SoA，structure of arrays）只是表示选择，不能预设赢家。先读第 1～9 节，再用实验和 Gate 检查推理；其余部分供回查。
+主线从对象布局（object layout）追到局部性（locality）、分配（allocation）、虚拟内存（virtual memory）、控制流和跨核协调，再用测量（measurement）与性能剖析（profiling）检验假设。结构体数组（AoS，array of structures）与数组组成的结构体（SoA，structure of arrays）只是表示选择，不能预设赢家。先读第 1～9 节，再用实验和 Gate 检查推理；其余部分供回查。
 
 
 ### 章节目录
@@ -735,23 +735,7 @@ External API
 
 ### 5.1 Allocation 与 Construction
 
-`new T(args...)`
-
-概念上：
-
-`raw storage allocation + T construction`
-
-而：
-
-`delete p;`
-
-：
-
-`T destruction + storage deallocation`
-
-必须永久分开：
-
-Allocation、Construction、Destruction、Deallocation。
+沿用 [G1 §1](g01-object-model.md#g1-object)的对象/存储区分：普通 `new T(args...)` 涉及存储分配（allocation）与对象构造（construction），匹配的 `delete p;` 涉及析构（destruction）与存储释放（deallocation）。本章不重复生命周期规则，只把这四类工作分开计量；资源归还的责任仍由 [G2](g02-raii-and-ownership.md#g2-section-1)的所有权合同约束。
 
 <a id="g6-topic-29"></a>
 
@@ -2456,13 +2440,13 @@ shared_ptr control blocks是否跨线程竞争？
 真正 profile 热点在哪里？
 ```
 
-这就是从：“会写 C++” 走向：**能够解释 C++ 系统为何以某种方式工作。**
+这份清单把 [G1 的有效访问](g01-object-model.md#g1-object)、[G2 的共享所有权](g02-raii-and-ownership.md#g2-section-8)、[G3 的表示成本](g03-value-semantics-and-performance.md#g3-section-8)与本章测量接起来；前几章负责语义，本章只追问这些选择在给定机器上的代价。
 
 <a id="g6-section-18"></a>
 
 ## 18. 从机器观察转向语言并发模型
 
-G6 的成本分析不能替代同步正确性；下一章 [G7](g07-concurrency-and-memory-model.md) 以普通数据发布为例，区分硬件一致性与 C++ 可依赖的顺序。当前为 Markdown 编辑稿，不沿用历史 Frozen 标记授予技术基线资格。
+G6 的成本分析不能替代同步正确性；下一章 [G7 §3](g07-concurrency-and-memory-model.md#g7-section-3) 以普通数据发布为例，区分硬件一致性与 C++ 可依赖的顺序。机器观察不替代语言顺序；本轮源稿状态与历史本地证据按[全书口径](handbook-guide.md#3-怎样读证据标签)分开。
 
 <a id="g6-section-19"></a>
 

@@ -1,19 +1,16 @@
 # G4 · STL、Ranges 与数据抽象
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+**版本：** 1.2.1 · Professional Handbook · 全书一致性修订
 
-编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-- **Version:** 1.2 · 呈现修订稿
-- **Status:** Professional presentation refresh · 保留既有定向验证边界
-- **Language Baseline:** C++23
-- **Prerequisites:** G0–G3；G6/G7 的机器与并发模型可用于深化理解
-- **Scope:** Containers / Iterators / `span` / `mdspan` / Algorithms / Ranges / Views / Sorting / Searching / Associative Containers / Flat Representations / Invalidation / Ownership-friendly APIs / Vocabulary Types
-- **Purpose:** 学会根据语义、所有权、访问模式与系统成本选择和组合标准库 abstraction，而不是背容器 API。
+**语言基线与范围：** C++23。前置为 G0～G3；容器、迭代器、Ranges 与状态类型按语义和成本选型，G6/G7 用于深化。
 
-## 阅读入口
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
 
 [上一章：G3](g03-value-semantics-and-performance.md) · [全系列导航](README.md) · [下一章：G5](g05-generics-and-compile-time.md)
+
+## 阅读入口
 
 本章的问题是：**同一批数据，谁拥有、谁借用、怎样查询，才能同时说清正确性和成本？**
 
@@ -3624,6 +3621,6 @@ lookup 是否 hot？
 
 ## 17. 接下来怎么用
 
-本章形成可学习的主线和定向实验，不宣称全部标准库能力冻结。下一次按 [G5 泛型与编译期编程](g05-generics-and-compile-time.md) 继续；遇到布局/并发成本再回查 G6/G7，遇到二进制接口再看 G8。
+本章形成可学习的主线和定向实验，不宣称全部标准库能力冻结。下一次按 [G5 泛型与编译期编程](g05-generics-and-compile-time.md) 继续；布局与实测回查 [G6 §4](g06-memory-and-performance.md#g6-section-4)、[§9](g06-memory-and-performance.md#g6-section-9)，共享访问回查 [G7 §11](g07-concurrency-and-memory-model.md#g7-section-11)，二进制暴露范围回查 [G8 §6](g08-abi-and-c-interop.md#g8-section-6)。容器选择不在本章替代这些专门论证。
 
 [返回全系列导航](README.md)

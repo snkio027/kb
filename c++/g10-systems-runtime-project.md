@@ -1,12 +1,14 @@
 # G10 · 系统运行时工程
 
-**版本：** 1.1 · Professional Handbook Edition · 综合与应用卷
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-**主线：** C++23；Systems Runtime Engineering。
+**语言基线与范围：** C++23。Systems Runtime Engineering；前置为 G0～G9，组合运行时协议、安装消费与测量。
 
-**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)，保持 v1.0。
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G9](g09-build-and-native-ecosystem.md) · [全系列导航](README.md) · [下一章：G11](g11-robotics.md)
 
 ## 阅读入口
 
@@ -99,7 +101,9 @@ Closing ───────────────────── abort �
 
 close 停止接收并保留已接收工作；abort 停止接收、唤醒等待者并允许取消尚未完成的工作；join 是等待和阶段收口，不应暗中替调用者选择 drain 或 abort。close/abort 必须幂等，重复 start 应拒绝。
 
-生命周期操作需要调用方合同。实验规定 start、join、summary 和析构由外部 owner 串行执行；start 返回后才允许外部 submit，close/abort 可与 submit 竞争。终止接收后先等外部提交线程返回，再 join 运行时。析构不能与尚在调用成员函数的外部线程竞争，也不能从内部 worker 自我 join。
+生命周期操作需要调用方合同。实验规定公开 `start`、`join`、`summary` 和析构由外部 owner 串行执行；公开 `submit`、`close()`、`abort()` 的前置条件是 `start()` 已成功返回。在此之后，close/abort 可与 submit 竞争。终止接收后先等外部提交线程返回，再 join 运行时。析构不能与尚在调用成员函数的外部线程竞争，也不能从内部 worker 自我 join。
+
+实现没有用显式 RuntimeState 检查全部非法调用；成功 start 前公开 close/abort 属于合同外调用，不承诺抛错或特定结果。内部启动失败回滚和析构清理不受这一公开调用前置条件限制，§18 已有部分启动失败与析构测试也不等于测试了所有非法转换。
 
 <a id="g10-section-3"></a>
 
@@ -118,7 +122,7 @@ close 停止接收并保留已接收工作；abort 停止接收、唤醒等待�
 
 ### 3.1 拥有者与处理视图分离
 
-原始项目的通用表示是 `InputItem { id, vector<byte> payload }`。普通 vector 移动构造通常转移存储管理状态；带不同分配器的操作则不能无条件推定常数时间。把“控制对象很小”与“载荷很大”分开，有利于跨队列移动，但必须继续检查所有别名和分配器条件，详见 [G3](g03-value-semantics-and-performance.md)。
+原始项目的通用表示是 `InputItem { id, vector<byte> payload }`。普通 vector 移动构造通常转移存储管理状态；带不同分配器的操作则不能无条件推定常数时间。把“控制对象很小”与“载荷很大”分开，有利于跨队列移动，但必须继续检查所有别名和分配器条件，详见 [G3](g03-value-semantics-and-performance.md#g3-section-4)。
 
 Processor 接收 `span<const byte>`，明确只在调用期间读输入，不保存它。worker 持有载荷 owner，返回值是自包含的小结果；异步保留 span 会越过借用期限。裸指针加长度可以表达视图，却不能独自说明拥有、释放和失效，不能直接作为跨线程任务的默认所有权表示。
 
@@ -309,7 +313,7 @@ Processor 初始用具体类型足够。virtual、template Runtime 或 move_only
 
 ### 9.2 运行时身份不随意移动
 
-线程捕获内部状态、队列含 mutex，运行中的 Runtime 默认不复制也不移动。PImpl 降低头文件依赖并隐藏布局，但不把整个 C++ 接口自动变成跨工具链稳定 ABI。公开 C++ 调用仍有标准库、异常和编译器合同，详见 [G8](g08-abi-and-c-interop.md)。
+线程捕获内部状态、队列含 mutex，运行中的 Runtime 默认不复制也不移动。PImpl 降低头文件依赖并隐藏布局，但不把整个 C++ 接口自动变成跨工具链稳定 ABI。公开 C++ 调用仍有标准库、异常和编译器合同，详见 [G8](g08-abi-and-c-interop.md#g8-section-4)。
 
 C 入口用 opaque handle、pointer + size、显式 create/destroy 和状态码。输入仅借用到 submit 返回，包装层复制进运行时拥有的载荷。未来 zero-copy 必须新建租约或释放回调合同，不能悄悄把“调用期借用”改成后台保留。实验提供最小静态库 C 消费者，但没有承诺版本化共享 ABI：配置协商、动态加载、异步回调和旧二进制升级仍需独立验收。
 
@@ -483,7 +487,7 @@ Processor 微基准隔离字节解析；队列基准隔离交接；运行时基�
 
 架构记录放 ownership/thread/lifecycle 图；不变量记录放 accepted outcome、容量和销毁顺序；性能记录放条件、观察和限制。ADR 只记录有实际替代方案的决策，不为每个小实现动作创建治理负担。
 
-Markdown 中的完整文件是本实验唯一维护源码；执行器提取到新临时目录并记录文件摘要。源稿版本、命令、结果与边界一起构成证据，不拿旧运行的 JSON 为新字节背书。六张跨章审查图在 [G12](g12-cpp-zig-rust.md) 汇总。
+Markdown 中的完整文件是本实验唯一维护源码；执行器提取到新临时目录并记录文件摘要。源稿版本、命令、结果与边界一起构成证据，不拿旧运行的 JSON 为新字节背书。六张跨章审查图在 [G12 §15](g12-cpp-zig-rust.md#g12-section-15)汇总。
 
 <a id="g10-section-16"></a>
 
@@ -504,7 +508,7 @@ Markdown 中的完整文件是本实验唯一维护源码；执行器提取到�
 
 ### 16.1 共享与等待常被隐藏在“方便”里
 
-每项都改全局 atomic counter 会造成额外共享写入；到处 shared_ptr 只延长生命周期，不决定 mutation authority。裸借用指针进队列可能指向提交者栈；让 worker 拥有共享队列又会使多个析构责任相互冲突。把依赖注入和 owner 图画清楚，比增加智能指针种类更重要。
+每项都改全局 atomic counter 会造成额外共享写入；到处 shared_ptr 只延长生命周期，不决定写入权限（mutation authority）。裸借用指针进队列可能指向提交者栈；让 worker 拥有共享队列又会使多个析构责任相互冲突。把依赖注入和 owner 图画清楚，比增加智能指针种类更重要。
 
 无界队列只是把过载从等待改成内存失控。处理时持队列锁把计算与交接串行化。过早关闭 output 会使已接收结果无处提交；只 request_stop 不通知 CV 会使等待者永远看不到退出机会。
 
@@ -1455,4 +1459,4 @@ add_test(NAME c_consumer COMMAND c_consumer)
 
 N4950 的 [条件变量](https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvar)、[线程 join](https://timsong-cpp.github.io/cppwp/n4950/thread.thread.member)用于同步规则回查；[Clang ASan](https://clang.llvm.org/docs/AddressSanitizer.html)、[UBSan](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html) 与 [TSan](https://clang.llvm.org/docs/ThreadSanitizer.html)说明检测机制。实际版本、结果、SKIP、错误变体和平台限制在[批次记录](learning/synthesis-revision.md)与[原始结果](learning/synthesis-results.json)。工具文档不是本机已执行证据。
 
-本章使用 [Editorial Profile v1.0](editorial-profile.md)，Markdown 是内容与完整实验事实源。PDF **NOT BUILT / NOT VALIDATED**；长文件与表格的源稿风险不等于实际分页已验收。
+引用版本与证据解释统一见[全书约定](handbook-guide.md)。下一章 [G11 §1～2](g11-robotics.md#g11-section-1)在资源与关闭模型上加入物理语义和时钟域；运行时协议通过定向测试，不等于新增了实时保证。

@@ -1,0 +1,2010 @@
+{
+  "scope": "G0-G12 Cross-series Editorial Sweep; not a C++ or PDF validation run",
+  "base": "b4728e36f307eb4e4c639cdd1300ef7b33f8c929",
+  "date": "2026-09-27",
+  "audit_script": "#!/usr/bin/env python3\n\"\"\"One-shot, read-only editorial preservation audit; no C++ execution.\"\"\"\nimport hashlib\nimport json\nimport re\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nROOT = Path.cwd().resolve()\nBASE = \"b4728e36f307eb4e4c639cdd1300ef7b33f8c929\"\ndef sha(raw):\n    return hashlib.sha256(raw).hexdigest()\ndef digest(value):\n    return sha(json.dumps(value, ensure_ascii=False, separators=(\",\", \":\")).encode())\ndef git(*args):\n    return subprocess.check_output([\"git\", *args], cwd=ROOT)\ndef sections(text):\n    blocks, outside, buf = [], [], None\n    for line in text.splitlines(keepends=True):\n        if line.startswith(\"```\"):\n            if buf is None:\n                buf = [line]\n            else:\n                buf.append(line)\n                blocks.append(\"\".join(buf))\n                buf = None\n        elif buf is not None:\n            buf.append(line)\n        else:\n            outside.append(line)\n    assert buf is None, \"unclosed fence\"\n    prose = \"\".join(outside)\n    headers = re.findall(r\"^#{1,3} .+$\", prose, re.M)\n    anchors = re.findall(r'<a id=\"([^\"]+)\"></a>', prose)\n    markers = re.findall(r\"<!-- [ghns]-(?:lab|file) .+? -->\", prose)\n    identities = re.findall(r\"^\\[(?:完整实验|机制片段|反例)[^\\n]+$\", prose, re.M)\n    gates = []\n    headings = list(re.finditer(r\"^## .+$\", text, re.M))\n    for index, h in enumerate(headings):\n        if \"Final Gate\" not in h.group():\n            continue\n        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)\n        body = text[h.end():end]\n        # G0/G1 place their completion note and references after the answers.\n        body = body.split(\"**完成标准：**\")[0]\n        gates.append(body)\n    return dict(blocks=blocks, headers=headers, anchors=anchors, markers=markers,\n                identities=identities, gates=gates)\ndef compare(old, new):\n    a, b = sections(old), sections(new)\n    return {key: a[key] == b[key] for key in a}\n# Deterministic self-controls: accept prose edits, reject changed program/Gate/anchor.\nfixture = '# H\\n\\n<a id=\"x\"></a>\\n\\n## 1. Text\\nprose\\n\\n```cpp\\nint x = 1;\\n```\\n\\n## 2. Final Gate\\n1. Why?\\n'\ncontrols = {\n    \"prose_edit_allowed\": all(compare(fixture, fixture.replace(\"prose\", \"edited prose\")).values()),\n    \"code_edit_rejected\": not compare(fixture, fixture.replace(\"x = 1\", \"x = 2\"))[\"blocks\"],\n    \"gate_edit_rejected\": not compare(fixture, fixture.replace(\"Why?\", \"What?\"))[\"gates\"],\n    \"anchor_edit_rejected\": not compare(fixture, fixture.replace('id=\"x\"', 'id=\"y\"'))[\"anchors\"],\n}\nassert all(controls.values())\nchapters = sorted((ROOT / \"c++\").glob(\"g[0-1][0-9]-*.md\"))\nassert len(chapters) == 13\nrows = []\nfor i, path in enumerate(chapters):\n    rel = path.relative_to(ROOT).as_posix()\n    old_raw = git(\"show\", f\"{BASE}:{rel}\")\n    new_raw = path.read_bytes()\n    old, new = old_raw.decode(), new_raw.decode()\n    checks = compare(old, new)\n    assert all(checks.values()), (rel, checks)\n    parts = sections(new)\n    assert len(parts[\"gates\"]) == 2, rel\n    assert \"**版本：** \" + (\"1.2.1\" if i <= 4 else \"1.1.1\") in new\n    assert \"[全书术语、证据与引用](handbook-guide.md)\" in new\n    if i:\n        assert f\"[上一章：G{i-1}]({chapters[i-1].name})\" in new\n    if i < 12:\n        assert f\"[下一章：G{i+1}]({chapters[i+1].name})\" in new\n    rows.append(dict(path=rel, base_sha256=sha(old_raw), current_sha256=sha(new_raw),\n                     checks=checks, blocks=len(parts[\"blocks\"]),\n                     headers=len(parts[\"headers\"]), anchors=len(parts[\"anchors\"]),\n                     lab_markers=len(parts[\"markers\"]), visible_identities=len(parts[\"identities\"]),\n                     gate_sections=len(parts[\"gates\"]),\n                     code_blocks_sha256=digest(parts[\"blocks\"]),\n                     gate_sections_sha256=digest(parts[\"gates\"])))\ntracked = [p.decode() for p in git(\"ls-tree\", \"-rz\", \"--name-only\", BASE).split(b\"\\0\") if p]\nallowed = {r[\"path\"] for r in rows} | {\"c++/README.md\", \"c++/learning/README.md\"}\nprotection = []\nfor rel in tracked:\n    raw, original = (ROOT / rel).read_bytes(), git(\"show\", f\"{BASE}:{rel}\")\n    equal = raw == original\n    assert equal or rel in allowed, rel\n    protection.append(dict(path=rel, base_sha256=sha(original), current_sha256=sha(raw), unchanged=equal))\nsnapshot_paths = sorted(allowed | {\"c++/editorial-profile.md\", \"c++/handbook-guide.md\"})\nsnapshot = [dict(path=p, bytes=len((ROOT/p).read_bytes()), sha256=sha((ROOT/p).read_bytes())) for p in snapshot_paths]\nsys.path.insert(0, str(ROOT / \"c++/learning\"))\nimport verify_g, verify_handbook, verify_native, verify_synthesis\nextraction = []\nfor module, group in [(verify_g, chapters[:5]), (verify_handbook, chapters[5:8]),\n                      (verify_native, chapters[8:10]), (verify_synthesis, chapters[10:12])]:\n    old_docs = [(p.name, git(\"show\", f\"{BASE}:{p.relative_to(ROOT)}\").decode()) for p in group]\n    new_docs = [(p.name, p.read_text()) for p in group]\n    old_labs, new_labs = module.extract(old_docs), module.extract(new_docs)\n    assert old_labs == new_labs, module.__name__\n    for lab in new_labs:\n        extraction.append(dict(runner=module.__name__, id=lab[\"id\"], document=lab[\"document\"],\n                               mode=lab[\"mode\"], oracle_and_files_equal=True,\n                               files={p: sha(s.encode()) for p, s in lab[\"files\"].items()}))\nreference_inventory = []\nfor path in chapters + [ROOT / \"c++/handbook-guide.md\"]:\n    for url in sorted(set(re.findall(r\"\\]\\((https?://[^)]+)\\)\", path.read_text()))):\n        assert \"ziglang.org/documentation/master\" not in url\n        assert \"doc.rust-lang.org/\" not in url or \"doc.rust-lang.org/1.85.0/\" in url\n        reference_inventory.append(dict(path=path.relative_to(ROOT).as_posix(), url=url))\nprint(json.dumps(dict(base=BASE, audit_self_controls=controls, chapters=rows,\n                     totals=dict(chapters=len(rows), blocks=sum(r[\"blocks\"] for r in rows),\n                                 anchors=sum(r[\"anchors\"] for r in rows),\n                                 gate_sections=sum(r[\"gate_sections\"] for r in rows),\n                                 lab_markers=sum(r[\"lab_markers\"] for r in rows),\n                                 labs=len(extraction), extracted_files=sum(len(r[\"files\"]) for r in extraction),\n                                 tracked=len(tracked), unchanged=sum(r[\"unchanged\"] for r in protection)),\n                     protection=protection,\n                     extraction=extraction,\n                     source_snapshot=dict(status=\"FROZEN_CANDIDATE_FOR_REVIEW\", files=snapshot),\n                     external_reference_inventory=reference_inventory),\n                 ensure_ascii=False, indent=2))\n",
+  "audit": {
+    "base": "b4728e36f307eb4e4c639cdd1300ef7b33f8c929",
+    "audit_self_controls": {
+      "prose_edit_allowed": true,
+      "code_edit_rejected": true,
+      "gate_edit_rejected": true,
+      "anchor_edit_rejected": true
+    },
+    "chapters": [
+      {
+        "path": "c++/g00-native-toolchain.md",
+        "base_sha256": "692fbea1b9824caaa14fffa031c98e328289c55056aa201b2a9be18078260316",
+        "current_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 8,
+        "headers": 19,
+        "anchors": 15,
+        "lab_markers": 4,
+        "visible_identities": 6,
+        "gate_sections": 2,
+        "code_blocks_sha256": "e3109756b95c7851e741a25220f56ffcc83079e538de0c2936f8f2670938fb2b",
+        "gate_sections_sha256": "bad4dd1aed58434d8d3f8932630915e57174fefe1bb71d761855322299486bde"
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "base_sha256": "61dc905e4424b04e4453201c8e16165caa2d4906f4e8ab2fa9ca61b0c51ed518",
+        "current_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 10,
+        "headers": 18,
+        "anchors": 15,
+        "lab_markers": 4,
+        "visible_identities": 8,
+        "gate_sections": 2,
+        "code_blocks_sha256": "ac94ff44c8cbeccb27e6537760f29b83e98e8ea3561a283a69021f309b00390f",
+        "gate_sections_sha256": "ce6ee1ff040946f4c8161b05943b1825a021468336316e96002f12eaa2288a59"
+      },
+      {
+        "path": "c++/g02-raii-and-ownership.md",
+        "base_sha256": "2f2eda75dccf691db9d3d9e4fb88e8df3644523f1ecc652d97e6e6d52ebbdb8a",
+        "current_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 164,
+        "headers": 53,
+        "anchors": 53,
+        "lab_markers": 4,
+        "visible_identities": 68,
+        "gate_sections": 2,
+        "code_blocks_sha256": "cb797791e64258c5323773dc19cffd5fe3a29150eac39cb52c6743648d1d22fc",
+        "gate_sections_sha256": "ca7760ed25314f8532a6ba9281d6c3c2a9669f61a85d671c4d10680575a2fdb9"
+      },
+      {
+        "path": "c++/g03-value-semantics-and-performance.md",
+        "base_sha256": "fc29f733c0126fde5ab4dbd3225d0297e42fe5e12c45d3cd95fb612c3db335e4",
+        "current_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 210,
+        "headers": 69,
+        "anchors": 65,
+        "lab_markers": 8,
+        "visible_identities": 61,
+        "gate_sections": 2,
+        "code_blocks_sha256": "5144754bf3c5cba8e2b94eec70161b0ff205e47fa5841f3b58ec062c01e504f4",
+        "gate_sections_sha256": "e5ab9e3a6e879ba111d70b1ae66879cb022d104fa6c4cecdb710330cfb893718"
+      },
+      {
+        "path": "c++/g04-stl-and-ranges.md",
+        "base_sha256": "4a237ac91dc42aef2a06f2a0cf718f374cb0aeaa2b4598f01bf200b321fd45f1",
+        "current_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 273,
+        "headers": 56,
+        "anchors": 56,
+        "lab_markers": 8,
+        "visible_identities": 113,
+        "gate_sections": 2,
+        "code_blocks_sha256": "895b737b33e680fde9dff1f4937a2cb8fea3ea9d970c1c168dc84e4dc3eacd8b",
+        "gate_sections_sha256": "fc9a578ff2bec1718b7c04e8103338060a2e9c9a5671fe4a1df3fe4c104d1c8d"
+      },
+      {
+        "path": "c++/g05-generics-and-compile-time.md",
+        "base_sha256": "ff55a4a1d52021bcceecab48997ad59e8404b98ade2d9be2bf102dbc8de0be31",
+        "current_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 68,
+        "headers": 102,
+        "anchors": 82,
+        "lab_markers": 13,
+        "visible_identities": 50,
+        "gate_sections": 2,
+        "code_blocks_sha256": "615f763aacbe2243d5182442dffce90185b925c3ac18b67658a979309070e537",
+        "gate_sections_sha256": "195bac65085efc5e151aa098c569a17e1fcdaacb70d8d15dc83c759f4090c54f"
+      },
+      {
+        "path": "c++/g06-memory-and-performance.md",
+        "base_sha256": "d790003bad14d8ce439341bcbd8bd5daa418585aea7a2c9d469d575681990368",
+        "current_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 75,
+        "headers": 134,
+        "anchors": 124,
+        "lab_markers": 8,
+        "visible_identities": 21,
+        "gate_sections": 2,
+        "code_blocks_sha256": "b9d3a42750143c5c59e9a9a47b03afbce2da11d07fbc66463636a5928e15c909",
+        "gate_sections_sha256": "e949a1fdaf54557ba8ff69d60244808f5782bc56d6fa5622242076ccc0ca023d"
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "base_sha256": "faab9a4a6b9c4f0eef0ac36c4306a913758626948fbca57e7908a97803008b1a",
+        "current_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 77,
+        "headers": 139,
+        "anchors": 128,
+        "lab_markers": 6,
+        "visible_identities": 27,
+        "gate_sections": 2,
+        "code_blocks_sha256": "951488fac1fd88b5af0eb8c64f2a9b445c6b97dbf5881c2a821e0bee9ab24c66",
+        "gate_sections_sha256": "1606d26aa0e08712d8b65f4d0e98612b6381dcac373056c55d7f2b11b4ce438d"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "base_sha256": "8d9f0cb6dc0c5e3752c8927ea1e11f5098105215795f450a4e2d7012d2dc5c10",
+        "current_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 22,
+        "headers": 90,
+        "anchors": 217,
+        "lab_markers": 9,
+        "visible_identities": 21,
+        "gate_sections": 2,
+        "code_blocks_sha256": "a0455efbb96ead878d50ce4f71805997e928164d6161d26828971fc72a0addfe",
+        "gate_sections_sha256": "2af5db5526e3f18612c6a4142744615bc0e93b61c4df1749e384c682435fe252"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "base_sha256": "27cf36d5b38c86f229ec268187973f03e9cbb6100434ac39b8294c55ea7194ba",
+        "current_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 23,
+        "headers": 89,
+        "anchors": 220,
+        "lab_markers": 15,
+        "visible_identities": 22,
+        "gate_sections": 2,
+        "code_blocks_sha256": "dfc7b1dfd2ec7407e9da5faedc3182943493133fa00817afc8ecf2bb2dbeb3ba",
+        "gate_sections_sha256": "0aeb0c6f101d907a3123a4244bd7797a02d396ec19a4e2aecf73ec2fd2823ec7"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "base_sha256": "d6ce73ec57c1a14ca5194b47f78ad631cb086a840ef17cbeba7905f900a639ff",
+        "current_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 16,
+        "headers": 83,
+        "anchors": 212,
+        "lab_markers": 13,
+        "visible_identities": 12,
+        "gate_sections": 2,
+        "code_blocks_sha256": "f6eb39fe6fe2cf6673ab417a9723870cadd3b3fbec59df3c9f7675eb551dfef2",
+        "gate_sections_sha256": "9ce0b1c4ca5f3fb1c8c701eafbf6fdc15b15e9078397c950aefe8e4e1791209d"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "base_sha256": "57e211e5e5c7832fe8ae3bd1bc46e8b8767190913a3b78ca431074421b967549",
+        "current_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 6,
+        "headers": 76,
+        "anchors": 226,
+        "lab_markers": 6,
+        "visible_identities": 5,
+        "gate_sections": 2,
+        "code_blocks_sha256": "5138e1908422936b2dc0d856e858f4a77192c77c6d04a7d807fc3fa9815955d8",
+        "gate_sections_sha256": "2a4f81b40b63ec20871240a3f34dc5dfd1f6557105fd88984b0037c1298fbcbe"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "base_sha256": "439e5296246a4baa304277fad91c6401453e5fe340096ee7b47abca2a9308bac",
+        "current_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+        "checks": {
+          "blocks": true,
+          "headers": true,
+          "anchors": true,
+          "markers": true,
+          "identities": true,
+          "gates": true
+        },
+        "blocks": 1,
+        "headers": 86,
+        "anchors": 301,
+        "lab_markers": 0,
+        "visible_identities": 1,
+        "gate_sections": 2,
+        "code_blocks_sha256": "f5f6b9c0b6d10b19c00c2a889f5bd5228b102c49529cd5025d87889beb58caa3",
+        "gate_sections_sha256": "254b6ce1d9810beda45df31f39d95639b4660c1aeba189086c34bdb26fa905b3"
+      }
+    ],
+    "totals": {
+      "chapters": 13,
+      "blocks": 953,
+      "anchors": 1714,
+      "gate_sections": 26,
+      "lab_markers": 98,
+      "labs": 30,
+      "extracted_files": 68,
+      "tracked": 132,
+      "unchanged": 117
+    },
+    "protection": [
+      {
+        "path": ".gitignore",
+        "base_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+        "current_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+        "unchanged": true
+      },
+      {
+        "path": "README.md",
+        "base_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+        "current_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/AI-Native Platform Control Plane Architecture Standard.md",
+        "base_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+        "current_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/Atlas Architecture Design.md",
+        "base_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+        "current_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/Atlas GitOps Control Plane Design.md",
+        "base_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+        "current_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.pdf",
+        "base_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+        "current_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.tex",
+        "base_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+        "current_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/Atlas Architecture Design.pdf",
+        "base_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+        "current_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/Atlas Architecture Design.tex",
+        "base_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+        "current_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.pdf",
+        "base_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+        "current_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+        "unchanged": true
+      },
+      {
+        "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.tex",
+        "base_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+        "current_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+        "unchanged": true
+      },
+      {
+        "path": "c++/README.md",
+        "base_sha256": "fe05f0b8c568ecc879391c78cdc39e68674d8099233504711159730071dd5a84",
+        "current_sha256": "daae3cc5a721b44f915c0b887f3c4e91294eef6a03c38e07f97a793bb5983e42",
+        "unchanged": false
+      },
+      {
+        "path": "c++/editorial-profile.md",
+        "base_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+        "current_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/README.md",
+        "base_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+        "current_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm0-failure-model.md",
+        "base_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+        "current_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+        "base_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+        "current_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm2-value-based-failure.md",
+        "base_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+        "current_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm3-exception-semantics.md",
+        "base_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+        "current_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm4-raii-exception-safety.md",
+        "base_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+        "current_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+        "base_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+        "current_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+        "base_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+        "current_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm7-error-code-system-error.md",
+        "base_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+        "current_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm8-failure-boundaries.md",
+        "base_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+        "current_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/fm9-project-failure-profile.md",
+        "base_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+        "current_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/review/fm-claims.md",
+        "base_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+        "current_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/review/fm-review-7869082.md",
+        "base_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+        "current_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/review/fm-verification-results.json",
+        "base_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+        "current_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/review/fm-verification-samples.md",
+        "base_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+        "current_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+        "unchanged": true
+      },
+      {
+        "path": "c++/failure-model/review/verify_fm.py",
+        "base_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+        "current_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+        "unchanged": true
+      },
+      {
+        "path": "c++/g00-native-toolchain.md",
+        "base_sha256": "692fbea1b9824caaa14fffa031c98e328289c55056aa201b2a9be18078260316",
+        "current_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "base_sha256": "61dc905e4424b04e4453201c8e16165caa2d4906f4e8ab2fa9ca61b0c51ed518",
+        "current_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g02-raii-and-ownership.md",
+        "base_sha256": "2f2eda75dccf691db9d3d9e4fb88e8df3644523f1ecc652d97e6e6d52ebbdb8a",
+        "current_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g03-value-semantics-and-performance.md",
+        "base_sha256": "fc29f733c0126fde5ab4dbd3225d0297e42fe5e12c45d3cd95fb612c3db335e4",
+        "current_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g04-stl-and-ranges.md",
+        "base_sha256": "4a237ac91dc42aef2a06f2a0cf718f374cb0aeaa2b4598f01bf200b321fd45f1",
+        "current_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g05-generics-and-compile-time.md",
+        "base_sha256": "ff55a4a1d52021bcceecab48997ad59e8404b98ade2d9be2bf102dbc8de0be31",
+        "current_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g06-memory-and-performance.md",
+        "base_sha256": "d790003bad14d8ce439341bcbd8bd5daa418585aea7a2c9d469d575681990368",
+        "current_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "base_sha256": "faab9a4a6b9c4f0eef0ac36c4306a913758626948fbca57e7908a97803008b1a",
+        "current_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "base_sha256": "8d9f0cb6dc0c5e3752c8927ea1e11f5098105215795f450a4e2d7012d2dc5c10",
+        "current_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "base_sha256": "27cf36d5b38c86f229ec268187973f03e9cbb6100434ac39b8294c55ea7194ba",
+        "current_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "base_sha256": "d6ce73ec57c1a14ca5194b47f78ad631cb086a840ef17cbeba7905f900a639ff",
+        "current_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "base_sha256": "57e211e5e5c7832fe8ae3bd1bc46e8b8767190913a3b78ca431074421b967549",
+        "current_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+        "unchanged": false
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "base_sha256": "439e5296246a4baa304277fad91c6401453e5fe340096ee7b47abca2a9308bac",
+        "current_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+        "unchanged": false
+      },
+      {
+        "path": "c++/learning/README.md",
+        "base_sha256": "6ae72e69e98d9b5ed7612858e4f4c4d12f8ea1dd3246fa44e821141d4858cf62",
+        "current_sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479",
+        "unchanged": false
+      },
+      {
+        "path": "c++/learning/check_docs.py",
+        "base_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+        "current_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/native-results.json",
+        "base_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+        "current_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/native-revision.md",
+        "base_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+        "current_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/professional-results.json",
+        "base_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+        "current_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/professional-revision.md",
+        "base_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+        "current_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/revision-notes.md",
+        "base_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+        "current_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/synthesis-results.json",
+        "base_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+        "current_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/synthesis-revision.md",
+        "base_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+        "current_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/test_verify_g.py",
+        "base_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+        "current_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/test_verify_handbook.py",
+        "base_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+        "current_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/test_verify_native.py",
+        "base_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+        "current_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/test_verify_synthesis.py",
+        "base_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+        "current_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/verification-results.json",
+        "base_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+        "current_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/verify_g.py",
+        "base_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+        "current_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/verify_handbook.py",
+        "base_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+        "current_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/verify_native.py",
+        "base_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+        "current_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+        "unchanged": true
+      },
+      {
+        "path": "c++/learning/verify_synthesis.py",
+        "base_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+        "current_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+        "unchanged": true
+      },
+      {
+        "path": "c++/pdf_build/g0-native-toolchain.pdf",
+        "base_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+        "current_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+        "unchanged": true
+      },
+      {
+        "path": "c++/pdf_build/g0-native-toolchain.tex",
+        "base_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+        "current_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+        "unchanged": true
+      },
+      {
+        "path": "c++/pdf_build/g1-object-model.pdf",
+        "base_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+        "current_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+        "unchanged": true
+      },
+      {
+        "path": "c++/pdf_build/g1-object-model.tex",
+        "base_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+        "current_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+        "unchanged": true
+      },
+      {
+        "path": "design/.gitignore",
+        "base_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+        "current_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+        "unchanged": true
+      },
+      {
+        "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+        "base_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+        "current_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+        "unchanged": true
+      },
+      {
+        "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+        "base_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+        "current_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+        "unchanged": true
+      },
+      {
+        "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+        "base_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+        "current_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+        "unchanged": true
+      },
+      {
+        "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+        "base_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+        "current_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+        "unchanged": true
+      },
+      {
+        "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+        "base_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+        "current_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+        "unchanged": true
+      },
+      {
+        "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+        "base_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+        "current_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+        "unchanged": true
+      },
+      {
+        "path": "design/README.md",
+        "base_sha256": "70899ba373605655ee69ad8f32a2d0124ec92b0dd1ad861ac08faad9be9c9402",
+        "current_sha256": "70899ba373605655ee69ad8f32a2d0124ec92b0dd1ad861ac08faad9be9c9402",
+        "unchanged": true
+      },
+      {
+        "path": "design/dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf",
+        "base_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+        "current_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+        "unchanged": true
+      },
+      {
+        "path": "design/dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf",
+        "base_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+        "current_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+        "unchanged": true
+      },
+      {
+        "path": "design/dist/build-manifest.json",
+        "base_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+        "current_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+        "unchanged": true
+      },
+      {
+        "path": "design/dist/sha256sums.txt",
+        "base_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+        "current_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+        "unchanged": true
+      },
+      {
+        "path": "design/examples/pilots/README.md",
+        "base_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+        "current_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+        "unchanged": true
+      },
+      {
+        "path": "design/examples/pilots/atlas-bootstrap-status-review.md",
+        "base_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+        "current_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+        "unchanged": true
+      },
+      {
+        "path": "design/examples/pilots/evidence/atlas-status-aca4ff1.json",
+        "base_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+        "current_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+        "unchanged": true
+      },
+      {
+        "path": "design/fonts.lock",
+        "base_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+        "current_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+        "unchanged": true
+      },
+      {
+        "path": "design/package-lock.txt",
+        "base_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+        "current_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/asset-register.md",
+        "base_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+        "current_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/plan.md",
+        "base_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+        "current_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/publication-b1a.md",
+        "base_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+        "current_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/publication-design.md",
+        "base_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+        "current_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/publication-preview.md",
+        "base_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+        "current_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+        "unchanged": true
+      },
+      {
+        "path": "design/project/sources/KB-PLAN-001-v0.1.0-original.md",
+        "base_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+        "current_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/assurance-chain.tex",
+        "base_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+        "current_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/can-pipeline.tex",
+        "base_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+        "current_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/commit-sequence.tex",
+        "base_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+        "current_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/derivation-chain.tex",
+        "base_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+        "current_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/four-planes.tex",
+        "base_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+        "current_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/diagrams/stage-gate.tex",
+        "base_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+        "current_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/esd-theme.sty",
+        "base_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+        "current_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/esdbook.cls",
+        "base_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+        "current_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/code-blocks.lua",
+        "base_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+        "current_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/cross-references.lua",
+        "base_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+        "current_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/normalize-headings.lua",
+        "base_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+        "current_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/pdf-metadata.lua",
+        "base_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+        "current_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/preview.lua",
+        "base_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+        "current_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/semantic-blocks.lua",
+        "base_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+        "current_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/filters/tables.lua",
+        "base_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+        "current_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/preview-theme.sty",
+        "base_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+        "current_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/preview.tex",
+        "base_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+        "current_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/profiles/accessible-experimental.yaml",
+        "base_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+        "current_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/profiles/release.yaml",
+        "base_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+        "current_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/requirements-preview.txt",
+        "base_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+        "current_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/source-catalog.json",
+        "base_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+        "current_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/table-layouts.json",
+        "base_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+        "current_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+        "unchanged": true
+      },
+      {
+        "path": "design/publication/template.tex",
+        "base_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+        "current_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+        "unchanged": true
+      },
+      {
+        "path": "design/reviews/a67fb25-review-status.md",
+        "base_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+        "current_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/build.sh",
+        "base_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+        "current_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/candidate.py",
+        "base_sha256": "5061c365fce44b8f61b7a262cae54e562236d221da435e3b07db634e8e36fd7d",
+        "current_sha256": "5061c365fce44b8f61b7a262cae54e562236d221da435e3b07db634e8e36fd7d",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/compare-renders.sh",
+        "base_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+        "current_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/content-audit.py",
+        "base_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+        "current_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/pdf-structure-audit.py",
+        "base_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+        "current_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/preflight.sh",
+        "base_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+        "current_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/preview.py",
+        "base_sha256": "24b6acfa93689fe783f96ee52c26738b2b22b9d17c9a268db3a3bf8988da1779",
+        "current_sha256": "24b6acfa93689fe783f96ee52c26738b2b22b9d17c9a268db3a3bf8988da1779",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/preview.sh",
+        "base_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+        "current_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/preview_audit.py",
+        "base_sha256": "9f9698ec8a8212b1521f99512f92a118c580008d2592ebd4eafe943f64d72ca6",
+        "current_sha256": "9f9698ec8a8212b1521f99512f92a118c580008d2592ebd4eafe943f64d72ca6",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/pub.py",
+        "base_sha256": "e6f4f34dba2237511d8a847f5e179b8b7c9aa968a41ac9c29e5243d6cd1d5502",
+        "current_sha256": "e6f4f34dba2237511d8a847f5e179b8b7c9aa968a41ac9c29e5243d6cd1d5502",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/render-pdfium.py",
+        "base_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+        "current_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/render-verify.sh",
+        "base_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+        "current_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/test-candidate.py",
+        "base_sha256": "21e1338eedb85e137d7d562666c0d6f0b7e4bb86da219207e6da0fca2718fd97",
+        "current_sha256": "21e1338eedb85e137d7d562666c0d6f0b7e4bb86da219207e6da0fca2718fd97",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/test-preview.py",
+        "base_sha256": "89311f748b754e63b4178859e48088174ca3d82395f21ea0cfea63a5aa33df20",
+        "current_sha256": "89311f748b754e63b4178859e48088174ca3d82395f21ea0cfea63a5aa33df20",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/test-publication-isolation.py",
+        "base_sha256": "136c33bcdce7044284d3c93d8f28129b0db08dec837883553b94eb94936fae7f",
+        "current_sha256": "136c33bcdce7044284d3c93d8f28129b0db08dec837883553b94eb94936fae7f",
+        "unchanged": true
+      },
+      {
+        "path": "design/scripts/write-manifest.py",
+        "base_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+        "current_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+        "unchanged": true
+      },
+      {
+        "path": "design/texlive.profile",
+        "base_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+        "current_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+        "unchanged": true
+      },
+      {
+        "path": "design/to-pdf.md",
+        "base_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+        "current_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+        "unchanged": true
+      },
+      {
+        "path": "zig/Zig Project Architecture Standard.md",
+        "base_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+        "current_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+        "unchanged": true
+      },
+      {
+        "path": "zig/pdf_build/Zig Project Architecture Standard.pdf",
+        "base_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+        "current_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+        "unchanged": true
+      },
+      {
+        "path": "zig/pdf_build/Zig Project Architecture Standard.tex",
+        "base_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+        "current_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+        "unchanged": true
+      }
+    ],
+    "extraction": [
+      {
+        "runner": "verify_g",
+        "id": "G0-L1",
+        "document": "g00-native-toolchain.md",
+        "mode": "link",
+        "oracle_and_files_equal": true,
+        "files": {
+          "math.hpp": "5da331d23d6ee4886110784b5ea0407aeb84f5f07a56534376872c4a35f4ef78",
+          "math.cpp": "e7349fab44f59f35c6bb8e6dc9b0a4d5c263540a2222b6fb19e721fbfdcf79c8",
+          "main.cpp": "605b09c731e7360251e182366f8050455a8314f0613de2688be97247118ad021"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G1-L1",
+        "document": "g01-object-model.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "59c8d5c4b132f8cff3e9d4a179438d60ef0dea89d7c568881c8ac1d7a0c9e72f"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G1-L2",
+        "document": "g01-object-model.md",
+        "mode": "asan_negative",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "5f0fbd663f22771a1c6f093727560f53629dd950ecaed16d4356e52828edf264"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G2-L1",
+        "document": "g02-raii-and-ownership.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "b656d77cdac9736f951f56552dfe415c2ac7b0f6e6fe5f0d9734f2a44709e0e0"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G2-L2",
+        "document": "g02-raii-and-ownership.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "147ef2cd847a5ae73d6c3ff13f2d34d4f193268b238147753c5d3f91fc6662cd"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G3-L1",
+        "document": "g03-value-semantics-and-performance.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "b3a346eaa9e5cf9fc2f8ee95d6aa688baa70077652ac34e1de62b1d535d555f4"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G3-L2",
+        "document": "g03-value-semantics-and-performance.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "66d61b4cfd73507fe4000bc6afd77b3100b2d99f4195718ccb9e108c77e8c021"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G3-L3",
+        "document": "g03-value-semantics-and-performance.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "2707553c1a2bbfd822eb5b9630cd0c8093f35fe51b892634b364e87056b05f77"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G3-L4",
+        "document": "g03-value-semantics-and-performance.md",
+        "mode": "compile_fail",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "58a29ccc97827fb0141b47dbdea32b213e1af47eb5cf1233b4db581cc561ca2d"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G4-L1",
+        "document": "g04-stl-and-ranges.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "0fe7f7684aa856cd9e51ecc9124bab22a17bbbd96a1edfb5a62169a6d9704c92"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G4-L2",
+        "document": "g04-stl-and-ranges.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "e1638d0f1c13db93dfbd49663dbea813ea0ae1e67faa9570ce250dd9ebaa68d7"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G4-L3",
+        "document": "g04-stl-and-ranges.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "e458d9c299f55d812ed7e5b1b6415a06732a79665c0747091c6f13d2dd364167"
+        }
+      },
+      {
+        "runner": "verify_g",
+        "id": "G4-L4",
+        "document": "g04-stl-and-ranges.md",
+        "mode": "compile_fail",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "c4c11b8f841b87b10e6d0d57e043ca0aef8432f040448014cb720b801ff0855d"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G5-C1",
+        "document": "g05-generics-and-compile-time.md",
+        "mode": "run",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "a596d1390b6f79cb7d371c6ff76c23c4417f73d2a303c022f433f88057bd0e99"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G5-C2",
+        "document": "g05-generics-and-compile-time.md",
+        "mode": "compile_fail",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "ca06dff394c65b31fd3e732f60c283f297c0e7ac6ca2aae58a702d2a9fb272ed"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G5-C3",
+        "document": "g05-generics-and-compile-time.md",
+        "mode": "compile_fail",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "102899adc5cfcd3d230344ab9b59a9053f42d8c713a023260dedf69cfccdabb8"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G5-C4",
+        "document": "g05-generics-and-compile-time.md",
+        "mode": "compile_fail",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "f839a5d0a11787ad32d161a2290e95622d15cf963b6debd593c5d1c4c3d075bc"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G5-C5",
+        "document": "g05-generics-and-compile-time.md",
+        "mode": "symbols",
+        "oracle_and_files_equal": true,
+        "files": {
+          "scale.hpp": "22800eb0e356ca7634fd810432d0ec583d10844fad98e7848b2c8ed056fd7032",
+          "scale.cpp": "f1c433683e418feb6cdd5e596ac6af363aae7f422f2c84a6b260f353e6df9a72",
+          "main.cpp": "f8fc0a4a97fd69f7997a09a4f4957c66699b32a2d242d52534fe18b9656a3aed",
+          "missing.cpp": "2e5e6ff8c6870383c8fc8f8d420443651a7d8ac7ae84776052069182b54c1938"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G6-M1",
+        "document": "g06-memory-and-performance.md",
+        "mode": "observation",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "400387a501872918f17b0257e0a4419e4b8a479512ade75e514836209419f4ec"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G6-M2",
+        "document": "g06-memory-and-performance.md",
+        "mode": "observation",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "8a6feeea0da6241a1b62e34d88e46757669c0a57e0d4635e967b2054dd7330c8"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G6-M3",
+        "document": "g06-memory-and-performance.md",
+        "mode": "benchmark",
+        "oracle_and_files_equal": true,
+        "files": {
+          "kernel.hpp": "01b8f82958359044802f48a10a822353ab9ad728a1b08b7c0c680bc7fe1eccf7",
+          "kernel.cpp": "12ea2624825e10394b4888040bb0c5bc03bced3146eb51a6eb4e2118acbd1112",
+          "main.cpp": "796ed1142ef141df3dd058248de2126d93d34459fcee5ef841bcdb64f0cc82ca"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G7-D1",
+        "document": "g07-concurrency-and-memory-model.md",
+        "mode": "concurrency",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "0377462bbf0932ae09e9a5d4e7fb212b67be2002e96e88dbd95134a008bb1f51"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G7-D2",
+        "document": "g07-concurrency-and-memory-model.md",
+        "mode": "concurrency",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "49a64b9f8bf6d7000eda69498b9cc6cc197cf592071110c6ceedf0540fc01321"
+        }
+      },
+      {
+        "runner": "verify_handbook",
+        "id": "G7-D3",
+        "document": "g07-concurrency-and-memory-model.md",
+        "mode": "tsan_negative",
+        "oracle_and_files_equal": true,
+        "files": {
+          "main.cpp": "427862acebbae7d82fa6e0c6333bfae6f62125bc2c86f99676f0eda40e357365"
+        }
+      },
+      {
+        "runner": "verify_native",
+        "id": "G8-B1",
+        "document": "g08-abi-and-c-interop.md",
+        "mode": "symbols",
+        "oracle_and_files_equal": true,
+        "files": {
+          "sum.c": "eb5ced1b747f5f32f1fd592d605ee59af38abf8f6e3e4d2c786b5d7a8c3e40b9",
+          "overloads.cpp": "4298ac7019db64823cac2bfc4862997bd6937cb394b4a51b157d20687a60e669",
+          "main.cpp": "f7dd0dd247cb29ee084a1ec14c2bb4bf975c85692f509267f46717808869d93d",
+          "missing.cpp": "306bbbb5773229546b42ba0767ede97101383575698c3366900cdaa960f9209d"
+        }
+      },
+      {
+        "runner": "verify_native",
+        "id": "G8-B2",
+        "document": "g08-abi-and-c-interop.md",
+        "mode": "c_shared",
+        "oracle_and_files_equal": true,
+        "files": {
+          "decoder.h": "eda3f4fe40df0d0e5c99e5ba08865b7d4a72d7fc104d0be2ee3750e649efb52f",
+          "decoder.cpp": "1b6f234b0363c12410eea04a706c1a23b3e402481dd1c804d90190a1129c33a1",
+          "consumer.c": "6b920fb1ba27af1e74504b3f2da0b3932014d29b2401be62f9dd7d6d3e4fe307"
+        }
+      },
+      {
+        "runner": "verify_native",
+        "id": "G9-P1",
+        "document": "g09-build-and-native-ecosystem.md",
+        "mode": "package",
+        "oracle_and_files_equal": true,
+        "files": {
+          "producer/CMakeLists.txt": "a066a012e6245eb85b40552eee814dc21200b087fbf439f5e0134151e1146e6c",
+          "producer/HandbookNativeConfig.cmake.in": "99eec0e8f61563f6c1d2f0a72d688fee2e7fe54c5757c547f1db20e0428f29b6",
+          "producer/include/handbook/core.hpp": "bddd4bad13dd2145034dd3b449deeb05e7b18550ecd2c2da94f16a3333fa11cf",
+          "producer/helper.cpp": "a870482235ab541bff704049d16cb11c04697ebda0b169e80994614c9d91fa92",
+          "producer/core.cpp": "d3f9cffe1ee3e2cb4404f92c959ff92afb8ba25e78adde4a0281074e572262a6",
+          "producer/test.cpp": "1fd77c352d6c8bd6c086b90f12f00d87d63c530dd11d402cc451c063a3eb8c40",
+          "consumer/CMakeLists.txt": "95c01114d84f11456227de660bee3af670f9822430d7d3d42624a6196af4f74b",
+          "consumer/main.cpp": "edb8f5d8e338f1e06a53555d3685d4783b0ca1286071ecc8e4548c0cfd31412a"
+        }
+      },
+      {
+        "runner": "verify_native",
+        "id": "G9-P2",
+        "document": "g09-build-and-native-ecosystem.md",
+        "mode": "codegen",
+        "oracle_and_files_equal": true,
+        "files": {
+          "CMakeLists.txt": "d55b833f7a8b496fc2a93d97c2c161e1fe4c2926fecc1caa50e3245f520b7976",
+          "generate.cmake": "c47bf6dcae96add0e63298945a5caa01a9dd762c969f11e3952435eae1df47e3",
+          "value.txt": "10159baf262b43a92d95db59dae1f72c645127301661e0a3ce4e38b295a97c58",
+          "main.cpp": "24e6f08e3efbc2c4183d158be0a32afbb718ec5acd3c53968f7c9b644a5c44c8",
+          "CMakePresets.json": "cd25b1cc3853362cd0f999beddb2c46ce0a04456d297203b38be4cce8e4ffb43"
+        }
+      },
+      {
+        "runner": "verify_synthesis",
+        "id": "G10-R1",
+        "document": "g10-systems-runtime-project.md",
+        "mode": "runtime",
+        "oracle_and_files_equal": true,
+        "files": {
+          "include/flow/runtime.hpp": "df1d0d9a85a2bcd6effa402ad4759017581073e8e5ed941d689590c65948dea5",
+          "src/queue.hpp": "94072375103ec12a9736b76cf2cf784bbb099b78ae1ec93f5878b6fa8ac47fb6",
+          "src/runtime.cpp": "b601b234e7deeef7e813019face4de7549f563efc2c30bde26028a0673e305dc",
+          "tests/runtime_test.cpp": "ea014da7745c9ff8fc4de2c241a51e0220160dcf7351dd3a2b6d399a14d6efaa",
+          "apps/bench.cpp": "eea5879e68a9027b6962ad423875ad7417327b758b938df2cd150e9495ce20d4",
+          "include/flow/flow.h": "71688cacc8b6e252e9dd5b06a2bd4f3588cddb009df7e1d3b0de4987b1477b6f",
+          "src/c_api.cpp": "01dda3ea1569befa76049806ca0178e990742980ebcfb23823fd8d4363eacf8d",
+          "consumer/main.cpp": "65f74f3fb4aa3e13b135de2723d77c5e2bf04981299ff189d87c03576756250c",
+          "consumer/main.c": "c87665239f917b5079f35433519cd6097da221ac9c12be336bbf77695d8ed3b8",
+          "CMakeLists.txt": "406867cf6db1077d4ee3f898fa35cad6493cc3a7883eb5a542b6b0c951ad6273",
+          "cmake/FlowConfig.cmake.in": "f59a77e004a5929d0d8432f41e97711125fd6a71ff211f5d01bb652bc28a0d26",
+          "consumer/CMakeLists.txt": "851f833e67fd0e021c724bd6c5228991ac4fc17c66864bb6a5b779e1714be075"
+        }
+      },
+      {
+        "runner": "verify_synthesis",
+        "id": "G11-C1",
+        "document": "g11-robotics.md",
+        "mode": "control",
+        "oracle_and_files_equal": true,
+        "files": {
+          "control.hpp": "014ee92d1293809d8d5397382fc3b6c4a61a155f6f4c2eb9fd630b00fc41e139",
+          "allocations.hpp": "6b8e9bb0717c12bef98c117a7fe2a0a8fca73b73cb607e2c3534af997e38e1d8",
+          "allocations.cpp": "5380c991b5c57ccffbc8e6ba5ef0a75cbcec98c906e96c0ab0b3a4c8b467e293",
+          "control_test.cpp": "61ab3a9e67127ec16e2412155ee6dc83398fb9b099eccd8877f00635d6902fd9",
+          "timing.cpp": "20590ae5f027924dc59175100f38fa33c27b9e25ee8f7b5000fb5a3c2b1b8350"
+        }
+      }
+    ],
+    "source_snapshot": {
+      "status": "FROZEN_CANDIDATE_FOR_REVIEW",
+      "files": [
+        {
+          "path": "c++/README.md",
+          "bytes": 8668,
+          "sha256": "daae3cc5a721b44f915c0b887f3c4e91294eef6a03c38e07f97a793bb5983e42"
+        },
+        {
+          "path": "c++/editorial-profile.md",
+          "bytes": 5866,
+          "sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92"
+        },
+        {
+          "path": "c++/g00-native-toolchain.md",
+          "bytes": 15601,
+          "sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f"
+        },
+        {
+          "path": "c++/g01-object-model.md",
+          "bytes": 16193,
+          "sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63"
+        },
+        {
+          "path": "c++/g02-raii-and-ownership.md",
+          "bytes": 54062,
+          "sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4"
+        },
+        {
+          "path": "c++/g03-value-semantics-and-performance.md",
+          "bytes": 53239,
+          "sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1"
+        },
+        {
+          "path": "c++/g04-stl-and-ranges.md",
+          "bytes": 70042,
+          "sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac"
+        },
+        {
+          "path": "c++/g05-generics-and-compile-time.md",
+          "bytes": 53687,
+          "sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1"
+        },
+        {
+          "path": "c++/g06-memory-and-performance.md",
+          "bytes": 67250,
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66"
+        },
+        {
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "bytes": 61629,
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730"
+        },
+        {
+          "path": "c++/g08-abi-and-c-interop.md",
+          "bytes": 58113,
+          "sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c"
+        },
+        {
+          "path": "c++/g09-build-and-native-ecosystem.md",
+          "bytes": 58639,
+          "sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08"
+        },
+        {
+          "path": "c++/g10-systems-runtime-project.md",
+          "bytes": 69233,
+          "sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2"
+        },
+        {
+          "path": "c++/g11-robotics.md",
+          "bytes": 52049,
+          "sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8"
+        },
+        {
+          "path": "c++/g12-cpp-zig-rust.md",
+          "bytes": 46273,
+          "sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce"
+        },
+        {
+          "path": "c++/handbook-guide.md",
+          "bytes": 10320,
+          "sha256": "ca19990e5dd91b6eff8ee85b897893766cc4687dc221ad08bf836cb78b2ebf8c"
+        },
+        {
+          "path": "c++/learning/README.md",
+          "bytes": 8301,
+          "sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479"
+        }
+      ]
+    },
+    "external_reference_inventory": [
+      {
+        "path": "c++/g00-native-toolchain.md",
+        "url": "https://clang.llvm.org/docs/CommandGuide/clang.html"
+      },
+      {
+        "path": "c++/g00-native-toolchain.md",
+        "url": "https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms"
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "url": "https://clang.llvm.org/docs/AddressSanitizer.html"
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/basic.life"
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/basic.lval"
+      },
+      {
+        "path": "c++/g01-object-model.md",
+        "url": "https://ziglang.org/documentation/0.15.2/#defer"
+      },
+      {
+        "path": "c++/g02-raii-and-ownership.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/except.ctor"
+      },
+      {
+        "path": "c++/g03-value-semantics-and-performance.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/class.copy.elision"
+      },
+      {
+        "path": "c++/g04-stl-and-ranges.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/flat.map.overview"
+      },
+      {
+        "path": "c++/g04-stl-and-ranges.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/ranges#range.all"
+      },
+      {
+        "path": "c++/g04-stl-and-ranges.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/vector.capacity"
+      },
+      {
+        "path": "c++/g05-generics-and-compile-time.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/stmt.if"
+      },
+      {
+        "path": "c++/g05-generics-and-compile-time.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call"
+      },
+      {
+        "path": "c++/g05-generics-and-compile-time.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/temp.inst"
+      },
+      {
+        "path": "c++/g06-memory-and-performance.md",
+        "url": "https://clang.llvm.org/docs/UsersManual.html"
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "url": "https://clang.llvm.org/docs/ThreadSanitizer.html"
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/atomics.order"
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/intro.races"
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvarany"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://doc.rust-lang.org/1.85.0/reference/type-layout.html#the-c-representation"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://itanium-cxx-abi.github.io/cxx-abi/abi.html"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/basic.types"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/dcl.link"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate"
+      },
+      {
+        "path": "c++/g08-abi-and-c-interop.md",
+        "url": "https://ziglang.org/documentation/0.15.2/#C"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/command/add_custom_command.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/command/find_package.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/command/target_link_libraries.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/manual/cmake-buildsystem.7.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/manual/cmake-cxxmodules.7.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/manual/cmake-generator-expressions.7.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/manual/cmake-presets.7.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://cmake.org/cmake/help/v4.4/module/CMakePackageConfigHelpers.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://docs.conan.io/2/reference/tools/cmake/cmakeconfigdeps.html"
+      },
+      {
+        "path": "c++/g09-build-and-native-ecosystem.md",
+        "url": "https://learn.microsoft.com/en-us/vcpkg/concepts/manifest-mode"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "url": "https://clang.llvm.org/docs/AddressSanitizer.html"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "url": "https://clang.llvm.org/docs/ThreadSanitizer.html"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "url": "https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvar"
+      },
+      {
+        "path": "c++/g10-systems-runtime-project.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/thread.thread.member"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://control.ros.org/jazzy/doc/realtime_tools/doc/index.html"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://github.com/ros2/rmw/blob/jazzy/rmw/include/rmw/rmw.h"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Demos/Real-Time-Programming.rst"
+      },
+      {
+        "path": "c++/g11-robotics.md",
+        "url": "https://libeigen.gitlab.io/eigen/docs-nightly/group__TopicAliasing.html"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "url": "https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "url": "https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "url": "https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "url": "https://timsong-cpp.github.io/cppwp/n4950/"
+      },
+      {
+        "path": "c++/g12-cpp-zig-rust.md",
+        "url": "https://ziglang.org/documentation/0.15.2/"
+      },
+      {
+        "path": "c++/handbook-guide.md",
+        "url": "https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html"
+      },
+      {
+        "path": "c++/handbook-guide.md",
+        "url": "https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html"
+      },
+      {
+        "path": "c++/handbook-guide.md",
+        "url": "https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html"
+      },
+      {
+        "path": "c++/handbook-guide.md",
+        "url": "https://doc.rust-lang.org/1.85.0/reference/type-layout.html#the-c-representation"
+      },
+      {
+        "path": "c++/handbook-guide.md",
+        "url": "https://ziglang.org/documentation/0.15.2/#C"
+      }
+    ]
+  },
+  "reference_reads": [
+    {
+      "requested_url": "https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html",
+      "final_url": "https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html",
+      "http_status": 200,
+      "bytes": 29127,
+      "sha256": "873f77da05771f3c06a189cec0ab15c69a46d8e968dc7879c1d0fb11376b8ab6",
+      "title": "Behavior considered undefined - The Rust Reference",
+      "accessed_date": "2026-09-27",
+      "body_archived": false
+    },
+    {
+      "requested_url": "https://doc.rust-lang.org/1.85.0/reference/type-layout.html",
+      "final_url": "https://doc.rust-lang.org/1.85.0/reference/type-layout.html",
+      "http_status": 200,
+      "bytes": 48772,
+      "sha256": "3d41c94228cc78935f9bc7ae9612b9273951a54c2ecc420ab8ac104a62055f9f",
+      "title": "Type layout - The Rust Reference",
+      "accessed_date": "2026-09-27",
+      "body_archived": false
+    },
+    {
+      "requested_url": "https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html",
+      "final_url": "https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html",
+      "http_status": 200,
+      "bytes": 43674,
+      "sha256": "07fbf4d27ed20b50c3ec72da3529c760c3244f899b8f726b6b4fbf5c4976c6f2",
+      "title": "What is Ownership? - The Rust Programming Language",
+      "accessed_date": "2026-09-27",
+      "body_archived": false
+    },
+    {
+      "requested_url": "https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html",
+      "final_url": "https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html",
+      "http_status": 200,
+      "bytes": 23302,
+      "sha256": "cbdc59e7dfa58d58a446a17f5feea5ea6358030d5aac17175f5b288eb0ba8cc3",
+      "title": "Send and Sync - The Rustonomicon",
+      "accessed_date": "2026-09-27",
+      "body_archived": false
+    },
+    {
+      "requested_url": "https://ziglang.org/documentation/0.15.2/",
+      "final_url": "https://ziglang.org/documentation/0.15.2/",
+      "http_status": 200,
+      "bytes": 968149,
+      "sha256": "0cce706aabd18a627cf264b93fd14e1a7eb953ac20df9d6376d93801d0fa1f8d",
+      "title": "Documentation - The Zig Programming Language",
+      "accessed_date": "2026-09-27",
+      "body_archived": false
+    }
+  ],
+  "reference_tool_limitation": "Web retrieval failed on Rust historical URLs; direct HTTP reads of the official versioned URLs succeeded without redirect. Other external references were inventoried but not rechecked.",
+  "python_unit_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s c++/learning -p 'test_*.py'",
+    "exit_code": 0,
+    "output": "......................................................\n----------------------------------------------------------------------\nRan 54 tests in 0.134s\n\nOK\n"
+  },
+  "docs_check": {
+    "command": "python3 c++/learning/check_docs.py",
+    "exit_code": 0,
+    "result": {
+      "markdown_files": 38,
+      "local_links": 961,
+      "upgraded_hierarchy_files": 13,
+      "errors": [],
+      "pdf": "NOT BUILT / NOT VALIDATED",
+      "source_risks": [
+        {
+          "file": "g02-raii-and-ownership.md",
+          "line": 1075,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 41,
+          "display_columns": 66
+        },
+        {
+          "file": "g04-stl-and-ranges.md",
+          "line": 2038,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 85,
+          "display_columns": 80
+        },
+        {
+          "file": "g06-memory-and-performance.md",
+          "line": 2073,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 49,
+          "display_columns": 84
+        },
+        {
+          "file": "g06-memory-and-performance.md",
+          "line": 2165,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 35,
+          "display_columns": 74
+        },
+        {
+          "file": "g07-concurrency-and-memory-model.md",
+          "line": 1808,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 94,
+          "display_columns": 76
+        },
+        {
+          "file": "g08-abi-and-c-interop.md",
+          "line": 902,
+          "kind": "code_or_diagram_pagination",
+          "language": "c",
+          "lines": 38,
+          "display_columns": 92
+        },
+        {
+          "file": "g09-build-and-native-ecosystem.md",
+          "line": 704,
+          "kind": "code_or_diagram_pagination",
+          "language": "cmake",
+          "lines": 35,
+          "display_columns": 80
+        },
+        {
+          "file": "g10-systems-runtime-project.md",
+          "line": 570,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 53,
+          "display_columns": 89
+        },
+        {
+          "file": "g10-systems-runtime-project.md",
+          "line": 629,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 100,
+          "display_columns": 86
+        },
+        {
+          "file": "g10-systems-runtime-project.md",
+          "line": 735,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 174,
+          "display_columns": 89
+        },
+        {
+          "file": "g10-systems-runtime-project.md",
+          "line": 915,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 142,
+          "display_columns": 91
+        },
+        {
+          "file": "g10-systems-runtime-project.md",
+          "line": 1125,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 48,
+          "display_columns": 86
+        },
+        {
+          "file": "g11-robotics.md",
+          "line": 531,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 64,
+          "display_columns": 84
+        },
+        {
+          "file": "g11-robotics.md",
+          "line": 613,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 53,
+          "display_columns": 89
+        },
+        {
+          "file": "g11-robotics.md",
+          "line": 672,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 98,
+          "display_columns": 92
+        },
+        {
+          "file": "g11-robotics.md",
+          "line": 776,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 38,
+          "display_columns": 91
+        }
+      ]
+    }
+  },
+  "cpp_compile_and_diagnostics": "NOT RUN",
+  "performance_observation": "NOT RUN",
+  "concurrency_dynamic": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "reference_check_status": {
+    "https://clang.llvm.org/docs/CommandGuide/clang.html": "NOT_RECHECKED",
+    "https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms": "NOT_RECHECKED",
+    "https://clang.llvm.org/docs/AddressSanitizer.html": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/basic.life": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/basic.lval": "NOT_RECHECKED",
+    "https://ziglang.org/documentation/0.15.2/#defer": "HTTP_READ_WITH_DIGEST",
+    "https://timsong-cpp.github.io/cppwp/n4950/except.ctor": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/class.copy.elision": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/flat.map.overview": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/ranges#range.all": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/vector.capacity": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/stmt.if": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/temp.inst": "NOT_RECHECKED",
+    "https://clang.llvm.org/docs/UsersManual.html": "NOT_RECHECKED",
+    "https://clang.llvm.org/docs/ThreadSanitizer.html": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/atomics.order": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/intro.races": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvarany": "NOT_RECHECKED",
+    "https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html": "NOT_RECHECKED",
+    "https://doc.rust-lang.org/1.85.0/reference/type-layout.html#the-c-representation": "HTTP_READ_WITH_DIGEST",
+    "https://itanium-cxx-abi.github.io/cxx-abi/abi.html": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/basic.types": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/dcl.link": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/except.terminate": "NOT_RECHECKED",
+    "https://ziglang.org/documentation/0.15.2/#C": "HTTP_READ_WITH_DIGEST",
+    "https://cmake.org/cmake/help/v4.4/command/add_custom_command.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/command/find_package.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/command/target_link_libraries.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/manual/cmake-buildsystem.7.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/manual/cmake-cxxmodules.7.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/manual/cmake-generator-expressions.7.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/manual/cmake-presets.7.html": "NOT_RECHECKED",
+    "https://cmake.org/cmake/help/v4.4/module/CMakePackageConfigHelpers.html": "NOT_RECHECKED",
+    "https://docs.conan.io/2/reference/tools/cmake/cmakeconfigdeps.html": "NOT_RECHECKED",
+    "https://learn.microsoft.com/en-us/vcpkg/concepts/manifest-mode": "NOT_RECHECKED",
+    "https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvar": "NOT_RECHECKED",
+    "https://timsong-cpp.github.io/cppwp/n4950/thread.thread.member": "NOT_RECHECKED",
+    "https://control.ros.org/jazzy/doc/realtime_tools/doc/index.html": "NOT_RECHECKED",
+    "https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html": "NOT_RECHECKED",
+    "https://github.com/ros2/rmw/blob/jazzy/rmw/include/rmw/rmw.h": "NOT_RECHECKED",
+    "https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst": "NOT_RECHECKED",
+    "https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Demos/Real-Time-Programming.rst": "NOT_RECHECKED",
+    "https://libeigen.gitlab.io/eigen/docs-nightly/group__TopicAliasing.html": "NOT_RECHECKED",
+    "https://doc.rust-lang.org/1.85.0/book/ch04-01-what-is-ownership.html": "HTTP_READ_WITH_DIGEST",
+    "https://doc.rust-lang.org/1.85.0/nomicon/send-and-sync.html": "HTTP_READ_WITH_DIGEST",
+    "https://doc.rust-lang.org/1.85.0/reference/behavior-considered-undefined.html": "HTTP_READ_WITH_DIGEST",
+    "https://timsong-cpp.github.io/cppwp/n4950/": "NOT_RECHECKED",
+    "https://ziglang.org/documentation/0.15.2/": "HTTP_READ_WITH_DIGEST"
+  }
+}

@@ -2,21 +2,7 @@
 
 这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
-[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线，规定正文层级、术语、代码身份、实验与答案及出版源稿约束。`496d897` 已获集中复审接受：G0～G7 为 Professional Handbook Source Baseline，定向证据保留已声明限制；[接受与收口记录](learning/professional-revision.md#6-集中复审与非阻塞收口)区分审核意见与本地检查。以下是编辑状态，不是全系列技术验收。
-
-`e91e255` 的 G8～G9 已获集中复审接受：**ACCEPTED — G8–G9 Professional Handbook Source Baseline, with declared platform and evidence limits.** [接受记录](learning/native-revision.md#5-集中复审接受与停止边界)保留具体审核范围；正文头部的“待集中审核”属于该提交交付时的快照，当前接受状态以本入口及接受记录为准，不为状态登记改写已绑定摘要的正文和原始证据。
-
-`bc4c8c9` 的 G10～G12「综合与应用卷」已获集中复审接受：**ACCEPTED — G10–G12 Professional Handbook Source Baseline，保留已声明的平台、动态检测、性能与物理系统验证边界。** [接受记录](learning/synthesis-revision.md#6-集中复审接受与停止边界)登记审核范围和两个非阻塞后续提醒。至此 G0～G12 形成完整、已接受的 Professional Handbook Source Baseline；这不等于全系列技术验收或出版批准。正文及原始证据仍保留交付时的状态与摘要，当前接受状态由本入口和接受记录维护。
-
-| 范围 | 当前状态 |
-| --- | --- |
-| Editorial Profile v1.0 | ACCEPTED，全系列编辑规则不变 |
-| G0～G4 | ACCEPTED — Professional presentation refresh；原验证限制保持 |
-| G5～G7 | ACCEPTED — Professional Handbook Edition；原验证限制保持 |
-| G8～G9 | ACCEPTED — Professional Handbook Edition；定向原生证据保留平台与覆盖限制 |
-| G10～G12 | ACCEPTED — Professional Handbook Edition · 综合与应用卷；定向本地证据保留已声明限制 |
-| 全系列证据边界 | 跨平台、形式化并发证明及硬实时/物理安全均 NOT ESTABLISHED；Rust/Zig 可执行验证 NOT RUN |
-| PDF | **NOT BUILT / NOT VALIDATED** |
+[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线。[全书阅读约定与跨章索引](handbook-guide.md)统一术语主讲位置、章节交接、证据标签和引用版本，帮助将十三章作为一本手册使用。已接受源稿与本轮编辑修订分别登记，见[基线与证据状态](#基线与证据状态)。
 
 ## 从哪里开始
 
@@ -40,7 +26,7 @@
 
 G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源请求和基准观察；G7 先论证同步与生命周期，再使用动态检测。G8 以真实 C 消费者检查接口，G9 以安装树和生成图检查交付。G10 组合跨组件协议与条件化性能观察，G11 分离逻辑安全模型和主机时序，G12 用三个推理案例审查证据边界。共同方法是“命题 → 判据 → 证据 → 边界”，不是复制同一种 exact-stdout 实验形态。
 
-[综合与应用卷记录](learning/synthesis-revision.md)区分交付时的四类本地证据与后续接受意见；不将它们升级为 CI、跨平台或物理系统验证。G0～G9 已接受正文及 Editorial Profile v1.0 未改，G10～G12 的接受也不沿用历史 Frozen / Complete 作为技术验收。正文到 G12 封顶，不追加 G13；下一阶段为全系列一致性清理、内容基线冻结，再进入 G6/G7 PDF Pilot，本次仅登记接受，后续工作尚未启动。
+本轮 [Cross-series Editorial Sweep](learning/editorial-sweep.md) 只处理全书一致性，不追加 G13，不扩大单章主题。跨章回查优先指向概念主讲处，应用章保留本地前提与必要重述；Final Gate、完整实验与历史证据不因去重而删除。当前形成 Markdown 冻结候选，待集中审核后再进入 G6/G7 PDF Pilot。
 
 ## 每次怎么学
 
@@ -56,11 +42,11 @@ G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源�
 
 | 遇到的问题 | 先看 | 再看 |
 | --- | --- | --- |
-| undefined symbol、动态库找不到 | G0 的诊断分层 | G9 构建与依赖 |
-| 悬挂、扩容后指针失效 | G1 生命周期 | G4 失效规则 |
-| 清理遗漏、异常后状态不明 | G2 RAII | [FM-4 异常安全](failure-model/fm4-raii-exception-safety.md) |
-| move 后仍复制、容器迁移成本 | G3 值语义 | [FM-5 noexcept / move / copy](failure-model/fm5-noexcept-move-copy.md) |
-| expected、线程和 ABI 错误传播 | [FM 导航](failure-model/README.md) | G7 / G8 |
+| undefined symbol、动态库找不到 | [G0 五层诊断](g00-native-toolchain.md#g0-diagnosis) | [G9 工具与加载](g09-build-and-native-ecosystem.md#g9-section-10) |
+| 悬挂、扩容后指针失效 | [G1 生命周期](g01-object-model.md#g1-object) | [G4 视图](g04-stl-and-ranges.md#g4-section-3) |
+| 清理遗漏、异常后状态不明 | [G2 RAII](g02-raii-and-ownership.md#g2-part-3) | [FM-4 异常安全](failure-model/fm4-raii-exception-safety.md) |
+| move 后仍复制、容器迁移成本 | [G3 移动与消除](g03-value-semantics-and-performance.md#g3-section-4) | [FM-5 noexcept / move / copy](failure-model/fm5-noexcept-move-copy.md) |
+| expected、线程和 ABI 错误传播 | [FM 导航](failure-model/README.md) | [G7 停机](g07-concurrency-and-memory-model.md#g7-section-9) / [G8 错误输出](g08-abi-and-c-interop.md#g8-section-10) |
 | 读过但无法独立推理 | 对应章 Final Gate | [实验与验证说明](learning/README.md) |
 
 ## 实验、来源与维护边界
@@ -80,3 +66,20 @@ python3 c++/learning/check_docs.py
 文件名采用 `gNN-英文主题.md`，编号补零方便排序，正文继续使用 G0～G12。主题名供定位，不作为学习进度或版本号。FM 正文与验证资料整体位于 `failure-model/`，已收口的技术内容不因目录调整重开。
 
 G2～G12 的原始字节先由提交 `2dbaa95` 保存；G0/G1 与 FM 的修改前版本见 `be61a1d`。已有 `pdf_build/` 是历史制品，本批不重新生成、覆盖或宣称与当前学习稿同步。
+
+## 基线与证据状态
+
+| 对象 | 已接受来源或本轮状态 |
+| --- | --- |
+| Editorial Profile v1.0 | ACTIVE BASELINE；本轮不改 |
+| G0～G7 | `496d897` 已接受；[记录](learning/professional-revision.md#6-集中复审与非阻塞收口) |
+| G8～G9 | `e91e255` 已接受；[记录](learning/native-revision.md#5-集中复审接受与停止边界) |
+| G10～G12 | `bc4c8c9` 已接受；[记录](learning/synthesis-revision.md#6-集中复审接受与停止边界) |
+| 全系列源稿里程碑 | `b4728e3`：ACCEPTED — Professional Handbook Source Baseline |
+| 本轮全书编辑修订 | G0～G4 v1.2.1 / G5～G12 v1.1.1；冻结候选，待集中审核 |
+| 证据身份 | 历史本地执行记录不变，不称为 CI 或本轮重跑 |
+| 验证边界 | 跨平台、形式化并发证明、硬实时/物理安全 NOT ESTABLISHED |
+| Rust / Zig 可执行验证 | NOT RUN |
+| PDF | **NOT BUILT / NOT VALIDATED** |
+
+当前章稿为已接受内容之上的编辑修订，不把旧提交的 ACCEPTED 自动授予新字节。新旧摘要及代码/Gate 对应见[本轮记录](learning/editorial-sweep.md)与[冻结候选清单](learning/editorial-sweep-results.json)。内容候选不包含正式发布或第三方网页归档；集中复审后再确定内容冻结及 G6/G7 Pilot 的启动。

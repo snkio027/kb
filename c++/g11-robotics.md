@@ -1,12 +1,14 @@
 # G11 · 机器人系统工程
 
-**版本：** 1.1 · Professional Handbook Edition · 综合与应用卷
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-**主线：** C++23；Robotics Systems Engineering；仿真不构成实时或物理安全保证。
+**语言基线与范围：** C++23。Robotics Systems Engineering；承接 G10，桌面仿真不构成实时或物理安全保证。
 
-**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)，保持 v1.0。
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G10](g10-systems-runtime-project.md) · [全系列导航](README.md) · [下一章：G12](g12-cpp-zig-rust.md)
 
 ## 阅读入口
 
@@ -93,7 +95,7 @@ Hard real-time 要在明确平台及负载假设下保证截止期限；firm rea
 
 测量时间、设备发送、内核接收、应用接收与处理完成不是同一时间。收到数据后写 steady_clock::now，只能给它应用接收时间，不能将通信抖动消掉而称作测量时间。设备计时器、主机单调时钟、UTC、PTP 与 ROS 仿真时钟即使都以 ns 表示，也不能未经映射直接相减。
 
-跨时钟域转换应声明偏移、漂移、同步误差和失效条件；时间戳倒退、设备重启和序列回绕也要处理。仿真时间可以暂停或回拨，主机 steady_clock 适合本地 duration，不应冒充物理测量时钟。控制的 freshness 先检查时间域和“非未来”，再计算 age，避免无符号减法下溢。
+跨时钟域转换应声明偏移、漂移、同步误差和失效条件；时间戳倒退、设备重启和序列回绕也要处理。仿真时间可以暂停或回拨，主机 steady_clock 适合本地 duration，不应冒充物理测量时钟。控制的数据新鲜度（freshness）先检查时间域和“非未来”，再计算数据年龄（age），避免无符号减法下溢。
 
 ### 2.2 固定步长与实际步长不能悄悄替换
 
@@ -242,7 +244,7 @@ NaN/Inf、奇异点、数值条件、近零 dt 和漂移属于算法边界。cla
 
 saturation 限制数值范围，rate limit 限制每单位时间变化，积分器还需 anti-windup 协调。它们不能用同一个 clamp 替代。实验仅用有界 PD 控制和单自由度积分 plant，不实现 PID anti-windup，也不宣称真实机器人稳定。
 
-硬件接口返回规范状态和写入结果，不把 vendor 类型扩散进 core。若 read/write 有可分析上界，合并到一个循环减少 handoff；若可能堵塞，则隔离到 I/O 域并为延迟、丢包和 freshness 建模。C SDK/驱动边界继续遵守 [G8](g08-abi-and-c-interop.md) 的分配域、异常与句柄规则。
+硬件接口返回规范状态和写入结果，不把 vendor 类型扩散进 core。若 read/write 有可分析上界，合并到一个循环减少 handoff；若可能堵塞，则隔离到 I/O 域并为延迟、丢包和 freshness 建模。C SDK/驱动边界继续遵守 [G8](g08-abi-and-c-interop.md#g8-section-6) 的分配域、异常与句柄规则。
 
 <a id="g11-section-8"></a>
 
@@ -505,7 +507,7 @@ fast 不是 real-time；高优先级不是期限保证；reserve 不是硬容量
 
 C++ 与既有数值库、ROS 和硬件 SDK 集成常有现实价值；Rust 可降低安全代码中的生命周期/数据竞争风险；Zig 的显式资源与 C 互操作有助于某些底层组件。但三者都不能自动证明 deadline、jitter、驱动行为或物理安全，也不能用语言标签代替具体依赖版本与团队能力评估。
 
-更多语言带来 FFI、构建、调试、错误与资源域成本。先把控制 core 与 adapter 边界设计清楚，再考虑替换局部实现，最后在 [G12](g12-cpp-zig-rust.md) 统一讨论证明责任。
+更多语言带来 FFI、构建、调试、错误与资源域成本。先把控制 core 与 adapter 边界设计清楚，再考虑替换局部实现，最后在 [G12 §11～12](g12-cpp-zig-rust.md#g12-section-11)统一讨论证明责任。
 
 <a id="g11-section-16"></a>
 
@@ -1007,4 +1009,4 @@ timing 的首行保留最终 plant 状态，后续 1000 行为 `tick,wake_offset
 
 ROS 概念回查固定 Jazzy 文档线：[QoS](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst)、[实时示例](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Demos/Real-Time-Programming.rst)、[Controller Manager](https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html)、[realtime_tools](https://control.ros.org/jazzy/doc/realtime_tools/doc/index.html)。这些是概念与部署回查，不是本机安装/运行记录。实验工具链、原始时序、覆盖面与未知项见[批次记录](learning/synthesis-revision.md)及[原始结果](learning/synthesis-results.json)。
 
-本章使用 [Editorial Profile v1.0](editorial-profile.md)，Markdown 是内容与完整实验事实源。PDF **NOT BUILT / NOT VALIDATED**；长文件与表格的源稿风险不等于实际分页已验收。
+引用版本与证据解释统一见[全书约定](handbook-guide.md)。下一章 [G12 §12](g12-cpp-zig-rust.md#g12-section-12)把时间、资源与接口问题合并为审查协议；仿真所得结论仍限于这里声明的模型和平台。

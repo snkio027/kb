@@ -1,13 +1,14 @@
 # G5 · 泛型、类型推导与编译期抽象
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md) 编辑状态：Professional Handbook Edition。PDF：NOT BUILT / NOT VALIDATED。
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-- **Version:** 1.1
-- **Status:** Professional Handbook Edition · 待集中审核
-- **Language Baseline:** C++23
-- **Prerequisites:** G0 Compiler / Linker Model, G1 Object Model, G2 RAII & Ownership, G3 Value Semantics
-- **Scope:** Templates / Deduction / Forwarding / Class Templates / Concepts Core / `constexpr` / Instantiation / Compile-time vs Runtime Design
-- **Deferred:** Advanced SFINAE / Constraint Subsumption / Heavy Template Metaprogramming
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
+
+**语言基线与范围：** C++23。前置为 G0～G3；覆盖推导、转发、约束、常量求值及实例化；高级 SFINAE、约束包含与重型元编程仍不展开。
+
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G4](g04-stl-and-ranges.md) · [全系列导航](README.md) · [下一章：G6](g06-memory-and-performance.md)
 
 ## 阅读入口
 
@@ -71,7 +72,7 @@ T max_value(T a, T b) {
 
 ### 1.4 Template Argument Deduction
 
-模板实参推导（template argument deduction）需要分开记录三件事：推导得到的模板实参 `T`、替换并折叠后的形参类型、使用该形参的表达式值类别。三者可能不同：`T` 可以是 `int&`，形参最终也是 `int&`，而源码仍写着 `T&&`。G5-C1 用 `static_assert` 同时观察这些层次，避免只凭变量声明猜结果。
+沿用 [G1 的值类别](g01-object-model.md#g1-category)与 [G3 的移动操作](g03-value-semantics-and-performance.md#g3-section-4)，模板实参推导（template argument deduction）需要分开记录三件事：推导得到的模板实参 `T`、替换并折叠后的形参类型、使用该形参的表达式值类别。三者可能不同：`T` 可以是 `int&`，形参最终也是 `int&`，而源码仍写着 `T&&`。G5-C1 用 `static_assert` 同时观察这些层次，避免只凭变量声明猜结果。
 
 <a id="g5-section-2"></a>
 
@@ -1677,4 +1678,4 @@ Architecture 1～6：Dynamic Outside, Static Inside 在外层读取运行时配�
 
 [全系列导航](README.md) · [实验说明](learning/README.md) · [本批修订与证据](learning/professional-revision.md)
 
-语言规则采用 N4950 的 [模板推导](https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call)、[模板实例化](https://timsong-cpp.github.io/cppwp/n4950/temp.inst) 与 [if constexpr](https://timsong-cpp.github.io/cppwp/n4950/stmt.if)；编译器实验不是这些规则的替代定义。
+语言规则采用 N4950 的 [模板推导](https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call)、[模板实例化](https://timsong-cpp.github.io/cppwp/n4950/temp.inst) 与 [if constexpr](https://timsong-cpp.github.io/cppwp/n4950/stmt.if)；编译器实验不是这些规则的替代定义。接下来 [G6 §2](g06-memory-and-performance.md#g6-section-2)把静态表示落实到机器布局与测量；实例化带来的构建传播问题则在 [G9 §8](g09-build-and-native-ecosystem.md#g9-section-8)继续。

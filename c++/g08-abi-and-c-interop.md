@@ -1,12 +1,14 @@
 # G8 · ABI、原生库与 C 互操作
 
-**版本：** 1.1 · Professional Handbook Edition
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-**语言基线：** C++23；C 接口实验使用 C11。
+**语言基线与范围：** C++23。C 接口实验使用 C11；二进制兼容和调用合同按具体平台与配置审查。
 
-**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G7](g07-concurrency-and-memory-model.md) · [全系列导航](README.md) · [下一章：G9](g09-build-and-native-ecosystem.md)
 
 ## 阅读入口
 
@@ -52,7 +54,7 @@
 
 ### 1.1 两种兼容性要分别验证
 
-API 规定源码如何使用组件，包括名称、类型、前置条件、错误与所有权；ABI 规定独立编译组件对符号、传参、返回、布局和运行时的共同理解。源码重新编译后仍成立，不代表旧机器代码能消费新库。
+应用编程接口（application programming interface，API）规定源码如何使用组件，包括名称、类型、前置条件、错误与所有权；应用二进制接口（application binary interface，ABI）规定独立编译组件对符号、传参、返回、布局和运行时的共同理解。源码重新编译后仍成立，不代表旧机器代码能消费新库。
 
 例如 `Config` 从一个 `int mode` 变成再含一个 `int flags`，旧调用者已经按原大小分配对象。新库若直接读取新增字段，即使函数名完全未变，也可能越过旧对象。具体大小不能无条件写死为 4/8；那只是特定数据模型下的常见观察。正确审查比较的是双方真实的大小、对齐、偏移和传递方式，而非只看头文件是否还能编译。
 
@@ -244,7 +246,7 @@ dynamic_cast、typeid 和类型身份比较依赖相应实现的类型元数据�
 
 ### 6.1 分配域与调用者缓冲区
 
-创建方若使用不同运行时、自定义 arena 或专门分配器，消费者的 free/delete 未必匹配。稳健默认是由同一分配域释放：create/destroy、make_buffer/free_buffer 成对，明确句柄和缓冲区的拥有者。虚析构能够帮助选择析构逻辑，却不自动修复所有分配来源和运行时不匹配。
+创建方若使用不同运行时、自定义 arena 或专门分配器，消费者的 free/delete 未必匹配。稳健默认是由同一分配域（allocation domain）释放：create/destroy、make_buffer/free_buffer 成对，明确句柄和缓冲区的拥有者。虚析构能够帮助选择析构逻辑，却不自动修复所有分配来源和运行时不匹配。
 
 调用者提供输入和输出缓冲区，库只在调用期间借用，可避免跨库转移分配所有权。接口仍要说明元素单位、容量、零长度、空指针、重叠以及失败后计数。自定义分配器回调还须规定 context 生命周期、大小/对齐、失败值、线程安全和释放匹配，不能仅传一对函数指针就算完整协议。
 
@@ -820,7 +822,7 @@ int main() { return native_sum(2, 3) == 5 ? 0 : 1; }
 
 **待验证命题。** 头文件以 C11 编译，库以 C++23 编译，C 调用端链接并加载共享库。检验配置大小/版本、拥有句柄、完整输出、容量失败不写入、同步回调与异常到状态码的转换。
 
-**范围与前提。** 非空配置指针必须指向完整可读 config 对象；struct_size 只是声明，不是内存验证。其他非空地址也必须有效。输入/输出/计数地址不重叠；同一句柄调用与销毁不并发；回调只在本次调用中同步借用，不抛异常、不销毁或重入该句柄。未测试分配失败、历史 v1/v2 混用、插件 dlopen/卸载或 Rust/Zig 调用。
+**范围与前提。** 非空配置指针必须指向完整可读 config 对象；struct_size 只是声明，不是内存验证。其他非空地址也必须有效。输入/输出/计数所指的对象范围不得重叠，也不能与句柄对象重叠；`dec_create(config, out)` 的配置对象与输出句柄存储同样遵守此条件，不能只比较首地址是否相等；同一句柄调用与销毁不并发；回调只在本次调用中同步借用，不抛异常、不销毁或重入该句柄。未测试分配失败、历史 v1/v2 混用、插件 dlopen/卸载或 Rust/Zig 调用。
 
 <!-- n-lab {"id":"G8-B2","mode":"c_shared"} -->
 
@@ -1139,6 +1141,6 @@ G8-B2 仅拒绝未知版本与过小声明尺寸，没有执行 v1 调用者对 
 
 语言规则采用 [N4950 链接属性](https://timsong-cpp.github.io/cppwp/n4950/dcl.link)、[对象表示](https://timsong-cpp.github.io/cppwp/n4950/basic.types) 和 [异常终止](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)。[Itanium C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html) 是具体 ABI 资料，不是 C++ 标准或所有平台通用实现；[Apple run-path 文档](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html) 用于理解本次 @rpath/@loader_path 配置。
 
-跨语言表示参见 [Rust Reference](https://doc.rust-lang.org/reference/type-layout.html#the-c-representation) 和 [Zig C 互操作文档](https://ziglang.org/documentation/master/#C)。这些链接支持概念回查，不代表本批运行了对应编译器。
+跨语言表示参见 [Rust 1.85.0 Reference](https://doc.rust-lang.org/1.85.0/reference/type-layout.html#the-c-representation) 和 [Zig 0.15.2 C 互操作文档](https://ziglang.org/documentation/0.15.2/#C)。这些链接支持概念回查，不代表运行了对应编译器；版本线与本轮读取身份见[全书引用约定](handbook-guide.md#4-参考资料的版本与访问身份)。
 
-[本批验证与限制](learning/native-revision.md)区分实际编译/链接/消费结果、未运行项及源稿风险。只有完整实验源码经过相应执行器验证，其余片段仅用于解释机制。PDF 未构建、未渲染、未验收；本章源稿状态不能代替出版或跨平台批准。
+[历史验证与限制](learning/native-revision.md)仍保留编译、链接与消费的定向范围。当前编辑修订及源码字节对应见[全书一致性记录](learning/editorial-sweep.md)，不将旧结果冒充重跑。从本章的二进制合同进入 [G9 §7 安装与导出](g09-build-and-native-ecosystem.md#g9-section-7)：接口可描述，还要让独立消费者取得正确的依赖与配置。

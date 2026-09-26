@@ -1,17 +1,18 @@
 # G7 · 并发协议与 C++ 内存模型
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md) 编辑状态：Professional Handbook Edition。PDF：NOT BUILT / NOT VALIDATED。
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-- **Version:** 1.1
-- **Status:** Professional Handbook Edition · 待集中审核
-- **Language Baseline:** C++23
-- **Prerequisites:** G0–G6
-- **Scope:** Data Race / Happens-before / Atomics / Memory Ordering / Mutex / Condition Variable / CAS / Lock-free / ABA / Memory Reclamation / Concurrent Queues / Thread Lifetime / `std::jthread` / Cancellation / Thread Pool / Backpressure / Concurrency Architecture
-- **Purpose:** 建立一套能够从 C++ Memory Model 一直推导到真实并发系统架构的统一 reasoning framework。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
+
+**语言基线与范围：** C++23。前置为 G0～G6；从数据竞争、同步和回收到线程停机与并发架构；工程论证不等于形式化证明。
+
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G6](g06-memory-and-performance.md) · [全系列导航](README.md) · [下一章：G8](g08-abi-and-c-interop.md)
 
 ## 阅读入口
 
-本章先区分数据竞争（data race）、原子性（atomicity）和不变量（invariant），再建立顺序与生命周期协议。happens-before（HB）指语言允许依赖的先发生关系，不是墙钟上的先后。首次阅读第 1～11 节；跨层关系图、审查和反模式用于回查。读写改操作（read-modify-write，RMW）、比较并交换（compare-and-exchange，CAS）都是实现协议的手段，不是设计的出发点。
+本章先区分数据竞争（data race）、原子性（atomicity）和不变量（invariant），再建立顺序与生命周期协议。先发生关系（happens-before，HB）指语言允许依赖的顺序关系，不是墙钟上的先后。首次阅读第 1～11 节；跨层关系图、审查和反模式用于回查。读写改操作（read-modify-write，RMW）、比较并交换（compare-and-exchange，CAS）都是实现协议的手段，不是设计的出发点。
 
 
 ### 章节目录
@@ -133,17 +134,7 @@ write / write
 
 ### 2.4 Data Race 不等于 Race Condition
 
-**Data Race**
-
-是 C++ Memory Model 的技术概念。 例如：
-
-`non-atomic conflicting accesses + no happens-before`
-
-结果：UB。
-
-**Race Condition**
-
-是更广义的逻辑问题：程序结果取决于不受控制的 interleaving。 例如：
+数据竞争（data race）采用 §2.2 的语言判据；竞态条件（race condition）则是更广义的逻辑问题：结果依赖不受控制的交错。前者涉及未定义行为，后者即使只使用原子操作也可能破坏业务不变量。例如：
 
 [机制片段 · 不承诺独立编译]
 
@@ -1434,7 +1425,7 @@ EntityId → shard 1
 
 ### 11.7 Shard Key = Ownership Key
 
-Sharding 的本质不是：“分几个 queue”。 而是：哪个 key 决定谁拥有 mutation authority？ 例如：
+Sharding 的本质不是：“分几个 queue”。 而是：哪个 key 决定谁拥有写入权限（mutation authority）？ 例如：
 
 VehicleId、AccountId、PartitionId、ConnectionId。
 
@@ -1488,7 +1479,7 @@ shared_ptr、epoch、RCU。
 
 ### 12.3 Mutation Graph
 
-修改权限图为每份状态列出全部写者、允许的读者与权限交接。多写者是重点审查位置，单写者也必须解释跨线程读取如何安全发生。
+写入权限图（mutation authority graph）为每份状态列出全部写者、允许的读者与权限交接。多写者是重点审查位置，单写者也必须解释跨线程读取如何安全发生。
 
 <a id="g7-topic-84"></a>
 
@@ -1695,7 +1686,7 @@ delete immediately
 
 ### 14.10 Smell 10 — Shared `shared_ptr<MutableT>` Everywhere
 
-解决了 lifetime，没有解决：mutation authority。
+共享拥有可以延长生命周期，却没有确定写入权限（mutation authority）。
 
 <a id="g7-topic-98"></a>
 
@@ -2215,55 +2206,37 @@ Immutable snapshot 主要优化什么 workload？
 
 ## 19. G0～G7 的统一模型
 
-现在我们已经可以把整个前半段课程连成一条线。
+下面只列跨章审查的交接点，概念定义回到各章主讲处；本节保留它们在并发问题中的用途，不另写一套定义。
 
 <a id="g7-topic-100"></a>
 
 ### 19.1 G1 — Object Model
 
-`Can I legally access this object?` 问：
-
-- storage?
-- lifetime?
-- type?
-- bounds?
-- alignment?
+由 [G1 §1～2](g01-object-model.md#g1-object)检查存储、生命周期、类型、边界与对齐，先确认访问合法，再讨论同步。
 
 <a id="g7-topic-101"></a>
 
 ### 19.2 G2 — Ownership
 
-`Who keeps it alive?` 问：
-
-- owner?
-- borrower?
-- transfer?
-- cleanup?
+由 [G2 §1](g02-raii-and-ownership.md#g2-section-1)、[§9](g02-raii-and-ownership.md#g2-section-9)列出拥有者、借用者、交接与清理；并发新增的问题是使用者是否真的都已退出。
 
 <a id="g7-topic-102"></a>
 
 ### 19.3 G3 — Value Semantics
 
-`What moves and what does it cost?` 问：
-
-- copy?
-- move?
-- allocation?
-- representation?
+由 [G3 §4](g03-value-semantics-and-performance.md#g3-section-4)、[§8](g03-value-semantics-and-performance.md#g3-section-8)区分复制、移动、分配与表示，不由指针大小推断跨线程交接的完整成本。
 
 <a id="g7-topic-103"></a>
 
 ### 19.4 G5 — Genericity
 
-`Which variation belongs at compile time?`
+由 [G5 §9](g05-generics-and-compile-time.md#g5-section-9)界定哪些变化留在编译期，避免调度与生命周期策略无必要地扩散成模板参数。
 
 <a id="g7-topic-104"></a>
 
 ### 19.5 G6 — Performance
 
-`How does representation interact with the machine?` 问：
-
-layout、cache、allocation、TLB、branch、coherence。
+由 [G6 §8～9](g06-memory-and-performance.md#g6-section-8)分析布局、缓存、分配、TLB、分支和一致性成本；这些观察不替代本章的语言顺序论证。
 
 <a id="g7-topic-105"></a>
 
@@ -2341,7 +2314,7 @@ readers 是否可以使用 immutable snapshot？
 
 ## 21. 本章范围与后续阅读
 
-数据竞争、内存序、锁与等待、CAS、回收、队列、线程停机、任务运行时和并发架构均保留为本章主题。协议论证是明确假设下的工程推理，不是全程序形式化验证。下一阶段按总导航进入 [G8 ABI 与 C 互操作](g08-abi-and-c-interop.md)；该章本批未重编，也未获得新的技术验收状态。
+数据竞争、内存序、锁与等待、CAS、回收、队列、线程停机、任务运行时和并发架构均保留为本章主题。协议论证是明确假设下的工程推理，不是全程序形式化验证。下一阶段按总导航进入 [G8 ABI 与 C 互操作](g08-abi-and-c-interop.md)；接口一旦交给独立组件，线程与销毁合同也必须穿过边界。需要完整关闭案例时回查 [G10 §7](g10-systems-runtime-project.md#g10-section-7)。
 
 <a id="g7-section-22"></a>
 

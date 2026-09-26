@@ -1,19 +1,16 @@
 # G2 · RAII、资源与所有权
 
-Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+**版本：** 1.2.1 · Professional Handbook · 全书一致性修订
 
-编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-- **Version:** 1.2 · 呈现修订稿
-- **Prerequisite:** G1 Object Model & Lifetime
-- **Language Baseline:** C++23
-- **Comparison Language:** Zig
-- **Scope:** RAII / Ownership / `unique_ptr` / Rule of Zero & Five / Failure Safety / `shared_ptr` / `weak_ptr` / Ownership Graph / Lease
-- **Purpose:** 作为进入 G3 Value Semantics & Performance 前的长期资源管理与所有权推理手册
+**语言基线与范围：** C++23。前置为 G1；覆盖资源、独占/共享所有权、失败安全与异步清理；Zig 仅作对照。
 
-## 阅读入口
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
 
 [上一章：G1](g01-object-model.md) · [全系列导航](README.md) · [下一章：G3](g03-value-semantics-and-performance.md)
+
+## 阅读入口
 
 本章只抓住一个问题：**同一资源经过提前返回、异常和异步交接后，谁仍负有清理责任？**
 
@@ -81,7 +78,7 @@ fd 是一个 int 对象，内核里的打开文件状态才是被管理资源。
 
 **Ownership 的工程定义**
 
-owner 负有按协议结束资源使用并完成最终清理的责任。独占 owner 负责这项责任；共享 owner 共同决定管理资源何时释放；borrower 可以访问但不能擅自清理。资源可以临时为空，责任也可以按类型合同转移。
+拥有者（owner）负有按协议结束资源使用并完成最终清理的责任。独占 owner 负责这项责任；共享 owner 共同决定管理资源何时释放；借用者（borrower）可以访问但不能擅自清理。资源可以临时为空，责任也可以按类型合同转移。
 
 **Aliasing ≠ Ownership**
 
@@ -131,7 +128,7 @@ int process() {
 
 **把资源协议放进类型**
 
-RAII（Resource Acquisition Is Initialization）把资源管理与对象的初始化/清理绑定。对象可以在创建时取得资源，也可表示空状态再按合同取得；核心是任何已拥有状态都有相应清理责任。
+资源获取即初始化（Resource Acquisition Is Initialization，RAII）把资源管理与对象的初始化/清理绑定。对象可以在创建时取得资源，也可表示空状态再按合同取得；核心是任何已拥有状态都有相应清理责任。
 
 **确定性清理及其边界**
 
@@ -2392,7 +2389,7 @@ Will its owner keep it alive?
 
 我们已经回答：**谁拥有 object/resource，它如何安全地活着和死去？**
 
-G3 将开始回答另一组问题：**如果一个 object 被复制、移动、返回、传参、放进 container，到底发生什么成本？**
+[G3 §1](g03-value-semantics-and-performance.md#g3-section-1)接过这张所有权图，分析复制、移动、返回和容器迁移改变了哪些状态、产生哪些成本。本章已经说明的清理责任不再重新定义；异常与事务保证的细节回查 [FM-4](failure-model/fm4-raii-exception-safety.md)。
 
 主线将进入：
 

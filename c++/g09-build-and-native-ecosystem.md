@@ -1,12 +1,14 @@
 # G9 · 构建、打包与原生生态
 
-**版本：** 1.1 · Professional Handbook Edition
+**版本：** 1.1.1 · Professional Handbook · 全书一致性修订
 
-**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
+**状态：** 本轮编辑修订待集中审核；接受历史与冻结候选见[系列状态](README.md#基线与证据状态)。PDF **NOT BUILT / NOT VALIDATED**。
 
-**语言与工具基线：** C++23；完整 CMake 实验声明最低 3.28，实测版本另记。
+**语言基线与范围：** C++23。完整 CMake 实验声明最低 3.28，实测版本另记；最低要求不是各版本均已测试。
 
-**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)
+**阅读约定：** [Editorial Profile v1.0](editorial-profile.md) · [全书术语、证据与引用](handbook-guide.md)。
+
+[上一章：G8](g08-abi-and-c-interop.md) · [全系列导航](README.md) · [下一章：G10](g10-systems-runtime-project.md)
 
 ## 阅读入口
 
@@ -1144,7 +1146,7 @@ G9-P1 验证同机静态包迁移及错误主版本拒绝，没有验证动态�
 
 15. 优秀 CMake 的目标不是展示 CMake 技巧，而是用最少的隐式状态准确表达 C++ artifact architecture。
 
-一条 `target_link_libraries(app PUBLIC decoder)` 不只是链接语法：先检查源码接口，再追到使用要求、安装包依赖、ABI 配置和消费者工具链。构建描述是架构的可执行表达；不是 CMake 越复杂，工程就越成熟。
+一条 `target_link_libraries(app PUBLIC decoder)` 不只是链接语法：先检查源码接口，再追到使用要求、安装包依赖、ABI 配置和消费者工具链。构建描述是架构的可执行表达；不是 CMake 越复杂，工程就越成熟。下一章 [G10 §10](g10-systems-runtime-project.md#g10-section-10)直接复用安装消费模型，将本章的交付合同与 G7 的关闭协议组合，不重新讲一遍 CMake 入门。
 
 <a id="g9-section-23"></a>
 
@@ -1154,4 +1156,4 @@ CMake 规则引用固定的 4.4 文档线：[构建模型](https://cmake.org/cma
 
 包管理器为范围说明，参见 [Conan](https://docs.conan.io/2/reference/tools/cmake/cmakeconfigdeps.html) 与 [vcpkg manifest](https://learn.microsoft.com/en-us/vcpkg/concepts/manifest-mode)。本批不运行包管理器，不验证其缓存或依赖复现性。
 
-[本批验证与限制](learning/native-revision.md)区分实际编译/链接/消费结果、未运行项及源稿风险。只有完整实验源码经过相应执行器验证，其余片段仅用于解释机制。PDF 未构建、未渲染、未验收；本章源稿状态不能代替出版或跨平台批准。
+[历史验证与限制](learning/native-revision.md)仍保留编译、链接与消费的定向范围。当前编辑修订及源码字节对应见[全书一致性记录](learning/editorial-sweep.md)，不将旧结果冒充重跑。

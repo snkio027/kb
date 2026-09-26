@@ -2,6 +2,8 @@
 
 这里保存 G0～G12 的定向证据与记录；正文 Markdown 是实验源代码的单一维护入口。G12 使用综合审查案例，不另造实验执行器。[Editorial Profile](../editorial-profile.md) 统一编辑规则，不由执行器重新定义学习目标。
 
+全书的状态标签及引用身份见[阅读约定](../handbook-guide.md)。本轮 [Editorial Sweep](editorial-sweep.md) 只进行编辑与只读保真检查：历史整篇文档摘要仍指向旧提交，新文档摘要另存；完整代码块、提取标记及 Gate 保持情况见 [冻结候选清单](editorial-sweep-results.json)。代码未变不记为重新编译或再次检测。
+
 从仓库根目录执行：
 
 ```sh
@@ -20,9 +22,11 @@ python3 c++/learning/check_docs.py
 | 类别 | 判据与不能推出的结论 |
 | --- | --- |
 | 文档结构/链接 | Pandoc GFM 解析、本地链接与锚点、H1～H3、代码身份及源稿风险；不验证联网 URL 或 PDF 分页 |
-| C++ 编译/诊断 | 静态断言、正例、理由匹配的编译/链接负例；符号表是目标工具链观察，不规定符号拼写或数量 |
-| 性能观察 | 布局、指定 PMR 资源请求、三规模七轮 AoS/SoA 基准及汇编；数值标记 OBSERVED，不以更快为 PASS |
-| 并发动态检测 | 本次 stress/shutdown 不变量及 TSan 正负对照；CLEAN_OBSERVED/DETECTED 不等于协议已形式化证明 |
+| C++ 编译/目标诊断与合同 | 静态断言、编译/链接负例、运行不变量及定向 ASan/UBSan；按阶段区分，不统称静态证明 |
+| 性能与机器观察 | 布局、资源请求、基准及主机时序均保留条件；汇编/符号观察不是端到端性能，数值不以更快为 PASS |
+| 并发动态检测 | TSan 正负对照及对应插桩执行；普通 stress/shutdown 另列运行合同，CLEAN_OBSERVED 不等于形式化证明 |
+
+历史 JSON 的分类名保持原样。下文“本批”按所在执行器/历史批次理解，不表示当前编辑 Sweep 新增了这些执行。G5～G7 的具体执行合同如下；G8～G9、G10～G12 的差异在各自小节说明。
 
 `verify_handbook.py` 无跨类别的“全部 PASS”。`RECORDED` 表示要求的记录收集完成；环境缺失记 SKIP 并以 INCOMPLETE 退出。观察记录缺项、不变量失败、无关错误、超时和信号崩溃记 FAIL。每个子进程有 45 秒上限，Ctrl-C 取消/超时终止相应进程组；不以超时视作安全停机证据，也不承诺 SIGKILL 或系统故障下清理完毕。
 
