@@ -1,5 +1,7 @@
 # FM 定向修订与验证记录 — 7869082
 
+目录迁移注：本文是既有修订的历史记录，下述阶段状态不因迁移而更新。本次只将可重跑命令的脚本定位同步到 `c++/failure-model/review/`；历史 JSON 中的实际执行路径保持原样。迁移与重跑范围见 [G 系列本批记录](../../learning/revision-notes.md)。
+
 日期：2026-09-26。问题基线：`786908271dfa479c0d4aeb2239b19bd15f90e768`。状态：**已完成本轮本地修订与定向验证，待复审**；不表示全部代码块、全部标准命题或项目 profile 已验收。
 
 初次修订对应提交 `0c7e989`。本次在其上补强 R01：下文“实际工具链与结果”和“证据绑定”已更新为补强后的重跑记录；初轮文档检查另标为历史记录，R01 的具体改动、对照实验和复现命令见专节。旧结果可从该精确提交读取，不被解释成已经验证新判据。
@@ -31,7 +33,7 @@
 从仓库根目录运行：
 
 ```sh
-python3 c++/review/verify_fm.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+python3 c++/failure-model/review/verify_fm.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 ```
 
 [执行器](verify_fm.py)只提取带稳定 `fm-test` 标记的 20 个程序：完整程序、编译语义例、预期编译失败、UBSan 和受控终止分别判定。原始测试源码在[样例附录](fm-verification-samples.md)或各正文，不维护平行的手写 cpp。
@@ -142,7 +144,7 @@ import json
 from pathlib import Path
 import tempfile
 
-spec = importlib.util.spec_from_file_location("fm", "c++/review/verify_fm.py")
+spec = importlib.util.spec_from_file_location("fm", "c++/failure-model/review/verify_fm.py")
 fm = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fm)
 samples, inputs = fm.collect()
@@ -182,7 +184,7 @@ for label, source in (("old", old), ("strengthened", current)):
 output = Path(tempfile.mkdtemp(prefix="fm-r01-"))
 report = dict(review_base="0c7e989e7b53630017c98a4dd3d3260ef9c85b34",
               source_files_sha256=inputs,
-              runner_sha256=fm.sha(Path("c++/review/verify_fm.py").read_bytes()),
+              runner_sha256=fm.sha(Path("c++/failure-model/review/verify_fm.py").read_bytes()),
               scope="T17 only: six versions; old mutation PASS means reproduced blind spot",
               toolchains=[])
 for index, compiler in enumerate(("/usr/bin/clang++", "/opt/homebrew/opt/llvm/bin/clang++")):

@@ -1,56 +1,60 @@
-# C++ 工程文档
+# C++ 个人学习手册
 
-本目录按主题保留完整工程文档。G 系列覆盖语言与系统编程基础；FM 系列聚焦失败语义、状态保证与恢复边界。
+这套手册用于反复理解、动手验证和回查工程问题。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。学习进度由“能解释、能实验、能改条件”判断，不由读完多少页判断。
 
-## Modern C++ Failure Model
+## 从哪里开始
 
-FM-0～FM-9 建议按编号顺序阅读。每篇保留完整正文、示例、表格和检查清单，并提供章内目录与前后章导航。
+第一次按 **G0 → G1 → G2 → G3 → G4** 阅读每篇的“首次学习”路线，再进入 G5～G12。G0～G4 已增加学习入口、关键实验和带推理答案的 Final Gate；保留的进阶章节用于回查，不要求一口气读完。
 
-| 章节 | 完整文档 | 主要内容 |
+| 阶段 | 章节与入口 | 这一站要解决的问题 | 动手产出 |
+| --- | --- | --- | --- |
+| 工具与对象 | [G0 原生工具链](g00-native-toolchain.md) | 编译通过，为什么还不能运行？ | 分离编译，定位缺失定义 |
+| 工具与对象 | [G1 对象模型与生命周期](g01-object-model.md) | 地址还在，为什么不能读？ | 区分对象、存储和访问有效期 |
+| 资源与值 | [G2 RAII 与所有权](g02-raii-and-ownership.md) | 谁清理资源，失败时怎么办？ | 验证正常、提前返回、异常清理 |
+| 资源与值 | [G3 值语义与性能](g03-value-semantics-and-performance.md) | 写了 move，究竟发生了什么？ | 区分复制、移动、消除与借用 |
+| 标准库实践 | [G4 STL 与 Ranges](g04-stl-and-ranges.md) | 如何组合拥有者、视图和算法？ | 一个可查询的只读数据批次 |
+| 泛型 | [G5 泛型与编译期编程](g05-generics-and-compile-time.md) | 如何把约束变成可复用接口？ | 梳理模板约束与诊断 |
+| 机器成本 | [G6 内存与性能](g06-memory-and-performance.md) | 布局和访问模式如何影响成本？ | 测量分配与局部性 |
+| 并发 | [G7 并发与内存模型](g07-concurrency-and-memory-model.md) | 共享数据怎样建立可证明的顺序？ | 画出同步关系 |
+| 语言边界 | [G8 ABI 与 C 互操作](g08-abi-and-c-interop.md) | 不同二进制怎样共享接口？ | 说明布局、所有权与错误合同 |
+| 工程工具 | [G9 构建与原生生态](g09-build-and-native-ecosystem.md) | 如何让本机成功变成可复现构建？ | 检查依赖与工具链身份 |
+| 综合实践 | [G10 系统运行时项目](g10-systems-runtime-project.md) | 如何整合前面的设计约束？ | 用完整项目检验取舍 |
+| 应用深化 | [G11 机器人系统](g11-robotics.md) | 时序、资源和故障如何共同设计？ | 回查实际系统边界 |
+| 对照复习 | [G12 C++、Zig 与 Rust](g12-cpp-zig-rust.md) | 相同问题，各语言把责任放在哪里？ | 比较合同，不只比较语法 |
+
+G5～G12 本轮仅接收原稿、统一文件名并纳入导航，尚未按学习版模板重构或全面技术验证。它们原文中的 “Frozen / Complete” 是历史稿件标记，不代表本批授予工程基线资格。原稿中若有跳读或“下一站”的写作过程描述，以本页学习顺序为准。
+
+## 每次怎么学
+
+1. **闭卷预测**：先回答章首问题，给实验写下预期输出或诊断。
+2. **精读主线**：只读本次路线，不被所有进阶分支打断。
+3. **运行并解释**：确认不是仅“没崩溃”，而是判据确实覆盖了目标命题。
+4. **改变一个条件**：例如改成 const、空输入、缺失定义或延长借用，重新预测。
+5. **完成 Gate**：先写答案，再展开推理；把错误原因记成一句话，下次从这句复习。
+
+不要求每天完成一章，也不把定时提醒当作已完成学习。已有的 30 天安排可引用这些章节和实验；本批不新建或修改提醒。
+
+## 按问题回查
+
+| 遇到的问题 | 先看 | 再看 |
 | --- | --- | --- |
-| FM-0 | [统一失败模型](fm0-failure-model.md) | 失败分类、责任、传播、状态保证、恢复边界与失败域 |
-| FM-1 | [Contracts / Assertions / UB](fm1-contracts-assertions-ub.md) | 前置条件、不变量、输入校验、断言与未定义行为的边界 |
-| FM-2 | [Value-Based Failure](fm2-value-based-failure.md) | `bool`、sentinel、`optional`、`expected` 与结构化错误类型 |
-| FM-3 | [Exception Semantics](fm3-exception-semantics.md) | 异常对象、捕获、栈展开、重抛、转换与异常边界 |
-| FM-4 | [RAII & Exception Safety](fm4-raii-exception-safety.md) | 资源所有权、异常安全保证、提交点与部分副作用 |
-| FM-5 | [noexcept / Move / Copy](fm5-noexcept-move-copy.md) | 条件 `noexcept`、移动与复制、容器迁移和泛型保证 |
-| FM-6 | [Construction / Destruction / Allocation](fm6-construction-destruction-allocation.md) | 构造不变量、工厂、分配失败、析构与显式关闭 |
-| FM-7 | [error_code / system_error / OS Failure](fm7-error-code-system-error.md) | `errno`、错误身份、错误域、上下文与系统错误转换 |
-| FM-8 | [Failure Boundaries](fm8-failure-boundaries.md) | 线程、协程、ABI、RPC、取消、超时、重试与失败隔离 |
-| FM-9 | [Project-Level Failure Profile](fm9-project-failure-profile.md) | 项目级策略、API 合同、审查模板、故障注入与最终总图 |
+| undefined symbol、动态库找不到 | G0 的诊断分层 | G9 构建与依赖 |
+| 悬挂、扩容后指针失效 | G1 生命周期 | G4 失效规则 |
+| 清理遗漏、异常后状态不明 | G2 RAII | [FM-4 异常安全](failure-model/fm4-raii-exception-safety.md) |
+| move 后仍复制、容器迁移成本 | G3 值语义 | [FM-5 noexcept / move / copy](failure-model/fm5-noexcept-move-copy.md) |
+| expected、线程和 ABI 错误传播 | [FM 导航](failure-model/README.md) | G7 / G8 |
+| 读过但无法独立推理 | 对应章 Final Gate | [实验与验证说明](learning/README.md) |
 
-### 来源与整理边界
+## 实验、来源与维护边界
 
-- 来源：[研究失败模型](https://chatgpt.com/g/g-p-6aa8c2d2c1cc819185b2f45d804a5914-c-23jin-jie/c/6ab766db-76ac-83e8-b59c-868dac31e54b) 会话；访问可能需要原账号权限。
-- 整理日期：2026-09-26。
-- 采用会话中最后输出的工程文档：FM-0、FM-1，以及 FM-2～FM-9 合集，共三份 Markdown 导出稿；不重复收录前面的讲解和对话过渡语。
-- 合集按原章节边界拆分为八篇；末尾的“Modern C++ Failure Model — 最终总图”完整保留在 FM-9。
-- 初次整理提交 `7869082` 只调整层级、拆分和导航。其后的本轮技术修订保留章节编号与文件名，按复审意见修正事实、补齐条件并验证关键示例；修订不再以原稿逐字保真作为唯一判据。
-- 当前仍是工程指导初稿，不是已批准项目规范或已全面验证的工程基线。关键命题的正文修订状态与验证状态分别记录；定向结果不能代表全部代码块通过。
-
-### 定向技术审校
-
-- [修订范围、实际结果与未验证项](review/fm-review-7869082.md)
-- [关键命题、适用条件及固定标准依据](review/fm-claims.md)
-- [正反例与边界样例](review/fm-verification-samples.md)
-
-示例以 Markdown 为单一维护源。标有 `fm-test` 的 20 个样例分别注明完整运行例、编译语义例、编译失败、UBSan 或受控终止身份；验证脚本直接提取正文／附录，不维护手写 `.cpp` 副本。未标记的历史 `cpp` 块按片段／伪代码阅读，不能假定可独立编译；“错误／反例”上下文不是实现建议。这不免除片段中关键机制的准确性责任，也不表示已穷举全部历史代码块。
+从仓库根目录运行：
 
 ```sh
-python3 c++/review/verify_fm.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+python3 c++/learning/verify_g.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 ```
 
-命令从仓库根目录执行；只用已有编译器。输出写入新建的系统临时目录，脚本会打印证据位置。缺少工具或能力明确记为 SKIP，不计作通过；负例须核对预期诊断／退出码。具体判定、跨平台限制见上述记录。
+[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[修订记录](learning/revision-notes.md)区分实测与未验证范围。Markdown 是学习内容和完整实验的维护入口；未标记的代码块可能是片段，不能据此声称全部可编译。
 
-## C++ Systems Track
+文件名采用 `gNN-英文主题.md`，编号补零方便排序，正文继续使用 G0～G12。主题名供定位，不作为学习进度或版本号。FM 正文与验证资料整体位于 `failure-model/`，已收口的技术内容不因目录调整重开。
 
-以下为已纳入版本管理的 G 系列文档入口。本次保持原文件及现有编号，不补造缺号章节。
-
-| 章节 | 文档 |
-| --- | --- |
-| G0 | [Native Toolchain](g0-native-toolchain.md) |
-| G1 | [Object Model](g1-object-model.md) |
-
-整理时本地另有 G2（RAII & Ownership）、G3（Value & Performance）、G5（Generic Programming & Compile-time）和 G6（Memory）四篇未跟踪文档；它们未纳入本次 FM 文档提交，暂不作为审核版链接入口。
-
-已有 PDF 与相关文件保留在 `pdf_build/`；本次仅整理 Markdown，没有重新构建或修改 PDF。
+G2～G12 的原始字节先由提交 `2dbaa95` 保存；G0/G1 与 FM 的修改前版本见 `be61a1d`。已有 `pdf_build/` 是历史制品，本批不重新生成、覆盖或宣称与当前学习稿同步。

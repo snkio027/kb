@@ -1,6 +1,6 @@
 # C++ Systems Track · G3 Value Semantics & Performance
 
-- **Version:** 1.0 · Frozen Review Baseline
+- **Version:** 1.1 · 学习修订稿
 - **Prerequisite:** G1 Object Model & Lifetime, G2 RAII & Ownership Architecture
 - **Language Baseline:** C++23
 - **Comparison Languages:** Zig / Rust
@@ -9,567 +9,223 @@
 
 ---
 
-# Part 0 · G3 的根本问题
-
-G1：
-
-> **这个 access 合法吗？**
-
-G2：
-
-> **谁负责让 object/resource 活够久？**
-
-G3：
-
-> **为了让 value 在程序里流动，我们到底支付了什么？**
-
-统一：
-
-```text
-                    C++ SYSTEM VALUE
-
-             ┌──────────┼──────────┐
-             │          │          │
-          G1 Validity  G2 Lifetime G3 Cost
-             │          │          │
-             ▼          ▼          ▼
-         Can access?  Who owns?  What moves?
-```
-
-G3 研究的不是：
-
-> “`std::move` 怎么写。”
-
-而是：
-
-> **Logical value 如何映射到底层 storage/resource representation，以及 copy、move、return、parameter passing、container relocation 对这个 representation 产生什么机器成本。**
-
----
-
-# Part 1 · Logical Value 与 Representation
-
-## 1.1 第一个问题永远是：这个 Type 的 Logical Value 是什么？
-
-例如：
-
-### `std::vector<int>`
-
-Representation 近似：
-
-```text
-pointer
-size
-capacity
-```
-
-Logical value：
-
-```text
-sequence of ints
-```
-
----
-
-### `std::span<int>`
-
-Representation 通常近似：
-
-```text
-pointer
-size
-```
-
-Logical value：
-
-```text
-bounded view over contiguous ints
-```
-
----
-
-### `std::unique_ptr<T>`
-
-Representation：
-
-```text
-pointer
-possibly deleter
-```
-
-Logical value：
-
-```text
-empty
-or
-unique ownership of resource
-```
-
----
-
-### `std::shared_ptr<T>`
-
-Logical value包含：
-
-```text
-stored pointer
-+
-shared ownership stake
-```
-
-它的 logical value不是：
-
-> pointee本身。
-
----
-
-## 1.2 Representation ≠ Logical Value
-
-必须长期保持：
-
-```text
-Object Representation
-≠
-Logical Value
-```
-
-例如：
-
-```cpp
-std::vector<float> values(1'000'000);
-```
-
-vector object本体可能只有：
-
-```text
-~几个 machine words
-```
-
-但 logical value：
-
-```text
-1,000,000 floats
-```
-
-所以：
-
-```cpp
-auto copy = values;
-```
-
-成本取决于：
-
-> logical sequence。
-
-不是：
-
-```cpp
-sizeof(std::vector<float>)
-```
-
----
-
-# Part 2 · Value Semantics
-
-## 2.1 Value Semantics 的核心
-
-```cpp
-T b = a;
-```
-
-若 T 是 copyable value-like type，通常希望：
-
-> `b` 表示和 `a` 等价的 logical value，并成为一个新的 object。
-
-但“等价 logical value”并不意味着：
-
-> same object / same storage。
-
-例如：
+## 学习入口
+
+[上一章：G2](g02-raii-and-ownership.md) · [全系列导航](README.md) · [下一章：G4](g04-stl-and-ranges.md)
+
+本章的问题是：**同样写 `auto b = a;`，为什么有时复制数据、有时只多一条访问路径？写 std::move 又改变了什么？**
+
+- 首次学习：Part 1～3 → [值复制实验](#g3-lab-copy) → Part 5～7 → [移动与返回实验](#g3-lab-move) → Part 9～13 → Part 15～17 → [Final Gate](#g3-gate)。
+- 回查成本：Part 18～24 看表示；Part 25～35 看系统取舍；Part 36～42 看跨语言与审查。
+- 前置自测：能否画出 vector、span、shared_ptr 分别拥有和借用什么？若还混淆，先返回 G2。
+- 完成目标：遇到复制/移动表达式，按“类型合同 → 候选操作 → 表示 → 实际成本”逐层判断。
+
+带 `g-lab` 的块为完整定向实验。其余代码保留为片段和设计素材；成本公式是分析维度，不能代替测量。跨语言部分不在本批编译范围。
+
+
+<details>
+<summary>展开本章索引（进阶部分按需回查）</summary>
+
+- [Part 0 · G3 的根本问题](#g3-part-0)
+- [Part 1 · Logical Value 与 Representation](#g3-part-1)
+- [Part 2 · Value Semantics](#g3-part-2)
+- [Part 3 · Copy Cost Model](#g3-part-3)
+- [Part 4 · Triviality](#g3-part-4)
+- [Part 5 · Move Semantics](#g3-part-5)
+- [Part 6 · `noexcept` Move](#g3-part-6)
+- [Part 7 · Copy Elision / RVO / NRVO](#g3-part-7)
+- [Part 8 · Return-by-Value Cost Model](#g3-part-8)
+- [Part 9 · Parameter Passing](#g3-part-9)
+- [Part 10 · Sink Parameters](#g3-part-10)
+- [Part 11 · Small Values](#g3-part-11)
+- [Part 12 · Views](#g3-part-12)
+- [Part 13 · Borrow vs Ownership Boundary](#g3-part-13)
+- [Part 14 · Aliasing 与 Parameter Performance](#g3-part-14)
+- [Part 15 · Container Relocation](#g3-part-15)
+- [Part 16 · `reserve()`](#g3-part-16)
+- [Part 17 · Amortized Complexity](#g3-part-17)
+- [Part 18 · `vector<T>` vs `vector<unique_ptr<T>>`](#g3-part-18)
+- [Part 19 · Stable ID vs Stable Address](#g3-part-19)
+- [Part 20 · Representation Strategies](#g3-part-20)
+- [Part 21 · SSO / SBO](#g3-part-21)
+- [Part 22 · Performance Cliff](#g3-part-22)
+- [Part 23 · `optional<T>`](#g3-part-23)
+- [Part 24 · `variant`](#g3-part-24)
+- [Part 25 · Value-oriented Architecture](#g3-part-25)
+- [Part 26 · Large Logical Value 可以仍然是 Small Movable Object](#g3-part-26)
+- [Part 27 · Copy as Decoupling](#g3-part-27)
+- [Part 28 · Zero-copy](#g3-part-28)
+- [Part 29 · Pool + Lease](#g3-part-29)
+- [Part 30 · Cost Graph](#g3-part-30)
+- [Part 31 · Performance Cost Axes](#g3-part-31)
+- [Part 32 · Copy Cost Equation](#g3-part-32)
+- [Part 33 · Parameter Decision Model](#g3-part-33)
+- [Part 34 · Container Review Model](#g3-part-34)
+- [Part 35 · Healthy High-performance Pipeline](#g3-part-35)
+- [Part 36 · C++ vs Zig](#g3-part-36)
+- [Part 37 · C++ vs Rust](#g3-part-37)
+- [Part 38 · G3 Code Review Protocol](#g3-part-38)
+- [Part 39 · G3 高频 Smells](#g3-part-39)
+- [Part 40 · G3 Core Terminology](#g3-part-40)
+- [Part 41 · G3 最终统一公式](#g3-part-41)
+- [Part 42 · G1 + G2 + G3 Unified Mental Model](#g3-part-42)
+- [Part 43 · G3 Final Gate](#g3-part-43)
+- [Part 44 · 如果几个月后只记住十五条](#g3-part-44)
+
+</details>
+
+<a id="g3-part-0"></a>
+
+## Part 0 · G3 的根本问题
+
+G1 检查访问有效性，G2 检查清理责任，G3 追问值在系统流动时支付了什么成本。正确性是前提，但“用了智能指针”或“写了 move”都不能直接推出性能。
+
+本章按三步阅读表达式：类型表示什么逻辑值；操作允许改变哪些状态；表示如何映射到分配、元素操作和间接访问。
+
+<a id="g3-part-1"></a>
+
+## Part 1 · Logical Value 与 Representation
+
+### 1.1 先问类型的逻辑值是什么
+
+| 类型 | 逻辑值/责任 | 常见表示模型，非 ABI 保证 |
+| --- | --- | --- |
+| vector<int> | 拥有一串 int | 外部元素存储，加指针/长度/容量等状态 |
+| span<int> | 借用一段连续 int | 指针与范围；静态 extent 可编码在类型中 |
+| unique_ptr<T> | 独占资源或为空 | 指针及 deleter 状态 |
+| shared_ptr<T> | 共享拥有关系及保存的指针 | 对象指针与控制信息关联 |
+| array<int, N> | 内嵌 N 个 int | 元素作为对象组成部分 |
+
+这里的“常见表示”帮助估计成本，不允许据此访问私有布局、假定固定 sizeof 或跨 ABI 序列化。
+
+### 1.2 Representation Size 不等于 Payload Size
+
+vector 对象本身可以很小，拥有的序列却很大。`auto copy = values;` 的复制工作随元素及 allocator 合同变化，而不只处理 sizeof(vector) 个字节。先分清 wrapper 与 payload，再谈便宜还是昂贵。
+
+<a id="g3-part-2"></a>
+
+## Part 2 · Value Semantics
+
+### 2.1 相同值，不是相同对象
 
 ```cpp
 std::string a{"hello"};
 std::string b = a;
 ```
 
-通常：
+b 是新对象，初始字符串内容与 a 相同；修改 b 的字符不会因此修改 a。对一般 T，先查其复制合同，不能从赋值语法推导这种独立性。
 
-```text
-a == b
-```
+### 2.2 Value Semantics 不等于 memcpy
 
-但：
+复制操作要保持类型的语义合同。它可能逐成员复制、分配新 payload、更新引用计数或复制 view 元数据。trivially copyable 的表示复制规则也不赋予任意资源 owner 用 memcpy 克隆清理责任的许可。
 
-```text
-a object identity
-≠
-b object identity
-```
+### 2.3 View 的复制不是数据深复制
 
----
+span 的逻辑值是访问范围，复制后仍指向同一底层数据。因此两个 view 对象独立，但其元素访问存在别名。说“复制成功”时必须说明复制的是 view 还是被观察的数据。
 
-## 2.2 Value Semantics ≠ Bitwise Copy
-
-错误：
-
-```text
-value semantics
-=
-memcpy(sizeof(T))
-```
-
-正确：
-
-> copy operation 必须保持 type 的 semantic contract。
-
-可能实现为：
-
-```text
-scalar copy
-memberwise copy
-allocation + deep copy
-reference-count update
-view metadata copy
-```
-
-取决于 logical value。
-
----
-
-## 2.3 Value Semantics ≠ Deep Copy
-
-`std::span<T>`：
-
-```cpp
-auto b = a;
-```
-
-复制的是：
-
-```text
-view value
-```
-
-不是：
-
-```text
-backing elements
-```
-
-所以两个 span会 alias同一段 data。
-
-这不违反 span自己的 value semantics，因为：
-
-> span 的 logical value 本来就是一个 view。
-
----
-
-## 2.4 Shared Owner Copy 也是 Value Operation
+### 2.4 Shared Owner 的复制
 
 ```cpp
 auto a = std::make_shared<Model>();
 auto b = a;
 ```
 
-复制：
+新建的是 b 这个 shared_ptr 对象，而不是第二个 Model。两个句柄共同参与管理同一资源；若需独立模型，应定义模型复制/clone 的操作，不要把复制 shared_ptr 当作快照。
 
-```text
-shared ownership handle
-```
+### 2.5 Move-only 仍可表达完整的值抽象
 
-而不是：
+FileDescriptor、unique_ptr、FrameLease 可以有明确的空/拥有状态和转移协议，只是不允许复制同一责任。不可复制不是“没有值语义”；是否能深复制独立资源仍由类型合同决定。
 
-```text
-Model logical value
-```
+<a id="g3-part-3"></a>
 
-因此：
+## Part 3 · Copy Cost Model
 
-```text
-a
-b
-```
+### 3.1 同一语法对应不同工作
 
-是两个独立 `shared_ptr` objects，却共同参与同一个 Model lifetime。
+int 复制标量；array<T, N> 处理内嵌元素；vector<T> 复制时可能分配并复制 N 个元素；span 复制范围；shared_ptr 复制管理关系并更新计数。语法越相似，越需要回到类型。
 
----
+### 3.2 sizeof 只描述对象本体
 
-## 2.5 Move-only 也可以是 Value Abstraction
+对内嵌定长数据，复制成本可能与大小相关；对外部拥有者，payload 规模可能远大于对象本体。也不能把更大的 sizeof 直接解释成更慢：需要结合访问模式、编译器优化与硬件。
 
-例如：
+### 3.3 Inline 与 Indirect
 
-```text
-unique_ptr<T>
-FrameLease
-FileDescriptor
-```
+inline 把数据放在对象内部，减少访问跳转，但迁移对象需要处理内嵌数据。indirect 多一层访问，却可能仅交接外部存储句柄。所谓“移动便宜”常来自这一表示选择，而不是关键字本身。
 
-它们都有明确 state：
-
-```text
-empty
-or
-owns some resource/right
-```
-
-只是：
-
-```text
-copy
-→ semantic illegal
-
-move
-→ state transfer
-```
-
-所以：
-
-> **Value abstraction 不等于 copyable。**
-
----
-
-# Part 3 · Copy Cost Model
-
-## 3.1 同一语法可以是完全不同成本
-
-```cpp
-T b = a;
-```
-
-可能是：
-
-```text
-int
-→ few scalar operations
-
-std::array<int, 1024>
-→ copy 1024 ints
-
-std::vector<int>
-→ allocation + copy N elements
-
-std::span<int>
-→ copy pointer + extent
-
-shared_ptr<T>
-→ copy handle + refcount bookkeeping
-```
-
-因此：
-
-> **Syntax does not reveal cost. Type semantics do.**
-
----
-
-## 3.2 Copy Cost ≠ `sizeof(T)`
-
-对于 inline type：
-
-```text
-copy cost
-往往和 sizeof(T) 有较强关系
-```
-
-例如：
-
-```cpp
-std::array<float, 1024>
-```
-
-但 indirect owner：
-
-```cpp
-std::vector<float>
-```
-
-则：
-
-```text
-sizeof(vector)
-很小
-
-logical payload
-可能很大
-```
-
-所以：
-
-> `sizeof(T)` 只说明 object representation size。
-
----
-
-## 3.3 Inline vs Indirect
-
-### Inline
-
-```text
-object
-┌────────────────────┐
-│ payload itself     │
-└────────────────────┘
-```
-
-例如：
-
-```text
-int
-Vec3
-std::array<T,N>
-```
-
-Copy：
-
-```text
-copy inline state
-```
-
----
-
-### Indirect
-
-```text
-object
-┌─────────┐
-│ ptr ────┼────▶ payload
-│ size    │
-└─────────┘
-```
-
-例如：
-
-```text
-vector
-heap-owning buffer
-```
-
-Copy：
-
-```text
-allocate new payload
-+
-copy logical payload
-```
-
----
-
-## 3.4 Recursive Cost Composition
-
-如果：
+### 3.4 成本递归组合
 
 ```cpp
 struct RobotState {
     std::string name;
     std::vector<float> joints;
-    Pose pose;
+    Pose pose; // 片段：Pose 由应用定义。
 };
 ```
 
-则：
+分析其复制，要分别检查三个成员；vector<T> 又要检查每个 T。可用“分配＋元素操作＋同步＋间接访问”列账，但它不是可直接相加的物理耗时公式，缓存与优化会改变结果。
 
-```text
-CopyCost(RobotState)
-≈
-CopyCost(string)
-+
-CopyCost(vector<float>)
-+
-CopyCost(Pose)
-```
+### 3.5 复制构造与复制赋值不是同一成本
 
-更一般：
+`T b = a;` 初始化新对象，`b = a;` 必须处理 b 的旧状态。已有容量可能复用，旧资源可能需要释放，allocator 条件也可能改变路径。benchmark 若把二者混测，就无法解释差异。
 
-```text
-C(T)
-≈ Σ C(member_i)
-```
+### 3.6 O(1) 不等于 Cheap
 
-Container：
-
-```text
-C(vector<T>)
-≈ allocation + N × C(T)
-```
-
-```text
-C(array<T,N>)
-≈ N × C(T)
-```
+裸指针复制、共享计数更新、大型但固定大小的结构复制，都可能相对某个 N 是 O(1)，常数和机器行为却不同。报告成本时说明 N 是什么，并观察字节、分配、元素操作、同步、缓存和延迟分布。
 
 ---
 
-## 3.5 Copy Construction 与 Copy Assignment 不同
+## 学习实验 · G3-L1：复制的是完整值，还是访问关系？
 
-Copy construction：
+<a id="g3-lab-copy"></a>
 
+**预测：**修改 vector 副本、span 副本、shared_ptr 副本各会影响谁？完整运行例使用完整范围比较，既检查内容，也检查长度，避免空结果被前缀比较误判通过。
+
+<!-- g-lab {"id":"G3-L1","mode":"run","stdout":"value-independent; view-aliases; shared-aliases\n"} -->
+<!-- g-file {"path":"main.cpp"} -->
 ```cpp
-T b = a;
+#include <algorithm>
+#include <iostream>
+#include <memory>
+#include <span>
+#include <vector>
+
+int main() {
+    const int expected[]{1, 2, 3};
+    std::vector<int> source{1, 2, 3};
+    auto copy = source;
+    if (!std::ranges::equal(copy, expected)) return 1;
+    if (copy.data() == source.data()) return 2;
+    copy[0] = 9;
+    if (source[0] != 1) return 3;
+
+    std::span<int> view{source};
+    auto view_copy = view;
+    view_copy[1] = 8;
+    const int changed[]{1, 8, 3};
+    if (!std::ranges::equal(source, changed) ||
+        view_copy.data() != source.data()) return 4;
+
+    auto owner = std::make_shared<int>(4);
+    auto shared = owner;
+    *shared = 7;
+    if (shared.get() != owner.get() || *owner != 7) return 5;
+    std::cout << "value-independent; view-aliases; shared-aliases\n";
+}
 ```
 
-destination没有旧 state。
+**原因：**vector 副本拥有独立元素；span 副本复制访问范围；shared_ptr 副本复制共同管理同一对象的句柄。三个语法相似的 copy，复制的逻辑值并不相同。
 
-Copy assignment：
+**改变条件：**把 vector 副本缩成一个元素，范围相等检查必须失败；只比较副本长度的前缀会漏掉这个错误。此变体作为本批执行器的定向自查，不改正文正确实现。
 
-```cpp
-b = a;
-```
-
-destination已有 state。
-
-因此 assignment必须处理：
-
-```text
-old storage
-old resource
-capacity
-allocator
-existing elements
-```
-
-所以 copy assignment成本可能：
-
-> 依赖 destination当前 state。
+**边界：**这里元素是 int。若 vector 的元素本身是 span 或 shared_ptr，复制外层容器不会递归消除内层别名。
 
 ---
 
-## 3.6 O(1) ≠ Cheap
+<a id="g3-part-4"></a>
 
-例如：
+## Part 4 · Triviality
 
-```text
-raw pointer copy
-shared_ptr copy
-large fixed-size struct copy
-```
-
-都可能被粗略称为 O(1)。
-
-但：
-
-```text
-register move
-vs
-atomic refcount
-vs
-64/128 bytes memory traffic
-```
-
-差别巨大。
-
-因此性能描述至少要包含：
-
-```text
-asymptotic complexity
-constant factor
-bytes moved
-allocation count
-synchronization
-cache behavior
-```
-
----
-
-# Part 4 · Triviality
-
-## 4.1 Trivial Copy
+### 4.1 Trivial Copy
 
 例如：
 
@@ -598,7 +254,7 @@ sensor samples
 
 ---
 
-## 4.2 `trivially copyable` 不等于 Wire Format
+### 4.2 `trivially copyable` 不等于 Wire Format
 
 仍然要考虑：
 
@@ -621,9 +277,11 @@ send(fd, &sample, sizeof(sample), ...);
 
 ---
 
-# Part 5 · Move Semantics
+<a id="g3-part-5"></a>
 
-## 5.1 Copy 与 Move 的根本区别
+## Part 5 · Move Semantics
+
+### 5.1 Copy 与 Move 的根本区别
 
 Copy：
 
@@ -657,72 +315,25 @@ b reuses/transfers a's existing state/resource
 
 ---
 
-## 5.2 `std::move` 不移动
+### 5.2 从转换到真正操作，中间还有重载决议
 
-`std::move(x)`：
+**问题：**如果类型只有复制构造，写 std::move 会强行生成移动构造吗？
 
-> 将 expression转换为 xvalue。
+不会。对对象表达式，std::move 提供 xvalue；其概念形式是 `static_cast<std::remove_reference_t<T>&&>(x)`，其中 T 是推导出的模板参数。后续初始化、赋值或消费函数才选择并执行实际操作。
 
-概念近似：
-
-```cpp
-static_cast<T&&>(x)
-```
-
-真正 state/resource transfer发生在：
-
-```text
-move constructor
-move assignment
-consumer operation
-```
-
-所以：
-
-```text
-std::move
-= permission / cast
-
-move operation
-= actual transition
-```
+不能把“调用者允许消费源状态”说成语言已经证明可以安全消费。候选中可能有移动、有可绑定右值的复制，或者有被删除的最优函数而直接报错。“没声明移动”和“显式删除移动”不是同一个重载集合。下面实验先验证最常混淆的 const 和 copy-only 两条路径。
 
 ---
 
-## 5.3 Why Vector Move Is Often Cheap
+### 5.3 为什么普通 vector 移动构造很便宜？
 
-vector representation：
+vector 的元素通常在外部分配的连续存储中，普通 `vector(vector&&)` 可以交接这份存储，复杂度为常数；复制构造需复制元素，工作量随 N 增长。
 
-```text
-pointer
-size
-capacity
-```
-
-payload：
-
-```text
-external allocation
-```
-
-Move construction可：
-
-```text
-transfer pointer/size/capacity
-↓
-source becomes valid moved-from state
-```
-
-因此通常：
-
-```text
-Copy: O(N)
-Move: O(1)
-```
+**边界：**显式带 allocator 的移动构造，以及移动赋值，在 allocator 不兼容或不能传播时可能逐元素处理；不能把所有带 move 字样的操作都标成 O(1)。目标原有资源的清理也可能是成本。array 的元素内嵌，不能只交接一个外部缓冲区句柄。
 
 ---
 
-## 5.4 为什么 Array Move 仍可能 O(N)
+### 5.4 为什么 Array Move 仍可能 O(N)
 
 ```cpp
 std::array<T, N>
@@ -757,7 +368,7 @@ move ≈ copy
 
 ---
 
-## 5.5 Move Cost 来自 Representation
+### 5.5 Move Cost 来自 Representation
 
 ```text
 Indirect owner
@@ -771,44 +382,17 @@ Inline payload
 
 ---
 
-## 5.6 Moved-from ≠ Dead
+### 5.6 Moved-from ≠ Dead
 
-```cpp
-T b = std::move(a);
-```
+移动后，源对象通常仍在生命周期内，但值可能改变。标准库类型通常给出 valid-but-unspecified 的移动后合同，具体类型可给更强保证，例如相应 unique_ptr 转移后源为空。
 
-之后：
+对用户类型，语言不会自动修复错误的移动实现；要自行维持承诺的不变量和清理能力。操作还有自身前置条件：不能因为 vector 可析构，就无条件调用它的 front()。也不要要求所有 moved-from 容器都为空。
 
-```text
-a lifetime still active
-```
-
-a仍然需要：
-
-```text
-safe destruction
-safe assignment
-```
-
-以及其 type contract明确允许的其它操作。
-
-一般：
-
-> valid but unspecified。
-
-某些 type给更强保证。
-
-例如：
-
-```cpp
-unique_ptr
-```
-
-move后 source为空。
+区分三件事：对象是否仍活着、哪些操作允许、逻辑值是否保持。它们不是同一个问题。
 
 ---
 
-## 5.7 `const` 与 Move
+### 5.7 `const` 与 Move
 
 ```cpp
 const T value;
@@ -845,9 +429,11 @@ copy via const T&
 
 ---
 
-# Part 6 · `noexcept` Move
+<a id="g3-part-6"></a>
 
-## 6.1 `noexcept` 不只是 Optimization Hint
+## Part 6 · `noexcept` Move
+
+### 6.1 `noexcept` 不只是 Optimization Hint
 
 ```cpp
 T(T&&) noexcept;
@@ -867,7 +453,7 @@ vector relocation
 
 ---
 
-## 6.2 为什么 Vector 会关心？
+### 6.2 为什么 Vector 会关心？
 
 reallocation：
 
@@ -908,7 +494,7 @@ noexcept move
 
 ---
 
-## 6.3 Move-only + Throwing Move
+### 6.3 Move-only + Throwing Move
 
 这是非常棘手组合：
 
@@ -932,9 +518,11 @@ simple empty state
 
 ---
 
-# Part 7 · Copy Elision / RVO / NRVO
+<a id="g3-part-7"></a>
 
-## 7.1 最好的 Move 是没有 Move
+## Part 7 · Copy Elision / RVO / NRVO
+
+### 7.1 最好的 Move 是没有 Move
 
 现代性能层级经常是：
 
@@ -948,7 +536,7 @@ Direct Construction / Elision
 
 ---
 
-## 7.2 C++17+ Same-type Prvalue
+### 7.2 C++17+ Same-type Prvalue
 
 ```cpp
 T make() {
@@ -978,7 +566,7 @@ result T
 
 ---
 
-## 7.3 Guaranteed Case
+### 7.3 Guaranteed Case
 
 ```cpp
 class Immovable {
@@ -1001,7 +589,7 @@ C++17+ 可以成立。
 
 ---
 
-## 7.4 NRVO
+### 7.4 NRVO
 
 ```cpp
 T make() {
@@ -1027,7 +615,7 @@ function result
 
 ---
 
-## 7.5 Guaranteed Prvalue Case ≠ NRVO
+### 7.5 Guaranteed Prvalue Case ≠ NRVO
 
 必须区分：
 
@@ -1050,7 +638,7 @@ return value;
 
 ---
 
-## 7.6 NRVO Failure → Implicit Move
+### 7.6 NRVO Failure → Implicit Move
 
 ```cpp
 T make() {
@@ -1073,7 +661,7 @@ return std::move(value);
 
 ---
 
-## 7.7 `return std::move(local)` 是典型 Smell
+### 7.7 `return std::move(local)` 是典型 Smell
 
 ```cpp
 T make() {
@@ -1108,7 +696,103 @@ return value;
 
 ---
 
-# Part 8 · Return-by-Value Cost Model
+## 学习实验 · G3-L2～L4：转换、重载与结果对象
+
+<a id="g3-lab-move"></a>
+
+### G3-L2：const 与 copy-only 的反直觉路径
+
+先写出四次构造分别调用什么。计数来自明确定义的构造函数，不测 vector 的实现选择。
+
+<!-- g-lab {"id":"G3-L2","mode":"run","stdout":"copies=2 moves=1 copy-only=1\n"} -->
+<!-- g-file {"path":"main.cpp"} -->
+```cpp
+#include <iostream>
+#include <utility>
+
+struct Tracked {
+    static inline int copies = 0, moves = 0;
+    Tracked() = default;
+    Tracked(const Tracked&) { ++copies; }
+    Tracked(Tracked&&) noexcept { ++moves; }
+};
+
+struct CopyOnly {
+    static inline int copies = 0;
+    CopyOnly() = default;
+    CopyOnly(const CopyOnly&) { ++copies; } // 没有声明移动构造。
+};
+
+int main() {
+    Tracked source;
+    Tracked a{source};
+    Tracked b{std::move(source)};
+    const Tracked fixed;
+    Tracked c{std::move(fixed)};
+    CopyOnly original;
+    CopyOnly d{std::move(original)};
+    if (Tracked::copies != 2 || Tracked::moves != 1 ||
+        CopyOnly::copies != 1) return 1;
+    std::cout << "copies=2 moves=1 copy-only=1\n";
+}
+```
+
+a 复制，b 移动，c 的 const 右值不能绑定普通 Tracked&& 因而复制；d 可绑定 const CopyOnly&，所以复制。显式删除 CopyOnly(CopyOnly&&) 会让它成为更优但不可调用的候选，这是手动扩展，不能继续期待复制回退。
+
+### G3-L3：不需要复制/移动的 prvalue 返回
+
+<!-- g-lab {"id":"G3-L3","mode":"run","stdout":"direct-result=7\n"} -->
+<!-- g-file {"path":"main.cpp"} -->
+```cpp
+#include <iostream>
+
+struct Immovable {
+    int value;
+    explicit Immovable(int n) : value(n) {}
+    Immovable(const Immovable&) = delete;
+    Immovable(Immovable&&) = delete;
+};
+
+Immovable make() { return Immovable{7}; }
+
+int main() {
+    auto value = make();
+    if (value.value != 7) return 1;
+    std::cout << "direct-result=7\n";
+}
+```
+
+这里同类型 prvalue 直接初始化结果对象，不需要先建立一个源临时再移动。删除复制/移动仍可成立；这不同于“优化器碰巧删掉了一次 move”。
+
+### G3-L4：具名局部返回不能靠可选 NRVO 挽救非法程序
+
+完整**编译失败反例**：
+
+<!-- g-lab {"id":"G3-L4","mode":"compile_fail","diagnostic":"(?:deleted constructor|call to deleted|use of deleted)[\\s\\S]*Immovable"} -->
+<!-- g-file {"path":"main.cpp"} -->
+```cpp
+struct Immovable {
+    Immovable() = default;
+    Immovable(const Immovable&) = delete;
+    Immovable(Immovable&&) = delete;
+};
+
+Immovable make() {
+    Immovable local;
+    return local;
+}
+int main() { auto value = make(); }
+```
+
+NRVO 是允许的省略，不让本来选到已删除构造函数的程序变合法。预期是针对 Immovable 的 deleted-constructor 诊断，不是任何编译失败。
+
+**反思：**`return local;` 符合 NRVO 条件时应保留机会；改成 `return std::move(local);` 会使这条 NRVO 规则不再适用。不要用一个编译器、一次 -O0 计数结果宣称所有返回都复制或都不复制。[N4950：class.copy.elision](https://timsong-cpp.github.io/cppwp/n4950/class.copy.elision)
+
+---
+
+<a id="g3-part-8"></a>
+
+## Part 8 · Return-by-Value Cost Model
 
 看到：
 
@@ -1149,9 +833,11 @@ decode
 
 ---
 
-# Part 9 · Parameter Passing
+<a id="g3-part-9"></a>
 
-## 9.1 参数类型首先是 Semantic Contract
+## Part 9 · Parameter Passing
+
+### 9.1 参数类型首先是 Semantic Contract
 
 不是：
 
@@ -1173,7 +859,7 @@ share?
 
 ---
 
-## 9.2 `T`
+### 9.2 `T`
 
 ```cpp
 void f(T value);
@@ -1189,10 +875,10 @@ caller lvalue：
 copy
 ```
 
-caller rvalue/xvalue：
+caller xvalue：
 
 ```text
-move
+重载决议可能选择 move、copy，或因无可行操作而失败
 ```
 
 same-type prvalue：
@@ -1203,7 +889,7 @@ direct parameter construction可能消除不必要 transfer
 
 ---
 
-## 9.3 `const T&`
+### 9.3 `const T&`
 
 ```cpp
 void f(const T& value);
@@ -1222,7 +908,7 @@ callee只同步读取
 
 ---
 
-## 9.4 `T&`
+### 9.4 `T&`
 
 ```cpp
 void f(T& value);
@@ -1238,7 +924,7 @@ void f(T& value);
 
 ---
 
-## 9.5 `T&&`
+### 9.5 `T&&`
 
 非模板：
 
@@ -1262,7 +948,7 @@ store(std::move(value));
 
 ---
 
-## 9.6 Named `T&&` 仍然是 Lvalue Expression
+### 9.6 Named `T&&` 仍然是 Lvalue Expression
 
 ```cpp
 void consume(T&& value) {
@@ -1287,7 +973,9 @@ lvalue
 
 ---
 
-# Part 10 · Sink Parameters
+<a id="g3-part-10"></a>
+
+## Part 10 · Sink Parameters
 
 如果函数最终需要：
 
@@ -1333,7 +1021,7 @@ Frame
 
 ---
 
-## 10.1 Lvalue Caller
+### 10.1 Lvalue Caller
 
 ```text
 copy into parameter
@@ -1343,7 +1031,7 @@ cheap move into member
 
 ---
 
-## 10.2 Rvalue Caller
+### 10.2 Rvalue Caller
 
 ```text
 move/direct construct parameter
@@ -1357,7 +1045,9 @@ cheap move into member
 
 ---
 
-# Part 11 · Small Values
+<a id="g3-part-11"></a>
+
+## Part 11 · Small Values
 
 例如：
 
@@ -1391,7 +1081,7 @@ no lifetime dependency
 
 ---
 
-## 11.1 Strong Small Types
+### 11.1 Strong Small Types
 
 包装：
 
@@ -1414,9 +1104,11 @@ semantic distinction
 
 ---
 
-# Part 12 · Views
+<a id="g3-part-12"></a>
 
-## 12.1 `std::span<T>`
+## Part 12 · Views
+
+### 12.1 `std::span<T>`
 
 ```cpp
 void process(std::span<const Sample> samples);
@@ -1447,7 +1139,7 @@ vector
 
 ---
 
-## 12.2 为什么 Span By Value
+### 12.2 为什么 Span By Value
 
 span本身通常只是：
 
@@ -1473,7 +1165,7 @@ void process(const std::span<const T>& values);
 
 ---
 
-## 12.3 `std::string_view`
+### 12.3 `std::string_view`
 
 同样：
 
@@ -1493,7 +1185,9 @@ void parse(std::string_view text);
 
 ---
 
-# Part 13 · Borrow vs Ownership Boundary
+<a id="g3-part-13"></a>
+
+## Part 13 · Borrow vs Ownership Boundary
 
 同步：
 
@@ -1538,7 +1232,9 @@ lease
 
 ---
 
-# Part 14 · Aliasing 与 Parameter Performance
+<a id="g3-part-14"></a>
+
+## Part 14 · Aliasing 与 Parameter Performance
 
 Reference：
 
@@ -1576,9 +1272,11 @@ parameters是独立 local values。
 
 ---
 
-# Part 15 · Container Relocation
+<a id="g3-part-15"></a>
 
-## 15.1 `size` vs `capacity`
+## Part 15 · Container Relocation
+
+### 15.1 `size` vs `capacity`
 
 ```text
 size
@@ -1602,11 +1300,11 @@ values.reserve(100);
 
 而是：
 
-> 확보 storage。
+> 准备 storage。
 
 ---
 
-## 15.2 Reallocation
+### 15.2 Reallocation
 
 capacity不足：
 
@@ -1631,7 +1329,7 @@ new raw storage
 
 ---
 
-## 15.3 Move Constructor ≠ Object Teleportation
+### 15.3 Move Constructor ≠ Object Teleportation
 
 ```cpp
 T b = std::move(a);
@@ -1658,7 +1356,7 @@ Relocation
 
 ---
 
-## 15.4 Reallocation Invalidation
+### 15.4 Reallocation Invalidation
 
 old element lifetimes结束。
 
@@ -1682,7 +1380,9 @@ pointer object自己并没改变。
 
 ---
 
-# Part 16 · `reserve()`
+<a id="g3-part-16"></a>
+
+## Part 16 · `reserve()`
 
 `reserve()` 价值不仅是：
 
@@ -1711,7 +1411,9 @@ values.reserve(n);
 
 ---
 
-# Part 17 · Amortized Complexity
+<a id="g3-part-17"></a>
+
+## Part 17 · Amortized Complexity
 
 vector几何增长使：
 
@@ -1757,7 +1459,9 @@ pool
 
 ---
 
-# Part 18 · `vector<T>` vs `vector<unique_ptr<T>>`
+<a id="g3-part-18"></a>
+
+## Part 18 · `vector<T>` vs `vector<unique_ptr<T>>`
 
 ## Dense Value Storage
 
@@ -1825,7 +1529,9 @@ poor locality
 
 ---
 
-# Part 19 · Stable ID vs Stable Address
+<a id="g3-part-19"></a>
+
+## Part 19 · Stable ID vs Stable Address
 
 如果 domain identity是：
 
@@ -1863,7 +1569,9 @@ heap everything to get stable addresses
 
 ---
 
-# Part 20 · Representation Strategies
+<a id="g3-part-20"></a>
+
+## Part 20 · Representation Strategies
 
 ## Inline
 
@@ -1949,9 +1657,11 @@ small-vector abstractions
 
 ---
 
-# Part 21 · SSO / SBO
+<a id="g3-part-21"></a>
 
-## 21.1 Small String Optimization
+## Part 21 · SSO / SBO
+
+### 21.1 Small String Optimization
 
 常见 std::string实现：
 
@@ -1981,7 +1691,7 @@ long move
 
 ---
 
-## 21.2 SSO Threshold 不是 Portable Guarantee
+### 21.2 SSO Threshold 不是 Portable Guarantee
 
 不要依赖：
 
@@ -2001,7 +1711,7 @@ toolchain
 
 ---
 
-## 21.3 SBO Trade-off
+### 21.3 SBO Trade-off
 
 ```text
 larger wrapper
@@ -2024,7 +1734,9 @@ ABI constraints ↑
 
 ---
 
-# Part 22 · Performance Cliff
+<a id="g3-part-22"></a>
+
+## Part 22 · Performance Cliff
 
 Hybrid representation存在 threshold：
 
@@ -2066,7 +1778,9 @@ percentiles
 
 ---
 
-# Part 23 · `optional<T>`
+<a id="g3-part-23"></a>
+
+## Part 23 · `optional<T>`
 
 `std::optional<T>` 概念：
 
@@ -2095,7 +1809,7 @@ T object lifetime active
 
 ---
 
-## 23.1 `optional<Large>` Empty 仍可能很大
+### 23.1 `optional<Large>` Empty 仍可能很大
 
 因为 wrapper必须：
 
@@ -2113,7 +1827,9 @@ pointer-sized
 
 ---
 
-# Part 24 · `variant`
+<a id="g3-part-24"></a>
+
+## Part 24 · `variant`
 
 ```cpp
 std::variant<A, B, C>
@@ -2139,6 +1855,8 @@ max(sizeof(A), sizeof(B), sizeof(C))
 
 > 取决于当前 active alternative。
 
+还要处理可能的 valueless_by_exception 状态：某些抛异常的类型改变操作之后可能没有 active alternative。存储足够容纳候选类型，不等于一直存在其中一个活对象。
+
 所以：
 
 ```text
@@ -2149,7 +1867,9 @@ different operation cost
 
 ---
 
-# Part 25 · Value-oriented Architecture
+<a id="g3-part-25"></a>
+
+## Part 25 · Value-oriented Architecture
 
 高性能 C++ 不等于：
 
@@ -2185,7 +1905,9 @@ identity
 
 ---
 
-# Part 26 · Large Logical Value 可以仍然是 Small Movable Object
+<a id="g3-part-26"></a>
+
+## Part 26 · Large Logical Value 可以仍然是 Small Movable Object
 
 例如：
 
@@ -2233,7 +1955,9 @@ FrameLease
 
 ---
 
-# Part 27 · Copy as Decoupling
+<a id="g3-part-27"></a>
+
+## Part 27 · Copy as Decoupling
 
 Copy 不只是：
 
@@ -2264,7 +1988,9 @@ FrameMetadata metadata = frame.metadata();
 
 ---
 
-# Part 28 · Zero-copy
+<a id="g3-part-28"></a>
+
+## Part 28 · Zero-copy
 
 Zero-copy通常真正表示：
 
@@ -2286,7 +2012,7 @@ handle
 
 ---
 
-## 28.1 Zero-copy 的代价
+### 28.1 Zero-copy 的代价
 
 ```text
 less memory bandwidth
@@ -2303,7 +2029,7 @@ possibly synchronization
 
 ---
 
-## 28.2 Shared Immutable Data
+### 28.2 Shared Immutable Data
 
 如果多个 consumers共享大 payload，最好：
 
@@ -2329,7 +2055,9 @@ consistency
 
 ---
 
-# Part 29 · Pool + Lease
+<a id="g3-part-29"></a>
+
+## Part 29 · Pool + Lease
 
 Pool：
 
@@ -2364,7 +2092,7 @@ delete buffer
 
 ---
 
-## 29.1 Pool Stale View
+### 29.1 Pool Stale View
 
 Pool reuse时：
 
@@ -2388,7 +2116,9 @@ ASan也未必能发现。
 
 ---
 
-# Part 30 · Cost Graph
+<a id="g3-part-30"></a>
+
+## Part 30 · Cost Graph
 
 高性能代码不要只画 Ownership Graph。
 
@@ -2452,7 +2182,9 @@ shutdown?
 
 ---
 
-# Part 31 · Performance Cost Axes
+<a id="g3-part-31"></a>
+
+## Part 31 · Performance Cost Axes
 
 完整 cost model：
 
@@ -2479,7 +2211,9 @@ shutdown?
 
 ---
 
-# Part 32 · Copy Cost Equation
+<a id="g3-part-32"></a>
+
+## Part 32 · Copy Cost Equation
 
 工程近似：
 
@@ -2521,7 +2255,9 @@ Synchronization
 
 ---
 
-# Part 33 · Parameter Decision Model
+<a id="g3-part-33"></a>
+
+## Part 33 · Parameter Decision Model
 
 先问语义：
 
@@ -2555,7 +2291,9 @@ share?
 
 ---
 
-# Part 34 · Container Review Model
+<a id="g3-part-34"></a>
+
+## Part 34 · Container Review Model
 
 看到：
 
@@ -2584,7 +2322,9 @@ Container performance：
 
 ---
 
-# Part 35 · Healthy High-performance Pipeline
+<a id="g3-part-35"></a>
+
+## Part 35 · Healthy High-performance Pipeline
 
 典型：
 
@@ -2616,7 +2356,9 @@ dense contiguous values
 
 ---
 
-# Part 36 · C++ vs Zig
+<a id="g3-part-36"></a>
+
+## Part 36 · C++ vs Zig
 
 ## C++
 
@@ -2654,7 +2396,9 @@ more operational cost visible in APIs/control flow
 
 ---
 
-# Part 37 · C++ vs Rust
+<a id="g3-part-37"></a>
+
+## Part 37 · C++ vs Rust
 
 Rust：
 
@@ -2693,17 +2437,19 @@ AoS/SoA
 
 ---
 
-# Part 38 · G3 Code Review Protocol
+<a id="g3-part-38"></a>
+
+## Part 38 · G3 Code Review Protocol
 
 对 performance-sensitive code：
 
-## Step 1 — Identify Logical Values
+### Step 1 — Identify Logical Values
 
 这个 type 到底表示什么？
 
 ---
 
-## Step 2 — Classify Representation
+### Step 2 — Classify Representation
 
 ```text
 inline
@@ -2713,7 +2459,7 @@ hybrid
 
 ---
 
-## Step 3 — Locate Large Payloads
+### Step 3 — Locate Large Payloads
 
 ```text
 vectors
@@ -2726,7 +2472,7 @@ models
 
 ---
 
-## Step 4 — Mark Every Copy
+### Step 4 — Mark Every Copy
 
 判断：
 
@@ -2739,7 +2485,7 @@ shared ownership copy?
 
 ---
 
-## Step 5 — Mark Every Move
+### Step 5 — Mark Every Move
 
 问：
 
@@ -2753,7 +2499,7 @@ noexcept?
 
 ---
 
-## Step 6 — Review Returns
+### Step 6 — Review Returns
 
 ```cpp
 return T{};
@@ -2771,7 +2517,7 @@ pessimizing move
 
 ---
 
-## Step 7 — Review Parameters
+### Step 7 — Review Parameters
 
 确认接口真正表达：
 
@@ -2785,7 +2531,7 @@ share
 
 ---
 
-## Step 8 — Review Containers
+### Step 8 — Review Containers
 
 问：
 
@@ -2799,7 +2545,7 @@ invalidation?
 
 ---
 
-## Step 9 — Count Allocations
+### Step 9 — Count Allocations
 
 特别查：
 
@@ -2812,7 +2558,7 @@ per callback
 
 ---
 
-## Step 10 — Count Indirections
+### Step 10 — Count Indirections
 
 每一层 pointer都问：
 
@@ -2820,7 +2566,7 @@ per callback
 
 ---
 
-## Step 11 — Review Lifetime of Views
+### Step 11 — Review Lifetime of Views
 
 ```text
 span
@@ -2836,7 +2582,7 @@ iterator
 
 ---
 
-## Step 12 — Measure
+### Step 12 — Measure
 
 使用：
 
@@ -2852,7 +2598,9 @@ hardware counters
 
 ---
 
-# Part 39 · G3 高频 Smells
+<a id="g3-part-39"></a>
+
+## Part 39 · G3 高频 Smells
 
 ### 1
 
@@ -2965,7 +2713,9 @@ Elision可能让这些 operations根本不发生。
 
 ---
 
-# Part 40 · G3 Core Terminology
+<a id="g3-part-40"></a>
+
+## Part 40 · G3 Core Terminology
 
 | English                 | 中文核心含义                                         |
 | ----------------------- | ---------------------------------------------------- |
@@ -2994,7 +2744,9 @@ Elision可能让这些 operations根本不发生。
 
 ---
 
-# Part 41 · G3 最终统一公式
+<a id="g3-part-41"></a>
+
+## Part 41 · G3 最终统一公式
 
 ```text
 Performance(T, operation)
@@ -3036,7 +2788,9 @@ Lifetime Coordination
 
 ---
 
-# Part 42 · G1 + G2 + G3 Unified Mental Model
+<a id="g3-part-42"></a>
+
+## Part 42 · G1 + G2 + G3 Unified Mental Model
 
 任何 access/value/resource问题，现在都可以按三层判断：
 
@@ -3078,25 +2832,29 @@ Efficiently represented and moved?
 
 ---
 
-# Part 43 · G3 Final Gate
+<a id="g3-gate"></a>
+
+<a id="g3-part-43"></a>
+
+## Part 43 · G3 Final Gate
 
 必须能够独立解释：
 
-## Value
+### Value
 
 1. Logical value和object representation区别是什么？
 2. Value semantics为什么不等于deep copy？
 3. span/shared_ptr为什么也拥有自己的value semantics？
 4. move-only type为什么仍能成为优秀value abstraction？
 
-## Copy
+### Copy
 
 1. 为什么`sizeof(vector)`不能预测copy成本？
 2. inline与indirect value copy成本有什么不同？
 3. O(1)为什么不等于cheap？
 4. copy为什么有时是lifetime-decoupling primitive？
 
-## Move
+### Move
 
 1. `std::move`真正做什么？
 2. 为什么vector move常O(1)而array move O(N)？
@@ -3104,14 +2862,14 @@ Efficiently represented and moved?
 4. 为什么const常阻止真正move？
 5. 为什么cheap resource-owner move应尽量`noexcept`？
 
-## Elision
+### Elision
 
  1. `return T{};`与`return local;`有什么区别？
  2. guaranteed copy elision与NRVO区别是什么？
  3. 为什么`return std::move(local)`通常是错误？
  4. 为什么return-by-value不等于copy-heavy API？
 
-## Parameters
+### Parameters
 
  1. `T` / `const T&` / `T&` / `T&&`分别是什么semantic contract？
  2. small value为什么常by value？
@@ -3119,7 +2877,7 @@ Efficiently represented and moved?
  4. span/string_view为什么通常by value？
  5. 为什么跨async boundary必须重新做ownership decision？
 
-## Containers
+### Containers
 
  1. vector size与capacity区别是什么？
  2. reallocation为什么开始新object lifetimes？
@@ -3128,7 +2886,7 @@ Efficiently represented and moved?
  5. reserve为什么同时是performance和lifetime工具？
  6. amortized O(1)为什么不适合直接推断realtime latency？
 
-## Representation
+### Representation
 
  1. inline / indirect / hybrid分别交换什么？
  2. SSO/SBO为什么能降低allocation？
@@ -3136,7 +2894,7 @@ Efficiently represented and moved?
  4. 为什么hybrid representation会产生performance cliff？
  5. optional/variant如何再次体现storage与object lifetime分离？
 
-## Architecture
+### Architecture
 
  1. zero-copy真正消除了什么？
  2. zero-copy新增什么协调成本？
@@ -3146,7 +2904,26 @@ Efficiently represented and moved?
 
 ---
 
-# Part 44 · 如果几个月后只记住十五条
+
+<details>
+<summary>推理答案与常见误判（按组和题号对应）</summary>
+
+- **Value 1～4：**逻辑值是类型承诺表示的意义，representation 是实现它的状态。复制 view 复制访问关系，复制 shared_ptr 复制拥有关系，不是深复制目标。move-only 可表达只能交接的资源权利；误判是把 value 一律等同可复制大对象。
+- **Copy 1～4：**vector 本体小，元素存储在外；inline 按内嵌状态处理，indirect owner 可能分配并复制 payload。O(1) 隐藏常数、同步和缓存成本；真正复制独立数据可以解耦生命周期，复制 view 不行。
+- **Move 1～5：**std::move 是转换，随后才决议操作。普通 vector 移动构造交接存储，array 通常逐元素处理；allocator 相关重载另论。源仍活着，可用操作由合同限定。const 常阻止普通移动参数绑定；真实不抛的移动可帮助容器维持保证，不能为“快”谎报 noexcept。
+- **Elision 1～4：**同类型 prvalue 可直接构造结果；具名局部的 NRVO 是可选的，相关操作仍须满足语言要求。return std::move(local) 排除了该 NRVO 条件，通常多余。按值返回可以直接构造或转移所有权，不等于深复制。
+- **Parameters 1～5：**T 建立参数值，const T& 借用只读路径，T& 提供可变路径，具体非推导 T&& 接受右值但不自动消费。小值、view 通常复制元数据更自然；sink 按值可统一接收复制或转移，但要计入额外操作。异步越过调用范围，引用有效性需重新证明。
+- **Containers 1～6：**size 数元素，capacity 数可容纳空间；重分配建立新元素并结束旧元素，使旧访问失效。复制/移动可行性和异常保证影响迁移策略。reserve 可控制部分重分配窗口，但不免除 erase 等失效；摊销均值也不限制单次延迟。
+- **Representation 1～5：**inline 换局部性，indirect 换稳定句柄/可转移存储，hybrid 在运行时选择。SSO/SBO 减小对象的分配次数但增加 wrapper 大小，阈值切换可能突增成本。optional 可无值，variant 也可能 valueless_by_exception；字节空间存在不等于每个候选对象同时活着。
+- **Architecture 1～5：**zero-copy 避免 payload 重复，不消除同步、保活和复用协调。ID 可与地址解耦，但需防陈旧代际；dense 小值常改善局部性，并非通用性能定理。为同一数据流分别标 owner、分配点、操作成本和失效点，才能看出局部优化是否把成本转嫁给下游。
+
+</details>
+
+**完成标准：**能对 G3-L1～L4 先预测、后解释，并把“复制了什么/谁仍拥有/何时失效”写成三行。性能结论还需目标 workload 测量；本批计数实验不是 benchmark。
+
+<a id="g3-part-44"></a>
+
+## Part 44 · 如果几个月后只记住十五条
 
 1. **不要从C++语法猜性能；先理解type的logical value和representation。**
 
@@ -3180,9 +2957,9 @@ Efficiently represented and moved?
 
 ---
 
-# G3 → G4
+## G3 → G4
 
-G3 到此冻结。
+本章按学习稿继续维护；定向实验不等于所有成本判断都已经测量。
 
 我们已经回答：
 
