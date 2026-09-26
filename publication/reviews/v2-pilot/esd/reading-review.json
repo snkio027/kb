@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "role": "AUTHOR_VISUAL_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/ESD-ASSURANCE-001-draft.pdf": "4b78bbf096635cc6a2467d38bc557fd406c9744b37ad8fcf21979c27782b6730",
+    "output/pdf/ESD-GOV-001-draft.pdf": "57e13c97ba9e131a955beb4e407ce7595936346b355ff07bd390802c460e37ae",
+    "output/pdf/ESD-HANDBOOK-draft.pdf": "0af5f277fe49f6fb1ed86e8d952f2fcb1d9c59df4456ca5e33e47d579c309d82",
+    "output/pdf/ESD-METHOD-001-draft.pdf": "7d181aef46980ac5d582e5d91493eb0e4132e4d20ad0c15e698bd8573f74026b",
+    "output/pdf/ESD-OPS-001-draft.pdf": "9c6d799a321143cc4083eeb691e61e6c898990f034c2c1496feb79a3bcdd026d",
+    "output/pdf/ESD-REFERENCE-001-draft.pdf": "40782d71e16618338e0a17d7486ad2e078746312a4f057de072ab3442e3def31",
+    "output/pdf/ESD-SUITE-000-draft.pdf": "aff2f41d4ec764492ca5bc5f68c87317ad95ef9ad5efada4601e5dbfa5a42018"
+  },
+  "audit_sha256": "347031832d9e9e2633def8e771e96a940e5b30e87cb8a3c23048650b8e74e98d",
+  "contact_sheet_review": {
+    "all_pages": true,
+    "dpi": 72,
+    "method": "39 contact sheets total across both profiles; gross layout only, not full-text reading"
+  },
+  "detail_page_review": {
+    "dpi": 144,
+    "pages": {
+      "ESD-SUITE-000": [
+        6
+      ],
+      "ESD-METHOD-001": [
+        11
+      ],
+      "ESD-REFERENCE-001": [
+        18
+      ],
+      "ESD-GOV-001": [
+        12
+      ],
+      "ESD-ASSURANCE-001": [
+        20
+      ],
+      "ESD-OPS-001": [
+        45
+      ],
+      "ESD-HANDBOOK": [
+        231
+      ]
+    },
+    "numbering": "1-based physical PDF page"
+  },
+  "observations": [
+    "All 484 pages inspected in contact sheets; seven full-page details inspected. No blocking clipping, overlap or unreadably reduced tables observed within that scope.",
+    "Record continuation preserves table/record ID; RACI and risk matrices retain readable columns in inspected pages.",
+    "Some standalone TOCs spill onto a sparse second page; acceptable for regression pilot, not a visual profile freeze.",
+    "Clause index p231 inspected visually; all index destinations and printed page numbers are separately covered by automated audit."
+  ],
+  "limits": [
+    "Not independent review or publication approval.",
+    "Contact sheets cannot prove small-text readability or all visual details.",
+    "No complete word-by-word, every-glyph, all-code-indentation or PDF/UA review.",
+    "No C++ experiment execution, timing measurement or sanitizer rerun."
+  ]
+}

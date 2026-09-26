@@ -1,0 +1,2 @@
+# Tested reader; compilation uses existing system Pandoc/TeX/Poppler.
+pypdf==6.10.0

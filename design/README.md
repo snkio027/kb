@@ -46,90 +46,52 @@
 
 历史发布 PDF 保存在 `dist/`；预览不得写入该目录。两类制品均不声明 PDF/UA 合规；历史字体替代记录见 [fonts.lock](fonts.lock)，新预览记录实际使用的字体与 TeX 输入摘要。
 
-## 目录约定
+## 目录与当前构建入口
 
-| 路径 | 用途 |
+出版实现已迁移到仓库级 [KB Publication System v2](../publication/README.md)，本轮为 **IMPLEMENTED / REVIEW CANDIDATE**。六篇 Markdown 和历史 `dist/` 不变；ESD 是共享引擎的一种 profile，不再充当整个仓库的隐式出版根。
+
+| 路径 | 当前作用 |
 | --- | --- |
-| `00-…md` 至 `05-…md` | 权威文档 |
-| [project/](project/) | 非规范性项目计划与资产接收事实 |
-| [reviews/](reviews/) | 范围明确的审阅记录，不自动授予发布批准 |
-| [examples/pilots/](examples/pilots/) | 非规范性项目试点记录与原始执行证据 |
-| [to-pdf.md](to-pdf.md) | PDF 出版设计与实现约束 |
-| [publication/](publication/) | LaTeX 模板、主题、过滤器、图表与配置 |
-| [scripts/](scripts/) | 构建、预检、渲染与比较工具 |
-| [dist/](dist/) | 唯一受版本控制的 PDF 发布目录 |
-| `build/preview/<preparation-id>/<attempt-id>/` | 本地输入快照、准备/PDF 分层终态及 `work/` 中的七份预览、检查与渲染，已忽略 |
-| `build/candidate/<candidate-id>/<attempt-id>/` | 复制已检查原字节形成的本地复审候选及清单、终态；不是正式发布，已忽略 |
-| `tmp/` | 历史本地渲染预览与缓存，已忽略；旧写入入口已关闭 |
+| `00-…md` 至 `05-…md` | ESD 权威内容，未改业务语义 |
+| [project/](project/) / [reviews/](reviews/) / [examples/](examples/) | 既有项目、复审和试点记录 |
+| [dist/](dist/) | 不可覆盖的历史发布制品 |
+| [../publication/engine/](../publication/engine/) | v2 准备、编译、审计、渲染与候选 |
+| [../publication/profiles/esd/](../publication/profiles/esd/) | 当前 ESD catalog、适配、模板和主题 |
+| [publication/](publication/) | v1 出版资产保留；不再作为活动配置入口 |
+| [scripts/](scripts/) | 公共命令兼容转发、旧只读工具及关闭的危险入口 |
+| `build/` | 原 v1 本地运行记录，原样保留，不自动转换 |
+| `../publication/build/` | 当前 v2 预览和候选尝试，Git 忽略 |
 
 ## 构建与检查
 
-> **当前开放完整草案预览及本地候选冻结，不开放正式发布。** 一次调用生成六篇独立 PDF 与一份合订工作版，自动执行内容/结构检查并渲染所有页。候选只复制已检查字节，不重新编译。旧 build、preflight、render、compare 和 manifest 入口仍拒绝执行。
-
-完整预览当前要求 **macOS + sandbox-exec**、Python 3.9+、[pypdf](publication/requirements-preview.txt)、Git、Pandoc、LuaLaTeX 与 Poppler `pdftoppm`。工具须在 PATH 中；TeX Live 需含 ctex、Fandol、Source Serif/Sans/Code 字体及模板所用宏包。缺少依赖或隔离后端时失败，不回退到无沙箱编译。实际验证版本见 [实施记录](project/publication-preview.md)。
-
-如需独立 Python 环境，可自行创建 venv 并安装锁定的检查依赖（不修改系统 Python）：
+依赖、输入与执行身份、输出、候选及限制统一以 [v2 使用说明](../publication/README.md)为准。macOS `sandbox-exec` 仍是必需隔离后端，没有无沙箱回退。一次命令生成六份独立预览和一份合订版：
 
 ```sh
-python3 -m venv design/build/preview-tools
-design/build/preview-tools/bin/python -m pip install -r design/publication/requirements-preview.txt
-PDF_PYTHON=design/build/preview-tools/bin/python sh design/scripts/preview.sh
+python3 -B publication/engine/pub.py preview --profile esd
 ```
 
-已有依赖时，整套构建只需：
+兼容命令 `python3 -B design/scripts/pub.py preview` 转发到同一引擎，不保留第二套实现。新增 ESD 源和产品配置在 [ESD profile](../publication/profiles/esd/profile.json)维护；标题、版本和内容状态仍由 Front Matter 校验。正式 publish 及旧六个危险写入入口继续关闭。
+
+新运行位于 `publication/build/preview/<preparation-id>/<attempt-id>/`，PDF 在 `work/output/pdf/`，完整原文在 `work/output/source/design/`，全页 PNG 在 `work/renders/`。输入和 profile 均冻结，`PREVIEW_READY` 不等于视觉、规范或发布批准。
+
+候选从已检查的新预览复制原字节，使用仓库相对路径：
 
 ```sh
-python3 -B design/scripts/pub.py preview
+python3 -B publication/engine/pub.py candidate --profile esd \
+  --from-preview publication/build/preview/<preparation-id>/<attempt-id>
 ```
 
-命令输出本次目录。七份 PDF 位于 `work/output/pdf/`，入口为 `work/output/README.md`；原文副本在 `work/output/source/`，全页 PNG 在 `work/renders/`。目录中的标识是准备身份；包含实际工具、检查库与 TeX 输入的执行身份另记在 `work/preview-audit.json`。新增文档只需更新 [源目录](publication/source-catalog.json)，标题、ID、版本、状态从源 Front Matter 读取，不维护第二份标题表。
+旧 `design/build/` 的预览与候选不重写、不迁移，也不被当前入口冒充 v2 验收记录。v1 的历史执行方法见 Git 中的旧版本和[历史实施记录](project/publication-preview.md)；本轮不追写这些历史记录。
 
-准备当前实际输入，可包含未提交修改；不接受自定义输出路径：
-
-```sh
-python3 -B design/scripts/pub.py preview --prepare-only
-```
-
-`result.json: PREPARED` 仅表示输入准备完成；只有独立的 `preview-result.json: PREVIEW_READY` 才表示本次七份 PDF 通过实现中的自动检查与渲染。两者都不等于视觉批准、规范批准或正式发布。`.pending`、孤立 PDF、缺失或失败的最终记录不得当作成功。每次尝试独立保留，失败/取消不覆盖旧尝试及历史 `dist/`。准备协议见 [B1-A 记录](project/publication-b1a.md)，完整预览合同见 [本批记录](project/publication-preview.md)。
-
-### 阅读布局与保真
-
-合订版按“文档 → 章节 → 条款”组织书签，前部仅保留六篇入口，条款索引同时提供页码与链接；不改变源编号。比较矩阵与长记录通过 [布局选择](publication/table-layouts.json) 区分。显式选择绑定文档 ID、准确标题、表序及表头；漂移时失败，不猜测相近表。未指定的表仍采用保守默认。
-
-行内代码保留原字符与空格，优先在空格、下划线、斜杠等位置断行；无分隔符的超长 token 才允许 28 字符后的应急断行。标题链与首块共同预留空间。新增检查以真实 PDF 目标限定章节，按源顺序消耗匹配、不得复用重复块；行内字面量不采用正文的去空白或 NFKC 策略。说明页书签/目录目标、文档分组和索引纸面页码也检查实际位置。不把这些检查等同于全页逐字校对或代码块缩进认证。
-
-### 准备集中复审候选
-
-先完成整套预览与阅读自查，再将命令输出中的本次路径换成 **design 相对路径**：
-
-```sh
-python3 -B design/scripts/pub.py candidate --from-preview build/preview/<preparation-id>/<attempt-id>
-```
-
-仅接受已有 `PREVIEW_READY` 及完整新增检查；摘要、输入、源稿附件或文件集合不匹配时拒绝。输出位于 `build/candidate/<candidate-id>/<attempt-id>/`，包括原字节 `output/`、输入快照、执行/检查记录及 `candidate-manifest.json`。不包含字体、缓存或全页 PNG。工具和字体的实际身份由执行审计绑定，不声称已打包整个运行环境。
-
-如需随候选保留人工自查，在预览尝试根目录提供 `reading-review.json`，至少以 `artifacts` 和 `audit_sha256` 绑定 `preview-result.json` 的同名字段；正文分别写明检查范围、结果及限制，不写成独立批准。缺少此记录会明确登记 `NOT_ATTACHED`，不得推定视觉检查已执行。
-
-只有 `candidate-result.json: CANDIDATE_PREPARED_FOR_REVIEW` 是本地冻结完成事实。它不意味着定稿批准、公开授权或 ESD BASELINE；候选清单始终为 `AWAITING_INDEPENDENT_REVIEW`。每次冻结使用新的尝试目录，不覆盖旧候选。暂存、失败或缺少终态的目录不能当作候选成功；本地文件同步与不覆盖提交不构成断电持久性承诺。`publish` 仍拒绝执行。
-
-运行临时仓库中的隔离测试，不编译或渲染 PDF：
+旧测试命令仍可使用，实际执行迁移后的 v2 套件：
 
 ```sh
 python3 -B design/scripts/test-publication-isolation.py
-```
-
-运行真实编译、沙箱拒绝写入及取消回归（需要完整依赖；全部使用一次性仓库）：
-
-```sh
-python3 -B design/scripts/test-preview.py
-```
-
-候选目录、失败/取消、输入漂移和提交点回归（不编译 PDF）：
-
-```sh
 python3 -B design/scripts/test-candidate.py
+python3 -B design/scripts/test-preview.py
+python3 -B publication/tests/test-products.py
 ```
 
-`content-audit.py` 仍依赖旧编译输出；新预览使用 `preview.py` 内置的源块、表格行关系及 PDF 检查。`pdf-structure-audit.py` 保留为旧只读诊断，本批未以其结果授予资格。仅核对历史文件校验和时，可在 `design/` 中执行 `shasum -a 256 -c dist/sha256sums.txt`，无需重建。
+历史 `content-audit.py`、`pdf-structure-audit.py` 仅供旧输出诊断，不授予当前资格。核对历史校验和可在 `design/` 内运行 `shasum -a 256 -c dist/sha256sums.txt`，无需重建。
 
-当前限制：仅验证 macOS 单一引擎；不提供可访问性认证、填写表单或正式发布事务。代码自动换行属于阅读视图，复制执行请使用随附的权威 Markdown；ASCII 空间图不静默折行。合订版提供内部跨篇定位，独立版的外部源链接依赖阅读器与网络，未提交源变更则使用随附快照。视觉/阅读自查范围及未验证项分别记录，不把全自动检查通过扩大为全面正确性保证。
+本轮不开放正式发布、不替换历史 PDF，也不宣称 PDF/UA、跨平台或完整视觉定稿。内容接受状态、预览自动检查和人工阅读记录分别保留。

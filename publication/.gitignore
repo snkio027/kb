@@ -1,0 +1,3 @@
+/build/
+/tmp/
+!/reviews/v2-pilot/checks/*.log

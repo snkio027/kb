@@ -1,0 +1,378 @@
+[
+  {
+    "table": "ESD-SUITE-000-T01",
+    "section": "ESD-SUITE-000-5966f64748abb574",
+    "section_title": "优秀系统设计与工程保证标准：文档体系与规范关系",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-SUITE-000",
+      "文档版本2.0.0-draft.1（基于 1.0.0）",
+      "套系版本2.0.0-draft.1",
+      "状态DRAFT / SUITE CONTROL；未获发布批准",
+      "文档角色定义整套标准的组成、规范权威、冲突裁决、版本与生命周期",
+      "适用对象标准 Owner、架构负责人、技术负责人、评审者、SRE、平台、安全与审计人员",
+      "权威格式本 Markdown 文件；PDF、网页与其他导出仅为发布视图"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T02",
+    "section": "ESD-SUITE-000-ba189c2dcdb58f12",
+    "section_title": "2.1 核心文档",
+    "layout": "records",
+    "selection": "default",
+    "headers": [
+      "顺序",
+      "文档编号",
+      "文档名称",
+      "文档版本",
+      "规范角色"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "顺序",
+        "value": "00"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-SUITE-000"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计与工程保证标准：文档体系与规范关系》"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "规范角色",
+        "value": "套系控制、规范地图与冲突裁决"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "顺序",
+        "value": "01"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-METHOD-001"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计与工程保证方法论》"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "规范角色",
+        "value": "术语、原则、认识边界与架构推导基础"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "顺序",
+        "value": "02"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-REFERENCE-001"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计：从约束、不变量到证据》"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "规范角色",
+        "value": "Stage/Gate、模板、评审流程与工程案例"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "顺序",
+        "value": "03"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-GOV-001"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《系统设计与工程保证治理及符合性规范》"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "规范角色",
+        "value": "适用范围、风险分级、角色、例外与符合性"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "顺序",
+        "value": "04"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-ASSURANCE-001"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《工程保证论证、证据与裁决规范》"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "规范角色",
+        "value": "Assurance Case、证据质量、失效与裁决"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "顺序",
+        "value": "05"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-OPS-001"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《生产就绪与运行韧性标准》"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "规范角色",
+        "value": "SLO、发布、恢复、过载、值班与持续韧性"
+      }
+    ],
+    "row_text": [
+      "ESD-SUITE-000-T02 / 记录 1顺序00文档编号ESD-SUITE-000文档名称《优秀系统设计与工程保证标准：文档体系与规范关系》文档版本2.0.0-draft.1规范角色套系控制、规范地图与冲突裁决",
+      "ESD-SUITE-000-T02 / 记录 2顺序01文档编号ESD-METHOD-001文档名称《优秀系统设计与工程保证方法论》文档版本2.0.0-draft.1规范角色术语、原则、认识边界与架构推导基础",
+      "ESD-SUITE-000-T02 / 记录 3顺序02文档编号ESD-REFERENCE-001文档名称《优秀系统设计：从约束、不变量到证据》文档版本2.0.0-draft.1规范角色Stage/Gate、模板、评审流程与工程案例",
+      "ESD-SUITE-000-T02 / 记录 4顺序03文档编号ESD-GOV-001文档名称《系统设计与工程保证治理及符合性规范》文档版本2.0.0-draft.1规范角色适用范围、风险分级、角色、例外与符合性",
+      "ESD-SUITE-000-T02 / 记录 5顺序04文档编号ESD-ASSURANCE-001文档名称《工程保证论证、证据与裁决规范》文档版本2.0.0-draft.1规范角色Assurance Case、证据质量、失效与裁决",
+      "ESD-SUITE-000-T02 / 记录 6顺序05文档编号ESD-OPS-001文档名称《生产就绪与运行韧性标准》文档版本2.0.0-draft.1规范角色SLO、发布、恢复、过载、值班与持续韧性"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T03",
+    "section": "ESD-SUITE-000-1de8afe82e1ff7a3",
+    "section_title": "3.1 按主题确定权威",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "主题",
+      "最终权威文档"
+    ],
+    "row_text": [
+      "核心术语、系统定义、认识论边界、关键设计原则ESD-METHOD-001",
+      "适用范围、风险分级、角色、职责分离、Gate 状态与权限、例外、符合性声明ESD-GOV-001",
+      "Claim、Argument、Assumption 状态、Evidence、Evidence Envelope、证据时效与裁决充分性ESD-ASSURANCE-001",
+      "SLO、运行模式、发布、回滚、恢复、容量、值班、事故与生产韧性ESD-OPS-001",
+      "Stage/Gate 默认流程、可复用模板、检查清单和参考案例ESD-REFERENCE-001",
+      "文档组成、状态、文件命名、版本关系和套系冲突规则ESD-SUITE-000"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T04",
+    "section": "ESD-SUITE-000-2f4338400b41d5cf",
+    "section_title": "4.1 文档级别",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "级别",
+      "含义"
+    ],
+    "row_text": [
+      "normative-foundation定义术语、原则和不可被下位材料静默改变的语义",
+      "normative-control定义体系组成、角色、生命周期、符合性与裁决控制",
+      "normative-domain对特定主题提供强制工程要求，如证据或生产运行",
+      "operational-reference提供默认流程、模板、示例和推荐实践",
+      "informative解释、案例、教程和背景，不单独形成强制要求"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T05",
+    "section": "ESD-SUITE-000-157330c6cb03a777",
+    "section_title": "5.2 版本规则",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "变化",
+      "文档版本",
+      "套系版本"
+    ],
+    "row_text": [
+      "排版、链接、错字，不改变语义Patch通常不变",
+      "新增兼容要求、模板或解释Minor可能提升 Minor",
+      "删除或改变既有强制语义Major必须评估 Major",
+      "新增核心规范但不破坏既有语义新文档 1.0.0提升或保持 Minor，由 Suite Owner 决定",
+      "改变权威边界或冲突规则Major 或 Minor至少提升 Minor"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T06",
+    "section": "ESD-SUITE-000-6320b4a8722a851f",
+    "section_title": "6.1 状态",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "DRAFT内容仍可发生显著变化，不应用作强制生产裁决",
+      "CANDIDATE语义基本稳定，正在试点和收集反例",
+      "BASELINE已批准，可作为规范或正式参考",
+      "DEPRECATED仍可读取，但不得用于新项目；有明确替代物",
+      "SUPERSEDED已被新版本完全取代",
+      "WITHDRAWN因错误或风险被撤回，不应继续引用"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T07",
+    "section": "ESD-SUITE-000-7ddc43c52671f6d9",
+    "section_title": "7. 风险等级与使用剖面",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "典型场景",
+      "默认使用方式"
+    ],
+    "row_text": [
+      "R0 — Exploration可删除实验、无真实高敏数据、无生产依赖阅读方法论摘要；使用最小 Brief 与退出条件",
+      "R1 — Bounded Production内部或有限用户、影响可隔离应用治理规范的最小制品与基础证据",
+      "R2 — Core Production核心数据、收入、跨团队依赖、持续运行完整 Stage/Gate、Assurance Case、Production Readiness",
+      "R3 — High Assurance资金、安全、合规、人身风险或大爆炸半径独立评审、职责分离、持续证据、严格例外和漂移检测"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T08",
+    "section": "ESD-SUITE-000-b390bee1b3b7e54e",
+    "section_title": "8.1 按角色阅读",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "必读路径"
+    ],
+    "row_text": [
+      "架构师 / 技术负责人METHOD -> GOV -> ASSURANCE -> REFERENCE -> OPS",
+      "Design AuthorREFERENCE -> METHOD -> GOV -> ASSURANCE -> OPS",
+      "SRE / Operational OwnerOPS -> REFERENCE -> GOV -> ASSURANCE",
+      "Assurance ReviewerASSURANCE -> METHOD -> GOV -> REFERENCE",
+      "Security / Compliance ReviewerGOV -> METHOD -> ASSURANCE -> OPS",
+      "Release AuthorityGOV -> ASSURANCE -> OPS -> 项目 Production Readiness Decision",
+      "标准 Owner全部核心文档，并维护本索引"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T09",
+    "section": "ESD-SUITE-000-b256d79da5ccdb30",
+    "section_title": "8.2 按任务阅读",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "任务",
+      "最短路径"
+    ],
+    "row_text": [
+      "新系统立项REFERENCE Stage 0–3 + METHOD 6–8 + GOV 风险分级",
+      "重大架构变更GOV 变更分类 + REFERENCE Stage 4–9 + ASSURANCE",
+      "Production ReadinessOPS + ASSURANCE + REFERENCE Gate 9",
+      "事故后改进OPS 事故治理 + ASSURANCE Assurance Delta",
+      "例外或 break-glassGOV 例外治理 + ASSURANCE 决策记录",
+      "建立 CI 门禁ASSURANCE Evidence Envelope + 后续 ESD-AUTO-001"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T10",
+    "section": "ESD-SUITE-000-ff0b4391bd48ca07",
+    "section_title": "13. 当前修订与发布状态",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "事项",
+      "当前状态",
+      "解释"
+    ],
+    "row_text": [
+      "本轮文档状态DRAFT未获 Suite Owner 发布批准",
+      "作者/内容批准记录UNKNOWN不从旧 BASELINE 标签推定批准记录存在",
+      "跨文档语义校准批准PENDING_REVIEW文本修正与静态检查不替代独立语义复审",
+      "项目试运行NOT_RUN尚无本轮 R1/R2 试运行证据",
+      "实践有效性UNKNOWN不能由文字完整或基线标签推出",
+      "PDF保留既有 v1.1.0未重新生成；不代表当前草案内容"
+    ]
+  }
+]

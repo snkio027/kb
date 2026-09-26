@@ -1,0 +1,12 @@
+{
+  "review_artifacts": 10,
+  "pages": 678,
+  "current_implementation_input_bindings_checked": 31,
+  "maintained_markdown_files_parsed": 3,
+  "local_file_links_checked": 74,
+  "export_hashes": "MATCH",
+  "source_revisions_and_paths": "MATCH",
+  "json_parse": "PASS",
+  "targeted_credential_patterns": "NONE_FOUND",
+  "limits": "File links only; no external URL, all-anchor or comprehensive secret-scan claim."
+}

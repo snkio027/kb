@@ -1,0 +1,460 @@
+{
+  "role": "REVIEW_EXPORT_NOT_RELEASE_NOT_COMPLETE_CANDIDATE",
+  "candidate": "publication/build/candidate/72ffc0398c7fa9726a7433630f4de89ec859c22c1268eedff9e0e0f9b495edfa/e8fbb90eff1741c5aedd7db5cd5ea5b7",
+  "candidate_id": "72ffc0398c7fa9726a7433630f4de89ec859c22c1268eedff9e0e0f9b495edfa",
+  "all_candidate_file_hashes_verified": true,
+  "source_checks": [
+    {
+      "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "bytes": 21532,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "bytes": 48829,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "bytes": 78329,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "bytes": 45539,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "bytes": 52815,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "revision": "WORKTREE",
+      "commit": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+      "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "bytes": 44522,
+      "git_prepared_attached_equal": true
+    }
+  ],
+  "exported": [
+    {
+      "path": "candidate-manifest.json",
+      "sha256": "bb6e6bbfd87fc271e47796850043b96d53304f96b82f128ae1b83e54ad8d65fb",
+      "bytes": 32864
+    },
+    {
+      "path": "candidate-result.json",
+      "sha256": "6757ca6aa43eb429e7121cbe39326688447b55a0d492764110c6f8113e721dd6",
+      "bytes": 463
+    },
+    {
+      "path": "evidence/source-catalog.json",
+      "sha256": "041ea57a62df7d26687ab3fbcdf2e9a24acbe9f13abc60c834de744ed43a3586",
+      "bytes": 63101
+    },
+    {
+      "path": "evidence/typeset/ESD-ASSURANCE-001/audit.json",
+      "sha256": "b182dc0c320963b06722a74e4b13bd8ebca39c130387d3a9875ccbc56ef3419f",
+      "bytes": 5767
+    },
+    {
+      "path": "evidence/typeset/ESD-ASSURANCE-001/reference-map.json",
+      "sha256": "f6eefc2387807d652335dccb4d2f695b7c7b26f69dbb7d5cb5f88235cc4288ad",
+      "bytes": 590
+    },
+    {
+      "path": "evidence/typeset/ESD-ASSURANCE-001/section-audit.json",
+      "sha256": "b1b19f8dff95afbf32b2f4ac7bb70344a2db196664b61e0250bfffe9e6002ba0",
+      "bytes": 63604
+    },
+    {
+      "path": "evidence/typeset/ESD-ASSURANCE-001/table-map.json",
+      "sha256": "ec392c2974e04834c40843655ac13e27306bf64ec32ac3f29b8462d94d542577",
+      "bytes": 15065
+    },
+    {
+      "path": "evidence/typeset/ESD-GOV-001/audit.json",
+      "sha256": "ccb4c8d07c50b56bd82e94404ebe49f965f279ab2d93da07e58d0c1f27b92f5d",
+      "bytes": 5476
+    },
+    {
+      "path": "evidence/typeset/ESD-GOV-001/reference-map.json",
+      "sha256": "cf6de781c6a96da821b7f93f0152be9b16a2d81eaeb71acc389fdabfa94ad2b0",
+      "bytes": 719
+    },
+    {
+      "path": "evidence/typeset/ESD-GOV-001/section-audit.json",
+      "sha256": "780c7d85e36ae05f8c6fa5f5f324e374624f43e85a9f960506b690c8b4fac912",
+      "bytes": 40386
+    },
+    {
+      "path": "evidence/typeset/ESD-GOV-001/table-map.json",
+      "sha256": "2b398b4208a39a3e634bec6d28fc74968cbc7209db5af98479bfd83fa819758d",
+      "bytes": 38124
+    },
+    {
+      "path": "evidence/typeset/ESD-HANDBOOK/audit.json",
+      "sha256": "dce15b75990b14f7ea9c9d527cb68be09f5fe8ed4a0d169e8d0f3f950d8b6127",
+      "bytes": 24718
+    },
+    {
+      "path": "evidence/typeset/ESD-HANDBOOK/reference-map.json",
+      "sha256": "c500f347a0864bb79876079c3b682a164d5641dd2f7bfdf4c2817c086c03f6b3",
+      "bytes": 5161
+    },
+    {
+      "path": "evidence/typeset/ESD-HANDBOOK/section-audit.json",
+      "sha256": "d57cf1e7b0be087f4ef024feabfe053b9a15511676386de2e93b6874fae6bea0",
+      "bytes": 276996
+    },
+    {
+      "path": "evidence/typeset/ESD-HANDBOOK/table-map.json",
+      "sha256": "5ec211c071c495f77199b015f44cbc0b8b988a2a07b2f88f7dc94ac740cac09d",
+      "bytes": 134535
+    },
+    {
+      "path": "evidence/typeset/ESD-METHOD-001/audit.json",
+      "sha256": "2a06d69d1fe5cce09aad02631b0d0eae94d8401db7703ae1821a9791daacac6d",
+      "bytes": 6553
+    },
+    {
+      "path": "evidence/typeset/ESD-METHOD-001/reference-map.json",
+      "sha256": "463cc7ede1d382cad7e91c70b61925f54563773c5abbdcb8a1bf274eaf4719a8",
+      "bytes": 1801
+    },
+    {
+      "path": "evidence/typeset/ESD-METHOD-001/section-audit.json",
+      "sha256": "66ccd4c827bea9face92fd0256484cde7f863084c98be398d4af1a89a34a62a3",
+      "bytes": 31022
+    },
+    {
+      "path": "evidence/typeset/ESD-METHOD-001/table-map.json",
+      "sha256": "281ee7a0f67ed7e950754a2bac19288a89eee6ac576b4abafc4276caee72d1be",
+      "bytes": 10931
+    },
+    {
+      "path": "evidence/typeset/ESD-OPS-001/audit.json",
+      "sha256": "1f2546cab82717a2feaf38db9ac423598649e615ec16c57600abb6b78bed98e4",
+      "bytes": 5772
+    },
+    {
+      "path": "evidence/typeset/ESD-OPS-001/reference-map.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    {
+      "path": "evidence/typeset/ESD-OPS-001/section-audit.json",
+      "sha256": "18a7409e7cb2a8d5060db78ebc73c1ead35bb4ed1b70f62988dd9812671a3579",
+      "bytes": 65199
+    },
+    {
+      "path": "evidence/typeset/ESD-OPS-001/table-map.json",
+      "sha256": "6036b0e1a54d55ba9359dd1c7756ec14029b2cfa3f43100a45521f71c619e3c8",
+      "bytes": 20591
+    },
+    {
+      "path": "evidence/typeset/ESD-REFERENCE-001/audit.json",
+      "sha256": "765a1ba0e1b8e5f704ba328b77e7b257a4e1caf58b8685c97ed52bb05ca4a681",
+      "bytes": 9590
+    },
+    {
+      "path": "evidence/typeset/ESD-REFERENCE-001/reference-map.json",
+      "sha256": "02e145707e767ebf9dc8701c28e5d698a47d24370fe31c9bf307cd5da4ae54aa",
+      "bytes": 3449
+    },
+    {
+      "path": "evidence/typeset/ESD-REFERENCE-001/section-audit.json",
+      "sha256": "8901bcbed073015ff5c41a8aa7a6920fa2faa0cd83939186257bebf07debd6eb",
+      "bytes": 59644
+    },
+    {
+      "path": "evidence/typeset/ESD-REFERENCE-001/table-map.json",
+      "sha256": "104cb721235bb7c66a96245cbd23aad8a3245fe59771ea2306296542597d8e3a",
+      "bytes": 37154
+    },
+    {
+      "path": "evidence/typeset/ESD-SUITE-000/audit.json",
+      "sha256": "c3f8ac3886c7e8a651f469f2e008b45062f37cb91683a498323ca1471aa66cb3",
+      "bytes": 4042
+    },
+    {
+      "path": "evidence/typeset/ESD-SUITE-000/reference-map.json",
+      "sha256": "571bffc8d1e8804030288d9fbc059db8442b29435cb713e30fcb1f87c4dda9c8",
+      "bytes": 2765
+    },
+    {
+      "path": "evidence/typeset/ESD-SUITE-000/section-audit.json",
+      "sha256": "d02d671f1f57969081f4760f46b0525987421155c09aaca93172502a4e2b5234",
+      "bytes": 16971
+    },
+    {
+      "path": "evidence/typeset/ESD-SUITE-000/table-map.json",
+      "sha256": "26a0567323e7c5b9d04b132ded15d265fbd74c1c4185fdef31b640ae2b74284f",
+      "bytes": 12685
+    },
+    {
+      "path": "output/README.md",
+      "sha256": "93e4a70ae0365e80862f9063cc41917ef513a98943dc5d228001a485ae942284",
+      "bytes": 1146
+    },
+    {
+      "path": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "sha256": "4b78bbf096635cc6a2467d38bc557fd406c9744b37ad8fcf21979c27782b6730",
+      "bytes": 646243
+    },
+    {
+      "path": "output/pdf/ESD-GOV-001-draft.pdf",
+      "sha256": "57e13c97ba9e131a955beb4e407ce7595936346b355ff07bd390802c460e37ae",
+      "bytes": 643185
+    },
+    {
+      "path": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "sha256": "0af5f277fe49f6fb1ed86e8d952f2fcb1d9c59df4456ca5e33e47d579c309d82",
+      "bytes": 1671368
+    },
+    {
+      "path": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "sha256": "7d181aef46980ac5d582e5d91493eb0e4132e4d20ad0c15e698bd8573f74026b",
+      "bytes": 806460
+    },
+    {
+      "path": "output/pdf/ESD-OPS-001-draft.pdf",
+      "sha256": "9c6d799a321143cc4083eeb691e61e6c898990f034c2c1496feb79a3bcdd026d",
+      "bytes": 647245
+    },
+    {
+      "path": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "sha256": "40782d71e16618338e0a17d7486ad2e078746312a4f057de072ab3442e3def31",
+      "bytes": 836621
+    },
+    {
+      "path": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "sha256": "aff2f41d4ec764492ca5bc5f68c87317ad95ef9ad5efada4601e5dbfa5a42018",
+      "bytes": 479681
+    },
+    {
+      "path": "output/source/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "bytes": 21532
+    },
+    {
+      "path": "output/source/design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "bytes": 48829
+    },
+    {
+      "path": "output/source/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "bytes": 78329
+    },
+    {
+      "path": "output/source/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "bytes": 45539
+    },
+    {
+      "path": "output/source/design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "bytes": 52815
+    },
+    {
+      "path": "output/source/design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "bytes": 44522
+    },
+    {
+      "path": "preview-audit.json",
+      "sha256": "347031832d9e9e2633def8e771e96a940e5b30e87cb8a3c23048650b8e74e98d",
+      "bytes": 113864
+    },
+    {
+      "path": "preview-result.json",
+      "sha256": "65975773ec57396e8695b456706a5aa520646749298042b047d2b08c8c42495a",
+      "bytes": 1129
+    },
+    {
+      "path": "reading-review.json",
+      "sha256": "6ffb5a62bdc2d114501b402b463e9cc932cf353a033ad12c89759104e2837898",
+      "bytes": 2455
+    },
+    {
+      "path": "result.json",
+      "sha256": "bd3c125fae7d34b6c1ded11157658e83dc3e1239770540c470a2aa2d9523e74d",
+      "bytes": 310
+    },
+    {
+      "path": "run.json",
+      "sha256": "cd11efc953bff12a0842fb76636aeaa4d96b4eea0faa532c9df1d392b48076e5",
+      "bytes": 7221
+    }
+  ],
+  "omitted": [
+    "evidence/source-ast/ESD-ASSURANCE-001.json",
+    "evidence/source-ast/ESD-GOV-001.json",
+    "evidence/source-ast/ESD-METHOD-001.json",
+    "evidence/source-ast/ESD-OPS-001.json",
+    "evidence/source-ast/ESD-REFERENCE-001.json",
+    "evidence/source-ast/ESD-SUITE-000.json",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-0.txt",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-0.txt.command.json",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-1.txt",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-1.txt.command.json",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-2.txt",
+    "evidence/typeset/ESD-ASSURANCE-001/compile-2.txt.command.json",
+    "evidence/typeset/ESD-ASSURANCE-001/composed.json",
+    "evidence/typeset/ESD-ASSURANCE-001/document.aux",
+    "evidence/typeset/ESD-ASSURANCE-001/document.fls",
+    "evidence/typeset/ESD-ASSURANCE-001/document.log",
+    "evidence/typeset/ESD-ASSURANCE-001/document.tex",
+    "evidence/typeset/ESD-ASSURANCE-001/document.toc",
+    "evidence/typeset/ESD-ASSURANCE-001/extracted.txt",
+    "evidence/typeset/ESD-ASSURANCE-001/pandoc.log",
+    "evidence/typeset/ESD-ASSURANCE-001/pandoc.log.command.json",
+    "evidence/typeset/ESD-ASSURANCE-001/render.log",
+    "evidence/typeset/ESD-ASSURANCE-001/render.log.command.json",
+    "evidence/typeset/ESD-GOV-001/compile-0.txt",
+    "evidence/typeset/ESD-GOV-001/compile-0.txt.command.json",
+    "evidence/typeset/ESD-GOV-001/compile-1.txt",
+    "evidence/typeset/ESD-GOV-001/compile-1.txt.command.json",
+    "evidence/typeset/ESD-GOV-001/compile-2.txt",
+    "evidence/typeset/ESD-GOV-001/compile-2.txt.command.json",
+    "evidence/typeset/ESD-GOV-001/composed.json",
+    "evidence/typeset/ESD-GOV-001/document.aux",
+    "evidence/typeset/ESD-GOV-001/document.fls",
+    "evidence/typeset/ESD-GOV-001/document.log",
+    "evidence/typeset/ESD-GOV-001/document.tex",
+    "evidence/typeset/ESD-GOV-001/document.toc",
+    "evidence/typeset/ESD-GOV-001/extracted.txt",
+    "evidence/typeset/ESD-GOV-001/pandoc.log",
+    "evidence/typeset/ESD-GOV-001/pandoc.log.command.json",
+    "evidence/typeset/ESD-GOV-001/render.log",
+    "evidence/typeset/ESD-GOV-001/render.log.command.json",
+    "evidence/typeset/ESD-HANDBOOK/compile-0.txt",
+    "evidence/typeset/ESD-HANDBOOK/compile-0.txt.command.json",
+    "evidence/typeset/ESD-HANDBOOK/compile-1.txt",
+    "evidence/typeset/ESD-HANDBOOK/compile-1.txt.command.json",
+    "evidence/typeset/ESD-HANDBOOK/compile-2.txt",
+    "evidence/typeset/ESD-HANDBOOK/compile-2.txt.command.json",
+    "evidence/typeset/ESD-HANDBOOK/composed.json",
+    "evidence/typeset/ESD-HANDBOOK/document.aux",
+    "evidence/typeset/ESD-HANDBOOK/document.fls",
+    "evidence/typeset/ESD-HANDBOOK/document.log",
+    "evidence/typeset/ESD-HANDBOOK/document.tex",
+    "evidence/typeset/ESD-HANDBOOK/document.toc",
+    "evidence/typeset/ESD-HANDBOOK/extracted.txt",
+    "evidence/typeset/ESD-HANDBOOK/pandoc.log",
+    "evidence/typeset/ESD-HANDBOOK/pandoc.log.command.json",
+    "evidence/typeset/ESD-HANDBOOK/render.log",
+    "evidence/typeset/ESD-HANDBOOK/render.log.command.json",
+    "evidence/typeset/ESD-METHOD-001/compile-0.txt",
+    "evidence/typeset/ESD-METHOD-001/compile-0.txt.command.json",
+    "evidence/typeset/ESD-METHOD-001/compile-1.txt",
+    "evidence/typeset/ESD-METHOD-001/compile-1.txt.command.json",
+    "evidence/typeset/ESD-METHOD-001/compile-2.txt",
+    "evidence/typeset/ESD-METHOD-001/compile-2.txt.command.json",
+    "evidence/typeset/ESD-METHOD-001/composed.json",
+    "evidence/typeset/ESD-METHOD-001/document.aux",
+    "evidence/typeset/ESD-METHOD-001/document.fls",
+    "evidence/typeset/ESD-METHOD-001/document.log",
+    "evidence/typeset/ESD-METHOD-001/document.tex",
+    "evidence/typeset/ESD-METHOD-001/document.toc",
+    "evidence/typeset/ESD-METHOD-001/extracted.txt",
+    "evidence/typeset/ESD-METHOD-001/pandoc.log",
+    "evidence/typeset/ESD-METHOD-001/pandoc.log.command.json",
+    "evidence/typeset/ESD-METHOD-001/render.log",
+    "evidence/typeset/ESD-METHOD-001/render.log.command.json",
+    "evidence/typeset/ESD-OPS-001/compile-0.txt",
+    "evidence/typeset/ESD-OPS-001/compile-0.txt.command.json",
+    "evidence/typeset/ESD-OPS-001/compile-1.txt",
+    "evidence/typeset/ESD-OPS-001/compile-1.txt.command.json",
+    "evidence/typeset/ESD-OPS-001/compile-2.txt",
+    "evidence/typeset/ESD-OPS-001/compile-2.txt.command.json",
+    "evidence/typeset/ESD-OPS-001/composed.json",
+    "evidence/typeset/ESD-OPS-001/document.aux",
+    "evidence/typeset/ESD-OPS-001/document.fls",
+    "evidence/typeset/ESD-OPS-001/document.log",
+    "evidence/typeset/ESD-OPS-001/document.tex",
+    "evidence/typeset/ESD-OPS-001/document.toc",
+    "evidence/typeset/ESD-OPS-001/extracted.txt",
+    "evidence/typeset/ESD-OPS-001/pandoc.log",
+    "evidence/typeset/ESD-OPS-001/pandoc.log.command.json",
+    "evidence/typeset/ESD-OPS-001/render.log",
+    "evidence/typeset/ESD-OPS-001/render.log.command.json",
+    "evidence/typeset/ESD-REFERENCE-001/compile-0.txt",
+    "evidence/typeset/ESD-REFERENCE-001/compile-0.txt.command.json",
+    "evidence/typeset/ESD-REFERENCE-001/compile-1.txt",
+    "evidence/typeset/ESD-REFERENCE-001/compile-1.txt.command.json",
+    "evidence/typeset/ESD-REFERENCE-001/compile-2.txt",
+    "evidence/typeset/ESD-REFERENCE-001/compile-2.txt.command.json",
+    "evidence/typeset/ESD-REFERENCE-001/composed.json",
+    "evidence/typeset/ESD-REFERENCE-001/document.aux",
+    "evidence/typeset/ESD-REFERENCE-001/document.fls",
+    "evidence/typeset/ESD-REFERENCE-001/document.log",
+    "evidence/typeset/ESD-REFERENCE-001/document.tex",
+    "evidence/typeset/ESD-REFERENCE-001/document.toc",
+    "evidence/typeset/ESD-REFERENCE-001/extracted.txt",
+    "evidence/typeset/ESD-REFERENCE-001/pandoc.log",
+    "evidence/typeset/ESD-REFERENCE-001/pandoc.log.command.json",
+    "evidence/typeset/ESD-REFERENCE-001/render.log",
+    "evidence/typeset/ESD-REFERENCE-001/render.log.command.json",
+    "evidence/typeset/ESD-SUITE-000/compile-0.txt",
+    "evidence/typeset/ESD-SUITE-000/compile-0.txt.command.json",
+    "evidence/typeset/ESD-SUITE-000/compile-1.txt",
+    "evidence/typeset/ESD-SUITE-000/compile-1.txt.command.json",
+    "evidence/typeset/ESD-SUITE-000/compile-2.txt",
+    "evidence/typeset/ESD-SUITE-000/compile-2.txt.command.json",
+    "evidence/typeset/ESD-SUITE-000/composed.json",
+    "evidence/typeset/ESD-SUITE-000/document.aux",
+    "evidence/typeset/ESD-SUITE-000/document.fls",
+    "evidence/typeset/ESD-SUITE-000/document.log",
+    "evidence/typeset/ESD-SUITE-000/document.tex",
+    "evidence/typeset/ESD-SUITE-000/document.toc",
+    "evidence/typeset/ESD-SUITE-000/extracted.txt",
+    "evidence/typeset/ESD-SUITE-000/pandoc.log",
+    "evidence/typeset/ESD-SUITE-000/pandoc.log.command.json",
+    "evidence/typeset/ESD-SUITE-000/render.log",
+    "evidence/typeset/ESD-SUITE-000/render.log.command.json",
+    "evidence/worker.log",
+    "inputs/design/fonts.lock",
+    "inputs/design/package-lock.txt",
+    "inputs/design/texlive.profile",
+    "inputs/publication/engine/candidate.py",
+    "inputs/publication/engine/filters/blocks.lua",
+    "inputs/publication/engine/links.py",
+    "inputs/publication/engine/preview.py",
+    "inputs/publication/engine/preview_audit.py",
+    "inputs/publication/engine/pub.py",
+    "inputs/publication/engine/source_model.py",
+    "inputs/publication/latex/kb-base.sty",
+    "inputs/publication/latex/kbbook.cls",
+    "inputs/publication/profiles/esd/adapter.py",
+    "inputs/publication/profiles/esd/profile.json",
+    "inputs/publication/profiles/esd/table-layouts.json",
+    "inputs/publication/profiles/esd/template.tex",
+    "inputs/publication/profiles/esd/theme.sty",
+    "inputs/source-set.json",
+    "inputs/sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+    "inputs/sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "inputs/sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+    "inputs/sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "inputs/sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "inputs/sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+  ]
+}

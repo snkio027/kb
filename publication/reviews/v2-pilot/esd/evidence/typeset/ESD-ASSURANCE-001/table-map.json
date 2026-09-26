@@ -1,0 +1,394 @@
+[
+  {
+    "table": "ESD-ASSURANCE-001-T01",
+    "section": "ESD-ASSURANCE-001-cc66291a88d22591",
+    "section_title": "工程保证论证、证据与裁决规范",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-ASSURANCE-001",
+      "版本2.0.0-draft.1（基于 1.0.0）",
+      "状态DRAFT / NORMATIVE DOMAIN；未获发布批准",
+      "规范角色定义如何提出可裁决主张、组织论证、评价证据、处理反证并支持 Gate 决策",
+      "语义基础ESD-METHOD-001《优秀系统设计与工程保证方法论》",
+      "治理基础ESD-GOV-001《系统设计与工程保证治理及符合性规范》",
+      "执行参考ESD-REFERENCE-001《优秀系统设计：从约束、不变量到证据》",
+      "权威格式本 Markdown 文件；PDF 与其他导出仅为阅读视图"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T02",
+    "section": "ESD-ASSURANCE-001-21c04b2eeeb431f7",
+    "section_title": "摘要",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "层次",
+      "示例状态"
+    ],
+    "row_text": [
+      "验证执行PASS / FAIL / ERROR / SKIPPED",
+      "证据结论SUPPORTS / CONTRADICTS / INCONCLUSIVE / NOT_APPLICABLE",
+      "证据生命周期CURRENT / STALE / INVALIDATED / SUPERSEDED / NOT_REPRODUCIBLE",
+      "Gate 裁决GO / CONDITIONAL_GO / NO_GO / UNKNOWN / NOT_APPLICABLE"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T03",
+    "section": "ESD-ASSURANCE-001-1c40f90ccf8938b9",
+    "section_title": "2. 核心术语",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "定义"
+    ],
+    "row_text": [
+      "Claim关于特定对象、作用域和条件下应成立性质、具有明确验证义务的陈述",
+      "Top-level ClaimAssurance Case 最终试图支持的系统级结论",
+      "Subclaim为支持上层 Claim 而分解出的较小主张",
+      "Context解释 Claim、Argument 或 Evidence 含义所需的背景事实",
+      "Assumption论证成立所依赖、可被证伪并可能失效的外部条件",
+      "Argument说明 Evidence 与子主张为何足以支持 Claim 的推理结构",
+      "Strategy对 Claim 的分解方式，例如按故障类别、边界、性质或运行模式分解",
+      "Evidence能支持、反驳或限制 Claim 的可追溯事实或制品",
+      "Counterevidence与 Claim 相冲突或削弱现有论证的证据",
+      "Defeater若成立会使 Argument 失效或显著减弱的条件、反例或替代解释",
+      "Mechanism系统中用于维持某项性质的控制、协议、约束或实现",
+      "Verification Activity用于生成或评价 Evidence 的分析、测试、检查、证明或演练",
+      "Evidence EnvelopeEvidence 所绑定的主体、环境、范围、版本、覆盖、限制和时效",
+      "Residual Risk在当前控制和 Evidence 后仍被接受或保持未知的风险",
+      "Assurance CaseClaim、Argument、Evidence、Assumption、Defeater 和 Decision 的版本化结构",
+      "Evidence Bundle为特定 Gate 或发布收集的不可混淆证据集合及清单",
+      "Decision-gradeEvidence 和 Argument 达到当前风险与裁决所需的质量，而非“证据很多”"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T04",
+    "section": "ESD-ASSURANCE-001-9d31db68ef355173",
+    "section_title": "Liveness Claim",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "性质",
+      "违反/支持义务",
+      "有限观测的边界"
+    ],
+    "row_text": [
+      "Safety明确有限坏前缀或违反事件；在模型内可检查可达性单个反例可反驳，未发现反例不等于全域证明",
+      "有界活性在规定前提下定义起点、截止时间、完成 Oracle超时可反驳对应有界 Claim",
+      "无界活性形式化进展性质；论证公平调度、持续资源、依赖可用性与恢复进展有限时间未完成不直接反驳“最终完成”；模型中的无限反例或进展证明须保留模型前提",
+      "SLO明确统计总体、窗口、样本、估计方法及不确定性不能从有限样本外推未覆盖流量与未来窗口"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T05",
+    "section": "ESD-ASSURANCE-001-0a48cf41bcc931a7",
+    "section_title": "7.2 常用分解策略",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "Strategy",
+      "适用场景"
+    ],
+    "row_text": [
+      "按关键性质Safety、Liveness、Durability、Security 分解",
+      "按状态转换CREATE、PROCESS、COMMIT、ACK、RECOVER 分解",
+      "按故障类别crash、timeout、partition、resource exhaustion、operator error",
+      "按边界producer、broker、worker、store、consumer",
+      "按运行模式NORMAL、DEGRADED、DRAINING、RECOVERY、EMERGENCY",
+      "按租户/区域多租户隔离、多区域故障域",
+      "按生命周期build、deploy、operate、migrate、retire"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T06",
+    "section": "ESD-ASSURANCE-001-a37e6321b554fa21",
+    "section_title": "8.1 Defeater 类型",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "示例"
+    ],
+    "row_text": [
+      "适用性 Defeater测试环境不是生产架构",
+      "身份 DefeaterEvidence 来自旧 commit",
+      "覆盖 Defeater未覆盖写成功但超时的结果未知窗口",
+      "代表性 Defeater基准只使用小对象和干净数据",
+      "工具 Defeater静态分析器对相关语言特性不支持",
+      "组合 DefeaterA/B 单独通过，但 mixed-version 边界未测试",
+      "运行 Defeater输入分布已经超出验证范围",
+      "组织 Defeater手工步骤无稳定 Owner，无法重复执行"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T07",
+    "section": "ESD-ASSURANCE-001-338c8df4cf367b32",
+    "section_title": "9.1 Evidence 类型",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "类型",
+      "示例",
+      "主要优势",
+      "常见边界"
+    ],
+    "row_text": [
+      "DESIGNADR、协议说明、状态机解释意图与语义不能证明实现符合",
+      "STATIC类型检查、lint、静态分析、依赖扫描可重复、覆盖广仅检查已建模规则",
+      "FORMAL模型检查、定理证明、协议验证对模型范围内强抽象与实现映射可能不足",
+      "UNIT单元测试、单元级 mutation 测试快、可定位环境与组合覆盖有限",
+      "PROPERTY属性生成、性质驱动测试探索输入与不变量受生成器、Oracle 与采样范围限制",
+      "INTEGRATION跨组件契约和故障测试验证边界语料和环境仍可能不代表生产",
+      "SYSTEM端到端、性能、恢复、soak代表真实组合成本高、覆盖仍有限",
+      "SECURITYthreat model、SAST/DAST、渗透、权限审计关注攻击面时效和环境敏感",
+      "OPERATIONALSLI、审计、生产 invariant、事件真实运行事实缺少反事实，未观测不等于不存在",
+      "RECOVERYrestore、replay、DR、game day验证恢复能力需与生产规模和依赖匹配",
+      "REVIEW专家评审、独立挑战发现未编码风险主观、需记录依据",
+      "PROVENANCE构建证明、签名、digest、SBOM建立对象身份链不证明业务语义正确"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T08",
+    "section": "ESD-ASSURANCE-001-e35fc2b2db389c80",
+    "section_title": "10.1 质量维度",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "关键问题"
+    ],
+    "row_text": [
+      "Relevance与 Claim 的逻辑关系是否直接？",
+      "Validity方法是否真正测量了声称测量的性质？",
+      "Provenance来源、生成过程和责任主体是否清楚？",
+      "Subject Binding是否绑定当前制品、配置和环境？",
+      "Reproducibility能否在受控条件下重新产生？",
+      "Representativeness语料、负载和环境是否代表目标使用？",
+      "Coverage覆盖了哪些状态、故障、版本和边界？",
+      "Freshness当前系统变化后是否仍有效？",
+      "IntegrityEvidence 是否防篡改、可验证、未静默修改？",
+      "Independence生成和评价是否具备风险匹配的独立性？",
+      "Limitations未覆盖和方法弱点是否显式？",
+      "Actionability失败时是否能定位、阻断或触发响应？"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T09",
+    "section": "ESD-ASSURANCE-001-ab07cdc3fd8c4c0d",
+    "section_title": "12.1 Verification Execution Status",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "PASS验证活动按定义执行，断言未被违反",
+      "FAIL验证活动执行且发现违反",
+      "ERROR工具、环境或基础设施错误，未得到有效性质结果",
+      "SKIPPED验证未执行或被有意跳过"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T10",
+    "section": "ESD-ASSURANCE-001-74357a57668c168f",
+    "section_title": "12.2 Evidence Conclusion",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "SUPPORTS在声明覆盖内为 Claim 提供支持",
+      "CONTRADICTS为 Claim 的违反或关键反例提供证据",
+      "INCONCLUSIVE不能合理支持或反驳 Claim",
+      "NOT_APPLICABLE经论证与该 Claim 无关"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T11",
+    "section": "ESD-ASSURANCE-001-f5c3beab96453ead",
+    "section_title": "12.3 Evidence Lifecycle Status",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "CURRENT当前仍在声明有效范围内",
+      "STALE时间或环境变化使代表性下降，需要复审",
+      "INVALIDATED已知变化使 Evidence 不再适用",
+      "SUPERSEDED被更新的 Evidence 替代，仍保留历史",
+      "NOT_REPRODUCIBLE无法按声明方法重新产生"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T12",
+    "section": "ESD-ASSURANCE-001-c8260e796eddef19",
+    "section_title": "14.2 验证方法选择",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "目标",
+      "适合方法"
+    ],
+    "row_text": [
+      "类型和结构约束编译器、类型系统、Schema、静态分析",
+      "广泛输入性质Property-based、fuzz、mutation",
+      "并发和协议模型检查、线性化测试、故障注入",
+      "边界契约Contract、integration、mixed-version test",
+      "资源上界压力、soak、限流、故障降容测试",
+      "恢复crash-window、restore、replay、DR 演练",
+      "安全Threat Model、权限负向测试、扫描、渗透",
+      "生产适用性canary、shadow、runtime invariant、SLI"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T13",
+    "section": "ESD-ASSURANCE-001-77c93bfaa149006e",
+    "section_title": "18.3 按风险等级",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "风险",
+      "Assurance 最低深度"
+    ],
+    "row_text": [
+      "R0可逆实验假设、数据边界、硬上限和退出证据",
+      "R1关键 Claim、基础动态 Evidence、Owner Review、生产观察",
+      "R2完整 Assurance Matrix、多样 Evidence、代表性环境、故障与恢复验证",
+      "R3独立评价、Defeater Register、工具资格、组合保证、持续漂移与严格证据完整性"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T14",
+    "section": "ESD-ASSURANCE-001-2a8c4e8ee361e303",
+    "section_title": "19.1 Claim Status",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "SUPPORTED当前 Argument 与 Evidence 足以支持声明范围内的 Claim",
+      "CONDITIONALLY_SUPPORTED仅在明确限定的前提、对象或范围内有充分 Argument 与 Evidence 支持；该限定须作为 Claim 的可审计组成部分",
+      "CONTRADICTED存在足以反驳 Claim 的 Evidence",
+      "UNKNOWNEvidence 或 Argument 不足",
+      "NOT_APPLICABLE经论证与当前对象无关"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T15",
+    "section": "ESD-ASSURANCE-001-c47b54e84e79d77f",
+    "section_title": "26.1 角色",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "责任"
+    ],
+    "row_text": [
+      "Claim Owner定义并维护 Claim 及违反语义",
+      "Evidence Producer执行验证并生成原始 Evidence",
+      "Evidence Custodian保证存储、完整性、保留和访问",
+      "Assurance Author构建 Argument 和 Evidence 映射",
+      "Assurance Reviewer挑战充分性、Defeater、覆盖和时效",
+      "Decision Authority接受剩余风险并作 Gate 决策",
+      "Tool Owner维护验证器能力、版本和已知限制",
+      "Operational Owner维护 Runtime Evidence 和 drift 响应"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T16",
+    "section": "ESD-ASSURANCE-001-d46b01e7813dd215",
+    "section_title": "29. Verification & Evidence Matrix 模板",
+    "layout": "records",
+    "selection": "default",
+    "headers": [
+      "Property / Claim",
+      "Mechanism",
+      "Verification",
+      "Oracle",
+      "Environment / Corpus",
+      "Evidence ID",
+      "Conclusion",
+      "Lifecycle",
+      "Limitations",
+      "Owner"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Property / Claim",
+        "value": "CP-001"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Mechanism",
+        "value": "Conditional commit"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Verification",
+        "value": "Crash-window test"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Oracle",
+        "value": "Single manifest per identity"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Environment / Corpus",
+        "value": "Target-like"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Evidence ID",
+        "value": "EVD-001"
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Conclusion",
+        "value": "SUPPORTS"
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "label": "Lifecycle",
+        "value": "CURRENT"
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "label": "Limitations",
+        "value": "No region partition"
+      },
+      {
+        "row": 1,
+        "column": 10,
+        "label": "Owner",
+        "value": "Team A"
+      }
+    ],
+    "row_text": [
+      "ESD-ASSURANCE-001-T16 / 记录 1Property / ClaimCP-001MechanismConditional commitVerificationCrash-window testOracleSingle manifest per identityEnvironment / CorpusTarget-likeEvidence IDEVD-001ConclusionSUPPORTSLifecycleCURRENTLimitationsNo region partitionOwnerTeam A"
+    ]
+  }
+]

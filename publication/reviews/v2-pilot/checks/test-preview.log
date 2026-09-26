@@ -1,0 +1,17 @@
+test_duplicate_titles_are_namespaced_and_broken_references_fail (__main__.CompositionTests.test_duplicate_titles_are_namespaced_and_broken_references_fail) ... ok
+test_explicit_matrix_binding_and_drift (__main__.CompositionTests.test_explicit_matrix_binding_and_drift) ... ok
+test_inline_literals_cannot_lose_spaces (__main__.CompositionTests.test_inline_literals_cannot_lose_spaces) ... ok
+test_occurrence_scope_order_and_negative_word_regressions (__main__.CompositionTests.test_occurrence_scope_order_and_negative_word_regressions) ... ok
+test_preview_terminal_fsync_failure_leaves_no_success (__main__.CompositionTests.test_preview_terminal_fsync_failure_leaves_no_success) ... ok
+test_table_fields_values_and_empty_headers_preserved (__main__.CompositionTests.test_table_fields_values_and_empty_headers_preserved) ... ok
+test_uri_classification_full_path_and_fragment (__main__.CompositionTests.test_uri_classification_full_path_and_fragment) ... ok
+test_real_compile_failure_never_commits_ready (__main__.RealPreviewTests.test_real_compile_failure_never_commits_ready) ... ok
+test_real_compiler_int_term_and_kill (__main__.RealPreviewTests.test_real_compiler_int_term_and_kill) ... ok
+test_real_pdf_missing_literal_spaces_is_rejected (__main__.RealPreviewTests.test_real_pdf_missing_literal_spaces_is_rejected) ... ok
+test_real_pdf_preface_target_on_cover_is_rejected (__main__.RealPreviewTests.test_real_pdf_preface_target_on_cover_is_rejected) ... ok
+test_real_success_and_compiler_cannot_write_dist (__main__.RealPreviewTests.test_real_success_and_compiler_cannot_write_dist) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 183.536s
+
+OK

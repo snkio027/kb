@@ -1,0 +1,260 @@
+[
+  {
+    "table": "ESD-METHOD-001-T01",
+    "section": "ESD-METHOD-001-0bcae748676a7d54",
+    "section_title": "优秀系统设计与工程保证方法论",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-METHOD-001",
+      "版本2.0.0-draft.1（基于 1.1.0）",
+      "状态DRAFT / NORMATIVE FOUNDATION；未获发布批准",
+      "文档角色定义系统设计与工程保证的原则、术语、推导顺序和认识边界",
+      "配套文档ESD-REFERENCE-001《优秀系统设计：从约束、不变量到证据》",
+      "适用对象架构师、Staff/Principal Engineer、技术负责人、平台与基础设施工程师",
+      "适用系统分布式服务、数据平台、流处理、存储系统、控制面、高性能系统与关键业务系统",
+      "权威格式本 Markdown 文件；任何 DOCX、PDF 或网页均只是非权威视图"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T02",
+    "section": "ESD-METHOD-001-3553f1fda625cdc2",
+    "section_title": "3.1 验证工具不是绝对仲裁者",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "方法",
+      "可以支持的结论",
+      "不能自动推出的结论"
+    ],
+    "row_text": [
+      "有限测试、故障注入在已执行的输入与轨迹中，断言未被违反所有输入与调度均正确",
+      "模型检查在明确模型、假设与已探索状态空间内性质成立；未完成探索必须声明边界实现与开放环境自动符合模型",
+      "定理证明在形式化定义、前提及证明系统内命题成立前提在生产恒真或代码自动满足规格",
+      "运行监测在信号覆盖、采样与检测能力内得到运行事实未报警即不存在违反"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T03",
+    "section": "ESD-METHOD-001-4bd7e7e464f9f01b",
+    "section_title": "3.2 四层主张模型",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "层次",
+      "含义",
+      "典型错误"
+    ],
+    "row_text": [
+      "Desired Claim业务或架构希望成立的性质把愿望直接写成事实",
+      "Encoded Property已被契约、类型、策略、断言或测试形式化的性质未编码却声称已覆盖",
+      "Verified Result验证器在给定范围内得到的结果忽略输入、环境与工具边界",
+      "Evidence-backed Decision与当前制品和环境绑定、足以支持门禁的证据证据过期、错绑或不可复现"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T04",
+    "section": "ESD-METHOD-001-537d44dff33ac323",
+    "section_title": "6.2 约束与假设的区别",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "字段",
+      "含义"
+    ],
+    "row_text": [
+      "Statement精确、可证伪的陈述",
+      "Dependents哪些性质、ADR、容量或安全结论依赖它",
+      "Evidence当前支持证据与置信理由",
+      "Owner负责监测、复审和失效响应的主体",
+      "Signal运行时观测信号",
+      "Expiry复审日期或失效条件",
+      "Response假设失效后的限流、隔离、复审或迁移动作"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T05",
+    "section": "ESD-METHOD-001-87415da61790d521",
+    "section_title": "6.4 SLO、恢复目标与正确性不得混写",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "示例"
+    ],
+    "row_text": [
+      "Safety不得使用未知 DBC 生成正式结果",
+      "Liveness已接纳任务最终完成或进入显式终态",
+      "Durability已提交结果在规定故障模型下不丢失",
+      "Availability每月成功服务时间比例",
+      "Latency SLO99% 文件在 10 分钟内完成",
+      "RPO灾难后最多允许丢失多少已确认状态",
+      "RTO在多长时间内恢复到定义能力",
+      "Policy当前优先处理某类车型"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T06",
+    "section": "ESD-METHOD-001-bdeb81ee984e52cc",
+    "section_title": "8.1 先问状态，再问服务",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "说明",
+      "设计重点"
+    ],
+    "row_text": [
+      "Authoritative决定业务事实的权威状态唯一写入语义、审计、恢复",
+      "Durable Derived可重建但长期保存的派生状态来源版本、重建成本、漂移",
+      "Ephemeral进程或任务生命周期内状态丢失后的安全恢复",
+      "Evidence用于证明和门禁的状态不可静默修改、主体绑定、时效",
+      "Configuration / Policy影响行为或语义的控制状态版本、权限、发布与回滚"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T07",
+    "section": "ESD-METHOD-001-169b9c73ee2dc3ff",
+    "section_title": "8.4 平面划分",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "平面",
+      "责任"
+    ],
+    "row_text": [
+      "Data Plane高频数据传输、计算和业务执行",
+      "Control Plane策略、配置、调度、路由和状态收敛",
+      "Management Plane部署、升级、诊断、恢复和人工操作",
+      "Assurance Plane验证、证据、策略门禁、例外和运行漂移判定"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T08",
+    "section": "ESD-METHOD-001-ee29c16bd624a98c",
+    "section_title": "10.2 Queue Contract",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "问题",
+      "要求"
+    ],
+    "row_text": [
+      "为什么存在解耦哪两个速率或调度域",
+      "容量单位items、bytes、CPU cost 或其他",
+      "满载行为阻塞、暂停、拒绝、降级、丢弃或溢写",
+      "背压方向压力如何传播到真正可控的上游",
+      "公平性是否按租户、优先级或成本隔离",
+      "终止语义drain、shutdown、crash 后如何处理",
+      "观测depth、age、wait time、drop、saturation",
+      "Owner谁维护容量和故障策略"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T09",
+    "section": "ESD-METHOD-001-051cbfca74f3dfb4",
+    "section_title": "11.4 单位经济性",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "含义"
+    ],
+    "row_text": [
+      "C0无成本模型，只能标记 UNKNOWN",
+      "C1依据公开价格或资源配额的粗估",
+      "C2依据账单、标签或节点分摊的工作负载估算",
+      "C3依据实际利用率、共享成本和业务单位的校准模型"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T10",
+    "section": "ESD-METHOD-001-7026276bb8e71392",
+    "section_title": "13.2 验证层级",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "层级",
+      "主要能力",
+      "不能替代什么"
+    ],
+    "row_text": [
+      "Type / compile checks表示、接口和局部静态约束业务语义与运行环境",
+      "Static analysis / policy已编码规则和禁止模式未编码假设",
+      "Unit / property tests局部行为和广泛输入性质真实边界组合",
+      "Contract / integration tests边界协议与依赖交互生产规模和动态稳定性",
+      "Load / benchmark容量、尾延迟、资源上界故障恢复与业务正确性",
+      "Fault injection / chaos失败路径和控制回路未注入的未知故障",
+      "Formal methods对精确模型的强推理模型与现实的一致性",
+      "Runtime monitoring真实运行分布与漂移未观测、未编码属性",
+      "Review / audit隐含假设、社会技术风险可重复机器验证"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T11",
+    "section": "ESD-METHOD-001-cb128a5c35a0e3ec",
+    "section_title": "14.2 渐进式采用",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "最低要求"
+    ],
+    "row_text": [
+      "探索型原型Non-goals、数据安全边界、不可逆决策、退出条件",
+      "有限业务系统关键性质、状态权威、失败路径、资源上界、基础证据",
+      "核心生产系统完整门禁、容量与恢复模型、运行模式、证据绑定",
+      "高风险/合规系统独立审批、组合保证、保证面元不变量、例外治理与持续漂移检测"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T12",
+    "section": "ESD-METHOD-001-0913714d0813ddad",
+    "section_title": "14.3 成熟度模型",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "特征"
+    ],
+    "row_text": [
+      "L0 — Component-driven以技术栈和拓扑为中心",
+      "L1 — Functional正常路径可用，但失败、状态和责任模糊",
+      "L2 — Bounded资源有界，具备基本失败与恢复语义",
+      "L3 — OperableSLO、Owner、发布、回滚、容量和可诊断性明确",
+      "L4 — Evidence-driven关键主张映射到验证、证据和门禁",
+      "L5 — Adaptive Assurance假设、证据和环境可关联；漂移自动失效结论；事故驱动保证增量"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T13",
+    "section": "ESD-METHOD-001-0701b942df00ec4d",
+    "section_title": "附录 A：核心术语边界",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "严格含义"
+    ],
+    "row_text": [
+      "Critical Property对业务、正确性、安全、活性、资源或运营具有关键影响，并具有与性质类型匹配的验证义务的上位概念",
+      "Invariant在规定身份、作用域和允许状态转换内始终成立的 Safety 性质，不应泛指所有目标",
+      "Safety“坏事永远不发生”的性质，例如不重复正式提交、不越权写入",
+      "Liveness在明确假设下，“好事最终发生或进入明确终态”的性质",
+      "Durability在指定故障集合内，已确认事实保持可恢复的性质",
+      "SLO在统计窗口和作用域内对服务结果的目标，不等同于正确性硬约束",
+      "Assumption某项性质、容量或组件保证赖以成立、可被证伪并可能到期的外部条件",
+      "Guarantee在假设成立时，组件、边界或系统承诺提供的行为",
+      "Authority Boundary对某项业务事实拥有最终裁决权的状态或组件边界",
+      "Engineering Assurance从主张、已编码性质、机制、验证、证据、门禁到运行反馈的持续控制过程",
+      "Evidence Envelope证据所绑定的制品、配置、环境、工作负载、故障模型、覆盖、限制与有效期",
+      "Epistemic Debt关键假设未验证、无 Owner、无监测或无失效响应所形成的认识风险",
+      "Change Envelope对变更语义、最大暴露、观察窗口、成功/停止条件和恢复路径的预先约束",
+      "Assurance Delta事故或运行事实对性质、假设、机制、验证、证据或治理产生的可审计增量"
+    ]
+  }
+]

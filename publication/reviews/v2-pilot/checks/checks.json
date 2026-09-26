@@ -1,0 +1,964 @@
+{
+  "base": "a2195d9557f1c4e86b7f64c290844c63493b2f18",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "commands": [
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-publication-isolation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 21.888,
+      "log": "test-publication-isolation.log",
+      "log_sha256": "a169672d17949f1422feda5d5cfdccc1f2862d26b3d0b9afaf114afbe85f2c59"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-candidate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.817,
+      "log": "test-candidate.log",
+      "log_sha256": "3ac1959673be102e71b3255bfa790f976bbc3847dcb0d14bfb5a7e940c77f020"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-products.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.898,
+      "log": "test-products.log",
+      "log_sha256": "e2f02b743a0e9c7ea78423928babe97d88ed6997acd6c6bf66e4286c8d2940c1"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-preview.py"
+      ],
+      "exit_code": 0,
+      "seconds": 183.675,
+      "log": "test-preview.log",
+      "log_sha256": "c68e1943facbea588bb749862e6d31d0208c945e4dccc87150951c1e6658e613"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "c++/learning/check_docs.py"
+      ],
+      "exit_code": 0,
+      "log": "check-docs.log",
+      "log_sha256": "5c18d54ebbc20dcd3b11bacaaecded2f644f640e9e077e520bcac11105bd2b5c"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "diff-check.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "protected_files": [
+    {
+      "path": ".gitignore",
+      "bytes": 325,
+      "base_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+      "current_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+      "unchanged": true
+    },
+    {
+      "path": "README.md",
+      "bytes": 1438,
+      "base_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+      "current_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/AI-Native Platform Control Plane Architecture Standard.md",
+      "bytes": 44692,
+      "base_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+      "current_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/Atlas Architecture Design.md",
+      "bytes": 27219,
+      "base_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+      "current_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/Atlas GitOps Control Plane Design.md",
+      "bytes": 28610,
+      "base_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+      "current_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.pdf",
+      "bytes": 294836,
+      "base_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+      "current_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.tex",
+      "bytes": 60554,
+      "base_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+      "current_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas Architecture Design.pdf",
+      "bytes": 219801,
+      "base_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+      "current_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas Architecture Design.tex",
+      "bytes": 38319,
+      "base_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+      "current_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.pdf",
+      "bytes": 221559,
+      "base_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+      "current_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.tex",
+      "bytes": 42022,
+      "base_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+      "current_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/README.md",
+      "bytes": 9406,
+      "base_sha256": "239b87772a60e6ad83a52b17c039447d563963146e37dd198794e8426bd60c59",
+      "current_sha256": "239b87772a60e6ad83a52b17c039447d563963146e37dd198794e8426bd60c59",
+      "unchanged": true
+    },
+    {
+      "path": "c++/editorial-profile.md",
+      "bytes": 5866,
+      "base_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+      "current_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/README.md",
+      "bytes": 4122,
+      "base_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+      "current_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "bytes": 43661,
+      "base_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "current_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "bytes": 29921,
+      "base_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "current_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "bytes": 16558,
+      "base_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "current_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "bytes": 11481,
+      "base_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "current_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "bytes": 10926,
+      "base_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "current_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "bytes": 13441,
+      "base_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "current_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "bytes": 8649,
+      "base_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "current_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "bytes": 7111,
+      "base_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "current_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "bytes": 11559,
+      "base_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "current_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "bytes": 18607,
+      "base_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "current_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-claims.md",
+      "bytes": 7462,
+      "base_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+      "current_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-review-7869082.md",
+      "bytes": 17465,
+      "base_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+      "current_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-verification-results.json",
+      "bytes": 107689,
+      "base_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+      "current_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-verification-samples.md",
+      "bytes": 9861,
+      "base_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+      "current_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/verify_fm.py",
+      "bytes": 9508,
+      "base_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+      "current_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g00-native-toolchain.md",
+      "bytes": 15601,
+      "base_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "current_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g01-object-model.md",
+      "bytes": 16193,
+      "base_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "current_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g02-raii-and-ownership.md",
+      "bytes": 54062,
+      "base_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "current_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g03-value-semantics-and-performance.md",
+      "bytes": 53239,
+      "base_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "current_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g04-stl-and-ranges.md",
+      "bytes": 70042,
+      "base_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "current_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g05-generics-and-compile-time.md",
+      "bytes": 53687,
+      "base_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "current_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g06-memory-and-performance.md",
+      "bytes": 67250,
+      "base_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "current_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "bytes": 61629,
+      "base_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "current_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g08-abi-and-c-interop.md",
+      "bytes": 58113,
+      "base_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "current_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g09-build-and-native-ecosystem.md",
+      "bytes": 58639,
+      "base_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "current_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g10-systems-runtime-project.md",
+      "bytes": 69233,
+      "base_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "current_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g11-robotics.md",
+      "bytes": 52049,
+      "base_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "current_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g12-cpp-zig-rust.md",
+      "bytes": 46273,
+      "base_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "current_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "unchanged": true
+    },
+    {
+      "path": "c++/handbook-guide.md",
+      "bytes": 10320,
+      "base_sha256": "ca19990e5dd91b6eff8ee85b897893766cc4687dc221ad08bf836cb78b2ebf8c",
+      "current_sha256": "ca19990e5dd91b6eff8ee85b897893766cc4687dc221ad08bf836cb78b2ebf8c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/README.md",
+      "bytes": 8301,
+      "base_sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479",
+      "current_sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/check_docs.py",
+      "bytes": 6705,
+      "base_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+      "current_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/editorial-sweep-results.json",
+      "bytes": 92032,
+      "base_sha256": "f0c99a624eb86ab5996b8a320bc0e042cac8c8cad90aec9719194dc1f010ad2a",
+      "current_sha256": "f0c99a624eb86ab5996b8a320bc0e042cac8c8cad90aec9719194dc1f010ad2a",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/editorial-sweep.md",
+      "bytes": 11877,
+      "base_sha256": "6d254f67e867f83b117238ee092a27c315c5e88e6fbd41f8139beff0e8a04268",
+      "current_sha256": "6d254f67e867f83b117238ee092a27c315c5e88e6fbd41f8139beff0e8a04268",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/native-results.json",
+      "bytes": 198226,
+      "base_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+      "current_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/native-revision.md",
+      "bytes": 11820,
+      "base_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+      "current_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/professional-results.json",
+      "bytes": 192307,
+      "base_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+      "current_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/professional-revision.md",
+      "bytes": 9917,
+      "base_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+      "current_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/revision-notes.md",
+      "bytes": 7793,
+      "base_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+      "current_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/synthesis-results.json",
+      "bytes": 325439,
+      "base_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+      "current_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/synthesis-revision.md",
+      "bytes": 15485,
+      "base_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+      "current_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_g.py",
+      "bytes": 3211,
+      "base_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+      "current_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_handbook.py",
+      "bytes": 4800,
+      "base_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+      "current_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_native.py",
+      "bytes": 4463,
+      "base_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+      "current_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_synthesis.py",
+      "bytes": 6578,
+      "base_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+      "current_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verification-results.json",
+      "bytes": 52106,
+      "base_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+      "current_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_g.py",
+      "bytes": 11011,
+      "base_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "current_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_handbook.py",
+      "bytes": 15999,
+      "base_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+      "current_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_native.py",
+      "bytes": 15884,
+      "base_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+      "current_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_synthesis.py",
+      "bytes": 20580,
+      "base_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+      "current_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g0-native-toolchain.pdf",
+      "bytes": 193488,
+      "base_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+      "current_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g0-native-toolchain.tex",
+      "bytes": 21337,
+      "base_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+      "current_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g1-object-model.pdf",
+      "bytes": 212995,
+      "base_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+      "current_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g1-object-model.tex",
+      "bytes": 25923,
+      "base_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+      "current_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+      "unchanged": true
+    },
+    {
+      "path": "design/.gitignore",
+      "bytes": 20,
+      "base_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+      "current_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+      "unchanged": true
+    },
+    {
+      "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "bytes": 21532,
+      "base_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "current_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "unchanged": true
+    },
+    {
+      "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "bytes": 48829,
+      "base_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "current_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "unchanged": true
+    },
+    {
+      "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "bytes": 78329,
+      "base_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "current_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "unchanged": true
+    },
+    {
+      "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "bytes": 45539,
+      "base_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "current_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "unchanged": true
+    },
+    {
+      "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "bytes": 52815,
+      "base_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "current_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "unchanged": true
+    },
+    {
+      "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "bytes": 44522,
+      "base_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "current_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf",
+      "bytes": 875971,
+      "base_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+      "current_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf",
+      "bytes": 848367,
+      "base_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+      "current_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/build-manifest.json",
+      "bytes": 2013,
+      "base_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+      "current_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/sha256sums.txt",
+      "bytes": 260,
+      "base_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+      "current_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/README.md",
+      "bytes": 2803,
+      "base_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+      "current_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/atlas-bootstrap-status-review.md",
+      "bytes": 9912,
+      "base_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+      "current_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/evidence/atlas-status-aca4ff1.json",
+      "bytes": 2970,
+      "base_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+      "current_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+      "unchanged": true
+    },
+    {
+      "path": "design/fonts.lock",
+      "bytes": 822,
+      "base_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+      "current_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+      "unchanged": true
+    },
+    {
+      "path": "design/package-lock.txt",
+      "bytes": 217,
+      "base_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+      "current_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/asset-register.md",
+      "bytes": 17239,
+      "base_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+      "current_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/plan.md",
+      "bytes": 29142,
+      "base_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+      "current_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-b1a.md",
+      "bytes": 14976,
+      "base_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+      "current_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-design.md",
+      "bytes": 26890,
+      "base_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+      "current_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-preview.md",
+      "bytes": 16199,
+      "base_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+      "current_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/sources/KB-PLAN-001-v0.1.0-original.md",
+      "bytes": 40790,
+      "base_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+      "current_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/assurance-chain.tex",
+      "bytes": 931,
+      "base_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+      "current_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/can-pipeline.tex",
+      "bytes": 958,
+      "base_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+      "current_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/commit-sequence.tex",
+      "bytes": 1061,
+      "base_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+      "current_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/derivation-chain.tex",
+      "bytes": 1194,
+      "base_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+      "current_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/four-planes.tex",
+      "bytes": 1096,
+      "base_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+      "current_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/stage-gate.tex",
+      "bytes": 858,
+      "base_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+      "current_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/esd-theme.sty",
+      "bytes": 12980,
+      "base_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+      "current_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/esdbook.cls",
+      "bytes": 194,
+      "base_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+      "current_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/code-blocks.lua",
+      "bytes": 539,
+      "base_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+      "current_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/cross-references.lua",
+      "bytes": 397,
+      "base_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+      "current_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/normalize-headings.lua",
+      "bytes": 2850,
+      "base_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+      "current_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/pdf-metadata.lua",
+      "bytes": 339,
+      "base_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+      "current_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/preview.lua",
+      "bytes": 4841,
+      "base_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+      "current_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/semantic-blocks.lua",
+      "bytes": 1165,
+      "base_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+      "current_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/tables.lua",
+      "bytes": 285,
+      "base_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+      "current_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/preview-theme.sty",
+      "bytes": 6204,
+      "base_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+      "current_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/preview.tex",
+      "bytes": 2258,
+      "base_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+      "current_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/profiles/accessible-experimental.yaml",
+      "bytes": 183,
+      "base_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+      "current_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/profiles/release.yaml",
+      "bytes": 189,
+      "base_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+      "current_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/requirements-preview.txt",
+      "bytes": 94,
+      "base_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+      "current_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/source-catalog.json",
+      "bytes": 225,
+      "base_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+      "current_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/table-layouts.json",
+      "bytes": 2498,
+      "base_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+      "current_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/template.tex",
+      "bytes": 1612,
+      "base_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+      "current_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+      "unchanged": true
+    },
+    {
+      "path": "design/reviews/a67fb25-review-status.md",
+      "bytes": 7222,
+      "base_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+      "current_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/build.sh",
+      "bytes": 204,
+      "base_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+      "current_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/compare-renders.sh",
+      "bytes": 149,
+      "base_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+      "current_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/content-audit.py",
+      "bytes": 1746,
+      "base_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+      "current_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/pdf-structure-audit.py",
+      "bytes": 3448,
+      "base_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+      "current_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preflight.sh",
+      "bytes": 152,
+      "base_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+      "current_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preview.sh",
+      "bytes": 261,
+      "base_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+      "current_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/render-pdfium.py",
+      "bytes": 255,
+      "base_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+      "current_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/render-verify.sh",
+      "bytes": 155,
+      "base_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+      "current_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/write-manifest.py",
+      "bytes": 275,
+      "base_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+      "current_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+      "unchanged": true
+    },
+    {
+      "path": "design/texlive.profile",
+      "bytes": 185,
+      "base_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+      "current_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+      "unchanged": true
+    },
+    {
+      "path": "design/to-pdf.md",
+      "bytes": 31619,
+      "base_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+      "current_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+      "unchanged": true
+    },
+    {
+      "path": "zig/Zig Project Architecture Standard.md",
+      "bytes": 44049,
+      "base_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+      "current_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+      "unchanged": true
+    },
+    {
+      "path": "zig/pdf_build/Zig Project Architecture Standard.pdf",
+      "bytes": 270297,
+      "base_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+      "current_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+      "unchanged": true
+    },
+    {
+      "path": "zig/pdf_build/Zig Project Architecture Standard.tex",
+      "bytes": 57220,
+      "base_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+      "current_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+      "unchanged": true
+    }
+  ],
+  "meaning": "Local execution and byte comparison, not CI, publication approval or C++ experiment reruns."
+}

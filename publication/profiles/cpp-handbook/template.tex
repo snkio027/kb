@@ -1,0 +1,40 @@
+\documentclass[UTF8,fontset=none,scheme=plain,11pt,a4paper,oneside,openany]{kbbook}
+\usepackage{kb-base}
+\usepackage{theme}
+\PreviewSetIdentity{$document_id$}{$version$}{$status$}
+\hypersetup{pdftitle={$title$},pdfauthor={$owner$},pdfsubject={$subject$},pdfkeywords={$keywords$}}
+\begin{document}
+\pagestyle{empty}
+\pagecolor{PreviewNavy}\color{white}
+\noindent{\sffamily\small ENGINEERING DOCUMENTATION\hfill PREVIEW / DRAFT}
+\vspace*{30mm}
+\begin{flushleft}{\sffamily\bfseries\fontsize{29}{38}\selectfont $title$\par}\end{flushleft}
+\vspace{8mm}
+{\sffamily\large $subtitle$\par}
+\vfill
+{\sffamily\small $document_id$\par\medskip v$version$\par\medskip $status$\par}
+\vspace{10mm}
+{\small 权威内容来源为 Markdown。本件仅供阅读与评审，未获正式发布批准。\par}
+\clearpage\nopagecolor\color{PreviewInk}\pagestyle{fancy}
+\PreviewHeading{chapter}{part}{generated-preface}{阅读与版本说明}
+\noindent\textbf{PREVIEW / DRAFT · 非权威阅读视图}
+
+本件从已接受的 Markdown 冻结提交取源。正文中的“待审核”保留提交时的历史文字；内容接受不等于 PDF 或正式发布批准。标题、章节编号、代码与 Gate 不因出版改写。封面、目录和代码续页标签是生成的阅读辅助。
+
+\medskip
+\noindent\textbf{制品标识}\quad $document_id$\par
+\noindent\textbf{版本}\quad $version$\par
+\noindent\textbf{状态}\quad $status$\par
+\noindent\textbf{基准 commit}\quad\texttt{$source_commit$}\par
+\noindent\textbf{准备标识}\quad\texttt{$build_short$}\par
+\noindent\textbf{使用方式}\quad 目录与书签可跳转；合订版中的核心文档链接跳转到本件对应篇章。独立版在源字节匹配时提供固定 commit 链接，否则指向随附的 source 快照。完整输入以准备记录为准，可能包含未提交变更；正文原有编号不重新连续编号。
+
+$for(composition)$
+\par\noindent\hyperlink{$composition.anchor$}{\textbf{$composition.id$}}\quad v$composition.version$\quad $composition.status$\par
+$endfor$
+\clearpage
+\setcounter{tocdepth}{$toc_depth$}
+\tableofcontents
+\clearpage
+$body$
+\end{document}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "binding": "Document ID + exact source heading + table ordinal + exact headers; drift fails",
+  "tables": [
+    {"document": "ESD-GOV-001", "section": "5.2 RACI 最低要求", "headers": ["决策/能力", "Responsible", "Accountable", "Consulted", "Informed"], "layout": "matrix", "weights": [23, 20, 21, 19, 17]},
+    {"document": "ESD-GOV-001", "section": "7.1 按风险等级", "headers": ["制品", "R0", "R1", "R2", "R3"], "layout": "matrix", "weights": [28, 16, 16, 18, 22]},
+    {"document": "ESD-GOV-001", "section": "8.3 决策状态", "headers": ["状态", "治理含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-GOV-001", "section": "10.1 要求级状态", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-GOV-001", "section": "10.3 符合性矩阵", "headers": ["Requirement ID", "Applicable", "Satisfaction Status", "Governance Disposition", "Evidence / Exception", "Owner", "Review Trigger"], "layout": "records"},
+    {"document": "ESD-ASSURANCE-001", "section": "9.1 Evidence 类型", "headers": ["类型", "示例", "主要优势", "常见边界"], "layout": "matrix", "weights": [18, 26, 26, 30]},
+    {"document": "ESD-ASSURANCE-001", "section": "12.1 Verification Execution Status", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-ASSURANCE-001", "section": "12.2 Evidence Conclusion", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-ASSURANCE-001", "section": "12.3 Evidence Lifecycle Status", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-ASSURANCE-001", "section": "19.1 Claim Status", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-OPS-001", "section": "4.2 状态含义", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-OPS-001", "section": "24. 按风险等级的最低运行要求", "headers": ["能力", "R0", "R1", "R2", "R3"], "layout": "matrix", "weights": [28, 16, 16, 18, 22]},
+    {"document": "ESD-REFERENCE-001", "section": "1.2 门禁状态", "headers": ["状态", "含义"], "layout": "matrix", "weights": [40, 60]},
+    {"document": "ESD-REFERENCE-001", "section": "2.1 风险等级", "headers": ["等级", "典型场景", "后果", "默认保证深度"], "layout": "matrix", "weights": [15, 27, 26, 32]}
+  ]
+}

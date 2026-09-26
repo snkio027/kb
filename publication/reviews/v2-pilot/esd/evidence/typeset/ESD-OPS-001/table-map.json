@@ -1,0 +1,844 @@
+[
+  {
+    "table": "ESD-OPS-001-T01",
+    "section": "ESD-OPS-001-3341ffdff161853a",
+    "section_title": "生产就绪与运行韧性标准",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-OPS-001",
+      "版本2.0.0-draft.1（基于 1.0.0）",
+      "状态DRAFT / NORMATIVE DOMAIN；未获发布批准",
+      "规范角色定义生产准入、SLO、运行模式、容量、发布、恢复、值班和持续韧性要求",
+      "方法论基础ESD-METHOD-001《优秀系统设计与工程保证方法论》",
+      "治理基础ESD-GOV-001《系统设计与工程保证治理及符合性规范》",
+      "证据基础ESD-ASSURANCE-001《工程保证论证、证据与裁决规范》",
+      "权威格式本 Markdown 文件；派生 PDF 或门户页面不构成独立规范"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T02",
+    "section": "ESD-OPS-001-6708ca77520a4611",
+    "section_title": "3.3 生产依赖清单",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "字段",
+      "内容"
+    ],
+    "row_text": [
+      "Dependency服务、存储、网络、身份、Schema、人员流程等",
+      "Owner依赖责任主体",
+      "Contract成功、错误、超时、容量、版本和支持边界",
+      "Criticality阻断、可降级、可缓存、可绕行",
+      "Failure mode慢、不可用、错误、旧数据、权限拒绝等",
+      "Detection如何识别依赖异常",
+      "Fallback降级、隔离、重试、缓存或停止",
+      "Recovery谁恢复、多久、如何验证"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T03",
+    "section": "ESD-OPS-001-56009a745fbf9283",
+    "section_title": "4.2 状态含义",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "PRE_PRODUCTION尚未承载正式业务结果",
+      "LIMITED_PRODUCTION仅在 Change Envelope 内承载有限范围",
+      "GENERAL_PRODUCTION具备声明范围内的常规生产资格",
+      "READINESS_SUSPENDED因事故、漂移、证据失效或 Owner 缺失暂时失去扩展/发布资格",
+      "RECOVERY_ONLY只允许恢复、对账、排空或必要维修操作",
+      "DEPRECATED禁止新依赖接入，维持退出期运行",
+      "RETIRED生产流量、状态和权限已安全移除"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T04",
+    "section": "ESD-OPS-001-c974bc25e11885de",
+    "section_title": "6.1 Operating Mode Contract",
+    "layout": "records",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Allowed",
+      "Forbidden",
+      "Entry",
+      "Exit",
+      "Signals",
+      "Authority"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Mode",
+        "value": "NORMAL"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Allowed",
+        "value": "正常读写和发布"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "绕过控制"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Entry",
+        "value": "所有前置满足"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Exit",
+        "value": "依赖/资源异常"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Signals",
+        "value": "SLO、invariant"
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Authority",
+        "value": "Operator"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "Mode",
+        "value": "DEGRADED"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "Allowed",
+        "value": "有界降级"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "未声明语义变化"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Entry",
+        "value": "依赖或容量下降"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "Exit",
+        "value": "恢复验证"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Signals",
+        "value": "degradation flag"
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "label": "Authority",
+        "value": "Owner"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "Mode",
+        "value": "READ_ONLY"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "Allowed",
+        "value": "查询和恢复"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "新写入"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Entry",
+        "value": "写路径不安全"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "Exit",
+        "value": "写路径验证"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Signals",
+        "value": "write gate"
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "label": "Authority",
+        "value": "Authority"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "Mode",
+        "value": "DRAINING"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "Allowed",
+        "value": "完成已接纳工作"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "新准入"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "Entry",
+        "value": "发布/维护"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "Exit",
+        "value": "inflight=0"
+      },
+      {
+        "row": 4,
+        "column": 6,
+        "label": "Signals",
+        "value": "queue/inflight"
+      },
+      {
+        "row": 4,
+        "column": 7,
+        "label": "Authority",
+        "value": "Operator"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "Mode",
+        "value": "RECOVERY"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "Allowed",
+        "value": "replay/reconcile/repair"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "非必要功能"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "Entry",
+        "value": "故障后"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "Exit",
+        "value": "恢复 Gate"
+      },
+      {
+        "row": 5,
+        "column": 6,
+        "label": "Signals",
+        "value": "recovery metrics"
+      },
+      {
+        "row": 5,
+        "column": 7,
+        "label": "Authority",
+        "value": "Incident/Owner"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "Mode",
+        "value": "QUARANTINE"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "Allowed",
+        "value": "保存异常对象"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "猜测处理"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "Entry",
+        "value": "输入未知/损坏"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "Exit",
+        "value": "人工或新规则"
+      },
+      {
+        "row": 6,
+        "column": 6,
+        "label": "Signals",
+        "value": "quarantine age"
+      },
+      {
+        "row": 6,
+        "column": 7,
+        "label": "Authority",
+        "value": "Owner"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "Mode",
+        "value": "EMERGENCY"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "Allowed",
+        "value": "最小保命操作"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "常规变更"
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "Entry",
+        "value": "严重事故"
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "Exit",
+        "value": "补偿复审"
+      },
+      {
+        "row": 7,
+        "column": 6,
+        "label": "Signals",
+        "value": "audit trail"
+      },
+      {
+        "row": 7,
+        "column": 7,
+        "label": "Authority",
+        "value": "Break-glass Authority"
+      }
+    ],
+    "row_text": [
+      "ESD-OPS-001-T04 / 记录 1ModeNORMALAllowed正常读写和发布Forbidden绕过控制Entry所有前置满足Exit依赖/资源异常SignalsSLO、invariantAuthorityOperator",
+      "ESD-OPS-001-T04 / 记录 2ModeDEGRADEDAllowed有界降级Forbidden未声明语义变化Entry依赖或容量下降Exit恢复验证Signalsdegradation flagAuthorityOwner",
+      "ESD-OPS-001-T04 / 记录 3ModeREAD_ONLYAllowed查询和恢复Forbidden新写入Entry写路径不安全Exit写路径验证Signalswrite gateAuthorityAuthority",
+      "ESD-OPS-001-T04 / 记录 4ModeDRAININGAllowed完成已接纳工作Forbidden新准入Entry发布/维护Exitinflight=0Signalsqueue/inflightAuthorityOperator",
+      "ESD-OPS-001-T04 / 记录 5ModeRECOVERYAllowedreplay/reconcile/repairForbidden非必要功能Entry故障后Exit恢复 GateSignalsrecovery metricsAuthorityIncident/Owner",
+      "ESD-OPS-001-T04 / 记录 6ModeQUARANTINEAllowed保存异常对象Forbidden猜测处理Entry输入未知/损坏Exit人工或新规则Signalsquarantine ageAuthorityOwner",
+      "ESD-OPS-001-T04 / 记录 7ModeEMERGENCYAllowed最小保命操作Forbidden常规变更Entry严重事故Exit补偿复审Signalsaudit trailAuthorityBreak-glass Authority"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T05",
+    "section": "ESD-OPS-001-5b67facf9c720a23",
+    "section_title": "8.1 Resource Budget",
+    "layout": "records",
+    "selection": "default",
+    "headers": [
+      "资源",
+      "单位",
+      "正常上限",
+      "故障上限",
+      "满载行为",
+      "Owner",
+      "Signal"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "资源",
+        "value": "inflight requests/files"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "单位",
+        "value": "count"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "满载行为",
+        "value": "reject/backpressure"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "资源",
+        "value": "inflight bytes"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "满载行为",
+        "value": "block/admission stop"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "资源",
+        "value": "queue"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "单位",
+        "value": "items/bytes"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "满载行为",
+        "value": "shed/defer"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "资源",
+        "value": "memory working set"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "满载行为",
+        "value": "stop admission"
+      },
+      {
+        "row": 4,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "资源",
+        "value": "connections"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "单位",
+        "value": "count"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "满载行为",
+        "value": "queue/reject"
+      },
+      {
+        "row": 5,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "资源",
+        "value": "retries"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "单位",
+        "value": "attempts/time"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "满载行为",
+        "value": "fail final"
+      },
+      {
+        "row": 6,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "资源",
+        "value": "staging"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes/objects"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "满载行为",
+        "value": "cleanup/quarantine"
+      },
+      {
+        "row": 7,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      }
+    ],
+    "row_text": [
+      "ESD-OPS-001-T05 / 记录 1资源inflight requests/files单位count正常上限故障上限满载行为reject/backpressureOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 2资源inflight bytes单位bytes正常上限故障上限满载行为block/admission stopOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 3资源queue单位items/bytes正常上限故障上限满载行为shed/deferOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 4资源memory working set单位bytes正常上限故障上限满载行为stop admissionOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 5资源connections单位count正常上限故障上限满载行为queue/rejectOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 6资源retries单位attempts/time正常上限故障上限满载行为fail finalOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 7资源staging单位bytes/objects正常上限故障上限满载行为cleanup/quarantineOwnerSignal"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T06",
+    "section": "ESD-OPS-001-e814063bcb0814bc",
+    "section_title": "11.1 回滚类型",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "内容"
+    ],
+    "row_text": [
+      "Binary rollback恢复旧二进制",
+      "Configuration rollback恢复旧配置/策略",
+      "Traffic rollback将流量移回旧路径",
+      "Data rollback恢复旧数据状态，通常最危险",
+      "Protocol rollback回到旧协议/Schema",
+      "Forward recovery保留新状态，通过修复继续前进"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T07",
+    "section": "ESD-OPS-001-b4d7d450f617bcae",
+    "section_title": "13.1 定义",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "时间点",
+      "含义"
+    ],
+    "row_text": [
+      "t0目标业务能力开始中断",
+      "t_detected被监测或人员发现",
+      "t_decided决定启动恢复",
+      "t_restored技术组件恢复可服务",
+      "t_validated业务 Oracle 确认目标能力与数据状态恢复"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T08",
+    "section": "ESD-OPS-001-54f4a1430ec3f3b9",
+    "section_title": "13.3 演练等级",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "内容"
+    ],
+    "row_text": [
+      "Tabletop角色和决策路径演练",
+      "Component Restore单组件恢复",
+      "Partial Failover有限流量/租户切换",
+      "Full Technical Failover整体技术切换，可能非权威",
+      "Business DR Exercise业务、数据、沟通和回切全链路"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T09",
+    "section": "ESD-OPS-001-669eb9a39f3d8147",
+    "section_title": "15.2 操作分级",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "要求"
+    ],
+    "row_text": [
+      "Safe read-only diagnostic广泛可用，最小权限",
+      "Routine mutation自动化、幂等、审计、受限范围",
+      "High-risk mutation双人/审批、预检查、Change Envelope",
+      "Emergency mutationbreak-glass、最小期限、全量审计"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T10",
+    "section": "ESD-OPS-001-7026276bb8e71392",
+    "section_title": "20.1 验证层级",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "层级",
+      "示例"
+    ],
+    "row_text": [
+      "Componentcrash、timeout、disk full、dependency errors",
+      "Integrationbroker/store/identity 边界故障",
+      "System端到端过载、混合版本、恢复",
+      "OperationalRunbook、on-call、权限、沟通",
+      "Disaster区域/控制面/凭据/数据恢复"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T11",
+    "section": "ESD-OPS-001-d780ae12942746cf",
+    "section_title": "24. 按风险等级的最低运行要求",
+    "layout": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "能力",
+      "R0",
+      "R1",
+      "R2",
+      "R3"
+    ],
+    "row_text": [
+      "退出/删除条件必须必须必须必须",
+      "业务完成语义关键项必须必须必须",
+      "SLI/SLO可选基础完整完整 + 独立审查",
+      "Operational Owner可选必须必须必须",
+      "运行模式最小核心完整完整 + 权限控制",
+      "Resource Bounds硬上限必须完整完整 + 故障降容",
+      "On-call不适用按需必须必须 + 演练",
+      "Recovery Drill可选核心恢复必须周期性完整演练",
+      "Change Envelope首次暴露重大变更必须必须 + 自动停止",
+      "DR不适用按业务必须评估必须验证",
+      "Evidence Bundle最小基础完整完整 + 独立评价",
+      "Incident Assurance Delta可选重大事故必须必须"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T12",
+    "section": "ESD-OPS-001-852a5f87a781462f",
+    "section_title": "26. Operating Mode Contract 模板",
+    "layout": "records",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Purpose",
+      "Allowed",
+      "Forbidden",
+      "Entry Criteria",
+      "Exit Criteria",
+      "Signals",
+      "Authority",
+      "Runbook"
+    ],
+    "cells": [],
+    "row_text": []
+  }
+]

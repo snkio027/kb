@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "role": "AUTHOR_VISUAL_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/CPP-PILOT-G6-G7-draft.pdf": "41a36c422f80cf164c4ea6fbd243bccb981527a7c5e6192f0f3da0a835142262",
+    "output/pdf/G6-draft.pdf": "801b4105010ed29cbba43140badd52526ed114c645cf1867dc26d29f7336973e",
+    "output/pdf/G7-draft.pdf": "65db6c0ae3aad7c6576587d9e069945a9af106919e720ecb800c3bf020b4ba6a"
+  },
+  "audit_sha256": "0b44c7051a07214130afa2b690203f0decd03c4b17267a7a57a89f085f4feb2d",
+  "contact_sheet_review": {
+    "all_pages": true,
+    "dpi": 72,
+    "method": "39 contact sheets total across both profiles; gross layout only, not full-text reading"
+  },
+  "detail_page_review": {
+    "dpi": 144,
+    "pages": {
+      "G6": [
+        2,
+        40,
+        41,
+        44,
+        47
+      ],
+      "G7": [
+        20,
+        37,
+        38,
+        44
+      ],
+      "CPP-PILOT-G6-G7": [
+        3,
+        52
+      ]
+    },
+    "numbering": "1-based physical PDF page"
+  },
+  "observations": [
+    "All 194 pages inspected in contact sheets; 11 full-page details inspected. No blocking clipping, overlap or missing glyph observed within that scope.",
+    "Code continuation G6 p40-41 and G7 p37-38 retains block identity, indentation and visible content in the inspected examples.",
+    "Combined p3 and p52 expose continuous page numbers and G7 identity; destination/reference correctness is separately checked by the automated audit.",
+    "Generated TOC and original chapter TOC coexist to preserve frozen source content; visual simplification is deferred.",
+    "Gate starts on a new page; preceding pages can have large whitespace. Typography, spacing, colour and cover are pilot choices.",
+    "Historical NOT BUILT / NOT VALIDATED and pending-review prose remains in frozen body. Generated control page distinguishes original historical text from this pilot's current artifact state."
+  ],
+  "limits": [
+    "Not independent review or publication approval.",
+    "Contact sheets cannot prove small-text readability or all visual details.",
+    "No complete word-by-word, every-glyph, all-code-indentation or PDF/UA review.",
+    "No C++ experiment execution, timing measurement or sanitizer rerun."
+  ]
+}

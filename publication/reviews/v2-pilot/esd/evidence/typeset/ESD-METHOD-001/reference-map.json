@@ -1,0 +1,32 @@
+[
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/a2195d9557f1c4e86b7f64c290844c63493b2f18/design/00-%E4%BC%98%E7%A7%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%A0%87%E5%87%86-%E6%96%87%E6%A1%A3%E4%BD%93%E7%B3%BB%E4%B8%8E%E8%A7%84%E8%8C%83%E5%85%B3%E7%B3%BB-v1.0.0.md"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/a2195d9557f1c4e86b7f64c290844c63493b2f18/design/04-%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E8%AE%BA%E8%AF%81%E8%AF%81%E6%8D%AE%E4%B8%8E%E8%A3%81%E5%86%B3%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/a2195d9557f1c4e86b7f64c290844c63493b2f18/design/04-%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E8%AE%BA%E8%AF%81%E8%AF%81%E6%8D%AE%E4%B8%8E%E8%A3%81%E5%86%B3%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/a2195d9557f1c4e86b7f64c290844c63493b2f18/design/04-%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E8%AE%BA%E8%AF%81%E8%AF%81%E6%8D%AE%E4%B8%8E%E8%A3%81%E5%86%B3%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "https://lamport.azurewebsites.net/tla/book.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://lamport.azurewebsites.net/tla/book.html"
+  }
+]

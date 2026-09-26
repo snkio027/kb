@@ -1,0 +1,20 @@
+[
+  {
+    "table": "G7-T01",
+    "section": "G7-3cb4459e0dcc08c1",
+    "section_title": "8.1 Queue 首先按 Topology 分类",
+    "layout": "matrix",
+    "selection": "default",
+    "headers": [
+      "Queue",
+      "Producer",
+      "Consumer"
+    ],
+    "row_text": [
+      "SPSC11",
+      "MPSCN1",
+      "SPMC1N",
+      "MPMCNN"
+    ]
+  }
+]

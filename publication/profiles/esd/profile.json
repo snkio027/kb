@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "repository": "https://github.com/snkio027/kb",
+  "navigation": {
+    "preface_title": "阅读与版本说明",
+    "preface_id": "generated-preface"
+  },
+  "dependencies": [
+    "design/fonts.lock",
+    "design/package-lock.txt",
+    "design/texlive.profile"
+  ],
+  "standalone_links": "repository-source-or-attached-snapshot",
+  "artifact_channel": "PREVIEW",
+  "id": "esd",
+  "sources": [
+    {
+      "id": "ESD-SUITE-000",
+      "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "revision": "WORKTREE"
+    },
+    {
+      "id": "ESD-METHOD-001",
+      "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "revision": "WORKTREE"
+    },
+    {
+      "id": "ESD-REFERENCE-001",
+      "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "revision": "WORKTREE"
+    },
+    {
+      "id": "ESD-GOV-001",
+      "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "revision": "WORKTREE"
+    },
+    {
+      "id": "ESD-ASSURANCE-001",
+      "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "revision": "WORKTREE"
+    },
+    {
+      "id": "ESD-OPS-001",
+      "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "revision": "WORKTREE"
+    }
+  ],
+  "views": [
+    {
+      "id": "ESD-SUITE-000",
+      "documents": [
+        "ESD-SUITE-000"
+      ]
+    },
+    {
+      "id": "ESD-METHOD-001",
+      "documents": [
+        "ESD-METHOD-001"
+      ]
+    },
+    {
+      "id": "ESD-REFERENCE-001",
+      "documents": [
+        "ESD-REFERENCE-001"
+      ]
+    },
+    {
+      "id": "ESD-GOV-001",
+      "documents": [
+        "ESD-GOV-001"
+      ]
+    },
+    {
+      "id": "ESD-ASSURANCE-001",
+      "documents": [
+        "ESD-ASSURANCE-001"
+      ]
+    },
+    {
+      "id": "ESD-OPS-001",
+      "documents": [
+        "ESD-OPS-001"
+      ]
+    },
+    {
+      "id": "ESD-HANDBOOK",
+      "documents": [
+        "ESD-SUITE-000",
+        "ESD-METHOD-001",
+        "ESD-REFERENCE-001",
+        "ESD-GOV-001",
+        "ESD-ASSURANCE-001",
+        "ESD-OPS-001"
+      ],
+      "title": "系统设计与工程保证工作手册",
+      "subtitle": "六篇完整草案 · 合订工作版",
+      "version": "preview.2",
+      "status": "DRAFT / COMBINED WORKING VIEW"
+    }
+  ],
+  "index": {
+    "id": "generated-requirement-index",
+    "title": "条款定位索引（生成导航）",
+    "heading_pattern": "-REQ-"
+  },
+  "toc_depth": 0,
+  "combined_toc_depth": -1
+}

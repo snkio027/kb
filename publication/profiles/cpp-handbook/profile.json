@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "repository": "https://github.com/snkio027/kb",
+  "navigation": {
+    "preface_title": "阅读与版本说明",
+    "preface_id": "generated-preface"
+  },
+  "dependencies": [],
+  "standalone_links": "repository-source-or-attached-snapshot",
+  "artifact_channel": "PREVIEW",
+  "id": "cpp-handbook",
+  "sources": [
+    {
+      "id": "G6",
+      "path": "c++/g06-memory-and-performance.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    },
+    {
+      "id": "G7",
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "version": "1.1.1"
+    }
+  ],
+  "views": [
+    {
+      "id": "G6",
+      "documents": [
+        "G6"
+      ]
+    },
+    {
+      "id": "G7",
+      "documents": [
+        "G7"
+      ]
+    },
+    {
+      "id": "CPP-PILOT-G6-G7",
+      "documents": [
+        "G6",
+        "G7"
+      ],
+      "title": "Modern C++ 工程学习手册",
+      "subtitle": "G6 内存与性能 · G7 并发与内存模型",
+      "version": "pilot.1",
+      "status": "ACCEPTED CONTENT / PILOT PDF"
+    }
+  ],
+  "toc_depth": 1,
+  "combined_toc_depth": 1,
+  "required_headings": [
+    "Final Gate",
+    "Final Gate · 参考答案"
+  ],
+  "new_page_heading_patterns": [
+    "Final Gate"
+  ],
+  "index": null
+}
