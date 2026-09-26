@@ -2,6 +2,8 @@
 
 日期：2026-09-27。Base：`4d7158a023aee00b54e565a57cda953fac3a5b48`。本批依据“启动”授权完成最后一个 Markdown 正文批次，提交推送后等待集中审核；不自动开始全系列 sweep、PDF Pilot 或正式发布。
 
+§1～5 保留交付时的范围、证据和待审状态；当前接受结论见 §6，不改写已绑定摘要的正文或原始执行记录。
+
 ## 1. 交付身份与编辑边界
 
 | 对象 | 本批状态 |
@@ -118,3 +120,36 @@ git diff --check
 G11 无 ROS/RMW/QoS 实际运行、Eigen 编译、Linux 实时部署、page fault、真实驱动、HIL、物理安全或 hard-real-time 证明。G12 无 Rust/Zig 编译、跨语言 FFI 和性能对比。G10 无版本化共享 ABI/旧消费者升级、动态卸载或生产可用性认证。benchmark 的固定小载荷与控制仿真不能外推真实工作负载。
 
 本批保持待审核，不自行写为 ACCEPTED。G0～G12 的主题到此封顶；跨系列术语/重复清理及 G6/G7 PDF Pilot 留待本批集中复审后另行授权，不生成 PDF、不发布。
+
+## 6. 集中复审接受与停止边界
+
+依据用户本次提供的集中复审意见，审核对象固定为 `bc4c8c9b8a90308131b97b355e2b0be0cbd60d29`，直接基于 `4d7158a023aee00b54e565a57cda953fac3a5b48`。正式登记为：**ACCEPTED — G10–G12「综合与应用卷」Professional Handbook Source Baseline，保留已声明的平台、动态检测、性能与物理系统验证边界。** 本次复审没有阻塞接受的问题，不要求重新修改三章正文。
+
+这是用户复审结论的登记，不是新增的独立技术复审、CI 结果或本机实验重跑。复审意见报告已通过 GitHub 核对提交、正文、执行器、原始 JSON 和变更范围，并指出查询时没有附着 Actions workflow/status；既有结果继续称为本地执行证据。远端材料不用于证明本机工作区状态，本次登记的本地检查另列于下。
+
+| 对象 | 复审后状态 |
+| --- | --- |
+| Editorial Profile v1.0 | ACCEPTED，不改 |
+| G0～G9 Professional Handbook Source Baseline | ACCEPTED，原有边界保持 |
+| G10 Systems Runtime Engineering | ACCEPTED |
+| G11 Robotics Systems Engineering | ACCEPTED |
+| G12 Unified Systems Model | ACCEPTED |
+| G10～G12 定向本地证据 | ACCEPTED WITH DECLARED LIMITATIONS |
+| 跨平台验证 | NOT ESTABLISHED |
+| 形式化并发证明 | NOT ESTABLISHED |
+| 硬实时 / 物理安全 | NOT ESTABLISHED |
+| Rust / Zig 可执行验证 | NOT RUN |
+| PDF | NOT BUILT / NOT VALIDATED |
+
+仅登记两项非阻塞后续提醒，不宣称已修复或已验证：
+
+- **G10 生命周期合同**：未来全系列一致性清理时，应明确公开 `close()/abort()` 在成功 `start()` 后调用的前置条件，或另行实现并验证非法状态转换的拒绝。本次不变更 API、代码或实验，也不因此重开 G10。
+- **G12 引用固定策略**：未来统一可重现引用时，为 Rust 官方 Reference 等滚动资料确定引用快照、访问日期或编译器基线；Rust 2024 edition 不等于固定编译器版本。本次不追补未经核验的历史访问事实，不引入 Rust/Zig 执行结论。
+
+16 个长代码分页风险继续作为未来编排输入，不通过裁剪完整可提取程序来消除告警。本次不修改源稿、执行器或原始 JSON，不重新执行 C++ 编译、错误变体、sanitizer、性能和 Python 单元回归，也不生成 PDF。
+
+本次实际运行 `python3 c++/learning/check_docs.py`（36 份 Markdown、819 处本地链接、13 章层级检查，无错误，原 16 个长代码源稿风险不变）及 `git diff --check`（通过）。通过 `git ls-tree` 枚举审核提交的 132 个已跟踪文件，将工作区字节逐一与 `git show <审核提交>:<路径>` 比较：仅系列 README 和本记录变化，其余 130 个文件不变，包括全部 G0～G12 正文、Editorial Profile、FM、design、执行器、原始 JSON 和历史 PDF；无新增文件。以上是本轮登记检查，不追写到历史执行证据。
+
+G0～G12 至此形成完整、已接受的 Professional Handbook Source Baseline，但尚未完成全系列一致性清理后的内容基线冻结，也不表示所有技术命题或目标平台均已验收。
+
+后续顺序保持为全系列 Cross-series Editorial Sweep（术语、重复解释、交叉引用、章节衔接、证据用语）→ 冻结 Markdown 内容基线 → G6/G7 PDF Pilot → 分页、书签、代码续页、表格和引用验收 → 全系列 PDF 出版。本次只登记、检查、提交及推送，随后停止，不自动启动上述后续工作，也不增加 G13。

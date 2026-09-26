@@ -6,13 +6,16 @@
 
 `e91e255` 的 G8～G9 已获集中复审接受：**ACCEPTED — G8–G9 Professional Handbook Source Baseline, with declared platform and evidence limits.** [接受记录](learning/native-revision.md#5-集中复审接受与停止边界)保留具体审核范围；正文头部的“待集中审核”属于该提交交付时的快照，当前接受状态以本入口及接受记录为准，不为状态登记改写已绑定摘要的正文和原始证据。
 
+`bc4c8c9` 的 G10～G12「综合与应用卷」已获集中复审接受：**ACCEPTED — G10–G12 Professional Handbook Source Baseline，保留已声明的平台、动态检测、性能与物理系统验证边界。** [接受记录](learning/synthesis-revision.md#6-集中复审接受与停止边界)登记审核范围和两个非阻塞后续提醒。至此 G0～G12 形成完整、已接受的 Professional Handbook Source Baseline；这不等于全系列技术验收或出版批准。正文及原始证据仍保留交付时的状态与摘要，当前接受状态由本入口和接受记录维护。
+
 | 范围 | 当前状态 |
 | --- | --- |
 | Editorial Profile v1.0 | ACCEPTED，全系列编辑规则不变 |
 | G0～G4 | ACCEPTED — Professional presentation refresh；原验证限制保持 |
 | G5～G7 | ACCEPTED — Professional Handbook Edition；原验证限制保持 |
 | G8～G9 | ACCEPTED — Professional Handbook Edition；定向原生证据保留平台与覆盖限制 |
-| G10～G12 | Professional Handbook Edition · 综合与应用卷，待集中审核 |
+| G10～G12 | ACCEPTED — Professional Handbook Edition · 综合与应用卷；定向本地证据保留已声明限制 |
+| 全系列证据边界 | 跨平台、形式化并发证明及硬实时/物理安全均 NOT ESTABLISHED；Rust/Zig 可执行验证 NOT RUN |
 | PDF | **NOT BUILT / NOT VALIDATED** |
 
 ## 从哪里开始
@@ -37,7 +40,7 @@
 
 G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源请求和基准观察；G7 先论证同步与生命周期，再使用动态检测。G8 以真实 C 消费者检查接口，G9 以安装树和生成图检查交付。G10 组合跨组件协议与条件化性能观察，G11 分离逻辑安全模型和主机时序，G12 用三个推理案例审查证据边界。共同方法是“命题 → 判据 → 证据 → 边界”，不是复制同一种 exact-stdout 实验形态。
 
-[综合与应用卷记录](learning/synthesis-revision.md)说明本批范围和四类证据；G0～G9 已接受正文及 Editorial Profile v1.0 未改。G10～G12 不沿用历史 Frozen / Complete 作为技术验收。正文到 G12 封顶，不追加 G13；后续全系列一致性清理及 PDF Pilot 尚未启动。
+[综合与应用卷记录](learning/synthesis-revision.md)区分交付时的四类本地证据与后续接受意见；不将它们升级为 CI、跨平台或物理系统验证。G0～G9 已接受正文及 Editorial Profile v1.0 未改，G10～G12 的接受也不沿用历史 Frozen / Complete 作为技术验收。正文到 G12 封顶，不追加 G13；下一阶段为全系列一致性清理、内容基线冻结，再进入 G6/G7 PDF Pilot，本次仅登记接受，后续工作尚未启动。
 
 ## 每次怎么学
 
@@ -72,7 +75,7 @@ python3 c++/learning/verify_synthesis.py /usr/bin/clang++ /opt/homebrew/opt/llvm
 python3 c++/learning/check_docs.py
 ```
 
-[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)、[G8～G9 已接受批次](learning/native-revision.md)与本批分别记录。Markdown 是正文和完整实验的维护入口。G0～G12 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
+[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)、[G8～G9 已接受批次](learning/native-revision.md)与 [G10～G12 已接受批次](learning/synthesis-revision.md)分别记录。Markdown 是正文和完整实验的维护入口。G0～G12 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
 
 文件名采用 `gNN-英文主题.md`，编号补零方便排序，正文继续使用 G0～G12。主题名供定位，不作为学习进度或版本号。FM 正文与验证资料整体位于 `failure-model/`，已收口的技术内容不因目录调整重开。
 
