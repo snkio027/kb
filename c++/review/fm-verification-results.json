@@ -8,7 +8,7 @@
     "fm2-value-based-failure.md": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
     "fm3-exception-semantics.md": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
     "fm4-raii-exception-safety.md": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
-    "fm5-noexcept-move-copy.md": "41ae2762c896ae1d2025a44713a35f4f44970976d576f2165dd88b41940437a7",
+    "fm5-noexcept-move-copy.md": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
     "fm6-construction-destruction-allocation.md": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
     "fm7-error-code-system-error.md": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
     "fm8-failure-boundaries.md": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
@@ -734,7 +734,7 @@
         {
           "id": "T17",
           "mode": "run",
-          "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+          "source_sha256": "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42",
           "document": "fm5-noexcept-move-copy.md",
           "marker_line": 197,
           "compile": {
@@ -1607,7 +1607,7 @@
         {
           "id": "T17",
           "mode": "run",
-          "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+          "source_sha256": "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42",
           "document": "fm5-noexcept-move-copy.md",
           "marker_line": 197,
           "compile": {
@@ -1766,5 +1766,779 @@
     }
   ],
   "exit_code": 0,
-  "evidence_note": "Only this attempt's temporary path prefix is replaced with <RUN>; commands, diagnostics, source hashes and verdicts are otherwise retained."
+  "revision_review_base": "0c7e989e7b53630017c98a4dd3d3260ef9c85b34",
+  "r01_mutations": {
+    "review_base": "0c7e989e7b53630017c98a4dd3d3260ef9c85b34",
+    "source_files_sha256": {
+      "fm0-failure-model.md": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "fm1-contracts-assertions-ub.md": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "fm2-value-based-failure.md": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "fm3-exception-semantics.md": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "fm4-raii-exception-safety.md": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "fm5-noexcept-move-copy.md": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "fm6-construction-destruction-allocation.md": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "fm7-error-code-system-error.md": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "fm8-failure-boundaries.md": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "fm9-project-failure-profile.md": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "review/fm-verification-samples.md": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa"
+    },
+    "runner_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+    "scope": "T17 only: six versions; old mutation PASS means reproduced blind spot",
+    "toolchains": [
+      {
+        "compiler": "/usr/bin/clang++",
+        "path": "/usr/bin/clang++",
+        "available": true,
+        "version": {
+          "command": [
+            "/usr/bin/clang++",
+            "--version"
+          ],
+          "cwd": "<R01_RUN>/compiler-0",
+          "returncode": 0,
+          "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+          "stderr": "",
+          "timeout": false
+        },
+        "features": {
+          "expected": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-0/expected.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-0",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "expected-monadic": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-0/expected-monadic.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-0",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "posix": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-0/posix.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-0",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "ubsan": {
+            "available": true,
+            "probe": {
+              "compile": {
+                "command": [
+                  "/usr/bin/clang++",
+                  "-std=c++23",
+                  "-O1",
+                  "-Wall",
+                  "-Wextra",
+                  "-pedantic",
+                  "-pthread",
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=all",
+                  "<R01_RUN>/compiler-0/ubsan.cpp",
+                  "-o",
+                  "<R01_RUN>/compiler-0/ubsan"
+                ],
+                "cwd": "<R01_RUN>/compiler-0",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false
+              },
+              "run": {
+                "command": [
+                  "<R01_RUN>/compiler-0/ubsan"
+                ],
+                "cwd": "<R01_RUN>/compiler-0",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false
+              }
+            }
+          }
+        },
+        "identity_compile": {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O1",
+            "-Wall",
+            "-Wextra",
+            "-pedantic",
+            "-pthread",
+            "<R01_RUN>/compiler-0/identity.cpp",
+            "-o",
+            "<R01_RUN>/compiler-0/identity"
+          ],
+          "cwd": "<R01_RUN>/compiler-0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false
+        },
+        "identity_run": {
+          "command": [
+            "<R01_RUN>/compiler-0/identity"
+          ],
+          "cwd": "<R01_RUN>/compiler-0",
+          "returncode": 0,
+          "stdout": "_LIBCPP_VERSION=220106\n__cpp_lib_expected=202211\n",
+          "stderr": "",
+          "timeout": false
+        },
+        "results": [
+          {
+            "id": "T17-old-correct",
+            "mode": "run",
+            "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": false,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-old-correct/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-old-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-old-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-old-noop",
+            "mode": "run",
+            "source_sha256": "50af52a46e598e7e6833a2148b0a9371c10b33885b644997faa0bac08c068a36",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-old-noop/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-old-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "<R01_RUN>/compiler-0/T17-old-noop/sample.cpp:24:30: warning: unused parameter 'other' [-Wunused-parameter]\n   24 |     Buffer& operator=(Buffer other) noexcept {\n      |                              ^\n1 warning generated.\n",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-old-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-old-truncated",
+            "mode": "run",
+            "source_sha256": "75adbd99246d8e7c6a29591c696a71283789bd3493215f632ff3d4c0426e97e5",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-old-truncated/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-old-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-old-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-old-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-correct",
+            "mode": "run",
+            "source_sha256": "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42",
+            "exit_code": 0,
+            "oracle": "strengthened",
+            "deliberate_mutation": false,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-strengthened-correct/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-strengthened-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-strengthened-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-noop",
+            "mode": "run",
+            "source_sha256": "f0fe5deda43c1066307af9fd384c86c1d8bf7df338468c95c1a93e8c5d269f3a",
+            "exit_code": 4,
+            "oracle": "strengthened",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-strengthened-noop/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-strengthened-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "<R01_RUN>/compiler-0/T17-strengthened-noop/sample.cpp:24:30: warning: unused parameter 'other' [-Wunused-parameter]\n   24 |     Buffer& operator=(Buffer other) noexcept {\n      |                              ^\n1 warning generated.\n",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-strengthened-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-noop",
+              "returncode": 4,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-truncated",
+            "mode": "run",
+            "source_sha256": "d6169abb72f1311266a9064e7d66e6f1fa0d11d7d53e54214b34f5a118e7da18",
+            "exit_code": 1,
+            "oracle": "strengthened",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-0/T17-strengthened-truncated/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-0/T17-strengthened-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-0/T17-strengthened-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-0/T17-strengthened-truncated",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "path": "/opt/homebrew/opt/llvm/bin/clang++",
+        "available": true,
+        "version": {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "--version"
+          ],
+          "cwd": "<R01_RUN>/compiler-1",
+          "returncode": 0,
+          "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+          "stderr": "",
+          "timeout": false
+        },
+        "features": {
+          "expected": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-1/expected.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-1",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "expected-monadic": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-1/expected-monadic.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-1",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "posix": {
+            "available": true,
+            "probe": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsyntax-only",
+                "<R01_RUN>/compiler-1/posix.cpp"
+              ],
+              "cwd": "<R01_RUN>/compiler-1",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          },
+          "ubsan": {
+            "available": true,
+            "probe": {
+              "compile": {
+                "command": [
+                  "/opt/homebrew/opt/llvm/bin/clang++",
+                  "-std=c++23",
+                  "-O1",
+                  "-Wall",
+                  "-Wextra",
+                  "-pedantic",
+                  "-pthread",
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=all",
+                  "<R01_RUN>/compiler-1/ubsan.cpp",
+                  "-o",
+                  "<R01_RUN>/compiler-1/ubsan"
+                ],
+                "cwd": "<R01_RUN>/compiler-1",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false
+              },
+              "run": {
+                "command": [
+                  "<R01_RUN>/compiler-1/ubsan"
+                ],
+                "cwd": "<R01_RUN>/compiler-1",
+                "returncode": 0,
+                "stdout": "",
+                "stderr": "",
+                "timeout": false
+              }
+            }
+          }
+        },
+        "identity_compile": {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O1",
+            "-Wall",
+            "-Wextra",
+            "-pedantic",
+            "-pthread",
+            "<R01_RUN>/compiler-1/identity.cpp",
+            "-o",
+            "<R01_RUN>/compiler-1/identity"
+          ],
+          "cwd": "<R01_RUN>/compiler-1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "timeout": false
+        },
+        "identity_run": {
+          "command": [
+            "<R01_RUN>/compiler-1/identity"
+          ],
+          "cwd": "<R01_RUN>/compiler-1",
+          "returncode": 0,
+          "stdout": "_LIBCPP_VERSION=230102\n__cpp_lib_expected=202211\n",
+          "stderr": "",
+          "timeout": false
+        },
+        "results": [
+          {
+            "id": "T17-old-correct",
+            "mode": "run",
+            "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": false,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-old-correct/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-old-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-old-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-old-noop",
+            "mode": "run",
+            "source_sha256": "50af52a46e598e7e6833a2148b0a9371c10b33885b644997faa0bac08c068a36",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-old-noop/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-old-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "<R01_RUN>/compiler-1/T17-old-noop/sample.cpp:24:30: warning: unused parameter 'other' [-Wunused-parameter]\n   24 |     Buffer& operator=(Buffer other) noexcept {\n      |                              ^\n1 warning generated.\n",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-old-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-old-truncated",
+            "mode": "run",
+            "source_sha256": "75adbd99246d8e7c6a29591c696a71283789bd3493215f632ff3d4c0426e97e5",
+            "exit_code": 0,
+            "oracle": "old",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-old-truncated/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-old-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-old-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-old-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-correct",
+            "mode": "run",
+            "source_sha256": "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42",
+            "exit_code": 0,
+            "oracle": "strengthened",
+            "deliberate_mutation": false,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-strengthened-correct/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-strengthened-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-strengthened-correct/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-correct",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-noop",
+            "mode": "run",
+            "source_sha256": "f0fe5deda43c1066307af9fd384c86c1d8bf7df338468c95c1a93e8c5d269f3a",
+            "exit_code": 4,
+            "oracle": "strengthened",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-strengthened-noop/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-strengthened-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-noop",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "<R01_RUN>/compiler-1/T17-strengthened-noop/sample.cpp:24:30: warning: unused parameter 'other' [-Wunused-parameter]\n   24 |     Buffer& operator=(Buffer other) noexcept {\n      |                              ^\n1 warning generated.\n",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-strengthened-noop/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-noop",
+              "returncode": 4,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          },
+          {
+            "id": "T17-strengthened-truncated",
+            "mode": "run",
+            "source_sha256": "d6169abb72f1311266a9064e7d66e6f1fa0d11d7d53e54214b34f5a118e7da18",
+            "exit_code": 1,
+            "oracle": "strengthened",
+            "deliberate_mutation": true,
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "<R01_RUN>/compiler-1/T17-strengthened-truncated/sample.cpp",
+                "-o",
+                "<R01_RUN>/compiler-1/T17-strengthened-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-truncated",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<R01_RUN>/compiler-1/T17-strengthened-truncated/sample"
+              ],
+              "cwd": "<R01_RUN>/compiler-1/T17-strengthened-truncated",
+              "returncode": 1,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "status": "PASS"
+          }
+        ]
+      }
+    ],
+    "exit_code": 0
+  },
+  "evidence_note": "2026-09-26 R01 rerun. Normalized evidence copy: only generated temporary directory prefixes replaced with <RUN> and <R01_RUN>. Original 0c7e989 evidence remains in Git history. r01_mutations old-oracle PASS reproduces a blind spot, not correctness of the deliberately broken implementation."
 }

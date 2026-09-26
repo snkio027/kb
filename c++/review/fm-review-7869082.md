@@ -2,6 +2,8 @@
 
 日期：2026-09-26。问题基线：`786908271dfa479c0d4aeb2239b19bd15f90e768`。状态：**已完成本轮本地修订与定向验证，待复审**；不表示全部代码块、全部标准命题或项目 profile 已验收。
 
+初次修订对应提交 `0c7e989`。本次在其上补强 R01：下文“实际工具链与结果”和“证据绑定”已更新为补强后的重跑记录；初轮文档检查另标为历史记录，R01 的具体改动、对照实验和复现命令见专节。旧结果可从该精确提交读取，不被解释成已经验证新判据。
+
 ## 范围与材料身份
 
 保留 FM-0～FM-9 的文件名、章节编号及整体结构，处理 A01～A04、B01～B08 和相应跨章边界。未改 G 系列、PDF 或 `design/`。用户随后明确要求每批变更完成检查后提交并推送供审核；本轮按该授权交付，不代表技术复审或项目规范批准。
@@ -79,7 +81,7 @@ python3 c++/review/verify_fm.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clan
 | T14 | 完整表达式 noexcept／仅编译 | PASS（编译 0） | PASS（编译 0） |
 | T15 | error_code 重载／实现观测 | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
 | T16 | move-only E 右值 value() 拒绝 | PASS（编译 1） | PASS（编译 1） |
-| T17 | 深复制、空对象、移出状态 | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
+| T17 | 完整值、存储独立、修改隔离、空对象、移出状态 | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
 | T18 | 完整 pipeline 四条路径 | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
 | T19 | 错误分支返还任务所有权 | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
 | T20 | POSIX open/errno/O_CREAT | PASS（编译 0；运行 0） | PASS（编译 0；运行 0） |
@@ -88,15 +90,15 @@ T05 的 -6 表示本次子进程被 SIGABRT 终止，且日志包含 `runtime er
 
 **历史差异仍保留：** 用户附件报告 GCC 14.2 和 Clang 17 共用 libstdc++ 14，T16 被接受，各 16 个用例中 15 个符合预期、1 个 DIVERGENCE。本次未重跑那套 Linux 工具链；本机 libc++ 拒绝 T16 不会改写该历史记录。
 
-另外执行了 10 项判定器断言，覆盖无关诊断不得通过、编译器被信号终止、T16 接受时的 DIVERGENCE、UBSan 诊断与受控退出码等。使用不存在的编译器进行入口验证，得到 20 SKIP、退出 2，没有误报全通过。这些是 harness 检查，不计入上表的 20 个 C++ 命题用例。
+初轮另执行了 10 项判定器断言，覆盖无关诊断不得通过、编译器被信号终止、T16 接受时的 DIVERGENCE、UBSan 诊断与受控退出码等。使用不存在的编译器进行入口验证，得到 20 SKIP、退出 2，没有误报全通过。这些是 harness 检查，不计入上表的 20 个 C++ 命题用例；R01 未修改执行器，也未重复该组自检。
 
 ## 证据绑定
 
-[完整本机验证结果](fm-verification-results.json)保留本次两个工具链的命令、诊断、源码摘要与判定；仅将原始临时目录前缀替换为 `<RUN>`，没有改写诊断内容或结果。它是路径归一化副本，不是原始字节副本。
+[完整本机验证结果](fm-verification-results.json)现保留 R01 后两套工具链的完整 20 例重跑，以及 `r01_mutations` 中 12 次 T17 对照编译／运行的命令、诊断、源码摘要与判定。仅将两组原始临时目录前缀分别替换为 `<RUN>`、`<R01_RUN>`，没有改写其余诊断内容或结果。它是路径归一化副本，不是原始字节副本；原结果由 `0c7e989` 的同路径文件保留。
 
-结果中的 `source_base` 是问题基线，不冒充修订后的提交；实际验证输入由 `source_files_sha256`、每例 `source_sha256` 和 `runner_sha256` 绑定。该记录不把最终摘要写回任何被计算摘要的源文件。文档、样例或执行器发生后续变化，应重新运行并更新外部结果记录。
+结果中的 `source_base` 是初轮问题基线，`revision_review_base` 是 R01 的审核基线，均不冒充修订后的提交；实际验证输入由 `source_files_sha256`、每例 `source_sha256` 和 `runner_sha256` 绑定。该记录不把最终摘要写回任何被计算摘要的源文件。被绑定的文档、样例或执行器发生后续变化，应重新运行并更新外部结果记录。
 
-## 文档与范围检查
+## 文档与范围检查（0c7e989 历史记录）
 
 - 使用 `pandoc -f gfm -t json <file>` 解析本轮 14 份 Markdown，检查单一一级标题、标题层级、代码围栏和 390 个本地链接／锚点：通过。41 个外链没有进行全量连通性探测；本轮采用的关键条款已定向读取。
 - 十篇 FM 的编号章节标题与问题基线逐项相同；原有文件名、章节顺序及前后导航保持不变。
@@ -106,6 +108,100 @@ T05 的 -6 表示本次子进程被 SIGABRT 终止，且日志包含 `runtime er
 - G 系列、PDF、`design/` 及已有出版工具未修改；未构建 PDF。提交仅纳入本轮 FM 修订与验证材料，四篇原有未跟踪 G 文档保持不动；实际提交及远端核对结果在交付消息中报告。
 
 上述检查用于本轮文档与证据的一致性，不替代完整技术复审。
+
+## R01：T17 判据补强
+
+复审输入为 `FM-ReReview-0c7e989.md`（SHA-256：`db44af2370fb5f54b37931372c1101c391838d9e7e3d995ee2d052df17510c40`），审核基线为 `0c7e989e7b53630017c98a4dd3d3260ef9c85b34`。本轮只修改 T17 判据及关联说明、A02 台账与执行证据，不改变 `Buffer` 实现，也不重写其他章节。状态：**补强已实现并在本机验证，待复审确认**。
+
+三迭代器比较没有表达两个完整区间的长度相等。T17 现改用 `std::ranges::equal`，并给复制赋值补上存储独立与修改隔离检查；复制构造已有的独立性检查保留。[N4950：alg.equal](https://timsong-cpp.github.io/cppwp/n4950/algorithms#alg.equal)
+
+本机实际执行：Apple Clang 21.0.0 / libc++ 220106 和 Homebrew Clang 23.1.2 / libc++ 230102，工具身份见上表。完整 T01～T20 在每套工具链各重跑一次，均为 20 个符合各自预期；此外执行以下 **6 个 T17 版本 × 2 套工具链，共 12 次编译与运行**。这 12 次没有并入“20 个命题用例”的分母。
+
+| 实现 | 旧判据：Apple / Homebrew 运行码 | 补强判据：Apple / Homebrew 运行码 |
+| --- | --- | --- |
+| 原正确实现 | 0 / 0 | 0 / 0 |
+| M1：赋值为空操作 | 0 / 0（复现盲点） | 4 / 4（拒绝错误实现） |
+| M2：非空复制截断为一字节 | 0 / 0（复现盲点） | 1 / 1（拒绝错误实现） |
+
+12 次编译均成功，未用无关编译失败替代拒绝判据。M1 的 unused-parameter 警告保留在诊断中；未启用 `-Werror`。这些错误实现仅生成到独立临时目录，不存在于正文的 `Buffer` 中。
+
+T17 源码摘要：
+
+- 旧判据：`f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be`。
+- 新判据：`fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42`。
+
+六个版本的源码摘要均与附件对应程序一致，但附件的 Linux / libstdc++ 14 运行仍是外部历史证据；本段是另行执行的 macOS / libc++ 结果。未新增分配失败注入或完整变异测试覆盖。
+
+以下轻量复现命令从仓库根目录执行，复用未修改的执行器，不安装依赖、不增加测试框架。它从当前 Markdown 提取 T17；只有匹配精确替换位置且还原的旧源码摘要正确时才继续。JSON 中旧判据变体的 `PASS` 只表示“成功复现测试盲点”，不表示错误实现正确。
+
+<!-- fm-r01-reproducer -->
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 - <<'PY'
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+
+spec = importlib.util.spec_from_file_location("fm", "c++/review/verify_fm.py")
+fm = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(fm)
+samples, inputs = fm.collect()
+current = next(c["source"] for c in samples if c["id"] == "T17")
+
+def replace_once(text, old, new):
+    if text.count(old) != 1:
+        raise ValueError("T17 no longer matches the reviewed replacement")
+    return text.replace(old, new, 1)
+
+old = current
+for name in ("copied", "assigned"):
+    old = replace_once(old, f"std::ranges::equal({name}.bytes(), input)",
+                       f"std::equal({name}.bytes().begin(), {name}.bytes().end(), input)")
+old = replace_once(old,
+    "    if (assigned.bytes().data() == original.bytes().data()) return 6;\n"
+    "    assigned.bytes()[0] = std::byte{8};\n"
+    "    if (original.bytes()[0] != std::byte{1}) return 7;\n", "")
+if fm.sha(old.encode()) != "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be":
+    raise ValueError("Reconstructed old T17 does not match 0c7e989")
+if old.split("int main()")[0] != current.split("int main()")[0]:
+    raise ValueError("Buffer implementation changed")
+
+cases = []
+for label, source in (("old", old), ("strengthened", current)):
+    noop = replace_once(source, "        swap(other);",
+                        "        // Deliberately broken mutation: copy assignment does nothing.")
+    truncated = replace_once(source, "          size_{other.size_} {",
+                             "          size_{other.size_ == 0 ? 0U : 1U} {")
+    for name, code, rejected_rc in (("correct", source, 0),
+                                   ("noop", noop, 4), ("truncated", truncated, 1)):
+        cases.append(dict(id=f"T17-{label}-{name}", mode="run",
+                          source=code, source_sha256=fm.sha(code.encode()),
+                          exit_code=0 if label == "old" else rejected_rc,
+                          oracle=label, deliberate_mutation=name != "correct"))
+
+output = Path(tempfile.mkdtemp(prefix="fm-r01-"))
+report = dict(review_base="0c7e989e7b53630017c98a4dd3d3260ef9c85b34",
+              source_files_sha256=inputs,
+              runner_sha256=fm.sha(Path("c++/review/verify_fm.py").read_bytes()),
+              scope="T17 only: six versions; old mutation PASS means reproduced blind spot",
+              toolchains=[])
+for index, compiler in enumerate(("/usr/bin/clang++", "/opt/homebrew/opt/llvm/bin/clang++")):
+    info, rows = fm.run_compiler(compiler, output / f"compiler-{index}", cases)
+    info["results"] = rows
+    report["toolchains"].append(info)
+    for row in rows:
+        print(compiler, row["id"], row.get("compile", {}).get("returncode"),
+              row.get("run", {}).get("returncode"), row["status"])
+ok = all(row["status"] == "PASS"
+         for tc in report["toolchains"] for row in tc["results"])
+report["exit_code"] = 0 if ok else 1
+(output / "results.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+print("Evidence:", output / "results.json")
+raise SystemExit(report["exit_code"])
+PY
+```
+
+R01 收尾检查：重新以 `pandoc -f gfm -t json <file>` 解析 14 份 Markdown，标题层级、围栏和 391 个本地链接／锚点通过；`git diff --check` 通过。当前 11 个输入文档、20 个样例和执行器摘要与新结果匹配，40 项常规判定及 12 项对照判定重算一致；正文里的 `Buffer` 实现及其余 19 个样例源码与 `0c7e989` 相同。与本轮开始时 106 个现存文件的 SHA-256 比较，仅 FM-5、A02 台账、本记录和结果 JSON 四个文件改变，其余 102 个文件不变，包括五篇原有未跟踪 G 文档。未重新执行初轮 harness 自检、未做外链全量探测，未修改或构建 PDF。
 
 ## 剩余边界
 

@@ -9,7 +9,7 @@
 | 问题／命题 | 正文与必要条件 | 类型／依据 | 文档修订 | 验证与未覆盖边界 |
 | --- | --- | --- | --- | --- |
 | A01：out_of_range 需要描述参数 | [FM-1 §23](../fm1-contracts-assertions-ub.md#23-ub-与-runtime-error-的根本区别)；区分定义良好的抛出与 UB，不将其归入 runtime_error 继承分支 | 标准事实；[out.of.range](https://timsong-cpp.github.io/cppwp/n4950/diagnostics#out.of.range) | 已修订 | T01 预期拒绝、T02 运行；不证明异常构造永不分配 |
-| A02：分配不等于复制内容 | [FM-5 §7](../fm5-noexcept-move-copy.md#7-copy-与-failure)；明确缓冲区值复制、空对象和所有权不变量 | 示例契约，不是语言强制深复制 | 已修订 | T17 深复制、赋值、空对象、移出状态；未注入分配失败 |
+| A02：分配不等于复制内容 | [FM-5 §7](../fm5-noexcept-move-copy.md#7-copy-与-failure)；明确缓冲区值复制、空对象和所有权不变量 | 示例契约，不是语言强制深复制 | 实现修订保留；R01 测试判据已补强 | T17 检查完整长度／内容、复制构造与赋值的存储独立及修改隔离、空对象与移出状态；[R01 记录](fm-review-7869082.md#r01t17-判据补强)区分旧判据盲点与新变体拒绝结果；未注入分配失败，不代表全部复制语义已穷举 |
 | A03：move 不保证移动构造 | [FM-5 §5 / §10 / §12](../fm5-noexcept-move-copy.md#5-stdmove-不执行移动)；结合 cv/ref、候选集及重载决议，未声明与 deleted 不同 | 标准事实；[forward](https://timsong-cpp.github.io/cppwp/n4950/utility#forward) | 已修订 | T03 复制回退与 const 对象；traits 不证明存在移动构造 |
 | A04：open 返回值与 errno 分离 | [FM-0 §41](../fm0-failure-model.md#41-示例文件读取)、[FM-7 §1](../fm7-error-code-system-error.md#1-errno)；先确认 -1，再保存 errno；考虑选项 | POSIX 接口事实；[open(2)](https://man7.org/linux/man-pages/man2/open.2.html) | 已修订 | T20 缺失路径与 O_CREAT；不测试配置事务 |
 | B01：unreachable 需要可达性证明 | [FM-1 §34](../fm1-contracts-assertions-ub.md#34-stdunreachable--c23)；固定底层类型的未命名枚举值可存在 | 标准事实；[static.cast/10](https://timsong-cpp.github.io/cppwp/n4950/expr.static.cast#10)、[utility.unreachable](https://timsong-cpp.github.io/cppwp/n4950/utility#utility.unreachable) | 已修订 | T04 正例、T05 隔离 UBSan；不承诺所有 UB 均获诊断 |

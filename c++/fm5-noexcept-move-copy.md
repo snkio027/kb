@@ -235,7 +235,7 @@ int main() {
     Buffer original{input};
     Buffer copied{original};
     if (copied.bytes().data() == original.bytes().data()
-        || !std::equal(copied.bytes().begin(), copied.bytes().end(), input)) return 1;
+        || !std::ranges::equal(copied.bytes(), input)) return 1;
     copied.bytes()[0] = std::byte{9};
     if (original.bytes()[0] != std::byte{1}) return 2;
     Buffer empty;
@@ -243,14 +243,17 @@ int main() {
     if (!empty_copy.bytes().empty() || empty_copy.bytes().data() != nullptr) return 3;
     Buffer assigned;
     assigned = original;
-    if (!std::equal(assigned.bytes().begin(), assigned.bytes().end(), input)) return 4;
+    if (!std::ranges::equal(assigned.bytes(), input)) return 4;
+    if (assigned.bytes().data() == original.bytes().data()) return 6;
+    assigned.bytes()[0] = std::byte{8};
+    if (original.bytes()[0] != std::byte{1}) return 7;
     Buffer moved{std::move(copied)};
     return copied.bytes().empty() && copied.bytes().data() == nullptr
         && moved.bytes()[0] == std::byte{9} ? 0 : 5;
 }
 ```
 
-分配仍可能抛出 `std::bad_alloc`；本例的字节复制本身不抛异常，已取得的资源由成员管理。T17 检查深复制、空对象和移出状态，不声称已经注入内存分配失败。
+分配仍可能抛出 `std::bad_alloc`；本例的字节复制本身不抛异常，已取得的资源由成员管理。T17 对复制构造和复制赋值检查完整长度与内容、存储独立及修改副本不影响源对象，另检查空对象和移出状态；不声称已经注入内存分配失败。这里使用比较两个完整区间的 `std::ranges::equal`，避免三迭代器版本只比较第一区间对应前缀而漏掉空值或截断复制。[N4950：alg.equal](https://timsong-cpp.github.io/cppwp/n4950/algorithms#alg.equal)
 
 ---
 
