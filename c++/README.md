@@ -4,12 +4,15 @@
 
 [Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线，规定正文层级、术语、代码身份、实验与答案及出版源稿约束。`496d897` 已获集中复审接受：G0～G7 为 Professional Handbook Source Baseline，定向证据保留已声明限制；[接受与收口记录](learning/professional-revision.md#6-集中复审与非阻塞收口)区分审核意见与本地检查。以下是编辑状态，不是全系列技术验收。
 
+`e91e255` 的 G8～G9 已获集中复审接受：**ACCEPTED — G8–G9 Professional Handbook Source Baseline, with declared platform and evidence limits.** [接受记录](learning/native-revision.md#5-集中复审接受与停止边界)保留具体审核范围；正文头部的“待集中审核”属于该提交交付时的快照，当前接受状态以本入口及接受记录为准，不为状态登记改写已绑定摘要的正文和原始证据。
+
 | 范围 | 当前状态 |
 | --- | --- |
-| G0～G4 | Professional presentation refresh：呈现层回刷，保留技术内容与实验判据 |
-| G5～G7 | Professional Handbook Edition：主题重组、论述修订、实验与参考答案 |
-| G8～G9 | Professional Handbook Edition：ABI/安装消费实验与参考答案，待本批集中审核 |
-| G10～G12 | 保持历史稿件，尚未按本 Profile 编辑或全面验证 |
+| Editorial Profile v1.0 | ACCEPTED，全系列编辑规则不变 |
+| G0～G4 | ACCEPTED — Professional presentation refresh；原验证限制保持 |
+| G5～G7 | ACCEPTED — Professional Handbook Edition；原验证限制保持 |
+| G8～G9 | ACCEPTED — Professional Handbook Edition；定向原生证据保留平台与覆盖限制 |
+| G10～G12 | 保持历史稿件；“综合与应用卷”尚未启动 |
 | PDF | **NOT BUILT / NOT VALIDATED** |
 
 ## 从哪里开始
@@ -66,7 +69,7 @@ python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bi
 python3 c++/learning/check_docs.py
 ```
 
-[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)与 [G8～G9 本批证据](learning/native-revision.md)分开记录。Markdown 是正文和完整实验的维护入口。G0～G9 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
+[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)与 [G8～G9 已接受批次](learning/native-revision.md)分开记录。Markdown 是正文和完整实验的维护入口。G0～G9 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
 
 文件名采用 `gNN-英文主题.md`，编号补零方便排序，正文继续使用 G0～G12。主题名供定位，不作为学习进度或版本号。FM 正文与验证资料整体位于 `failure-model/`，已收口的技术内容不因目录调整重开。
 

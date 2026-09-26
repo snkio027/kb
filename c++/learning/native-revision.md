@@ -1,6 +1,6 @@
 # G8～G9 Professional Handbook Edition · 修订与验证
 
-日期：2026-09-27。Base：`047eb1eb3f552e423c810176e46281603e8e2610`。此前 `496d897` 的复审收口另见 [G0～G7 接受记录](professional-revision.md#6-集中复审与非阻塞收口)；收口提交已单独推送。本记录是新批次交付证据，待集中审核，不授予全系列或跨平台技术基线资格。
+日期：2026-09-27。Base：`047eb1eb3f552e423c810176e46281603e8e2610`。此前 `496d897` 的复审收口另见 [G0～G7 接受记录](professional-revision.md#6-集中复审与非阻塞收口)；收口提交已单独推送。§1～4 保留 `e91e2552d706500440bde157c2098d14bcf44773` 的交付记录及当时状态；后续接受结论见 §5。不授予全系列或跨平台技术基线资格。
 
 ## 1. 编辑范围与状态
 
@@ -98,3 +98,29 @@ git diff --check
 临时目录使用当前用户的编译器和脚本，不是安全沙箱。搜索环境收敛不是 hermetic 构建；移动静态安装包不是证明共享包加载可迁移。每条命令有超时与进程组清理，沿用已有 helper；本批未执行新的真实 Ctrl-C 生命周期实验。
 
 完成检查后提交、推送这一完整批次供集中审核；不自动启动 G10～G12。
+
+## 5. 集中复审接受与停止边界
+
+依据用户提供的集中复审意见，审核对象固定为 `e91e2552d706500440bde157c2098d14bcf44773`，其 Base 为 `047eb1eb3f552e423c810176e46281603e8e2610`。正式登记为：**ACCEPTED — G8–G9 Professional Handbook Source Baseline, with declared platform and evidence limits.** 本次没有阻塞接受的技术问题，也不要求新增专门的 polish 修订。
+
+这是对用户复审结论的登记，不是新增的独立技术复审、CI 结果或本机实验重跑。§1～4 的交付状态、G8/G9 正文头部及原始 JSON 保留其历史身份；当前接受状态在本节及系列 README 维护，避免为了登记状态而使实验源文件摘要漂移。
+
+| 对象 | 复审后状态 |
+| --- | --- |
+| Editorial Profile v1.0 | ACCEPTED |
+| G0～G7 源稿基线 | ACCEPTED，原有声明限制保持 |
+| G8 / G9 Professional Handbook Edition | ACCEPTED |
+| G8～G9 定向原生证据 | ACCEPTED WITH DECLARED LIMITATIONS |
+| Darwin / Clang / Mach-O 路径 | VERIFIED AS RECORDED，仅限已有记录 |
+| GCC / libstdc++ / Linux / Windows / MSVC | NOT VALIDATED |
+| 历史 ABI 升级 | NOT VALIDATED |
+| Rust / Zig FFI、交叉编译 | NOT RUN |
+| PCH / Unity / LTO / C++ Modules | NOT RUN |
+| 性能测量、并发动态检测 | NOT RUN（本批） |
+| PDF 出版 | NOT BUILT / NOT VALIDATED |
+
+复审仅保留一个非阻塞后续提醒：未来统一 pointer contract 时，应说明输入/输出对象范围不得发生破坏接口读取前提的重叠，包括 `dec_create(config, out)` 的配置与输出位置。它不构成本批重开理由；本次不修改接口、正文或实验，也不把该提醒登记为已经完成的验证。
+
+本次登记实际运行 `python3 c++/learning/check_docs.py`（35 份 Markdown、720 处本地链接、10 章层级检查，无错误，原 7 个源稿风险不变）及 `git diff --check`（通过）。与审核提交逐字节比较，仅 README 和本记录变化，其余 126 个已跟踪文件不变；G8/G9 正文摘要仍匹配原始执行记录。未重跑 C++ 实验、执行器单元回归、性能或并发检测，未构建 PDF。
+
+G0～G9 至此形成已接受的 Professional Handbook 主干，但不是无限平台覆盖或正式 PDF 出版批准。G10～G12 保持停止，若后续另获授权，应以“综合与应用卷”组织项目架构/实现协议、机器人系统工程及跨语言综合，而不是机械复制普通章节模板。本次仅登记、检查、提交及推送，随后停止。
