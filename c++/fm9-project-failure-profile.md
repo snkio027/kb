@@ -46,6 +46,8 @@
 
 FM-0 ～ FM-8 描述语言与系统机制。
 
+本章是**待采纳的工程 profile 模板**，不是已批准项目基线。下文“必须／不得／默认”等政策措辞仅约束明确采纳该 profile 的项目；语言与库规则另有标准依据。解析拒绝倾向 expected、析构不传播异常等默认策略，不能冒充所有 C++ 程序统一适用的规范事实。
+
 FM-9 的目标是：
 
 > 将这些规则压缩成一个项目真正可以执行的 Failure Profile。
@@ -88,7 +90,7 @@ FM-9 的目标是：
 
 ## 2. 推荐项目分类
 
-统一四类：
+以下是项目的处置标签，不是互斥且完整的原因分类。P 描述责任，F 描述严重性／终局处置；同一事件可能同时是 P 与 F。选定恢复／终止策略时应保留来源、频率和状态等独立信息。
 
 ```text
 D — Domain Outcome
@@ -371,36 +373,18 @@ repository unavailable
 
 ## 9. State Guarantee Policy
 
-每个 mutating public API 至少应知道：
+本节是待项目采纳的 profile 建议，不是所有 C++ API 的语言要求。建议每个重要的 mutating API 分别声明：
 
-```text
-no-throw
-strong
-basic
-special documented semantics
-```
+| 维度 | 合同内容 |
+| --- | --- |
+| 失败后状态 | strong、basic、明确部分进度或其他具体语义 |
+| 异常传播 | 是否允许异常越界；是否具有 `noexcept` 规格 |
+| 资源与所有权 | 失败后资源属于谁，哪些清理动作有保证 |
+| 终局策略 | 无法继续时升级、重启或终止的范围 |
 
-例如：
+例如 `update(Config)` 返回 `expected<void, UpdateError>` 时，仍须单独说明“失败时旧配置不变”，或者“保留哪些部分进度且哪些不变量继续成立”。不从返回类型推出 strong，不从 `noexcept` 推出 no-fail，也不把 termination 排为状态保证的一级。
 
-```cpp
-std::expected<void, UpdateError>
-update(Config config);
-```
-
-文档：
-
-```text
-Failure guarantee:
-    strong — active configuration remains unchanged.
-```
-
-或者：
-
-```text
-Failure guarantee:
-    basic — partial progress may be retained,
-    but all invariants remain valid.
-```
+精确定义及 commit 条件见 [FM-4 §4～§5](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
 ---
 
@@ -442,7 +426,7 @@ Move operations:
     noexcept when semantically true
 
 Swap:
-    noexcept when used as commit primitive
+    non-throwing and truly non-failing under commit preconditions
 
 Cleanup:
     noexcept
@@ -1035,10 +1019,10 @@ transport mechanism
 [ ] error translation 是否按 abstraction boundary？
 [ ] public mutating APIs 是否定义 state guarantee？
 [ ] ownership failure semantics 是否明确？
-[ ] noexcept policy 是否明确？
+[ ] noexcept policy 是否明确，且未与 no-fail 或 strong/basic 混为一谈？
 [ ] assert 与 production fatal check 是否区分？
 [ ] UB 是否被明确视为 defect 而非 failure channel？
-[ ] thread / ABI / RPC boundary 是否明确？
+[ ] thread / ABI / RPC boundary 是否明确，并覆盖错误报告自身的失败？
 [ ] cancellation / timeout / shutdown 是否单独建模？
 [ ] retry 是否有 idempotency + deadline + budget？
 [ ] logging 是否集中在 recovery/terminal boundary？

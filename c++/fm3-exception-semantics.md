@@ -193,7 +193,7 @@ Exception 被抛出后：
 当前正常控制流终止
 ```
 
-从 throw point 向匹配 handler 展开调用栈。
+下面讨论控制流转向匹配 handler 且发生栈展开的路径；不包括所有终止情形。
 
 每个已经完成构造的 automatic object：
 
@@ -223,6 +223,8 @@ void process() {
 
 这就是 exception 与 RAII 能够组合的根本原因。
 
+无匹配 handler 时，是否在终止前展开栈由实现定义；搜索 handler 触及非抛出异常规格函数的最外层时，完整、部分或不展开也由实现定义。不能依靠这些终止路径执行所有自动对象析构，更不能将 terminate 当作安全关机协议。[N4950：except.terminate/2](https://timsong-cpp.github.io/cppwp/n4950/except.terminate#2)
+
 ---
 
 ## 6. 未完成构造的对象
@@ -237,7 +239,7 @@ class Session {
 };
 ```
 
-构造过程中：
+在 Session 的非委托构造过程中，假定 buffer_ 的非委托初始化未完成就抛异常：
 
 ```text
 file_   constructed
@@ -264,7 +266,9 @@ Session 本身没有完成构造
 Session::~Session()
 ```
 
-这将在 FM-6 进一步展开。
+上述例子是非委托构造失败。若目标构造已成功，随后委托构造函数体抛异常，则会调用完整对象的析构函数；不要把两种情况混同。[N4950：except.ctor/4](https://timsong-cpp.github.io/cppwp/n4950/except.ctor#4)
+
+详见 [FM-6 §3](fm6-construction-destruction-allocation.md#3-partial-construction) 与 [T13](review/fm-verification-samples.md#t13)。
 
 ---
 

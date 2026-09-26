@@ -1,0 +1,1770 @@
+{
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "baseline": "N4950 + LWG 3843",
+  "source_base": "786908271dfa479c0d4aeb2239b19bd15f90e768",
+  "source_files_sha256": {
+    "fm0-failure-model.md": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+    "fm1-contracts-assertions-ub.md": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+    "fm2-value-based-failure.md": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+    "fm3-exception-semantics.md": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+    "fm4-raii-exception-safety.md": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+    "fm5-noexcept-move-copy.md": "41ae2762c896ae1d2025a44713a35f4f44970976d576f2165dd88b41940437a7",
+    "fm6-construction-destruction-allocation.md": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+    "fm7-error-code-system-error.md": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+    "fm8-failure-boundaries.md": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+    "fm9-project-failure-profile.md": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+    "review/fm-verification-samples.md": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa"
+  },
+  "runner_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+  "scope": "20 targeted samples; not corpus coverage",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "path": "/usr/bin/clang++",
+      "available": true,
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "<RUN>/compiler-0",
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": "",
+        "timeout": false
+      },
+      "features": {
+        "expected": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/expected.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "expected-monadic": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/expected-monadic.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "posix": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/posix.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "ubsan": {
+          "available": true,
+          "probe": {
+            "compile": {
+              "command": [
+                "/usr/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsanitize=undefined",
+                "-fno-sanitize-recover=all",
+                "<RUN>/compiler-0/ubsan.cpp",
+                "-o",
+                "<RUN>/compiler-0/ubsan"
+              ],
+              "cwd": "<RUN>/compiler-0",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<RUN>/compiler-0/ubsan"
+              ],
+              "cwd": "<RUN>/compiler-0",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          }
+        }
+      },
+      "identity_compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-O1",
+          "-Wall",
+          "-Wextra",
+          "-pedantic",
+          "-pthread",
+          "<RUN>/compiler-0/identity.cpp",
+          "-o",
+          "<RUN>/compiler-0/identity"
+        ],
+        "cwd": "<RUN>/compiler-0",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "timeout": false
+      },
+      "identity_run": {
+        "command": [
+          "<RUN>/compiler-0/identity"
+        ],
+        "cwd": "<RUN>/compiler-0",
+        "returncode": 0,
+        "stdout": "_LIBCPP_VERSION=220106\n__cpp_lib_expected=202211\n",
+        "stderr": "",
+        "timeout": false
+      },
+      "results": [
+        {
+          "id": "T01",
+          "mode": "compile_fail",
+          "diagnostics": [
+            "out_of_range",
+            "no matching|no viable|requires.*argument"
+          ],
+          "source_sha256": "ee01c2d9f97b46938d40f8084cba953542100391f0f1cff2129adde8015ad6ad",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 13,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/T01/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0/T01",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "<RUN>/compiler-0/T01/sample.cpp:2:24: error: no matching constructor for initialization of 'std::out_of_range'\n    2 | void example() { throw std::out_of_range{}; }\n      |                        ^                ~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept:165:34: note: candidate constructor not viable: requires single argument '__s', but no arguments were provided\n  165 |   _LIBCPP_HIDE_FROM_ABI explicit out_of_range(const string& __s) : logic_error(__s) {}\n      |                                  ^            ~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept:166:34: note: candidate constructor not viable: requires single argument '__s', but no arguments were provided\n  166 |   _LIBCPP_HIDE_FROM_ABI explicit out_of_range(const char* __s) : logic_error(__s) {}\n      |                                  ^            ~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept:169:25: note: candidate constructor not viable: requires 1 argument, but 0 were provided\n  169 |   _LIBCPP_HIDE_FROM_ABI out_of_range(const out_of_range&) _NOEXCEPT            = default;\n      |                         ^            ~~~~~~~~~~~~~~~~~~~\n1 error generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T02",
+          "mode": "run",
+          "source_sha256": "370a4566ec4fa58c9884e144c7fd9a855e659f2b9376c62b85f912f8c5664f90",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 23,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T02/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T02/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T02",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T02/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T02",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T03",
+          "mode": "run",
+          "source_sha256": "8ae4e6b7f5f09a691db275faec8bbe387e37538e210ba7824f4c857259a13f30",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 40,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T03/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T03/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T03",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T03/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T03",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T04",
+          "mode": "run",
+          "source_sha256": "9dae9193ea5f9b0e8d2869eedcdbb7c6a26080df34844a3c884b2a106085e5b8",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 71,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T04/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T04/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T04",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T04/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T04",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T05",
+          "mode": "sanitizer_negative",
+          "feature": "ubsan",
+          "diagnostics": [
+            "unreachable",
+            "runtime error"
+          ],
+          "source_sha256": "0885147c097142023de2e10497a311f70450962271f3aed62397d1d2f9508dc3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 86,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "<RUN>/compiler-0/T05/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T05/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T05",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T05/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T05",
+            "returncode": -6,
+            "stdout": "",
+            "stderr": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/unreachable.h:23:3: runtime error: execution reached an unreachable program point\nSUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/unreachable.h:23:3 \n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T06",
+          "mode": "compile_fail",
+          "feature": "expected",
+          "diagnostics": [
+            "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+            "Error"
+          ],
+          "source_sha256": "1c7ecd08f4ac2e7a3359cc636364af23327f9104cc2c3488a44cbe31d5981ae3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 104,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/T06/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0/T06",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-0/T06/sample.cpp:1:\nIn file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/expected:48:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:841:19: error: static assertion failed due to requirement 'is_copy_constructible_v<Error>': error_type has to be copy constructible\n  841 |     static_assert(is_copy_constructible_v<_Err>, \"error_type has to be copy constructible\");\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-0/T06/sample.cpp:6:19: note: in instantiation of member function 'std::expected<int, Error>::value' requested here\n    6 |     return result.value();\n      |                   ^\nIn file included from <RUN>/compiler-0/T06/sample.cpp:1:\nIn file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/expected:48:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:79:35: error: call to implicitly-deleted copy constructor of 'Error'\n   79 |   throw bad_expected_access<_Err>(std::forward<_Arg>(__arg));\n      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:843:12: note: in instantiation of function template specialization 'std::__throw_bad_expected_access<Error, const Error &>' requested here\n  843 |       std::__throw_bad_expected_access<_Err>(std::as_const(error()));\n      |            ^\n<RUN>/compiler-0/T06/sample.cpp:3:37: note: copy constructor of 'Error' is implicitly deleted because field 'resource' has a deleted copy constructor\n    3 | struct Error { std::unique_ptr<int> resource; };\n      |                                     ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/unique_ptr.h:209:55: note: copy constructor is implicitly deleted because 'unique_ptr<int>' has a user-declared move constructor\n  209 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX23 unique_ptr(unique_ptr&& __u) _NOEXCEPT\n      |                                                       ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/bad_expected_access.h:58:59: note: passing argument to parameter '__e' here\n   58 |   _LIBCPP_HIDE_FROM_ABI explicit bad_expected_access(_Err __e) : __unex_(std::move(__e)) {}\n      |                                                           ^\n2 errors generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T07",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "3f26551946ef8afb3a816d89941fde583b60b59aaa0df932e12cbd40ff2885f2",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 119,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T07/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T07/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T07",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T07/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T07",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T08",
+          "mode": "compile_fail",
+          "feature": "expected-monadic",
+          "diagnostics": [
+            "same error_type|is_same_v|same_as",
+            "FileError|ParseError"
+          ],
+          "source_sha256": "56b19bbebef9542f5af79d17f2a6035213806b54fa453731d5c03447cbe9ae07",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 135,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/T08/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0/T08",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-0/T08/sample.cpp:1:\nIn file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/expected:48:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:955:19: error: static assertion failed due to requirement 'is_same_v<ParseError, FileError>': The result of f(std::move(value())) must have the same error_type as this expected\n  955 |     static_assert(is_same_v<typename _Up::error_type, _Err>,\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-0/T08/sample.cpp:5:52: note: in instantiation of function template specialization 'std::expected<int, FileError>::and_then<(lambda at <RUN>/compiler-0/T08/sample.cpp:5:61)>' requested here\n    5 |     auto result = std::expected<int, FileError>{1}.and_then([](int value) {\n      |                                                    ^\nIn file included from <RUN>/compiler-0/T08/sample.cpp:1:\nIn file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/expected:48:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:960:12: error: no matching constructor for initialization of '_Up' (aka 'expected<int, ParseError>')\n  960 |     return _Up(unexpect, std::move(error()));\n      |            ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:532:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'std::__expected_construct_in_place_from_invoke_tag' for 1st argument\n  532 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(\n      |                                            ^\n  533 |       std::__expected_construct_in_place_from_invoke_tag __tag, _Func&& __f, _Args&&... __args)\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:537:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'std::__expected_construct_unexpected_from_invoke_tag' for 1st argument\n  537 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(\n      |                                            ^\n  538 |       std::__expected_construct_unexpected_from_invoke_tag __tag, _Func&& __f, _Args&&... __args)\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:581:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'in_place_t' for 1st argument\n  581 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(in_place_t, _Args&&... __args) noexcept(\n      |                                            ^        ~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:587:44: note: candidate template ignored: could not match 'initializer_list<_Up>' against '__libcpp_remove_reference_t<FileError &>' (aka 'FileError')\n  587 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(in_place_t, initializer_list<_Up> __il, _Args&&... __args) noexcept(\n      |                                            ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:593:44: note: candidate template ignored: constraints not satisfied [with _Args = <__libcpp_remove_reference_t<FileError &>>]\n  593 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(unexpect_t, _Args&&... __args) noexcept(\n      |                                            ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:592:14: note: because 'is_constructible_v<ParseError, FileError>' evaluated to false\n  592 |     requires is_constructible_v<_Err, _Args...>\n      |              ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:599:44: note: candidate template ignored: could not match 'initializer_list<_Up>' against '__libcpp_remove_reference_t<FileError &>' (aka 'FileError')\n  599 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(unexpect_t, initializer_list<_Up> __il, _Args&&... __args) noexcept(\n      |                                            ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:486:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  486 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected&) = delete;\n      |                                   ^        ~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:488:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  488 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected&)\n      |                                   ^        ~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:493:35: note: candidate constructor not viable: requires single argument '__other', but 2 arguments were provided\n  493 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected& __other) noexcept(\n      |                                   ^        ~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:499:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  499 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(expected&&)\n      |                                   ^        ~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:504:35: note: candidate constructor not viable: requires single argument '__other', but 2 arguments were provided\n  504 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(expected&& __other) noexcept(\n      |                                   ^        ~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:546:7: note: candidate constructor template not viable: requires single argument '__other', but 2 arguments were provided\n  546 |       expected(const expected<_Up, _OtherErr>& __other) noexcept(\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:554:7: note: candidate constructor template not viable: requires single argument '__other', but 2 arguments were provided\n  554 |       expected(expected<_Up, _OtherErr>&& __other) noexcept(\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:564:7: note: candidate constructor template not viable: requires single argument '__u', but 2 arguments were provided\n  564 |       expected(_Up&& __u) noexcept(is_nothrow_constructible_v<_Tp, _Up>) // strengthened\n      |       ^        ~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:569:87: note: candidate constructor template not viable: requires single argument '__unex', but 2 arguments were provided\n  569 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit(!is_convertible_v<const _OtherErr&, _Err>) expected(\n      |                                                                                       ^\n  570 |       const unexpected<_OtherErr>& __unex) noexcept(is_nothrow_constructible_v<_Err, const _OtherErr&>) // strengthened\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:576:7: note: candidate constructor template not viable: requires single argument '__unex', but 2 arguments were provided\n  576 |       expected(unexpected<_OtherErr>&& __unex) noexcept(is_nothrow_constructible_v<_Err, _OtherErr>) // strengthened\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:482:35: note: candidate constructor not viable: requires 0 arguments, but 2 were provided\n  482 |   _LIBCPP_HIDE_FROM_ABI constexpr expected() noexcept(is_nothrow_default_constructible_v<_Tp>) // strengthened\n      |                                   ^\n2 errors generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T09",
+          "mode": "run",
+          "feature": "expected-monadic",
+          "source_sha256": "260799b28f3a352e0592ab8b47a2a653b85e110c439f7470182928cf08721f83",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 152,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T09/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T09/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T09",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T09/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T09",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T10",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "12670dbc2114ac477fe128d975059efbc150ef9f627b9547c5a633078d1834b2",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 171,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T10/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T10/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T10",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T10/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T10",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T11",
+          "mode": "death",
+          "exit_code": 86,
+          "source_sha256": "915114e86d26bea33a93fcef024613608f68a3492a4cd3978f2137e53d402f34",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 195,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T11/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T11/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T11",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T11/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T11",
+            "returncode": 86,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T12",
+          "mode": "run",
+          "source_sha256": "8970123f57cb56716e7f88334f6a4dfbf67802435f4b889be3781b2ffbb6afb9",
+          "document": "fm8-failure-boundaries.md",
+          "marker_line": 98,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T12/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T12/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T12",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T12/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T12",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T13",
+          "mode": "run",
+          "source_sha256": "d73d8e67127696df6c12c4e5532cce5313264e3adefdec2985b226c3de6efc50",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 219,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T13/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T13/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T13",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T13/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T13",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T14",
+          "mode": "compile",
+          "source_sha256": "5ed8916e269b20c16370612fd6971570e05f1296fd776fa9932b73f8365c5edb",
+          "document": "fm5-noexcept-move-copy.md",
+          "marker_line": 115,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/T14/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0/T14",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T15",
+          "mode": "run",
+          "source_sha256": "01ea76a522f9463f3a0c24e723fb0546ac5e448cb5bb88f93bdc3f3fbeeb9e25",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 240,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T15/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T15/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T15",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T15/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T15",
+            "returncode": 0,
+            "stdout": "query_noexcept=0 change_noexcept=1\n",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T16",
+          "mode": "compile_fail",
+          "feature": "expected",
+          "diagnostics": [
+            "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+            "Error"
+          ],
+          "source_sha256": "f6cca42c149623b8c3fc62e1bab9076167b1a148451814300bd5244c2ba51dd3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 263,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-0/T16/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-0/T16",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-0/T16/sample.cpp:1:\nIn file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/expected:48:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__expected/expected.h:858:19: error: static assertion failed due to requirement 'is_copy_constructible_v<Error>': error_type has to be both copy constructible and constructible from decltype(std::move(error()))\n  858 |     static_assert(is_copy_constructible_v<_Err> && is_constructible_v<_Err, decltype(std::move(error()))>,\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-0/T16/sample.cpp:7:30: note: in instantiation of member function 'std::expected<int, Error>::value' requested here\n    7 |     return std::move(result).value();\n      |                              ^\n1 error generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T17",
+          "mode": "run",
+          "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+          "document": "fm5-noexcept-move-copy.md",
+          "marker_line": 197,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T17/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T17/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T17",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T17/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T17",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T18",
+          "mode": "run",
+          "feature": "expected-monadic",
+          "source_sha256": "19b0cc1b1b88e0a17a66ee40783334f96b002f60c0cce19a8bca99100035dc76",
+          "document": "fm2-value-based-failure.md",
+          "marker_line": 523,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T18/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T18/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T18",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T18/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T18",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T19",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "64f06bf468bc1f59b6323162b3a88ec6784e1808252def93e6094b0e377763ef",
+          "document": "fm2-value-based-failure.md",
+          "marker_line": 699,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T19/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T19/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T19",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T19/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T19",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T20",
+          "mode": "run",
+          "feature": "posix",
+          "source_sha256": "278daee9f7d2b68e4d6202ececb2e09810bb40b338b9d5f54f2233a77c394a5f",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 279,
+          "compile": {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-0/T20/sample.cpp",
+              "-o",
+              "<RUN>/compiler-0/T20/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T20",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-0/T20/sample"
+            ],
+            "cwd": "<RUN>/compiler-0/T20",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        }
+      ],
+      "counts": {
+        "PASS": 20,
+        "FAIL": 0,
+        "DIVERGENCE": 0,
+        "SKIP": 0,
+        "HARNESS_ERROR": 0
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "path": "/opt/homebrew/opt/llvm/bin/clang++",
+      "available": true,
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "<RUN>/compiler-1",
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": "",
+        "timeout": false
+      },
+      "features": {
+        "expected": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/expected.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "expected-monadic": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/expected-monadic.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "posix": {
+          "available": true,
+          "probe": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/posix.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          }
+        },
+        "ubsan": {
+          "available": true,
+          "probe": {
+            "compile": {
+              "command": [
+                "/opt/homebrew/opt/llvm/bin/clang++",
+                "-std=c++23",
+                "-O1",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "-pthread",
+                "-fsanitize=undefined",
+                "-fno-sanitize-recover=all",
+                "<RUN>/compiler-1/ubsan.cpp",
+                "-o",
+                "<RUN>/compiler-1/ubsan"
+              ],
+              "cwd": "<RUN>/compiler-1",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            },
+            "run": {
+              "command": [
+                "<RUN>/compiler-1/ubsan"
+              ],
+              "cwd": "<RUN>/compiler-1",
+              "returncode": 0,
+              "stdout": "",
+              "stderr": "",
+              "timeout": false
+            }
+          }
+        }
+      },
+      "identity_compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-O1",
+          "-Wall",
+          "-Wextra",
+          "-pedantic",
+          "-pthread",
+          "<RUN>/compiler-1/identity.cpp",
+          "-o",
+          "<RUN>/compiler-1/identity"
+        ],
+        "cwd": "<RUN>/compiler-1",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "timeout": false
+      },
+      "identity_run": {
+        "command": [
+          "<RUN>/compiler-1/identity"
+        ],
+        "cwd": "<RUN>/compiler-1",
+        "returncode": 0,
+        "stdout": "_LIBCPP_VERSION=230102\n__cpp_lib_expected=202211\n",
+        "stderr": "",
+        "timeout": false
+      },
+      "results": [
+        {
+          "id": "T01",
+          "mode": "compile_fail",
+          "diagnostics": [
+            "out_of_range",
+            "no matching|no viable|requires.*argument"
+          ],
+          "source_sha256": "ee01c2d9f97b46938d40f8084cba953542100391f0f1cff2129adde8015ad6ad",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 13,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/T01/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1/T01",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "<RUN>/compiler-1/T01/sample.cpp:2:24: error: no matching constructor for initialization of 'std::out_of_range'\n    2 | void example() { throw std::out_of_range{}; }\n      |                        ^                ~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/stdexcept:164:34: note: candidate constructor not viable: requires single argument '__s', but no arguments were provided\n  164 |   _LIBCPP_HIDE_FROM_ABI explicit out_of_range(const string& __s) : logic_error(__s) {}\n      |                                  ^            ~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/stdexcept:165:34: note: candidate constructor not viable: requires single argument '__s', but no arguments were provided\n  165 |   _LIBCPP_HIDE_FROM_ABI explicit out_of_range(const char* __s) : logic_error(__s) {}\n      |                                  ^            ~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/stdexcept:168:25: note: candidate constructor not viable: requires 1 argument, but 0 were provided\n  168 |   _LIBCPP_HIDE_FROM_ABI out_of_range(const out_of_range&) _NOEXCEPT            = default;\n      |                         ^            ~~~~~~~~~~~~~~~~~~~\n1 error generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T02",
+          "mode": "run",
+          "source_sha256": "370a4566ec4fa58c9884e144c7fd9a855e659f2b9376c62b85f912f8c5664f90",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 23,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T02/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T02/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T02",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T02/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T02",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T03",
+          "mode": "run",
+          "source_sha256": "8ae4e6b7f5f09a691db275faec8bbe387e37538e210ba7824f4c857259a13f30",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 40,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T03/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T03/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T03",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T03/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T03",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T04",
+          "mode": "run",
+          "source_sha256": "9dae9193ea5f9b0e8d2869eedcdbb7c6a26080df34844a3c884b2a106085e5b8",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 71,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T04/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T04/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T04",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T04/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T04",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T05",
+          "mode": "sanitizer_negative",
+          "feature": "ubsan",
+          "diagnostics": [
+            "unreachable",
+            "runtime error"
+          ],
+          "source_sha256": "0885147c097142023de2e10497a311f70450962271f3aed62397d1d2f9508dc3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 86,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=all",
+              "<RUN>/compiler-1/T05/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T05/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T05",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T05/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T05",
+            "returncode": -6,
+            "stdout": "",
+            "stderr": "/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__utility/unreachable.h:23:3: runtime error: execution reached an unreachable program point\nSUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__utility/unreachable.h:23:3 \n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T06",
+          "mode": "compile_fail",
+          "feature": "expected",
+          "diagnostics": [
+            "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+            "Error"
+          ],
+          "source_sha256": "1c7ecd08f4ac2e7a3359cc636364af23327f9104cc2c3488a44cbe31d5981ae3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 104,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/T06/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1/T06",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-1/T06/sample.cpp:1:\nIn file included from /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/expected:48:\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:841:19: error: static assertion failed due to requirement 'is_copy_constructible_v<Error>': error_type has to be copy constructible\n  841 |     static_assert(is_copy_constructible_v<_Err>, \"error_type has to be copy constructible\");\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-1/T06/sample.cpp:6:19: note: in instantiation of member function 'std::expected<int, Error>::value' requested here\n    6 |     return result.value();\n      |                   ^\nIn file included from <RUN>/compiler-1/T06/sample.cpp:1:\nIn file included from /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/expected:48:\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:78:35: error: call to implicitly-deleted copy constructor of 'Error'\n   78 |   throw bad_expected_access<_Err>(std::forward<_Arg>(__arg));\n      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:843:12: note: in instantiation of function template specialization 'std::__throw_bad_expected_access<Error, const Error &>' requested here\n  843 |       std::__throw_bad_expected_access<_Err>(std::as_const(error()));\n      |            ^\n<RUN>/compiler-1/T06/sample.cpp:3:37: note: copy constructor of 'Error' is implicitly deleted because field 'resource' has a deleted copy constructor\n    3 | struct Error { std::unique_ptr<int> resource; };\n      |                                     ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__memory/unique_ptr.h:181:55: note: copy constructor is implicitly deleted because 'unique_ptr<int>' has a user-declared move constructor\n  181 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX23 unique_ptr(unique_ptr&& __u) _NOEXCEPT\n      |                                                       ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/bad_expected_access.h:59:59: note: passing argument to parameter '__e' here\n   59 |   _LIBCPP_HIDE_FROM_ABI explicit bad_expected_access(_Err __e) : __unex_(std::move(__e)) {}\n      |                                                           ^\n2 errors generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T07",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "3f26551946ef8afb3a816d89941fde583b60b59aaa0df932e12cbd40ff2885f2",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 119,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T07/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T07/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T07",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T07/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T07",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T08",
+          "mode": "compile_fail",
+          "feature": "expected-monadic",
+          "diagnostics": [
+            "same error_type|is_same_v|same_as",
+            "FileError|ParseError"
+          ],
+          "source_sha256": "56b19bbebef9542f5af79d17f2a6035213806b54fa453731d5c03447cbe9ae07",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 135,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/T08/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1/T08",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-1/T08/sample.cpp:1:\nIn file included from /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/expected:48:\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:955:19: error: static assertion failed due to requirement 'is_same_v<ParseError, FileError>': The result of f(std::move(value())) must have the same error_type as this expected\n  955 |     static_assert(is_same_v<typename _Up::error_type, _Err>,\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-1/T08/sample.cpp:5:52: note: in instantiation of function template specialization 'std::expected<int, FileError>::and_then<(lambda at <RUN>/compiler-1/T08/sample.cpp:5:61)>' requested here\n    5 |     auto result = std::expected<int, FileError>{1}.and_then([](int value) {\n      |                                                    ^\nIn file included from <RUN>/compiler-1/T08/sample.cpp:1:\nIn file included from /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/expected:48:\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:960:12: error: no matching constructor for initialization of '_Up' (aka 'std::expected<int, ParseError>')\n  960 |     return _Up(unexpect, std::move(error()));\n      |            ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:533:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'std::__expected_construct_in_place_from_invoke_tag' for 1st argument\n  533 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(\n      |                                            ^\n  534 |       std::__expected_construct_in_place_from_invoke_tag __tag, _Func&& __f, _Args&&... __args)\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:538:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'std::__expected_construct_unexpected_from_invoke_tag' for 1st argument\n  538 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(\n      |                                            ^\n  539 |       std::__expected_construct_unexpected_from_invoke_tag __tag, _Func&& __f, _Args&&... __args)\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:582:44: note: candidate constructor template not viable: no known conversion from 'const unexpect_t' to 'in_place_t' for 1st argument\n  582 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(in_place_t, _Args&&... __args) noexcept(\n      |                                            ^        ~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:588:44: note: candidate template ignored: could not match 'initializer_list<_Up>' against '__libcpp_remove_reference_t<FileError &>' (aka 'FileError')\n  588 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(in_place_t, initializer_list<_Up> __il, _Args&&... __args) noexcept(\n      |                                            ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:594:44: note: candidate template ignored: constraints not satisfied [with _Args = <__libcpp_remove_reference_t<FileError &>>]\n  594 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(unexpect_t, _Args&&... __args) noexcept(\n      |                                            ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:593:14: note: because 'is_constructible_v<ParseError, FileError>' evaluated to false\n  593 |     requires is_constructible_v<_Err, _Args...>\n      |              ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:600:44: note: candidate template ignored: could not match 'initializer_list<_Up>' against '__libcpp_remove_reference_t<FileError &>' (aka 'FileError')\n  600 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit expected(unexpect_t, initializer_list<_Up> __il, _Args&&... __args) noexcept(\n      |                                            ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:487:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  487 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected&) = delete;\n      |                                   ^        ~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:489:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  489 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected&)\n      |                                   ^        ~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:494:35: note: candidate constructor not viable: requires single argument '__other', but 2 arguments were provided\n  494 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(const expected& __other) noexcept(\n      |                                   ^        ~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:500:35: note: candidate constructor not viable: requires 1 argument, but 2 were provided\n  500 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(expected&&)\n      |                                   ^        ~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:505:35: note: candidate constructor not viable: requires single argument '__other', but 2 arguments were provided\n  505 |   _LIBCPP_HIDE_FROM_ABI constexpr expected(expected&& __other) noexcept(\n      |                                   ^        ~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:547:7: note: candidate constructor template not viable: requires single argument '__other', but 2 arguments were provided\n  547 |       expected(const expected<_Up, _OtherErr>& __other) noexcept(\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:555:7: note: candidate constructor template not viable: requires single argument '__other', but 2 arguments were provided\n  555 |       expected(expected<_Up, _OtherErr>&& __other) noexcept(\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:565:7: note: candidate constructor template not viable: requires single argument '__u', but 2 arguments were provided\n  565 |       expected(_Up&& __u) noexcept(is_nothrow_constructible_v<_Tp, _Up>) // strengthened\n      |       ^        ~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:570:87: note: candidate constructor template not viable: requires single argument '__unex', but 2 arguments were provided\n  570 |   _LIBCPP_HIDE_FROM_ABI constexpr explicit(!is_convertible_v<const _OtherErr&, _Err>) expected(\n      |                                                                                       ^\n  571 |       const unexpected<_OtherErr>& __unex) noexcept(is_nothrow_constructible_v<_Err, const _OtherErr&>) // strengthened\n      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:577:7: note: candidate constructor template not viable: requires single argument '__unex', but 2 arguments were provided\n  577 |       expected(unexpected<_OtherErr>&& __unex) noexcept(is_nothrow_constructible_v<_Err, _OtherErr>) // strengthened\n      |       ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:483:35: note: candidate constructor not viable: requires 0 arguments, but 2 were provided\n  483 |   _LIBCPP_HIDE_FROM_ABI constexpr expected() noexcept(is_nothrow_default_constructible_v<_Tp>) // strengthened\n      |                                   ^\n2 errors generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T09",
+          "mode": "run",
+          "feature": "expected-monadic",
+          "source_sha256": "260799b28f3a352e0592ab8b47a2a653b85e110c439f7470182928cf08721f83",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 152,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T09/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T09/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T09",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T09/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T09",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T10",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "12670dbc2114ac477fe128d975059efbc150ef9f627b9547c5a633078d1834b2",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 171,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T10/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T10/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T10",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T10/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T10",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T11",
+          "mode": "death",
+          "exit_code": 86,
+          "source_sha256": "915114e86d26bea33a93fcef024613608f68a3492a4cd3978f2137e53d402f34",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 195,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T11/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T11/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T11",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T11/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T11",
+            "returncode": 86,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T12",
+          "mode": "run",
+          "source_sha256": "8970123f57cb56716e7f88334f6a4dfbf67802435f4b889be3781b2ffbb6afb9",
+          "document": "fm8-failure-boundaries.md",
+          "marker_line": 98,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T12/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T12/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T12",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T12/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T12",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T13",
+          "mode": "run",
+          "source_sha256": "d73d8e67127696df6c12c4e5532cce5313264e3adefdec2985b226c3de6efc50",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 219,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T13/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T13/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T13",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T13/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T13",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T14",
+          "mode": "compile",
+          "source_sha256": "5ed8916e269b20c16370612fd6971570e05f1296fd776fa9932b73f8365c5edb",
+          "document": "fm5-noexcept-move-copy.md",
+          "marker_line": 115,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/T14/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1/T14",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T15",
+          "mode": "run",
+          "source_sha256": "01ea76a522f9463f3a0c24e723fb0546ac5e448cb5bb88f93bdc3f3fbeeb9e25",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 240,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T15/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T15/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T15",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T15/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T15",
+            "returncode": 0,
+            "stdout": "query_noexcept=0 change_noexcept=1\n",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T16",
+          "mode": "compile_fail",
+          "feature": "expected",
+          "diagnostics": [
+            "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+            "Error"
+          ],
+          "source_sha256": "f6cca42c149623b8c3fc62e1bab9076167b1a148451814300bd5244c2ba51dd3",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 263,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "<RUN>/compiler-1/T16/sample.cpp"
+            ],
+            "cwd": "<RUN>/compiler-1/T16",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "In file included from <RUN>/compiler-1/T16/sample.cpp:1:\nIn file included from /opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/expected:48:\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__expected/expected.h:858:19: error: static assertion failed due to requirement 'is_copy_constructible_v<Error>': error_type has to be both copy constructible and constructible from decltype(std::move(error()))\n  858 |     static_assert(is_copy_constructible_v<_Err> && is_constructible_v<_Err, decltype(std::move(error()))>,\n      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n<RUN>/compiler-1/T16/sample.cpp:7:30: note: in instantiation of member function 'std::expected<int, Error>::value' requested here\n    7 |     return std::move(result).value();\n      |                              ^\n1 error generated.\n",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T17",
+          "mode": "run",
+          "source_sha256": "f69e5a0bc2e837842526a3f3553e9c6fb55d209a898fe44816078da73d6bb3be",
+          "document": "fm5-noexcept-move-copy.md",
+          "marker_line": 197,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T17/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T17/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T17",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T17/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T17",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T18",
+          "mode": "run",
+          "feature": "expected-monadic",
+          "source_sha256": "19b0cc1b1b88e0a17a66ee40783334f96b002f60c0cce19a8bca99100035dc76",
+          "document": "fm2-value-based-failure.md",
+          "marker_line": 523,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T18/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T18/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T18",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T18/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T18",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T19",
+          "mode": "run",
+          "feature": "expected",
+          "source_sha256": "64f06bf468bc1f59b6323162b3a88ec6784e1808252def93e6094b0e377763ef",
+          "document": "fm2-value-based-failure.md",
+          "marker_line": 699,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T19/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T19/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T19",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T19/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T19",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        },
+        {
+          "id": "T20",
+          "mode": "run",
+          "feature": "posix",
+          "source_sha256": "278daee9f7d2b68e4d6202ececb2e09810bb40b338b9d5f54f2233a77c394a5f",
+          "document": "review/fm-verification-samples.md",
+          "marker_line": 279,
+          "compile": {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-Wall",
+              "-Wextra",
+              "-pedantic",
+              "-pthread",
+              "<RUN>/compiler-1/T20/sample.cpp",
+              "-o",
+              "<RUN>/compiler-1/T20/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T20",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "run": {
+            "command": [
+              "<RUN>/compiler-1/T20/sample"
+            ],
+            "cwd": "<RUN>/compiler-1/T20",
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "timeout": false
+          },
+          "status": "PASS"
+        }
+      ],
+      "counts": {
+        "PASS": 20,
+        "FAIL": 0,
+        "DIVERGENCE": 0,
+        "SKIP": 0,
+        "HARNESS_ERROR": 0
+      }
+    }
+  ],
+  "exit_code": 0,
+  "evidence_note": "Only this attempt's temporary path prefix is replaced with <RUN>; commands, diagnostics, source hashes and verdicts are otherwise retained."
+}

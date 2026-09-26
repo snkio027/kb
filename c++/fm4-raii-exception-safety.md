@@ -155,97 +155,47 @@ lifetime semantics
 control-flow bookkeeping
 ```
 
+这里以正常作用域退出或实际进行的栈展开为前提，不是所有终止路径的清理承诺；详见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
+
 ---
 
 ## 4. Exception Safety Guarantees
 
-需要统一四个层次。
+以下是工程保证的术语，不应混成一个包含“终止”的线性等级。声明保证时应明确所覆盖的可观察状态、失败通道与前置条件。
 
 ### No-throw Guarantee
 
-操作不会让异常逃出：
+本系列用 no-throw 描述**不向调用者传播异常**的保证；它不等于 no-fail。`noexcept` 也不证明操作成功、正常返回或完成清理。
 
-```text
-operation always completes through normal return
-or handles/terminates internally
-```
-
-通常关键于：
-
-```text
-destructor
-swap
-move operations
-cleanup primitives
-commit primitives
-```
-
----
+若一个 commit 要求 no-fail，必须额外证明：合法前置条件下可正常完成，没有未处理的错误返回、异常或部分提交，后续返回与清理不会推翻声明的事务结果。终止进程不算完成这样的 commit。
 
 ### Strong Guarantee
 
-失败时：
-
-```text
-observable state unchanged
-```
-
-即：
-
-```text
-success → new state
-failure → old state
-```
-
-近似 transaction。
-
----
+所约定的失败发生时，可观察状态与操作前一致。典型实现先准备临时状态再提交；外部副作用不因内存中的 swap 自动回滚。
 
 ### Basic Guarantee
 
-失败以后：
-
-```text
-object remains valid
-invariants hold
-resources not leaked
-```
-
-但：
-
-```text
-value may have changed
-```
-
----
+失败后不变量和资源管理仍成立，但值可能已改变。具体可继续执行哪些操作仍须由契约说明。
 
 ### No Useful Guarantee
 
-失败以后：
+对于关注的失败路径，缺少可依赖的状态保证，不能自行升级成 basic。某条标准写 effects unspecified 也不能简单改称 UB，见 [FM-5 §11](fm5-noexcept-move-copy.md#11-move-only--throwing-move)。
 
-```text
-state semantics no longer reliable
-```
-
-高质量组件应尽量避免。
+终止是另一维度的处置策略；其清理限制见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
 ---
 
 ## 5. Strong Guarantee 的核心模式
 
-最重要的结构：
-
 ```text
-prepare
+prepare (may fail, original observable state unchanged)
     ↓
-may fail
+commit (normal completion assured under its preconditions)
     ↓
-commit
-    ↓
-must not fail
+return / cleanup (compatible with the promised guarantee)
 ```
 
-例如：
+契约片段：
 
 ```cpp
 void update(State& state, const Input& input) {
@@ -254,19 +204,13 @@ void update(State& state, const Input& input) {
 }
 ```
 
-如果：
+此结构只有在以下条件成立时才支持所声称的 strong guarantee：
 
-```text
-build_state fails
-```
+- `build_state` 的失败不修改纳入保证的原状态，也没有无法撤销的外部副作用。
+- `swap` 的前置条件满足；它真正完成提交，不能只是声明 `noexcept` 却在内部失败、终止或错误返回。
+- `next` 的析构、返回路径及其他收尾与保证兼容；不能在提交后又向调用者报告一个声称“状态未变”的失败。
 
-原状态没变。
-
-如果成功：
-
-```text
-noexcept swap commits
-```
+因此 `noexcept swap` 是有用线索，不是独立的事务证明。
 
 ---
 
@@ -336,6 +280,8 @@ subobjects constructed one by one
 ```text
 already-constructed objects unwind automatically
 ```
+
+委托构造体失败与普通成员构造失败的区别见 [FM-6 §3](fm6-construction-destruction-allocation.md#3-partial-construction)。
 
 因此应优先：
 
@@ -686,11 +632,11 @@ File handle successfully closed
 [ ] 每个 resource 是否立即进入 owner？
 [ ] raw ownership window 是否最小？
 [ ] 对象是否存在 partially initialized state？
-[ ] operation 提供 no-throw / strong / basic 哪一级保证？
+[ ] 异常传播、失败后状态和终局处置是否分别声明？
 [ ] guarantee 是否依赖 T 的操作？
 [ ] commit point 是否明确？
 [ ] prepare 阶段是否修改原状态？
-[ ] commit 是否能够做到 noexcept？
+[ ] commit 是否真正 no-fail（含前置条件、错误返回与收尾），而不只是 noexcept？
 [ ] rollback 本身是否可能失败？
 [ ] destructor 是否承担可失败业务逻辑？
 [ ] external side effect 是否存在 ambiguous completion？

@@ -91,33 +91,35 @@ serialized protocol error
 
 ## 2. `std::thread`
 
-如果 exception 逃出 thread entry function：
+异常逃出线程初始函数会终止进程；线程入口的 catch 内若再次抛出，同样可能越界。因此隔离必须包括报告路径。[N4950：except.terminate](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)
 
-```text
-std::terminate()
-```
+完整正例 T12 只在线程内保存异常，在正常 join 后由协调者读取、重新抛出并处理：
 
-因此：
-
+<!-- fm-test {"id":"T12","mode":"run"} -->
 ```cpp
-std::thread worker([] {
-    try {
-        run_worker();
-    } catch (...) {
-        report_failure(std::current_exception());
-    }
-});
+#include <exception>
+#include <thread>
+int main() {
+    std::exception_ptr failure;
+    std::thread worker([&failure] {
+        try { throw 7; }
+        catch (...) { failure = std::current_exception(); }
+    });
+    worker.join(); // Synchronizes before the read of failure.
+    if (!failure) { return 1; }
+    try { std::rethrow_exception(failure); }
+    catch (int value) { return value == 7 ? 0 : 2; }
+    catch (...) { return 3; }
+}
 ```
 
-如果架构要求：
+这是单生产者、join 后观察的最小例子；整数异常只是测试标记，不是推荐的生产错误类型。线程创建和 join 自身的失败政策不在本例内。
 
-```text
-worker failure
-≠
-process failure
-```
+`current_exception()` 不传播异常，但可能在内部尝试分配或复制异常；失败时可能改为保存 `bad_alloc`、复制失败的异常或 `bad_exception`，不能承诺它永不分配或始终保留原始错误。[N4950：propagation](https://timsong-cpp.github.io/cppwp/n4950/propagation)
 
-就必须建立 thread failure boundary。
+工程上把可能分配的格式化、日志、上报推迟到协调者，并给这些动作定义后备路径：例如保留已有失败标记、设置预分配的简单计数／状态，或者按事先批准的策略终止；后备路径也不得再次依赖失败的报告设施。给未知报告函数加 `noexcept` 只会把逃逸异常变成终止，不会证明恢复成立。
+
+[T11](review/fm-verification-samples.md#t11) 用人为编写的抛异常报告函数作受控终止反例，不是仓库生产实现的 bug 复现。
 
 ---
 

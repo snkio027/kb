@@ -88,32 +88,19 @@ File::File(const Path& path) {
 
 ## 3. Partial Construction
 
-对象成员按构造顺序建立。
+在完整对象的非委托构造中，若成员 A、B 已完成，而成员 C 的非委托初始化尚未完成就抛异常，已完成的 B、A 按逆序析构；此时不会调用 C 或完整对象自身的析构函数。C 内已经完成构造的子对象仍按相应规则清理。已取得资源必须由完成构造的成员或局部 owner 管理，不能寄望于完整对象的析构函数。
 
-假设：
+委托构造是不同情况：目标构造已成功，随后委托构造函数体抛异常，会调用该对象的析构函数。[N4950：except.ctor/3～4](https://timsong-cpp.github.io/cppwp/n4950/except.ctor)
 
-```text
-member A success
-member B success
-member C throws
+对照片段：
+
+```cpp
+Object() : Object(0) {
+    throw Failure{}; // 目标构造已成功：随后调用 ~Object()。
+}
 ```
 
-则：
-
-```text
-B destroyed
-A destroyed
-```
-
-完整对象：
-
-```text
-never came into existence
-```
-
-因此其 destructor 不会执行。
-
-这使成员级 RAII 成为 constructor failure 的基础。
+完整析构计数例见 [T13](review/fm-verification-samples.md#t13)。这些规则描述构造失败转向 handler 的路径；不能推广为所有进程终止都会完成栈展开，见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
 ---
 

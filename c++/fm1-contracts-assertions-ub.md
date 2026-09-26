@@ -757,6 +757,8 @@ private:
 Frame invariant holds
 ```
 
+该工程模式的前提是校验结果在整个使用期内持续有效。若 Frame 借用外部内存，必须保证生命周期、别名修改和线程同步不会使已验证条件失效；包装成 validated 类型本身不能替代这些责任。发生相关变更后应重新建立不变量或重新验证。
+
 ---
 
 ## 18. Checked Boundary + Trusted Core
@@ -966,27 +968,17 @@ crash
 
 ## 23. UB 与 Runtime Error 的根本区别
 
-Runtime failure：
-
-```text
-程序仍然处在 C++ 定义的语义世界中
-```
-
-例如：
+定义良好的失败报告仍处于 C++ 语义规则之内。例如下面是抛出语句片段，需要 `<stdexcept>` 和外围函数：
 
 ```cpp
-throw std::out_of_range{};
+throw std::out_of_range{"index out of range"};
 ```
 
-调用者可以根据标准语义继续推理。
+`std::out_of_range` 需要错误描述参数，不能写成 `std::out_of_range{}`。这里“运行时失败”指运行期间被显式报告的失败，不是说该类型继承自 `std::runtime_error`；它实际属于 `std::logic_error` 分支。[N4950：out.of.range](https://timsong-cpp.github.io/cppwp/n4950/diagnostics#out.of.range)
 
-UB：
+调用者可依据明确的抛出、捕获和状态契约继续推理。UB 则没有这种可移植的恢复保证。
 
-```text
-程序已经离开抽象机保证
-```
-
-所以不存在可靠 recovery model。
+完整正例和原式的预期编译失败反例见 [T01 / T02](review/fm-verification-samples.md#t01)。
 
 ---
 
@@ -1384,38 +1376,28 @@ terminal behavior
 
 ## 34. `std::unreachable` — C++23
 
-C++23：
+`std::unreachable()` 承诺合法执行不会到达此处；到达它是 UB，不是受控拒绝。[N4950：utility.unreachable](https://timsong-cpp.github.io/cppwp/n4950/utility#utility.unreachable)
+
+以下是带前置条件的函数片段：
 
 ```cpp
 #include <utility>
 
-std::unreachable();
-```
+enum class State { idle, running };
 
-表达：
-
-> 合法程序执行绝不可能到达这里。
-
-例如：
-
-```cpp
-enum class State {
-    idle,
-    running,
-};
-
+// Preconditions: state == State::idle || state == State::running.
 int value(State state) {
     switch (state) {
-    case State::idle:
-        return 0;
-
-    case State::running:
-        return 1;
+    case State::idle:    return 0;
+    case State::running: return 1;
     }
-
     std::unreachable();
 }
 ```
+
+该 scoped enum 的固定底层类型是 `int`；`static_cast<State>(2)` 本身可以有定义，却不是两个命名值之一。若不能在调用前证明前置条件，就应在边界验证，或将最后一行替换为明确的拒绝／终止路径，而不是保留不可达假设。[N4950：expr.static.cast/10](https://timsong-cpp.github.io/cppwp/n4950/expr.static.cast#10)
+
+[T04 / T05](review/fm-verification-samples.md#t04) 分别检查未命名值与隔离的 UBSan 反例；sanitizer 的一次诊断不构成 UB 的可移植行为保证。
 
 ---
 

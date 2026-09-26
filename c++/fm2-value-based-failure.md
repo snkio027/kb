@@ -509,132 +509,79 @@ return decode(*header);
 
 ## 11. Monadic Composition
 
-C++23 `expected` 可以：
+`and_then` 的回调返回 `expected`，而且其 `error_type` 必须与当前对象相同；`or_else` 则须保留 `value_type`。还要根据对象的 cv/ref 类别检查回调参数以及成功值、错误值的构造要求。它们不是任意类型或错误域的自动连接器。[N4950：expected.object.monadic](https://timsong-cpp.github.io/cppwp/n4950/expected.object.monadic)
 
+| 操作 | 用途 | 不应忽略的条件 |
+| --- | --- | --- |
+| `transform` | 转换成功值 | 错误传播及结果类型必须可构造 |
+| `and_then` | 下一步也返回 `expected` | 保持 `error_type` |
+| `transform_error` | 显式转换错误域 | 转换后的错误类型及成功值传播必须有效 |
+| `or_else` | 失败分支返回另一个 `expected` | 保持 `value_type`；是否恢复成功仍由策略决定 |
+
+完整正例 T18 使用纯内存替身展示 read → parse → validate，**不测试文件 I/O**。只有 read 的低层错误在边界转换，后续两步统一使用 `ConfigError`：
+
+<!-- fm-test {"id":"T18","mode":"run","feature":"expected-monadic"} -->
 ```cpp
-return read_file(path)
-    .and_then(parse_config)
-    .and_then(validate_config);
+#include <expected>
+#include <string_view>
+
+enum class FileError { missing };
+enum class ConfigError { input, parse, invalid };
+struct Config { int port; };
+
+std::expected<std::string_view, FileError> read_file(std::string_view path) {
+    if (path == "missing") return std::unexpected(FileError::missing);
+    if (path == "bad") return "not-a-number";
+    if (path == "zero") return "0";
+    return "8080";
+}
+std::expected<Config, ConfigError> parse_config(std::string_view data) {
+    if (data == "8080") return Config{8080};
+    if (data == "0") return Config{0};
+    return std::unexpected(ConfigError::parse);
+}
+std::expected<Config, ConfigError> validate_config(Config value) {
+    if (value.port == 0) return std::unexpected(ConfigError::invalid);
+    return value;
+}
+std::expected<Config, ConfigError> load_config(std::string_view path) {
+    return read_file(path)
+        .transform_error([](FileError) { return ConfigError::input; })
+        .and_then(parse_config)
+        .and_then(validate_config);
+}
+int main() {
+    auto good = load_config("good");
+    auto missing = load_config("missing");
+    auto bad = load_config("bad");
+    auto zero = load_config("zero");
+    return good && good->port == 8080
+        && !missing && missing.error() == ConfigError::input
+        && !bad && bad.error() == ConfigError::parse
+        && !zero && zero.error() == ConfigError::invalid ? 0 : 1;
+}
 ```
 
-概念：
-
-```text
-read
-  ↓ success
-parse
-  ↓ success
-validate
-
-任何一步 failure
-  ↓
-短路传播
-```
-
----
-
-### `transform`
-
-成功值转换：
-
-```cpp
-auto size = read_file(path)
-    .transform([](const Data& data) {
-        return data.size();
-    });
-```
-
-保持 error channel。
-
----
-
-### `and_then`
-
-下一步本身返回 `expected`：
-
-```cpp
-auto result = read_file(path)
-    .and_then(parse_config);
-```
-
-避免：
-
-```text
-expected<expected<T, E>, E>
-```
-
----
-
-### `transform_error`
-
-改变 error abstraction：
-
-```cpp
-return read_file(path)
-    .transform_error([](FileError error) {
-        return ConfigError{error};
-    });
-```
-
----
-
-### `or_else`
-
-针对失败执行恢复：
-
-```cpp
-return load_primary()
-    .or_else([](LoadError) {
-        return load_backup();
-    });
-```
-
-这里是真正的 recovery policy，应确保当前层确实有资格做 fallback。
+若用 `or_else` 选择备用配置，当前层必须有资格决定 fallback，并检查备用操作本身的失败。不同 E 直接串联的编译失败反例与最小转换正例见 [T08 / T09](review/fm-verification-samples.md#t08)。
 
 ---
 
 ## 12. `.value()` 与 `operator*`
 
-这两个访问方式语义不同。
+本节按 C++23 最终草案 N4950 的 `expected<T, E>`（非 void）重载说明：
 
-```cpp
-result.value();
-```
+| 访问 | 条件与失败行为 |
+| --- | --- |
+| `value() &` / `value() const &` | Mandates 要求 E 可复制构造；无值时构造并抛出 `bad_expected_access<E>` |
+| `value() &&` / `value() const &&` | 同样要求 E 可复制，另须能从该重载的 `std::move(error())` 构造 E |
+| `operator*` / `operator->` | 使用前须已确立 `has_value() == true`；不是带运行时错误报告的检查访问 |
+| `error()` | 使用前须已确立 `has_value() == false` |
 
-如果没有 value：
+这些类型要求不因当前对象恰好含值而消失。构造异常对象时复制／移动 E 本身也可能抛异常，因此不能把可观察异常集合概括为只有 `bad_expected_access<E>`。[N4950：expected.object.obs](https://timsong-cpp.github.io/cppwp/n4950/expected.object.obs)、[LWG 3843](https://cplusplus.github.io/LWG/issue3843)
 
-```text
-throws std::bad_expected_access<E>
-```
+对于 §16 的 move-only 错误对象，先检查状态再访问相应分支，不靠 `std::move(result).value()` 绕过规范要求。完整正反例为 [T06～T10](review/fm-verification-samples.md#t06) 和 [T16](review/fm-verification-samples.md#t16)。
 
-C++23 明确定义了这一行为。
-
-而：
-
-```cpp
-*result
-result->member
-```
-
-应在：
-
-```text
-result.has_value() == true
-```
-
-的前提下使用。
-
-工程原则：
-
-```text
-value()
-    → checked extraction when throwing is intended
-
-operator*
-    → value state already established
-```
-
-不要把 `.value()` 当成习惯性解包操作。
+附件报告观察到 libstdc++ 14 接受 T16；这是相对于所选 N4950 基线的实现差异，不是可移植许可。本机结果另记在[修订与验证记录](review/fm-review-7869082.md)，不覆盖历史观测。
 
 ---
 
@@ -745,47 +692,38 @@ partial commit
 
 ## 16. Ownership 必须随失败语义明确
 
-例如：
+按值接收 `std::unique_ptr<Job>` 意味着调用时所有权进入参数。失败后是销毁、保留在队列，还是返还调用者，必须属于 API 契约。
 
+若失败时要同时返还原因与任务，可把任务放进错误对象。完整正例 T19 只模拟拒绝入队，不实现真实队列：
+
+<!-- fm-test {"id":"T19","mode":"run","feature":"expected"} -->
 ```cpp
-std::expected<void, SendError>
-send(std::unique_ptr<Job> job);
-```
+#include <expected>
+#include <memory>
+#include <utility>
 
-关键问题：
-
-```text
-failure 后 job 在哪里？
-```
-
-按值接收已经意味着调用时 ownership 进入函数。
-
-如果发送失败，函数内部必须决定：
-
-```text
-destroy?
-return ownership?
-queue somewhere?
-```
-
-如果调用者失败后还需要 job：
-
-```cpp
-std::expected<std::unique_ptr<Job>, SendError>
-```
-
-甚至仍不足以同时返回错误与 ownership。
-
-可能需要：
-
-```cpp
+struct Job { int id; };
+enum class SendError { queue_full };
 struct SendFailure {
     SendError error;
     std::unique_ptr<Job> job;
 };
+std::expected<void, SendFailure> reject(std::unique_ptr<Job> job) {
+    return std::unexpected(SendFailure{SendError::queue_full, std::move(job)});
+}
+int main() {
+    auto job = std::make_unique<Job>(Job{7});
+    auto* identity = job.get();
+    auto result = reject(std::move(job));
+    if (job || result) return 1;
+    auto failure = std::move(result.error()); // 已知当前是错误分支。
+    job = std::move(failure.job);
+    return failure.error == SendError::queue_full
+        && job.get() == identity && job->id == 7 ? 0 : 2;
+}
 ```
 
-Failure Model 必须和 ownership model 一起设计。
+错误对象因此是 move-only。继续组合时也必须检查所选重载能否移动／复制错误；`value()` 的特殊要求见 [§12](#12-value-与-operator)。这里的所有权保证来自具体实现，不是 `expected` 自动提供的。
 
 ---
 
@@ -909,6 +847,8 @@ auto x = result.value();
 [ ] failure state guarantee 是否单独定义？
 [ ] failure 后 ownership 是否明确？
 [ ] 高频路径 error object 是否足够轻量？
+[ ] monadic chain 的 cv/ref、值／错误类型与构造要求是否满足？
+[ ] move-only 错误对象是否避免了不满足 Mandates 的 value() 调用？
 [ ] monadic chain 是否保持了清晰的 recovery boundary？
 ```
 

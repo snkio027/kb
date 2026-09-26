@@ -1257,49 +1257,25 @@ C-compatible error representation
 
 ## 27. Thread Boundary
 
-考虑：
+异常逃出线程初始函数会调用 `std::terminate()`。若工程目标是把 worker 失败限制在线程任务内，边界必须覆盖工作路径和错误报告路径；仅有 `catch (...)` 还不够。[N4950：except.terminate](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)
+
+以下是契约片段：只在线程内保存异常，正常 `join()` 返回后由协调者观察。这里省略了 `run_worker` 的实现以及线程创建、join 和协调者报告失败的上层策略。
 
 ```cpp
-std::thread worker([] {
-    throw std::runtime_error{"failure"};
-});
-```
-
-如果异常逃出 thread entry：
-
-```text
-std::terminate()
-```
-
-因此，如果系统设计要求：
-
-```text
-worker failure
-≠
-process failure
-```
-
-线程入口就必须建立 failure boundary：
-
-```cpp
-std::thread worker([] {
+std::exception_ptr failure;
+std::thread worker([&failure] {
     try {
         run_worker();
     } catch (...) {
-        report_failure(std::current_exception());
+        failure = std::current_exception();
     }
 });
+worker.join(); // 正常返回后，协调者才能读取 failure。
 ```
 
-然后：
+不要在这个 catch 内调用契约未知的 `report_failure()`：格式化、日志分配或报告动作若再次抛出，仍可能造成进程终止。只给它加 `noexcept` 也不是恢复方案。
 
-```text
-worker failure
-    ↓
-convert/report
-    ↓
-supervisor decides
-```
+完整样例、异常捕获可能分配的限制和报告失败后备策略，见 [FM-8 §2](fm8-failure-boundaries.md#2-stdthread)。
 
 ---
 
@@ -1340,19 +1316,15 @@ failure → state unchanged
 
 ## 29. 第三维：State Guarantee
 
-一个失败模型必须描述：
+失败后的状态应与异常传播、终止策略分别说明：
 
-> 操作失败以后，系统还剩下什么保证？
+| 分析维度 | 应回答的问题 |
+| --- | --- |
+| 失败后状态 | strong（可观察状态不变）、basic（不变量成立但值可变）、明确的部分进度，还是没有可依赖的状态保证？ |
+| 异常传播 | 是否允许异常越过 API 边界？`noexcept` 只约束这一项。 |
+| 终局处置 | 是否拒绝当前操作、升级处理、重启或终止进程？ |
 
-最重要的几个等级是：
-
-```text
-no-throw guarantee
-strong guarantee
-basic guarantee
-no useful guarantee
-termination
-```
+这些不是一条从弱到强的等级序列。一个返回错误码的 `noexcept` 操作仍可能失败；终止也不等于“成功完成清理”。术语和提交条件统一见 [FM-4 §4～§5](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
 ---
 
@@ -1478,16 +1450,9 @@ state guarantee
 
 ## 34. 第四维：Failure Frequency
 
-错误发生频率会直接影响机制选择。
+常见、少见等发生频率会影响机制成本，但应根据实际工作负载判断，不能由错误名称推断。
 
-建议至少分成：
-
-```text
-common
-uncommon
-exceptional
-catastrophic
-```
+频率与严重性独立：高频失败也可能严重，罕见结果也可能只是普通拒绝。§35～§36 讨论频率；§37 的 catastrophic 是严重性与处置问题，不是第三档发生频率。
 
 ---
 
@@ -1546,22 +1511,11 @@ exception
 
 ## 37. Catastrophic Failure
 
-例如：
+这里切换到严重性与终局处置维度，不继续给发生频率分档。
 
-```text
-heap corruption
-broken central invariant
-double ownership
-impossible state
-```
+堆损坏、中心不变量失效、重复所有权等问题，可能使进程状态不再可信。工程上通常应考虑 fail-fast，而不是假装通过普通错误值恢复；适用范围仍取决于损坏的失败域和系统隔离能力。
 
-通常应该考虑：
-
-```text
-fail fast
-```
-
-而不是尝试把它降级成一个普通错误值。
+这是工程处置建议，不是说所有严重错误都由同一种语言机制报告，也不是说 `terminate` 会执行完整资源清理。
 
 ---
 
@@ -1600,33 +1554,15 @@ temporary resource 是否清理？
 
 ## 39. RAII 的 Failure Model 含义
 
-RAII 不只是：
+RAII 将资源所有权绑定到对象生命周期，使正常作用域退出与**确实发生的栈展开**共用析构清理。
 
 ```text
-automatic memory cleanup
+acquire → owner → work → normal exit / unwinding → destructor
 ```
 
-它真正提供的是：
+不能把这条路径扩展到所有终止：无匹配 handler 或触及 `noexcept` 边界时，不能依赖完整栈展开。清理规则与终止边界的主说明见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
-> 将资源有效期绑定到对象生命周期，从而使正常返回和异常路径共享同一套 cleanup 机制。
-
-理想结构：
-
-```text
-acquire
-   ↓
-RAII object owns resource
-   ↓
-work
-   ├─ success
-   └─ failure
-        ↓
-scope exit
-        ↓
-destructor
-```
-
-这是现代 C++ 可以安全组合复杂失败路径的重要基础。
+工程上还要审查析构的可失败操作；RAII 不自动提供持久化提交、业务回滚或“资源关闭一定成功”的保证。
 
 ---
 
@@ -1660,53 +1596,42 @@ failure domain containment
 
 ## 41. 示例：文件读取
 
-假设：
+契约片段：
 
 ```cpp
 std::expected<Config, ConfigError>
 load_config(std::string_view path);
 ```
 
-底层：
+以 POSIX `open` 打开已有配置文件为例，返回值与错误指示必须分开：
 
 ```text
-open()
+open(path, O_RDONLY) returns -1
+    ↓
+capture errno immediately
+    ↓
+missing-path error: saved errno == ENOENT
+    ↓
+translate to ConfigError::missing
 ```
 
-返回：
+不是 `open()` “返回 ENOENT”。成功返回文件描述符；失败返回 `-1` 并设置 `errno`。`O_CREAT` 等选项会改变语义，不能把“目标文件不存在”无条件等同于打开失败。[open(2)：返回值与错误](https://man7.org/linux/man-pages/man2/open.2.html)
+
+工程模型仍为：
 
 ```text
-ENOENT
+Detection             OS
+Representation        saved errno / error_code
+Translation           ConfigError::missing
+Propagation           load_config returns unexpected
+Recovery boundary     Application startup
+Recovery              development → default config
+                      production  → fail startup
+Failure domain        application startup
+State guarantee       existing configuration remains unchanged
 ```
 
-完整模型：
-
-```text
-Detection
-    OS
-
-Representation
-    errno / error_code
-
-Translation
-    ConfigError::missing
-
-Propagation
-    load_config returns unexpected
-
-Recovery boundary
-    Application startup
-
-Recovery
-    development → default config
-    production  → fail startup
-
-Failure domain
-    application startup
-
-State guarantee
-    existing configuration remains unchanged
-```
+最后一项依赖先完整读取、解析和验证，再提交新配置，不能仅由返回 `expected` 推出。相关错误转换见 [FM-7 §1](fm7-error-code-system-error.md#1-errno)。
 
 ---
 
@@ -2088,7 +2013,8 @@ retry / fallback / skip / rollback / shutdown？
 ### 15. Frequency
 
 ```text
-common / uncommon / exceptional / catastrophic？
+common / uncommon？（依据具体工作负载）
+严重性与终局处置另行记录，不混入频率。
 ```
 
 ### 16. Terminal Behavior
@@ -2786,6 +2712,8 @@ what state remains?
       ├─ invalid
       └─ process terminated
 ```
+
+图中的 process terminated 是终局处置，不是存活对象的状态保证等级。
 
 只有这两个模型都清楚之后，才讨论：
 

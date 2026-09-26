@@ -76,7 +76,7 @@ void f() noexcept {
 }
 ```
 
-完全合法。
+这是契约片段：`may_throw` 和 `recover` 未给出实现。内部抛出再捕获合法，但若 `recover()` 又抛出并越界，仍会终止；此例不证明恢复动作不会失败。
 
 ---
 
@@ -102,35 +102,25 @@ std::terminate()
 noexcept
 ```
 
-是一项非常强的 runtime contract。
+是一项非常强的 runtime contract；它不保证正常完成或完整清理。终止与栈展开的边界见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
 ---
 
 ## 3. `noexcept(expr)`
 
-C++ 可以查询：
+`noexcept(expression)` 是不求值的编译期查询，判断**整个表达式**是否 potentially-throwing，不只是查看最外层被调函数有没有 `noexcept`。实参求值和临时对象等也参与判断。[N4950：expr.unary.noexcept](https://timsong-cpp.github.io/cppwp/n4950/expr.unary.noexcept)
 
+编译语义例 T14：
+
+<!-- fm-test {"id":"T14","mode":"compile"} -->
 ```cpp
-noexcept(expression)
+int argument();
+void operation(int = argument()) noexcept;
+static_assert(noexcept(operation(0)));
+static_assert(!noexcept(operation()));
 ```
 
-得到 compile-time `bool`。
-
-例如：
-
-```cpp
-static_assert(noexcept(std::declval<T&>().swap(std::declval<T&>())));
-```
-
-注意：
-
-```text
-noexcept operator
-```
-
-不会执行 expression。
-
-它只是查询异常规格。
+两次调用的函数相同，默认实参的求值却改变了结果。此例只需语法检查，不需要为未调用的函数补定义或链接入口。
 
 ---
 
@@ -157,31 +147,15 @@ void exchange(T& a, T& b)
 
 ## 5. `std::move` 不执行移动
 
-```cpp
-std::move(x)
-```
-
-本质上进行 value-category cast。
-
-真正资源移动发生于：
+`std::move(x)` 执行表达式转换，保留相应 cv 限定，不负责转移资源。对于初始化片段：
 
 ```cpp
 T y{std::move(x)};
 ```
 
-选择的：
+完整重载决议才决定使用哪个构造函数：可能移动、可能复制，也可能因为被选函数删除／不可访问等而不合法。即使选中移动构造，资源效果仍由类型实现决定。[N4950：forward](https://timsong-cpp.github.io/cppwp/n4950/utility#forward)
 
-```cpp
-T::T(T&&)
-```
-
-因此：
-
-```text
-std::move itself
-≠
-resource transfer
-```
+[完整正例 T03](review/fm-verification-samples.md#t03) 对照了没有移动构造的复制回退，以及 `std::move(const_object)` 选择复制。**未声明移动构造**与**显式声明 deleted 移动构造**不同；后者可能在重载决议中胜出后使初始化失败。
 
 ---
 
@@ -216,28 +190,67 @@ I/O
 
 ## 7. Copy 与 Failure
 
-Copy 往往意味着：
+复制拥有型缓冲区通常需要分配独立资源并复制内容。只写 `new std::byte[n]` 而不复制数据，不能实现这里约定的值复制。
 
-```text
-allocate new resource
-copy content
-```
+完整正例 T17 与 §6 的裸指针片段是两个独立实现。本例用 `unique_ptr` 管理数组；空缓冲区和移出后的对象均为 size 0、空指针。复制赋值通过按值参数和交换实现；参数复制可能在进入函数体前失败。
 
-例如：
-
+<!-- fm-test {"id":"T17","mode":"run"} -->
 ```cpp
-Buffer(const Buffer& other)
-    : data_{new std::byte[other.size_]},
-      size_{other.size_} {}
+#include <algorithm>
+#include <cstddef>
+#include <memory>
+#include <span>
+#include <utility>
+
+class Buffer {
+    std::unique_ptr<std::byte[]> data_;
+    std::size_t size_ = 0;
+public:
+    Buffer() = default;
+    explicit Buffer(std::span<const std::byte> input)
+        : data_{input.empty() ? nullptr : std::make_unique<std::byte[]>(input.size())},
+          size_{input.size()} {
+        if (size_ != 0) std::copy_n(input.data(), size_, data_.get());
+    }
+    Buffer(const Buffer& other)
+        : data_{other.size_ == 0 ? nullptr : std::make_unique<std::byte[]>(other.size_)},
+          size_{other.size_} {
+        if (size_ != 0) std::copy_n(other.data_.get(), size_, data_.get());
+    }
+    Buffer(Buffer&& other) noexcept
+        : data_{std::move(other.data_)}, size_{std::exchange(other.size_, 0)} {}
+    Buffer& operator=(Buffer other) noexcept {
+        swap(other);
+        return *this;
+    }
+    void swap(Buffer& other) noexcept {
+        data_.swap(other.data_);
+        std::swap(size_, other.size_);
+    }
+    std::span<std::byte> bytes() noexcept { return {data_.get(), size_}; }
+};
+
+int main() {
+    const std::byte input[]{std::byte{1}, std::byte{2}, std::byte{3}};
+    Buffer original{input};
+    Buffer copied{original};
+    if (copied.bytes().data() == original.bytes().data()
+        || !std::equal(copied.bytes().begin(), copied.bytes().end(), input)) return 1;
+    copied.bytes()[0] = std::byte{9};
+    if (original.bytes()[0] != std::byte{1}) return 2;
+    Buffer empty;
+    Buffer empty_copy{empty};
+    if (!empty_copy.bytes().empty() || empty_copy.bytes().data() != nullptr) return 3;
+    Buffer assigned;
+    assigned = original;
+    if (!std::equal(assigned.bytes().begin(), assigned.bytes().end(), input)) return 4;
+    Buffer moved{std::move(copied)};
+    return copied.bytes().empty() && copied.bytes().data() == nullptr
+        && moved.bytes()[0] == std::byte{9} ? 0 : 5;
+}
 ```
 
-`new` 可能：
-
-```text
-throw std::bad_alloc
-```
-
-所以 copy 常常天然 potentially-throwing。
+分配仍可能抛出 `std::bad_alloc`；本例的字节复制本身不抛异常，已取得的资源由成员管理。T17 检查深复制、空对象和移出状态，不声称已经注入内存分配失败。
 
 ---
 
@@ -319,58 +332,30 @@ rollback
 
 ## 10. `std::move_if_noexcept`
 
-标准库提供：
+`std::move_if_noexcept(value)` 同样只产生引用，不执行构造或资源转移：
 
-```cpp
-std::move_if_noexcept(value)
-```
+| 类型条件 | 返回类型 |
+| --- | --- |
+| `!std::is_nothrow_move_constructible_v<T> && std::is_copy_constructible_v<T>` | `const T&` |
+| 其他情况 | `T&&` |
 
-其核心策略可以理解为：
-
-```text
-move is noexcept
-    → move
-
-move may throw + copy available
-    → prefer copy
-
-move may throw + no copy
-    → must move
-```
-
-目的是让泛型代码尽可能保持较强异常保证。
+后续初始化再通过重载决议选择操作；返回 `T&&` 也不证明存在或调用了移动构造。该工具有利于泛型算法选择复制回退，但不独自证明算法的异常保证。[N4950：forward](https://timsong-cpp.github.io/cppwp/n4950/utility#forward)
 
 ---
 
 ## 11. Move-Only + Throwing Move
 
-例如：
+删除复制而允许移动构造抛异常的类型没有复制回退。但“较弱保证”不能代替具体操作契约：
 
-```cpp
-class T {
-public:
-    T(const T&) = delete;
-    T(T&&); // may throw
-};
-```
+| 操作与条件 | N4950 中可依赖的范围 |
+| --- | --- |
+| `vector::reserve` | 通常异常时无效果；非 Cpp17CopyInsertable 类型的移动构造抛异常，是该无效果保证的明确例外 |
+| `vector` 末尾插入单个元素，T 为 Cpp17CopyInsertable 或可不抛异常地从 `T&&` 构造 | 异常时无效果 |
+| 插入条款的其他情形中，非 Cpp17CopyInsertable T 的移动构造抛异常 | effects unspecified，不能自行改写为 basic guarantee |
 
-泛型容器没有 copy fallback。
+Cpp17CopyInsertable 是针对容器及其 allocator 的要求，不能只用“有没有复制构造”替代完整判定。上述例外不自动等于 UB，也不授权读取未被保证的旧值来推断恢复策略。[N4950：vector.capacity/4](https://timsong-cpp.github.io/cppwp/n4950/vector.capacity#4)、[vector.modifiers/2](https://timsong-cpp.github.io/cppwp/n4950/vector.modifiers#2)
 
-于是：
-
-```text
-relocation failure
-```
-
-可能导致操作只能提供较弱 guarantee。
-
-这也是为什么类型的：
-
-```text
-nothrow move constructibility
-```
-
-是重要 API capability。
+本项是条款核对；定向测试没有穷尽容器异常注入或所有实现的失败后状态。
 
 ---
 
@@ -384,6 +369,8 @@ std::is_nothrow_move_assignable_v<T>
 std::is_nothrow_copy_constructible_v<T>
 std::is_nothrow_copy_assignable_v<T>
 ```
+
+这些 traits 检查的是相应构造／赋值表达式的性质。例如 `is_nothrow_move_constructible_v<T>` 为真，也可能因为 `T&&` 绑定到不抛异常的复制构造，不能据此证明 T 存在移动构造。[T03](review/fm-verification-samples.md#t03) 给出反例。
 
 它们不是纯 metaprogramming trivia。
 
@@ -508,9 +495,11 @@ close handshake failed
 可以形成：
 
 ```text
-high-level noexcept
+high-level non-propagation proof
 =
-all required low-level operations are non-throwing
+all expression paths, arguments, temporaries and cleanup checked
++
+any internal exceptions handled without new escaping exceptions
 ```
 
 以及：
@@ -525,7 +514,7 @@ element operation properties
 non-failing commit
 ```
 
-这就是 C++ generic failure model 的核心。
+第二个式子还要求 prepare 不改变受保护状态，以及提交后的返回和清理不违背保证；具体条件见 [FM-4 §5](fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式)。这两个式子是工程证明提纲，不是仅凭 noexcept 或 traits 就能完成的证明。
 
 ---
 

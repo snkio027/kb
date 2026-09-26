@@ -403,24 +403,13 @@ large allocation
 
 ## 14. API 双版本模式
 
-标准库常见：
+带 `error_code&` 的重载可按具体契约报告指定的操作错误，**不自动保证整个调用不抛异常**。文件系统接口的底层错误通道与其他异常条件应分别查看。[N4950：fs.err.report](https://timsong-cpp.github.io/cppwp/n4950/fs.err.report)
 
-```cpp
-operation(...);             // throwing
-operation(..., error_code); // non-throwing report
-```
+例如，N4950 的 `current_path(error_code&)` 查询重载返回 path，未声明 `noexcept`；设置重载 `current_path(const path&, error_code&)` 则声明了 `noexcept`。还须区别函数本身与构造实参、返回后使用结果的完整表达式。[N4950：fs.op.current.path](https://timsong-cpp.github.io/cppwp/n4950/fs.op.current.path)
 
-自己的 API 不必机械复制这种模式。
+[T15](review/fm-verification-samples.md#t15) 只用 `noexcept` 查询签名，不实际改变工作目录。查询版的负向结果是当前库观测；不将其强制为所有实现的要求。
 
-双版本接口会增加：
-
-```text
-surface area
-testing burden
-documentation burden
-```
-
-项目应该确定统一 Failure Profile。
+项目是否提供双版本，应权衡接口面积、测试与文档成本，不必机械模仿标准库。
 
 ---
 
