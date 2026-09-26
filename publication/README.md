@@ -1,8 +1,8 @@
 # KB Publication System v2
 
-状态：**IMPLEMENTED / REVIEW CANDIDATE**。本轮交付是共享出版引擎、ESD 回归与 G6/G7 Pilot Enablement；视觉 profile 为 **PILOT / NOT FROZEN**，正式 `publish` 关闭。
+状态：**READING EDITION / VISUAL PROFILE CANDIDATE**。v2 架构保持稳定；当前批次仅优化阅读层的排版、分页与导航，视觉 profile 尚未冻结，正式 `publish` 关闭。
 
-本批实际制品、迁移记录、命令、证据和已知限制见[集中审核入口](reviews/v2-pilot/README.md)。该目录是待审副本，不是新的 release 或可维护的内容源。
+最新制品、受控密度样张、语义样页及证据见[阅读版集中审核入口](reviews/reading-edition/README.md)。[v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。两者均不是 release 或可维护的正文源。
 
 ## 分层与权威
 
@@ -36,7 +36,7 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook --view CPP-P
 python3 -B publication/engine/pub.py preview --profile cpp-handbook --prepare-only
 ```
 
-ESD 为六份独立版与一份合订版；C++ 为 G6、G7 与 G6+G7 三份 PDF。合订版由多源 AST 组成一个逻辑视图后编译，不拼接独立 PDF。
+主制品为 ESD 六份独立版与一份合订版，以及 C++ G6、G7 与 G6+G7 三份 PDF。默认构建还包含两份 Compact 对照样张：`ESD-REFERENCE-001-COMPACT` 和 `CPP-PILOT-G6-G7-COMPACT`；两个 profile 合计 12 份。Compact 只改变留白、目录和表格行距，不缩小正文或代码字号。合订版由多源 AST 组成一个逻辑视图后编译，不拼接独立 PDF。
 
 输出路径固定为 `publication/build/preview/<preparation-id>/<attempt-id>/`。`inputs/sources/<repository-path>` 保留嵌套源身份；`work/output/pdf/` 是 PDF，`work/output/source/` 为同路径原始源码，`work/renders/<view>/` 为所有页面 PNG。本次尝试入口为 `work/output/README.md`。
 
@@ -72,10 +72,21 @@ python3 -B publication/tests/test-publication-isolation.py
 python3 -B publication/tests/test-candidate.py
 python3 -B publication/tests/test-products.py
 python3 -B publication/tests/test-preview.py
+python3 -B publication/tests/test-reading.py
 ```
 
-前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；最后一组真实编译并注入失败、错位、字面量丢失和信号。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
+前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号；第五组检查阅读组件、代码头尾反例、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
 
 自动提取采用有界的文本、顺序、行内字面量、表格关系和定位检查，不声称逐字形、代码缩进、所有视觉缺陷或可访问性认证。人工阅读必须查看实际渲染，且单独注明范围。视觉定稿、全 G0～G12 构建与正式发布不在本批。
 
 可选视觉辅助命令为 `python3 -B publication/tools/inspect-pages.py <preview-attempt>`，另需 Pillow；它只从已绑定的渲染生成 contact sheets，不自动授予人工阅读通过状态。
+
+阅读回归使用[语义样本目录](tools/reading-corpus.json)，不把物理页码作为样本身份：
+
+```sh
+python3 -B publication/tools/reading-review.py <completed-preview-attempt>
+python3 -B publication/tools/reading-review.py --density-compare <page-map.json>
+python3 -B publication/tools/reading-review.py --compare <old-page-map.json> <new-page-map.json>
+```
+
+第一条从绑定的 PDF 生成 `work/reading-regression/`（新目录，拒绝覆盖），输出语义目标、物理页、120 dpi PNG 和摘要。后两条只读比较相同语义目标，不把像素不同判为失败。`STRUCTURAL_PASS` 表示所定义的阅读信号未触发；实际查看图片另记 `VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL`。规则、已知限制及定稿决策见[视觉 Profile 候选](reviews/reading-edition/visual-profile.md)。

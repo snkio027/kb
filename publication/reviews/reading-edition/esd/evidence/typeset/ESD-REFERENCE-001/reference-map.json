@@ -1,0 +1,56 @@
+[
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/01-%E4%BC%98%E7%A7%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%96%B9%E6%B3%95%E8%AE%BA-v1.1.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/00-%E4%BC%98%E7%A7%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%A0%87%E5%87%86-%E6%96%87%E6%A1%A3%E4%BD%93%E7%B3%BB%E4%B8%8E%E8%A7%84%E8%8C%83%E5%85%B3%E7%B3%BB-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/03-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%B2%BB%E7%90%86%E5%8F%8A%E7%AC%A6%E5%90%88%E6%80%A7%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/03-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%B2%BB%E7%90%86%E5%8F%8A%E7%AC%A6%E5%90%88%E6%80%A7%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/04-%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E8%AE%BA%E8%AF%81%E8%AF%81%E6%8D%AE%E4%B8%8E%E8%A3%81%E5%86%B3%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/04-%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E8%AE%BA%E8%AF%81%E8%AF%81%E6%8D%AE%E4%B8%8E%E8%A3%81%E5%86%B3%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/03-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%B2%BB%E7%90%86%E5%8F%8A%E7%AC%A6%E5%90%88%E6%80%A7%E8%A7%84%E8%8C%83-v1.0.0.md"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+    "kind": "EXTERNAL_URI",
+    "target": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html"
+  }
+]

@@ -1,0 +1,1454 @@
+{
+  "base": "fed7e085f77721c66076be344652d48eac27f041",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "commands": [
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-publication-isolation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 38.78,
+      "log": "test-publication-isolation.txt",
+      "sha256": "0302b51f7767a469d8b3bfd73effb7a1c27a63de9657de18a2423fee479d4fb5"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-candidate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.29,
+      "log": "test-candidate.txt",
+      "sha256": "fc515e542969682c836a527482ce738fe6e8cc62175b059f64ec4a34d5a50286"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-products.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.0,
+      "log": "test-products.txt",
+      "sha256": "b78404db02a490c25eac1f0542337e01c04009ec06a4e1556732f0c81eecf4d9"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-preview.py"
+      ],
+      "exit_code": 0,
+      "seconds": 301.95,
+      "log": "test-preview.txt",
+      "sha256": "e8555cf93c805603f2585799457715a129678ab2b6de675ba3e880ba1606283a"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "publication/tests/test-reading.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.36,
+      "log": "test-reading.txt",
+      "sha256": "f63190a77c4695ecc9f2edb1beb29d49998033fc59f937052c38af520a9f7d49"
+    },
+    {
+      "command": [
+        "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "c++/learning/check_docs.py"
+      ],
+      "exit_code": 0,
+      "log": "check-docs.txt",
+      "sha256": "5c18d54ebbc20dcd3b11bacaaecded2f644f640e9e077e520bcac11105bd2b5c"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "diff-check.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "protected_files": [
+    {
+      "path": ".gitignore",
+      "base_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+      "current_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+      "unchanged": true
+    },
+    {
+      "path": "README.md",
+      "base_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+      "current_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/AI-Native Platform Control Plane Architecture Standard.md",
+      "base_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+      "current_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/Atlas Architecture Design.md",
+      "base_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+      "current_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/Atlas GitOps Control Plane Design.md",
+      "base_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+      "current_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.pdf",
+      "base_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+      "current_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.tex",
+      "base_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+      "current_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas Architecture Design.pdf",
+      "base_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+      "current_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas Architecture Design.tex",
+      "base_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+      "current_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.pdf",
+      "base_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+      "current_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+      "unchanged": true
+    },
+    {
+      "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.tex",
+      "base_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+      "current_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/README.md",
+      "base_sha256": "239b87772a60e6ad83a52b17c039447d563963146e37dd198794e8426bd60c59",
+      "current_sha256": "239b87772a60e6ad83a52b17c039447d563963146e37dd198794e8426bd60c59",
+      "unchanged": true
+    },
+    {
+      "path": "c++/editorial-profile.md",
+      "base_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+      "current_sha256": "cd4d550eb91d1d589ff6abd81dec287794b5a3be224456971b141d19b06f5a92",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/README.md",
+      "base_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+      "current_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "base_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "current_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "base_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "current_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "base_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "current_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "base_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "current_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "base_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "current_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "base_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "current_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "base_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "current_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "base_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "current_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "base_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "current_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "base_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "current_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-claims.md",
+      "base_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+      "current_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-review-7869082.md",
+      "base_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+      "current_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-verification-results.json",
+      "base_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+      "current_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/fm-verification-samples.md",
+      "base_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+      "current_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+      "unchanged": true
+    },
+    {
+      "path": "c++/failure-model/review/verify_fm.py",
+      "base_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+      "current_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g00-native-toolchain.md",
+      "base_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "current_sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g01-object-model.md",
+      "base_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "current_sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g02-raii-and-ownership.md",
+      "base_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "current_sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g03-value-semantics-and-performance.md",
+      "base_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "current_sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g04-stl-and-ranges.md",
+      "base_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "current_sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g05-generics-and-compile-time.md",
+      "base_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "current_sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g06-memory-and-performance.md",
+      "base_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "current_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "base_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "current_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g08-abi-and-c-interop.md",
+      "base_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "current_sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g09-build-and-native-ecosystem.md",
+      "base_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "current_sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g10-systems-runtime-project.md",
+      "base_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "current_sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g11-robotics.md",
+      "base_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "current_sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "unchanged": true
+    },
+    {
+      "path": "c++/g12-cpp-zig-rust.md",
+      "base_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "current_sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "unchanged": true
+    },
+    {
+      "path": "c++/handbook-guide.md",
+      "base_sha256": "ca19990e5dd91b6eff8ee85b897893766cc4687dc221ad08bf836cb78b2ebf8c",
+      "current_sha256": "ca19990e5dd91b6eff8ee85b897893766cc4687dc221ad08bf836cb78b2ebf8c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/README.md",
+      "base_sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479",
+      "current_sha256": "0c4276344c7b6d88b460d567ea33b0a0dae1bfb70736f6bc57f76a38fb729479",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/check_docs.py",
+      "base_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+      "current_sha256": "a3fb601f0a1c16d0c1d71d58d08b7c6fb6b31e3f35c48404d0a69ea2d67f87b7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/editorial-sweep-results.json",
+      "base_sha256": "f0c99a624eb86ab5996b8a320bc0e042cac8c8cad90aec9719194dc1f010ad2a",
+      "current_sha256": "f0c99a624eb86ab5996b8a320bc0e042cac8c8cad90aec9719194dc1f010ad2a",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/editorial-sweep.md",
+      "base_sha256": "6d254f67e867f83b117238ee092a27c315c5e88e6fbd41f8139beff0e8a04268",
+      "current_sha256": "6d254f67e867f83b117238ee092a27c315c5e88e6fbd41f8139beff0e8a04268",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/native-results.json",
+      "base_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+      "current_sha256": "f9f4c0b752541a7d14b45888d3200b3c550b7eb3bff90e446b780efe347233b6",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/native-revision.md",
+      "base_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+      "current_sha256": "8d305d3109205de553b027f34a0c6d8b061d6bea6baafa4dbfffa65e61f2398c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/professional-results.json",
+      "base_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+      "current_sha256": "29dd6b14735e9afad7c67dc168314514cebb42fa904cb594bcac437e5cbffe16",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/professional-revision.md",
+      "base_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+      "current_sha256": "695e22041f9a551353732c7b9a4418238f79a1091c395e6bdfa6651186f9f746",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/revision-notes.md",
+      "base_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+      "current_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/synthesis-results.json",
+      "base_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+      "current_sha256": "f395d6468f2e264c0b61b1e1c51ed03323416754d7f50db49cbeec2e2fd9bee7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/synthesis-revision.md",
+      "base_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+      "current_sha256": "264215124f562f4ecf376942deffb06871af137be0b90e1d5632f78a9ee1870e",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_g.py",
+      "base_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+      "current_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_handbook.py",
+      "base_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+      "current_sha256": "041cb3bee6c2da270fa1bdd2c0c98782e1b65df01977ad735052574bd9c47c7c",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_native.py",
+      "base_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+      "current_sha256": "091224ab94979c33f41e8a5ea1ca4c36a7141df65c2403d8e1fb0f4332601bb5",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/test_verify_synthesis.py",
+      "base_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+      "current_sha256": "10b5e1574e5d9059d9ba20797db53d621a423755fa2d61e257a0e7ae8d13eb9b",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verification-results.json",
+      "base_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+      "current_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_g.py",
+      "base_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "current_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_handbook.py",
+      "base_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+      "current_sha256": "860be0b070b352840fb1486f448d7ead5515d28aa062649257cfe354ee9da9d7",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_native.py",
+      "base_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+      "current_sha256": "501587dbb76967d0fb44903894b15a9bb1c8595a889b2e15d9a30f09588c5f52",
+      "unchanged": true
+    },
+    {
+      "path": "c++/learning/verify_synthesis.py",
+      "base_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+      "current_sha256": "119738f951df032da9b8af26c91bd823491d13730e2bb72c0719b575f8d23bdb",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g0-native-toolchain.pdf",
+      "base_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+      "current_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g0-native-toolchain.tex",
+      "base_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+      "current_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g1-object-model.pdf",
+      "base_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+      "current_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+      "unchanged": true
+    },
+    {
+      "path": "c++/pdf_build/g1-object-model.tex",
+      "base_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+      "current_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+      "unchanged": true
+    },
+    {
+      "path": "design/.gitignore",
+      "base_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+      "current_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+      "unchanged": true
+    },
+    {
+      "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "base_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "current_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "unchanged": true
+    },
+    {
+      "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "base_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "current_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "unchanged": true
+    },
+    {
+      "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "base_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "current_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "unchanged": true
+    },
+    {
+      "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "base_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "current_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "unchanged": true
+    },
+    {
+      "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "base_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "current_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "unchanged": true
+    },
+    {
+      "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "base_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "current_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "unchanged": true
+    },
+    {
+      "path": "design/README.md",
+      "base_sha256": "44df4e93449c9ba435e2021e76945ce36b3959525e5ac1078105ec063653f963",
+      "current_sha256": "44df4e93449c9ba435e2021e76945ce36b3959525e5ac1078105ec063653f963",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf",
+      "base_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+      "current_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf",
+      "base_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+      "current_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/build-manifest.json",
+      "base_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+      "current_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+      "unchanged": true
+    },
+    {
+      "path": "design/dist/sha256sums.txt",
+      "base_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+      "current_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/README.md",
+      "base_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+      "current_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/atlas-bootstrap-status-review.md",
+      "base_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+      "current_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+      "unchanged": true
+    },
+    {
+      "path": "design/examples/pilots/evidence/atlas-status-aca4ff1.json",
+      "base_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+      "current_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+      "unchanged": true
+    },
+    {
+      "path": "design/fonts.lock",
+      "base_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+      "current_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+      "unchanged": true
+    },
+    {
+      "path": "design/package-lock.txt",
+      "base_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+      "current_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/asset-register.md",
+      "base_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+      "current_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/plan.md",
+      "base_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+      "current_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-b1a.md",
+      "base_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+      "current_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-design.md",
+      "base_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+      "current_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/publication-preview.md",
+      "base_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+      "current_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+      "unchanged": true
+    },
+    {
+      "path": "design/project/sources/KB-PLAN-001-v0.1.0-original.md",
+      "base_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+      "current_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/assurance-chain.tex",
+      "base_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+      "current_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/can-pipeline.tex",
+      "base_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+      "current_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/commit-sequence.tex",
+      "base_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+      "current_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/derivation-chain.tex",
+      "base_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+      "current_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/four-planes.tex",
+      "base_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+      "current_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/diagrams/stage-gate.tex",
+      "base_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+      "current_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/esd-theme.sty",
+      "base_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+      "current_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/esdbook.cls",
+      "base_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+      "current_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/code-blocks.lua",
+      "base_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+      "current_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/cross-references.lua",
+      "base_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+      "current_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/normalize-headings.lua",
+      "base_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+      "current_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/pdf-metadata.lua",
+      "base_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+      "current_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/preview.lua",
+      "base_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+      "current_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/semantic-blocks.lua",
+      "base_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+      "current_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/filters/tables.lua",
+      "base_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+      "current_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/preview-theme.sty",
+      "base_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+      "current_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/preview.tex",
+      "base_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+      "current_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/profiles/accessible-experimental.yaml",
+      "base_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+      "current_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/profiles/release.yaml",
+      "base_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+      "current_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/requirements-preview.txt",
+      "base_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+      "current_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/source-catalog.json",
+      "base_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+      "current_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/table-layouts.json",
+      "base_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+      "current_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+      "unchanged": true
+    },
+    {
+      "path": "design/publication/template.tex",
+      "base_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+      "current_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+      "unchanged": true
+    },
+    {
+      "path": "design/reviews/a67fb25-review-status.md",
+      "base_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+      "current_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/build.sh",
+      "base_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+      "current_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/candidate.py",
+      "base_sha256": "38f013b6d62a967b193881b087f9e439e8e7789d64f2b1e0a5e7429a3f86799f",
+      "current_sha256": "38f013b6d62a967b193881b087f9e439e8e7789d64f2b1e0a5e7429a3f86799f",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/compare-renders.sh",
+      "base_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+      "current_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/content-audit.py",
+      "base_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+      "current_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/pdf-structure-audit.py",
+      "base_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+      "current_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preflight.sh",
+      "base_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+      "current_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preview.py",
+      "base_sha256": "e7cb9a7155d4ba737fe9a9f2551f2420265e090085113ce62e6a1cefa22df6b8",
+      "current_sha256": "e7cb9a7155d4ba737fe9a9f2551f2420265e090085113ce62e6a1cefa22df6b8",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preview.sh",
+      "base_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+      "current_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/preview_audit.py",
+      "base_sha256": "a196d9655df8c4ded6a57932987c9b17d043a0be9db5841882379415d6a16a0c",
+      "current_sha256": "a196d9655df8c4ded6a57932987c9b17d043a0be9db5841882379415d6a16a0c",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/pub.py",
+      "base_sha256": "91db18663646501ba560a23f93ca0861dc00a2864db73c548642b2f17f2d6e71",
+      "current_sha256": "91db18663646501ba560a23f93ca0861dc00a2864db73c548642b2f17f2d6e71",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/render-pdfium.py",
+      "base_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+      "current_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/render-verify.sh",
+      "base_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+      "current_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/test-candidate.py",
+      "base_sha256": "f661cca2e4329a0f8bb6bf382879a5b783092edd14163518880e2b906f0741bd",
+      "current_sha256": "f661cca2e4329a0f8bb6bf382879a5b783092edd14163518880e2b906f0741bd",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/test-preview.py",
+      "base_sha256": "4ce71f0fd68f49447163426369e9402cc2c96e39fe1f64994c95a5ae56c74e7c",
+      "current_sha256": "4ce71f0fd68f49447163426369e9402cc2c96e39fe1f64994c95a5ae56c74e7c",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/test-publication-isolation.py",
+      "base_sha256": "66af253f66edfa8a03200e4dad783dca86b564ed54b387e9dc7b96a63f29da65",
+      "current_sha256": "66af253f66edfa8a03200e4dad783dca86b564ed54b387e9dc7b96a63f29da65",
+      "unchanged": true
+    },
+    {
+      "path": "design/scripts/write-manifest.py",
+      "base_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+      "current_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+      "unchanged": true
+    },
+    {
+      "path": "design/texlive.profile",
+      "base_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+      "current_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+      "unchanged": true
+    },
+    {
+      "path": "design/to-pdf.md",
+      "base_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+      "current_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/README.md",
+      "base_sha256": "073b81ea1a06eb109843d23f5c1990f9f4b26d0e77dc573bc3bf882340e41ec3",
+      "current_sha256": "073b81ea1a06eb109843d23f5c1990f9f4b26d0e77dc573bc3bf882340e41ec3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/capture-review.py",
+      "base_sha256": "a6347cc09e6b83e49a8a239e662db3bf18e99c858874bd11e69cf31cf6bde689",
+      "current_sha256": "a6347cc09e6b83e49a8a239e662db3bf18e99c858874bd11e69cf31cf6bde689",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/check-delivery.py",
+      "base_sha256": "ad0120b5e30384d195dc83faf6c05bc9e0e9eb88ee7fd773262700eb50545c20",
+      "current_sha256": "ad0120b5e30384d195dc83faf6c05bc9e0e9eb88ee7fd773262700eb50545c20",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/check-docs.log",
+      "base_sha256": "5c18d54ebbc20dcd3b11bacaaecded2f644f640e9e077e520bcac11105bd2b5c",
+      "current_sha256": "5c18d54ebbc20dcd3b11bacaaecded2f644f640e9e077e520bcac11105bd2b5c",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/checks.json",
+      "base_sha256": "766561e443d0880e6b5b94437409bf9f1b4cb997050e1c033c785082601a8ca9",
+      "current_sha256": "766561e443d0880e6b5b94437409bf9f1b4cb997050e1c033c785082601a8ca9",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/diff-check.log",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_sha256": null,
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/staged-whitespace.json",
+      "base_sha256": "c735d59825e63cfeb7395c4dd62e2cdc42b0cca1f0aaad06fb3853d1b54f122d",
+      "current_sha256": "c735d59825e63cfeb7395c4dd62e2cdc42b0cca1f0aaad06fb3853d1b54f122d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/test-candidate.log",
+      "base_sha256": "3ac1959673be102e71b3255bfa790f976bbc3847dcb0d14bfb5a7e940c77f020",
+      "current_sha256": "3ac1959673be102e71b3255bfa790f976bbc3847dcb0d14bfb5a7e940c77f020",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/test-preview.log",
+      "base_sha256": "c68e1943facbea588bb749862e6d31d0208c945e4dccc87150951c1e6658e613",
+      "current_sha256": "c68e1943facbea588bb749862e6d31d0208c945e4dccc87150951c1e6658e613",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/test-products.log",
+      "base_sha256": "e2f02b743a0e9c7ea78423928babe97d88ed6997acd6c6bf66e4286c8d2940c1",
+      "current_sha256": "e2f02b743a0e9c7ea78423928babe97d88ed6997acd6c6bf66e4286c8d2940c1",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/test-publication-isolation.log",
+      "base_sha256": "a169672d17949f1422feda5d5cfdccc1f2862d26b3d0b9afaf114afbe85f2c59",
+      "current_sha256": "a169672d17949f1422feda5d5cfdccc1f2862d26b3d0b9afaf114afbe85f2c59",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/checks/verify-review.json",
+      "base_sha256": "d3f160bd356467c5c7fe3d0b40d6c7f2ee46cab10e88d23092202e2223f18fa6",
+      "current_sha256": "d3f160bd356467c5c7fe3d0b40d6c7f2ee46cab10e88d23092202e2223f18fa6",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/candidate-manifest.json",
+      "base_sha256": "d80a1e0399c7de53ce440033a520b71c33c4563d53d918f2d17314edc70e256f",
+      "current_sha256": "d80a1e0399c7de53ce440033a520b71c33c4563d53d918f2d17314edc70e256f",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/candidate-result.json",
+      "base_sha256": "64cdf716687e1a2260590865b396cf238f14e7035f836ede83d225388a8a8282",
+      "current_sha256": "64cdf716687e1a2260590865b396cf238f14e7035f836ede83d225388a8a8282",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/source-catalog.json",
+      "base_sha256": "afabb1e3979a7ea7502f91873559ad63f4f7baa2cdd9c5420c9b254b7dc3b81c",
+      "current_sha256": "afabb1e3979a7ea7502f91873559ad63f4f7baa2cdd9c5420c9b254b7dc3b81c",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/CPP-PILOT-G6-G7/audit.json",
+      "base_sha256": "35a2b00b5690b816142535255a27a0d52503bc72768c7ac119b57d8543a32b86",
+      "current_sha256": "35a2b00b5690b816142535255a27a0d52503bc72768c7ac119b57d8543a32b86",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/CPP-PILOT-G6-G7/reference-map.json",
+      "base_sha256": "ab65a886e453a1b73d06301230a11f77ce3d6dec341bcd0332b9d22ba15105be",
+      "current_sha256": "ab65a886e453a1b73d06301230a11f77ce3d6dec341bcd0332b9d22ba15105be",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/CPP-PILOT-G6-G7/section-audit.json",
+      "base_sha256": "91a54e1e0265dcfa621498ee15c63aff330574418ae73992d88567bd6b9c8734",
+      "current_sha256": "91a54e1e0265dcfa621498ee15c63aff330574418ae73992d88567bd6b9c8734",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/CPP-PILOT-G6-G7/table-map.json",
+      "base_sha256": "09ef3c99394e050ed5095e9559eff7654d6b957decb8079348067c66de571133",
+      "current_sha256": "09ef3c99394e050ed5095e9559eff7654d6b957decb8079348067c66de571133",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G6/audit.json",
+      "base_sha256": "73f9fb92b2e2f76521f4656ac3396fe997b20de2990a3fb765d69c9e77fc1b3a",
+      "current_sha256": "73f9fb92b2e2f76521f4656ac3396fe997b20de2990a3fb765d69c9e77fc1b3a",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G6/reference-map.json",
+      "base_sha256": "f3d11749e9768cb9bb44773f19031c00d04a7221e76523be69bcbf855b1360c3",
+      "current_sha256": "f3d11749e9768cb9bb44773f19031c00d04a7221e76523be69bcbf855b1360c3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G6/section-audit.json",
+      "base_sha256": "f139678ea4247533945850cd0ceef93f17dd86aa34a8a147e2c3eda7890520cf",
+      "current_sha256": "f139678ea4247533945850cd0ceef93f17dd86aa34a8a147e2c3eda7890520cf",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G6/table-map.json",
+      "base_sha256": "565095d84a953274d6b36da41d4c6c81e43d325c4e465896a16f7121549afe6c",
+      "current_sha256": "565095d84a953274d6b36da41d4c6c81e43d325c4e465896a16f7121549afe6c",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G7/audit.json",
+      "base_sha256": "12a7a377c9cda8d793b1de93041de09e9c92cb13439b9cabc3459e591a4539bf",
+      "current_sha256": "12a7a377c9cda8d793b1de93041de09e9c92cb13439b9cabc3459e591a4539bf",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G7/reference-map.json",
+      "base_sha256": "2152b6f2e56be0daf572af9c9cbed4a734717605ee73150b50807f8e01fdb758",
+      "current_sha256": "2152b6f2e56be0daf572af9c9cbed4a734717605ee73150b50807f8e01fdb758",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G7/section-audit.json",
+      "base_sha256": "07e5159d98b31b73c29b82c556a186cd4653df4a79940c8864b43f04a2545525",
+      "current_sha256": "07e5159d98b31b73c29b82c556a186cd4653df4a79940c8864b43f04a2545525",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/evidence/typeset/G7/table-map.json",
+      "base_sha256": "51369fa0738c5c6e1c259f881faf75e36040fddc04ac7ef7c0308ea198168cfd",
+      "current_sha256": "51369fa0738c5c6e1c259f881faf75e36040fddc04ac7ef7c0308ea198168cfd",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/export.json",
+      "base_sha256": "4a3f7e5e34999e1c2dadf046fbb2d2202a295d1487315b2e545a2a6c76f2f7db",
+      "current_sha256": "4a3f7e5e34999e1c2dadf046fbb2d2202a295d1487315b2e545a2a6c76f2f7db",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/README.md",
+      "base_sha256": "45b4bca39e9a0b29e4af9602d547fde9ab76949dd1b56ebfad175052cced8404",
+      "current_sha256": "45b4bca39e9a0b29e4af9602d547fde9ab76949dd1b56ebfad175052cced8404",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "base_sha256": "41a36c422f80cf164c4ea6fbd243bccb981527a7c5e6192f0f3da0a835142262",
+      "current_sha256": "41a36c422f80cf164c4ea6fbd243bccb981527a7c5e6192f0f3da0a835142262",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/pdf/G6-draft.pdf",
+      "base_sha256": "801b4105010ed29cbba43140badd52526ed114c645cf1867dc26d29f7336973e",
+      "current_sha256": "801b4105010ed29cbba43140badd52526ed114c645cf1867dc26d29f7336973e",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/pdf/G7-draft.pdf",
+      "base_sha256": "65db6c0ae3aad7c6576587d9e069945a9af106919e720ecb800c3bf020b4ba6a",
+      "current_sha256": "65db6c0ae3aad7c6576587d9e069945a9af106919e720ecb800c3bf020b4ba6a",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/source/c++/g06-memory-and-performance.md",
+      "base_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "current_sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/output/source/c++/g07-concurrency-and-memory-model.md",
+      "base_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "current_sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/preview-audit.json",
+      "base_sha256": "0b44c7051a07214130afa2b690203f0decd03c4b17267a7a57a89f085f4feb2d",
+      "current_sha256": "0b44c7051a07214130afa2b690203f0decd03c4b17267a7a57a89f085f4feb2d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/preview-result.json",
+      "base_sha256": "94bdf753295a65d618f431281cb6f6c2d1aabec768e0fb6dea227af28919d520",
+      "current_sha256": "94bdf753295a65d618f431281cb6f6c2d1aabec768e0fb6dea227af28919d520",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/reading-review.json",
+      "base_sha256": "cf57661547cc36c0b9943067a6064f453b811b28016f350c11ef5064b05849db",
+      "current_sha256": "cf57661547cc36c0b9943067a6064f453b811b28016f350c11ef5064b05849db",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/result.json",
+      "base_sha256": "cd5d06696934a2f91c701da4ea1c2cd115eb494bf25b7e11ab60367bab396449",
+      "current_sha256": "cd5d06696934a2f91c701da4ea1c2cd115eb494bf25b7e11ab60367bab396449",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/cpp-handbook/run.json",
+      "base_sha256": "859b01cf42c3772571f19627a6e9269fe796bbc19ab3a24f442452cb6edc3783",
+      "current_sha256": "859b01cf42c3772571f19627a6e9269fe796bbc19ab3a24f442452cb6edc3783",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/candidate-manifest.json",
+      "base_sha256": "bb6e6bbfd87fc271e47796850043b96d53304f96b82f128ae1b83e54ad8d65fb",
+      "current_sha256": "bb6e6bbfd87fc271e47796850043b96d53304f96b82f128ae1b83e54ad8d65fb",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/candidate-result.json",
+      "base_sha256": "6757ca6aa43eb429e7121cbe39326688447b55a0d492764110c6f8113e721dd6",
+      "current_sha256": "6757ca6aa43eb429e7121cbe39326688447b55a0d492764110c6f8113e721dd6",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/source-catalog.json",
+      "base_sha256": "041ea57a62df7d26687ab3fbcdf2e9a24acbe9f13abc60c834de744ed43a3586",
+      "current_sha256": "041ea57a62df7d26687ab3fbcdf2e9a24acbe9f13abc60c834de744ed43a3586",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-ASSURANCE-001/audit.json",
+      "base_sha256": "b182dc0c320963b06722a74e4b13bd8ebca39c130387d3a9875ccbc56ef3419f",
+      "current_sha256": "b182dc0c320963b06722a74e4b13bd8ebca39c130387d3a9875ccbc56ef3419f",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-ASSURANCE-001/reference-map.json",
+      "base_sha256": "f6eefc2387807d652335dccb4d2f695b7c7b26f69dbb7d5cb5f88235cc4288ad",
+      "current_sha256": "f6eefc2387807d652335dccb4d2f695b7c7b26f69dbb7d5cb5f88235cc4288ad",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-ASSURANCE-001/section-audit.json",
+      "base_sha256": "b1b19f8dff95afbf32b2f4ac7bb70344a2db196664b61e0250bfffe9e6002ba0",
+      "current_sha256": "b1b19f8dff95afbf32b2f4ac7bb70344a2db196664b61e0250bfffe9e6002ba0",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-ASSURANCE-001/table-map.json",
+      "base_sha256": "ec392c2974e04834c40843655ac13e27306bf64ec32ac3f29b8462d94d542577",
+      "current_sha256": "ec392c2974e04834c40843655ac13e27306bf64ec32ac3f29b8462d94d542577",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-GOV-001/audit.json",
+      "base_sha256": "ccb4c8d07c50b56bd82e94404ebe49f965f279ab2d93da07e58d0c1f27b92f5d",
+      "current_sha256": "ccb4c8d07c50b56bd82e94404ebe49f965f279ab2d93da07e58d0c1f27b92f5d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-GOV-001/reference-map.json",
+      "base_sha256": "cf6de781c6a96da821b7f93f0152be9b16a2d81eaeb71acc389fdabfa94ad2b0",
+      "current_sha256": "cf6de781c6a96da821b7f93f0152be9b16a2d81eaeb71acc389fdabfa94ad2b0",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-GOV-001/section-audit.json",
+      "base_sha256": "780c7d85e36ae05f8c6fa5f5f324e374624f43e85a9f960506b690c8b4fac912",
+      "current_sha256": "780c7d85e36ae05f8c6fa5f5f324e374624f43e85a9f960506b690c8b4fac912",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-GOV-001/table-map.json",
+      "base_sha256": "2b398b4208a39a3e634bec6d28fc74968cbc7209db5af98479bfd83fa819758d",
+      "current_sha256": "2b398b4208a39a3e634bec6d28fc74968cbc7209db5af98479bfd83fa819758d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-HANDBOOK/audit.json",
+      "base_sha256": "dce15b75990b14f7ea9c9d527cb68be09f5fe8ed4a0d169e8d0f3f950d8b6127",
+      "current_sha256": "dce15b75990b14f7ea9c9d527cb68be09f5fe8ed4a0d169e8d0f3f950d8b6127",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-HANDBOOK/reference-map.json",
+      "base_sha256": "c500f347a0864bb79876079c3b682a164d5641dd2f7bfdf4c2817c086c03f6b3",
+      "current_sha256": "c500f347a0864bb79876079c3b682a164d5641dd2f7bfdf4c2817c086c03f6b3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-HANDBOOK/section-audit.json",
+      "base_sha256": "d57cf1e7b0be087f4ef024feabfe053b9a15511676386de2e93b6874fae6bea0",
+      "current_sha256": "d57cf1e7b0be087f4ef024feabfe053b9a15511676386de2e93b6874fae6bea0",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-HANDBOOK/table-map.json",
+      "base_sha256": "5ec211c071c495f77199b015f44cbc0b8b988a2a07b2f88f7dc94ac740cac09d",
+      "current_sha256": "5ec211c071c495f77199b015f44cbc0b8b988a2a07b2f88f7dc94ac740cac09d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-METHOD-001/audit.json",
+      "base_sha256": "2a06d69d1fe5cce09aad02631b0d0eae94d8401db7703ae1821a9791daacac6d",
+      "current_sha256": "2a06d69d1fe5cce09aad02631b0d0eae94d8401db7703ae1821a9791daacac6d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-METHOD-001/reference-map.json",
+      "base_sha256": "463cc7ede1d382cad7e91c70b61925f54563773c5abbdcb8a1bf274eaf4719a8",
+      "current_sha256": "463cc7ede1d382cad7e91c70b61925f54563773c5abbdcb8a1bf274eaf4719a8",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-METHOD-001/section-audit.json",
+      "base_sha256": "66ccd4c827bea9face92fd0256484cde7f863084c98be398d4af1a89a34a62a3",
+      "current_sha256": "66ccd4c827bea9face92fd0256484cde7f863084c98be398d4af1a89a34a62a3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-METHOD-001/table-map.json",
+      "base_sha256": "281ee7a0f67ed7e950754a2bac19288a89eee6ac576b4abafc4276caee72d1be",
+      "current_sha256": "281ee7a0f67ed7e950754a2bac19288a89eee6ac576b4abafc4276caee72d1be",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-OPS-001/audit.json",
+      "base_sha256": "1f2546cab82717a2feaf38db9ac423598649e615ec16c57600abb6b78bed98e4",
+      "current_sha256": "1f2546cab82717a2feaf38db9ac423598649e615ec16c57600abb6b78bed98e4",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-OPS-001/reference-map.json",
+      "base_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "current_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-OPS-001/section-audit.json",
+      "base_sha256": "18a7409e7cb2a8d5060db78ebc73c1ead35bb4ed1b70f62988dd9812671a3579",
+      "current_sha256": "18a7409e7cb2a8d5060db78ebc73c1ead35bb4ed1b70f62988dd9812671a3579",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-OPS-001/table-map.json",
+      "base_sha256": "6036b0e1a54d55ba9359dd1c7756ec14029b2cfa3f43100a45521f71c619e3c8",
+      "current_sha256": "6036b0e1a54d55ba9359dd1c7756ec14029b2cfa3f43100a45521f71c619e3c8",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-REFERENCE-001/audit.json",
+      "base_sha256": "765a1ba0e1b8e5f704ba328b77e7b257a4e1caf58b8685c97ed52bb05ca4a681",
+      "current_sha256": "765a1ba0e1b8e5f704ba328b77e7b257a4e1caf58b8685c97ed52bb05ca4a681",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-REFERENCE-001/reference-map.json",
+      "base_sha256": "02e145707e767ebf9dc8701c28e5d698a47d24370fe31c9bf307cd5da4ae54aa",
+      "current_sha256": "02e145707e767ebf9dc8701c28e5d698a47d24370fe31c9bf307cd5da4ae54aa",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-REFERENCE-001/section-audit.json",
+      "base_sha256": "8901bcbed073015ff5c41a8aa7a6920fa2faa0cd83939186257bebf07debd6eb",
+      "current_sha256": "8901bcbed073015ff5c41a8aa7a6920fa2faa0cd83939186257bebf07debd6eb",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-REFERENCE-001/table-map.json",
+      "base_sha256": "104cb721235bb7c66a96245cbd23aad8a3245fe59771ea2306296542597d8e3a",
+      "current_sha256": "104cb721235bb7c66a96245cbd23aad8a3245fe59771ea2306296542597d8e3a",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-SUITE-000/audit.json",
+      "base_sha256": "c3f8ac3886c7e8a651f469f2e008b45062f37cb91683a498323ca1471aa66cb3",
+      "current_sha256": "c3f8ac3886c7e8a651f469f2e008b45062f37cb91683a498323ca1471aa66cb3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-SUITE-000/reference-map.json",
+      "base_sha256": "571bffc8d1e8804030288d9fbc059db8442b29435cb713e30fcb1f87c4dda9c8",
+      "current_sha256": "571bffc8d1e8804030288d9fbc059db8442b29435cb713e30fcb1f87c4dda9c8",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-SUITE-000/section-audit.json",
+      "base_sha256": "d02d671f1f57969081f4760f46b0525987421155c09aaca93172502a4e2b5234",
+      "current_sha256": "d02d671f1f57969081f4760f46b0525987421155c09aaca93172502a4e2b5234",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/evidence/typeset/ESD-SUITE-000/table-map.json",
+      "base_sha256": "26a0567323e7c5b9d04b132ded15d265fbd74c1c4185fdef31b640ae2b74284f",
+      "current_sha256": "26a0567323e7c5b9d04b132ded15d265fbd74c1c4185fdef31b640ae2b74284f",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/export.json",
+      "base_sha256": "dee9bd86c82c2ed8ecc8ac7deaa2e08df2343c8a9a97f9ae81084a675adf52e6",
+      "current_sha256": "dee9bd86c82c2ed8ecc8ac7deaa2e08df2343c8a9a97f9ae81084a675adf52e6",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/README.md",
+      "base_sha256": "93e4a70ae0365e80862f9063cc41917ef513a98943dc5d228001a485ae942284",
+      "current_sha256": "93e4a70ae0365e80862f9063cc41917ef513a98943dc5d228001a485ae942284",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "base_sha256": "4b78bbf096635cc6a2467d38bc557fd406c9744b37ad8fcf21979c27782b6730",
+      "current_sha256": "4b78bbf096635cc6a2467d38bc557fd406c9744b37ad8fcf21979c27782b6730",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-GOV-001-draft.pdf",
+      "base_sha256": "57e13c97ba9e131a955beb4e407ce7595936346b355ff07bd390802c460e37ae",
+      "current_sha256": "57e13c97ba9e131a955beb4e407ce7595936346b355ff07bd390802c460e37ae",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-HANDBOOK-draft.pdf",
+      "base_sha256": "0af5f277fe49f6fb1ed86e8d952f2fcb1d9c59df4456ca5e33e47d579c309d82",
+      "current_sha256": "0af5f277fe49f6fb1ed86e8d952f2fcb1d9c59df4456ca5e33e47d579c309d82",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-METHOD-001-draft.pdf",
+      "base_sha256": "7d181aef46980ac5d582e5d91493eb0e4132e4d20ad0c15e698bd8573f74026b",
+      "current_sha256": "7d181aef46980ac5d582e5d91493eb0e4132e4d20ad0c15e698bd8573f74026b",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-OPS-001-draft.pdf",
+      "base_sha256": "9c6d799a321143cc4083eeb691e61e6c898990f034c2c1496feb79a3bcdd026d",
+      "current_sha256": "9c6d799a321143cc4083eeb691e61e6c898990f034c2c1496feb79a3bcdd026d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "base_sha256": "40782d71e16618338e0a17d7486ad2e078746312a4f057de072ab3442e3def31",
+      "current_sha256": "40782d71e16618338e0a17d7486ad2e078746312a4f057de072ab3442e3def31",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/pdf/ESD-SUITE-000-draft.pdf",
+      "base_sha256": "aff2f41d4ec764492ca5bc5f68c87317ad95ef9ad5efada4601e5dbfa5a42018",
+      "current_sha256": "aff2f41d4ec764492ca5bc5f68c87317ad95ef9ad5efada4601e5dbfa5a42018",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+      "base_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "current_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+      "base_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "current_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+      "base_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "current_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+      "base_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "current_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+      "base_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "current_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/output/source/design/05-生产就绪与运行韧性标准-v1.0.0.md",
+      "base_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "current_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/preview-audit.json",
+      "base_sha256": "347031832d9e9e2633def8e771e96a940e5b30e87cb8a3c23048650b8e74e98d",
+      "current_sha256": "347031832d9e9e2633def8e771e96a940e5b30e87cb8a3c23048650b8e74e98d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/preview-result.json",
+      "base_sha256": "65975773ec57396e8695b456706a5aa520646749298042b047d2b08c8c42495a",
+      "current_sha256": "65975773ec57396e8695b456706a5aa520646749298042b047d2b08c8c42495a",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/reading-review.json",
+      "base_sha256": "6ffb5a62bdc2d114501b402b463e9cc932cf353a033ad12c89759104e2837898",
+      "current_sha256": "6ffb5a62bdc2d114501b402b463e9cc932cf353a033ad12c89759104e2837898",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/result.json",
+      "base_sha256": "bd3c125fae7d34b6c1ded11157658e83dc3e1239770540c470a2aa2d9523e74d",
+      "current_sha256": "bd3c125fae7d34b6c1ded11157658e83dc3e1239770540c470a2aa2d9523e74d",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/esd/run.json",
+      "base_sha256": "cd11efc953bff12a0842fb76636aeaa4d96b4eea0faa532c9df1d392b48076e5",
+      "current_sha256": "cd11efc953bff12a0842fb76636aeaa4d96b4eea0faa532c9df1d392b48076e5",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/inventory.json",
+      "base_sha256": "1681955197f52e74c1bd63a8b804b6534a68578a99347a14a6ea618ca1fc9e22",
+      "current_sha256": "1681955197f52e74c1bd63a8b804b6534a68578a99347a14a6ea618ca1fc9e22",
+      "unchanged": true
+    },
+    {
+      "path": "publication/reviews/v2-pilot/verify-review.py",
+      "base_sha256": "9a9e78081f807941d008caa44180ba43711d81da1a2b45d7031a0b7d2f554752",
+      "current_sha256": "9a9e78081f807941d008caa44180ba43711d81da1a2b45d7031a0b7d2f554752",
+      "unchanged": true
+    },
+    {
+      "path": "zig/Zig Project Architecture Standard.md",
+      "base_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+      "current_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+      "unchanged": true
+    },
+    {
+      "path": "zig/pdf_build/Zig Project Architecture Standard.pdf",
+      "base_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+      "current_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+      "unchanged": true
+    },
+    {
+      "path": "zig/pdf_build/Zig Project Architecture Standard.tex",
+      "base_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+      "current_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+      "unchanged": true
+    }
+  ],
+  "dist_complete_file_set_equal": true,
+  "not_run": [
+    "C++ compile/diagnostic rerun",
+    "performance rerun",
+    "concurrency dynamic rerun",
+    "formal publish"
+  ],
+  "meaning": "Local publication regression evidence, not CI or content approval"
+}

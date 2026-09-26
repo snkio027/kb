@@ -53,7 +53,7 @@ class IsolationTests(unittest.TestCase):
         config.update(id="fixture", dependencies=["fonts.lock"],
                       sources=[{"id": f"TEST-{n}", "path": f"{n:02}-fixture.md", "revision": "WORKTREE"} for n in range(6)])
         config["views"] = [{"id": f"TEST-{n}", "documents": [f"TEST-{n}"]} for n in range(6)] + [
-            dict(config["views"][-1], documents=[f"TEST-{n}" for n in range(6)])]
+            dict(next(v for v in config["views"] if v['id']=='ESD-HANDBOOK'), documents=[f"TEST-{n}" for n in range(6)])]
         profile_path.write_text(json.dumps(config))
         (self.root / "publication/profiles/fixture/table-layouts.json").write_text('{"tables":[]}')
         (self.root / "fonts.lock").write_text("fixture dependency declaration\\n")

@@ -1,0 +1,291 @@
+{
+  "role": "REVIEW_EXPORT_NOT_RELEASE_NOT_COMPLETE_CANDIDATE",
+  "candidate": "publication/build/candidate/d93cae646a289918315b1ba7ad33dc239bd0bc5b5b3988ca1e9fda7b7a4b11ac/12cd38315e67469c8dfd5569787b617d",
+  "candidate_id": "d93cae646a289918315b1ba7ad33dc239bd0bc5b5b3988ca1e9fda7b7a4b11ac",
+  "all_candidate_file_hashes_verified": true,
+  "source_checks": [
+    {
+      "path": "c++/g06-memory-and-performance.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "bytes": 67250,
+      "git_prepared_attached_equal": true
+    },
+    {
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "bytes": 61629,
+      "git_prepared_attached_equal": true
+    }
+  ],
+  "exported": [
+    {
+      "path": "candidate-manifest.json",
+      "sha256": "7e81bcd7f27b7bc762bfe411a4151b89cf2ecf9579d3b8d223e581f7deffa6f8",
+      "bytes": 19329
+    },
+    {
+      "path": "candidate-result.json",
+      "sha256": "dceda546910813f472e4ea540d67c0c479543e2a4089ed31e1a7566b8a074922",
+      "bytes": 463
+    },
+    {
+      "path": "evidence/source-catalog.json",
+      "sha256": "afabb1e3979a7ea7502f91873559ad63f4f7baa2cdd9c5420c9b254b7dc3b81c",
+      "bytes": 74814
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/audit.json",
+      "sha256": "331fcf4e1ab1a7e0a463320e91e5a6204e23732f578f12e9d5a1679429eac21b",
+      "bytes": 63484
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/reference-map.json",
+      "sha256": "ab65a886e453a1b73d06301230a11f77ce3d6dec341bcd0332b9d22ba15105be",
+      "bytes": 14257
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/section-audit.json",
+      "sha256": "758b5e70e62140c203da619fedc6f325d4dd594f23fb90f37b1deccbdf9c0df7",
+      "bytes": 96300
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/table-map.json",
+      "sha256": "aa56c8f6063f45241301440c98453e0bfd9e406ec6553f6426f10bc1e2530e93",
+      "bytes": 3132
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7/audit.json",
+      "sha256": "2b3a5c2f8b4376e8867c6a13f71c9772a0b228063cc906d2c337dabbc3e4bb2b",
+      "bytes": 63445
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7/reference-map.json",
+      "sha256": "ab65a886e453a1b73d06301230a11f77ce3d6dec341bcd0332b9d22ba15105be",
+      "bytes": 14257
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7/section-audit.json",
+      "sha256": "40f102c4ac9141c36713d5b4c0f2a733a85b94af1594819518d0baff7e1b1679",
+      "bytes": 96304
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7/table-map.json",
+      "sha256": "aa56c8f6063f45241301440c98453e0bfd9e406ec6553f6426f10bc1e2530e93",
+      "bytes": 3132
+    },
+    {
+      "path": "evidence/typeset/G6/audit.json",
+      "sha256": "d2322c3c0ba8af6a354fc030adef1d25484e7762b5f64378b40d800492899dd8",
+      "bytes": 31977
+    },
+    {
+      "path": "evidence/typeset/G6/reference-map.json",
+      "sha256": "f3d11749e9768cb9bb44773f19031c00d04a7221e76523be69bcbf855b1360c3",
+      "bytes": 6407
+    },
+    {
+      "path": "evidence/typeset/G6/section-audit.json",
+      "sha256": "86f7d2687147e484bd348a1da9516fd8ac197d6c7ec3929f0c1e0cb7de94038e",
+      "bytes": 46929
+    },
+    {
+      "path": "evidence/typeset/G6/table-map.json",
+      "sha256": "4f63fbfb5a239aaef5a4ba5af36b49d5da66e0a261fdfde37971e410b8ab4f9e",
+      "bytes": 2767
+    },
+    {
+      "path": "evidence/typeset/G7/audit.json",
+      "sha256": "466f5b9cce98a471865fd937df71a262945759e1f021399ad84ae39cadddbadd",
+      "bytes": 33091
+    },
+    {
+      "path": "evidence/typeset/G7/reference-map.json",
+      "sha256": "2152b6f2e56be0daf572af9c9cbed4a734717605ee73150b50807f8e01fdb758",
+      "bytes": 8269
+    },
+    {
+      "path": "evidence/typeset/G7/section-audit.json",
+      "sha256": "877793c41964fd5344411a6c12f6c875b8762f90bfed3b6d6f5ae54a3a913672",
+      "bytes": 49684
+    },
+    {
+      "path": "evidence/typeset/G7/table-map.json",
+      "sha256": "965695cc770d938ba50f2b3f5d25b7c9189917104af26dda200f86b344a4c0ee",
+      "bytes": 368
+    },
+    {
+      "path": "output/README.md",
+      "sha256": "fa251c8333d0b8b6be41f8baacdd0dc31a057ef349ff78ca59620308aa3e3a7c",
+      "bytes": 822
+    },
+    {
+      "path": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "sha256": "b825ed4414a521463489016a271217beba15dd679c756f98a0b12a5d8a119d02",
+      "bytes": 1012500
+    },
+    {
+      "path": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "sha256": "2d714d4c0e3bc97813b592d94894fd12430481201d60aa771def5bbc25805140",
+      "bytes": 1011673
+    },
+    {
+      "path": "output/pdf/G6-draft.pdf",
+      "sha256": "f9cd8e7d69e8cb9356d1f96457655524ad084e51790023089617a1efbcee8003",
+      "bytes": 708036
+    },
+    {
+      "path": "output/pdf/G7-draft.pdf",
+      "sha256": "aba7326bb9b80918d3c5771667534aa6e022a84aa9c4201f113efdac69750b0b",
+      "bytes": 690048
+    },
+    {
+      "path": "output/source/c++/g06-memory-and-performance.md",
+      "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "bytes": 67250
+    },
+    {
+      "path": "output/source/c++/g07-concurrency-and-memory-model.md",
+      "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "bytes": 61629
+    },
+    {
+      "path": "preview-audit.json",
+      "sha256": "4a99396ccc9c277dc0ef6dd84e3f37eb2323bc1ad832759f94804967819d5a67",
+      "bytes": 266821
+    },
+    {
+      "path": "preview-result.json",
+      "sha256": "8467589262e92a173da7b78f415ae1768f1e13d862524e18d3cd34ba0300428e",
+      "bytes": 803
+    },
+    {
+      "path": "reading-review.json",
+      "sha256": "99a1376b4f65e29ba695fe23403e94d86aed23c3e3b755b03cc4b751634f5f89",
+      "bytes": 6930
+    },
+    {
+      "path": "result.json",
+      "sha256": "1c347f60eb3e01f059bc57fd07e66a860930f725b54a4830b6743acc5564962d",
+      "bytes": 310
+    },
+    {
+      "path": "run.json",
+      "sha256": "9927b1bb60a9868b4319f822e42e517f6a43bc2e42036b62ef62cba1564082de",
+      "bytes": 4530
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7/reading-components.json",
+      "sha256": "ffcfc9d2e00e8c59c22ee1a7c2dfcbfae7fff7a08c4133314814e59f8d65bf8f",
+      "bytes": 46628
+    },
+    {
+      "path": "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/reading-components.json",
+      "sha256": "ffcfc9d2e00e8c59c22ee1a7c2dfcbfae7fff7a08c4133314814e59f8d65bf8f",
+      "bytes": 46628
+    },
+    {
+      "path": "evidence/typeset/G6/reading-components.json",
+      "sha256": "e32eb43898b1e6145e853ac1ff7c1bc08aae0d8c6d4be893d61587fff8bf4dca",
+      "bytes": 23966
+    },
+    {
+      "path": "evidence/typeset/G7/reading-components.json",
+      "sha256": "4d9cffbeed85649b822a10e3c6328ee7120459c7618feb508f59e54d1dfd8778",
+      "bytes": 22663
+    }
+  ],
+  "omitted": [
+    "evidence/source-ast/G6.json",
+    "evidence/source-ast/G7.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-0.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-0.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-1.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-1.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-2.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/compile-2.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/composed.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/document.aux",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/document.fls",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/document.log",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/document.tex",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/document.toc",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/extracted.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/pandoc.log",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/pandoc.log.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/render.log",
+    "evidence/typeset/CPP-PILOT-G6-G7-COMPACT/render.log.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-0.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-0.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-1.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-1.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-2.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7/compile-2.txt.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/composed.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/document.aux",
+    "evidence/typeset/CPP-PILOT-G6-G7/document.fls",
+    "evidence/typeset/CPP-PILOT-G6-G7/document.log",
+    "evidence/typeset/CPP-PILOT-G6-G7/document.tex",
+    "evidence/typeset/CPP-PILOT-G6-G7/document.toc",
+    "evidence/typeset/CPP-PILOT-G6-G7/extracted.txt",
+    "evidence/typeset/CPP-PILOT-G6-G7/pandoc.log",
+    "evidence/typeset/CPP-PILOT-G6-G7/pandoc.log.command.json",
+    "evidence/typeset/CPP-PILOT-G6-G7/render.log",
+    "evidence/typeset/CPP-PILOT-G6-G7/render.log.command.json",
+    "evidence/typeset/G6/compile-0.txt",
+    "evidence/typeset/G6/compile-0.txt.command.json",
+    "evidence/typeset/G6/compile-1.txt",
+    "evidence/typeset/G6/compile-1.txt.command.json",
+    "evidence/typeset/G6/compile-2.txt",
+    "evidence/typeset/G6/compile-2.txt.command.json",
+    "evidence/typeset/G6/composed.json",
+    "evidence/typeset/G6/document.aux",
+    "evidence/typeset/G6/document.fls",
+    "evidence/typeset/G6/document.log",
+    "evidence/typeset/G6/document.tex",
+    "evidence/typeset/G6/document.toc",
+    "evidence/typeset/G6/extracted.txt",
+    "evidence/typeset/G6/pandoc.log",
+    "evidence/typeset/G6/pandoc.log.command.json",
+    "evidence/typeset/G6/render.log",
+    "evidence/typeset/G6/render.log.command.json",
+    "evidence/typeset/G7/compile-0.txt",
+    "evidence/typeset/G7/compile-0.txt.command.json",
+    "evidence/typeset/G7/compile-1.txt",
+    "evidence/typeset/G7/compile-1.txt.command.json",
+    "evidence/typeset/G7/compile-2.txt",
+    "evidence/typeset/G7/compile-2.txt.command.json",
+    "evidence/typeset/G7/composed.json",
+    "evidence/typeset/G7/document.aux",
+    "evidence/typeset/G7/document.fls",
+    "evidence/typeset/G7/document.log",
+    "evidence/typeset/G7/document.tex",
+    "evidence/typeset/G7/document.toc",
+    "evidence/typeset/G7/extracted.txt",
+    "evidence/typeset/G7/pandoc.log",
+    "evidence/typeset/G7/pandoc.log.command.json",
+    "evidence/typeset/G7/render.log",
+    "evidence/typeset/G7/render.log.command.json",
+    "evidence/worker.log",
+    "inputs/publication/engine/candidate.py",
+    "inputs/publication/engine/filters/blocks.lua",
+    "inputs/publication/engine/links.py",
+    "inputs/publication/engine/preview.py",
+    "inputs/publication/engine/preview_audit.py",
+    "inputs/publication/engine/pub.py",
+    "inputs/publication/engine/source_model.py",
+    "inputs/publication/latex/kb-base.sty",
+    "inputs/publication/latex/kbbook.cls",
+    "inputs/publication/profiles/cpp-handbook/adapter.py",
+    "inputs/publication/profiles/cpp-handbook/profile.json",
+    "inputs/publication/profiles/cpp-handbook/table-layouts.json",
+    "inputs/publication/profiles/cpp-handbook/template.tex",
+    "inputs/publication/profiles/cpp-handbook/theme.sty",
+    "inputs/source-set.json",
+    "inputs/sources/c++/g06-memory-and-performance.md",
+    "inputs/sources/c++/g07-concurrency-and-memory-model.md"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf": "b825ed4414a521463489016a271217beba15dd679c756f98a0b12a5d8a119d02",
+    "output/pdf/CPP-PILOT-G6-G7-draft.pdf": "2d714d4c0e3bc97813b592d94894fd12430481201d60aa771def5bbc25805140",
+    "output/pdf/G6-draft.pdf": "f9cd8e7d69e8cb9356d1f96457655524ad084e51790023089617a1efbcee8003",
+    "output/pdf/G7-draft.pdf": "aba7326bb9b80918d3c5771667534aa6e022a84aa9c4201f113efdac69750b0b"
+  },
+  "audit_sha256": "4a99396ccc9c277dc0ef6dd84e3f37eb2323bc1ad832759f94804967819d5a67",
+  "structural_status": "STRUCTURAL_PASS",
+  "page_map_sha256": "31c39eb59bd8cf3de4466b72ac554345168a176ecf652264650d657c25aa7a25",
+  "visual_inspection": {
+    "preview_attempt": "publication/build/preview/ece178eb1bdf6c69bc3147d3e0bcf8cb2634510e9d69933d5f0c7ac75429d91f/de76ab6b00ca4bad834b8974352e0561",
+    "inspected_images": [
+      {
+        "path": "G6-042.png",
+        "sha256": "b14e121f671692ef580bbd5156ae7b4be7e708ee4403ea29b1aeb244e9afc064",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G6-043.png",
+        "sha256": "25e70e626d7661b7704bf87b24a58dbbf6264948a866174a5cb85c3372a61644",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-020.png",
+        "sha256": "25b70d54318999b597982970fcf572ea9deb168a80e563350a4c94e19d902330",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-036.png",
+        "sha256": "7652273481ea0ec101d36f6474810d68b19042f4781c78bae2ba9f9839d8f808",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-037.png",
+        "sha256": "6d9133158509b5eccd28c693d1caa064da37069b4f08a66410cd609f3756e119",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-038.png",
+        "sha256": "9e60aee03ae6087bb2010dfe0ddddd55e1c9769f941982b78b62cb0988d8e85c",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-003.png",
+        "sha256": "626d17807177004b718ba93c0220e8a32122efdcefcb7708e0e7233d47b80526",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-004.png",
+        "sha256": "de170bed64ebb5ce89df20f7444e5bc6401e0b2d51a3111ab85e8104f4866391",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-003.png",
+        "sha256": "ff8e041499fcb02e0b1491fc04483316a70cb376835f962f332d9a935539916d",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-046.png",
+        "sha256": "6f55486d8f4219f2cf9bc39ad31689a72c904a71585dfc5118cb3f1f08763d69",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-083.png",
+        "sha256": "d1eb27af981809451807b59a56f1255365074645e18154b275b8c3c7891a04fb",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-084.png",
+        "sha256": "a605cbc8a82be56ad5afaa3cca64247002ab330777744880a0734b51f952510e",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-052.png",
+        "sha256": "3de9c72ca368e468ccb5a1fd6af5a4f33f6825513e3437614f54a3468d35485c",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-051.png",
+        "sha256": "2250e9b3eda75d00577e618f6d6ea34f681aff1c2e4ae03407ab200c21e19203",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "G7-040.png",
+        "sha256": "f6ba6c3ea3b00c7251d1cb974fdc26ed9b993ae70f6a1284da592d7b49fd0cea",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "G7-041.png",
+        "sha256": "d7d00013d433f5ee916741736b5e774639cb62a0a7b9736e57af1d4d033da732",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "G7-043.png",
+        "sha256": "d5ba398d2aad3f40c74b02cb3a111d2edf00d18dcb4b2c79f2620182e357f705",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-002.png",
+        "sha256": "6d85b0ad6e6d7f3f0628c2bd113442d965d177bba5517f817a26b63fe0c07d3a",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-001.png",
+        "sha256": "9ced74147e6c092756ab229daab419bc4e710e9d8a57dc0187cb3e4a53701d01",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "G7-042.png",
+        "sha256": "65399e94ed98837a471ce21bd39cd5240dcc12e936d666438ba4698dc52aabf6",
+        "review_method": "final PNG opened and visually inspected"
+      }
+    ],
+    "observations": [
+      "G6 代码尾页保留实质语句与闭合上下文；G7 短表整体保留。",
+      "G7-D2 长实验续页同时显示实验与 main.cpp 身份；软折行有向量提示，未见裁切。",
+      "章节与次节区分明确，合订目录两页可读；源状态提示与章内导航身份明确。",
+      "Final Gate D/H 分组标签已随题目移至后页；题目与参考答案保持清晰。",
+      "Balanced 94 页 / Compact 92 页；同字号比较，Balanced 保留为主候选。"
+    ],
+    "accepted_tradeoffs": [
+      "G6 代码尾页到 Final Gate 的既定换页留白仍较多，保留完整实验与章节节奏。",
+      "源正文将部分提问拆为独立字面量和问号；本轮不重写题目。",
+      "页眉取本页最后的主要节标记，不保证显示本页第一段所属节。"
+    ]
+  },
+  "limitations": [
+    "12 PDFs / 805 pages rendered at 72 dpi; 46 selected 120 dpi pages actually inspected, not every page visually read.",
+    "38 final PNGs were byte-identical to images already inspected in this turn; changed and additional pages were opened again. This is image identity, not an inference from equal PDF text.",
+    "STRUCTURAL_PASS and visual self-review are separate; neither is independent approval or formal release.",
+    "C++ compile/diagnostic, performance and concurrency evidence not rerun; frozen content unchanged.",
+    "macOS arm64 only; no PDF/UA certification, physical-print proof, cross-platform validation or full-series publication."
+  ]
+}

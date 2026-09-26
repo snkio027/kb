@@ -1,0 +1,20 @@
+test_frozen_handbook_anchors_and_code_are_preserved (__main__.AdapterTests.test_frozen_handbook_anchors_and_code_are_preserved) ... ok
+test_product_metadata_cannot_be_confused (__main__.AdapterTests.test_product_metadata_cannot_be_confused) ... ok
+test_unknown_raw_html_is_not_silently_removed (__main__.AdapterTests.test_unknown_raw_html_is_not_silently_removed) ... ok
+test_branch_or_short_revision_is_rejected (__main__.ProductTests.test_branch_or_short_revision_is_rejected) ... ok
+test_combined_and_standalone_reference_policy (__main__.ProductTests.test_combined_and_standalone_reference_policy) ... ok
+test_different_profile_same_markdown_changes_identity (__main__.ProductTests.test_different_profile_same_markdown_changes_identity) ... ok
+test_immutable_revision_ignores_worktree_and_later_head (__main__.ProductTests.test_immutable_revision_ignores_worktree_and_later_head) ... ok
+test_nested_source_outside_profile_preserves_canonical_identity (__main__.ProductTests.test_nested_source_outside_profile_preserves_canonical_identity) ... ok
+test_profile_bytes_alone_change_identity (__main__.ProductTests.test_profile_bytes_alone_change_identity) ... ok
+test_profile_drift_after_preparation_refused (__main__.ProductTests.test_profile_drift_after_preparation_refused) ... ok
+test_profile_drift_during_prepare_refused (__main__.ProductTests.test_profile_drift_during_prepare_refused) ... ok
+test_source_path_traversal_is_rejected (__main__.ProductTests.test_source_path_traversal_is_rejected) ... ok
+test_symlink_git_source_is_rejected (__main__.ProductTests.test_symlink_git_source_is_rejected) ... ok
+test_unresolved_repository_link_rejected (__main__.ProductTests.test_unresolved_repository_link_rejected) ... ok
+test_views_select_same_source_without_duplication (__main__.ProductTests.test_views_select_same_source_without_duplication) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 15.380s
+
+OK

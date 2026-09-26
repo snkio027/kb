@@ -1,0 +1,137 @@
+{
+  "markdown_files": 38,
+  "local_links": 962,
+  "upgraded_hierarchy_files": 13,
+  "errors": [],
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "source_risks": [
+    {
+      "file": "g02-raii-and-ownership.md",
+      "line": 1075,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 41,
+      "display_columns": 66
+    },
+    {
+      "file": "g04-stl-and-ranges.md",
+      "line": 2038,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 85,
+      "display_columns": 80
+    },
+    {
+      "file": "g06-memory-and-performance.md",
+      "line": 2073,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 49,
+      "display_columns": 84
+    },
+    {
+      "file": "g06-memory-and-performance.md",
+      "line": 2165,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 35,
+      "display_columns": 74
+    },
+    {
+      "file": "g07-concurrency-and-memory-model.md",
+      "line": 1808,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 94,
+      "display_columns": 76
+    },
+    {
+      "file": "g08-abi-and-c-interop.md",
+      "line": 902,
+      "kind": "code_or_diagram_pagination",
+      "language": "c",
+      "lines": 38,
+      "display_columns": 92
+    },
+    {
+      "file": "g09-build-and-native-ecosystem.md",
+      "line": 704,
+      "kind": "code_or_diagram_pagination",
+      "language": "cmake",
+      "lines": 35,
+      "display_columns": 80
+    },
+    {
+      "file": "g10-systems-runtime-project.md",
+      "line": 570,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 53,
+      "display_columns": 89
+    },
+    {
+      "file": "g10-systems-runtime-project.md",
+      "line": 629,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 100,
+      "display_columns": 86
+    },
+    {
+      "file": "g10-systems-runtime-project.md",
+      "line": 735,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 174,
+      "display_columns": 89
+    },
+    {
+      "file": "g10-systems-runtime-project.md",
+      "line": 915,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 142,
+      "display_columns": 91
+    },
+    {
+      "file": "g10-systems-runtime-project.md",
+      "line": 1125,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 48,
+      "display_columns": 86
+    },
+    {
+      "file": "g11-robotics.md",
+      "line": 531,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 64,
+      "display_columns": 84
+    },
+    {
+      "file": "g11-robotics.md",
+      "line": 613,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 53,
+      "display_columns": 89
+    },
+    {
+      "file": "g11-robotics.md",
+      "line": 672,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 98,
+      "display_columns": 92
+    },
+    {
+      "file": "g11-robotics.md",
+      "line": 776,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 38,
+      "display_columns": 91
+    }
+  ]
+}

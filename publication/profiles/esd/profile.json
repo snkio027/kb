@@ -13,6 +13,13 @@
   "standalone_links": "repository-source-or-attached-snapshot",
   "artifact_channel": "PREVIEW",
   "id": "esd",
+  "reading": {
+    "density": "balanced",
+    "heading_roles": {"1": "section", "2": "subsection", "3": "subsubsection"},
+    "min_head_lines": 4,
+    "min_tail_lines": 6,
+    "short_table_lines": 12
+  },
   "sources": [
     {
       "id": "ESD-SUITE-000",
@@ -96,6 +103,11 @@
       "subtitle": "六篇完整草案 · 合订工作版",
       "version": "preview.2",
       "status": "DRAFT / COMBINED WORKING VIEW"
+    },
+    {
+      "id": "ESD-REFERENCE-001-COMPACT",
+      "documents": ["ESD-REFERENCE-001"],
+      "density": "compact"
     }
   ],
   "index": {
@@ -104,5 +116,5 @@
     "heading_pattern": "-REQ-"
   },
   "toc_depth": 0,
-  "combined_toc_depth": -1
+  "combined_toc_depth": 0
 }

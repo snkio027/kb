@@ -1,6 +1,7 @@
 \documentclass[UTF8,fontset=none,scheme=plain,11pt,a4paper,oneside,openany]{kbbook}
 \usepackage{kb-base}
 \usepackage{theme}
+\PreviewDensity{$density$}
 \PreviewSetIdentity{$document_id$}{$version$}{$status$}
 \hypersetup{pdftitle={$title$},pdfauthor={$owner$},pdfsubject={$subject$},pdfkeywords={$keywords$}}
 \begin{document}
@@ -25,6 +26,7 @@
 \noindent\textbf{制品标识}\quad $document_id$\par
 \noindent\textbf{版本}\quad $version$\par
 \noindent\textbf{状态}\quad $status$\par
+\noindent\textbf{阅读密度}\quad $density$ · Visual Profile Candidate，尚未冻结\par
 \noindent\textbf{基准 commit}\quad\texttt{$source_commit$}\par
 \noindent\textbf{准备标识}\quad\texttt{$build_short$}\par
 \noindent\textbf{使用方式}\quad 目录与书签可跳转；合订版中的核心文档链接跳转到本件对应篇章。独立版在源字节匹配时提供固定 commit 链接，否则指向随附的 source 快照。完整输入以准备记录为准，可能包含未提交变更；正文原有编号不重新连续编号。
@@ -34,9 +36,9 @@ $for(composition)$
 $endfor$
 $if(combined)$
 \medskip\noindent\hyperlink{generated-requirement-index}{\textbf{按条款 ID 查找}}\quad 末尾索引含可点击标题和纸面页码。完整章节与条款通过分组书签定位。
-\setcounter{tocdepth}{-1}
 $endif$
 \clearpage
+\setcounter{tocdepth}{$toc_depth$}
 \tableofcontents
 \clearpage
 $body$

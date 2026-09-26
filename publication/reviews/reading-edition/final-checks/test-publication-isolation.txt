@@ -1,0 +1,48 @@
+test_all_legacy_entry_points_reject_before_tool_invocation (__main__.IsolationTests.test_all_legacy_entry_points_reject_before_tool_invocation) ... ok
+test_build_id_symlink_rejected (__main__.IsolationTests.test_build_id_symlink_rejected) ... ok
+test_build_symlink_to_dist_rejected (__main__.IsolationTests.test_build_symlink_to_dist_rejected) ... ok
+test_clean_filter_rejected_before_helper_executes (__main__.IsolationTests.test_clean_filter_rejected_before_helper_executes) ... ok
+test_cli_success_from_another_working_directory (__main__.IsolationTests.test_cli_success_from_another_working_directory) ... ok
+test_closed_operations_and_redirects_do_not_write (__main__.IsolationTests.test_closed_operations_and_redirects_do_not_write) ... ok
+test_committed_result_is_not_overwritten (__main__.IsolationTests.test_committed_result_is_not_overwritten) ... ok
+test_conditional_filter_configuration_rejected (__main__.IsolationTests.test_conditional_filter_configuration_rejected) ... ok
+test_duplicate_numbered_source_rejected (__main__.IsolationTests.test_duplicate_numbered_source_rejected) ... ok
+test_empty_unused_and_smudge_filters_rejected (__main__.IsolationTests.test_empty_unused_and_smudge_filters_rejected) ... ok
+test_environment_does_not_redirect_outputs (__main__.IsolationTests.test_environment_does_not_redirect_outputs) ... ok
+test_error_immediately_after_link_preserves_committed_prepared (__main__.IsolationTests.test_error_immediately_after_link_preserves_committed_prepared) ... ok
+test_external_output_symlink_target_unchanged (__main__.IsolationTests.test_external_output_symlink_target_unchanged) ... ok
+test_fifo_input_rejected_without_blocking (__main__.IsolationTests.test_fifo_input_rejected_without_blocking) ... ok
+test_file_in_place_of_output_directory_rejected (__main__.IsolationTests.test_file_in_place_of_output_directory_rejected) ... ok
+test_filter_detection_precedes_every_status_probe (__main__.IsolationTests.test_filter_detection_precedes_every_status_probe) ... ok
+test_global_xdg_filter_configuration_rejected (__main__.IsolationTests.test_global_xdg_filter_configuration_rejected) ... ok
+test_included_filter_configuration_rejected (__main__.IsolationTests.test_included_filter_configuration_rejected) ... ok
+test_input_drift_fails_without_prepared_result (__main__.IsolationTests.test_input_drift_fails_without_prepared_result) ... ok
+test_invalid_git_configuration_fails_closed (__main__.IsolationTests.test_invalid_git_configuration_fails_closed) ... ok
+test_missing_required_input_fails_before_output (__main__.IsolationTests.test_missing_required_input_fails_before_output) ... ok
+test_no_result_when_diagnostics_also_fail (__main__.IsolationTests.test_no_result_when_diagnostics_also_fail) ... ok
+test_path_escape_and_existing_file_never_written (__main__.IsolationTests.test_path_escape_and_existing_file_never_written) ... ok
+test_preview_symlink_to_dist_rejected (__main__.IsolationTests.test_preview_symlink_to_dist_rejected) ... ok
+test_process_filter_rejected_before_helper_executes (__main__.IsolationTests.test_process_filter_rejected_before_helper_executes) ... ok
+test_repeated_inputs_get_separate_attempts (__main__.IsolationTests.test_repeated_inputs_get_separate_attempts) ... ok
+test_result_link_failure_does_not_commit_prepared (__main__.IsolationTests.test_result_link_failure_does_not_commit_prepared) ... ok
+test_runtime_identity_is_part_of_build_id (__main__.IsolationTests.test_runtime_identity_is_part_of_build_id) ... ok
+test_same_commit_input_changes_change_identity (__main__.IsolationTests.test_same_commit_input_changes_change_identity) ... ok
+test_sigint_after_commit_keeps_prepared (__main__.IsolationTests.test_sigint_after_commit_keeps_prepared) ... ok
+test_sigint_is_cancelled (__main__.IsolationTests.test_sigint_is_cancelled) ... ok
+test_sigkill_after_commit_keeps_prepared (__main__.IsolationTests.test_sigkill_after_commit_keeps_prepared) ... ok
+test_sigkill_before_commit_has_no_final_result (__main__.IsolationTests.test_sigkill_before_commit_has_no_final_result) ... ok
+test_sigkill_has_no_success_result (__main__.IsolationTests.test_sigkill_has_no_success_result) ... ok
+test_sigterm_after_commit_keeps_prepared (__main__.IsolationTests.test_sigterm_after_commit_keeps_prepared) ... ok
+test_sigterm_before_commit_has_no_prepared (__main__.IsolationTests.test_sigterm_before_commit_has_no_prepared) ... ok
+test_sigterm_is_cancelled (__main__.IsolationTests.test_sigterm_is_cancelled) ... ok
+test_source_commit_not_only_identity (__main__.IsolationTests.test_source_commit_not_only_identity) ... ok
+test_submodule_gitlinks_outside_design_are_rejected (__main__.IsolationTests.test_submodule_gitlinks_outside_design_are_rejected) ... ok
+test_success_record_fsync_failure_never_commits_prepared (__main__.IsolationTests.test_success_record_fsync_failure_never_commits_prepared) ... ok
+test_success_records_exact_snapshot_and_not_run_checks (__main__.IsolationTests.test_success_records_exact_snapshot_and_not_run_checks) ... ok
+test_symlink_inputs_and_directories_rejected (__main__.IsolationTests.test_symlink_inputs_and_directories_rejected) ... ok
+test_write_failure_reports_failed (__main__.IsolationTests.test_write_failure_reports_failed) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 38.594s
+
+OK

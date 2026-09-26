@@ -1,0 +1,13 @@
+test_cancel_during_copy_commits_cancelled_not_success (__main__.CandidateIsolationTests.test_cancel_during_copy_commits_cancelled_not_success) ... ok
+test_candidate_directory_symlink_rejected (__main__.CandidateIsolationTests.test_candidate_directory_symlink_rejected) ... ok
+test_error_after_commit_retains_same_fact (__main__.CandidateIsolationTests.test_error_after_commit_retains_same_fact) ... ok
+test_preview_directory_symlink_rejected (__main__.CandidateIsolationTests.test_preview_directory_symlink_rejected) ... ok
+test_source_drift_never_commits_success (__main__.CandidateIsolationTests.test_source_drift_never_commits_success) ... ok
+test_success_and_repeat_keep_dist_and_previous_candidate (__main__.CandidateIsolationTests.test_success_and_repeat_keep_dist_and_previous_candidate) ... ok
+test_terminal_fsync_failure_leaves_no_success (__main__.CandidateIsolationTests.test_terminal_fsync_failure_leaves_no_success) ... ok
+test_unsafe_and_absolute_preview_paths_rejected (__main__.CandidateIsolationTests.test_unsafe_and_absolute_preview_paths_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.109s
+
+OK

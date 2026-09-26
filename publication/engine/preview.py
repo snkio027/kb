@@ -145,9 +145,11 @@ def tables_to_records(blocks, doc_id, ledger, policies=()):
                     raise RuntimeError("ambiguous or drifted table layout: " + section_title)
                 override = policy
                 used.add(n)
-        if override and override["layout"] not in ("matrix", "records"):
+        if override and override["layout"] not in ("matrix", "records", "comparison", "simple", "record", "template"):
             raise RuntimeError("unsupported table layout")
-        if (override and override["layout"] == "matrix") or (not override and len(specs) <= 3):
+        task = override.get('task', override['layout']) if override else ('simple' if len(specs) <= 3 else 'record')
+        table_id = f"{doc_id}-T{table_number:02}"
+        if (override and override["layout"] in ("matrix", "comparison", "simple")) or (not override and len(specs) <= 3):
             # Fixed generous widths; long prose goes into records instead.
             lengths = [max([len(text(row[1][i][4])) for row in rows] + [len(text(headings[i][4]))]) for i in range(len(specs))]
             long_token = any(re.search(r"[A-Za-z0-9_/–—-]{26}", text(cell[4])) for row in rows for cell in row[1])
@@ -157,31 +159,46 @@ def tables_to_records(blocks, doc_id, ledger, policies=()):
                 if len(weights) != len(specs) or any(w <= 0 for w in weights):
                     raise RuntimeError("invalid table widths")
                 block["c"][2] = [[spec[0], {"t": "ColWidth", "c": w / sum(weights)}] for spec, w in zip(specs, weights)]
+                block['c'][0][2].append(['reading-table-id', table_id])
                 output.append(block)
-                ledger.append({"table": f"{doc_id}-T{table_number:02}", "section": section, "section_title": section_title, "layout": "matrix", "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "row_text": ["".join(text(c[4]) for c in row[1]) for row in rows]})
+                ledger.append({"table": table_id, "section": section, "section_title": section_title, "layout": "matrix", "task": task, "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "row_text": ["".join(text(c[4]) for c in row[1]) for row in rows]})
                 continue
         table_id = f"{doc_id}-T{table_number:02}"
+        if output and output[-1]['t'] == 'Header' and rows:
+            first_size = sum(max(1, (len(text(c[4])) + 37)//38) for c in rows[0][1])
+            output[-1]['c'][1][2].append(['reading-follow-space', str(min(340, first_size*20+48))])
+        empty_fields = any(not text(c[4]).strip() for row in rows for c in row[1])
+        task = 'template' if empty_fields and task=='record' else task
         output.append(para(f"表 {table_number} · 字段记录视图（列名与原单元格逐项对应）"))
+        if empty_fields:
+            output.append(para('排版说明：横线表示原表空字段，不表示已有值或已完成填写。'))
         if caption[1]:
             output.extend(caption[1])
         if not rows:
             output.append(para("空表模板 · 保留以下全部字段："))
             for cell in headings:
                 output.extend(copy.deepcopy(cell[4]))
-        mapping = []
+        mapping, record_titles = [], []
         for number, row in enumerate(rows, 1):
-            output.append(raw(r"\begin{PreviewRecordBox}{" + escape(f"{table_id} / 记录 {number}") + "}"))
+            short = sum(len(text(c[4])) for c in row[1]) < 550 and len(row[1]) <= 9
+            key = text(row[1][0][4]) if row[1] else ''
+            title = f"{table_id} / 记录 {number}" + (' · ' + key if key and len(key)<48 else '')
+            record_titles.append(title)
+            output.append(raw(r"\begin{PreviewRecordBox}[" + ('unbreakable' if short else 'breakable') + ']{' + escape(title) + "}"))
+            output.append(raw(r'\hypertarget{' + table_id + f'-R{number}-start' + '}{}'))
             for column, cell in enumerate(row[1]):
                 label = [s(text(headings[column][4]))] if headings else [s(f"字段 {column+1}")]
-                output.append({"t": "Para", "c": [{"t": "Strong", "c": label}]})
-                output.append(raw(r"\nopagebreak"))
+                output.append(raw(r'\begin{PreviewField}{' + escape(text(label)) + '}{' + table_id + f'-R{number}-F{column+1}' + '}'))
                 values = copy.deepcopy(cell[4])
                 output.extend(values)
+                if not text(values).strip():
+                    output.append(raw(r'\PreviewEmptyField{}'))
+                output.append(raw(r'\end{PreviewField}'))
                 assert values == cell[4]  # Field identity and full original block structure.
                 mapping.append({"row": number, "column": column + 1, "label": text(label), "value": text(cell[4])})
-            output.append(raw(r"\end{PreviewRecordBox}"))
-        row_text = [table_id + f" / 记录 {n}" + "".join(c["label"] + c["value"] for c in mapping if c["row"] == n) for n in range(1, len(rows) + 1)]
-        ledger.append({"table": table_id, "section": section, "section_title": section_title, "layout": "records", "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "cells": mapping, "row_text": row_text})
+            output.append(raw(r'\hypertarget{' + table_id + f'-R{number}-end' + r'}{}\end{PreviewRecordBox}'))
+        row_text = [record_titles[n-1] + "".join(c["label"] + c["value"] for c in mapping if c["row"] == n) for n in range(1, len(rows) + 1)]
+        ledger.append({"table": table_id, "section": section, "section_title": section_title, "layout": "records", "task": task, "selection": "explicit" if override else "default", "headers": [text(c[4]) for c in headings], "cells": mapping, "row_text": row_text, "record_titles": record_titles})
     if any(n not in used for n, p in enumerate(policies) if p["document"] == doc_id):
         raise RuntimeError("unused/drifted explicit table layout for " + doc_id)
     return output
@@ -211,6 +228,14 @@ def compose(documents, selected, view, profile, resolver, policies=()):
                 item["c"][1][1].append("unnumbered")
                 nav = "part" if doc["anchors"][original] == doc["first_anchor"] else ("chapter", "section", "subsection", "subsubsection", "paragraph", "subparagraph")[item["c"][0] - 1]
                 item["c"][1][2].append(["preview-nav", nav])
+                reading = profile.get('reading', {})
+                role = 'chapter' if doc['anchors'][original] == doc['first_anchor'] else reading.get('heading_roles', {}).get(str(item['c'][0]))
+                if role:
+                    item['c'][1][2].append(['reading-role', role])
+                if doc['anchors'][original] == doc['first_anchor'] and reading.get('source_snapshot_note'):
+                    item['c'][1][2].append(['reading-source-note', str(doc['source']['commit'])[:7]])
+                if text(item) in reading.get('local_navigation_titles', []):
+                    item['c'][1][2].append(['reading-local-navigation', 'true'])
             elif tag == "Link":
                 target = item["c"][2][0]
                 item["c"][2][0] = resolver.resolve(target, doc)
@@ -225,12 +250,19 @@ def compose(documents, selected, view, profile, resolver, policies=()):
                     raise RuntimeError("spatial diagram exceeds readable portrait width")
                 item["c"][0][2].append(["preview-flow", str(spatial).lower()])
                 item["c"][0][2].append(["preview-code-id", f"{doc_id}-C{code_number:02}"])
+                attrs = dict(item['c'][0][2])
+                if 'reading-kind' not in attrs:
+                    kind = 'flow' if spatial else ('snippet' if any(c in ('cpp', 'c', 'c++') for c in item['c'][0][1]) else 'literal')
+                    item['c'][0][2].append(['reading-kind', kind])
+                item['c'][0][2].extend([['reading-min-head', str(profile.get('reading', {}).get('min_head_lines', 4))],
+                                      ['reading-min-tail', str(profile.get('reading', {}).get('min_tail_lines', 6))]])
         body = tables_to_records(body, doc_id, ledger, policies)
         blocks.extend(body)
     index = profile.get("index") if combined else None
     if index:
         blocks.append(raw(r"\clearpage\PreviewSetIdentity{" + escape(view["id"]) + "}{" + escape(view["version"]) + "}{" + escape(view["status"]) + "}"))
         blocks.append({"t": "Header", "c": [1, [index["id"], ["unnumbered"], [["preview-nav", "part"]]], [s(index["title"])]]})
+        blocks.append(raw(r"\markboth{" + escape(index["title"]) + "}{}"))
         for doc in selected:
             headers = [x for x in walk(doc["ast"]["blocks"]) if x.get("t") == "Header" and re.search(index["heading_pattern"], text(x))]
             if headers:
@@ -250,6 +282,8 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     meta = {key: value for key, value in meta.items() if isinstance(value, str)}
     meta.update(document_id=view, source_commit=selected[0]["source"]["commit"],
                 build_short=record["build_id"][:24], toc_depth=str(profile["combined_toc_depth"] if combined else profile["toc_depth"]))
+    meta['density'] = view_config.get('density', profile.get('reading', {}).get('density', 'balanced'))
+    meta['short_table_lines'] = str(profile.get('reading', {}).get('short_table_lines', 12))
     meta.setdefault("subtitle", "完整内容阅读预览")
     meta.setdefault("owner", "")
     title = meta["title"]
@@ -301,8 +335,10 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     for item in walk(blocks):
         if item.get("t") == "CodeBlock":
             code_id = dict(item["c"][0][2])["preview-code-id"]
-            for suffix in (" · 续", " · 原文代码／流程"):
-                label = code_id + suffix
+            attrs = dict(item['c'][0][2])
+            caption = attrs.get('reading-caption', {'flow': '流程示意', 'snippet': '机制片段', 'literal': '字面文本'}.get(attrs.get('reading-kind'), '代码'))
+            for suffix in (' · continued', ''):
+                label = code_id + ' / ' + caption + suffix
                 if any(label in text(d["ast"]["blocks"]) for d in selected):
                     raise RuntimeError("generated/source label collision")
                 extracted = extracted.replace(normalize(label), "")
@@ -310,7 +346,7 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     for table in ledger:
         if table["layout"] == "records":
             for number in range(1, len(table["row_text"]) + 1):
-                label = table["table"] + f" / 记录 {number} · 续"
+                label = table['record_titles'][number-1] + ' · 续'
                 if any(label in text(d["ast"]["blocks"]) for d in selected):
                     raise RuntimeError("generated/source label collision")
                 extracted = extracted.replace(normalize(label), "")
@@ -339,7 +375,10 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     expected = meta
     for number, page_text in enumerate(page_identity_text):
         expected = identity_changes.get(number, expected)
-        if any(normalize(expected[k]) not in page_text for k in ("document_id", "version", "status")):
+        # Full version/status identity remains on cover/control/source opening.
+        # Running navigation deliberately prioritizes current document + section.
+        keys = ('document_id', 'version', 'status') if number == 0 else ('document_id',)
+        if any(normalize(expected[k]) not in page_text for k in keys) or (number > 0 and 'PREVIEW' not in page_text):
             raise RuntimeError(f"{view} page {number+1}: running identity mismatch")
     links = 0
     for page in reader.pages:

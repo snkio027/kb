@@ -1,0 +1,14 @@
+[
+  {
+    "from": "ESD-ASSURANCE-001",
+    "source": "https://lamport.azurewebsites.net/tla/book.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://lamport.azurewebsites.net/tla/book.html"
+  },
+  {
+    "from": "ESD-ASSURANCE-001",
+    "source": "./01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/fed7e085f77721c66076be344652d48eac27f041/design/01-%E4%BC%98%E7%A7%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E7%A8%8B%E4%BF%9D%E8%AF%81%E6%96%B9%E6%B3%95%E8%AE%BA-v1.1.0.md"
+  }
+]

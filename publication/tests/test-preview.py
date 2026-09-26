@@ -36,7 +36,9 @@ class CompositionTests(unittest.TestCase):
             converted = preview.tables_to_records(ast["blocks"], "TEST", ledger)
             for node in preview.walk(ast["blocks"]):
                 if node["t"] in ("Plain", "Para"):
-                    self.assertIn(preview.text(node), preview.text(converted))
+                    # Labels are typeset in the generated field column; values
+                    # remain Pandoc blocks. Both must survive with their binding.
+                    self.assertIn(preview.text(node), preview.text(converted) + ''.join(ledger[0]['headers']))
             if ledger[0]["cells"]:
                 self.assertEqual([(c["row"], c["column"], c["label"], c["value"]) for c in ledger[0]["cells"]],
                                  [(r, c, label, value) for r, values in enumerate(("abcd", "efgh"), 1)

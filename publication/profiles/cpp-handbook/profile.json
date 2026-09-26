@@ -9,6 +9,15 @@
   "standalone_links": "repository-source-or-attached-snapshot",
   "artifact_channel": "PREVIEW",
   "id": "cpp-handbook",
+  "reading": {
+    "density": "balanced",
+    "heading_roles": {"2": "section", "3": "subsection"},
+    "source_snapshot_note": true,
+    "local_navigation_titles": ["章节目录"],
+    "min_head_lines": 4,
+    "min_tail_lines": 6,
+    "short_table_lines": 12
+  },
   "sources": [
     {
       "id": "G6",
@@ -46,6 +55,15 @@
       "subtitle": "G6 内存与性能 · G7 并发与内存模型",
       "version": "pilot.1",
       "status": "ACCEPTED CONTENT / PILOT PDF"
+    },
+    {
+      "id": "CPP-PILOT-G6-G7-COMPACT",
+      "documents": ["G6", "G7"],
+      "title": "Modern C++ 工程学习手册",
+      "subtitle": "G6 内存与性能 · G7 并发与内存模型",
+      "version": "pilot.1",
+      "status": "ACCEPTED CONTENT / PILOT PDF",
+      "density": "compact"
     }
   ],
   "toc_depth": 1,

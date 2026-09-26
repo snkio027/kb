@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "binding": "Exact document + source heading/table headers or experiment ID/file; source hashes come from the prepared source catalog. No physical page is a fixture identity.",
+  "fixtures": [
+    {"id":"cpp-g6-code-tail","document":"G6","kind":"code","caption":"G6-M3 · main.cpp"},
+    {"id":"cpp-g7-short-table","document":"G7","kind":"table","section":"8.1 Queue 首先按 Topology 分类"},
+    {"id":"cpp-g7-experiment","document":"G7","kind":"code","caption":"G7-D2 · main.cpp"},
+    {"id":"cpp-g7-reference","document":"G7","kind":"heading","title":"22. 参考与验证入口"},
+    {"id":"cpp-global-toc","view":"CPP-PILOT-G6-G7","kind":"toc"},
+    {"id":"cpp-source-status","document":"G7","kind":"opening"},
+    {"id":"esd-reference-toc","view":"ESD-REFERENCE-001","kind":"toc"},
+    {"id":"esd-suite-record","document":"ESD-SUITE-000","kind":"table","section":"2.1 核心文档"},
+    {"id":"esd-code-wrap","document":"ESD-ASSURANCE-001","kind":"code","contains":"evidence_type:"},
+    {"id":"esd-ops-template","document":"ESD-OPS-001","kind":"table","headers":["资源","单位","正常上限","故障上限","满载行为","Owner","Signal"]},
+    {"id":"esd-ops-comparison","document":"ESD-OPS-001","kind":"table","section":"24. 按风险等级的最低运行要求"},
+    {"id":"esd-raci","document":"ESD-GOV-001","kind":"table","section":"5.2 RACI 最低要求"},
+    {"id":"esd-method-hierarchy","document":"ESD-METHOD-001","kind":"heading","title":"6. 从问题、约束与风险开始"},
+    {"id":"esd-global-toc","view":"ESD-HANDBOOK","kind":"toc"},
+    {"id":"esd-clause-index","view":"ESD-HANDBOOK","kind":"destination","anchor":"generated-requirement-index"}
+  ]
+}

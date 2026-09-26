@@ -41,9 +41,9 @@
 \newcommand{\PreviewStatus}{DRAFT}
 \newcommand{\PreviewSetIdentity}[3]{\gdef\PreviewID{#1}\gdef\PreviewVersion{#2}\gdef\PreviewStatus{#3}}
 \pagestyle{fancy}\fancyhf{}
-\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewMuted}\PreviewID\quad v\PreviewVersion}
-\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewTeal}PREVIEW / DRAFT}
-\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\color{PreviewMuted}\PreviewStatus}
+\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewMuted}\PreviewID}
+\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont\color{PreviewTeal}\nouppercase{\leftmark}}
+\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\color{PreviewMuted}PREVIEW / DRAFT · 非正式发布}
 \fancyfoot[R]{\sffamily\small\color{PreviewMuted}\thepage}
 \renewcommand{\headrulewidth}{.3pt}
 \fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\PreviewID\quad v\PreviewVersion}\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont PREVIEW / DRAFT}\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\PreviewStatus}\fancyfoot[R]{\sffamily\small\thepage}}
@@ -61,10 +61,10 @@
 \newcommand{\PreviewFontsubsubsection}{\normalsize}
 \newcommand{\PreviewFontparagraph}{\normalsize}
 \newcommand{\PreviewFontsubparagraph}{\normalsize}
-\newcommand{\PreviewMeasureHeading}[2]{\setbox\PreviewTitleMeasure=\vbox{\hsize=\linewidth\PreviewHeadingFont{#1}#2\par}\addtolength{\PreviewKeepHeight}{\ht\PreviewTitleMeasure+\dp\PreviewTitleMeasure+36pt}}
-\newcommand{\PreviewKeepHeadings}[1]{\par\setlength{\PreviewKeepHeight}{5\baselineskip}#1\Needspace{\PreviewKeepHeight}}
+\newcommand{\PreviewMeasureHeading}[2]{\setbox\PreviewTitleMeasure=\vbox{\hsize=\linewidth\PreviewHeadingFont{#1}#2\par}\addtolength{\PreviewKeepHeight}{\ht\PreviewTitleMeasure+\dp\PreviewTitleMeasure+22pt}}
+\newcommand{\PreviewKeepHeadings}[1]{\par\setlength{\PreviewKeepHeight}{3\baselineskip}#1\Needspace{\PreviewKeepHeight}}
 \makeatletter
-\newcommand{\PreviewHeading}[4]{\par\hypertarget{#3}{}\csname #1\endcsname*{#4}\def\@currentHref{#3}\label{#3}\addcontentsline{toc}{#2}{#4}\nobreak}
+\newcommand{\PreviewHeading}[4]{\par\hypertarget{#3}{}\csname #1\endcsname*{#4}\def\@currentHref{#3}\label{#3}\addcontentsline{toc}{#2}{#4}\ifstrequal{#1}{section}{\markboth{#4}{}}{}\nobreak}
 \makeatother
 \newcommand{\PreviewIndexEntry}[2]{\par\noindent\hyperlink{#1}{#2}\nobreak\hfill\mbox{\pageref*{#1}}\par}
 \providecommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{1pt}}
@@ -72,9 +72,39 @@
 \providecommand{\pandocbounded}[1]{#1}
 \newcounter{none}
 \newtcolorbox{PreviewQuote}{enhanced,breakable,colback=PreviewPaper,colframe=PreviewLine,boxrule=0pt,borderline west={1.5pt}{0pt}{PreviewTeal},arc=0pt,left=8pt,right=8pt,top=5pt,bottom=5pt,before skip=7pt,after skip=7pt}
-\newenvironment{PreviewTable}{\begingroup\fontsize{9.5}{13}\selectfont\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.2}}{\endgroup}
-\newtcolorbox{PreviewRecordBox}[1]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewTeal,fonttitle=\sffamily\bfseries\small,title={#1},title after break={#1 · 续},boxrule=.3pt,arc=0pt,left=7pt,right=7pt,top=4pt,bottom=4pt,before skip=7pt,after skip=7pt}
-\newtcolorbox{PreviewCodeBox}[1]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewMuted,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#1 · 原文代码／流程},title after break={#1 · 续},boxrule=.3pt,arc=0pt,left=5pt,right=5pt,top=4pt,bottom=4pt,before skip=7pt,after skip=7pt}
-\newcommand{\PreviewCodeFormat}{\hyphenpenalty=50\relax\exhyphenpenalty=50\relax}
-\DefineVerbatimEnvironment{PreviewCode}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,breaklines=true,breakanywhere=true,breakanywheresymbolpre={},breaksymbolleft={},breaksymbolright={},tabsize=4}
-\DefineVerbatimEnvironment{PreviewFlow}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,breaklines=false,tabsize=4}
+\newcommand{\PreviewTableStretch}{1.2}
+\newenvironment{PreviewTable}{\begingroup\fontsize{9.5}{13}\selectfont\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{\PreviewTableStretch}}{\endgroup}
+\newtcolorbox{PreviewRecordBox}[2][]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewTeal,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#2},title after break={#2 · 续},boxrule=.3pt,arc=0pt,left=7pt,right=7pt,top=4pt,bottom=4pt,before skip=6pt,after skip=6pt,#1}
+\newlength{\PreviewFieldSkip}\setlength{\PreviewFieldSkip}{4pt}
+\newenvironment{PreviewField}[2]{\par\noindent\begin{minipage}{\linewidth}\setlength{\parskip}{0pt}\begin{minipage}[t]{.28\linewidth}\raggedright\sffamily\small\hypertarget{#2}{}#1\end{minipage}\hfill\begin{minipage}[t]{.69\linewidth}\setlength{\parskip}{0pt}}{\end{minipage}\end{minipage}\par\vspace{\PreviewFieldSkip}}
+\newcommand{\PreviewEmptyField}{\textcolor{PreviewLine}{\rule{.68\linewidth}{.3pt}}\strut}
+\tcbset{reading/experiment/.style={},reading/literal/.style={},reading/flow/.style={colbacktitle=white,borderline west={0pt}{0pt}{white}},reading/snippet/.style={colbacktitle=white,title after break={},top=2pt,bottom=2pt}}
+\newtcolorbox{PreviewCodeBox}[2]{enhanced,breakable,lines before break=4,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewMuted,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#1},title after break={#1 · continued},boxrule=0pt,borderline west={.6pt}{0pt}{PreviewLine},arc=0pt,left=5pt,right=5pt,top=4pt,bottom=4pt,before skip=5pt,after skip=5pt,reading/#2}
+% Draw the soft-wrap cue as vector strokes, not a text glyph: copy/extraction
+% cannot acquire an extra arrow character. Continuation indentation is visual.
+\newcommand{\PreviewWrapCue}{\textcolor{PreviewMuted}{\setlength{\unitlength}{1pt}\begin{picture}(7,5)\put(6,5){\line(0,-1){3}}\put(1,2){\line(1,0){5}}\put(1,2){\line(1,1){2}}\put(1,2){\line(1,-1){2}}\end{picture}}}
+\newcommand{\PreviewCodeID}{code}
+\newcommand{\PreviewCodePolicy}[4]{\def\PreviewCodeID{#1}\def\PreviewCodeLines{#2}\def\PreviewCodeHead{#3}\def\PreviewCodeTail{#4}}
+\makeatletter
+\newcommand{\PreviewCodeFormat}{\hyphenpenalty=50\relax\exhyphenpenalty=50\relax\def\FV@LeftListNumber{\hypertarget{\PreviewCodeID-L\number\c@FancyVerbLine}{}}}
+\makeatother
+\DefineVerbatimEnvironment{PreviewCode}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,listparameters={\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}},breaklines=true,breakanywhere=true,breakanywheresymbolpre={},breaksymbolleft=\PreviewWrapCue,breaksymbolright={},breakindent=1em,breakautoindent=true,tabsize=4}
+\DefineVerbatimEnvironment{PreviewFlow}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,listparameters={\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}},breaklines=false,tabsize=4}
+\newcommand{\PreviewSourceNote}[1]{\begin{PreviewQuote}\sffamily\fontsize{9}{12}\selectfont SOURCE SNAPSHOT CONTENT · #1\par 以下状态文字保留冻结 Markdown 当时的历史陈述。当前文件是后续生成的阅读试件，不改变该历史状态，也不表示正式发布获批。\end{PreviewQuote}}
+\newcommand{\PreviewLocalNavigation}{\par{\sffamily\fontsize{8}{10}\selectfont\color{PreviewMuted}CHAPTER READING PATH · 原文章内导航}\par}
+\newcommand{\PreviewDensity}[1]{%
+  \titleformat{\chapter}[block]{\sffamily\bfseries\color{PreviewNavy}\fontsize{23}{29}\selectfont}{}{0pt}{}
+  \titleformat{\section}{\sffamily\bfseries\fontsize{16}{21}\selectfont\color{PreviewTeal}}{}{0pt}{}
+  \titleformat{\subsection}{\sffamily\bfseries\fontsize{12}{16}\selectfont\color{PreviewNavy}}{}{0pt}{}
+  \renewcommand{\PreviewFontsection}{\fontsize{16}{21}\selectfont}
+  \renewcommand{\PreviewFontsubsection}{\fontsize{12}{16}\selectfont}
+  \titlespacing*{\section}{0pt}{18pt}{8pt}\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+  \ifstrequal{#1}{compact}{\titlespacing*{\section}{0pt}{12pt}{5pt}\titlespacing*{\subsection}{0pt}{8pt}{4pt}\setlength{\PreviewFieldSkip}{2pt}\renewcommand{\PreviewTableStretch}{1.08}\setlength{\PreviewTOCSkip}{0pt}}{}
+}
+% Contents density is independent of body type size. Preserve outline levels.
+\makeatletter
+\newlength{\PreviewTOCSkip}\setlength{\PreviewTOCSkip}{1pt}
+\renewcommand*\l@part[2]{\addpenalty{-100}\addvspace{7pt}\begingroup\bfseries\@dottedtocline{-1}{0pt}{0pt}{#1}{#2}\endgroup}
+\renewcommand*\l@chapter[2]{\vskip\PreviewTOCSkip\@dottedtocline{0}{1em}{0pt}{#1}{#2}}
+\renewcommand*\l@section[2]{\vskip\PreviewTOCSkip\@dottedtocline{1}{1em}{0pt}{#1}{#2}}
+\makeatother

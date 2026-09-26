@@ -1,0 +1,171 @@
+{
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/ESD-ASSURANCE-001-draft.pdf": "09965b7283000b0de94746af2643903912d0f93d7d51b9f0728ec12e45715950",
+    "output/pdf/ESD-GOV-001-draft.pdf": "468809fdb51f8e439a4f192d7b17a87f23eae7f2aaa949933c13a2af39bab6c6",
+    "output/pdf/ESD-HANDBOOK-draft.pdf": "2c2e8730d90e1bc2a1066ec0b0fe902a7b14d401a33821ce727523830ddf8ce4",
+    "output/pdf/ESD-METHOD-001-draft.pdf": "8b0d37d890996ecef7ecd5800b98e28b7630f1149edfe65bdf5d72efdb6f6b07",
+    "output/pdf/ESD-OPS-001-draft.pdf": "5e84d482c4e80d2c08ed463affb6334defb2f32b2c6daa92ed1641a8f6b019fb",
+    "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf": "e95b2d14227fbb4983a16766f2194af1df91070e3369c1c40462e34adcbfc11d",
+    "output/pdf/ESD-REFERENCE-001-draft.pdf": "94eec21c940e7a49b70b83e4215d6820c9c5b2f57edf074a13d7913cdcbc0057",
+    "output/pdf/ESD-SUITE-000-draft.pdf": "5a16c1333be62481677c8f123fa2d58fa259f70aa5587c317e4a00254aca6b6e"
+  },
+  "audit_sha256": "a81f3c2d4d9e47d9d646eeba12ab60b69a7543c051a3fed70a9fd02ae9f62c7f",
+  "structural_status": "STRUCTURAL_PASS",
+  "page_map_sha256": "bdb592e6d403c10b18439337e07513f7202b6aa34daa41ede2122725084e5ee7",
+  "visual_inspection": {
+    "preview_attempt": "publication/build/preview/9cc4dd39bcaf0ecfc4e13126cdc9217902566abbb4da21201d74f25afe532791/5cc1581bedbd4537853af9377cb5988c",
+    "inspected_images": [
+      {
+        "path": "ESD-SUITE-000-005.png",
+        "sha256": "80a0bd9c1aca6db6ac6993c64938c4b934b613be8365700bb9e645b1564ab764",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-SUITE-000-006.png",
+        "sha256": "89fc79f1b03959a80dd26fadd8f2a98d37bfff27102469feb163bbf1aeeb4e9b",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-SUITE-000-007.png",
+        "sha256": "271360f04e29c790ff6f926958cbecaf254cfb82f6b3afb8077c192fd5c2c993",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-REFERENCE-001-003.png",
+        "sha256": "58394020bd24ca3e364c4b1c4001665226fd5d6db321a661211e02369e4c7d7c",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-ASSURANCE-001-019.png",
+        "sha256": "36f290c0104539a5b1488d982b9d159947c3abb93a44c16b9a1ee70e941c24c0",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-ASSURANCE-001-020.png",
+        "sha256": "fed0938c7b34f106a7196ff617b17a88bcc4c6b66d080c0d56d0a0db52bb33a4",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-OPS-001-018.png",
+        "sha256": "f05faedee0689cbb82b954428a0e439ea570a71968721283a0b349be95d933dd",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-OPS-001-019.png",
+        "sha256": "9f6a8cfbcb6c25dd81f9d7795556d75e0c2ff9231f8d92348d5b6ed7c910ea35",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-OPS-001-020.png",
+        "sha256": "2aeb7cc16d6545594ce66e860d7635d5e517142d0f6fd9ce53150877a676e2ee",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-OPS-001-043.png",
+        "sha256": "b1affbfaeba289845a4955fbf6b088d1322da9d4d137a2cb8a00a135dd02c653",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-GOV-001-011.png",
+        "sha256": "6924de55e95bf5ff522ad0a59813e99a63a531832e008eac39c5e2d5ba1aa473",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-METHOD-001-011.png",
+        "sha256": "3352fed3847a881b3801c65bc0e71c7cd6f471dfee567d274279a628d55d3cc0",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-003.png",
+        "sha256": "7908d5843d94e2a36b0007b1026b8030999b2cc5d0342ce72af9ba6aca3ae056",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-004.png",
+        "sha256": "e7473e71e20b11eaebeef9dd7cae8f4ccdf84f8d708be10a82d2dba03246d986",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-005.png",
+        "sha256": "d4e13b3513233a714cc687dd7a6f67d40f99399d6e34fd98178ac2695b6c55ce",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-006.png",
+        "sha256": "ee985f585dbdf7874446ccb48ac9105328657cbbf84b20fe2f05b647e01bb36f",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-007.png",
+        "sha256": "4e7bbef48c07ec7367eddcba2ef182fd635b2bddfeb40f93baa64b290e7880ee",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-008.png",
+        "sha256": "08347d3e6e4fcdb911b53f3b109c3c8ecb4ac8f0c9889a949e08fd6ce79aab66",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-225.png",
+        "sha256": "a61d87aec89693f5a1cb237d65a8730cc9cc6da2549fa9673f02470f9621d375",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-003.png",
+        "sha256": "27d04423b6bd139fe9af64d16ad2251997a02485feb158c3b449c479a1a4be31",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-REFERENCE-001-025.png",
+        "sha256": "46d22e76c2458905f11d9bb2fcfbe8deb1c4aa6b0900d82845bf2daa56b9fcb8",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-REFERENCE-001-026.png",
+        "sha256": "6857e49aae465f7859ad08f5488302e7e21ea68e830dd770478dd703dd823013",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-025.png",
+        "sha256": "6295b4e023fcec81774d51538400af399ef2ffcfaee229ee58dc0b79ff308797",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-026.png",
+        "sha256": "6b26324af3abd69b8f2c137b8836e0e3fd23c44298c3abcad5a9f6f0e274eda3",
+        "review_method": "viewed earlier this turn; final PNG bytes checked identical"
+      },
+      {
+        "path": "ESD-HANDBOOK-001.png",
+        "sha256": "9da98e1d138ea18c2245fbcc3d37bdf33e47c462ef4d6559455177d26db19eb1",
+        "review_method": "final PNG opened and visually inspected"
+      },
+      {
+        "path": "ESD-HANDBOOK-002.png",
+        "sha256": "ee08606a728ed91312da2643bebda972c9595f1a6c021c5353c80b5ce060a690",
+        "review_method": "final PNG opened and visually inspected"
+      }
+    ],
+    "observations": [
+      "Suite 短记录完整保留，不再将 Normative Role 单独残留到后页。",
+      "Assurance OPERATIONAL 软折行有可见向量提示；源码 token 与字节未改。",
+      "Ops 空字段横线含义明确，RACI 与风险等级仍是矩阵，不被一律卡片化。",
+      "ESD Reference 目录完整收在一页；合订目录展开到主要节，六页目录仍有清晰层级。",
+      "索引页眉现在显示条款定位索引；封面与控制页标明草案与视觉候选。",
+      "Reference Balanced 59 页 / Compact 58 页；Compact 字段更紧凑，但整块保留会使局部页尾留白增大。"
+    ],
+    "accepted_tradeoffs": [
+      "没有行数据的空表保留字段名列表，而非捏造一条填写记录；较长列表仍可能跨页。",
+      "ESD 合订目录六页是展开主要节的成本，不以删除导航或缩字号强行压缩。",
+      "模板填空线和重复字段标签保留，部分页仍呈工作参考资料而非叙事书籍的密度。"
+    ]
+  },
+  "limitations": [
+    "12 PDFs / 805 pages rendered at 72 dpi; 46 selected 120 dpi pages actually inspected, not every page visually read.",
+    "38 final PNGs were byte-identical to images already inspected in this turn; changed and additional pages were opened again. This is image identity, not an inference from equal PDF text.",
+    "STRUCTURAL_PASS and visual self-review are separate; neither is independent approval or formal release.",
+    "C++ compile/diagnostic, performance and concurrency evidence not rerun; frozen content unchanged.",
+    "macOS arm64 only; no PDF/UA certification, physical-print proof, cross-platform validation or full-series publication."
+  ]
+}

@@ -1,0 +1,154 @@
+[
+  {
+    "profile": "cpp-handbook",
+    "candidate_id": "d93cae646a289918315b1ba7ad33dc239bd0bc5b5b3988ca1e9fda7b7a4b11ac",
+    "sources": [
+      {
+        "path": "c++/g06-memory-and-performance.md",
+        "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+        "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+        "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+        "bytes": 67250,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "c++/g07-concurrency-and-memory-model.md",
+        "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+        "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+        "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+        "bytes": 61629,
+        "git_prepared_attached_equal": true
+      }
+    ],
+    "artifacts": [
+      {
+        "view": "G6",
+        "path": "cpp-handbook/output/pdf/G6-draft.pdf",
+        "pages": 50,
+        "sha256": "f9cd8e7d69e8cb9356d1f96457655524ad084e51790023089617a1efbcee8003"
+      },
+      {
+        "view": "G7",
+        "path": "cpp-handbook/output/pdf/G7-draft.pdf",
+        "pages": 46,
+        "sha256": "aba7326bb9b80918d3c5771667534aa6e022a84aa9c4201f113efdac69750b0b"
+      },
+      {
+        "view": "CPP-PILOT-G6-G7",
+        "path": "cpp-handbook/output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+        "pages": 94,
+        "sha256": "2d714d4c0e3bc97813b592d94894fd12430481201d60aa771def5bbc25805140"
+      },
+      {
+        "view": "CPP-PILOT-G6-G7-COMPACT",
+        "path": "cpp-handbook/output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+        "pages": 92,
+        "sha256": "b825ed4414a521463489016a271217beba15dd679c756f98a0b12a5d8a119d02"
+      }
+    ]
+  },
+  {
+    "profile": "esd",
+    "candidate_id": "6b44b44414eed61f3eb0630892be74827172d465a5dda330a274fcd75d26ca9a",
+    "sources": [
+      {
+        "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+        "bytes": 21532,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+        "bytes": 48829,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+        "bytes": 78329,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+        "bytes": 45539,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+        "bytes": 52815,
+        "git_prepared_attached_equal": true
+      },
+      {
+        "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+        "revision": "WORKTREE",
+        "commit": "fed7e085f77721c66076be344652d48eac27f041",
+        "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+        "bytes": 44522,
+        "git_prepared_attached_equal": true
+      }
+    ],
+    "artifacts": [
+      {
+        "view": "ESD-SUITE-000",
+        "path": "esd/output/pdf/ESD-SUITE-000-draft.pdf",
+        "pages": 17,
+        "sha256": "5a16c1333be62481677c8f123fa2d58fa259f70aa5587c317e4a00254aca6b6e"
+      },
+      {
+        "view": "ESD-METHOD-001",
+        "path": "esd/output/pdf/ESD-METHOD-001-draft.pdf",
+        "pages": 31,
+        "sha256": "8b0d37d890996ecef7ecd5800b98e28b7630f1149edfe65bdf5d72efdb6f6b07"
+      },
+      {
+        "view": "ESD-REFERENCE-001",
+        "path": "esd/output/pdf/ESD-REFERENCE-001-draft.pdf",
+        "pages": 59,
+        "sha256": "94eec21c940e7a49b70b83e4215d6820c9c5b2f57edf074a13d7913cdcbc0057"
+      },
+      {
+        "view": "ESD-GOV-001",
+        "path": "esd/output/pdf/ESD-GOV-001-draft.pdf",
+        "pages": 38,
+        "sha256": "468809fdb51f8e439a4f192d7b17a87f23eae7f2aaa949933c13a2af39bab6c6"
+      },
+      {
+        "view": "ESD-ASSURANCE-001",
+        "path": "esd/output/pdf/ESD-ASSURANCE-001-draft.pdf",
+        "pages": 42,
+        "sha256": "09965b7283000b0de94746af2643903912d0f93d7d51b9f0728ec12e45715950"
+      },
+      {
+        "view": "ESD-OPS-001",
+        "path": "esd/output/pdf/ESD-OPS-001-draft.pdf",
+        "pages": 49,
+        "sha256": "5e84d482c4e80d2c08ed463affb6334defb2f32b2c6daa92ed1641a8f6b019fb"
+      },
+      {
+        "view": "ESD-HANDBOOK",
+        "path": "esd/output/pdf/ESD-HANDBOOK-draft.pdf",
+        "pages": 229,
+        "sha256": "2c2e8730d90e1bc2a1066ec0b0fe902a7b14d401a33821ce727523830ddf8ce4"
+      },
+      {
+        "view": "ESD-REFERENCE-001-COMPACT",
+        "path": "esd/output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+        "pages": 58,
+        "sha256": "e95b2d14227fbb4983a16766f2194af1df91070e3369c1c40462e34adcbfc11d"
+      }
+    ]
+  }
+]

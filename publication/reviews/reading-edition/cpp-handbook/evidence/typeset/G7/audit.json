@@ -1,0 +1,1174 @@
+{
+  "view": "G7",
+  "pages": 46,
+  "pdf": "output/pdf/G7-draft.pdf",
+  "sha256": "aba7326bb9b80918d3c5771667534aa6e022a84aa9c4201f113efdac69750b0b",
+  "links": 52,
+  "named_destinations": 849,
+  "metadata": {
+    "title": "G7 · 并发协议与 C++ 内存模型",
+    "document_id": "G7",
+    "version": "1.1.1",
+    "status": "ACCEPTED CONTENT / PILOT PDF",
+    "subtitle": "Professional Handbook · 阅读试件",
+    "owner": "",
+    "source_commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+    "build_short": "ece178eb1bdf6c69bc3147d3",
+    "toc_depth": "1",
+    "density": "balanced",
+    "short_table_lines": "12",
+    "subject": "G7 | v1.1.1 | ACCEPTED CONTENT / PILOT PDF | PREVIEW",
+    "keywords": "G7 1.1.1 ACCEPTED CONTENT / PILOT PDF"
+  },
+  "missing_text_blocks": [],
+  "identity_pages_checked": 46,
+  "missing_table_row_relations": [],
+  "table_rows_checked": 4,
+  "extraction_policy": {
+    "body_band_pt": [
+      52,
+      782
+    ],
+    "normalization": "NFKC + whitespace + soft hyphen removal; unchecked ballot/square equivalence",
+    "ignored_generated_labels": [
+      "G7-C01 / 机制片段 · continued",
+      "G7-C01 / 机制片段",
+      "G7-C02 / 流程示意 · continued",
+      "G7-C02 / 流程示意",
+      "G7-C03 / 流程示意 · continued",
+      "G7-C03 / 流程示意",
+      "G7-C04 / 流程示意 · continued",
+      "G7-C04 / 流程示意",
+      "G7-C05 / 机制片段 · continued",
+      "G7-C05 / 机制片段",
+      "G7-C06 / 机制片段 · continued",
+      "G7-C06 / 机制片段",
+      "G7-C07 / 机制片段 · continued",
+      "G7-C07 / 机制片段",
+      "G7-C08 / 流程示意 · continued",
+      "G7-C08 / 流程示意",
+      "G7-C09 / 流程示意 · continued",
+      "G7-C09 / 流程示意",
+      "G7-C10 / 字面文本 · continued",
+      "G7-C10 / 字面文本",
+      "G7-C11 / 机制片段 · continued",
+      "G7-C11 / 机制片段",
+      "G7-C12 / 机制片段 · continued",
+      "G7-C12 / 机制片段",
+      "G7-C13 / 机制片段 · continued",
+      "G7-C13 / 机制片段",
+      "G7-C14 / 流程示意 · continued",
+      "G7-C14 / 流程示意",
+      "G7-C15 / 机制片段 · continued",
+      "G7-C15 / 机制片段",
+      "G7-C16 / 机制片段 · continued",
+      "G7-C16 / 机制片段",
+      "G7-C17 / 机制片段 · continued",
+      "G7-C17 / 机制片段",
+      "G7-C18 / 机制片段 · continued",
+      "G7-C18 / 机制片段",
+      "G7-C19 / 流程示意 · continued",
+      "G7-C19 / 流程示意",
+      "G7-C20 / 流程示意 · continued",
+      "G7-C20 / 流程示意",
+      "G7-C21 / 机制片段 · continued",
+      "G7-C21 / 机制片段",
+      "G7-C22 / 机制片段 · continued",
+      "G7-C22 / 机制片段",
+      "G7-C23 / 机制片段 · continued",
+      "G7-C23 / 机制片段",
+      "G7-C24 / 机制片段 · continued",
+      "G7-C24 / 机制片段",
+      "G7-C25 / 机制片段 · continued",
+      "G7-C25 / 机制片段",
+      "G7-C26 / 机制片段 · continued",
+      "G7-C26 / 机制片段",
+      "G7-C27 / 流程示意 · continued",
+      "G7-C27 / 流程示意",
+      "G7-C28 / 机制片段 · continued",
+      "G7-C28 / 机制片段",
+      "G7-C29 / 流程示意 · continued",
+      "G7-C29 / 流程示意",
+      "G7-C30 / 流程示意 · continued",
+      "G7-C30 / 流程示意",
+      "G7-C31 / 流程示意 · continued",
+      "G7-C31 / 流程示意",
+      "G7-C32 / 流程示意 · continued",
+      "G7-C32 / 流程示意",
+      "G7-C33 / 流程示意 · continued",
+      "G7-C33 / 流程示意",
+      "G7-C34 / 流程示意 · continued",
+      "G7-C34 / 流程示意",
+      "G7-C35 / 流程示意 · continued",
+      "G7-C35 / 流程示意",
+      "G7-C36 / 流程示意 · continued",
+      "G7-C36 / 流程示意",
+      "G7-C37 / 字面文本 · continued",
+      "G7-C37 / 字面文本",
+      "G7-C38 / 字面文本 · continued",
+      "G7-C38 / 字面文本",
+      "G7-C39 / 流程示意 · continued",
+      "G7-C39 / 流程示意",
+      "G7-C40 / 流程示意 · continued",
+      "G7-C40 / 流程示意",
+      "G7-C41 / 流程示意 · continued",
+      "G7-C41 / 流程示意",
+      "G7-C42 / 流程示意 · continued",
+      "G7-C42 / 流程示意",
+      "G7-C43 / 流程示意 · continued",
+      "G7-C43 / 流程示意",
+      "G7-C44 / 流程示意 · continued",
+      "G7-C44 / 流程示意",
+      "G7-C45 / 流程示意 · continued",
+      "G7-C45 / 流程示意",
+      "G7-C46 / 流程示意 · continued",
+      "G7-C46 / 流程示意",
+      "G7-C47 / 机制片段 · continued",
+      "G7-C47 / 机制片段",
+      "G7-C48 / 流程示意 · continued",
+      "G7-C48 / 流程示意",
+      "G7-C49 / 流程示意 · continued",
+      "G7-C49 / 流程示意",
+      "G7-C50 / 字面文本 · continued",
+      "G7-C50 / 字面文本",
+      "G7-C51 / 流程示意 · continued",
+      "G7-C51 / 流程示意",
+      "G7-C52 / 流程示意 · continued",
+      "G7-C52 / 流程示意",
+      "G7-C53 / 流程示意 · continued",
+      "G7-C53 / 流程示意",
+      "G7-C54 / 流程示意 · continued",
+      "G7-C54 / 流程示意",
+      "G7-C55 / 流程示意 · continued",
+      "G7-C55 / 流程示意",
+      "G7-C56 / 流程示意 · continued",
+      "G7-C56 / 流程示意",
+      "G7-C57 / 流程示意 · continued",
+      "G7-C57 / 流程示意",
+      "G7-C58 / 流程示意 · continued",
+      "G7-C58 / 流程示意",
+      "G7-C59 / 流程示意 · continued",
+      "G7-C59 / 流程示意",
+      "G7-C60 / 流程示意 · continued",
+      "G7-C60 / 流程示意",
+      "G7-C61 / 流程示意 · continued",
+      "G7-C61 / 流程示意",
+      "G7-C62 / 机制片段 · continued",
+      "G7-C62 / 机制片段",
+      "G7-C63 / 流程示意 · continued",
+      "G7-C63 / 流程示意",
+      "G7-C64 / 流程示意 · continued",
+      "G7-C64 / 流程示意",
+      "G7-C65 / 字面文本 · continued",
+      "G7-C65 / 字面文本",
+      "G7-C66 / G7-D1 · main.cpp · continued",
+      "G7-C66 / G7-D1 · main.cpp",
+      "G7-C67 / G7-D2 · main.cpp · continued",
+      "G7-C67 / G7-D2 · main.cpp",
+      "G7-C68 / G7-D3 · main.cpp · continued",
+      "G7-C68 / G7-D3 · main.cpp",
+      "G7-C69 / 机制片段 · continued",
+      "G7-C69 / 机制片段",
+      "G7-C70 / 流程示意 · continued",
+      "G7-C70 / 流程示意",
+      "G7-C71 / 机制片段 · continued",
+      "G7-C71 / 机制片段",
+      "G7-C72 / 机制片段 · continued",
+      "G7-C72 / 机制片段",
+      "G7-C73 / 字面文本 · continued",
+      "G7-C73 / 字面文本",
+      "G7-C74 / 流程示意 · continued",
+      "G7-C74 / 流程示意",
+      "G7-C75 / 流程示意 · continued",
+      "G7-C75 / 流程示意",
+      "G7-C76 / 机制片段 · continued",
+      "G7-C76 / 机制片段",
+      "G7-C77 / 字面文本 · continued",
+      "G7-C77 / 字面文本"
+    ]
+  },
+  "overfull_hbox_pt": [],
+  "rendered_pages": 46,
+  "visual_review": "REQUIRED; automated checks are not visual approval",
+  "source_identity": [
+    {
+      "bytes": 61629,
+      "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "id": "G7",
+      "matches_commit": true,
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+      "version": "1.1.1"
+    }
+  ],
+  "profile": "cpp-handbook",
+  "reference_classes": {
+    "EXTERNAL_URI": 6,
+    "EXTERNAL_SOURCE": 18,
+    "SAME_VIEW_INTERNAL": 22
+  },
+  "semantic_objects": [
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-1",
+      "heading": "阅读模型",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-0",
+      "heading": "g7-到底解决什么问题",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-1",
+      "heading": "g7-的统一链路",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-2",
+      "heading": "数据竞争与语言内存模型",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-2",
+      "heading": "data-race-是-g7-的第一道门槛",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-3",
+      "heading": "data-race-的核心条件",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-4",
+      "heading": "readread-与-readwrite",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-5",
+      "heading": "data-race-不等于-race-condition",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-6",
+      "heading": "volatile-不是并发同步",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-3",
+      "heading": "顺序与同步关系",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-7",
+      "heading": "sequenced-before",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-8",
+      "heading": "synchronizes-with",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-9",
+      "heading": "happens-before",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-10",
+      "heading": "最重要的一张图",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-11",
+      "heading": "为什么-data-可以不是-atomic",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-4",
+      "heading": "原子性与内存序",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-12",
+      "heading": "atomicity-ordering",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-13",
+      "heading": "atomic-operation-三类",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-14",
+      "heading": "memory-order-属于-operation",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-15",
+      "heading": "memory_order_relaxed",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-16",
+      "heading": "modification-order",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-17",
+      "heading": "memory_order_release",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-18",
+      "heading": "memory_order_acquire",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-19",
+      "heading": "release-acquire-的核心不是-cache-flush",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-20",
+      "heading": "memory_order_acq_rel",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-21",
+      "heading": "memory_order_seq_cst",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-22",
+      "heading": "memory-order-不是性能等级表",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-5",
+      "heading": "互斥锁与条件变量",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-23",
+      "heading": "mutex-保护的是-invariant",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-24",
+      "heading": "mutex-提供两件事",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-25",
+      "heading": "raii-locking",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-26",
+      "heading": "critical-section-原则",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-27",
+      "heading": "deadlock",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-28",
+      "heading": "condition-variable-等待的是-predicate",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-29",
+      "heading": "notification-是-edgepredicate-是-state",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-30",
+      "heading": "spurious-wakeup",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-6",
+      "heading": "原子状态转换与-cas",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-31",
+      "heading": "为什么-load-store-不等于-atomic-transition",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-32",
+      "heading": "cas",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-33",
+      "heading": "expected-是-inout-parameter",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-34",
+      "heading": "cas-loop",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-35",
+      "heading": "weak-vs-strong",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-36",
+      "heading": "success-failure-ordering",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-7",
+      "heading": "aba进展保证与安全回收",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-37",
+      "heading": "cas-只比较-current-value",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-38",
+      "heading": "aba-不是-use-after-free",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-39",
+      "heading": "unlinked-reclaimable",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-40",
+      "heading": "pointer-acquisition-safe-dereference",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-41",
+      "heading": "tagged-pointer-generation",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-42",
+      "heading": "reclamation-strategies",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-43",
+      "heading": "lock-free-不是性能等级",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-44",
+      "heading": "progress-guarantees",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-45",
+      "heading": "atomictis_lock_free-不是算法证明",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-8",
+      "heading": "并发队列的交接协议",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-46",
+      "heading": "queue-首先按-topology-分类",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-47",
+      "heading": "spsc-的关键简化",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-48",
+      "heading": "spsc-的两条-hb-edge",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-49",
+      "heading": "mpsc-的关键新问题",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-50",
+      "heading": "mpmc-为什么需要-per-slot-generation",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-51",
+      "heading": "bounded-queue-backpressure",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-52",
+      "heading": "queue-是-ownership-boundary",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-9",
+      "heading": "线程生命周期与停机",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-53",
+      "heading": "stdthread",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-54",
+      "heading": "detach-不解决-lifetime",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-55",
+      "heading": "stdjthread",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-56",
+      "heading": "stop_token",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-57",
+      "heading": "cancellation-必须唤醒-blocked-thread",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-58",
+      "heading": "cancellation-point-必须保持-invariant",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-59",
+      "heading": "member-destruction-order",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-60",
+      "heading": "shutdown-基本顺序",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-61",
+      "heading": "drain-vs-abort",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-10",
+      "heading": "任务执行线程池与背压",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-62",
+      "heading": "thread-task",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-63",
+      "heading": "c23-task-representation",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-64",
+      "heading": "worker-不能持-queue-lock-执行-task",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-65",
+      "heading": "pool-必须考虑两种-bound",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-66",
+      "heading": "cpu-bound-与-io-bound-pool",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-67",
+      "heading": "resource-isolation",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-68",
+      "heading": "thread-pool-starvation-deadlock",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-69",
+      "heading": "bounded-submit-也能-deadlock",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-70",
+      "heading": "global-queue-vs-work-stealing",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-11",
+      "heading": "并发架构与写入权限",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-71",
+      "heading": "并发设计最重要的问题有几个-writer",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-72",
+      "heading": "reasoning-complexity-ladder",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-73",
+      "heading": "privatize-first",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-74",
+      "heading": "single-writer-principle",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-75",
+      "heading": "message-passing-的真正价值",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-76",
+      "heading": "sharding",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-77",
+      "heading": "shard-key-ownership-key",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-78",
+      "heading": "immutable-snapshot",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-79",
+      "heading": "snapshot-consistency-vs-freshness",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-80",
+      "heading": "old-generation-的-lifetime",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-12",
+      "heading": "跨层关系图",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-81",
+      "heading": "ownership-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-82",
+      "heading": "synchronization-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-83",
+      "heading": "mutation-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-84",
+      "heading": "progress-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-85",
+      "heading": "lifetime-reclamation-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-86",
+      "heading": "cache-ownership-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-87",
+      "heading": "queue-capacity-graph",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-13",
+      "heading": "统一并发审查",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-14",
+      "heading": "并发反模式",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-88",
+      "heading": "smell-1-global-mutable-state",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-89",
+      "heading": "smell-2-atomic-every-field",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-90",
+      "heading": "smell-3-relaxed-cargo-cult",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-91",
+      "heading": "smell-4-lock-free-cargo-cult",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-92",
+      "heading": "smell-5-detached-thread",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-93",
+      "heading": "smell-6-unbounded-queue",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-94",
+      "heading": "smell-7-worker-waits-same-pool",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-95",
+      "heading": "smell-8-notification-as-state",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-96",
+      "heading": "smell-9-remove-then-delete",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-97",
+      "heading": "smell-10-shared-shared_ptrmutablet-everywhere",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-98",
+      "heading": "smell-11-all-workers-touch-all-entities",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-99",
+      "heading": "smell-12-shutdown-as-one-bool",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-15",
+      "heading": "工程原则回查",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-16",
+      "heading": "实验与验证",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "lab",
+      "payload": {
+        "id": "G7-D1",
+        "mode": "concurrency",
+        "stdout": "publication=200\n"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "file",
+      "payload": {
+        "path": "main.cpp"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "lab",
+      "payload": {
+        "id": "G7-D2",
+        "mode": "concurrency",
+        "stdout": "fifo=50000; empty-close; full-close; joined\n"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "file",
+      "payload": {
+        "path": "main.cpp"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "lab",
+      "payload": {
+        "id": "G7-D3",
+        "mode": "tsan_negative"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "file",
+      "payload": {
+        "path": "main.cpp"
+      },
+      "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-17",
+      "heading": "final-gate",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-18",
+      "heading": "final-gate-参考答案与常见误判",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-19",
+      "heading": "g0g7-的统一模型",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-100",
+      "heading": "g1-object-model",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-101",
+      "heading": "g2-ownership",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-102",
+      "heading": "g3-value-semantics",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-103",
+      "heading": "g5-genericity",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-104",
+      "heading": "g6-performance",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-topic-105",
+      "heading": "g7-concurrency",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-20",
+      "heading": "实际代码的跨层审查",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-21",
+      "heading": "本章范围与后续阅读",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    },
+    {
+      "document": "G7",
+      "kind": "anchor",
+      "source_id": "g7-section-22",
+      "heading": "参考与验证入口",
+      "disposition": "PDF_DESTINATION_ALIAS"
+    }
+  ],
+  "explicit_anchors_checked": 128,
+  "section_errors": [],
+  "inline_literal_errors": [],
+  "orphan_headings": [],
+  "navigation_errors": [],
+  "preface_page": 2,
+  "index_entries_checked": 0,
+  "top_level_bookmarks": 2,
+  "source_sections_checked": 139,
+  "ordered_units_checked": 806,
+  "inline_literals_checked": 112
+}

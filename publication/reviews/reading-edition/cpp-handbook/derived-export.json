@@ -1,0 +1,175 @@
+{
+  "role": "DERIVED_VISUAL_REVIEW_NOT_CANDIDATE_PAYLOAD",
+  "files": [
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-001.png",
+      "bytes": 50453,
+      "sha256": "9ced74147e6c092756ab229daab419bc4e710e9d8a57dc0187cb3e4a53701d01"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-002.png",
+      "bytes": 164082,
+      "sha256": "6d85b0ad6e6d7f3f0628c2bd113442d965d177bba5517f817a26b63fe0c07d3a"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-003.png",
+      "bytes": 152460,
+      "sha256": "626d17807177004b718ba93c0220e8a32122efdcefcb7708e0e7233d47b80526"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-004.png",
+      "bytes": 97966,
+      "sha256": "de170bed64ebb5ce89df20f7444e5bc6401e0b2d51a3111ab85e8104f4866391"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-043.png",
+      "bytes": 157045,
+      "sha256": "d74935d800e5244b598bb675bcbb864e41c23844fe685b02f27237441f979e60"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-044.png",
+      "bytes": 142029,
+      "sha256": "954cbe0d4cc577cfd59e0de81c2df6a5c51d6a485cf08615c44bcd3c9a3fcf3a"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-052.png",
+      "bytes": 250051,
+      "sha256": "3de9c72ca368e468ccb5a1fd6af5a4f33f6825513e3437614f54a3468d35485c"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-068.png",
+      "bytes": 135698,
+      "sha256": "85a52d6e900ad32cdba6ef3c833f8ddf9b71fd5fafd31e22daa833a6fa22a3c5"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-084.png",
+      "bytes": 209707,
+      "sha256": "7783c52acc2f778dfe7476859d8760801338339d7e40c0701649cf0aecb22ca7"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-085.png",
+      "bytes": 127767,
+      "sha256": "ac2b91b009b21f775eb58331dfb7e76ce05d10ae6a719077fe24d82cf1108b7e"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-086.png",
+      "bytes": 185462,
+      "sha256": "e6c200420cca15fa68b54fe81e45d3dec230771a3fcb0fa6bb427df720b08006"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-094.png",
+      "bytes": 192167,
+      "sha256": "c49957bb9776a59f47bb7d9aecd0cceeaf8cb3e791155dd6336ddd0ab1713274"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-003.png",
+      "bytes": 158663,
+      "sha256": "ff8e041499fcb02e0b1491fc04483316a70cb376835f962f332d9a935539916d"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-004.png",
+      "bytes": 93460,
+      "sha256": "a3d67474e7b0820686a220515941db2523360ac8b587a98c0b32071fc0e049b7"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-042.png",
+      "bytes": 146727,
+      "sha256": "9ff3c4ba9d163858831b8ad41f146eb04a7fb54a1b722e8baa43f3c49190e1b3"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-043.png",
+      "bytes": 122057,
+      "sha256": "55c3c840261e3ddcaf954ab21c260b515feee3d13d59819d29671729e2a90f6a"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-051.png",
+      "bytes": 252996,
+      "sha256": "2250e9b3eda75d00577e618f6d6ea34f681aff1c2e4ae03407ab200c21e19203"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-067.png",
+      "bytes": 116037,
+      "sha256": "bd767fcbcf24faa1626e25756a563ff922711c353da702f9f9fc00ba923d1da7"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-083.png",
+      "bytes": 134647,
+      "sha256": "d1eb27af981809451807b59a56f1255365074645e18154b275b8c3c7891a04fb"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-084.png",
+      "bytes": 129243,
+      "sha256": "a605cbc8a82be56ad5afaa3cca64247002ab330777744880a0734b51f952510e"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-092.png",
+      "bytes": 192188,
+      "sha256": "9f28ea94dcd31d809210bb43e1801323ad34a1a9e7c70706c6014eb3d1adc6ef"
+    },
+    {
+      "path": "visual-regression/G6-042.png",
+      "bytes": 156996,
+      "sha256": "b14e121f671692ef580bbd5156ae7b4be7e708ee4403ea29b1aeb244e9afc064"
+    },
+    {
+      "path": "visual-regression/G6-043.png",
+      "bytes": 142140,
+      "sha256": "25e70e626d7661b7704bf87b24a58dbbf6264948a866174a5cb85c3372a61644"
+    },
+    {
+      "path": "visual-regression/G7-004.png",
+      "bytes": 249795,
+      "sha256": "e1225f6b8ad9e48e2b6c6f9ad70f64e4264999be3f2ced2df1c842c57b4805d0"
+    },
+    {
+      "path": "visual-regression/G7-020.png",
+      "bytes": 135616,
+      "sha256": "25b70d54318999b597982970fcf572ea9deb168a80e563350a4c94e19d902330"
+    },
+    {
+      "path": "visual-regression/G7-036.png",
+      "bytes": 209769,
+      "sha256": "7652273481ea0ec101d36f6474810d68b19042f4781c78bae2ba9f9839d8f808"
+    },
+    {
+      "path": "visual-regression/G7-037.png",
+      "bytes": 127662,
+      "sha256": "6d9133158509b5eccd28c693d1caa064da37069b4f08a66410cd609f3756e119"
+    },
+    {
+      "path": "visual-regression/G7-038.png",
+      "bytes": 185449,
+      "sha256": "9e60aee03ae6087bb2010dfe0ddddd55e1c9769f941982b78b62cb0988d8e85c"
+    },
+    {
+      "path": "visual-regression/G7-040.png",
+      "bytes": 128212,
+      "sha256": "f6ba6c3ea3b00c7251d1cb974fdc26ed9b993ae70f6a1284da592d7b49fd0cea"
+    },
+    {
+      "path": "visual-regression/G7-041.png",
+      "bytes": 166874,
+      "sha256": "d7d00013d433f5ee916741736b5e774639cb62a0a7b9736e57af1d4d033da732"
+    },
+    {
+      "path": "visual-regression/G7-042.png",
+      "bytes": 151712,
+      "sha256": "65399e94ed98837a471ce21bd39cd5240dcc12e936d666438ba4698dc52aabf6"
+    },
+    {
+      "path": "visual-regression/G7-043.png",
+      "bytes": 429322,
+      "sha256": "d5ba398d2aad3f40c74b02cb3a111d2edf00d18dcb4b2c79f2620182e357f705"
+    },
+    {
+      "path": "visual-regression/G7-046.png",
+      "bytes": 192192,
+      "sha256": "6f55486d8f4219f2cf9bc39ad31689a72c904a71585dfc5118cb3f1f08763d69"
+    },
+    {
+      "path": "visual-regression/page-map.json",
+      "bytes": 45959,
+      "sha256": "31c39eb59bd8cf3de4466b72ac554345168a176ecf652264650d657c25aa7a25"
+    }
+  ]
+}

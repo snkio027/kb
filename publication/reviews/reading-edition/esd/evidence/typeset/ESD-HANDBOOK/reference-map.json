@@ -1,0 +1,152 @@
+[
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-METHOD-001-0bcae748676a7d54"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-REFERENCE-001-8e2bd9761ae02939"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./05-生产就绪与运行韧性标准-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-OPS-001-3341ffdff161853a"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-SUITE-000",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-SUITE-000-5966f64748abb574"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-METHOD-001",
+    "source": "https://lamport.azurewebsites.net/tla/book.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://lamport.azurewebsites.net/tla/book.html"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-METHOD-001-0bcae748676a7d54"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-SUITE-000-5966f64748abb574"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "./03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-GOV-001-ae01a8d86ac691a7"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+    "kind": "EXTERNAL_URI",
+    "target": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"
+  },
+  {
+    "from": "ESD-REFERENCE-001",
+    "source": "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html"
+  },
+  {
+    "from": "ESD-GOV-001",
+    "source": "./04-工程保证论证证据与裁决规范-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-ASSURANCE-001-cc66291a88d22591"
+  },
+  {
+    "from": "ESD-GOV-001",
+    "source": "./05-生产就绪与运行韧性标准-v1.0.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-OPS-001-3341ffdff161853a"
+  },
+  {
+    "from": "ESD-ASSURANCE-001",
+    "source": "https://lamport.azurewebsites.net/tla/book.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://lamport.azurewebsites.net/tla/book.html"
+  },
+  {
+    "from": "ESD-ASSURANCE-001",
+    "source": "./01-优秀系统设计与工程保证方法论-v1.1.0.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#ESD-METHOD-001-0bcae748676a7d54"
+  }
+]

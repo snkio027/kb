@@ -1,0 +1,4430 @@
+[
+  {
+    "table": "ESD-SUITE-000-T01",
+    "section": "ESD-SUITE-000-5966f64748abb574",
+    "section_title": "优秀系统设计与工程保证标准：文档体系与规范关系",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-SUITE-000",
+      "文档版本2.0.0-draft.1（基于 1.0.0）",
+      "套系版本2.0.0-draft.1",
+      "状态DRAFT / SUITE CONTROL；未获发布批准",
+      "文档角色定义整套标准的组成、规范权威、冲突裁决、版本与生命周期",
+      "适用对象标准 Owner、架构负责人、技术负责人、评审者、SRE、平台、安全与审计人员",
+      "权威格式本 Markdown 文件；PDF、网页与其他导出仅为发布视图"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T02",
+    "section": "ESD-SUITE-000-ba189c2dcdb58f12",
+    "section_title": "2.1 核心文档",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "顺序",
+      "文档编号",
+      "文档名称",
+      "文档版本",
+      "规范角色"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "顺序",
+        "value": "00"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-SUITE-000"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计与工程保证标准：文档体系与规范关系》"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "规范角色",
+        "value": "套系控制、规范地图与冲突裁决"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "顺序",
+        "value": "01"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-METHOD-001"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计与工程保证方法论》"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "规范角色",
+        "value": "术语、原则、认识边界与架构推导基础"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "顺序",
+        "value": "02"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-REFERENCE-001"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《优秀系统设计：从约束、不变量到证据》"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "规范角色",
+        "value": "Stage/Gate、模板、评审流程与工程案例"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "顺序",
+        "value": "03"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-GOV-001"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《系统设计与工程保证治理及符合性规范》"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "规范角色",
+        "value": "适用范围、风险分级、角色、例外与符合性"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "顺序",
+        "value": "04"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-ASSURANCE-001"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《工程保证论证、证据与裁决规范》"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "规范角色",
+        "value": "Assurance Case、证据质量、失效与裁决"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "顺序",
+        "value": "05"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "文档编号",
+        "value": "ESD-OPS-001"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "文档名称",
+        "value": "《生产就绪与运行韧性标准》"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "文档版本",
+        "value": "2.0.0-draft.1"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "规范角色",
+        "value": "SLO、发布、恢复、过载、值班与持续韧性"
+      }
+    ],
+    "row_text": [
+      "ESD-SUITE-000-T02 / 记录 1 · 00顺序00文档编号ESD-SUITE-000文档名称《优秀系统设计与工程保证标准：文档体系与规范关系》文档版本2.0.0-draft.1规范角色套系控制、规范地图与冲突裁决",
+      "ESD-SUITE-000-T02 / 记录 2 · 01顺序01文档编号ESD-METHOD-001文档名称《优秀系统设计与工程保证方法论》文档版本2.0.0-draft.1规范角色术语、原则、认识边界与架构推导基础",
+      "ESD-SUITE-000-T02 / 记录 3 · 02顺序02文档编号ESD-REFERENCE-001文档名称《优秀系统设计：从约束、不变量到证据》文档版本2.0.0-draft.1规范角色Stage/Gate、模板、评审流程与工程案例",
+      "ESD-SUITE-000-T02 / 记录 4 · 03顺序03文档编号ESD-GOV-001文档名称《系统设计与工程保证治理及符合性规范》文档版本2.0.0-draft.1规范角色适用范围、风险分级、角色、例外与符合性",
+      "ESD-SUITE-000-T02 / 记录 5 · 04顺序04文档编号ESD-ASSURANCE-001文档名称《工程保证论证、证据与裁决规范》文档版本2.0.0-draft.1规范角色Assurance Case、证据质量、失效与裁决",
+      "ESD-SUITE-000-T02 / 记录 6 · 05顺序05文档编号ESD-OPS-001文档名称《生产就绪与运行韧性标准》文档版本2.0.0-draft.1规范角色SLO、发布、恢复、过载、值班与持续韧性"
+    ],
+    "record_titles": [
+      "ESD-SUITE-000-T02 / 记录 1 · 00",
+      "ESD-SUITE-000-T02 / 记录 2 · 01",
+      "ESD-SUITE-000-T02 / 记录 3 · 02",
+      "ESD-SUITE-000-T02 / 记录 4 · 03",
+      "ESD-SUITE-000-T02 / 记录 5 · 04",
+      "ESD-SUITE-000-T02 / 记录 6 · 05"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T03",
+    "section": "ESD-SUITE-000-1de8afe82e1ff7a3",
+    "section_title": "3.1 按主题确定权威",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "主题",
+      "最终权威文档"
+    ],
+    "row_text": [
+      "核心术语、系统定义、认识论边界、关键设计原则ESD-METHOD-001",
+      "适用范围、风险分级、角色、职责分离、Gate 状态与权限、例外、符合性声明ESD-GOV-001",
+      "Claim、Argument、Assumption 状态、Evidence、Evidence Envelope、证据时效与裁决充分性ESD-ASSURANCE-001",
+      "SLO、运行模式、发布、回滚、恢复、容量、值班、事故与生产韧性ESD-OPS-001",
+      "Stage/Gate 默认流程、可复用模板、检查清单和参考案例ESD-REFERENCE-001",
+      "文档组成、状态、文件命名、版本关系和套系冲突规则ESD-SUITE-000"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T04",
+    "section": "ESD-SUITE-000-2f4338400b41d5cf",
+    "section_title": "4.1 文档级别",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "级别",
+      "含义"
+    ],
+    "row_text": [
+      "normative-foundation定义术语、原则和不可被下位材料静默改变的语义",
+      "normative-control定义体系组成、角色、生命周期、符合性与裁决控制",
+      "normative-domain对特定主题提供强制工程要求，如证据或生产运行",
+      "operational-reference提供默认流程、模板、示例和推荐实践",
+      "informative解释、案例、教程和背景，不单独形成强制要求"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T05",
+    "section": "ESD-SUITE-000-157330c6cb03a777",
+    "section_title": "5.2 版本规则",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "变化",
+      "文档版本",
+      "套系版本"
+    ],
+    "row_text": [
+      "排版、链接、错字，不改变语义Patch通常不变",
+      "新增兼容要求、模板或解释Minor可能提升 Minor",
+      "删除或改变既有强制语义Major必须评估 Major",
+      "新增核心规范但不破坏既有语义新文档 1.0.0提升或保持 Minor，由 Suite Owner 决定",
+      "改变权威边界或冲突规则Major 或 Minor至少提升 Minor"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T06",
+    "section": "ESD-SUITE-000-6320b4a8722a851f",
+    "section_title": "6.1 状态",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "DRAFT内容仍可发生显著变化，不应用作强制生产裁决",
+      "CANDIDATE语义基本稳定，正在试点和收集反例",
+      "BASELINE已批准，可作为规范或正式参考",
+      "DEPRECATED仍可读取，但不得用于新项目；有明确替代物",
+      "SUPERSEDED已被新版本完全取代",
+      "WITHDRAWN因错误或风险被撤回，不应继续引用"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T07",
+    "section": "ESD-SUITE-000-7ddc43c52671f6d9",
+    "section_title": "7. 风险等级与使用剖面",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "典型场景",
+      "默认使用方式"
+    ],
+    "row_text": [
+      "R0 — Exploration可删除实验、无真实高敏数据、无生产依赖阅读方法论摘要；使用最小 Brief 与退出条件",
+      "R1 — Bounded Production内部或有限用户、影响可隔离应用治理规范的最小制品与基础证据",
+      "R2 — Core Production核心数据、收入、跨团队依赖、持续运行完整 Stage/Gate、Assurance Case、Production Readiness",
+      "R3 — High Assurance资金、安全、合规、人身风险或大爆炸半径独立评审、职责分离、持续证据、严格例外和漂移检测"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T08",
+    "section": "ESD-SUITE-000-b390bee1b3b7e54e",
+    "section_title": "8.1 按角色阅读",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "必读路径"
+    ],
+    "row_text": [
+      "架构师 / 技术负责人METHOD -> GOV -> ASSURANCE -> REFERENCE -> OPS",
+      "Design AuthorREFERENCE -> METHOD -> GOV -> ASSURANCE -> OPS",
+      "SRE / Operational OwnerOPS -> REFERENCE -> GOV -> ASSURANCE",
+      "Assurance ReviewerASSURANCE -> METHOD -> GOV -> REFERENCE",
+      "Security / Compliance ReviewerGOV -> METHOD -> ASSURANCE -> OPS",
+      "Release AuthorityGOV -> ASSURANCE -> OPS -> 项目 Production Readiness Decision",
+      "标准 Owner全部核心文档，并维护本索引"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T09",
+    "section": "ESD-SUITE-000-b256d79da5ccdb30",
+    "section_title": "8.2 按任务阅读",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "任务",
+      "最短路径"
+    ],
+    "row_text": [
+      "新系统立项REFERENCE Stage 0–3 + METHOD 6–8 + GOV 风险分级",
+      "重大架构变更GOV 变更分类 + REFERENCE Stage 4–9 + ASSURANCE",
+      "Production ReadinessOPS + ASSURANCE + REFERENCE Gate 9",
+      "事故后改进OPS 事故治理 + ASSURANCE Assurance Delta",
+      "例外或 break-glassGOV 例外治理 + ASSURANCE 决策记录",
+      "建立 CI 门禁ASSURANCE Evidence Envelope + 后续 ESD-AUTO-001"
+    ]
+  },
+  {
+    "table": "ESD-SUITE-000-T10",
+    "section": "ESD-SUITE-000-ff0b4391bd48ca07",
+    "section_title": "13. 当前修订与发布状态",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "事项",
+      "当前状态",
+      "解释"
+    ],
+    "row_text": [
+      "本轮文档状态DRAFT未获 Suite Owner 发布批准",
+      "作者/内容批准记录UNKNOWN不从旧 BASELINE 标签推定批准记录存在",
+      "跨文档语义校准批准PENDING_REVIEW文本修正与静态检查不替代独立语义复审",
+      "项目试运行NOT_RUN尚无本轮 R1/R2 试运行证据",
+      "实践有效性UNKNOWN不能由文字完整或基线标签推出",
+      "PDF保留既有 v1.1.0未重新生成；不代表当前草案内容"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T01",
+    "section": "ESD-METHOD-001-0bcae748676a7d54",
+    "section_title": "优秀系统设计与工程保证方法论",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-METHOD-001",
+      "版本2.0.0-draft.1（基于 1.1.0）",
+      "状态DRAFT / NORMATIVE FOUNDATION；未获发布批准",
+      "文档角色定义系统设计与工程保证的原则、术语、推导顺序和认识边界",
+      "配套文档ESD-REFERENCE-001《优秀系统设计：从约束、不变量到证据》",
+      "适用对象架构师、Staff/Principal Engineer、技术负责人、平台与基础设施工程师",
+      "适用系统分布式服务、数据平台、流处理、存储系统、控制面、高性能系统与关键业务系统",
+      "权威格式本 Markdown 文件；任何 DOCX、PDF 或网页均只是非权威视图"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T02",
+    "section": "ESD-METHOD-001-3553f1fda625cdc2",
+    "section_title": "3.1 验证工具不是绝对仲裁者",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "方法",
+      "可以支持的结论",
+      "不能自动推出的结论"
+    ],
+    "row_text": [
+      "有限测试、故障注入在已执行的输入与轨迹中，断言未被违反所有输入与调度均正确",
+      "模型检查在明确模型、假设与已探索状态空间内性质成立；未完成探索必须声明边界实现与开放环境自动符合模型",
+      "定理证明在形式化定义、前提及证明系统内命题成立前提在生产恒真或代码自动满足规格",
+      "运行监测在信号覆盖、采样与检测能力内得到运行事实未报警即不存在违反"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T03",
+    "section": "ESD-METHOD-001-4bd7e7e464f9f01b",
+    "section_title": "3.2 四层主张模型",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "层次",
+      "含义",
+      "典型错误"
+    ],
+    "row_text": [
+      "Desired Claim业务或架构希望成立的性质把愿望直接写成事实",
+      "Encoded Property已被契约、类型、策略、断言或测试形式化的性质未编码却声称已覆盖",
+      "Verified Result验证器在给定范围内得到的结果忽略输入、环境与工具边界",
+      "Evidence-backed Decision与当前制品和环境绑定、足以支持门禁的证据证据过期、错绑或不可复现"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T04",
+    "section": "ESD-METHOD-001-537d44dff33ac323",
+    "section_title": "6.2 约束与假设的区别",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "字段",
+      "含义"
+    ],
+    "row_text": [
+      "Statement精确、可证伪的陈述",
+      "Dependents哪些性质、ADR、容量或安全结论依赖它",
+      "Evidence当前支持证据与置信理由",
+      "Owner负责监测、复审和失效响应的主体",
+      "Signal运行时观测信号",
+      "Expiry复审日期或失效条件",
+      "Response假设失效后的限流、隔离、复审或迁移动作"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T05",
+    "section": "ESD-METHOD-001-87415da61790d521",
+    "section_title": "6.4 SLO、恢复目标与正确性不得混写",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "示例"
+    ],
+    "row_text": [
+      "Safety不得使用未知 DBC 生成正式结果",
+      "Liveness已接纳任务最终完成或进入显式终态",
+      "Durability已提交结果在规定故障模型下不丢失",
+      "Availability每月成功服务时间比例",
+      "Latency SLO99% 文件在 10 分钟内完成",
+      "RPO灾难后最多允许丢失多少已确认状态",
+      "RTO在多长时间内恢复到定义能力",
+      "Policy当前优先处理某类车型"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T06",
+    "section": "ESD-METHOD-001-bdeb81ee984e52cc",
+    "section_title": "8.1 先问状态，再问服务",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "说明",
+      "设计重点"
+    ],
+    "row_text": [
+      "Authoritative决定业务事实的权威状态唯一写入语义、审计、恢复",
+      "Durable Derived可重建但长期保存的派生状态来源版本、重建成本、漂移",
+      "Ephemeral进程或任务生命周期内状态丢失后的安全恢复",
+      "Evidence用于证明和门禁的状态不可静默修改、主体绑定、时效",
+      "Configuration / Policy影响行为或语义的控制状态版本、权限、发布与回滚"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T07",
+    "section": "ESD-METHOD-001-169b9c73ee2dc3ff",
+    "section_title": "8.4 平面划分",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "平面",
+      "责任"
+    ],
+    "row_text": [
+      "Data Plane高频数据传输、计算和业务执行",
+      "Control Plane策略、配置、调度、路由和状态收敛",
+      "Management Plane部署、升级、诊断、恢复和人工操作",
+      "Assurance Plane验证、证据、策略门禁、例外和运行漂移判定"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T08",
+    "section": "ESD-METHOD-001-ee29c16bd624a98c",
+    "section_title": "10.2 Queue Contract",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "问题",
+      "要求"
+    ],
+    "row_text": [
+      "为什么存在解耦哪两个速率或调度域",
+      "容量单位items、bytes、CPU cost 或其他",
+      "满载行为阻塞、暂停、拒绝、降级、丢弃或溢写",
+      "背压方向压力如何传播到真正可控的上游",
+      "公平性是否按租户、优先级或成本隔离",
+      "终止语义drain、shutdown、crash 后如何处理",
+      "观测depth、age、wait time、drop、saturation",
+      "Owner谁维护容量和故障策略"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T09",
+    "section": "ESD-METHOD-001-051cbfca74f3dfb4",
+    "section_title": "11.4 单位经济性",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "含义"
+    ],
+    "row_text": [
+      "C0无成本模型，只能标记 UNKNOWN",
+      "C1依据公开价格或资源配额的粗估",
+      "C2依据账单、标签或节点分摊的工作负载估算",
+      "C3依据实际利用率、共享成本和业务单位的校准模型"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T10",
+    "section": "ESD-METHOD-001-7026276bb8e71392",
+    "section_title": "13.2 验证层级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "层级",
+      "主要能力",
+      "不能替代什么"
+    ],
+    "row_text": [
+      "Type / compile checks表示、接口和局部静态约束业务语义与运行环境",
+      "Static analysis / policy已编码规则和禁止模式未编码假设",
+      "Unit / property tests局部行为和广泛输入性质真实边界组合",
+      "Contract / integration tests边界协议与依赖交互生产规模和动态稳定性",
+      "Load / benchmark容量、尾延迟、资源上界故障恢复与业务正确性",
+      "Fault injection / chaos失败路径和控制回路未注入的未知故障",
+      "Formal methods对精确模型的强推理模型与现实的一致性",
+      "Runtime monitoring真实运行分布与漂移未观测、未编码属性",
+      "Review / audit隐含假设、社会技术风险可重复机器验证"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T11",
+    "section": "ESD-METHOD-001-cb128a5c35a0e3ec",
+    "section_title": "14.2 渐进式采用",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "最低要求"
+    ],
+    "row_text": [
+      "探索型原型Non-goals、数据安全边界、不可逆决策、退出条件",
+      "有限业务系统关键性质、状态权威、失败路径、资源上界、基础证据",
+      "核心生产系统完整门禁、容量与恢复模型、运行模式、证据绑定",
+      "高风险/合规系统独立审批、组合保证、保证面元不变量、例外治理与持续漂移检测"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T12",
+    "section": "ESD-METHOD-001-0913714d0813ddad",
+    "section_title": "14.3 成熟度模型",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "特征"
+    ],
+    "row_text": [
+      "L0 — Component-driven以技术栈和拓扑为中心",
+      "L1 — Functional正常路径可用，但失败、状态和责任模糊",
+      "L2 — Bounded资源有界，具备基本失败与恢复语义",
+      "L3 — OperableSLO、Owner、发布、回滚、容量和可诊断性明确",
+      "L4 — Evidence-driven关键主张映射到验证、证据和门禁",
+      "L5 — Adaptive Assurance假设、证据和环境可关联；漂移自动失效结论；事故驱动保证增量"
+    ]
+  },
+  {
+    "table": "ESD-METHOD-001-T13",
+    "section": "ESD-METHOD-001-0701b942df00ec4d",
+    "section_title": "附录 A：核心术语边界",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "严格含义"
+    ],
+    "row_text": [
+      "Critical Property对业务、正确性、安全、活性、资源或运营具有关键影响，并具有与性质类型匹配的验证义务的上位概念",
+      "Invariant在规定身份、作用域和允许状态转换内始终成立的 Safety 性质，不应泛指所有目标",
+      "Safety“坏事永远不发生”的性质，例如不重复正式提交、不越权写入",
+      "Liveness在明确假设下，“好事最终发生或进入明确终态”的性质",
+      "Durability在指定故障集合内，已确认事实保持可恢复的性质",
+      "SLO在统计窗口和作用域内对服务结果的目标，不等同于正确性硬约束",
+      "Assumption某项性质、容量或组件保证赖以成立、可被证伪并可能到期的外部条件",
+      "Guarantee在假设成立时，组件、边界或系统承诺提供的行为",
+      "Authority Boundary对某项业务事实拥有最终裁决权的状态或组件边界",
+      "Engineering Assurance从主张、已编码性质、机制、验证、证据、门禁到运行反馈的持续控制过程",
+      "Evidence Envelope证据所绑定的制品、配置、环境、工作负载、故障模型、覆盖、限制与有效期",
+      "Epistemic Debt关键假设未验证、无 Owner、无监测或无失效响应所形成的认识风险",
+      "Change Envelope对变更语义、最大暴露、观察窗口、成功/停止条件和恢复路径的预先约束",
+      "Assurance Delta事故或运行事实对性质、假设、机制、验证、证据或治理产生的可审计增量"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T01",
+    "section": "ESD-REFERENCE-001-8e2bd9761ae02939",
+    "section_title": "优秀系统设计：从约束、不变量到证据",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-REFERENCE-001",
+      "版本2.0.0-draft.1（基于 1.1.0）",
+      "状态DRAFT / OPERATIONAL REFERENCE；未获发布批准",
+      "规范来源METHOD、GOV、ASSURANCE、OPS；主题权威由 SUITE §3.1 控制",
+      "核心用途系统设计、Architecture Review、ADR、容量规划、生产准入、事故后保证增量",
+      "适用对象设计作者、Reviewer、技术负责人、平台/安全/SRE、发布裁决者",
+      "权威格式本 Markdown 文件；其他导出不是独立事实来源"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T02",
+    "section": "ESD-REFERENCE-001-c47b54e84e79d77f",
+    "section_title": "1.1 角色",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "责任"
+    ],
+    "row_text": [
+      "Design Author维护问题、假设、性质、方案、风险与证据链",
+      "Semantic Owner定义业务语义、状态身份、契约与兼容规则",
+      "Operational Owner负责 SLO、容量、发布、恢复、on-call 与事故响应",
+      "Security / Compliance Reviewer审查信任边界、权限、审计和硬约束",
+      "Platform / SRE Reviewer审查资源、故障、可观测性、发布和恢复",
+      "Assurance Reviewer检查主张、验证、证据覆盖和认识边界",
+      "Decision Authority根据风险、证据和例外做最终门禁裁决"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T03",
+    "section": "ESD-REFERENCE-001-bd044df562bec2a4",
+    "section_title": "1.2 门禁状态",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "GO强制条件满足，证据与当前对象绑定，剩余风险在阈值内",
+      "CONDITIONAL_GO可在明确范围、期限、Owner、监测和撤销条件下放行",
+      "NO_GO已知违反关键要求，或风险不可接受",
+      "UNKNOWN证据不足、已过期、无法复现、作用域不清或关键假设未验证",
+      "NOT_APPLICABLE经论证与记录后确实不适用"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T04",
+    "section": "ESD-REFERENCE-001-edfd70b48403bf0d",
+    "section_title": "2.1 风险等级",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "等级",
+      "典型场景",
+      "后果",
+      "默认保证深度"
+    ],
+    "row_text": [
+      "R0 — Exploration一次性实验、无真实敏感数据、可随时删除局部、可逆最小 Problem Brief、数据边界、退出条件",
+      "R1 — Bounded Production有限用户或内部系统，影响可隔离中等、可恢复关键性质、Owner、失败语义、资源上界、基础证据",
+      "R2 — Core Production核心数据、收入、跨团队依赖、持续运行高、恢复昂贵完整阶段与门禁、容量/恢复模型、运行模式、证据绑定",
+      "R3 — High Assurance资金、安全、合规、人身风险或大爆炸半径极高或不可逆独立审批、组合保证、元不变量、例外治理、持续漂移检测"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T05",
+    "section": "ESD-REFERENCE-001-91edc054ffcae06e",
+    "section_title": "4.1 工作负载最小字段",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "内容"
+    ],
+    "row_text": [
+      "Arrival平均、峰值、突发时长、增长率",
+      "Sizeitem/byte 分布、p99、硬上限",
+      "WorkCPU、I/O、网络、压缩、fan-out、外部调用",
+      "Shape热点、租户偏斜、读写比、顺序、重复、迟到",
+      "Modes正常、峰值、恢复、重放、依赖降容",
+      "Retention保留期、重建时间、存储增长"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T06",
+    "section": "ESD-REFERENCE-001-fea810a5b88f9102",
+    "section_title": "7.3 Commit Protocol",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "结论",
+      "含义与后续责任"
+    ],
+    "row_text": [
+      "CONFIRMED_SUCCESS权威系统确认请求已生效，继续按业务协议推进",
+      "CONFIRMED_NO_EFFECT有合同级证据确认本次请求没有且不会迟到生效，可按同一意图安全重试或终止",
+      "CONFIRMED_CONFLICT权威条件检查拒绝创建；读取并核对既有事实，不能仅凭冲突码判定等价",
+      "UNKNOWN超时、连接中断或不可解释返回；由 reconciliation 持续承担责任"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T07",
+    "section": "ESD-REFERENCE-001-5d5047ce1530fd6e",
+    "section_title": "8.4 Operating Mode Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Entry",
+      "Hard Properties",
+      "Allowed Degradation",
+      "Forbidden",
+      "Exit"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Mode",
+        "value": "NORMAL"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Entry",
+        "value": "关键依赖健康"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "全部硬性质"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "无"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "猜测、旁路提交"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Exit",
+        "value": "—"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "Mode",
+        "value": "DEGRADED"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "Entry",
+        "value": "依赖或容量下降"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "完整性、安全、资源上界"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "延迟、完成率"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "将未知结果标正式"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Exit",
+        "value": "依赖恢复并校验积压"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "Mode",
+        "value": "RECOVERY"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "Entry",
+        "value": "故障后重新收敛"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "权威状态、可追踪重放"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "暂停新接纳"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "用临时状态强行完成"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Exit",
+        "value": "reconciliation 完成"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "Mode",
+        "value": "QUARANTINE"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "Entry",
+        "value": "输入或语义未知"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "隔离、审计、不可污染正式结果"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "活性"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "自动猜测修复"
+      },
+      {
+        "row": 4,
+        "column": 6,
+        "label": "Exit",
+        "value": "人工/规则裁决"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "Mode",
+        "value": "MAINTENANCE"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "Entry",
+        "value": "计划变更"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "数据和权限边界"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "可用性"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "未声明数据迁移"
+      },
+      {
+        "row": 5,
+        "column": 6,
+        "label": "Exit",
+        "value": "迁移验证完成"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "Mode",
+        "value": "EMERGENCY"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "Entry",
+        "value": "正常控制面阻断关键恢复"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "Hard Properties",
+        "value": "审计、时限、最小权限"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "Allowed Degradation",
+        "value": "正常审批路径"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "Forbidden",
+        "value": "无期限 break-glass"
+      },
+      {
+        "row": 6,
+        "column": 6,
+        "label": "Exit",
+        "value": "补偿审查完成"
+      }
+    ],
+    "row_text": [
+      "ESD-REFERENCE-001-T07 / 记录 1 · NORMALModeNORMALEntry关键依赖健康Hard Properties全部硬性质Allowed Degradation无Forbidden猜测、旁路提交Exit—",
+      "ESD-REFERENCE-001-T07 / 记录 2 · DEGRADEDModeDEGRADEDEntry依赖或容量下降Hard Properties完整性、安全、资源上界Allowed Degradation延迟、完成率Forbidden将未知结果标正式Exit依赖恢复并校验积压",
+      "ESD-REFERENCE-001-T07 / 记录 3 · RECOVERYModeRECOVERYEntry故障后重新收敛Hard Properties权威状态、可追踪重放Allowed Degradation暂停新接纳Forbidden用临时状态强行完成Exitreconciliation 完成",
+      "ESD-REFERENCE-001-T07 / 记录 4 · QUARANTINEModeQUARANTINEEntry输入或语义未知Hard Properties隔离、审计、不可污染正式结果Allowed Degradation活性Forbidden自动猜测修复Exit人工/规则裁决",
+      "ESD-REFERENCE-001-T07 / 记录 5 · MAINTENANCEModeMAINTENANCEEntry计划变更Hard Properties数据和权限边界Allowed Degradation可用性Forbidden未声明数据迁移Exit迁移验证完成",
+      "ESD-REFERENCE-001-T07 / 记录 6 · EMERGENCYModeEMERGENCYEntry正常控制面阻断关键恢复Hard Properties审计、时限、最小权限Allowed Degradation正常审批路径Forbidden无期限 break-glassExit补偿审查完成"
+    ],
+    "record_titles": [
+      "ESD-REFERENCE-001-T07 / 记录 1 · NORMAL",
+      "ESD-REFERENCE-001-T07 / 记录 2 · DEGRADED",
+      "ESD-REFERENCE-001-T07 / 记录 3 · RECOVERY",
+      "ESD-REFERENCE-001-T07 / 记录 4 · QUARANTINE",
+      "ESD-REFERENCE-001-T07 / 记录 5 · MAINTENANCE",
+      "ESD-REFERENCE-001-T07 / 记录 6 · EMERGENCY"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T08",
+    "section": "ESD-REFERENCE-001-09d8f36cd167f2b8",
+    "section_title": "9.5 Control Loop Register",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "字段",
+      "内容"
+    ],
+    "row_text": [
+      "Controlled Variablequeue age、lag、utilization、error rate 等",
+      "Sensor / Delay信号、窗口、采样和延迟",
+      "Controlleradmission、autoscaling、retry、routing 等",
+      "Actuatorpermits、replicas、traffic weight、feature flag",
+      "Bounds动作上下限和速率",
+      "Interaction与其他控制回路的耦合",
+      "Safe Default控制器失败时的默认行为",
+      "Verification仿真、故障注入或历史回放"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T09",
+    "section": "ESD-REFERENCE-001-399901da5668cd26",
+    "section_title": "11.1 Assurance Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Claim",
+      "Mechanism",
+      "Verification",
+      "Evidence",
+      "Coverage",
+      "Limitations",
+      "Freshness",
+      "Owner"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T10",
+    "section": "ESD-REFERENCE-001-646bf673321606ec",
+    "section_title": "13.2 Constraint / Assumption Register",
+    "layout": "records",
+    "task": "template",
+    "selection": "default",
+    "headers": [
+      "ID",
+      "Type",
+      "Statement",
+      "Dependents",
+      "Evidence",
+      "Signal",
+      "Owner",
+      "Expiry / Invalidation",
+      "Response"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "ID",
+        "value": "A-001"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Type",
+        "value": "Assumption"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Statement",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Dependents",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Evidence",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "label": "Expiry / Invalidation",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "label": "Response",
+        "value": ""
+      }
+    ],
+    "row_text": [
+      "ESD-REFERENCE-001-T10 / 记录 1 · A-001IDA-001TypeAssumptionStatementDependentsEvidenceSignalOwnerExpiry / InvalidationResponse"
+    ],
+    "record_titles": [
+      "ESD-REFERENCE-001-T10 / 记录 1 · A-001"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T11",
+    "section": "ESD-REFERENCE-001-9a9acf87b6b89701",
+    "section_title": "13.4 Property Precedence Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Property A",
+      "Property B",
+      "Conflict Scenario",
+      "Priority",
+      "Allowed Sacrifice",
+      "Decision Mechanism",
+      "Authority"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T12",
+    "section": "ESD-REFERENCE-001-d2458d16c75b6a7d",
+    "section_title": "13.5 State Ownership Register",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "State",
+      "Meaning",
+      "Identity",
+      "Class",
+      "Authority",
+      "Mutation Authority",
+      "Technical Owner",
+      "Operational Owner",
+      "Recovery Source",
+      "Conflict"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T13",
+    "section": "ESD-REFERENCE-001-804267ff06e0c21a",
+    "section_title": "13.6 Boundary Contract Register",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Boundary",
+      "Assumptions",
+      "Guarantees",
+      "Violation Behavior",
+      "Version",
+      "Capacity / Time Assumption",
+      "Verification",
+      "Owner"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T14",
+    "section": "ESD-REFERENCE-001-24f22adc47c2865f",
+    "section_title": "13.7 Failure / Recovery Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Failure",
+      "Detection",
+      "Possible Partial Effect",
+      "Authority",
+      "Automatic Action",
+      "Retry Safety",
+      "Manual Action",
+      "Bound",
+      "Evidence"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T15",
+    "section": "ESD-REFERENCE-001-4c78905df4bbbdbc",
+    "section_title": "13.8 Operating Mode Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Entry / Authority",
+      "Hard Properties",
+      "Allowed Degradation",
+      "Forbidden",
+      "Resource Policy",
+      "Exit",
+      "Max Duration",
+      "Evidence"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T16",
+    "section": "ESD-REFERENCE-001-06206a5785cb9ebe",
+    "section_title": "13.11 Control Loop Register",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Loop",
+      "Variable",
+      "Sensor / Delay",
+      "Controller",
+      "Actuator",
+      "Bounds",
+      "Interaction",
+      "Safe Default",
+      "Verification",
+      "Owner"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T17",
+    "section": "ESD-REFERENCE-001-d9dfe5004ff31c78",
+    "section_title": "13.12 Verification & Evidence Matrix",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Property",
+      "Mechanism",
+      "Verification",
+      "Evidence ID",
+      "Subject / Config / Env",
+      "Coverage",
+      "Limitations",
+      "Status",
+      "Freshness",
+      "Owner"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  },
+  {
+    "table": "ESD-REFERENCE-001-T18",
+    "section": "ESD-REFERENCE-001-c4651d324a1abd57",
+    "section_title": "Gate 映射",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "评审门禁",
+      "本案例对应内容"
+    ],
+    "row_text": [
+      "Gate 0问题、Goals、Non-goals 与风险等级",
+      "Gate 1Workload、SLO、约束与关键假设",
+      "Gate 2Critical Properties 与优先级",
+      "Gate 3Source/Operation/Result Identity、状态权威与 DBC 绑定",
+      "Gate 4失败、提交点、ACK 顺序与恢复",
+      "Gate 5数据面、控制面、调度、快慢路径与运行模式",
+      "Gate 6有界资源、容量、恢复能力和单位经济性",
+      "Gate 7契约、安全、演进、运维与语言决策",
+      "Gate 8Verification & Evidence Matrix",
+      "Gate 9Change Envelope、停止条件与生产裁决"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T19",
+    "section": "ESD-REFERENCE-001-58e6629cb37dc2f9",
+    "section_title": "初始 SLO 示例",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "示例目标",
+      "说明"
+    ],
+    "row_text": [
+      "端到端完成延迟99% 的受支持对象在目标窗口内正式提交从 Kafka 可见到 completion manifest",
+      "数据完整性重复正式结果 0；未标记 partial completion 0硬性质，不以延迟换取",
+      "DBC 正确性正式结果的 DBC identity/digest 覆盖率 100%未知必须隔离",
+      "可恢复性N-1 条件下在约定时间清空积压必须包含持续新流量",
+      "资源安全RSS、临时磁盘、连接和队列始终低于硬上限达到上限时停止接纳",
+      "可追溯性任意正式结果可追溯 source、pipeline、config、binding 与 DBC digest作为发布与审计条件"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T20",
+    "section": "ESD-REFERENCE-001-2b73c8779a06dff4",
+    "section_title": "关键假设登记示例",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "ID",
+      "假设",
+      "运行信号",
+      "失效条件",
+      "响应"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "ID",
+        "value": "A-01"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "假设",
+        "value": "单对象不超过生产合同上限"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "运行信号",
+        "value": "object_size"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "失效条件",
+        "value": "任意超限"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "响应",
+        "value": "admission reject；复审 producer contract"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "ID",
+        "value": "A-02"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "假设",
+        "value": "member 数和 inflate ratio 处于建模范围"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "运行信号",
+        "value": "members/object、inflate ratio"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "失效条件",
+        "value": "超阈值或分布漂移"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "响应",
+        "value": "quarantine；容量与格式复审"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "ID",
+        "value": "A-03"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "假设",
+        "value": "对象版本读取稳定"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "运行信号",
+        "value": "version/checksum mismatch"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "失效条件",
+        "value": "任意不一致"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "响应",
+        "value": "停止处理；重新读取权威版本"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "ID",
+        "value": "A-04"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "假设",
+        "value": "同版本 DBC artifact 内容不可变"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "运行信号",
+        "value": "digest mismatch"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "失效条件",
+        "value": "任意不一致"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "响应",
+        "value": "fail closed；触发 Registry 事故"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "ID",
+        "value": "A-05"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "假设",
+        "value": "Result Store 的 conditional create 语义可靠"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "运行信号",
+        "value": "contract/fault test"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "失效条件",
+        "value": "语义或实现变化"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "响应",
+        "value": "阻断发布；重新设计提交协议"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "ID",
+        "value": "A-06"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "假设",
+        "value": "当前“整对象下载”在成本与内存上优于细粒度 range"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "运行信号",
+        "value": "benchmark、request amplification"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "失效条件",
+        "value": "对象上限/延迟目标/存储计费变化"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "响应",
+        "value": "重新比较 streaming/range 方案"
+      }
+    ],
+    "row_text": [
+      "ESD-REFERENCE-001-T20 / 记录 1 · A-01IDA-01假设单对象不超过生产合同上限运行信号object_size失效条件任意超限响应admission reject；复审 producer contract",
+      "ESD-REFERENCE-001-T20 / 记录 2 · A-02IDA-02假设member 数和 inflate ratio 处于建模范围运行信号members/object、inflate ratio失效条件超阈值或分布漂移响应quarantine；容量与格式复审",
+      "ESD-REFERENCE-001-T20 / 记录 3 · A-03IDA-03假设对象版本读取稳定运行信号version/checksum mismatch失效条件任意不一致响应停止处理；重新读取权威版本",
+      "ESD-REFERENCE-001-T20 / 记录 4 · A-04IDA-04假设同版本 DBC artifact 内容不可变运行信号digest mismatch失效条件任意不一致响应fail closed；触发 Registry 事故",
+      "ESD-REFERENCE-001-T20 / 记录 5 · A-05IDA-05假设Result Store 的 conditional create 语义可靠运行信号contract/fault test失效条件语义或实现变化响应阻断发布；重新设计提交协议",
+      "ESD-REFERENCE-001-T20 / 记录 6 · A-06IDA-06假设当前“整对象下载”在成本与内存上优于细粒度 range运行信号benchmark、request amplification失效条件对象上限/延迟目标/存储计费变化响应重新比较 streaming/range 方案"
+    ],
+    "record_titles": [
+      "ESD-REFERENCE-001-T20 / 记录 1 · A-01",
+      "ESD-REFERENCE-001-T20 / 记录 2 · A-02",
+      "ESD-REFERENCE-001-T20 / 记录 3 · A-03",
+      "ESD-REFERENCE-001-T20 / 记录 4 · A-04",
+      "ESD-REFERENCE-001-T20 / 记录 5 · A-05",
+      "ESD-REFERENCE-001-T20 / 记录 6 · A-06"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T21",
+    "section": "ESD-REFERENCE-001-0ef38d9ed493620f",
+    "section_title": "16.5 状态与所有权",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "State",
+      "Authority",
+      "Identity",
+      "Owner",
+      "Recovery"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "State",
+        "value": "Discovery offset"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Authority",
+        "value": "Kafka consumer group"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Identity",
+        "value": "topic/partition/offset"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Owner",
+        "value": "Processing Platform"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Recovery",
+        "value": "Kafka"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "State",
+        "value": "Source bytes"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "Authority",
+        "value": "Object Storage"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "Identity",
+        "value": "object URI + immutable version"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Owner",
+        "value": "Data Ingestion"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "Recovery",
+        "value": "re-read exact version"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "State",
+        "value": "DBC artifact"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "Authority",
+        "value": "DBC Registry"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "Identity",
+        "value": "dbc_id + version + digest"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Owner",
+        "value": "Vehicle Data Platform"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "Recovery",
+        "value": "immutable artifact store"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "State",
+        "value": "Model→DBC binding"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "Authority",
+        "value": "Versioned Binding Registry"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "Identity",
+        "value": "binding version + model"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "Owner",
+        "value": "Vehicle Data Platform"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "Recovery",
+        "value": "versioned snapshot"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "State",
+        "value": "Staged outputs"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "Authority",
+        "value": "Result Store staging namespace"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "Identity",
+        "value": "run_id + member identity"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "Owner",
+        "value": "Processing Platform"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "Recovery",
+        "value": "对账后仅回收确定不再被引用、且无迟到提交可能的对象"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "State",
+        "value": "Completion manifest"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "Authority",
+        "value": "Result Store"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "Identity",
+        "value": "OperationIdentity"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "Owner",
+        "value": "Processing Platform"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "Recovery",
+        "value": "authoritative read / conditional create"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "State",
+        "value": "Disposition / reconciliation record"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "Authority",
+        "value": "Durable responsibility ledger"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "Identity",
+        "value": "OperationIdentity + attempt / handoff ID"
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "Owner",
+        "value": "Processing Platform；具名接收 Owner"
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "Recovery",
+        "value": "重启扫描、恢复对账与升级；不替代 completion authority"
+      },
+      {
+        "row": 8,
+        "column": 1,
+        "label": "State",
+        "value": "Runtime queues"
+      },
+      {
+        "row": 8,
+        "column": 2,
+        "label": "Authority",
+        "value": "Worker process"
+      },
+      {
+        "row": 8,
+        "column": 3,
+        "label": "Identity",
+        "value": "ephemeral"
+      },
+      {
+        "row": 8,
+        "column": 4,
+        "label": "Owner",
+        "value": "Runtime Owner"
+      },
+      {
+        "row": 8,
+        "column": 5,
+        "label": "Recovery",
+        "value": "rebuild from durable state"
+      },
+      {
+        "row": 9,
+        "column": 1,
+        "label": "State",
+        "value": "Verification evidence"
+      },
+      {
+        "row": 9,
+        "column": 2,
+        "label": "Authority",
+        "value": "Evidence Store"
+      },
+      {
+        "row": 9,
+        "column": 3,
+        "label": "Identity",
+        "value": "evidence_id + subject digest"
+      },
+      {
+        "row": 9,
+        "column": 4,
+        "label": "Owner",
+        "value": "Assurance Owner"
+      },
+      {
+        "row": 9,
+        "column": 5,
+        "label": "Recovery",
+        "value": "immutable retained record"
+      }
+    ],
+    "row_text": [
+      "ESD-REFERENCE-001-T21 / 记录 1 · Discovery offsetStateDiscovery offsetAuthorityKafka consumer groupIdentitytopic/partition/offsetOwnerProcessing PlatformRecoveryKafka",
+      "ESD-REFERENCE-001-T21 / 记录 2 · Source bytesStateSource bytesAuthorityObject StorageIdentityobject URI + immutable versionOwnerData IngestionRecoveryre-read exact version",
+      "ESD-REFERENCE-001-T21 / 记录 3 · DBC artifactStateDBC artifactAuthorityDBC RegistryIdentitydbc_id + version + digestOwnerVehicle Data PlatformRecoveryimmutable artifact store",
+      "ESD-REFERENCE-001-T21 / 记录 4 · Model→DBC bindingStateModel→DBC bindingAuthorityVersioned Binding RegistryIdentitybinding version + modelOwnerVehicle Data PlatformRecoveryversioned snapshot",
+      "ESD-REFERENCE-001-T21 / 记录 5 · Staged outputsStateStaged outputsAuthorityResult Store staging namespaceIdentityrun_id + member identityOwnerProcessing PlatformRecovery对账后仅回收确定不再被引用、且无迟到提交可能的对象",
+      "ESD-REFERENCE-001-T21 / 记录 6 · Completion manifestStateCompletion manifestAuthorityResult StoreIdentityOperationIdentityOwnerProcessing PlatformRecoveryauthoritative read / conditional create",
+      "ESD-REFERENCE-001-T21 / 记录 7 · Disposition / reconciliation recordStateDisposition / reconciliation recordAuthorityDurable responsibility ledgerIdentityOperationIdentity + attempt / handoff IDOwnerProcessing Platform；具名接收 OwnerRecovery重启扫描、恢复对账与升级；不替代 completion authority",
+      "ESD-REFERENCE-001-T21 / 记录 8 · Runtime queuesStateRuntime queuesAuthorityWorker processIdentityephemeralOwnerRuntime OwnerRecoveryrebuild from durable state",
+      "ESD-REFERENCE-001-T21 / 记录 9 · Verification evidenceStateVerification evidenceAuthorityEvidence StoreIdentityevidence_id + subject digestOwnerAssurance OwnerRecoveryimmutable retained record"
+    ],
+    "record_titles": [
+      "ESD-REFERENCE-001-T21 / 记录 1 · Discovery offset",
+      "ESD-REFERENCE-001-T21 / 记录 2 · Source bytes",
+      "ESD-REFERENCE-001-T21 / 记录 3 · DBC artifact",
+      "ESD-REFERENCE-001-T21 / 记录 4 · Model→DBC binding",
+      "ESD-REFERENCE-001-T21 / 记录 5 · Staged outputs",
+      "ESD-REFERENCE-001-T21 / 记录 6 · Completion manifest",
+      "ESD-REFERENCE-001-T21 / 记录 7 · Disposition / reconciliation record",
+      "ESD-REFERENCE-001-T21 / 记录 8 · Runtime queues",
+      "ESD-REFERENCE-001-T21 / 记录 9 · Verification evidence"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T22",
+    "section": "ESD-REFERENCE-001-b5e46802d9f73705",
+    "section_title": "16.14 失败与恢复矩阵节选",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Failure",
+      "Partial Effect",
+      "Decision / Recovery"
+    ],
+    "row_text": [
+      "Kafka duplicate任务可能再次执行completion manifest 吸收重复",
+      "Download timeout对象可能只下载一部分丢弃不完整 buffer；按分类重试",
+      "Object version changed输入身份不再稳定拒绝；要求 immutable version",
+      "Corrupt member部分成员已处理按合同 quarantine whole object 或显式 partial policy；不得静默完成",
+      "Unknown model无合法 DBCquarantine；等待 binding 修复后重放",
+      "DBC Registry unavailablebinding 无法验证pause / degraded；不回退猜测",
+      "Worker crash before manifeststaging 存在，创建请求可能仍在途从 ledger/权威状态对账；未确认无效果前保护 staging，不直接按年龄回收",
+      "Manifest committed, offset commit failed正式结果存在，恢复位置未确认重投后验证复用；仅按分区连续完成前缀推进",
+      "Result Store conflict另一执行已提交比较规范化结果摘要与必要 provenance；不等价记 RESULT_CONFLICT，保留证据并裁决",
+      "Conditional create timeout成功、未生效或在途均可能UNKNOWN；同键同意图对账，not-found 不结束责任",
+      "Offset 101 completed before 100后续结果已有，前缀有空洞禁止提交 102；有界完成窗口、pause 与升级",
+      "Rebalance during work旧 worker 仍可能完成epoch fencing 拒绝旧回调推进新 assignment；副作用由权威提交协议吸收",
+      "Output slowdownoutput queue 增长背压到 CPU，再到 fetch/Kafka pause",
+      "Memory pressurebyte permits 接近上限停止接纳；不得继续扩大队列"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T23",
+    "section": "ESD-REFERENCE-001-611450d43b92a44a",
+    "section_title": "16.16 验证计划",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Property",
+      "Verification"
+    ],
+    "row_text": [
+      "单一正式结果重复投递、commit/ACK crash、rebalance、并发执行测试",
+      "Partial 不可见在每个阶段注入 crash，验证无 completion manifest 时下游不可见",
+      "DBC 不猜测unknown model、registry timeout、version mismatch 负向测试",
+      "资源有界2× 峰值、持续下游变慢、超大合法文件和混合大小压力测试",
+      "背压闭合人为降低 output/DBC/object store，验证压力传播和内存稳定",
+      "恢复能力积压回放、节点 N-1、进程反复崩溃和 orphan staging 回收",
+      "容量模型代表性语料端到端基准，比较预测与实际误差",
+      "版本追踪对任意结果追溯 source、pipeline、binding、DBC 和 config digest"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T24",
+    "section": "ESD-REFERENCE-001-69efa8b09490d0eb",
+    "section_title": "16.16.1 反例轨迹与预期 Oracle",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "场景",
+      "最小轨迹",
+      "预期 Oracle"
+    ],
+    "row_text": [
+      "越过未决 offset收到 100、101；101 完成，100 未决提交位置不超过 100；不得提交 102",
+      "offset 数值有空洞实际投递 100、104；100 完成可推进到 104；不要求虚构的 101–103 完成",
+      "迟到写成功create 超时；read not-found；原 create 随后成功保持未知直至权威确认；不换键、不提前 GC",
+      "发送后立即崩溃intent 已持久化；create 已发送；尚未处理返回重启恢复未决 intent；不能按“无返回”判定无效果",
+      "同版本不同结果同 OperationIdentity，两个规范化摘要不同；冲突方随后重启RESULT_CONFLICT 保留；重放不能用已有 manifest 快路径抹除冲突",
+      "旧 assignment 回调epoch E1 被撤销，E2 接管，E1 worker 返回不更新 E2 完成窗口、不提交 E1 位置",
+      "责任接收方重启durable handoff 已确认，接收方崩溃重启可枚举并恢复责任；未确认业务处置不推进 offset"
+    ]
+  },
+  {
+    "table": "ESD-REFERENCE-001-T25",
+    "section": "ESD-REFERENCE-001-ca38069456ebe61f",
+    "section_title": "19. 团队成熟度与采用路线",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "典型状态",
+      "下一步"
+    ],
+    "row_text": [
+      "L0 — Component-driven先选技术，缺少问题和状态模型强制 Decision Brief 与 Non-goals",
+      "L1 — Functional正常路径可用，失败与 Owner 模糊建立 Property、State、Failure Register",
+      "L2 — Bounded资源有界，有基本恢复增加容量、运行模式和边界契约",
+      "L3 — OperableSLO、Owner、发布和恢复明确建立 Evidence Matrix 与生产门禁",
+      "L4 — Evidence-driven关键主张有可追踪证据关联假设、环境漂移和证据时效",
+      "L5 — Adaptive Assurance结论随漂移自动失效，事故形成保证增量持续防止 Goodhart 化并回收复杂度"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T01",
+    "section": "ESD-GOV-001-ae01a8d86ac691a7",
+    "section_title": "系统设计与工程保证治理及符合性规范",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-GOV-001",
+      "版本2.0.0-draft.1（基于 1.0.0）",
+      "状态DRAFT / NORMATIVE CONTROL；未获发布批准",
+      "规范角色定义谁必须遵循哪些要求、谁有权裁决、如何例外及如何声明符合",
+      "语义基础ESD-METHOD-001《优秀系统设计与工程保证方法论》",
+      "执行参考ESD-REFERENCE-001《优秀系统设计：从约束、不变量到证据》",
+      "证据规范ESD-ASSURANCE-001《工程保证论证、证据与裁决规范》",
+      "运行标准ESD-OPS-001《生产就绪与运行韧性标准》",
+      "权威格式本 Markdown 文件；派生格式不构成独立规范"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T02",
+    "section": "ESD-GOV-001-c36179941205f031",
+    "section_title": "3.2 变更类型",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "描述",
+      "典型控制"
+    ],
+    "row_text": [
+      "NEW_SYSTEM新建生产能力或新权威状态完整风险分类和设计流程",
+      "MAJOR_SEMANTIC_CHANGE改变业务完成、身份、一致性、权限或恢复语义重新评审相关性质与证据",
+      "MAJOR_OPERATIONAL_CHANGE改变部署、故障域、容量、SLO、RPO/RTO 或 on-callProduction Readiness 复审",
+      "DATA_MIGRATION改变持久数据、Schema、编码或权威位置迁移、验证、回退/前向修复计划",
+      "DEPENDENCY_CHANGE关键依赖升级、替换或语义变化边界契约和组合保证复审",
+      "SECURITY_CHANGE权限、身份、凭据、信任边界变化安全 Review 与最小权限验证",
+      "ASSURANCE_CHANGE门禁、测试、证据、策略或例外逻辑变化独立评审，防止弱化控制",
+      "ROUTINE_CHANGE已在批准变更类别和已验证范围内自动或轻量门禁",
+      "EMERGENCY_CHANGE为控制当前事故必须立即执行break-glass + 事后补偿复审",
+      "EXPERIMENT在限定暴露内验证假设Change Envelope 与退出条件"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T03",
+    "section": "ESD-GOV-001-edfd70b48403bf0d",
+    "section_title": "4.1 风险等级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "定义",
+      "典型示例"
+    ],
+    "row_text": [
+      "R0 — Exploration无生产依赖、可删除、无不可逆高后果副作用本地原型、脱敏数据实验",
+      "R1 — Bounded Production影响有限且可隔离，恢复成本中等内部工具、单团队辅助服务",
+      "R2 — Core Production影响核心业务、关键数据或跨团队依赖数据平台、交易链路、关键控制面",
+      "R3 — High Assurance涉及资金、安全、合规、人身风险或大规模不可逆损害支付结算、安全策略、车辆控制、关键凭据系统"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T04",
+    "section": "ESD-GOV-001-e826c3b2e280e247",
+    "section_title": "4.2 风险评分维度",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "问题"
+    ],
+    "row_text": [
+      "后果错误会导致什么业务、数据、安全或法律影响？",
+      "爆炸半径单请求、单租户、单区域还是全局？",
+      "可逆性能回滚、重算、补偿还是不可恢复？",
+      "不确定性输入、依赖、模型、团队经验和运行环境有多未知？",
+      "暴露流量比例、持续时间、权限范围和数据范围多大？",
+      "检测错误能否在造成损害前被发现？",
+      "恢复恢复需要多久，是否有权威来源和足够容量？",
+      "特权是否可修改身份、策略、资金、生产状态或安全边界？"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T05",
+    "section": "ESD-GOV-001-915830b261f0bb3d",
+    "section_title": "5.1 核心角色",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "核心责任"
+    ],
+    "row_text": [
+      "System Owner对系统整体业务结果、生命周期和风险接受负责",
+      "Design Author维护设计推理、制品和开放问题",
+      "Semantic Owner定义业务事实、身份、契约、一致性和兼容语义",
+      "Technical Owner对实现、技术边界、质量和演进负责",
+      "Operational Owner对 SLO、容量、发布、恢复、on-call 和事故负责",
+      "Security Owner/Reviewer对信任边界、权限、秘密、审计和安全风险负责",
+      "Assurance Reviewer评价论证、证据质量、覆盖、失效和 UNKNOWN",
+      "Architecture Reviewer挑战状态、边界、失败、资源、成本和替代方案",
+      "Decision Authority对设计 Gate 作出正式裁决",
+      "Release Authority基于已批准设计与当前证据作生产放行裁决",
+      "Exception Authority接受特定偏离和剩余风险，并承担期限内责任",
+      "Standard Owner维护规范语义、版本和解释记录"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T06",
+    "section": "ESD-GOV-001-399f85347f6255b6",
+    "section_title": "5.2 RACI 最低要求",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "决策/能力",
+      "Responsible",
+      "Accountable",
+      "Consulted",
+      "Informed"
+    ],
+    "row_text": [
+      "状态语义与身份Semantic OwnerSystem OwnerReviewerConsumers",
+      "实现与质量Technical OwnerSystem OwnerAssurance/SecurityOperational Owner",
+      "SLO 与运行Operational OwnerSystem OwnerSRE/PlatformStakeholders",
+      "生产放行Release AuthoritySystem Owner 或授权主体Assurance/Ops/SecurityStakeholders",
+      "例外接受Risk/Exception Authority明确高层责任主体Relevant OwnersAudit/Stakeholders",
+      "事故响应Incident CommanderOperational OwnerSystem/SecurityStakeholders"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T07",
+    "section": "ESD-GOV-001-abf105a16e68b54a",
+    "section_title": "6.2 风险分级要求",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "风险",
+      "最低独立性"
+    ],
+    "row_text": [
+      "R0提交者自评；明确退出条件",
+      "R1至少一名非作者 Reviewer；Owner 接受运行责任",
+      "R2设计、运行和证据至少由两个责任主体交叉评审；最终批准不由单一作者完成",
+      "R3Proposer、Assurance Evaluator、Final Approver 必须有实质独立性；安全/合规按需要独立签署"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T08",
+    "section": "ESD-GOV-001-77c93bfaa149006e",
+    "section_title": "7.1 按风险等级",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "制品",
+      "R0",
+      "R1",
+      "R2",
+      "R3"
+    ],
+    "row_text": [
+      "Problem / Non-goals / Exit Criteria必须必须必须必须",
+      "风险分类与理由必须必须必须必须",
+      "Constraint / Assumption Register简化必须必须必须",
+      "Critical Property Register关键项必须必须必须",
+      "State / Identity / Ownership不可逆项必须必须必须",
+      "Failure / Recovery Matrix可选核心路径完整完整 + 独立挑战",
+      "Boundary Contract可选关键边界完整完整 + 组合保证",
+      "Resource / Queue Contract硬上限关键资源完整完整 + 故障降容",
+      "Capacity / Economic Model粗估粗估定量定量 + 敏感性分析",
+      "Threat Model数据边界基础完整完整 + 独立安全审查",
+      "Verification & Evidence Matrix最小基础完整完整 + 独立证据评价",
+      "Change Envelope首次暴露重大变更必须必须 + 自动停止",
+      "Production Readiness Decision不适用简化必须必须 + 多方签署",
+      "Exception Register如有如有必须受控必须严格受控",
+      "Runbook / Recovery Drill不适用核心故障必须必须 + 定期演练"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T09",
+    "section": "ESD-GOV-001-bc3a1b33c1c9a365",
+    "section_title": "8.2 标准 Gate",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Gate",
+      "核心裁决"
+    ],
+    "row_text": [
+      "0问题、价值和风险是否成立",
+      "1工作负载、约束、SLO 和假设是否可用于决策",
+      "2关键性质和优先级是否完整",
+      "3状态、身份、权威和边界是否闭合",
+      "4失败、一致性、提交和恢复语义是否闭合",
+      "5架构是否维持上述语义",
+      "6系统是否存在稳定、有界、经济可承受的运行区",
+      "7契约、安全、演进与 Day-2 操作是否就绪",
+      "8证据是否达到当前决策所需质量",
+      "9当前制品是否可在声明的 Change Envelope 内进入生产"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T10",
+    "section": "ESD-GOV-001-26a5aac3917119e7",
+    "section_title": "8.3 决策状态",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "治理含义"
+    ],
+    "row_text": [
+      "GO强制要求满足，证据当前有效，剩余风险在授权范围内",
+      "CONDITIONAL_GO可在明确范围、期限、监测、停止和补偿条件下放行",
+      "NO_GO已知违反关键要求或风险超出授权阈值",
+      "UNKNOWN证据不足、过期、错绑或关键假设未验证",
+      "NOT_APPLICABLE经论证和 Reviewer 接受后不适用"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T11",
+    "section": "ESD-GOV-001-5e553f96135be9fc",
+    "section_title": "9.1 三类偏离",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "适用场景"
+    ],
+    "row_text": [
+      "DEVIATION采用不同机制但达到同等或更强性质，不是降低要求",
+      "EXCEPTION临时无法满足要求，以补偿控制和期限接受风险",
+      "BREAK_GLASS当前事故中为阻止更大损害而紧急绕过正常控制"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T12",
+    "section": "ESD-GOV-001-d1ba81c8cb38ffb5",
+    "section_title": "10.1 要求级状态",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "CONFORMANT当前对象满足要求，且证据足以支持结论",
+      "NONCONFORMANT已知不满足要求；即使有有效例外也不改变该事实",
+      "UNKNOWN无法判断是否满足",
+      "NOT_APPLICABLE有论证并经接受后不适用"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T13",
+    "section": "ESD-GOV-001-2969ece1339674ab",
+    "section_title": "10.2 对象级状态",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "优先顺序",
+      "条件",
+      "对象级结论"
+    ],
+    "row_text": [
+      "1存在未获有效且适用的 Exception 授权的、适用强制义务的已知不满足NONCONFORMANT",
+      "2不存在上述已知不满足，但存在未获有效且适用的 Exception 授权的强制义务未知，或适用范围无法确定UNKNOWN",
+      "3存在缺口，但所有剩余缺口均由有效且适用的 Exception 覆盖，且相关条件可执行CONDITIONALLY_CONFORMANT",
+      "4没有上述缺口，所有适用义务及必要的偏离审查均已满足CONFORMANT"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T14",
+    "section": "ESD-GOV-001-2969ece1339674ab",
+    "section_title": "10.2 对象级状态",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "输入",
+      "对象级结论",
+      "必须保留的事实"
+    ],
+    "row_text": [
+      "非阻断 MUST 已知不满足，无有效例外NONCONFORMANT该义务仍不满足，不能因非阻断而忽略",
+      "非阻断 MUST 未知，无有效例外UNKNOWN该义务仍未知，不能默认为满足",
+      "强制义务存在不满足或未知，所有缺口均有有效且适用的例外，条件可执行CONDITIONALLY_CONFORMANT各义务原有不满足/未知及例外授权分别保留",
+      "强制义务的已知不满足与未知并存，均无有效例外NONCONFORMANT已知不满足优先决定总状态，未知项仍完整列出"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T15",
+    "section": "ESD-GOV-001-a55e792697ed2ee6",
+    "section_title": "10.3 符合性矩阵",
+    "layout": "records",
+    "task": "records",
+    "selection": "explicit",
+    "headers": [
+      "Requirement ID",
+      "Applicable",
+      "Satisfaction Status",
+      "Governance Disposition",
+      "Evidence / Exception",
+      "Owner",
+      "Review Trigger"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Requirement ID",
+        "value": "GOV-REQ-012"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Applicable",
+        "value": "Yes"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Satisfaction Status",
+        "value": "CONFORMANT"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Governance Disposition",
+        "value": "STANDARD"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Evidence / Exception",
+        "value": "OWN-REG-001"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Owner",
+        "value": "Team A"
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Review Trigger",
+        "value": "Owner change"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "Requirement ID",
+        "value": "ASSUR-REQ-014"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "Applicable",
+        "value": "Yes"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "Satisfaction Status",
+        "value": "UNKNOWN"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Governance Disposition",
+        "value": "STANDARD"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "Evidence / Exception",
+        "value": "Evidence missing"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Owner",
+        "value": "Team A"
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "label": "Review Trigger",
+        "value": "Before Gate 9"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "Requirement ID",
+        "value": "OPS-REQ-023"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "Applicable",
+        "value": "Yes"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "Satisfaction Status",
+        "value": "CONFORMANT"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Governance Disposition",
+        "value": "STANDARD"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "Evidence / Exception",
+        "value": "Shared retry-budget config + exhaustion/fault tests + runtime amplification evidence"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Owner",
+        "value": "Team A"
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "label": "Review Trigger",
+        "value": "Retry policy / dependency change"
+      }
+    ],
+    "row_text": [
+      "ESD-GOV-001-T15 / 记录 1 · GOV-REQ-012Requirement IDGOV-REQ-012ApplicableYesSatisfaction StatusCONFORMANTGovernance DispositionSTANDARDEvidence / ExceptionOWN-REG-001OwnerTeam AReview TriggerOwner change",
+      "ESD-GOV-001-T15 / 记录 2 · ASSUR-REQ-014Requirement IDASSUR-REQ-014ApplicableYesSatisfaction StatusUNKNOWNGovernance DispositionSTANDARDEvidence / ExceptionEvidence missingOwnerTeam AReview TriggerBefore Gate 9",
+      "ESD-GOV-001-T15 / 记录 3 · OPS-REQ-023Requirement IDOPS-REQ-023ApplicableYesSatisfaction StatusCONFORMANTGovernance DispositionSTANDARDEvidence / ExceptionShared retry-budget config + exhaustion/fault tests + runtime amplification evidenceOwnerTeam AReview TriggerRetry policy / dependency change"
+    ],
+    "record_titles": [
+      "ESD-GOV-001-T15 / 记录 1 · GOV-REQ-012",
+      "ESD-GOV-001-T15 / 记录 2 · ASSUR-REQ-014",
+      "ESD-GOV-001-T15 / 记录 3 · OPS-REQ-023"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T16",
+    "section": "ESD-GOV-001-50a7605de572cccd",
+    "section_title": "10.4.2 编号要求覆盖索引",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "来源",
+      "要求范围",
+      "适用主题/前提",
+      "Evidence 类别",
+      "责任角色"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "来源",
+        "value": "本文 §2–7"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "要求范围",
+        "value": "GOV-REQ-001–017"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "受管对象的风险、裁剪、责任及制品"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "风险/Owner/制品登记、授权与职责分离记录"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Technical Owner / Governance Owner"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "来源",
+        "value": "本文 §8–9"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "要求范围",
+        "value": "GOV-REQ-018–025"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "Gate、条件放行、偏离或应急"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "决策、Exception、补偿控制与期限"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Decision / Exception Authority"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "来源",
+        "value": "本文 §10–17"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "要求范围",
+        "value": "GOV-REQ-026–035"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "符合性、评审、发布、复审及审计"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "逐项评估、发布绑定、记录与复审"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Assessor / Governance Owner"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §3–6"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "要求范围",
+        "value": "ASSUR-REQ-001–015"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "受评 Claim、对象身份与边界假设"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "Claim/Assumption 契约、身份及保证映射"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Assurance Author / Semantic Owner"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §7–12"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "要求范围",
+        "value": "ASSUR-REQ-016–026"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "论证、反证、证据质量及状态"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "Argument、Defeater、Envelope 与结果记录"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Assurance Author / Reviewer"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §13–18"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "要求范围",
+        "value": "ASSUR-REQ-027–039"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "证据失效、Oracle、工具、组合与充分性"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "失效传播、测试/证明、覆盖与组合论证"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Evidence Owner / Reviewer"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §19–24"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "要求范围",
+        "value": "ASSUR-REQ-040–051"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "Claim 聚合、Gate、暴露、漂移和事故"
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "状态依据、Bundle、暴露边界、Assurance Delta"
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Reviewer / Decision / Operational Owner"
+      },
+      {
+        "row": 8,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §25–26"
+      },
+      {
+        "row": 8,
+        "column": 2,
+        "label": "要求范围",
+        "value": "ASSUR-REQ-052–060"
+      },
+      {
+        "row": 8,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "Assurance Plane 完整性及职责"
+      },
+      {
+        "row": 8,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "错绑/缺失负向检查、审计与独立性记录"
+      },
+      {
+        "row": 8,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Assurance Platform Owner / Reviewer"
+      },
+      {
+        "row": 9,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §2–4"
+      },
+      {
+        "row": 9,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-001–014"
+      },
+      {
+        "row": 9,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "生产服务、资源、责任与资格"
+      },
+      {
+        "row": 9,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "服务契约、硬上限、状态及身份记录"
+      },
+      {
+        "row": 9,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Technical / Operational Owner"
+      },
+      {
+        "row": 10,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §5–7"
+      },
+      {
+        "row": 10,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-015–023"
+      },
+      {
+        "row": 10,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "SLO、运行模式、依赖与重试"
+      },
+      {
+        "row": 10,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "SLI/SLO、模式转换、故障域与重试验证"
+      },
+      {
+        "row": 10,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Operational Owner"
+      },
+      {
+        "row": 11,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §8–10"
+      },
+      {
+        "row": 11,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-024–033"
+      },
+      {
+        "row": 11,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "容量、过载与受控发布"
+      },
+      {
+        "row": 11,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "工作量模型、恢复基准、满载测试、canary"
+      },
+      {
+        "row": 11,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Capacity / Release Owner"
+      },
+      {
+        "row": 12,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §11–13"
+      },
+      {
+        "row": 12,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-034–042"
+      },
+      {
+        "row": 12,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "迁移、恢复、重放或 DR 能力"
+      },
+      {
+        "row": 12,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "兼容性、业务 Oracle、恢复历时及演练"
+      },
+      {
+        "row": 12,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Data / Recovery Owner"
+      },
+      {
+        "row": 13,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §14–16"
+      },
+      {
+        "row": 13,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-043–050"
+      },
+      {
+        "row": 13,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "可观测性、Runbook、关闭和 Day-2"
+      },
+      {
+        "row": 13,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "告警到行动映射、演练及责任名册"
+      },
+      {
+        "row": 13,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Operational Owner"
+      },
+      {
+        "row": 14,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §17–18"
+      },
+      {
+        "row": 14,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-051–055"
+      },
+      {
+        "row": 14,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "权限、凭据、审计与外部依赖"
+      },
+      {
+        "row": 14,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "权限评审、轮换、依赖契约与退出证据"
+      },
+      {
+        "row": 14,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Security / Dependency Owner"
+      },
+      {
+        "row": 15,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §19–20"
+      },
+      {
+        "row": 15,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-056–060"
+      },
+      {
+        "row": 15,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "事故或受控演练"
+      },
+      {
+        "row": 15,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "指挥、止损、演练边界与发现闭环"
+      },
+      {
+        "row": 15,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Incident / Exercise Owner"
+      },
+      {
+        "row": 16,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS §21–24"
+      },
+      {
+        "row": 16,
+        "column": 2,
+        "label": "要求范围",
+        "value": "OPS-REQ-061–065"
+      },
+      {
+        "row": 16,
+        "column": 3,
+        "label": "适用主题/前提",
+        "value": "准入、扩大暴露、运行债务与退役"
+      },
+      {
+        "row": 16,
+        "column": 4,
+        "label": "Evidence 类别",
+        "value": "Readiness、扩大判据、风险登记及退出验证"
+      },
+      {
+        "row": 16,
+        "column": 5,
+        "label": "责任角色",
+        "value": "Release / Operational Owner"
+      }
+    ],
+    "row_text": [
+      "ESD-GOV-001-T16 / 记录 1 · 本文 §2–7来源本文 §2–7要求范围GOV-REQ-001–017适用主题/前提受管对象的风险、裁剪、责任及制品Evidence 类别风险/Owner/制品登记、授权与职责分离记录责任角色Technical Owner / Governance Owner",
+      "ESD-GOV-001-T16 / 记录 2 · 本文 §8–9来源本文 §8–9要求范围GOV-REQ-018–025适用主题/前提Gate、条件放行、偏离或应急Evidence 类别决策、Exception、补偿控制与期限责任角色Decision / Exception Authority",
+      "ESD-GOV-001-T16 / 记录 3 · 本文 §10–17来源本文 §10–17要求范围GOV-REQ-026–035适用主题/前提符合性、评审、发布、复审及审计Evidence 类别逐项评估、发布绑定、记录与复审责任角色Assessor / Governance Owner",
+      "ESD-GOV-001-T16 / 记录 4 · ASSURANCE §3–6来源ASSURANCE §3–6要求范围ASSUR-REQ-001–015适用主题/前提受评 Claim、对象身份与边界假设Evidence 类别Claim/Assumption 契约、身份及保证映射责任角色Assurance Author / Semantic Owner",
+      "ESD-GOV-001-T16 / 记录 5 · ASSURANCE §7–12来源ASSURANCE §7–12要求范围ASSUR-REQ-016–026适用主题/前提论证、反证、证据质量及状态Evidence 类别Argument、Defeater、Envelope 与结果记录责任角色Assurance Author / Reviewer",
+      "ESD-GOV-001-T16 / 记录 6 · ASSURANCE §13–18来源ASSURANCE §13–18要求范围ASSUR-REQ-027–039适用主题/前提证据失效、Oracle、工具、组合与充分性Evidence 类别失效传播、测试/证明、覆盖与组合论证责任角色Evidence Owner / Reviewer",
+      "ESD-GOV-001-T16 / 记录 7 · ASSURANCE §19–24来源ASSURANCE §19–24要求范围ASSUR-REQ-040–051适用主题/前提Claim 聚合、Gate、暴露、漂移和事故Evidence 类别状态依据、Bundle、暴露边界、Assurance Delta责任角色Reviewer / Decision / Operational Owner",
+      "ESD-GOV-001-T16 / 记录 8 · ASSURANCE §25–26来源ASSURANCE §25–26要求范围ASSUR-REQ-052–060适用主题/前提Assurance Plane 完整性及职责Evidence 类别错绑/缺失负向检查、审计与独立性记录责任角色Assurance Platform Owner / Reviewer",
+      "ESD-GOV-001-T16 / 记录 9 · OPS §2–4来源OPS §2–4要求范围OPS-REQ-001–014适用主题/前提生产服务、资源、责任与资格Evidence 类别服务契约、硬上限、状态及身份记录责任角色Technical / Operational Owner",
+      "ESD-GOV-001-T16 / 记录 10 · OPS §5–7来源OPS §5–7要求范围OPS-REQ-015–023适用主题/前提SLO、运行模式、依赖与重试Evidence 类别SLI/SLO、模式转换、故障域与重试验证责任角色Operational Owner",
+      "ESD-GOV-001-T16 / 记录 11 · OPS §8–10来源OPS §8–10要求范围OPS-REQ-024–033适用主题/前提容量、过载与受控发布Evidence 类别工作量模型、恢复基准、满载测试、canary责任角色Capacity / Release Owner",
+      "ESD-GOV-001-T16 / 记录 12 · OPS §11–13来源OPS §11–13要求范围OPS-REQ-034–042适用主题/前提迁移、恢复、重放或 DR 能力Evidence 类别兼容性、业务 Oracle、恢复历时及演练责任角色Data / Recovery Owner",
+      "ESD-GOV-001-T16 / 记录 13 · OPS §14–16来源OPS §14–16要求范围OPS-REQ-043–050适用主题/前提可观测性、Runbook、关闭和 Day-2Evidence 类别告警到行动映射、演练及责任名册责任角色Operational Owner",
+      "ESD-GOV-001-T16 / 记录 14 · OPS §17–18来源OPS §17–18要求范围OPS-REQ-051–055适用主题/前提权限、凭据、审计与外部依赖Evidence 类别权限评审、轮换、依赖契约与退出证据责任角色Security / Dependency Owner",
+      "ESD-GOV-001-T16 / 记录 15 · OPS §19–20来源OPS §19–20要求范围OPS-REQ-056–060适用主题/前提事故或受控演练Evidence 类别指挥、止损、演练边界与发现闭环责任角色Incident / Exercise Owner",
+      "ESD-GOV-001-T16 / 记录 16 · OPS §21–24来源OPS §21–24要求范围OPS-REQ-061–065适用主题/前提准入、扩大暴露、运行债务与退役Evidence 类别Readiness、扩大判据、风险登记及退出验证责任角色Release / Operational Owner"
+    ],
+    "record_titles": [
+      "ESD-GOV-001-T16 / 记录 1 · 本文 §2–7",
+      "ESD-GOV-001-T16 / 记录 2 · 本文 §8–9",
+      "ESD-GOV-001-T16 / 记录 3 · 本文 §10–17",
+      "ESD-GOV-001-T16 / 记录 4 · ASSURANCE §3–6",
+      "ESD-GOV-001-T16 / 记录 5 · ASSURANCE §7–12",
+      "ESD-GOV-001-T16 / 记录 6 · ASSURANCE §13–18",
+      "ESD-GOV-001-T16 / 记录 7 · ASSURANCE §19–24",
+      "ESD-GOV-001-T16 / 记录 8 · ASSURANCE §25–26",
+      "ESD-GOV-001-T16 / 记录 9 · OPS §2–4",
+      "ESD-GOV-001-T16 / 记录 10 · OPS §5–7",
+      "ESD-GOV-001-T16 / 记录 11 · OPS §8–10",
+      "ESD-GOV-001-T16 / 记录 12 · OPS §11–13",
+      "ESD-GOV-001-T16 / 记录 13 · OPS §14–16",
+      "ESD-GOV-001-T16 / 记录 14 · OPS §17–18",
+      "ESD-GOV-001-T16 / 记录 15 · OPS §19–20",
+      "ESD-GOV-001-T16 / 记录 16 · OPS §21–24"
+    ]
+  },
+  {
+    "table": "ESD-GOV-001-T17",
+    "section": "ESD-GOV-001-4c2fae940a186545",
+    "section_title": "10.4.3 未编号正文、模板与 Gate 的归属",
+    "layout": "records",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "来源",
+      "处理规则",
+      "对应控制入口"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "来源",
+        "value": "SUITE §3–12 的规范控制语句"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "处理规则",
+        "value": "按文档版本和段落定位登记；只在规范维护、引用、发布或声明行为发生时适用"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "GOV-REQ-007/008/016/026；必要时保留独立段落控制 ID"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "来源",
+        "value": "METHOD §4–14 的通用义务"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "处理规则",
+        "value": "根据性质、状态、资源或证据主题关联领域要求；无等价领域条款时保留独立段落记录，不遗漏原义务"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "GOV 的责任、ASSURANCE 的主张证据、OPS 的运行控制"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "来源",
+        "value": "REFERENCE §3–12 的阶段和 Gate 条件"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "处理规则",
+        "value": "是默认执行剖面；采用时逐条件映射其权威条款，重复项复用同一评估，不要求重复材料"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "GOV-REQ-017–020、ASSUR-REQ-039、OPS-REQ-061/062"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "来源",
+        "value": "REFERENCE §13 模板"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "处理规则",
+        "value": "必需语义由权威规范决定，格式可裁剪；示例填充值不是 Evidence"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "GOV-REQ-017"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "来源",
+        "value": "GOV §9.2、§19–21"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "处理规则",
+        "value": "Exception、符合性与 Gate 字段分别映射身份、授权、范围、期限与事实分类"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "GOV-REQ-018/021/022/026/029"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "来源",
+        "value": "ASSURANCE §5.1、§6.2、§11.1、§28–31"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "处理规则",
+        "value": "Claim、Assumption、Evidence 字段绑定各自唯一状态域；缺失关键字段不得默认成功"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "ASSUR-REQ-001/003/012–014/023–026/043"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "来源",
+        "value": "OPS 服务、SLO、资源、备份、恢复与发布契约模板"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "处理规则",
+        "value": "字段是否强制按引入正文的“必须/至少”与实际前提判定，不把所有占位符一律强制"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "OPS-REQ-011/016/023–026/032/037–040/061"
+      },
+      {
+        "row": 8,
+        "column": 1,
+        "label": "来源",
+        "value": "说明、反例、参考资料、案例数值和建议路线"
+      },
+      {
+        "row": 8,
+        "column": 2,
+        "label": "处理规则",
+        "value": "标注 INFORMATIVE，不生成独立强制项；明确采用的项目合同除外"
+      },
+      {
+        "row": 8,
+        "column": 3,
+        "label": "对应控制入口",
+        "value": "保留来源，不伪造符合性结论"
+      }
+    ],
+    "row_text": [
+      "ESD-GOV-001-T17 / 记录 1 · SUITE §3–12 的规范控制语句来源SUITE §3–12 的规范控制语句处理规则按文档版本和段落定位登记；只在规范维护、引用、发布或声明行为发生时适用对应控制入口GOV-REQ-007/008/016/026；必要时保留独立段落控制 ID",
+      "ESD-GOV-001-T17 / 记录 2 · METHOD §4–14 的通用义务来源METHOD §4–14 的通用义务处理规则根据性质、状态、资源或证据主题关联领域要求；无等价领域条款时保留独立段落记录，不遗漏原义务对应控制入口GOV 的责任、ASSURANCE 的主张证据、OPS 的运行控制",
+      "ESD-GOV-001-T17 / 记录 3 · REFERENCE §3–12 的阶段和 Gate 条件来源REFERENCE §3–12 的阶段和 Gate 条件处理规则是默认执行剖面；采用时逐条件映射其权威条款，重复项复用同一评估，不要求重复材料对应控制入口GOV-REQ-017–020、ASSUR-REQ-039、OPS-REQ-061/062",
+      "ESD-GOV-001-T17 / 记录 4 · REFERENCE §13 模板来源REFERENCE §13 模板处理规则必需语义由权威规范决定，格式可裁剪；示例填充值不是 Evidence对应控制入口GOV-REQ-017",
+      "ESD-GOV-001-T17 / 记录 5 · GOV §9.2、§19–21来源GOV §9.2、§19–21处理规则Exception、符合性与 Gate 字段分别映射身份、授权、范围、期限与事实分类对应控制入口GOV-REQ-018/021/022/026/029",
+      "ESD-GOV-001-T17 / 记录 6 · ASSURANCE §5.1、§6.2、§11.1、§28–31来源ASSURANCE §5.1、§6.2、§11.1、§28–31处理规则Claim、Assumption、Evidence 字段绑定各自唯一状态域；缺失关键字段不得默认成功对应控制入口ASSUR-REQ-001/003/012–014/023–026/043",
+      "ESD-GOV-001-T17 / 记录 7 · OPS 服务、SLO、资源、备份、恢复与发布契约模板来源OPS 服务、SLO、资源、备份、恢复与发布契约模板处理规则字段是否强制按引入正文的“必须/至少”与实际前提判定，不把所有占位符一律强制对应控制入口OPS-REQ-011/016/023–026/032/037–040/061",
+      "ESD-GOV-001-T17 / 记录 8 · 说明、反例、参考资料、案例数值和建议路线来源说明、反例、参考资料、案例数值和建议路线处理规则标注 INFORMATIVE，不生成独立强制项；明确采用的项目合同除外对应控制入口保留来源，不伪造符合性结论"
+    ],
+    "record_titles": [
+      "ESD-GOV-001-T17 / 记录 1 · SUITE §3–12 的规范控制语句",
+      "ESD-GOV-001-T17 / 记录 2 · METHOD §4–14 的通用义务",
+      "ESD-GOV-001-T17 / 记录 3 · REFERENCE §3–12 的阶段和 Gate 条件",
+      "ESD-GOV-001-T17 / 记录 4 · REFERENCE §13 模板",
+      "ESD-GOV-001-T17 / 记录 5 · GOV §9.2、§19–21",
+      "ESD-GOV-001-T17 / 记录 6 · ASSURANCE §5.1、§6.2、§11.1、§28–31",
+      "ESD-GOV-001-T17 / 记录 7 · OPS 服务、SLO、资源、备份、恢复与发布契约模板",
+      "ESD-GOV-001-T17 / 记录 8 · 说明、反例、参考资料、案例数值和建议路线"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T01",
+    "section": "ESD-ASSURANCE-001-cc66291a88d22591",
+    "section_title": "工程保证论证、证据与裁决规范",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-ASSURANCE-001",
+      "版本2.0.0-draft.1（基于 1.0.0）",
+      "状态DRAFT / NORMATIVE DOMAIN；未获发布批准",
+      "规范角色定义如何提出可裁决主张、组织论证、评价证据、处理反证并支持 Gate 决策",
+      "语义基础ESD-METHOD-001《优秀系统设计与工程保证方法论》",
+      "治理基础ESD-GOV-001《系统设计与工程保证治理及符合性规范》",
+      "执行参考ESD-REFERENCE-001《优秀系统设计：从约束、不变量到证据》",
+      "权威格式本 Markdown 文件；PDF 与其他导出仅为阅读视图"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T02",
+    "section": "ESD-ASSURANCE-001-21c04b2eeeb431f7",
+    "section_title": "摘要",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "层次",
+      "示例状态"
+    ],
+    "row_text": [
+      "验证执行PASS / FAIL / ERROR / SKIPPED",
+      "证据结论SUPPORTS / CONTRADICTS / INCONCLUSIVE / NOT_APPLICABLE",
+      "证据生命周期CURRENT / STALE / INVALIDATED / SUPERSEDED / NOT_REPRODUCIBLE",
+      "Gate 裁决GO / CONDITIONAL_GO / NO_GO / UNKNOWN / NOT_APPLICABLE"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T03",
+    "section": "ESD-ASSURANCE-001-1c40f90ccf8938b9",
+    "section_title": "2. 核心术语",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "定义"
+    ],
+    "row_text": [
+      "Claim关于特定对象、作用域和条件下应成立性质、具有明确验证义务的陈述",
+      "Top-level ClaimAssurance Case 最终试图支持的系统级结论",
+      "Subclaim为支持上层 Claim 而分解出的较小主张",
+      "Context解释 Claim、Argument 或 Evidence 含义所需的背景事实",
+      "Assumption论证成立所依赖、可被证伪并可能失效的外部条件",
+      "Argument说明 Evidence 与子主张为何足以支持 Claim 的推理结构",
+      "Strategy对 Claim 的分解方式，例如按故障类别、边界、性质或运行模式分解",
+      "Evidence能支持、反驳或限制 Claim 的可追溯事实或制品",
+      "Counterevidence与 Claim 相冲突或削弱现有论证的证据",
+      "Defeater若成立会使 Argument 失效或显著减弱的条件、反例或替代解释",
+      "Mechanism系统中用于维持某项性质的控制、协议、约束或实现",
+      "Verification Activity用于生成或评价 Evidence 的分析、测试、检查、证明或演练",
+      "Evidence EnvelopeEvidence 所绑定的主体、环境、范围、版本、覆盖、限制和时效",
+      "Residual Risk在当前控制和 Evidence 后仍被接受或保持未知的风险",
+      "Assurance CaseClaim、Argument、Evidence、Assumption、Defeater 和 Decision 的版本化结构",
+      "Evidence Bundle为特定 Gate 或发布收集的不可混淆证据集合及清单",
+      "Decision-gradeEvidence 和 Argument 达到当前风险与裁决所需的质量，而非“证据很多”"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T04",
+    "section": "ESD-ASSURANCE-001-9d31db68ef355173",
+    "section_title": "Liveness Claim",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "性质",
+      "违反/支持义务",
+      "有限观测的边界"
+    ],
+    "row_text": [
+      "Safety明确有限坏前缀或违反事件；在模型内可检查可达性单个反例可反驳，未发现反例不等于全域证明",
+      "有界活性在规定前提下定义起点、截止时间、完成 Oracle超时可反驳对应有界 Claim",
+      "无界活性形式化进展性质；论证公平调度、持续资源、依赖可用性与恢复进展有限时间未完成不直接反驳“最终完成”；模型中的无限反例或进展证明须保留模型前提",
+      "SLO明确统计总体、窗口、样本、估计方法及不确定性不能从有限样本外推未覆盖流量与未来窗口"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T05",
+    "section": "ESD-ASSURANCE-001-0a48cf41bcc931a7",
+    "section_title": "7.2 常用分解策略",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Strategy",
+      "适用场景"
+    ],
+    "row_text": [
+      "按关键性质Safety、Liveness、Durability、Security 分解",
+      "按状态转换CREATE、PROCESS、COMMIT、ACK、RECOVER 分解",
+      "按故障类别crash、timeout、partition、resource exhaustion、operator error",
+      "按边界producer、broker、worker、store、consumer",
+      "按运行模式NORMAL、DEGRADED、DRAINING、RECOVERY、EMERGENCY",
+      "按租户/区域多租户隔离、多区域故障域",
+      "按生命周期build、deploy、operate、migrate、retire"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T06",
+    "section": "ESD-ASSURANCE-001-a37e6321b554fa21",
+    "section_title": "8.1 Defeater 类型",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "示例"
+    ],
+    "row_text": [
+      "适用性 Defeater测试环境不是生产架构",
+      "身份 DefeaterEvidence 来自旧 commit",
+      "覆盖 Defeater未覆盖写成功但超时的结果未知窗口",
+      "代表性 Defeater基准只使用小对象和干净数据",
+      "工具 Defeater静态分析器对相关语言特性不支持",
+      "组合 DefeaterA/B 单独通过，但 mixed-version 边界未测试",
+      "运行 Defeater输入分布已经超出验证范围",
+      "组织 Defeater手工步骤无稳定 Owner，无法重复执行"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T07",
+    "section": "ESD-ASSURANCE-001-338c8df4cf367b32",
+    "section_title": "9.1 Evidence 类型",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "类型",
+      "示例",
+      "主要优势",
+      "常见边界"
+    ],
+    "row_text": [
+      "DESIGNADR、协议说明、状态机解释意图与语义不能证明实现符合",
+      "STATIC类型检查、lint、静态分析、依赖扫描可重复、覆盖广仅检查已建模规则",
+      "FORMAL模型检查、定理证明、协议验证对模型范围内强抽象与实现映射可能不足",
+      "UNIT单元测试、单元级 mutation 测试快、可定位环境与组合覆盖有限",
+      "PROPERTY属性生成、性质驱动测试探索输入与不变量受生成器、Oracle 与采样范围限制",
+      "INTEGRATION跨组件契约和故障测试验证边界语料和环境仍可能不代表生产",
+      "SYSTEM端到端、性能、恢复、soak代表真实组合成本高、覆盖仍有限",
+      "SECURITYthreat model、SAST/DAST、渗透、权限审计关注攻击面时效和环境敏感",
+      "OPERATIONALSLI、审计、生产 invariant、事件真实运行事实缺少反事实，未观测不等于不存在",
+      "RECOVERYrestore、replay、DR、game day验证恢复能力需与生产规模和依赖匹配",
+      "REVIEW专家评审、独立挑战发现未编码风险主观、需记录依据",
+      "PROVENANCE构建证明、签名、digest、SBOM建立对象身份链不证明业务语义正确"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T08",
+    "section": "ESD-ASSURANCE-001-e35fc2b2db389c80",
+    "section_title": "10.1 质量维度",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "关键问题"
+    ],
+    "row_text": [
+      "Relevance与 Claim 的逻辑关系是否直接？",
+      "Validity方法是否真正测量了声称测量的性质？",
+      "Provenance来源、生成过程和责任主体是否清楚？",
+      "Subject Binding是否绑定当前制品、配置和环境？",
+      "Reproducibility能否在受控条件下重新产生？",
+      "Representativeness语料、负载和环境是否代表目标使用？",
+      "Coverage覆盖了哪些状态、故障、版本和边界？",
+      "Freshness当前系统变化后是否仍有效？",
+      "IntegrityEvidence 是否防篡改、可验证、未静默修改？",
+      "Independence生成和评价是否具备风险匹配的独立性？",
+      "Limitations未覆盖和方法弱点是否显式？",
+      "Actionability失败时是否能定位、阻断或触发响应？"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T09",
+    "section": "ESD-ASSURANCE-001-ab07cdc3fd8c4c0d",
+    "section_title": "12.1 Verification Execution Status",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "PASS验证活动按定义执行，断言未被违反",
+      "FAIL验证活动执行且发现违反",
+      "ERROR工具、环境或基础设施错误，未得到有效性质结果",
+      "SKIPPED验证未执行或被有意跳过"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T10",
+    "section": "ESD-ASSURANCE-001-74357a57668c168f",
+    "section_title": "12.2 Evidence Conclusion",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "SUPPORTS在声明覆盖内为 Claim 提供支持",
+      "CONTRADICTS为 Claim 的违反或关键反例提供证据",
+      "INCONCLUSIVE不能合理支持或反驳 Claim",
+      "NOT_APPLICABLE经论证与该 Claim 无关"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T11",
+    "section": "ESD-ASSURANCE-001-f5c3beab96453ead",
+    "section_title": "12.3 Evidence Lifecycle Status",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "CURRENT当前仍在声明有效范围内",
+      "STALE时间或环境变化使代表性下降，需要复审",
+      "INVALIDATED已知变化使 Evidence 不再适用",
+      "SUPERSEDED被更新的 Evidence 替代，仍保留历史",
+      "NOT_REPRODUCIBLE无法按声明方法重新产生"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T12",
+    "section": "ESD-ASSURANCE-001-c8260e796eddef19",
+    "section_title": "14.2 验证方法选择",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "目标",
+      "适合方法"
+    ],
+    "row_text": [
+      "类型和结构约束编译器、类型系统、Schema、静态分析",
+      "广泛输入性质Property-based、fuzz、mutation",
+      "并发和协议模型检查、线性化测试、故障注入",
+      "边界契约Contract、integration、mixed-version test",
+      "资源上界压力、soak、限流、故障降容测试",
+      "恢复crash-window、restore、replay、DR 演练",
+      "安全Threat Model、权限负向测试、扫描、渗透",
+      "生产适用性canary、shadow、runtime invariant、SLI"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T13",
+    "section": "ESD-ASSURANCE-001-77c93bfaa149006e",
+    "section_title": "18.3 按风险等级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "风险",
+      "Assurance 最低深度"
+    ],
+    "row_text": [
+      "R0可逆实验假设、数据边界、硬上限和退出证据",
+      "R1关键 Claim、基础动态 Evidence、Owner Review、生产观察",
+      "R2完整 Assurance Matrix、多样 Evidence、代表性环境、故障与恢复验证",
+      "R3独立评价、Defeater Register、工具资格、组合保证、持续漂移与严格证据完整性"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T14",
+    "section": "ESD-ASSURANCE-001-2a8c4e8ee361e303",
+    "section_title": "19.1 Claim Status",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "SUPPORTED当前 Argument 与 Evidence 足以支持声明范围内的 Claim",
+      "CONDITIONALLY_SUPPORTED仅在明确限定的前提、对象或范围内有充分 Argument 与 Evidence 支持；该限定须作为 Claim 的可审计组成部分",
+      "CONTRADICTED存在足以反驳 Claim 的 Evidence",
+      "UNKNOWNEvidence 或 Argument 不足",
+      "NOT_APPLICABLE经论证与当前对象无关"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T15",
+    "section": "ESD-ASSURANCE-001-c47b54e84e79d77f",
+    "section_title": "26.1 角色",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "责任"
+    ],
+    "row_text": [
+      "Claim Owner定义并维护 Claim 及违反语义",
+      "Evidence Producer执行验证并生成原始 Evidence",
+      "Evidence Custodian保证存储、完整性、保留和访问",
+      "Assurance Author构建 Argument 和 Evidence 映射",
+      "Assurance Reviewer挑战充分性、Defeater、覆盖和时效",
+      "Decision Authority接受剩余风险并作 Gate 决策",
+      "Tool Owner维护验证器能力、版本和已知限制",
+      "Operational Owner维护 Runtime Evidence 和 drift 响应"
+    ]
+  },
+  {
+    "table": "ESD-ASSURANCE-001-T16",
+    "section": "ESD-ASSURANCE-001-d46b01e7813dd215",
+    "section_title": "29. Verification & Evidence Matrix 模板",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Property / Claim",
+      "Mechanism",
+      "Verification",
+      "Oracle",
+      "Environment / Corpus",
+      "Evidence ID",
+      "Conclusion",
+      "Lifecycle",
+      "Limitations",
+      "Owner"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Property / Claim",
+        "value": "CP-001"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Mechanism",
+        "value": "Conditional commit"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Verification",
+        "value": "Crash-window test"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Oracle",
+        "value": "Single manifest per identity"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Environment / Corpus",
+        "value": "Target-like"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Evidence ID",
+        "value": "EVD-001"
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Conclusion",
+        "value": "SUPPORTS"
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "label": "Lifecycle",
+        "value": "CURRENT"
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "label": "Limitations",
+        "value": "No region partition"
+      },
+      {
+        "row": 1,
+        "column": 10,
+        "label": "Owner",
+        "value": "Team A"
+      }
+    ],
+    "row_text": [
+      "ESD-ASSURANCE-001-T16 / 记录 1 · CP-001Property / ClaimCP-001MechanismConditional commitVerificationCrash-window testOracleSingle manifest per identityEnvironment / CorpusTarget-likeEvidence IDEVD-001ConclusionSUPPORTSLifecycleCURRENTLimitationsNo region partitionOwnerTeam A"
+    ],
+    "record_titles": [
+      "ESD-ASSURANCE-001-T16 / 记录 1 · CP-001"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T01",
+    "section": "ESD-OPS-001-3341ffdff161853a",
+    "section_title": "生产就绪与运行韧性标准",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "文档属性",
+      "内容"
+    ],
+    "row_text": [
+      "文档编号ESD-OPS-001",
+      "版本2.0.0-draft.1（基于 1.0.0）",
+      "状态DRAFT / NORMATIVE DOMAIN；未获发布批准",
+      "规范角色定义生产准入、SLO、运行模式、容量、发布、恢复、值班和持续韧性要求",
+      "方法论基础ESD-METHOD-001《优秀系统设计与工程保证方法论》",
+      "治理基础ESD-GOV-001《系统设计与工程保证治理及符合性规范》",
+      "证据基础ESD-ASSURANCE-001《工程保证论证、证据与裁决规范》",
+      "权威格式本 Markdown 文件；派生 PDF 或门户页面不构成独立规范"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T02",
+    "section": "ESD-OPS-001-6708ca77520a4611",
+    "section_title": "3.3 生产依赖清单",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "字段",
+      "内容"
+    ],
+    "row_text": [
+      "Dependency服务、存储、网络、身份、Schema、人员流程等",
+      "Owner依赖责任主体",
+      "Contract成功、错误、超时、容量、版本和支持边界",
+      "Criticality阻断、可降级、可缓存、可绕行",
+      "Failure mode慢、不可用、错误、旧数据、权限拒绝等",
+      "Detection如何识别依赖异常",
+      "Fallback降级、隔离、重试、缓存或停止",
+      "Recovery谁恢复、多久、如何验证"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T03",
+    "section": "ESD-OPS-001-56009a745fbf9283",
+    "section_title": "4.2 状态含义",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "状态",
+      "含义"
+    ],
+    "row_text": [
+      "PRE_PRODUCTION尚未承载正式业务结果",
+      "LIMITED_PRODUCTION仅在 Change Envelope 内承载有限范围",
+      "GENERAL_PRODUCTION具备声明范围内的常规生产资格",
+      "READINESS_SUSPENDED因事故、漂移、证据失效或 Owner 缺失暂时失去扩展/发布资格",
+      "RECOVERY_ONLY只允许恢复、对账、排空或必要维修操作",
+      "DEPRECATED禁止新依赖接入，维持退出期运行",
+      "RETIRED生产流量、状态和权限已安全移除"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T04",
+    "section": "ESD-OPS-001-c974bc25e11885de",
+    "section_title": "6.1 Operating Mode Contract",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Allowed",
+      "Forbidden",
+      "Entry",
+      "Exit",
+      "Signals",
+      "Authority"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Mode",
+        "value": "NORMAL"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "Allowed",
+        "value": "正常读写和发布"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "绕过控制"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "Entry",
+        "value": "所有前置满足"
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "Exit",
+        "value": "依赖/资源异常"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Signals",
+        "value": "SLO、invariant"
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Authority",
+        "value": "Operator"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "Mode",
+        "value": "DEGRADED"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "Allowed",
+        "value": "有界降级"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "未声明语义变化"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "Entry",
+        "value": "依赖或容量下降"
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "Exit",
+        "value": "恢复验证"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Signals",
+        "value": "degradation flag"
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "label": "Authority",
+        "value": "Owner"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "Mode",
+        "value": "READ_ONLY"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "Allowed",
+        "value": "查询和恢复"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "新写入"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "Entry",
+        "value": "写路径不安全"
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "Exit",
+        "value": "写路径验证"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Signals",
+        "value": "write gate"
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "label": "Authority",
+        "value": "Authority"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "Mode",
+        "value": "DRAINING"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "Allowed",
+        "value": "完成已接纳工作"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "新准入"
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "Entry",
+        "value": "发布/维护"
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "Exit",
+        "value": "inflight=0"
+      },
+      {
+        "row": 4,
+        "column": 6,
+        "label": "Signals",
+        "value": "queue/inflight"
+      },
+      {
+        "row": 4,
+        "column": 7,
+        "label": "Authority",
+        "value": "Operator"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "Mode",
+        "value": "RECOVERY"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "Allowed",
+        "value": "replay/reconcile/repair"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "非必要功能"
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "Entry",
+        "value": "故障后"
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "Exit",
+        "value": "恢复 Gate"
+      },
+      {
+        "row": 5,
+        "column": 6,
+        "label": "Signals",
+        "value": "recovery metrics"
+      },
+      {
+        "row": 5,
+        "column": 7,
+        "label": "Authority",
+        "value": "Incident/Owner"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "Mode",
+        "value": "QUARANTINE"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "Allowed",
+        "value": "保存异常对象"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "猜测处理"
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "Entry",
+        "value": "输入未知/损坏"
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "Exit",
+        "value": "人工或新规则"
+      },
+      {
+        "row": 6,
+        "column": 6,
+        "label": "Signals",
+        "value": "quarantine age"
+      },
+      {
+        "row": 6,
+        "column": 7,
+        "label": "Authority",
+        "value": "Owner"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "Mode",
+        "value": "EMERGENCY"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "Allowed",
+        "value": "最小保命操作"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "Forbidden",
+        "value": "常规变更"
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "Entry",
+        "value": "严重事故"
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "Exit",
+        "value": "补偿复审"
+      },
+      {
+        "row": 7,
+        "column": 6,
+        "label": "Signals",
+        "value": "audit trail"
+      },
+      {
+        "row": 7,
+        "column": 7,
+        "label": "Authority",
+        "value": "Break-glass Authority"
+      }
+    ],
+    "row_text": [
+      "ESD-OPS-001-T04 / 记录 1 · NORMALModeNORMALAllowed正常读写和发布Forbidden绕过控制Entry所有前置满足Exit依赖/资源异常SignalsSLO、invariantAuthorityOperator",
+      "ESD-OPS-001-T04 / 记录 2 · DEGRADEDModeDEGRADEDAllowed有界降级Forbidden未声明语义变化Entry依赖或容量下降Exit恢复验证Signalsdegradation flagAuthorityOwner",
+      "ESD-OPS-001-T04 / 记录 3 · READ_ONLYModeREAD_ONLYAllowed查询和恢复Forbidden新写入Entry写路径不安全Exit写路径验证Signalswrite gateAuthorityAuthority",
+      "ESD-OPS-001-T04 / 记录 4 · DRAININGModeDRAININGAllowed完成已接纳工作Forbidden新准入Entry发布/维护Exitinflight=0Signalsqueue/inflightAuthorityOperator",
+      "ESD-OPS-001-T04 / 记录 5 · RECOVERYModeRECOVERYAllowedreplay/reconcile/repairForbidden非必要功能Entry故障后Exit恢复 GateSignalsrecovery metricsAuthorityIncident/Owner",
+      "ESD-OPS-001-T04 / 记录 6 · QUARANTINEModeQUARANTINEAllowed保存异常对象Forbidden猜测处理Entry输入未知/损坏Exit人工或新规则Signalsquarantine ageAuthorityOwner",
+      "ESD-OPS-001-T04 / 记录 7 · EMERGENCYModeEMERGENCYAllowed最小保命操作Forbidden常规变更Entry严重事故Exit补偿复审Signalsaudit trailAuthorityBreak-glass Authority"
+    ],
+    "record_titles": [
+      "ESD-OPS-001-T04 / 记录 1 · NORMAL",
+      "ESD-OPS-001-T04 / 记录 2 · DEGRADED",
+      "ESD-OPS-001-T04 / 记录 3 · READ_ONLY",
+      "ESD-OPS-001-T04 / 记录 4 · DRAINING",
+      "ESD-OPS-001-T04 / 记录 5 · RECOVERY",
+      "ESD-OPS-001-T04 / 记录 6 · QUARANTINE",
+      "ESD-OPS-001-T04 / 记录 7 · EMERGENCY"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T05",
+    "section": "ESD-OPS-001-5b67facf9c720a23",
+    "section_title": "8.1 Resource Budget",
+    "layout": "records",
+    "task": "template",
+    "selection": "default",
+    "headers": [
+      "资源",
+      "单位",
+      "正常上限",
+      "故障上限",
+      "满载行为",
+      "Owner",
+      "Signal"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "资源",
+        "value": "inflight requests/files"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "单位",
+        "value": "count"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "label": "满载行为",
+        "value": "reject/backpressure"
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "资源",
+        "value": "inflight bytes"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "label": "满载行为",
+        "value": "block/admission stop"
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "资源",
+        "value": "queue"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "单位",
+        "value": "items/bytes"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "label": "满载行为",
+        "value": "shed/defer"
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "资源",
+        "value": "memory working set"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes"
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 5,
+        "label": "满载行为",
+        "value": "stop admission"
+      },
+      {
+        "row": 4,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 4,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "资源",
+        "value": "connections"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "单位",
+        "value": "count"
+      },
+      {
+        "row": 5,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 5,
+        "label": "满载行为",
+        "value": "queue/reject"
+      },
+      {
+        "row": 5,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 5,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "资源",
+        "value": "retries"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "单位",
+        "value": "attempts/time"
+      },
+      {
+        "row": 6,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 5,
+        "label": "满载行为",
+        "value": "fail final"
+      },
+      {
+        "row": 6,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 6,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "资源",
+        "value": "staging"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "单位",
+        "value": "bytes/objects"
+      },
+      {
+        "row": 7,
+        "column": 3,
+        "label": "正常上限",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 4,
+        "label": "故障上限",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 5,
+        "label": "满载行为",
+        "value": "cleanup/quarantine"
+      },
+      {
+        "row": 7,
+        "column": 6,
+        "label": "Owner",
+        "value": ""
+      },
+      {
+        "row": 7,
+        "column": 7,
+        "label": "Signal",
+        "value": ""
+      }
+    ],
+    "row_text": [
+      "ESD-OPS-001-T05 / 记录 1 · inflight requests/files资源inflight requests/files单位count正常上限故障上限满载行为reject/backpressureOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 2 · inflight bytes资源inflight bytes单位bytes正常上限故障上限满载行为block/admission stopOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 3 · queue资源queue单位items/bytes正常上限故障上限满载行为shed/deferOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 4 · memory working set资源memory working set单位bytes正常上限故障上限满载行为stop admissionOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 5 · connections资源connections单位count正常上限故障上限满载行为queue/rejectOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 6 · retries资源retries单位attempts/time正常上限故障上限满载行为fail finalOwnerSignal",
+      "ESD-OPS-001-T05 / 记录 7 · staging资源staging单位bytes/objects正常上限故障上限满载行为cleanup/quarantineOwnerSignal"
+    ],
+    "record_titles": [
+      "ESD-OPS-001-T05 / 记录 1 · inflight requests/files",
+      "ESD-OPS-001-T05 / 记录 2 · inflight bytes",
+      "ESD-OPS-001-T05 / 记录 3 · queue",
+      "ESD-OPS-001-T05 / 记录 4 · memory working set",
+      "ESD-OPS-001-T05 / 记录 5 · connections",
+      "ESD-OPS-001-T05 / 记录 6 · retries",
+      "ESD-OPS-001-T05 / 记录 7 · staging"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T06",
+    "section": "ESD-OPS-001-e814063bcb0814bc",
+    "section_title": "11.1 回滚类型",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "内容"
+    ],
+    "row_text": [
+      "Binary rollback恢复旧二进制",
+      "Configuration rollback恢复旧配置/策略",
+      "Traffic rollback将流量移回旧路径",
+      "Data rollback恢复旧数据状态，通常最危险",
+      "Protocol rollback回到旧协议/Schema",
+      "Forward recovery保留新状态，通过修复继续前进"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T07",
+    "section": "ESD-OPS-001-b4d7d450f617bcae",
+    "section_title": "13.1 定义",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "时间点",
+      "含义"
+    ],
+    "row_text": [
+      "t0目标业务能力开始中断",
+      "t_detected被监测或人员发现",
+      "t_decided决定启动恢复",
+      "t_restored技术组件恢复可服务",
+      "t_validated业务 Oracle 确认目标能力与数据状态恢复"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T08",
+    "section": "ESD-OPS-001-54f4a1430ec3f3b9",
+    "section_title": "13.3 演练等级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "等级",
+      "内容"
+    ],
+    "row_text": [
+      "Tabletop角色和决策路径演练",
+      "Component Restore单组件恢复",
+      "Partial Failover有限流量/租户切换",
+      "Full Technical Failover整体技术切换，可能非权威",
+      "Business DR Exercise业务、数据、沟通和回切全链路"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T09",
+    "section": "ESD-OPS-001-669eb9a39f3d8147",
+    "section_title": "15.2 操作分级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "要求"
+    ],
+    "row_text": [
+      "Safe read-only diagnostic广泛可用，最小权限",
+      "Routine mutation自动化、幂等、审计、受限范围",
+      "High-risk mutation双人/审批、预检查、Change Envelope",
+      "Emergency mutationbreak-glass、最小期限、全量审计"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T10",
+    "section": "ESD-OPS-001-7026276bb8e71392",
+    "section_title": "20.1 验证层级",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "层级",
+      "示例"
+    ],
+    "row_text": [
+      "Componentcrash、timeout、disk full、dependency errors",
+      "Integrationbroker/store/identity 边界故障",
+      "System端到端过载、混合版本、恢复",
+      "OperationalRunbook、on-call、权限、沟通",
+      "Disaster区域/控制面/凭据/数据恢复"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T11",
+    "section": "ESD-OPS-001-d780ae12942746cf",
+    "section_title": "24. 按风险等级的最低运行要求",
+    "layout": "matrix",
+    "task": "matrix",
+    "selection": "explicit",
+    "headers": [
+      "能力",
+      "R0",
+      "R1",
+      "R2",
+      "R3"
+    ],
+    "row_text": [
+      "退出/删除条件必须必须必须必须",
+      "业务完成语义关键项必须必须必须",
+      "SLI/SLO可选基础完整完整 + 独立审查",
+      "Operational Owner可选必须必须必须",
+      "运行模式最小核心完整完整 + 权限控制",
+      "Resource Bounds硬上限必须完整完整 + 故障降容",
+      "On-call不适用按需必须必须 + 演练",
+      "Recovery Drill可选核心恢复必须周期性完整演练",
+      "Change Envelope首次暴露重大变更必须必须 + 自动停止",
+      "DR不适用按业务必须评估必须验证",
+      "Evidence Bundle最小基础完整完整 + 独立评价",
+      "Incident Assurance Delta可选重大事故必须必须"
+    ]
+  },
+  {
+    "table": "ESD-OPS-001-T12",
+    "section": "ESD-OPS-001-852a5f87a781462f",
+    "section_title": "26. Operating Mode Contract 模板",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "Mode",
+      "Purpose",
+      "Allowed",
+      "Forbidden",
+      "Entry Criteria",
+      "Exit Criteria",
+      "Signals",
+      "Authority",
+      "Runbook"
+    ],
+    "cells": [],
+    "row_text": [],
+    "record_titles": []
+  }
+]

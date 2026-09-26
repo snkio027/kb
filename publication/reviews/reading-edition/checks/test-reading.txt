@@ -1,0 +1,11 @@
+test_adapter_does_not_change_experiment_bytes (__main__.ReadingTests.test_adapter_does_not_change_experiment_bytes) ... ok
+test_density_does_not_change_body_or_code_fonts (__main__.ReadingTests.test_density_does_not_change_body_or_code_fonts) ... ok
+test_head_mutation_is_rejected (__main__.ReadingTests.test_head_mutation_is_rejected) ... ok
+test_lua_preserves_code_and_emits_tail_contract (__main__.ReadingTests.test_lua_preserves_code_and_emits_tail_contract) ... ok
+test_semantic_corpus_has_no_physical_page_identity (__main__.ReadingTests.test_semantic_corpus_has_no_physical_page_identity) ... ok
+test_tail_mutation_is_rejected (__main__.ReadingTests.test_tail_mutation_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.428s
+
+OK

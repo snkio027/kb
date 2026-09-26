@@ -18,10 +18,17 @@ def adapt(ast, source, text):
             'status': 'ACCEPTED CONTENT / PILOT PDF', 'subtitle': 'Professional Handbook · 阅读试件', 'owner': ''}
     aliases, semantic, output = {}, [], []
     current = None
+    lab, pending_file = None, None
     for i, block in enumerate(blocks):
         if block['t'] == 'Header':
             current = block['c'][1][0]
         if block['t'] != 'RawBlock':
+            if block['t'] == 'CodeBlock' and pending_file:
+                if not lab:
+                    raise RuntimeError('experiment file without lab identity')
+                block['c'][0][2].extend([['reading-kind', 'experiment'],
+                    ['reading-caption', lab['id'] + ' · ' + pending_file['path']]])
+                pending_file = None
             output.append(block)
             continue
         format_, value = block['c']
@@ -45,6 +52,12 @@ def adapt(ast, source, text):
         elif format_ == 'html' and re.fullmatch(r'<!-- h-(lab|file) .*? -->\s*', value, re.S):
             kind, payload = re.fullmatch(r'<!-- h-(lab|file) (.*?) -->\s*', value, re.S).groups()
             payload = json.loads(payload)
+            if kind == 'lab':
+                lab = payload
+            else:
+                if pending_file:
+                    raise RuntimeError('unconsumed experiment file identity')
+                pending_file = payload
             semantic.append({'kind': kind, 'payload': payload,
                              'disposition': 'NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained'})
         else:
