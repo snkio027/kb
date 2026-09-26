@@ -1,6 +1,8 @@
 # Reading Edition Finalization
 
-目标：**Publication Visual Profile v1.0 Freeze Candidate**。基于 `783c7d3b9b6a1e4f715a960c18e687604143f98b`，仅定稿出版组件与验证；不是新的技术基线或正式发布。
+当前状态：**ACCEPTED / VISUAL_PROFILE_FROZEN v1.0**，接受的视觉实现为 `1c11c5940c05fe29c46c4500935d5efb673d46a7`。
+
+历史交付目标为 **Publication Visual Profile v1.0 Freeze Candidate**，以 `783c7d3b9b6a1e4f715a960c18e687604143f98b` 为修改前基线。2026-09-27 用户在明确区分这两个版本后选择“最新”，据此登记接受 `1c11c59`，不是冻结旧版 `783c7d3`。本次仅接受登记，不构成新的技术执行证据或正式发布。
 
 ## 审核入口
 
@@ -11,7 +13,37 @@
 - [最终回归记录](final-checks/checks.json)：实际执行命令、输出摘要与受保护文件比较。
 - [C++ 预览入口](cpp-handbook/output/README.md)、[ESD 预览入口](esd/output/README.md)：最终阅读文件及对应原始源副本。
 
-`STRUCTURAL_PASS` 只表示已定义的结构／几何信号通过；`VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL` 表示实际页图自查。二者不得合写为“全部出版验收通过”。本目录供集中审核，尚不宣告独立评审或 `VISUAL_PROFILE_FROZEN`。
+`STRUCTURAL_PASS` 只表示已定义的结构／几何信号通过；`VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL` 表示实际页图自查。二者不得合写为“全部出版验收通过”。视觉冻结依据后续用户接受决定；原候选 JSON、PDF 内候选标记与自查记录保留生成时身份，不伪造新的独立评审或全页人工验收。
+
+## 接受登记（2026-09-27）
+
+| 对象 | 当前状态 |
+| --- | --- |
+| KB Publication System v2 | STABLE |
+| Reading Edition Typography & Pagination | ACCEPTED |
+| ESD Publication Visual Profile | FROZEN v1.0 |
+| C++ Handbook Publication Visual Profile | FROZEN v1.0 |
+| Semantic Visual Regression Corpus | BASELINE，绑定 `1c11c59` 的 corpus 与制品清单 |
+| Current visual implementation | `1c11c5940c05fe29c46c4500935d5efb673d46a7` |
+| Markdown 技术正文与实验源码 | UNCHANGED |
+| 历史 dist、历史 PDF 与本批 12 份 PDF | UNCHANGED，本次不重建 |
+| Formal Publication | NOT RELEASED |
+
+接受范围是现有 ESD 阅读产品和 C++ G6/G7 Pilot 体现的视觉规则；不提前认定该规则已通过 G0–G12 全书验证。既有 93 项回归和 50 张最终页图自查仍属于 `1c11c59` 的本地历史证据，不因接受登记变成重新执行、CI 或新的独立审阅。
+
+本次登记实际运行 `python3 -B publication/reviews/reading-finalization/verify-review.py` 与 `git diff --check`，均通过：3 份维护 Markdown 解析、15 个本地文件链接、12 份既有 PDF 及导出摘要绑定、429 个受保护文件核对。相对 `1c11c59` 的差异仅为本文件、`publication/README.md` 与 `visual-profile.md`；脚本、profile 配置、corpus、所有 PDF 和原始证据未改。本次没有执行构建、93 项回归重跑或新的视觉抽查。
+
+## 已知非阻塞视觉限制
+
+以下作为 **known non-blocking visual limitations** 接受，不定义为未完成架构或内容缺陷：
+
+- 章节开场、目录结尾、Final Gate 分界和完整收尾单元仍可能有较多留白；局部收尾规则不保证所有未来内容都没有短尾页。
+- G7 Gate 保留源稿独立表达式／问号格式。局部问题单元的节奏并非每处都达到理想状态，不为此重写冻结正文。
+- 极长无分隔 token 仍允许应急字符折行；四级断点不保证所有字符串都落在最佳语义边界，各阅读器复制缩进也未认证。
+- 长空模板续页已有 38 字段真实编译回归，但任意字段高度、任意内容规模与全书场景未穷举；可手写空值线不是交互式表单。
+- 代表页自查不是 780 页全部逐页人工验收；未检查区域可能仍有局部密度、标签或分页瑕疵，不将这些可能性登记为已复现缺陷。
+
+下表列出的危险身份绑定、Record 首行对齐、指定短尾页、空模板组件和标签简化已有定向修复与证据，不能统一改写为“仍未修复但接受”。危险身份消失、正文或代码截断、链接指错、表格语义破坏、严重不可读仍是 blocker，不受上述非阻塞接受覆盖。
 
 ## 本次处理
 
@@ -73,4 +105,6 @@ python3 -B publication/reviews/reading-finalization/verify-review.py
 
 ## 停止边界
 
-本批候选交付后停止，不进行第三轮非阻塞美化，不自动进入全书构建。集中审核通过后再登记视觉 profile 冻结；后续一般审美增强进入 backlog，内容、身份、历史制品安全或基本可读性 blocker 除外。
+本次接受登记后停止。不进行 Typography / Pagination Pass 3、不增加 Balanced / Compact 比较、不重构 Publication Engine；一般审美增强进入 backlog，内容、身份、历史制品安全或基本可读性 blocker 除外。
+
+下一阶段为 G0–G12 Full Handbook Build，但本次不启动。届时只验证冻结规则在全书中的结构、代表页、导航、书签和跨章引用是否成立，不借全量构建重新设计排版；Publication Candidate 与正式发布决策仍分开。

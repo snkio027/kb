@@ -1,4 +1,6 @@
-# Publication Visual Profile v1.0 — Freeze Candidate
+# Publication Visual Profile v1.0 — FROZEN
+
+2026-09-27 用户确认接受最新视觉实现 `1c11c5940c05fe29c46c4500935d5efb673d46a7`。本文件登记冻结状态，不修改该实现、制品或原始检查记录；接受范围与已知非阻塞限制见[接受登记](README.md)。
 
 适用：ESD 六篇及合订阅读版；C++ G6/G7 独立版及合订试件。Balanced 与 Compact 共用字体、页边距和语义组件，只保留既有密度差异。Markdown 是事实源，出版标记不写回冻结正文。
 
@@ -51,8 +53,8 @@ STRUCTURAL_PASS
 VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL
         ↓
 Publication Visual Profile v1.0 Freeze Candidate
-        ↓ 集中审核接受后
+        ↓ 用户于 2026-09-27 接受最新 1c11c59
 VISUAL_PROFILE_FROZEN v1.0
 ```
 
-组件政策和两个产品的 profile 作为同一候选接受，不把系统架构稳定、正文冻结、视觉冻结、正式发布混为一种状态。正式发布仍为 `NOT RELEASED`；全 G0–G12 出版另行启动。
+组件政策和两个产品的 profile 作为同一视觉基线接受，不把系统架构稳定、正文冻结、视觉冻结、正式发布混为一种状态。原 `STRUCTURAL_PASS` 与自查标签不改写为独立验证；普通留白、偶发短尾和局部折行不触发再设计，真正 blocker 仍须处理。正式发布仍为 `NOT RELEASED`；全 G0–G12 出版另行启动。
