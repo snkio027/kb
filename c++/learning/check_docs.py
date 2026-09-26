@@ -63,8 +63,8 @@ def main():
             elif url.fragment and destination.suffix == '.md':
                 if unquote(url.fragment) not in parse(destination)[3]:
                     errors.append(f'{path.relative_to(ROOT)}: missing anchor {target}')
-        # Editorial Profile v1.0 applies to G0–G7; PDF is not rendered here.
-        if path.parent == CPP and re.match(r'g0[0-7]-', path.name):
+        # Editorial Profile v1.0 applies to G0–G9; PDF is not rendered here.
+        if path.parent == CPP and re.match(r'g0[0-9]-', path.name):
             if sum(header[0] == 1 for header in headers) != 1:
                 errors.append(f'{path.name}: expected exactly one H1')
             previous = 0
@@ -92,7 +92,7 @@ def main():
                 if line.startswith('```'):
                     if start is None:
                         start, language = index, line[3:]
-                        if language == 'cpp':
+                        if language in {'cpp', 'c'}:
                             context = '\n'.join(lines[max(0, index - 7):index])
                             if not re.search(r'\[(?:完整实验|机制片段|反例)', context):
                                 errors.append(f'{path.name}:{index + 1}: missing visible code identity')
@@ -129,7 +129,7 @@ def main():
                         if not next_content or (following and len(following[1]) <= level):
                             errors.append(f'{path.name}:{index + 1}: heading without content')
     print(json.dumps({'markdown_files': len(paths), 'local_links': links,
-                      'upgraded_hierarchy_files': 8, 'errors': errors,
+                      'upgraded_hierarchy_files': 10, 'errors': errors,
                       'pdf': 'NOT BUILT / NOT VALIDATED',
                       'source_risks': source_risks},
                      ensure_ascii=False, indent=2))

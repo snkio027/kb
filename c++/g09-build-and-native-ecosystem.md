@@ -1,334 +1,106 @@
-# C++ Systems Track · G9 Build & Native Ecosystem
-
-**Version:** 1.0  
-**Status:** Complete / Frozen Review Baseline  
-**Language Baseline:** C++23  
-**Tooling Baseline:** Modern CMake 4.x / Clang / Ninja / CTest / clangd / clang-tidy / Sanitizers  
-**Prerequisites:** G0–G8  
-**Scope:** Build Graph / Targets / Usage Requirements / CMake / Presets / Toolchains / Dependency Discovery / Package Managers / Install & Export / C++ Modules / PCH / Unity / LTO / Sanitizers / Testing / Cross Compilation / Packaging / Developer Tooling  
-**Purpose:** 建立从 **C++ source tree** 到 **可重复、可安装、可消费、可发布的 native artifacts** 的完整工程模型。
-
-截至当前官方文档，CMake 的最新稳定文档线为 **4.4.x**；本章采用当前 modern target-based CMake 模型，而不是历史上的全局 flag / directory-based CMake 写法。:chatgpt-content-reference{index="0"}
-
----
-
-# 0. G9 的定位
-
-到 G8 为止，我们已经知道：
-
-```text
-source
-  ↓
-translation unit
-  ↓
-compiler
-  ↓
-object file
-  ↓
-linker
-  ↓
-library / executable
-  ↓
-loader
-```
+# G9 · 构建、打包与原生生态
 
-但真实工程中，不可能手工维护：
+**版本：** 1.1 · Professional Handbook Edition
 
-```bash
-clang++ -I... -D... -c a.cpp
-clang++ -I... -D... -c b.cpp
-ar ...
-clang++ ...
-```
+**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
 
-尤其当系统出现：
+**语言与工具基线：** C++23；完整 CMake 实验声明最低 3.28，实测版本另记。
 
-```text
-多个 library
-多个 executable
-测试
-代码生成
-第三方依赖
-不同 OS
-不同 CPU
-Debug / ASan / Release
-安装
-打包
-交叉编译
-```
-
-以后。
-
-G9 要解决的是：
-
-> **怎样把我们已经学会的 compilation/link/artifact relationships，转化为一张可维护、可移植、可复现的 Build Graph。**
-
----
-
-# 1. 最重要的认知：CMake 不是 Compiler
-
-CMake 不是：
-
-```text
-compiler
-linker
-package manager
-test framework
-```
-
-它更接近：
-
-> **Build-system generator + build-graph configuration system**
-
-例如：
-
-```text
-CMake
-  ↓ generate
-Ninja build graph
-  ↓ execute
-Clang compiler/linker
-  ↓
-binary artifacts
-```
-
-所以：
-
-```text
-CMakeLists.txt
-```
-
-不是直接：
-
-> “告诉 CPU 怎么构建”。
-
-而是在描述：
-
-```text
-Targets
-Dependencies
-Properties
-Usage Requirements
-Install Rules
-```
-
-CMake 再把这些信息映射给：
-
-```text
-Ninja
-Make
-Visual Studio
-Xcode
-...
-```
+**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)
 
-等 generator/backend。
+## 阅读入口
 
----
+本章的问题是：库在自己的仓库能构建，为什么安装后另一项目仍不能使用？先读 §1～7 建立 target、配置与包的模型，以 §18 的完整实验走通安装消费；再按实际问题阅读模块、工具、交叉编译和构建成本。后三类不是未执行就自动通过的功能清单。
 
-# 2. Build System 的本质是 Artifact Graph
+首次出现的核心术语在主线中解释；代码标为机制片段时不承诺独立编译。只有完整实验标记纳入执行器。原稿的编号主题通过 `g9-topic-N` 锚点映射到对应主题组；新章节按工程问题组织，不再逐项复制数十个 Part。原稿的 Complete / Frozen 不沿用为技术验收。
 
-假设：
+- [1. 构建图与三棵目录树](#g9-section-1)
+- [2. Target 与依赖传播](#g9-section-2)
+- [3. 产物类型、语言要求与文件集](#g9-section-3)
+- [4. 构建阶段与生成器](#g9-section-4)
+- [5. 预设、工具链与交叉编译](#g9-section-5)
+- [6. 依赖发现与供应策略](#g9-section-6)
+- [7. 安装、导出与包配置](#g9-section-7)
+- [8. 代码生成与模块依赖](#g9-section-8)
+- [9. 构建优化、告警与检测配置](#g9-section-9)
+- [10. 开发工具、测试与加载路径](#g9-section-10)
+- [11. 项目组织与安装库示例](#g9-section-11)
+- [12. 构建反模式](#g9-section-12)
+- [13. 可复现性、矩阵与构建成本](#g9-section-13)
+- [14. 工程配置的五层职责](#g9-section-14)
+- [15. 实践路线与验证选择](#g9-section-15)
+- [16. 常见误判](#g9-section-16)
+- [17. C++、Zig 与 Rust 生态对照](#g9-section-17)
+- [18. 完整实验：安装消费与生成依赖](#g9-section-18)
+- [19. 构建复核协议](#g9-section-19)
+- [20. Final Gate](#g9-section-20)
+- [21. Final Gate · 参考答案与常见误判](#g9-section-21)
+- [22. 工程原则与全链回查](#g9-section-22)
+- [23. 参考资料与验证边界](#g9-section-23)
 
-```text
-core.cpp
-decoder.cpp
-main.cpp
-```
+<a id="g9-section-1"></a>
 
-真正关系：
+<a id="g9-topic-0"></a>
+<a id="g9-topic-1"></a>
+<a id="g9-topic-2"></a>
+<a id="g9-topic-3"></a>
+<a id="g9-topic-4"></a>
+<a id="g9-topic-5"></a>
+<a id="g9-topic-6"></a>
+<a id="g9-topic-7"></a>
 
-```text
-core.cpp
-   │
-   ▼
-core.o
-   │
-   ├───────────┐
-   ▼           │
-libcore.a      │
-   │           │
-decoder.cpp    │
-   │           │
-   ▼           │
-decoder.o      │
-   │           │
-   └─────┬─────┘
-         ▼
-    libdecoder.a
-         │
-main.cpp │
-   │     │
-   ▼     │
-main.o   │
-   └──┬──┘
-      ▼
-   executable
-```
+## 1. 构建图与三棵目录树
 
-因此 Build System 真正管理：
+### 1.1 CMake、后端与编译器的职责
 
-```text
-Nodes
-=
-artifacts
+CMake 配置项目并生成后端构建描述，不是 C++ 编译器，也不是完整包管理器。Ninja、Make 或 IDE 后端执行依赖图，编译器驱动编译、汇编和链接工具。CMakeLists 描述目标、输入、依赖、属性、使用要求及安装规则，而非逐行复述 shell 命令。
 
-Edges
-=
-dependencies
-```
+产物图中的边表示生成依赖或使用关系，不等于字节包含关系。静态库依赖另一静态库时，普通 archive 不自动嵌入依赖对象；最终链接仍须解析这些符号。G9-P1 让 core PRIVATE 依赖 helper，由消费者验证 CMake 是否保留必要链接关系。
 
-这就是 G0 的：
+### 1.2 源码、构建和安装是三种视图
 
-> Build System = Artifact Graph
+源码树保存维护入口，包括公开头文件、实现、测试、配置模板与生成输入。构建树保存缓存、后端规则、编译数据库、对象和产物，应与源码分开，并可由记录的输入重新生成。清理前要核对具体路径及其中是否含手工材料，不把宽泛递归删除作为通用教程命令。
 
-正式工程化。
+安装树才是另一项目得到的接口：头文件、库、可执行工具、包配置与导入目标。仓库内构建成功可能依赖源码路径、缓存或全局设置；它不证明安装包完整。学习闭环应是 configure → build → test → 临时安装 → 独立 find_package → link → run。迁移前缀和隐藏原生产者路径，可以暴露一部分偶然依赖。
 
----
+<a id="g9-section-2"></a>
 
-# Part I · Source Tree / Build Tree / Install Tree
+<a id="g9-topic-8"></a>
+<a id="g9-topic-9"></a>
+<a id="g9-topic-10"></a>
+<a id="g9-topic-11"></a>
+<a id="g9-topic-12"></a>
+<a id="g9-topic-13"></a>
+<a id="g9-topic-14"></a>
+<a id="g9-topic-15"></a>
+<a id="g9-topic-16"></a>
+<a id="g9-topic-17"></a>
+<a id="g9-topic-18"></a>
+<a id="g9-topic-19"></a>
 
-# 3. 三棵树必须严格分开
+## 2. Target 与依赖传播
 
-现代 CMake 工程最好形成：
+### 2.1 Target 表达需求的归属
 
-```text
-Source Tree
-Build Tree
-Install Tree
-```
+构建目标（target）是现代 CMake 的核心对象：可包含产物、源码、编译定义/选项、语言要求、链接依赖、可见性、PIC 与头文件/模块集合。使用要求（usage requirements）描述消费者编译、链接或使用该目标需要什么，不只是一条 linker 参数。
 
-三层。
+例如 decoder 的公开头文件引用 fmt 类型，消费者也必须理解它；该依赖应进入公开接口。若 fmt 仅用于实现文件，编译接口通常可以保持私有。先从 C++ 接口事实推导 scope，再检查实际链接需求，不靠“这是公开库”猜 PUBLIC。
 
----
+### 2.2 PRIVATE、PUBLIC 与 INTERFACE
 
-# 4. Source Tree
+PRIVATE 给目标自身使用；PUBLIC 同时给自身和消费者；INTERFACE 只描述消费者的需求。纯头文件库常用 INTERFACE 表达 include、特性和依赖，但三者都不是发布权限标记。
 
-例如：
+静态目标没有完成最终链接。PRIVATE bar 不会把 bar 的普通编译要求传播给消费者，却仍可能保留仅链接依赖，常见表达为 LINK_ONLY。包导出可能需要包含 bar 或在 Config 中找到它，不能因为 PRIVATE 就删掉。G9-P1 同时检查 helper 宏对 core 可见、对消费者不可见，以及最终链接确实解析 helper。[链接传播规则](https://cmake.org/cmake/help/v4.4/command/target_link_libraries.html)。
 
-```text
-project/
-├── CMakeLists.txt
-├── cmake/
-├── include/
-├── src/
-├── tests/
-└── examples/
-```
+### 2.3 将配置附着到最小负责目标
 
-Source tree 是：
+全局 include_directories、CMAKE_CXX_FLAGS 字符串拼接和 link_directories 容易制造目录级隐式状态，污染第三方依赖和消费者。优先使用 target_include_directories、target_compile_options、target_compile_definitions 和实际/导入目标。
 
-> version-controlled source of truth。
+目录级配置并非语言上非法；问题是它往往不能清楚说明需求归属。已有 Foo::Foo 时优先消费目标，避免退回裸库名搜索；绝对库路径也不是完整依赖模型，因为它未描述头文件、定义、标准模式与传递库。
 
-不应该被 compiler outputs 污染。
+**机制示意。** 不要把 CMake 理解成“设置一堆变量”；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
----
-
-# 5. Build Tree
-
-例如：
-
-```text
-build/
-├── CMakeCache.txt
-├── CMakeFiles/
-├── compile_commands.json
-├── src/
-├── tests/
-└── artifacts...
-```
-
-这是：
-
-> derived state。
-
-应当可以：
-
-```bash
-rm -rf build
-```
-
-然后完整重新生成。
-
-这叫：
-
-> **Out-of-source Build**
-
-应该作为默认。
-
----
-
-# 6. Install Tree
-
-例如：
-
-```text
-prefix/
-├── bin/
-├── lib/
-├── include/
-└── lib/cmake/MyLib/
-```
-
-这是：
-
-> 另一个项目真正消费你时看到的 representation。
-
-非常重要：
-
-```text
-Build Tree
-≠
-Install Tree
-```
-
-一个库：
-
-> 在当前 repo 能编译，
-
-并不意味着：
-
-> install 后真的能被另一个项目正确 `find_package()`。
-
----
-
-# 7. 一个成熟 Library 必须测试 Install Tree
-
-典型闭环：
-
-```text
-configure
-↓
-build
-↓
-test
-↓
-install to temporary prefix
-↓
-configure separate consumer
-↓
-find_package(MyLib)
-↓
-link MyLib::MyLib
-↓
-run
-```
-
-这才能证明：
-
-> package 本身可消费。
-
----
-
-# Part II · Target：Modern CMake 的核心对象
-
-# 8. 不要把 CMake 理解成“设置一堆变量”
-
-Modern CMake 的核心是：
-
-> **Target**
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 add_library(vehicle_core
@@ -345,559 +117,46 @@ target_link_libraries(vehicle_app
 )
 ```
 
-这里最重要的是：
+<a id="g9-section-3"></a>
 
-```text
-vehicle_core
-vehicle_app
-```
+<a id="g9-topic-20"></a>
+<a id="g9-topic-21"></a>
+<a id="g9-topic-22"></a>
+<a id="g9-topic-23"></a>
+<a id="g9-topic-24"></a>
+<a id="g9-topic-25"></a>
+<a id="g9-topic-26"></a>
+<a id="g9-topic-27"></a>
+<a id="g9-topic-28"></a>
+<a id="g9-topic-29"></a>
+<a id="g9-topic-30"></a>
+<a id="g9-topic-31"></a>
+<a id="g9-topic-32"></a>
+<a id="g9-topic-33"></a>
 
-是 graph nodes。
+## 3. 产物类型、语言要求与文件集
 
----
+### 3.1 选择正确产物类型
 
-# 9. Target 携带 Properties
+STATIC 生成对象归档；SHARED 生成可正常链接并在运行时加载的共享库；MODULE 通常供动态加载，不作为普通 target_link_libraries 依赖。OBJECT 复用已编译对象而不先归档，适用于特定组合需求，不宜机械替代普通库。
 
-例如一个 target 可以拥有：
+INTERFACE 目标通常不产生普通库二进制，但可携带使用要求、头文件和导出信息；带源或文件集时仍可能出现在构建图。ALIAS 提供命名空间形式的本地别名，帮助构建树与安装树消费名称接近；别名自身不是安装产物，实际目标导出名称要保持一致。
 
-```text
-sources
-include directories
-compile features
-compile definitions
-compile options
-link dependencies
-link options
-visibility
-PIC
-module sets
-header sets
-```
+### 3.2 语言模式与头文件集合
 
-因此应该理解：
+target_compile_features(core PUBLIC cxx_std_23) 让 CMake 选择相应编译器的标准模式参数；它声明模式下限，不检查所有 C++23 库设施已实现。公开头文件使用 expected 等类型时，消费者也需要语言和库支持；Concepts 本身是 C++20，不能据“现代特性”统称为 C++23 要求。
 
-```text
-Target
-=
-Artifact
-+
-Build Requirements
-+
-Usage Requirements
-```
+CXX_STANDARD_REQUIRED 可在采用标准属性时防止模式降级；CXX_EXTENSIONS NO 请求不使用对应扩展模式，但不是禁用所有实现扩展的静态审计。HEADERS 文件集明确公开头文件成员、基目录和安装关系，比与目标无关的整目录安装更容易维护。
 
----
+### 3.3 生成器表达式与两种接口
 
-# 10. 为什么 Target Model 强？
+生成器表达式（generator expression）在生成及相关构建上下文求值，不是普通 configure-time 变量。含空格、分号或换行的表达式须按规则作为完整参数引用；为了排版把未引用表达式拆成多段，会改变 CMake 参数解析。
 
-假设：
+BUILD_INTERFACE 可使用源码/构建路径，INSTALL_INTERFACE 应相对安装前缀表达自身公开目录，不固化依赖库在开发机的位置。本批完整实例用 HEADERS 文件集维护路径关系。复杂条件可以先组织变量，但不应把每一条普通配置逻辑都写成嵌套表达式迷宫。[生成器表达式指南](https://cmake.org/cmake/help/v4.4/manual/cmake-generator-expressions.7.html)。
 
-```text
-app
-↓
-decoder
-↓
-fmt
-```
+**机制示意。** Header 不只是“手工 install 一个目录”；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-如果 decoder public header 本身使用 fmt：
-
-```cpp
-#include <fmt/format.h>
-```
-
-那么：
-
-> app 也需要能够找到 fmt headers。
-
-现代 CMake 可以沿 target dependency graph 自动传播这个 requirement。
-
-官方文档也明确指出，`target_link_libraries()` 不只是“调用 linker”，而是在描述 target relationships 和 usage requirements。:chatgpt-content-reference{index="1"}
-
----
-
-# Part III · `PRIVATE / PUBLIC / INTERFACE`
-
-这是 Modern CMake 最重要的三个词。
-
----
-
-# 11. `PRIVATE`
-
-```cmake
-target_link_libraries(foo
-    PRIVATE
-        bar
-)
-```
-
-表示：
-
-```text
-foo itself needs bar
-
-but
-
-foo's consumers
-do not inherit bar as a usage requirement
-```
-
-可以理解：
-
-```text
-implementation dependency
-```
-
----
-
-# 12. `PUBLIC`
-
-```cmake
-target_link_libraries(foo
-    PUBLIC
-        bar
-)
-```
-
-表示：
-
-```text
-foo needs bar
-
-AND
-
-foo consumers also need bar
-```
-
-即：
-
-```text
-implementation requirement
-+
-interface requirement
-```
-
----
-
-# 13. `INTERFACE`
-
-```cmake
-target_link_libraries(foo
-    INTERFACE
-        bar
-)
-```
-
-表示：
-
-```text
-foo itself does not consume bar
-
-but
-
-consumers of foo need bar
-```
-
-最常见：
-
-> header-only abstraction。
-
-官方文档把这三者直接定义为 target property/usage-requirement 的传播规则。:chatgpt-content-reference{index="2"}
-
----
-
-# 14. 最准确的判断方法
-
-不要问：
-
-> “这是 public dependency 还是 private dependency？”
-
-先问 C++：
-
-> **我的 public interface 是否要求 consumer 理解这个 dependency？**
-
-例如：
-
-```cpp
-// foo.hpp
-#include <bar/type.hpp>
-
-class Foo {
-public:
-    bar::Type value() const;
-};
-```
-
-那么：
-
-```text
-bar
-```
-
-泄漏进 Foo source interface。
-
-通常：
-
-```cmake
-target_link_libraries(foo
-    PUBLIC
-        bar::bar
-)
-```
-
----
-
-# 15. 如果只在 `.cpp` 使用
-
-```cpp
-// foo.cpp
-#include <bar/bar.hpp>
-```
-
-Public header完全不知道 Bar。
-
-那么：
-
-```cmake
-target_link_libraries(foo
-    PRIVATE
-        bar::bar
-)
-```
-
-更合理。
-
-所以：
-
-> **PUBLIC / PRIVATE / INTERFACE 是 source abstraction boundary 在 build graph 中的投影。**
-
----
-
-# Part IV · Target-scoped Configuration
-
-# 16. Avoid Global Include Directories
-
-历史式：
-
-```cmake
-include_directories(
-    include
-    third_party/foo/include
-)
-```
-
-把 include path 隐式施加给：
-
-```text
-当前目录
-+
-子目录中大量 targets
-```
-
-依赖关系变得模糊。
-
-优先：
-
-```cmake
-target_include_directories(core
-    PUBLIC
-        ...
-)
-```
-
----
-
-# 17. Avoid Global Compile Flags
-
-历史：
-
-```cmake
-set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-```
-
-问题：
-
-```text
-字符串拼接
-跨 compiler 差异
-污染所有 targets
-不表达 usage relationship
-难以组合
-```
-
-现代：
-
-```cmake
-target_compile_options(core
-    PRIVATE
-        ...
-)
-```
-
----
-
-# 18. Avoid `link_directories()`
-
-不要：
-
-```cmake
-link_directories(/some/path)
-target_link_libraries(app foo)
-```
-
-让 linker靠名字搜索。
-
-优先：
-
-```text
-Imported Target
-or
-real CMake Target
-```
-
-例如：
-
-```cmake
-find_package(Foo CONFIG REQUIRED)
-
-target_link_libraries(app
-    PRIVATE
-        Foo::Foo
-)
-```
-
----
-
-# 19. 核心原则
-
-> **Every build requirement should attach to the narrowest target that actually owns that requirement.**
-
-这就是 target-based CMake 的纪律。
-
----
-
-# Part V · Library Target Types
-
-# 20. `STATIC`
-
-```cmake
-add_library(core STATIC ...)
-```
-
-生成：
-
-```text
-.a
-.lib
-```
-
-archive。
-
----
-
-# 21. `SHARED`
-
-```cmake
-add_library(core SHARED ...)
-```
-
-生成：
-
-```text
-.so
-.dylib
-.dll
-```
-
-对应动态 library。
-
----
-
-# 22. `MODULE`
-
-```cmake
-add_library(plugin MODULE ...)
-```
-
-更接近：
-
-> 动态加载 plugin，
-
-而不是正常作为 dependent target 链接使用的 shared library。
-
----
-
-# 23. `OBJECT`
-
-```cmake
-add_library(core_objects OBJECT
-    a.cpp
-    b.cpp
-)
-```
-
-生成：
-
-```text
-a.o
-b.o
-```
-
-但不先 archive/link成普通 library。
-
-适合非常特定：
-
-```text
-reuse same compiled objects
-special artifact composition
-```
-
-场景。
-
-不要把它作为普通 library 默认。
-
----
-
-# 24. `INTERFACE`
-
-```cmake
-add_library(project_options INTERFACE)
-```
-
-不生成真正 library artifact。
-
-它代表：
-
-> 一组 Usage Requirements。
-
-官方 current CMake 文档明确规定 interface library 可以携带 `INTERFACE_*` properties、headers 和 install/export metadata，而无需生成 library artifact。:chatgpt-content-reference{index="3"}
-
----
-
-# 25. Alias Target
-
-```cmake
-add_library(MyProject::core
-    ALIAS
-    core
-)
-```
-
-非常适合让 build-tree usage 与 installed package usage 接近：
-
-```text
-MyProject::core
-```
-
-名字具有：
-
-```text
-namespace-like
-```
-
-语义。
-
----
-
-# Part VI · Compile Features
-
-# 26. 不要把 C++ Standard 当裸 Flag
-
-不推荐：
-
-```cmake
-target_compile_options(core
-    PRIVATE
-        -std=c++23
-)
-```
-
-因为：
-
-```text
-GNU/Clang/MSVC flags differ
-```
-
-优先：
-
-```cmake
-target_compile_features(core
-    PUBLIC
-        cxx_std_23
-)
-```
-
-或者 target properties：
-
-```cmake
-set_target_properties(core PROPERTIES
-    CXX_STANDARD 23
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
-)
-```
-
----
-
-# 27. 为什么 `cxx_std_23` 可以是 `PUBLIC`？
-
-如果 public headers 使用：
-
-```cpp
-std::expected
-std::mdspan
-concepts
-```
-
-consumer 编译这些 headers 也必须使用：
-
-> C++23-capable mode。
-
-因此：
-
-```cmake
-target_compile_features(core
-    PUBLIC
-        cxx_std_23
-)
-```
-
-是一个真正 Usage Requirement。
-
----
-
-# 28. `CXX_EXTENSIONS NO`
-
-建议明确：
-
-```cmake
-CXX_EXTENSIONS NO
-```
-
-意味着倾向：
-
-```text
--std=c++23
-```
-
-而不是 GNU-style：
-
-```text
--std=gnu++23
-```
-
-让项目更靠近标准语言。
-
-除非项目明确依赖 compiler extensions。
-
----
-
-# Part VII · Header Sets
-
-# 29. Header 不只是“手工 install 一个目录”
-
-现代 CMake支持：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 target_sources(core
@@ -910,726 +169,114 @@ target_sources(core
 )
 ```
 
-这样 headers：
+<a id="g9-section-4"></a>
 
-```text
-belong to target
-```
+<a id="g9-topic-34"></a>
+<a id="g9-topic-35"></a>
+<a id="g9-topic-36"></a>
+<a id="g9-topic-37"></a>
+<a id="g9-topic-38"></a>
+<a id="g9-topic-39"></a>
+<a id="g9-topic-40"></a>
+<a id="g9-topic-41"></a>
+<a id="g9-topic-42"></a>
+<a id="g9-topic-43"></a>
 
-而不是：
+## 4. 构建阶段与生成器
 
-```text
-CMake完全不知道的一堆文件
-```
+### 4.1 先定位失败阶段
 
-Current CMake 的 header file sets 可以随 target 一起 install/export。:chatgpt-content-reference{index="4"}
+Configure 处理 CMake 语言、选项、依赖发现、特性探测和目标关系；Generate 将其映射成 Ninja、Make 或 IDE 规则；Build 执行编译、归档、链接和自定义命令。后面还有 test、install 与实际运行加载，各自有不同前提。
 
----
+find_package 找不到配置是配置/发现问题；undefined symbol 通常是链接问题；运行时缺少共享库则已经进入加载器。不要在每种错误下都先改 include path，应该沿 G0 的阶段模型追到对应输入和工具。
 
-# 30. 为什么 File Set 更好？
+### 4.2 单配置与多配置
 
-它知道：
+普通 Ninja、Unix Makefiles 通常一个构建树对应一个配置，通过 CMAKE_BUILD_TYPE 选择。Visual Studio、Xcode 和 Ninja Multi-Config 可在同一构建树中包含多个配置，并在 build/test/install 时选择。
 
-```text
-public header membership
-base directory
-installation relationship
-IDE visibility
-export relationship
-```
+因此到处使用 if(CMAKE_BUILD_TYPE STREQUAL Debug) 不能覆盖全部生成器。配置相关要求采用适当的 target 属性、CONFIG 表达式和命令参数；预设记录支持的调用组合。本批实际运行 Ninja 单配置，不将对多配置模型的说明冒充实测覆盖。
 
-比：
+<a id="g9-section-5"></a>
 
-```cmake
-install(DIRECTORY include/ ...)
-```
+<a id="g9-topic-44"></a>
+<a id="g9-topic-45"></a>
+<a id="g9-topic-46"></a>
+<a id="g9-topic-47"></a>
+<a id="g9-topic-48"></a>
+<a id="g9-topic-49"></a>
+<a id="g9-topic-50"></a>
+<a id="g9-topic-51"></a>
+<a id="g9-topic-52"></a>
+<a id="g9-topic-53"></a>
+<a id="g9-topic-54"></a>
+<a id="g9-topic-55"></a>
+<a id="g9-topic-56"></a>
 
-语义更强。
+## 5. 预设、工具链与交叉编译
 
----
+### 5.1 预设记录工作流，工具链记录目标环境
 
-# Part VIII · Generator Expressions
+CMakePresets.json 宜进入版本控制，描述团队支持的 configure/build/test 等流程；CMakeUserPresets.json 承载个人路径和机器差异，通常不共享。schema 版本按项目最低 CMake 版本选择，而不是每次复制官方示例中最大的数字。
 
-# 31. `$<...>`
+预设名宜表达 dev、san、release 的用途。dev 关注增量构建、调试信息、告警和编辑器；san 关注诊断，不是性能基线；release 关注生产代码生成，但仍可保留符号以便 profile。LTO、assert、可见性和 ABI 选项都应是明确策略，不把 Release 等同于单个 -O3。G9-P2 只实际运行 dev 预设。
 
-CMake 有一套：
+### 5.2 工具链应在探测前确定
 
-> **Generator Expressions**
+Toolchain file 定义编译器、目标架构/系统、sysroot 和交叉环境，须在编译器识别及能力探测前生效。项目是否启用示例、测试或业务特性通常放在项目/预设层，而不是全部塞进工具链。
 
-例如：
+预设回答“如何调用和配置这个项目”，工具链回答“为哪个目标环境构建”。vcpkg 等也可借工具链入口集成发现逻辑，但这不取消两层职责的区别；切换编译器/目标时宜使用独立构建树，避免复用不相容缓存。
 
-```cmake
-target_compile_options(core
-    PRIVATE
-        $<$<CXX_COMPILER_ID:Clang>:
-            -Wall
-            -Wextra
-        >
-)
-```
+### 5.3 交叉构建的两类产物
 
-它们不是普通 configure-time variable。
+代码生成器必须能在构建机运行，目标库/应用则要为目标平台生成。切换编译器路径不足以处理头文件、库、sysroot、find_program/find_library 及依赖包的环境选择。
 
-通常在：
+try_compile 可以检验目标编译，try_run 还需要执行目标程序；交叉构建可能需模拟器、明确预填结果或重新设计探测。不能静默用宿主程序结果替代目标事实。本批没有配置交叉工具链、执行目标程序或验证 host/target 双图，相关路线保留为未运行。
 
-> generate/build configuration context
+<a id="g9-section-6"></a>
 
-中求值。
+<a id="g9-topic-57"></a>
+<a id="g9-topic-58"></a>
+<a id="g9-topic-59"></a>
+<a id="g9-topic-60"></a>
+<a id="g9-topic-61"></a>
+<a id="g9-topic-62"></a>
+<a id="g9-topic-63"></a>
+<a id="g9-topic-64"></a>
+<a id="g9-topic-65"></a>
+<a id="g9-topic-66"></a>
+<a id="g9-topic-67"></a>
+<a id="g9-topic-68"></a>
+<a id="g9-topic-69"></a>
+<a id="g9-topic-70"></a>
+<a id="g9-topic-71"></a>
+<a id="g9-topic-72"></a>
+<a id="g9-topic-73"></a>
+<a id="g9-topic-74"></a>
+<a id="g9-topic-75"></a>
 
----
+## 6. 依赖发现与供应策略
 
-# 32. Build Interface / Install Interface
+### 6.1 发现机制与导入目标
 
-非常重要：
+Module 模式寻找 FindFoo.cmake，由项目、CMake 或其他来源提供查找逻辑，可能依赖启发式路径和版本推断。Config 模式消费包提供的 FooConfig.cmake 等信息，通常更贴近自身目标、组件和依赖；它仍是可执行 CMake 代码，不是安全解析任意不可信数据。
 
-```cmake
-target_include_directories(core
-    PUBLIC
-        $<BUILD_INTERFACE:
-            ${CMAKE_CURRENT_SOURCE_DIR}/include
-        >
-        $<INSTALL_INTERFACE:
-            ${CMAKE_INSTALL_INCLUDEDIR}
-        >
-)
-```
+导入目标（imported target）把已存在的库、include、定义、语言要求和传递依赖表达为 Foo::Foo。消费者尽量通过 find_package(... CONFIG REQUIRED) 加命名空间目标消费，而非拼 FOO_LIBRARIES/INCLUDE_DIRS。CMake 4.4 还描述 CPS 发现能力，其开关和状态须按版本核对；本批只验证传统 Config package。[find_package](https://cmake.org/cmake/help/v4.4/command/find_package.html)。
 
-Build tree：
+### 6.2 获取依赖和使用依赖不是同一层
 
-```text
-repo/include
-```
+FetchContent 可获取并接入源码，使依赖进入同一次配置/构建环境，适合受控的小型源码依赖；它不是完整包管理器。大量依赖共处一个 configure universe，会产生选项冲突、policy 交互和配置成本。
 
-Install tree：
+Conan 2 可通过工具链与依赖配置生成器连接 CMake；CMakeDeps/CMakeConfigDeps 的具体状态要按锁定版本查阅。vcpkg manifest 表达项目依赖并通过相应集成提供发现信息。两者都不应迫使核心 CMakeLists 到处写包管理器分支；理想接口仍是目标和 find_package。本批不下载、不运行这些包管理流程。
 
-```text
-prefix/include
-```
+### 6.3 明确四类供应来源
 
-使用不同路径。
+系统包有操作系统整合和安全更新优势，但版本随发行环境变化；包管理器提供依赖声明和二进制/源码流程，仍需锁定配置；源码接入便于统一构建，但增加共同配置压力；vendor 提供离线控制，也带来更新、仓库规模和许可维护责任。
 
-这正是：
+选择时比较组织的配方、二进制缓存、交叉目标、注册表、发布和 CI 需求，不宣布 Conan/vcpkg 存在普遍赢家。同一项目可合理混用来源，但应规定边界，避免各开发机偶然安装的软件决定构建结果。
 
-> Build Tree ≠ Install Tree
+**机制示意。** `find_package`；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-在 target interface上的表达。
-
----
-
-# 33. Generator Expressions 不要过度使用
-
-如果 CMakeLists充满：
-
-```text
-$<$<AND:$<BOOL:...>,...>:...>
-```
-
-会迅速变成另一种编程语言迷宫。
-
-原则：
-
-> generator expression 用于真正依赖 configuration/generator/target context 的条件，而不是取代正常 CMake structure。
-
----
-
-# Part IX · Configure / Generate / Build
-
-# 34. CMake 有多个阶段
-
-典型：
-
-```bash
-cmake --preset dev
-```
-
-执行：
-
-```text
-Configure
-↓
-Generate
-```
-
-得到 backend graph。
-
-然后：
-
-```bash
-cmake --build --preset dev
-```
-
-让 backend：
-
-```text
-Ninja
-```
-
-真正执行 compile/link。
-
----
-
-# 35. Configure
-
-主要处理：
-
-```text
-CMake language
-project options
-find_package
-feature detection
-target graph
-cache
-```
-
----
-
-# 36. Generate
-
-把 target graph 转换为：
-
-```text
-Ninja files
-Makefiles
-Xcode projects
-Visual Studio projects
-```
-
----
-
-# 37. Build
-
-实际：
-
-```text
-compiler
-assembler
-archiver
-linker
-custom commands
-```
-
-开始执行。
-
----
-
-# 38. 为什么理解阶段很重要？
-
-如果：
-
-```text
-find_package fails
-```
-
-这是：
-
-> configure-time problem。
-
-如果：
-
-```text
-undefined symbol
-```
-
-通常：
-
-> build/link problem。
-
-如果：
-
-```text
-shared library not found at runtime
-```
-
-则已经进入：
-
-> loader/runtime problem。
-
-G0 的 error-phase model在这里继续成立。
-
----
-
-# Part X · Generators
-
-# 39. Ninja
-
-对于 command-line / Clang workflow：
-
-```text
-Ninja
-```
-
-通常是非常优秀的默认：
-
-```text
-fast
-simple
-parallel
-widely supported
-compile_commands friendly
-```
-
-CMake负责：
-
-```text
-generate Ninja graph
-```
-
-Ninja负责：
-
-```text
-execute it
-```
-
----
-
-# 40. IDE Generators
-
-也可以：
-
-```text
-Xcode
-Visual Studio
-```
-
-它们通常属于：
-
-> multi-configuration generators。
-
-理解这个区别非常重要。
-
----
-
-# Part XI · Single-config vs Multi-config
-
-# 41. Single-config
-
-例如典型：
-
-```text
-Ninja
-Unix Makefiles
-```
-
-一个 build tree 通常对应一个：
-
-```text
-Debug
-Release
-RelWithDebInfo
-...
-```
-
-configuration。
-
-常通过：
-
-```text
-CMAKE_BUILD_TYPE
-```
-
-选择。
-
----
-
-# 42. Multi-config
-
-例如：
-
-```text
-Visual Studio
-Xcode
-Ninja Multi-Config
-```
-
-同一个 generated build tree 可以拥有：
-
-```text
-Debug
-Release
-...
-```
-
-多个 configuration。
-
-因此不能在 CMake project里到处假设：
-
-```cmake
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-```
-
-能覆盖所有 generators。
-
----
-
-# 43. 更成熟的方法
-
-优先：
-
-```text
-target properties
-generator expressions
-presets
-```
-
-描述 config-specific requirements。
-
-例如：
-
-```cmake
-target_compile_definitions(core
-    PRIVATE
-        $<$<CONFIG:Debug>:
-            PROJECT_DEBUG_BUILD=1
-        >
-)
-```
-
----
-
-# Part XII · CMake Presets
-
-# 44. Presets 解决什么？
-
-以前 README：
-
-```bash
-cmake -S . -B build \
-  -GNinja \
-  -DCMAKE_BUILD_TYPE=Debug \
-  -DCMAKE_CXX_COMPILER=clang++ \
-  -D...
-```
-
-每个人复制不同 command。
-
-Presets 把：
-
-> supported configure/build/test workflows
-
-变成 version-controlled configuration。
-
-Current CMake presets schema覆盖 configure、build、test、package 和 workflow presets。:chatgpt-content-reference{index="5"}
-
----
-
-# 45. `CMakePresets.json`
-
-应该：
-
-> 提交进 Git。
-
-表示：
-
-```text
-Project-supported build configurations
-```
-
-例如：
-
-```json
-{
-  "version": 10,
-  "configurePresets": [
-    {
-      "name": "dev",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/dev",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": true
-      }
-    }
-  ]
-}
-```
-
-具体 schema version 应根据你要求的最低 CMake 版本选择，
-
-不要机械复制当前最大版本。
-
----
-
-# 46. `CMakeUserPresets.json`
-
-用于：
-
-```text
-developer-local paths
-local toolchains
-machine-specific configuration
-```
-
-通常：
-
-> 不作为团队共享项目配置。
-
-这正好区分：
-
-```text
-project policy
-vs
-local environment
-```
-
----
-
-# 47. 推荐的 Preset 语义
-
-例如：
-
-```text
-dev
-san
-release
-```
-
-而不是：
-
-```text
-elliott-macbook-debug
-company-laptop2
-```
-
-共享 presets描述：
-
-> 用途。
-
-个人 machine差异放：
-
-```text
-UserPresets / toolchain / environment
-```
-
----
-
-# 48. Dev Profile
-
-目标：
-
-```text
-fast incremental build
-debug information
-warnings
-clangd
-tests
-```
-
-不是：
-
-> “所有可能 instrumentation 全开”。
-
----
-
-# 49. Sanitizer Profile
-
-例如：
-
-```text
-ASan
-UBSan
-```
-
-强调：
-
-> correctness diagnostics。
-
-不要作为性能测量 baseline。
-
----
-
-# 50. Release Profile
-
-目标：
-
-```text
-optimization
-NDEBUG where appropriate
-production-like codegen
-possibly IPO/LTO
-```
-
-但仍应考虑：
-
-> symbols / profiling ability。
-
-高质量 production binary不一定意味着：
-
-> 完全没有 debug symbols。
-
----
-
-# Part XIII · Toolchain File
-
-# 51. Toolchain File 解决什么？
-
-> **What toolchain / target platform are we building for?**
-
-典型：
-
-```text
-compiler
-sysroot
-target architecture
-platform
-cross-compilation environment
-```
-
-`CMAKE_TOOLCHAIN_FILE` 在 CMake run 很早阶段就被读取，用于确定 compiler/toolchain/target-platform 信息。:chatgpt-content-reference{index="6"}
-
----
-
-# 52. Preset vs Toolchain
-
-这是必须严格区分的。
-
-## Preset
-
-```text
-How do we invoke/configure this project?
-```
-
-例如：
-
-```text
-dev
-release
-asan
-```
-
----
-
-## Toolchain
-
-```text
-What platform/compiler environment are we targeting?
-```
-
-例如：
-
-```text
-native clang
-aarch64-linux cross compiler
-embedded ARM
-vcpkg toolchain
-```
-
----
-
-# 53. 不要把所有项目 Options 都塞进 Toolchain
-
-Toolchain file应该主要描述：
-
-> toolchain/platform environment。
-
-业务 project options：
-
-```text
-enable tests
-enable examples
-feature X
-```
-
-属于 project/preset 层。
-
----
-
-# Part XIV · Cross Compilation
-
-# 54. Build Machine 与 Target Machine
-
-Cross compile：
-
-```text
-Host:
-macOS arm64
-
-Target:
-Linux aarch64
-```
-
-Compiler运行在 host，
-
-生成：
-
-> target binary。
-
-这会影响：
-
-```text
-find_library
-find_program
-try_run
-code generators
-```
-
----
-
-# 55. Host Tool vs Target Tool
-
-假设 build过程需要：
-
-```text
-code_generator
-```
-
-它必须：
-
-> 在 build host 上运行。
-
-而 library：
-
-```text
-libvehicle.so
-```
-
-是：
-
-> target artifact。
-
-所以 cross build会形成两个不同 artifact worlds：
-
-```text
-Host tools
-Target binaries
-```
-
-这是复杂 native build最容易踩坑的地方之一。
-
----
-
-# 56. `try_compile` vs `try_run`
-
-Cross compile 时：
-
-```text
-compile target program
-```
-
-可能可行。
-
-但：
-
-```text
-run target executable on host
-```
-
-通常不可行。
-
-所以 build logic 不应该无意识依赖：
-
-> configure 时执行 target binaries。
-
----
-
-# Part XV · Dependency Discovery
-
-# 57. `find_package`
-
-CMake希望依赖最终暴露为：
-
-> Imported Targets
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 find_package(fmt CONFIG REQUIRED)
@@ -1640,567 +287,50 @@ target_link_libraries(app
 )
 ```
 
-而不是：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 include_directories(${FMT_INCLUDE_DIR})
 link_libraries(${FMT_LIBRARY})
 ```
 
----
+<a id="g9-section-7"></a>
 
-# 58. Module Mode
+<a id="g9-topic-76"></a>
+<a id="g9-topic-77"></a>
+<a id="g9-topic-78"></a>
+<a id="g9-topic-79"></a>
+<a id="g9-topic-80"></a>
+<a id="g9-topic-81"></a>
+<a id="g9-topic-82"></a>
+<a id="g9-topic-83"></a>
+<a id="g9-topic-84"></a>
+<a id="g9-topic-85"></a>
+<a id="g9-topic-86"></a>
 
-寻找：
+## 7. 安装、导出与包配置
 
-```text
-FindFoo.cmake
-```
+### 7.1 安装、导出、配置各解决什么
 
-这种 Find Module通常：
+安装规则决定产物和公开头文件放在哪里；GNUInstallDirs 提供标准安装目录变量，适应 lib/lib64 等布局策略。install(TARGETS ... EXPORT ...) 把目标归入导出集合，install(EXPORT ...) 生成安装后的目标描述。命名空间名称既便于区分来源，也让不存在的目标更早报错。
 
-> 由 CMake、OS 或消费项目提供，
+包 Config 文件负责准备依赖、载入导出目标和处理组件。configure_package_config_file 帮助形成相对安装前缀的可迁移配置，但不能修复任意手写绝对路径。生产者 include/source/build 路径不应泄漏进公开安装接口；依赖应通过自身目标提供信息。
 
-需要自己猜：
+### 7.2 版本规则与传递依赖
 
-```text
-headers在哪？
-library在哪？
-版本是什么？
-```
+write_basic_package_version_file 生成版本接受策略，SameMajorVersion 是发布者声明的兼容规则，不会自动比较 ABI、符号、布局或语义。G9-P1 实际检查支持的请求能发现包、不支持的主版本被配置诊断拒绝，不把这等同于 G8 的旧二进制升级验证。
 
-Current CMake 文档明确把 Module Mode 描述为较 heuristic、可能过时的 discovery mechanism。:chatgpt-content-reference{index="7"}
+导出目标需要外部 Foo::Foo 时，Config 通常先 include(CMakeFindDependencyMacro)、find_dependency(Foo CONFIG)，再加载自己的 targets。静态 PRIVATE 链接依赖也可能需要，不能只对 PUBLIC 依赖做发现。本批选择把 helper 一并安装导出，避免网络或外部包管理器成为实验前提。
 
----
+### 7.3 迁移后独立消费
 
-# 59. Config Mode
+消费者是另一份 CMake 项目，只通过 Config 包和命名空间目标获得使用要求。实验先安装到临时前缀，再移动前缀、隐藏原生产者源码和构建目录，在新构建树配置消费者，并限制注册表及环境搜索的偶然帮助。
 
-寻找类似：
+这一结果说明本次静态包可独立消费，不说明完全 hermetic、跨机器或逐字节可复现。编译器、SDK、系统库仍来自本机；共享库 RPATH、DLL 搜索、签名和发布事务是其他合同。[包配置辅助模块](https://cmake.org/cmake/help/v4.4/module/CMakePackageConfigHelpers.html)。
 
-```text
-FooConfig.cmake
-foo-config.cmake
-```
+**机制示意。** `install(EXPORT ...)`；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-Current CMake 还支持正在发展的：
-
-```text
-Common Package Specification
-*.cps
-```
-
-package descriptions。:chatgpt-content-reference{index="8"}
-
-Config package通常由：
-
-> package 自己安装。
-
-因此它知道：
-
-```text
-its targets
-components
-usage requirements
-dependencies
-```
-
-Current official docs也指出 Config packages 通常比外部 Find modules 更可靠，因为它们由 package 本身提供直接信息。:chatgpt-content-reference{index="9"}
-
----
-
-# 60. 推荐消费模型
-
-优先：
-
-```cmake
-find_package(Foo CONFIG REQUIRED)
-
-target_link_libraries(app
-    PRIVATE
-        Foo::Foo
-)
-```
-
-而不是拿：
-
-```text
-FOO_INCLUDE_DIRS
-FOO_LIBRARIES
-```
-
-手工拼图。
-
----
-
-# Part XVI · Imported Targets
-
-# 61. Imported Target 是什么？
-
-外部 library：
-
-```text
-已经存在
-```
-
-但 CMake将它建模成正常 target：
-
-```text
-Foo::Foo
-```
-
-它可以携带：
-
-```text
-include dirs
-link library path
-compile definitions
-transitive dependencies
-```
-
-于是 consumer：
-
-```cmake
-target_link_libraries(app PRIVATE Foo::Foo)
-```
-
-就足够。
-
----
-
-# 62. 这是真正的 Dependency Object
-
-不要把 dependency理解成：
-
-```text
-一个 .a 路径
-```
-
-真正依赖可能包括：
-
-```text
-library
-headers
-defines
-other libraries
-system libraries
-compile mode
-```
-
-Imported target把它封装成：
-
-> 一等 build graph node。
-
----
-
-# Part XVII · `FetchContent`
-
-# 63. Source Dependency
-
-另一种策略：
-
-> 在 configure/build ecosystem 内获得 dependency source，并作为 build graph一部分。
-
-CMake提供：
-
-```text
-FetchContent
-```
-
-典型用于：
-
-```text
-small CMake-native dependencies
-tests
-developer tools
-projects where source integration is desired
-```
-
----
-
-# 64. `FetchContent` 不是 Package Manager
-
-它可以：
-
-```text
-download/populate source
-make dependency available
-```
-
-但 package manager通常还负责：
-
-```text
-binary caching
-version graph
-profiles
-compiler/ABI settings
-registries
-package recipes
-```
-
-不要混。
-
----
-
-# 65. `FetchContent` 的一个架构风险
-
-所有 dependency 源码进入同一次 configure/build universe：
-
-```text
-option collisions
-policy interactions
-long configure/build times
-dependency-specific assumptions
-```
-
-所以：
-
-> 大型 dependency graph不应该无脑全部 FetchContent。
-
----
-
-# Part XVIII · Package Manager
-
-# 66. CMake 与 Package Manager 的职责不同
-
-```text
-Package Manager
-↓
-resolve / obtain dependency artifacts
-
-CMake
-↓
-consume them as build graph targets
-```
-
-成熟 integration应该让：
-
-```text
-find_package()
-```
-
-在项目 CMakeLists里保持正常，
-
-而 package manager负责让 package可被发现。
-
----
-
-# 67. Conan 2
-
-Current Conan 2 文档的推荐 CMake flow是：
-
-```text
-Conan install
-↓
-generate toolchain/package config metadata
-↓
-CMake configure
-```
-
-其 `CMakeToolchain` 生成 CMake toolchain 信息；current Conan 文档也已引入更现代的 `CMakeConfigDeps`，作为 `CMakeDeps` 的改进方向。:chatgpt-content-reference{index="10"}
-
-理想项目 CMakeLists仍然写：
-
-```cmake
-find_package(fmt CONFIG REQUIRED)
-
-target_link_libraries(app
-    PRIVATE
-        fmt::fmt
-)
-```
-
-而不是：
-
-```text
-if CONAN ...
-```
-
-到处侵入 build logic。
-
----
-
-# 68. vcpkg
-
-vcpkg 当前官方指南推荐大多数用户采用：
-
-> **Manifest Mode**
-
-即项目内：
-
-```text
-vcpkg.json
-```
-
-声明 direct dependencies，并支持版本/registry 等项目级能力。:chatgpt-content-reference{index="11"}
-
-它通常通过：
-
-```text
-CMAKE_TOOLCHAIN_FILE
-```
-
-集成到 CMake。
-
----
-
-# 69. Conan vs vcpkg 的选择模型
-
-不要问：
-
-> “谁绝对更高级？”
-
-更应该看：
-
-```text
-organization package workflow
-binary cache requirements
-cross compilation
-custom recipes
-dependency ecosystem
-registries
-CI model
-platforms
-```
-
-概念上：
-
-### vcpkg
-
-倾向：
-
-```text
-manifest-centric
-strong Microsoft/CMake integration
-large port ecosystem
-```
-
-### Conan
-
-倾向：
-
-```text
-package recipe/profile model
-complex binary/package configuration
-cross-platform package publishing
-```
-
-两者都可以和现代 CMake target model很好组合。
-
----
-
-# Part XIX · Dependency Policy
-
-# 70. Dependency 的四种来源
-
-可以把依赖粗分：
-
-```text
-System-provided package
-Package-manager package
-Source-integrated dependency
-Vendored source
-```
-
----
-
-# 71. System Package
-
-例如 Linux distro提供。
-
-优点：
-
-```text
-OS integration
-security updates
-```
-
-缺点：
-
-```text
-version variability
-cross-platform reproducibility lower
-```
-
----
-
-# 72. Package Manager
-
-优点：
-
-```text
-version declaration
-reproducibility
-binary/source management
-```
-
-适合大型跨平台工程。
-
----
-
-# 73. FetchContent / Source-integrated
-
-优点：
-
-```text
-simple
-same build universe
-```
-
-适合较小依赖。
-
----
-
-# 74. Vendor
-
-源码直接进入 repo：
-
-```text
-third_party/
-```
-
-优点：
-
-```text
-maximum pinning/control
-offline builds
-```
-
-代价：
-
-```text
-maintenance
-updates
-repo size
-licensing/governance
-```
-
----
-
-# 75. Dependency Policy 应该明确
-
-不要每个开发者随意：
-
-```text
-brew install Foo
-FetchContent Bar
-git submodule Baz
-Conan Qux
-```
-
-同一个项目混成不可复现环境。
-
-应定义：
-
-> 哪类 dependency 通过什么 mechanism 获取。
-
----
-
-# Part XX · Install
-
-# 76. Build Success ≠ Package Success
-
-Library project不应该只做到：
-
-```text
-cmake --build
-```
-
-真正 library lifecycle：
-
-```text
-Build
-↓
-Test
-↓
-Install
-↓
-Consumer
-```
-
----
-
-# 77. `GNUInstallDirs`
-
-不要硬编码：
-
-```cmake
-DESTINATION lib
-DESTINATION include
-```
-
-优先：
-
-```cmake
-include(GNUInstallDirs)
-```
-
-使用：
-
-```text
-CMAKE_INSTALL_BINDIR
-CMAKE_INSTALL_LIBDIR
-CMAKE_INSTALL_INCLUDEDIR
-```
-
-让 distro/package maintainer 能控制 layout。
-
-Current CMake install docs明确建议 package projects使用这些标准 install directory variables。:chatgpt-content-reference{index="12"}
-
----
-
-# 78. Install Target
-
-例如：
-
-```cmake
-install(
-    TARGETS core
-    EXPORT MyProjectTargets
-    FILE_SET HEADERS
-)
-```
-
-意义：
-
-```text
-Install artifact
-+
-Install public headers
-+
-Associate target with export set
-```
-
----
-
-# Part XXI · Export
-
-# 79. Export 的目标
-
-消费项目应该能够：
-
-```cmake
-find_package(MyProject CONFIG REQUIRED)
-
-target_link_libraries(app
-    PRIVATE
-        MyProject::core
-)
-```
-
-而不需要知道：
-
-```text
-library path
-header path
-compiler flags
-transitive dependencies
-```
-
----
-
-# 80. `install(EXPORT ...)`
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 install(
@@ -2211,149 +341,16 @@ install(
 )
 ```
 
-生成：
+**机制示意。** Exported Target 依赖另一个 Package；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-> installed imported-target descriptions。
-
----
-
-# 81. 为什么 Namespace 很重要？
-
-```text
-core
-```
-
-名字过于模糊。
-
-安装后：
-
-```text
-MyProject::core
-```
-
-清楚表达：
-
-> imported target from package MyProject。
-
-而且如果 typo：
-
-```text
-MyProjct::core
-```
-
-CMake可以更早发现 target不存在，
-
-不像裸 linker name可能被悄悄解释成：
-
-```text
--lMyProjct::core
-```
-
-之类的问题。
-
----
-
-# Part XXII · Package Config
-
-# 82. `<Package>Config.cmake`
-
-当 consumer：
-
-```cmake
-find_package(MyProject CONFIG REQUIRED)
-```
-
-需要找到：
-
-```text
-MyProjectConfig.cmake
-```
-
-它通常负责：
-
-```text
-load exported targets
-find package dependencies
-expose components
-```
-
----
-
-# 83. Relocatable Package
-
-错误 Config：
-
-```cmake
-set(MYPROJECT_INCLUDE_DIR
-    "/Users/alice/work/project/include")
-```
-
-安装包搬到：
-
-```text
-/usr/local
-```
-
-立即失效。
-
-应让 package：
-
-> 相对 install prefix 可迁移。
-
-CMake 官方提供 `configure_package_config_file()` 专门帮助生成 relocatable Config 文件，并推荐它而不是普通 `configure_file()` 处理 package config。:chatgpt-content-reference{index="13"}
-
----
-
-# 84. Version Config
-
-可以生成：
-
-```text
-MyProjectConfigVersion.cmake
-```
-
-帮助：
-
-```cmake
-find_package(
-    MyProject
-    2.1
-    REQUIRED
-)
-```
-
-判断 version compatibility。
-
-官方 `CMakePackageConfigHelpers` 提供 `write_basic_package_version_file()` 等 helper。:chatgpt-content-reference{index="14"}
-
----
-
-# Part XXIII · Package Dependencies
-
-# 85. Exported Target 依赖另一个 Package
-
-例如：
-
-```text
-MyProject::core
-↓ PUBLIC
-fmt::fmt
-```
-
-你的：
-
-```text
-MyProjectConfig.cmake
-```
-
-通常需要：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 include(CMakeFindDependencyMacro)
 find_dependency(fmt CONFIG)
 ```
 
-然后再：
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 include(
@@ -2361,433 +358,72 @@ include(
 )
 ```
 
-否则 consumer加载：
+<a id="g9-section-8"></a>
 
-```text
-MyProject::core
-```
+<a id="g9-topic-87"></a>
+<a id="g9-topic-88"></a>
+<a id="g9-topic-89"></a>
+<a id="g9-topic-90"></a>
+<a id="g9-topic-91"></a>
+<a id="g9-topic-92"></a>
+<a id="g9-topic-93"></a>
+<a id="g9-topic-94"></a>
+<a id="g9-topic-95"></a>
 
-时可能找不到：
+## 8. 代码生成与模块依赖
 
-```text
-fmt::fmt
-```
+### 8.1 生成输入和输出必须进入图
 
----
+如果输入模式变化应导致生成源码变化，add_custom_command(OUTPUT ...) 应声明输出、生成命令及输入依赖，必要时说明额外产物。生成文件再列入实际 target 的源集合，使后端知道何时运行及何时编译。
 
-# 86. 这就是为什么 `PUBLIC` Dependency 属于 Package Contract
+configure_file 适合由项目配置产生的模板；execute_process 在 configure 阶段运行，不会自动成为后续构建依赖图。不能把每次配置恰好运行过脚本当作增量依赖完整。G9-P2 修改数据输入后只 build，并验证新值；故意漏掉 DEPENDS 的变体用陈旧值暴露错误。[自定义生成命令](https://cmake.org/cmake/help/v4.4/command/add_custom_command.html)。
 
-C++ public interface泄漏：
+### 8.2 模块需要新的依赖顺序
 
-```text
-dependency type
-```
+传统 include 是文本包含；命名模块还要准备可供 import 的编译器模块信息。A import B 时，构建图必须安排 B 的相关产物先于 A 的编译，因而需要依赖扫描与工具链集成，不是把 hpp 改成 cppm 就完成迁移。
 
-会一路传播：
+CMake 的 CXX_MODULES 文件集从 3.28 引入，但可用组合还涉及编译器、扫描器、生成器、安装/导出与工具支持。C++23 import std 的语言存在性不等于当前标准库和 CMake 集成可用。此批主验证采用 headers；模块路线保留但 NOT RUN，不因设置 cxx_std_23 自动升级状态。[模块支持矩阵](https://cmake.org/cmake/help/v4.4/manual/cmake-cxxmodules.7.html)。
 
-```text
-C++ API
-↓
-CMake Usage Requirement
-↓
-Package dependency
-↓
-Consumer graph
-```
+<a id="g9-section-9"></a>
 
-整个系统高度一致。
+<a id="g9-topic-96"></a>
+<a id="g9-topic-97"></a>
+<a id="g9-topic-98"></a>
+<a id="g9-topic-99"></a>
+<a id="g9-topic-100"></a>
+<a id="g9-topic-101"></a>
+<a id="g9-topic-102"></a>
+<a id="g9-topic-103"></a>
+<a id="g9-topic-104"></a>
+<a id="g9-topic-105"></a>
+<a id="g9-topic-106"></a>
+<a id="g9-topic-107"></a>
+<a id="g9-topic-108"></a>
+<a id="g9-topic-109"></a>
 
----
+## 9. 构建优化、告警与检测配置
 
-# Part XXIV · Generated Files
+### 9.1 PCH、Unity、LTO 优化不同阶段
 
-# 87. Build 可能包含 Code Generation
+PCH 复用稳定头文件解析产物，可减少前端工作，但引入失效成本与工具链依赖；源码不能依赖 PCH 偶然提供缺失 include。Unity 合并翻译单元，可能减少重复解析，也可能造成匿名命名空间、static 名称和宏冲突。非 Unity 构建仍应正确。
 
-例如：
+LTO/IPO 保留中间表示或摘要供链接期跨 TU 优化，可能带来内联、常量传播和去虚化，也增加链接耗时、内存与诊断复杂度。用 IPO 属性前检查工具链支持，并根据目标工作负载决定，不把 Release 自动等同于“所有优化全开”。本批未测量这些优化。
 
-```text
-signals.csv
-↓
-generator
-↓
-generated_decoder.cpp
-↓
-compile
-```
+### 9.2 告警是项目策略，不是默认下游合同
 
-这也是 artifact graph。
+告警选项通常 PRIVATE，尤其不宜把 -Werror 强加给使用不同编译器的消费者。内部 CI 严格告警和第三方接口要求是两件事；也不应让目录级全局告警污染受控范围外的依赖。
 
----
+接口辅助目标可以复用告警配置，但 PRIVATE 链入静态库仍可能影响导出图。未导出的 project_warnings 不会仅因名字里有 private 就自动消失；需设计 build-only 关系并检查 export。小型示例直接给实际目标设置 PRIVATE 编译选项，更容易看清归属。
 
-# 88. `add_custom_command(OUTPUT ...)`
+### 9.3 动态检测要覆盖编译与最终链接
 
-好的 codegen应该声明：
+ASan、UBSan、TSan 和 coverage 插桩会改变二进制、时序和布局，应由独立 profile 管理，不能混入生产性能结论。通常既需要编译选项，也需要在最终链接中带上对应运行时；给静态库配置一个不会发生的普通链接步骤，并不能自动完成这一点。
 
-```text
-inputs
-outputs
-dependencies
-command
-```
+项目应明确哪些目标和依赖采用插桩、哪些组合受支持，再用 target_compile_options/target_link_options 表达。检测器没有报错仍不是所有未定义行为或并发协议正确性的证明；G9 本批没有新增动态检测结果。
 
-让 build system知道：
+**机制示意。** CMake 中是 IPO Property；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-> 输入什么时候改变、哪些 outputs 要重新生成。
-
-而不是：
-
-```cmake
-execute_process(...)
-```
-
-在 configure 阶段随便生成所有 build outputs。
-
----
-
-# 89. Configure-time vs Build-time Generation
-
-如果 output：
-
-> 随 build dependency变化，
-
-更适合 build graph custom command。
-
-如果只是：
-
-```text
-configure template based on project version
-```
-
-可以使用：
-
-```cmake
-configure_file(...)
-```
-
-在 configure 阶段。
-
-必须明确：
-
-```text
-configure dependency
-vs
-build dependency
-```
-
----
-
-# 90. Generated File 也应该属于 Target
-
-```cmake
-target_sources(decoder
-    PRIVATE
-        ${generated_cpp}
-)
-```
-
-而不是生成完后成为：
-
-> Build system无法追踪的神秘文件。
-
----
-
-# Part XXV · C++ Modules
-
-# 91. C++ Modules 改变什么？
-
-传统：
-
-```text
-header
-↓ textual include
-each TU reparses
-```
-
-Modules：
-
-```text
-module interface
-↓
-compiler-managed compiled module information
-↓
-import
-```
-
-目标之一：
-
-```text
-reduce textual inclusion
-stronger dependency semantics
-```
-
-但 modules 会让：
-
-> Build system 必须理解 module dependency graph。
-
----
-
-# 92. CMake 的 `CXX_MODULES` File Set
-
-Current CMake 提供：
-
-```cmake
-target_sources(core
-    PUBLIC
-        FILE_SET CXX_MODULES
-        FILES
-            src/core.cppm
-)
-```
-
-作为一等 module source model；当前官方文档显示 `CXX_MODULES` file sets 自 CMake 3.28 起进入该 target model，并可参与安装/export。:chatgpt-content-reference{index="15"}
-
----
-
-# 93. 为什么 Modules 需要 Build-system Support？
-
-假设：
-
-```cpp
-export module A;
-
-import B;
-```
-
-Build system必须知道：
-
-```text
-B module artifact
-↓
-must exist before
-A compilation
-```
-
-而普通 source dependency scanner过去主要只处理：
-
-```text
-#include
-```
-
-因此 modules不是：
-
-> 把 `.hpp` 后缀改成 `.cppm`
-
-那么简单。
-
----
-
-# 94. 当前工程策略
-
-Modern CMake 已有 first-class module support，
-
-但实际成熟度仍然取决于：
-
-```text
-compiler
-generator
-standard library module support
-IDE/tooling
-dependency packaging
-```
-
-因此本 Track 的稳定工程基线仍然是：
-
-```text
-headers + target-based CMake
-```
-
-Modules：
-
-> 应理解并实验，但不要为了“现代”无条件重构整个大型工程。
-
----
-
-# 95. Standard Library Modules
-
-C++23 标准定义了：
-
-```cpp
-import std;
-```
-
-等标准库 module方向。
-
-但实际可用性依赖：
-
-> compiler + standard library + build-system integration。
-
-因此：
-
-```text
-Language Feature Exists
-≠
-Your Toolchain Stack Is Fully Production-ready
-```
-
-这是 G9 非常重要的一条经验。
-
----
-
-# Part XXVI · Precompiled Headers
-
-# 96. PCH
-
-传统 headers很重：
-
-```text
-<vector>
-<string>
-<unordered_map>
-...
-```
-
-每个 TU重复 parse。
-
-PCH：
-
-> 预编译一组稳定 headers。
-
-CMake：
-
-```cmake
-target_precompile_headers(core
-    PRIVATE
-        <vector>
-        <string>
-)
-```
-
----
-
-# 97. PCH 是 Build-performance Optimization
-
-它不应该改变：
-
-> source semantics。
-
-因此：
-
-```text
-Build correctness
-```
-
-不能依赖：
-
-> “某 header刚好通过 PCH 被间接 include。”
-
-每个 source/header仍应拥有正确 dependencies。
-
----
-
-# 98. PCH 的 Trade-off
-
-收益：
-
-```text
-compile time ↓
-```
-
-代价：
-
-```text
-larger precompiled artifact
-dependency invalidation
-toolchain-specific behavior
-possible reduced modularity pressure
-```
-
-先 profile build time，
-
-不要一开始就塞一个：
-
-```text
-everything.hpp
-```
-
----
-
-# Part XXVII · Unity Builds
-
-# 99. Unity Build
-
-原：
-
-```text
-a.cpp → a.o
-b.cpp → b.o
-c.cpp → c.o
-```
-
-Unity可能把多个 source组合成：
-
-```text
-unity.cpp
-  includes a.cpp
-  includes b.cpp
-  includes c.cpp
-```
-
-减少：
-
-```text
-frontend startup
-header reparsing
-```
-
----
-
-# 100. Unity 的风险
-
-原本不同 TU 隔离的：
-
-```text
-static names
-anonymous namespaces
-macros
-implementation assumptions
-```
-
-可能发生碰撞/interaction。
-
-所以：
-
-> Unity build是 build-time optimization，不应成为正确性前提。
-
-项目必须能正常：
-
-> 非 Unity 构建。
-
----
-
-# Part XXVIII · LTO / IPO
-
-# 101. LTO
-
-> **Link-Time Optimization**
-
-传统：
-
-```text
-TU A compile independently
-TU B compile independently
-↓
-link machine objects
-```
-
-LTO 保留更多 compiler IR/summary information，
-
-允许 link阶段跨 TU：
-
-```text
-inline
-dead-code elimination
-constant propagation
-devirtualization
-```
-
----
-
-# 102. CMake 中是 IPO Property
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 set_property(
@@ -2797,313 +433,46 @@ set_property(
 )
 ```
 
-更成熟的配置通常先检测：
+<a id="g9-section-10"></a>
 
-```text
-toolchain supports IPO?
-```
+<a id="g9-topic-110"></a>
+<a id="g9-topic-111"></a>
+<a id="g9-topic-112"></a>
+<a id="g9-topic-113"></a>
+<a id="g9-topic-114"></a>
+<a id="g9-topic-115"></a>
+<a id="g9-topic-116"></a>
+<a id="g9-topic-117"></a>
+<a id="g9-topic-118"></a>
+<a id="g9-topic-119"></a>
+<a id="g9-topic-120"></a>
+<a id="g9-topic-121"></a>
+<a id="g9-topic-122"></a>
+<a id="g9-topic-123"></a>
 
-再为 release target/profile启用。
+## 10. 开发工具、测试与加载路径
 
----
+### 10.1 开发工具消费真实构建信息
 
-# 103. LTO 不是 Release = On 的必然规则
+compile_commands.json 记录每个翻译单元实际需要的 include、宏、语言模式与命令。clangd 应消费对应配置的数据库；诊断缺头文件时先检查数据库是否过期、生成头是否存在及构建描述是否完整。CMake 的编译数据库支持也取决于生成器，并非所有 IDE 后端都相同。
 
-代价：
+clang-tidy 可作为 target 编译钩子、独立 CI 检查或编辑器诊断；成本不同，应分配置。clang-format 管理格式，不是 C++ 构建正确性证明，宜单独检查，避免把格式修改混入正常编译的副作用。
 
-```text
-link time
-memory
-debug/profiling changes
-toolchain compatibility
-binary build complexity
-```
+### 10.2 测试、基准和覆盖率不要混成一个结论
 
-收益：
+CTest 负责登记并调度测试，不自动决定其命题是否有效。组件测试应通过真实公开 target 消费，明确需要时才绕过接口做白盒测试；还要有独立安装消费路径。dev test preset 使调用方式固定，但“零个测试成功退出”不能冒充通过。
 
-> workload-dependent。
+Benchmark 需要适当优化配置、输入和噪声控制，不基于 Debug/ASan 结果得出生产速度结论。Coverage 也是独立插桩配置；覆盖率数字不能替代有判别力的断言。本批只报告构建/消费与生成结果，不提供性能或并发检测证据。
 
-应该：
+### 10.3 可见性、PIC 与运行加载
 
-```text
-benchmark production binary
-```
+G8 的导出策略可映射到 CXX_VISIBILITY_PRESET、VISIBILITY_INLINES_HIDDEN 和显式导出宏。PIC 使用 POSITION_INDEPENDENT_CODE 表达；静态对象若将进入共享库，是否需要 PIC 应在该产物组合中检查，不能只看后缀。
 
-决定。
+链接成功仍不保证运行加载正确。ELF 的 RPATH/RUNPATH、Mach-O 的 install name/@rpath/@loader_path 和 Windows 的 DLL 搜索属于不同平台机制。避免把开发机构建目录写死进交付产物；G8-B2 仅在本机验证相对加载，G9-P1 是静态包，不替代完整共享包迁移检查。
 
----
+**机制示意。** Test 也是 Target Consumer；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-# Part XXIX · Warnings
-
-# 104. Warning 是 Target Policy
-
-例如内部 helper：
-
-```cmake
-add_library(project_warnings INTERFACE)
-```
-
-然后根据 compiler：
-
-```text
-Clang/GCC
-MSVC
-```
-
-发布 warning options。
-
-业务 target：
-
-```cmake
-target_link_libraries(core
-    PRIVATE
-        project_warnings
-)
-```
-
----
-
-# 105. 为什么 Warning 通常 `PRIVATE`？
-
-你可能希望自己的源码：
-
-```text
--Wall
--Wextra
--Wconversion
-```
-
-但不应该把：
-
-> 你的 warning policy
-
-强迫给 downstream consumers。
-
-尤其：
-
-```text
--Werror
-```
-
-几乎不应该作为 installed public usage requirement。
-
----
-
-# 106. `-Werror` 的正确位置
-
-CI/internal build：
-
-> 很合理。
-
-第三方 consumer：
-
-> 不应该被你的 package强制。
-
-所以：
-
-```text
-warnings-as-errors
-```
-
-更像：
-
-> project build policy
-
-而不是 library interface。
-
----
-
-# Part XXX · Sanitizers
-
-# 107. Sanitizer Profile
-
-开发中：
-
-```text
-ASan
-UBSan
-TSan
-```
-
-是非常重要的动态 correctness工具。
-
-但它们：
-
-```text
-change binary
-insert runtime checks
-change timing/layout
-```
-
-所以应该通过：
-
-```text
-dedicated profile/preset
-```
-
-管理。
-
----
-
-# 108. 不要把 Sanitizer Flags 全局写死
-
-比如：
-
-```cmake
-set(CMAKE_CXX_FLAGS
-    "... -fsanitize=address")
-```
-
-会污染：
-
-```text
-every target
-dependencies
-host tools
-possibly install/export usage
-```
-
-更合理：
-
-```text
-sanitizer interface target
-```
-
-只 link到：
-
-> 你真正控制的 targets。
-
----
-
-# 109. Compile + Link 两边都重要
-
-Sanitizer通常不仅需要 compile instrumentation，
-
-还需要：
-
-```text
-link sanitizer runtime
-```
-
-所以配置应同时考虑：
-
-```cmake
-target_compile_options(...)
-target_link_options(...)
-```
-
-Current CMake target link options本身也支持 PUBLIC/PRIVATE/INTERFACE usage model。:chatgpt-content-reference{index="16"}
-
----
-
-# Part XXXI · Clang Tooling
-
-# 110. `compile_commands.json`
-
-clangd真正需要：
-
-> 每个 TU 的真实 compile command。
-
-CMake + Ninja/Make可以生成：
-
-```text
-compile_commands.json
-```
-
-通常：
-
-```cmake
-CMAKE_EXPORT_COMPILE_COMMANDS=ON
-```
-
-于是 clangd知道：
-
-```text
-include paths
-defines
-language mode
-generated headers
-```
-
-不是：
-
-> 靠编辑器猜。
-
----
-
-# 111. clangd 是 Build Graph Consumer
-
-这是一个很好的 mental model：
-
-```text
-CMake
-↓
-compile database
-↓
-clangd
-```
-
-所以 clangd“找不到 header”时，
-
-问题经常不是 LSP：
-
-> 而是 build description不完整或 compile database过期。
-
----
-
-# 112. clang-tidy
-
-CMake targets可以关联：
-
-```text
-CXX_CLANG_TIDY
-```
-
-进行静态分析。
-
-但要区分：
-
-```text
-editor-time lint
-CI static analysis
-every build compile hook
-```
-
-全量 clang-tidy 可能显著拖慢 build。
-
-所以应设计 profile。
-
----
-
-# 113. clang-format 不属于 Build Correctness
-
-clang-format：
-
-> source formatting tool。
-
-不应该因为：
-
-```text
-format check
-```
-
-而污染正常 target compile graph。
-
-可以：
-
-```text
-CI job
-developer command
-pre-commit workflow
-```
-
-单独运行。
-
----
-
-# Part XXXII · CTest
-
-# 114. Test 也是 Target Consumer
+[机制片段 · 不承诺独立编译]
 
 ```cmake
 include(CTest)
@@ -3123,1415 +492,442 @@ add_test(
 )
 ```
 
-测试应该和真实 consumer一样：
+<a id="g9-section-11"></a>
 
-> link public target。
+<a id="g9-topic-124"></a>
+<a id="g9-topic-125"></a>
+<a id="g9-topic-126"></a>
+<a id="g9-topic-127"></a>
+<a id="g9-topic-128"></a>
+<a id="g9-topic-129"></a>
+<a id="g9-topic-130"></a>
+<a id="g9-topic-131"></a>
+<a id="g9-topic-132"></a>
+<a id="g9-topic-133"></a>
+<a id="g9-topic-134"></a>
+<a id="g9-topic-135"></a>
+<a id="g9-topic-136"></a>
 
-不要通过：
+## 11. 项目组织与安装库示例
 
-```text
-直接 include src/private implementation
+### 11.1 项目结构服务目标归属
+
+根 CMakeLists 管理最低版本、project、共同项目决策和子目录组织；组件负责自己的源成员、公开头、依赖和测试。include/src/apps/tests/benchmarks 等结构是常见手段，不是必须复制的模板。目标边界和所有权明确比目录名字更重要。
+
+选项应表达真实可支持能力。shared/static、测试开关、模块、异常或引擎模式会扩大配置空间；列出选项不等于所有组合受支持。发布矩阵应明确实际承诺的集合，避免无测试的 2^N 组合。
+
+### 11.2 可安装库的完整职责
+
+完整生产者至少需要实际目标、稳定消费名称、公开文件集、语言要求、实现依赖、适当告警、安装规则、导出集合、Config/Version 配置以及测试。相关片段若缺模板、依赖目标或消费者，不应标为“完整可发布工程”。
+
+G9-P1 给出完整文件集合，最低 CMake 声明为 3.28；实际执行工具版本另记。最低版本声明不是从 3.28 起所有版本都实测过。静态 helper 一并导出，告警直接附着实际目标，公开头文件使用 expected 验证消费者获得语言/库能力。
+
+### 11.3 先定义独立消费者
+
+消费者只写 find_package 和 target_link_libraries，不手工补生产者 include、库路径或编译宏。公开头文件需要的要求应自动传播，而实现 helper 宏不应泄漏。若发现消费者必须复制一串 README flags 才成功，应先审查 target interface。
+
+构建树别名与导出名称保持接近，能减少两种消费方式的差异，但不能让本仓库测试代替安装后验证。完整实验在后文集中维护，避免多个不一致的 CMake 配置成为并行示例。
+
+<a id="g9-section-12"></a>
+
+<a id="g9-topic-137"></a>
+<a id="g9-topic-138"></a>
+<a id="g9-topic-139"></a>
+<a id="g9-topic-140"></a>
+<a id="g9-topic-141"></a>
+<a id="g9-topic-142"></a>
+<a id="g9-topic-143"></a>
+<a id="g9-topic-144"></a>
+<a id="g9-topic-145"></a>
+<a id="g9-topic-146"></a>
+<a id="g9-topic-147"></a>
+
+## 12. 构建反模式
+
+### 12.1 隐式状态与路径反模式
+
+把所有 flags 放 CMAKE_CXX_FLAGS、全局 include/link directory、硬编码本机库路径，都会让需求归属和消费关系变模糊。有导入目标时退回裸库名，会丢失相应使用要求；安装接口出现开发机绝对路径，会使包在原仓库之外失效。
+
+file(GLOB) 即使使用 CONFIGURE_DEPENDS 也需要理解生成器行为和源码成员变化；公开库通常显式列源更清楚。问题不是“任何 glob 都违法”，而是不应为省几行清单牺牲可见的图。
+
+### 12.2 依赖、告警和框架反模式
+
+把所有第三方依赖都 FetchContent 进一个配置环境，会扩大 policy/选项交互和构建成本。到处写 Conan/vcpkg 分支，使供应策略侵入项目语义。全局 -Werror 则可能把不受控消费者或依赖变成项目内部告警政策的受害者。
+
+库从未安装给独立消费者，就不能把仓库构建成功当作包正确。大量动态变量、宏和字符串技巧也不等于专业 CMake；复杂业务生成逻辑宜交给合适工具，CMake 保持可读的输入/输出/依赖关系。
+
+<a id="g9-section-13"></a>
+
+<a id="g9-topic-148"></a>
+<a id="g9-topic-149"></a>
+<a id="g9-topic-150"></a>
+<a id="g9-topic-151"></a>
+<a id="g9-topic-152"></a>
+<a id="g9-topic-153"></a>
+<a id="g9-topic-154"></a>
+<a id="g9-topic-155"></a>
+<a id="g9-topic-156"></a>
+<a id="g9-topic-157"></a>
+<a id="g9-topic-158"></a>
+<a id="g9-topic-159"></a>
+<a id="g9-topic-160"></a>
+<a id="g9-topic-161"></a>
+
+## 13. 可复现性、矩阵与构建成本
+
+### 13.1 可追踪、可再构建与位级复现
+
+至少记录源码身份、编译器/标准库/SDK、CMake/后端、依赖版本、目标平台及选项。相同源码不保证相同二进制；manifest、lock 和 recipe revision 帮助约束输入，但路径、时间戳、环境和工具链也可能影响结果。
+
+Hermetic 构建尝试排除偶然系统输入；发行版打包则可能明确选择系统依赖。目标应匹配交付模式，而不是把所有项目都宣布为 hermetic。本批清理部分搜索环境，只检验同机安装消费，不声称位级复现或完全隔离。
+
+### 13.2 矩阵与构建成本
+
+选择真实承诺的编译器、OS、架构、配置及 shared/static 集合，按快速 PR、主干和周期性检查分层；不要为追求全覆盖做无意义笛卡尔积。性能、安装消费者、ABI 和动态检测各有不同环境要求。
+
+构建成本应区分 configure、clean build、实现改动的增量编译、公开头变动和链接。可用手段包括减少头依赖、前置声明、PImpl、目标划分、模块、PCH、Unity、链接器和分布式/缓存编译；先确认瓶颈，再选择工具。公开 include 的传递影响既是接口设计问题，也是构建图问题。
+
+### 13.3 缓存与分发包
+
+编译缓存依赖有效的输入键：编译器、选项、预处理内容、路径和环境等。随机宏、时间戳及无意义路径漂移可能降低命中；缓存命中也不能证明源依赖声明完整。
+
+CPack 位于安装树到归档/安装器的分发层，不会替错误 install/export 规则补头文件或修复路径。先完成 build、test、install、独立 consumer，再讨论归档、签名及正式发布。此次不生成发行包。
+
+<a id="g9-section-14"></a>
+
+<a id="g9-topic-162"></a>
+<a id="g9-topic-163"></a>
+<a id="g9-topic-164"></a>
+<a id="g9-topic-165"></a>
+<a id="g9-topic-166"></a>
+<a id="g9-topic-167"></a>
+
+## 14. 工程配置的五层职责
+
+### 14.1 五层职责独立维护
+
+项目语义层规定 targets、源码成员、依赖 scope、语言和安装/导出；工具链层规定编译器、架构和 sysroot；构建配置层区分 dev/san/release/coverage；依赖解析层规定 system、包管理器、FetchContent 或 vendor 来源；制品交付层规定安装前缀、包配置及分发形式。
+
+这些层可以有明确连接，但不应揉成无法复用的巨型 CMakeLists。学习者应能够指认每个选项属于哪一层，以及它改变的是接口、构建环境还是观察方式。
+
+<a id="g9-section-15"></a>
+
+<a id="g9-topic-168"></a>
+<a id="g9-topic-169"></a>
+<a id="g9-topic-170"></a>
+<a id="g9-topic-171"></a>
+<a id="g9-topic-172"></a>
+<a id="g9-topic-173"></a>
+<a id="g9-topic-174"></a>
+<a id="g9-topic-175"></a>
+<a id="g9-topic-176"></a>
+
+## 15. 实践路线与验证选择
+
+### 15.1 保留九条路线，明确本批执行集合
+
+原有练习包括全局配置改 target、推导 PUBLIC/PRIVATE、可安装库、预设、交叉编译、依赖接入、代码生成、模块和构建成本。G9-P1 落实静态 PRIVATE 链接与安装消费；G9-P2 落实 dev 预设与输入变化后的重新生成。完整文件和判据在后文提供。
+
+交叉工具链应能区分宿主生成器和目标产物；依赖练习比较不同来源但保持消费 target 稳定；模块练习关注扫描和排序；构建成本练习应保留基线与配置。上述扩展未在本批执行，不从两个已跑通流程推断其他能力通过。
+
+<a id="g9-section-16"></a>
+
+<a id="g9-topic-177"></a>
+<a id="g9-topic-178"></a>
+<a id="g9-topic-179"></a>
+<a id="g9-topic-180"></a>
+<a id="g9-topic-181"></a>
+<a id="g9-topic-182"></a>
+<a id="g9-topic-183"></a>
+<a id="g9-topic-184"></a>
+<a id="g9-topic-185"></a>
+<a id="g9-topic-186"></a>
+<a id="g9-topic-187"></a>
+<a id="g9-topic-188"></a>
+<a id="g9-topic-189"></a>
+<a id="g9-topic-190"></a>
+<a id="g9-topic-191"></a>
+
+## 16. 常见误判
+
+### 16.1 模型误判
+
+CMake 不是编译器，target_link_libraries 不只是 linker 命令，PUBLIC 也不是“对外发布”。只有 .a 路径并没有表达完整依赖；把所有 flags 堆成字符串不等于配置简单。Preset 和 toolchain 分工不同，包管理器不替代项目构建图，FetchContent 也不自动成为完整供应系统。
+
+Release 不等于单个 -O3，模块不会因为替代文本 include 就自动让构建系统更简单。clangd 错误可能来自编译数据库，而不只是编辑器设置；交叉编译也不只是更换编译器可执行文件。
+
+### 16.2 验证误判
+
+本仓库能链接不代表安装包完整；PCH、Unity 和 LTO 都有特定收益与代价，不应无测量全开。更长的 CMakeLists 不是成熟度指标。
+
+最危险的简化是“build 返回 0，所以依赖图正确”。G9-P2 的错误变体仍能成功构建并运行，只是观察到旧数据；需要明确值判据，不能用编译成功替代生成依赖验证。
+
+<a id="g9-section-17"></a>
+
+<a id="g9-topic-192"></a>
+<a id="g9-topic-193"></a>
+<a id="g9-topic-194"></a>
+<a id="g9-topic-195"></a>
+<a id="g9-topic-196"></a>
+
+## 17. C++、Zig 与 Rust 生态对照
+
+### 17.1 不同生态组织相同责任
+
+C++ 的原生构建生态由 CMake、其他构建系统、包管理器、CTest 和外部工具组合，历史兼容面广。Zig build 以语言/工具链的产物图接口组织 target、优化和模块；Cargo 更集中地组织包、依赖、feature、构建和测试。它们的集成程度不同，最终都需说明输入、目标和消费合同。
+
+用 Zig 驱动内部 C++ 构建可以是合理选择，但参与第三方 CMake SDK、机器人/HPC 等生态仍需理解安装/导出与 Config 目标模型。比较不能只停在执行 clang++ 的语法；本批也不编译 Zig/Rust 构建示例，保留概念对照而非工具能力排名。
+
+<a id="g9-section-18"></a>
+
+## 18. 完整实验：安装消费与生成依赖
+
+这些实验由正文提取到新临时目录，完整文件是唯一维护来源。执行器只运行已审阅的本地代码，不是安全沙箱；不修改历史 PDF、FM 或出版系统。
+
+```sh
+python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 ```
 
-绕过接口，
+### 18.1 G9-P1 · 静态依赖、安装导出与迁移消费者
 
-除非明确是 white-box test。
+**待验证命题。** 生产者静态库 PRIVATE 依赖 helper，公开传播头文件与 C++23 模式。安装后迁移前缀、隐藏原生产者源码和构建树，再以独立 find_package 消费。错误主版本须在配置阶段被拒绝。
 
----
+**范围与前提。** 同机静态库包，不是共享库 RPATH 测试，不是 hermetic 或逐字节可复现证明。SameMajorVersion 是声明的版本接受策略，不是自动 ABI 判断。实验不访问注册表或下载第三方依赖。
 
-# 115. Test Layer
+<!-- n-lab {"id":"G9-P1","mode":"package"} -->
 
-可以区分：
+[完整实验 · G9-P1 · producer/CMakeLists.txt]
 
-```text
-unit
-component
-integration
-install-consumer
-benchmark
-```
-
-不要把全部混成：
-
-```text
-tests
-```
-
-一个命令概念。
-
----
-
-# 116. CTest Preset
-
-Current presets支持 test presets，
-
-因此：
-
-```bash
-ctest --preset dev
-```
-
-可以成为团队稳定入口。:chatgpt-content-reference{index="17"}
-
----
-
-# Part XXXIII · Benchmarks
-
-# 117. Benchmark 不是普通 Unit Test
-
-Unit test：
-
-```text
-correct?
-```
-
-Benchmark：
-
-```text
-how fast?
-```
-
-它们需要不同环境：
-
-```text
-optimized build
-noise control
-representative input
-```
-
-所以不要把 microbenchmarks放在：
-
-> Debug/ASan test profile
-
-里得出性能结论。
-
----
-
-# Part XXXIV · Coverage
-
-# 118. Coverage 也是 Instrumentation Profile
-
-Coverage需要：
-
-```text
-compiler instrumentation
-special link/runtime settings
-```
-
-应作为：
-
-```text
-coverage preset/profile
-```
-
-而不是永久 build option。
-
----
-
-# Part XXXV · Symbol Visibility
-
-# 119. G8 → G9
-
-G8确定：
-
-> 默认隐藏内部 symbols 是优秀 shared-library策略。
-
-CMake可以通过 target properties表达：
-
-```text
-CXX_VISIBILITY_PRESET
-VISIBILITY_INLINES_HIDDEN
-```
-
-再配合：
-
-```text
-export macro
-```
-
-明确 public ABI。
-
----
-
-# 120. Visibility 是 Target Property，不应靠每个 Source 手写 Flags
-
-这正是 CMake target abstraction的价值：
-
-```text
-ABI policy
-→ target property
-```
-
-而不是：
-
-```text
-每个 compile command拼 -fvisibility...
-```
-
----
-
-# Part XXXVI · Position Independent Code
-
-# 121. PIC
-
-Shared library在很多平台需要：
-
-> position-independent code。
-
-CMake target property：
-
-```text
-POSITION_INDEPENDENT_CODE
-```
-
-比手工：
-
-```text
--fPIC
-```
-
-更跨平台、更语义化。
-
----
-
-# Part XXXVII · Runtime Library Paths
-
-# 122. Build-time Link Success 不等于 Runtime Load Success
-
-Executable：
-
-```text
-links libfoo.dylib
-```
-
-运行时 loader还要：
-
-> 找到这个 artifact。
-
-涉及：
-
-```text
-RPATH
-RUNPATH
-install_name
-loader paths
-```
-
-等平台机制。
-
----
-
-# 123. 不要硬编码 Developer Absolute Path
-
-错误 package：
-
-```text
-/Users/alice/build/foo/libfoo.dylib
-```
-
-进入 installed artifact。
-
-另一个机器：
-
-> 立即失效。
-
-安装设计必须：
-
-> relocatable。
-
-G8 的 ABI boundary 与 G9 的 install layout 在这里相遇。
-
----
-
-# Part XXXVIII · Project Options
-
-# 124. Options 应该表达真实 Feature
-
-例如：
-
+<!-- n-file {"path":"producer/CMakeLists.txt"} -->
 ```cmake
-option(MYPROJECT_BUILD_TESTS
-    "Build project tests"
-    ON
-)
-```
-
-合理。
-
----
-
-# 125. 不要制造巨大 Option Matrix
-
-如果：
-
-```text
-USE_FOO
-USE_BAR
-FOO_MODE_A
-FOO_MODE_B
-NEW_ENGINE
-LEGACY_ENGINE
-```
-
-随意组合，
-
-实际 build matrix：
-
-```text
-2^N
-```
-
-可能根本没有测试。
-
-每一个 option：
-
-> 都是 configuration state-space multiplier。
-
----
-
-# 126. Feature Flags 也需要测试矩阵
-
-如果 project声称支持：
-
-```text
-shared/static
-tests on/off
-modules on/off
-exceptions on/off
-```
-
-就应该：
-
-> CI 验证这些组合中的 supported set。
-
-否则只是理论支持。
-
----
-
-# Part XXXIX · Project Structure
-
-# 127. 一个健康的 Library + App Structure
-
-```text
-project/
-├── CMakeLists.txt
-├── CMakePresets.json
-├── cmake/
-│   ├── ProjectOptions.cmake
-│   ├── ProjectWarnings.cmake
-│   └── MyProjectConfig.cmake.in
-├── include/
-│   └── myproject/
-│       └── decoder.hpp
-├── src/
-│   ├── CMakeLists.txt
-│   └── decoder.cpp
-├── apps/
-│   ├── CMakeLists.txt
-│   └── cli.cpp
-├── tests/
-│   ├── CMakeLists.txt
-│   └── decoder_test.cpp
-└── benchmarks/
-```
-
-不需要迷信这个具体目录。
-
-关键：
-
-```text
-ownership boundaries
-target boundaries
-public/private headers
-```
-
-清晰。
-
----
-
-# 128. Root `CMakeLists.txt` 不应该装整个世界
-
-Root负责：
-
-```text
-minimum version
-project()
-global project-level decisions
-add_subdirectory
-install/package setup
-```
-
-各 component：
-
-> 自己定义自己的 targets。
-
-不要把 2000 行所有 targets 全塞 root。
-
----
-
-# Part XL · 一个完整 Modern CMake Library
-
-# 129. Root
-
-```cmake
-cmake_minimum_required(VERSION 4.0)
-
-project(
-    VehicleSignals
-    VERSION 1.0.0
-    LANGUAGES CXX
-)
-
+cmake_minimum_required(VERSION 3.28)
+project(HandbookNative VERSION 1.2.0 LANGUAGES CXX)
 include(GNUInstallDirs)
-include(CTest)
-
-add_subdirectory(src)
-
-if(BUILD_TESTING)
-    add_subdirectory(tests)
-endif()
-```
-
-注意：
-
-> `cmake_minimum_required()` 应选择项目真正愿意支持的最低 CMake 版本。
-
-即使开发机安装 4.4.x，
-
-也不意味着 library必须要求 4.4。
-
----
-
-# 130. Library Target
-
-```cmake
-add_library(vehicle_signals)
-
-add_library(
-    VehicleSignals::vehicle_signals
-    ALIAS
-    vehicle_signals
-)
-
-target_sources(vehicle_signals
-    PRIVATE
-        decoder.cpp
-
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS
-            ${PROJECT_SOURCE_DIR}/include
-        FILES
-            ${PROJECT_SOURCE_DIR}/include/vehicle/decoder.hpp
-)
-
-target_compile_features(vehicle_signals
-    PUBLIC
-        cxx_std_23
-)
-
-set_target_properties(vehicle_signals PROPERTIES
-    CXX_EXTENSIONS NO
-)
-```
-
----
-
-# 131. Dependency
-
-```cmake
-find_package(fmt CONFIG REQUIRED)
-
-target_link_libraries(vehicle_signals
-    PRIVATE
-        fmt::fmt
-)
-```
-
-假设 fmt只在：
-
-```text
-decoder.cpp
-```
-
-使用。
-
-如果 public header使用 fmt types：
-
-```text
-PRIVATE
-```
-
-就不对了。
-
-应该：
-
-```text
-PUBLIC
-```
-
----
-
-# 132. Include Paths
-
-使用 header file sets 后，
-
-现代 CMake能够知道 header base directories；
-
-如果仍需显式 include directory：
-
-```cmake
-target_include_directories(vehicle_signals
-    PUBLIC
-        $<BUILD_INTERFACE:
-            ${PROJECT_SOURCE_DIR}/include
-        >
-        $<INSTALL_INTERFACE:
-            ${CMAKE_INSTALL_INCLUDEDIR}
-        >
-)
-```
-
----
-
-# 133. Warnings
-
-```cmake
-add_library(project_warnings INTERFACE)
-
-target_compile_options(project_warnings
-    INTERFACE
-        $<$<CXX_COMPILER_ID:Clang,AppleClang>:
-            -Wall
-            -Wextra
-            -Wpedantic
-        >
-)
-
-target_link_libraries(vehicle_signals
-    PRIVATE
-        project_warnings
-)
-```
-
-Notice：
-
-```text
-warnings policy
-```
-
-没有传播给 installed consumer。
-
----
-
-# 134. Install
-
-```cmake
-install(
-    TARGETS vehicle_signals
-    EXPORT VehicleSignalsTargets
-    FILE_SET HEADERS
-)
-
-install(
-    EXPORT VehicleSignalsTargets
-    NAMESPACE VehicleSignals::
-    DESTINATION
-        ${CMAKE_INSTALL_LIBDIR}/cmake/VehicleSignals
-)
-```
-
----
-
-# 135. Config Generation
-
-```cmake
 include(CMakePackageConfigHelpers)
-
-configure_package_config_file(
-    ${PROJECT_SOURCE_DIR}/cmake/VehicleSignalsConfig.cmake.in
-    ${PROJECT_BINARY_DIR}/VehicleSignalsConfig.cmake
-
-    INSTALL_DESTINATION
-        ${CMAKE_INSTALL_LIBDIR}/cmake/VehicleSignals
-)
-
+include(CTest)
+add_library(native_helper STATIC helper.cpp)
+add_library(native_core STATIC core.cpp)
+add_library(HandbookNative::core ALIAS native_core)
+set_target_properties(native_core PROPERTIES EXPORT_NAME core CXX_EXTENSIONS NO)
+target_sources(native_core PUBLIC FILE_SET HEADERS
+    BASE_DIRS include FILES include/handbook/core.hpp)
+target_compile_features(native_core PUBLIC cxx_std_23)
+target_compile_definitions(native_helper INTERFACE HELPER_PRIVATE=1)
+target_link_libraries(native_core PRIVATE native_helper)
+target_compile_options(native_core PRIVATE
+    "$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:-Wall;-Wextra>")
+if(BUILD_TESTING)
+    add_executable(native_test test.cpp)
+    target_link_libraries(native_test PRIVATE HandbookNative::core)
+    add_test(NAME native.value COMMAND native_test)
+endif()
+install(TARGETS native_core native_helper EXPORT HandbookNativeTargets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT HandbookNativeTargets NAMESPACE HandbookNative::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/HandbookNative)
+configure_package_config_file(HandbookNativeConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/HandbookNativeConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/HandbookNative)
 write_basic_package_version_file(
-    ${PROJECT_BINARY_DIR}/VehicleSignalsConfigVersion.cmake
-
-    VERSION
-        ${PROJECT_VERSION}
-
-    COMPATIBILITY
-        SameMajorVersion
-)
-
-install(
-    FILES
-        ${PROJECT_BINARY_DIR}/VehicleSignalsConfig.cmake
-        ${PROJECT_BINARY_DIR}/VehicleSignalsConfigVersion.cmake
-
-    DESTINATION
-        ${CMAKE_INSTALL_LIBDIR}/cmake/VehicleSignals
-)
+    ${CMAKE_CURRENT_BINARY_DIR}/HandbookNativeConfigVersion.cmake
+    VERSION ${PROJECT_VERSION} COMPATIBILITY SameMajorVersion)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/HandbookNativeConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/HandbookNativeConfigVersion.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/HandbookNative)
 ```
 
----
+[完整实验 · G9-P1 · producer/HandbookNativeConfig.cmake.in]
 
-# 136. Consumer
-
-完全独立的另一个项目：
-
+<!-- n-file {"path":"producer/HandbookNativeConfig.cmake.in"} -->
 ```cmake
-find_package(
-    VehicleSignals
-    1
-    CONFIG
-    REQUIRED
-)
-
-add_executable(app
-    main.cpp
-)
-
-target_link_libraries(app
-    PRIVATE
-        VehicleSignals::vehicle_signals
-)
+@PACKAGE_INIT@
+include("${CMAKE_CURRENT_LIST_DIR}/HandbookNativeTargets.cmake")
+check_required_components(HandbookNative)
 ```
 
-这才是：
+[完整实验 · G9-P1 · producer/include/handbook/core.hpp]
 
-> **真正完成的 native library package。**
-
----
-
-# Part XLI · CMake Anti-pattern Catalogue
-
-# 137. Anti-pattern 1 — Global Flags
-
-```cmake
-set(CMAKE_CXX_FLAGS ...)
-```
-
-问题：
-
-> 不属于 target graph。
-
----
-
-# 138. Anti-pattern 2 — Global Include Directories
-
-```cmake
-include_directories(...)
-```
-
-制造隐式依赖。
-
----
-
-# 139. Anti-pattern 3 — Absolute Link Paths
-
-```cmake
-target_link_libraries(app
-    /usr/local/lib/libfoo.a
-)
-```
-
-强绑定本机环境。
-
----
-
-# 140. Anti-pattern 4 — Link by Bare Name When Target Exists
-
-```cmake
-target_link_libraries(app PRIVATE foo)
-```
-
-如果真正 package提供：
-
-```text
-Foo::Foo
-```
-
-优先 imported target。
-
----
-
-# 141. Anti-pattern 5 — `file(GLOB ...)` Blindly Discover Sources
-
-例如：
-
-```cmake
-file(GLOB SOURCES src/*.cpp)
-```
-
-是否合适取决于 workflow。
-
-显式 source membership：
-
-```text
-更清楚地表达 target contents
-```
-
-尤其 public library/API。
-
-现代 CMake对 glob也有 configure-dependency机制，但通常不需要为省几行 source list牺牲清晰 build graph。
-
----
-
-# 142. Anti-pattern 6 — Fetch Everything
-
-把整个 ecosystem：
-
-```text
-50 dependencies
-```
-
-全部 FetchContent进入一个 configure universe。
-
-维护成本会急剧上升。
-
----
-
-# 143. Anti-pattern 7 — Package Manager Logic Leaks Into CMake Everywhere
-
-```cmake
-if(CONAN)
-...
-elseif(VCPKG)
-...
-```
-
-理想：
-
-```text
-package manager provides package
-↓
-CMake uses find_package + targets
-```
-
----
-
-# 144. Anti-pattern 8 — Install Untested
-
-Library只有本 repo：
-
-```text
-build passes
-```
-
-从未测试：
-
-```text
-install + external find_package
-```
-
----
-
-# 145. Anti-pattern 9 — Public Absolute Paths
-
-Installed target的：
-
-```text
-INTERFACE_INCLUDE_DIRECTORIES
-INTERFACE_LINK_LIBRARIES
-```
-
-携带开发机绝对路径。
-
-Package不可 relocatable。
-
-官方 CMake 也特别警告 installed package interface 不应硬编码依赖在构建机上的绝对 library 路径。:chatgpt-content-reference{index="18"}
-
----
-
-# 146. Anti-pattern 10 — Global `-Werror`
-
-让 dependency/consumer 因不同 compiler warning：
-
-> 直接无法构建。
-
----
-
-# 147. Anti-pattern 11 — CMake as General-purpose Programming Language
-
-几十层：
-
-```text
-functions
-macros
-dynamic variables
-string magic
-```
-
-用来模拟 package manager/framework。
-
-CMake应该主要：
-
-> 描述 build graph。
-
-复杂业务逻辑应尽量留在：
-
-```text
-real scripts/tools
-```
-
-里。
-
----
-
-# Part XLII · Reproducibility
-
-# 148. “能编译”不等于“可复现”
-
-真正要记录：
-
-```text
-source commit
-compiler version
-stdlib
-CMake version
-dependency versions
-target platform
-build options
-```
-
-否则：
-
-```text
-same source
-```
-
-可能产生不同 binary。
-
----
-
-# 149. Lock Dependency Versions
-
-Package manager：
-
-```text
-manifest / lock / recipe revisions
-```
-
-应成为 reproducibility strategy的一部分。
-
-不要仅写：
-
-```text
-find_package(Foo REQUIRED)
-```
-
-却对 CI/production使用哪个 Foo版本毫无控制。
-
----
-
-# 150. Compiler 也属于 Input
-
-例如：
-
-```text
-Clang 20
-vs
-Clang 22
-```
-
-可能改变：
-
-```text
-diagnostics
-optimization
-ABI in edge cases
-codegen
-```
-
-所以发布 binary时：
-
-> Toolchain identity 是 artifact metadata。
-
----
-
-# Part XLIII · Hermeticity
-
-# 151. Hermetic Build 的目标
-
-尽量避免：
-
-```text
-build结果依赖开发者机器偶然安装了什么
-```
-
-例如：
-
-```text
-/usr/local/include/foo
-```
-
-被意外找到。
-
----
-
-# 152. 完全 Hermetic 不一定是所有项目目标
-
-Distro packaging反而可能明确：
-
-> 使用 system dependencies。
-
-所以 again：
-
-> Build philosophy 应匹配 distribution model。
-
-关键不是：
-
-> 每个项目都完全 hermetic。
-
-而是：
-
-> dependency source必须明确。
-
----
-
-# Part XLIV · CI Matrix
-
-# 153. CI 不应该只验证一个 Build
-
-一个 serious C++ library至少应考虑：
-
-```text
-compiler
-OS
-architecture
-build profile
-shared/static where supported
-```
-
-但不要笛卡尔积爆炸。
-
-选择：
-
-> 真正承诺支持的 matrix。
-
----
-
-# 154. 一个合理层次
-
-例如：
-
-```text
-Fast PR:
-Clang / Linux dev
-tests
-sanitizers
-
-Main:
-Clang + GCC
-Linux + macOS
-Release build
-install-consumer test
-
-Scheduled:
-larger matrix
-benchmarks
-ABI checks
-```
-
-原则比具体平台列表重要。
-
----
-
-# Part XLV · Build Performance
-
-# 155. 编译性能也是工程性能
-
-大型 C++ 工程的：
-
-```text
-clean build
-incremental build
-link time
-configure time
-```
-
-直接影响：
-
-> Developer Experience。
-
-所以值得 measure。
-
----
-
-# 156. 常见杠杆
-
-从高层到低层：
-
-```text
-header dependency reduction
-PImpl
-forward declarations
-target boundaries
-Modules
-PCH
-Unity build
-faster linker
-distributed/cache compilation
-```
-
-不要一上来：
-
-> Unity Everything。
-
----
-
-# 157. Header Dependency 是 Build Graph Dependency
-
-如果：
-
+<!-- n-file {"path":"producer/include/handbook/core.hpp"} -->
 ```cpp
-// public.hpp
-#include <huge_dependency.hpp>
+#pragma once
+#include <expected>
+namespace handbook { std::expected<int, int> answer(); }
 ```
 
-那么所有 downstream TUs：
+[完整实验 · G9-P1 · producer/helper.cpp]
 
-> 都需要处理这份 dependency。
-
-所以 G8 PImpl 不仅是 ABI technique，
-
-还是：
-
-> Build-time dependency firewall。
-
----
-
-# Part XLVI · Build Cache
-
-# 158. Compilation Cache
-
-诸如 compiler cache systems可以利用：
-
-```text
-same compiler input
-→ reuse previous object output
-```
-
-减少重复编译。
-
-但要注意：
-
-```text
-compiler command line
-preprocessed content
-environment
-```
-
-都会影响 cache key。
-
----
-
-# 159. Reproducible Compile Commands 更利于 Cache
-
-到处动态：
-
-```text
-absolute temp paths
-timestamps
-random defines
-```
-
-会降低 cache hit。
-
-所以 build determinism与：
-
-> build performance
-
-也有关。
-
----
-
-# Part XLVII · Packaging
-
-# 160. CPack
-
-CMake生态还提供：
-
-```text
-CPack
-```
-
-用于生成：
-
-```text
-archives
-installer/package formats
-```
-
-它位于：
-
-```text
-install tree
-↓
-distribution artifact
-```
-
-这一层。
-
----
-
-# 161. 先把 Install 做对，再谈 Package
-
-如果：
-
-```text
-cmake --install
-```
-
-生成的树本身就不正确，
-
-CPack不会神奇修复。
-
-所以：
-
-```text
-Build
-↓
-Install
-↓
-Package
-```
-
-严格分层。
-
----
-
-# Part XLVIII · G9 推荐工程 Profile
-
-# 162. 核心工程原则
-
-推荐把项目分成：
-
-```text
-Project Semantics
-Toolchain
-Build Profile
-Dependency Resolution
-Artifact Packaging
-```
-
-五层。
-
-不要揉成一个巨型：
-
-```text
-CMakeLists.txt
-```
-
----
-
-# 163. Project Semantics
-
-```text
-targets
-source membership
-public/private dependencies
-language requirements
-install/export
-```
-
-这是：
-
-> repo核心事实。
-
----
-
-# 164. Toolchain
-
-```text
-compiler
-architecture
-sysroot
-cross target
-```
-
----
-
-# 165. Build Profile
-
-```text
-dev
-san
-release
-coverage
-```
-
----
-
-# 166. Dependency Resolution
-
-```text
-system
-Conan
-vcpkg
-FetchContent
-vendor
-```
-
----
-
-# 167. Artifact Packaging
-
-```text
-install prefix
-package config
-archive
-container/image
-SDK
-```
-
----
-
-# Part XLIX · Practical Labs
-
-# 168. Lab 1 — Convert Global CMake to Target CMake
-
-从：
-
-```cmake
-include_directories(include)
-add_definitions(-DFOO)
-set(CMAKE_CXX_FLAGS "...")
-
-add_executable(app ...)
-target_link_libraries(app foo)
-```
-
-重构为：
-
-```text
-targets
-usage requirements
-imported dependencies
-```
-
-要求能解释：
-
-> 每个 requirement真正属于哪个 target。
-
----
-
-# 169. Lab 2 — PUBLIC / PRIVATE
-
-设计：
-
-```text
-core
-network
-app
-```
-
-`network.hpp` public interface 使用：
-
+<!-- n-file {"path":"producer/helper.cpp"} -->
 ```cpp
-core::Message
+int helper_answer() { return 42; }
 ```
 
-闭卷判断：
+[完整实验 · G9-P1 · producer/core.cpp]
 
-```cmake
-target_link_libraries(network
-    ??? core
-)
-```
-
-答案不是背：
-
-> PUBLIC。
-
-而是推：
-
-```text
-consumer compiles network.hpp
-↓
-must understand core::Message
-↓
-core is interface requirement
-```
-
----
-
-# 170. Lab 3 — Installable Library
-
-实现：
-
-```text
-MyLib::core
-```
-
-支持：
-
-```bash
-cmake --install
-```
-
-然后 separate consumer：
-
-```cmake
-find_package(MyLib CONFIG REQUIRED)
-```
-
-成功。
-
-这是 G9 最重要实践之一。
-
----
-
-# 171. Lab 4 — Presets
-
-至少：
-
-```text
-dev
-san
-release
-```
-
-三套。
-
-所有人只需要：
-
-```bash
-cmake --preset dev
-cmake --build --preset dev
-ctest --preset dev
-```
-
-避免 README 中复制长命令。
-
----
-
-# 172. Lab 5 — Cross Compile
-
-即使没有真实 embedded board，
-
-也需要读懂一个 toolchain：
-
-```text
-target OS
-target CPU
-compiler
-sysroot
-find modes
-```
-
-并解释：
-
-> 为什么 host code generator 与 target executable必须区分。
-
----
-
-# 173. Lab 6 — Dependency Integration
-
-同一个简单 dependency分别：
-
-```text
-find_package(system/package manager)
-FetchContent
-```
-
-消费。
-
-观察：
-
-> 项目 target code应该尽量保持相同。
-
----
-
-# 174. Lab 7 — Build-time Codegen
-
-输入：
-
-```text
-signals.csv
-```
-
-生成：
-
-```text
-generated.cpp
-generated.hpp
-```
-
-用：
-
-```text
-add_custom_command(OUTPUT ...)
-```
-
-建图。
-
-修改 csv：
-
-> 只重新生成/编译受影响 artifacts。
-
----
-
-# 175. Lab 8 — C++ Module
-
-实现一个最小：
-
+<!-- n-file {"path":"producer/core.cpp"} -->
 ```cpp
-export module math;
+#include <handbook/core.hpp>
+#ifndef HELPER_PRIVATE
+#error "private helper requirements missing from producer"
+#endif
+int helper_answer();
+std::expected<int, int> handbook::answer() { return helper_answer(); }
 ```
 
-通过：
+[完整实验 · G9-P1 · producer/test.cpp]
 
+<!-- n-file {"path":"producer/test.cpp"} -->
+```cpp
+#include <handbook/core.hpp>
+#ifdef HELPER_PRIVATE
+#error "private helper compile requirement leaked to consumer"
+#endif
+int main() {
+    const auto result = handbook::answer();
+    return result && *result == 42 ? 0 : 1;
+}
+```
+
+[完整实验 · G9-P1 · consumer/CMakeLists.txt]
+
+<!-- n-file {"path":"consumer/CMakeLists.txt"} -->
 ```cmake
-FILE_SET CXX_MODULES
+cmake_minimum_required(VERSION 3.28)
+project(IndependentConsumer LANGUAGES CXX)
+include(CTest)
+set(REQUESTED_VERSION 1 CACHE STRING "Requested package version")
+find_package(HandbookNative ${REQUESTED_VERSION} CONFIG REQUIRED)
+add_executable(consume main.cpp)
+target_link_libraries(consume PRIVATE HandbookNative::core)
+add_test(NAME consumer.value COMMAND consume)
 ```
 
-构建。
+[完整实验 · G9-P1 · consumer/main.cpp]
 
-重点不是 syntax，
+<!-- n-file {"path":"consumer/main.cpp"} -->
+```cpp
+#include <handbook/core.hpp>
+#ifdef HELPER_PRIVATE
+#error "private helper compile requirement leaked to installed consumer"
+#endif
+int main() {
+    const auto value = handbook::answer();
+    return value && *value == 42 ? 0 : 1;
+}
+```
 
-而是观察：
+**运行与解释。** 本节开头的统一命令按 `G9-P1` 提取全部文件；具体编译、链接、运行及负例命令保存在 `results.json`。先预测结果，再用完整诊断核对，不能把任意构建失败或超时当作预期反例。
 
+### 18.2 G9-P2 · 预设与代码生成依赖的失效检查
+
+**待验证命题。** 通过 dev preset 配置、构建和测试；修改值文件后，不重新 configure，build 必须重新生成并编译。故意漏掉输入 DEPENDS 的错误变体编译成功，但旧值必须被观察判据拒绝。
+
+**范围与前提。** 只检查此生成图的数据依赖与可见结果。没有用耗时阈值证明增量构建快，也没有启用 PCH、Unity、LTO、模块、交叉编译或 sanitizer。
+
+<!-- n-lab {"id":"G9-P2","mode":"codegen"} -->
+
+[完整实验 · G9-P2 · CMakeLists.txt]
+
+<!-- n-file {"path":"CMakeLists.txt"} -->
+```cmake
+cmake_minimum_required(VERSION 3.28)
+project(GeneratedValue LANGUAGES CXX)
+include(CTest)
+set(generated "${CMAKE_CURRENT_BINARY_DIR}/generated.hpp")
+add_custom_command(OUTPUT "${generated}"
+    COMMAND "${CMAKE_COMMAND}"
+        "-DINPUT=${CMAKE_CURRENT_SOURCE_DIR}/value.txt"
+        "-DOUTPUT=${generated}"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/generate.cmake"
+    DEPENDS value.txt generate.cmake
+    VERBATIM)
+add_executable(generated_value main.cpp "${generated}")
+target_include_directories(generated_value PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+target_compile_features(generated_value PRIVATE cxx_std_23)
+add_test(NAME generated.initial COMMAND generated_value 7)
+```
+
+[完整实验 · G9-P2 · generate.cmake]
+
+<!-- n-file {"path":"generate.cmake"} -->
+```cmake
+file(READ "${INPUT}" value)
+string(STRIP "${value}" value)
+if(NOT value MATCHES "^[0-9]+$")
+    message(FATAL_ERROR "expected nonnegative integer")
+endif()
+file(WRITE "${OUTPUT}" "#pragma once\ninline constexpr int generated_value = ${value};\n")
+```
+
+[完整实验 · G9-P2 · value.txt]
+
+<!-- n-file {"path":"value.txt"} -->
 ```text
-module dependency scanning
-build ordering
-generated module artifacts
+7
 ```
 
-与传统 header build 的差异。
+[完整实验 · G9-P2 · main.cpp]
 
----
-
-# 176. Lab 9 — Build Performance
-
-记录：
-
-```text
-clean build
-incremental one-line .cpp change
-public header change
+<!-- n-file {"path":"main.cpp"} -->
+```cpp
+#include "generated.hpp"
+#include <charconv>
+#include <cstring>
+#include <iostream>
+int main(int argc, char** argv) {
+    if (argc != 2) return 2;
+    int expected = 0;
+    const auto end = argv[1] + std::strlen(argv[1]);
+    const auto parsed = std::from_chars(argv[1], end, expected);
+    if (parsed.ec != std::errc{} || parsed.ptr != end) return 3;
+    std::cout << generated_value << '\n';
+    return generated_value == expected ? 0 : 4;
+}
 ```
 
-时间。
+[完整实验 · G9-P2 · CMakePresets.json]
 
-然后分别尝试：
-
-```text
-PImpl
-PCH
-Unity
+<!-- n-file {"path":"CMakePresets.json"} -->
+```json
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "dev",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/dev",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
 ```
 
-观察：
+**运行与解释。** 本节开头的统一命令按 `G9-P2` 提取全部文件；具体编译、链接、运行及负例命令保存在 `results.json`。先预测结果，再用完整诊断核对，不能把任意构建失败或超时当作预期反例。
 
-> 它们优化的是哪一类 build cost。
+**未执行路线。** 前面列出的扩展练习仍可用于学习，但不自动计入本批通过项。执行记录按文档检查、编译/链接/消费、性能观察、并发检测分别说明；后两类在本批不运行。
 
----
 
-# Part L · G9 Review Protocol
+<a id="g9-section-19"></a>
+
+## 19. 构建复核协议
 
 面对一个 C++ build system，按这个顺序审查。
 
@@ -4553,595 +949,209 @@ Unity
 | DX                    | clangd/compile database/incremental build 是否健康？    |
 | Performance           | build optimizations是否基于真实数据？                   |
 
----
+<a id="g9-section-20"></a>
 
-# Part LI · 高频错误
-
-# 177. 错误 1
-
-> CMake 是 compiler。
-
-错。
-
-它主要生成/配置 build graph。
-
----
-
-# 178. 错误 2
-
-> `target_link_libraries` 只控制 linker。
-
-错。
-
-它还是 transitive usage-requirement graph 的核心。:chatgpt-content-reference{index="19"}
-
----
-
-# 179. 错误 3
-
-> PUBLIC 表示“这是一个公开 library”。
-
-错。
-
-它表示：
-
-```text
-current target itself需要
-+
-consumer也需要
-```
-
----
-
-# 180. 错误 4
-
-> 所有 compiler flags 放 `CMAKE_CXX_FLAGS` 最方便。
-
-短期方便，
-
-长期摧毁 target isolation。
-
----
-
-# 181. 错误 5
-
-> CMake target link 到 `.a` 文件路径就完成 dependency modeling。
-
-没有表达：
-
-```text
-headers
-defines
-transitive libs
-usage requirements
-```
-
----
-
-# 182. 错误 6
-
-> Preset 和 Toolchain 是一回事。
-
-错。
-
-```text
-Preset
-→ workflow/configuration
-
-Toolchain
-→ compiler/target environment
-```
-
----
-
-# 183. 错误 7
-
-> vcpkg/Conan 可以替代 CMake。
-
-它们解决 dependency/package problem，
-
-CMake解决 project build graph。
-
----
-
-# 184. 错误 8
-
-> FetchContent 是完整 package manager。
-
-不是。
-
----
-
-# 185. 错误 9
-
-> Library在本仓库能链接，所以 package已经正确。
-
-必须：
-
-> install + external consumer test。
-
----
-
-# 186. 错误 10
-
-> Release = `-O3`。
-
-Production profile还包括：
-
-```text
-debug symbols
-LTO policy
-visibility
-assert policy
-sanitizer off
-ABI settings
-```
-
-等。
-
----
-
-# 187. 错误 11
-
-> Modules 替代 headers 后 build system 会更简单。
-
-恰恰需要 build system更准确理解 module dependency graph。
-
----
-
-# 188. 错误 12
-
-> PCH / Unity / LTO 都是应该默认打开的“性能选项”。
-
-它们优化不同阶段，
-
-都有 trade-off。
-
----
-
-# 189. 错误 13
-
-> clangd 配不好就是编辑器问题。
-
-很多时候是：
-
-> compile database/build graph不准确。
-
----
-
-# 190. 错误 14
-
-> Cross compile 只是换一个 compiler executable。
-
-还涉及：
-
-```text
-sysroot
-target platform
-host tools
-package discovery
-try-run
-```
-
----
-
-# 191. 错误 15
-
-> CMake越复杂说明工程越专业。
-
-优秀 CMake 往往：
-
-> target model清晰、逻辑很少、关系明确。
-
----
-
-# Part LII · C++ / Zig / Rust 对照
-
-# 192. C++ / CMake
-
-C++ 本身没有统一官方 package/build system。
-
-因此生态历史上高度分散：
-
-```text
-Make
-Autotools
-CMake
-Meson
-Bazel
-package managers
-IDE projects
-```
-
-CMake最终成为最广泛的 interoperability layer之一。
-
-代价：
-
-> 它必须兼容大量平台、compiler、历史模式。
-
----
-
-# 193. Zig Build
-
-Zig build system更接近：
-
-> 语言/toolchain原生 artifact graph API。
-
-它天然知道：
-
-```text
-target
-optimization
-compiler
-artifact
-module
-```
-
-因此很多概念比 CMake更统一。
-
----
-
-# 194. Rust Cargo
-
-Cargo进一步把：
-
-```text
-build
-dependency resolution
-package publishing
-feature graph
-test
-```
-
-高度整合。
-
-C++ 则通常由：
-
-```text
-CMake
-+
-package manager
-+
-CTest
-+
-external tooling
-```
-
-组合完成。
-
----
-
-# 195. 为什么学 CMake 仍然很重要？
-
-不是因为：
-
-> CMake语言优雅。
-
-而是因为：
-
-> C++ native ecosystem 的现实 interoperability value 极高。
-
-尤其：
-
-```text
-third-party libraries
-robotics
-HPC
-embedded
-SDKs
-cross-platform
-```
-
-大量项目已经围绕 CMake ecosystem组织。
-
----
-
-# 196. 不要把 Zig Build 当“CMake Syntax Replacement”
-
-如果用 Zig build驱动 C++：
-
-> 可以是非常优秀的学习/内部项目选择。
-
-但面对：
-
-```text
-third-party CMake package
-install/export ecosystem
-C++ SDK consumers
-ROS/native ecosystem
-```
-
-仍然需要理解：
-
-> CMake package model。
-
-因为问题不只是：
-
-```text
-“怎么执行 clang++”
-```
-
-而是：
-
-> **怎样参与整个 C++ native dependency ecosystem。**
-
----
-
-# Part LIII · G9 Final Fifteen Axioms
-
-如果半年以后只保留十五条：
-
-1. **Build system 的核心是 Artifact Dependency Graph，而不是 shell command 集合。**
-
-2. **Modern CMake 的核心 abstraction 是 Target：artifact + build properties + transitive usage requirements。**
-
-3. **`PRIVATE / PUBLIC / INTERFACE` 应从 C++ source interface dependency 推导，而不是靠经验背诵。**
-
-4. **Build requirement 应附着到最窄的 owning target，避免 global include paths、flags 和 linker state。**
-
-5. **Source Tree、Build Tree、Install Tree 是不同 representations；一个库必须测试真正的 install-consumer path。**
-
-6. **Preset 描述项目支持的 build workflow，Toolchain 描述 compiler/target environment；两者不能混。**
-
-7. **Dependency package 应尽量以 Imported Target 的形式进入 CMake graph，而不是裸路径和全局变量。**
-
-8. **CMake、Conan/vcpkg、Ninja 分别解决 build graph、package resolution、build execution 等不同问题，不应混为一层。**
-
-9. **一个可发布 library 的完成条件不仅是 build 成功，而是 install/export/config/version/consumer 全链路成立。**
-
-10. **Generated code 也必须成为 build graph 中具有明确 input/output/dependency 的 artifact。**
-
-11. **C++ Modules 需要 build system参与 dependency scanning；语言 feature availability 不等于整个 compiler/stdlib/build stack 都已成熟。**
-
-12. **PCH、Unity、LTO 都是特定阶段的 optimization，不是“现代 C++ 必开选项”。**
-
-13. **Cross compilation 是 Host Universe 与 Target Universe 的分离，不只是换 compiler path。**
-
-14. **Developer tooling 应消费真实 build truth：clangd 来自 compile database，测试来自真实 targets，package tests来自 install tree。**
-
-15. **优秀 CMake 的目标不是展示 CMake 技巧，而是用最少的隐式状态准确表达 C++ artifact architecture。**
-
----
-
-# Part LIV · G9 Final Gate
+## 20. Final Gate
 
 完成 G9 后，应能闭卷回答：
 
-## Build Model
+### 20.1 Build Model
 
 1. CMake、Ninja、Clang 分别做什么？
 2. 什么是 artifact graph？
 3. Source/Build/Install Tree 为什么必须区分？
 
-## Targets
+### 20.2 Targets
 
 1. Target 为什么是 modern CMake 核心？
 2. Target property 与 usage requirement 区别是什么？
 3. Interface Library 为什么可以没有 binary artifact？
 
-## Scopes
+### 20.3 Scopes
 
 1. `PRIVATE` 的准确含义是什么？
 2. `PUBLIC` 为什么等于 implementation + interface requirement？
 3. `INTERFACE` 什么场景最自然？
 4. 如何从 public C++ header 推导 dependency scope？
 
-## Language
+### 20.4 Language
 
- 1. 为什么 `cxx_std_23` 比裸 `-std=c++23` 更好？
- 2. public header 使用 C++23 feature 时为什么 standard requirement可能需要传播？
+1. 为什么 `cxx_std_23` 比裸 `-std=c++23` 更好？
+2. public header 使用 C++23 feature 时为什么 standard requirement可能需要传播？
 
-## Configuration
+### 20.5 Configuration
 
- 1. Preset 与 Toolchain File 区别是什么？
- 2. Single-config 与 Multi-config generator 有什么区别？
- 3. 为什么不应该到处依赖 `CMAKE_BUILD_TYPE`？
+1. Preset 与 Toolchain File 区别是什么？
+2. Single-config 与 Multi-config generator 有什么区别？
+3. 为什么不应该到处依赖 `CMAKE_BUILD_TYPE`？
 
-## Dependencies
+### 20.6 Dependencies
 
- 1. Module-mode `find_package()` 与 Config-mode 区别？
- 2. Imported Target 为什么比 `FOO_LIBRARIES` 更成熟？
- 3. FetchContent 为什么不是 package manager？
- 4. Conan/vcpkg 为什么最好不要污染 project target logic？
+1. Module-mode `find_package()` 与 Config-mode 区别？
+2. Imported Target 为什么比 `FOO_LIBRARIES` 更成熟？
+3. FetchContent 为什么不是 package manager？
+4. Conan/vcpkg 为什么最好不要污染 project target logic？
 
-## Packaging
+### 20.7 Packaging
 
- 1. Build成功为什么不代表 library package正确？
- 2. `install(EXPORT ...)` 解决什么？
- 3. `<Package>Config.cmake` 有什么作用？
- 4. 为什么 installed package 必须 relocatable？
- 5. `find_dependency()` 为什么对 PUBLIC dependency重要？
+1. Build成功为什么不代表 library package正确？
+2. `install(EXPORT ...)` 解决什么？
+3. `<Package>Config.cmake` 有什么作用？
+4. 为什么 installed package 必须 relocatable？
+5. `find_dependency()` 为什么对 PUBLIC dependency重要？
 
-## Advanced Build
+### 20.8 Advanced Build
 
- 1. PCH优化的是什么？
- 2. Unity Build 的风险是什么？
- 3. LTO为什么是跨 TU optimization？
- 4. Modules 为什么要求 build-system dependency scanning？
+1. PCH优化的是什么？
+2. Unity Build 的风险是什么？
+3. LTO为什么是跨 TU optimization？
+4. Modules 为什么要求 build-system dependency scanning？
 
-## Tooling
+### 20.9 Tooling
 
- 1. 为什么 clangd 要依赖 `compile_commands.json`？
- 2. 为什么 sanitizer/coverage应该独立 profile？
- 3. 为什么 benchmark 不应该基于 Debug/ASan build？
+1. 为什么 clangd 要依赖 `compile_commands.json`？
+2. 为什么 sanitizer/coverage应该独立 profile？
+3. 为什么 benchmark 不应该基于 Debug/ASan build？
 
-## Cross Compilation
+### 20.10 Cross Compilation
 
- 1. 什么是 Host Tool 与 Target Artifact？
- 2. `try_run()` 为什么在 cross build中危险？
- 3. Toolchain file 为什么必须很早读取？
+1. 什么是 Host Tool 与 Target Artifact？
+2. `try_run()` 为什么在 cross build中危险？
+3. Toolchain file 为什么必须很早读取？
 
-## Architecture
+### 20.11 Architecture
 
- 1. 为什么 CMakeLists越长越复杂并不意味着工程越成熟？
- 2. Modern CMake 的最终目标是什么？
+1. 为什么 CMakeLists越长越复杂并不意味着工程越成熟？
+2. Modern CMake 的最终目标是什么？
 
-答案应该能够压缩成：
+<a id="g9-section-21"></a>
 
-> **准确描述 artifacts、dependencies 和 usage requirements，然后让 toolchain/backend 自动推导命令。**
+## 21. Final Gate · 参考答案与常见误判
 
----
+### 21.1 Build Model
 
-# Part LV · G0 → G9 的统一闭环
+1. CMake 配置并生成构建描述，Ninja 执行依赖图，Clang 驱动编译/链接工具。阶段出错应分别检查配置发现、编译语义、链接符号和运行加载。
 
-现在我们已经完成了一条非常完整的 native systems 链路：
+2. 产物图连接输入、派生产物及依赖；target 还携带使用要求。静态库依赖边不表示把依赖库字节塞进自己的 archive。
 
-```text
-G0
-Source → Object → Link → Load
+3. 源码树是维护入口，构建树是配置相关派生状态，安装树是消费者视图。G9-P1 隐藏前两者仍成功，才对后者独立消费提供证据。
 
-        ↓
+### 21.2 Targets
 
-G1
-Object / Storage / Lifetime
+1. Target 把源码成员、产物、编译配置和依赖关系放在有归属的对象上，减少全局隐式状态。
 
-        ↓
+2. 自身属性参与本目标构建；INTERFACE 属性描述消费者需要什么。PUBLIC 同时设置两侧，不表示“库已经公开发布”。
 
-G2
-Ownership / RAII
+3. 接口库可只承载使用要求而没有普通库二进制。若含文件集或自定义生成关系，仍可能参与构建图；没有 archive 不等于没有语义。
 
-        ↓
+### 21.3 Scopes
 
-G3
-Value / Copy / Move
+1. PRIVATE 给自身使用，不把编译使用要求作为普通公开接口；静态目标仍可能向最终链接保留依赖。G9-P1 的 helper 宏对 core 可见、对消费者不可见，但 helper 符号必须参与最终链接。
 
-        ↓
+2. PUBLIC 同时描述自身和消费侧要求。3. INTERFACE 只描述消费者要求，适合纯头文件接口或共享的接口策略。
 
-G4
-Containers / Views / Algorithms
+4. 先独立编译公开头文件：它需要哪些类型、宏和头文件？再看库的未解析符号需要什么。仅据 `.cpp` 使用就断言安装包无此依赖，会遗漏静态链接边。
 
-        ↓
+### 21.4 Language
 
-G5
-Templates / Compile-time Genericity
+1. cxx_std_23 让 CMake 选择编译器对应的标准模式参数，而不是把某家编译器选项写死。它只声明模式下限，不能保证标准库所有 C++23 组件齐全。
 
-        ↓
+2. 消费者要编译公开头文件，所以语言和库要求也属于接口。G9-P1 用 expected 真实编译消费端；未据此宣称全部 C++23 实现已验证。
 
-G6
-Memory / Cache / Performance
+### 21.5 Configuration
 
-        ↓
+1. Preset 描述项目如何配置/构建/测试，toolchain 描述编译器、目标平台和 sysroot；它们可引用彼此但职责不同。
 
-G7
-Concurrency / Memory Model
+2. 单配置生成器通常每个构建树选一个 CMAKE_BUILD_TYPE，多配置生成器在构建等阶段选配置。3. 因而硬编码 if(CMAKE_BUILD_TYPE STREQUAL Debug) 不能覆盖多配置行为；采用恰当的配置表达式和命令参数。
 
-        ↓
+G9-P2 只运行 Ninja 单配置 dev preset，不把示例中的 san/release 建议算成实际执行。
 
-G8
-ABI / Binary Boundaries
-
-        ↓
-
-G9
-Build / Package / Artifact Ecosystem
-```
-
-现在假设看到：
-
-```cmake
-target_link_libraries(vehicle_processor
-    PUBLIC
-        decoder
-)
-```
-
-你不再只是问：
-
-> “PUBLIC 语法是什么意思？”
-
-而是应该沿整条链追：
-
-```text
-decoder 是否出现在 public C++ API？
-        ↓
-consumer 是否需要它的 headers/types？
-        ↓
-它是否成为 transitive build requirement？
-        ↓
-是否成为 installed package dependency？
-        ↓
-是否扩大 ABI surface？
-        ↓
-consumer toolchain 是否兼容？
-```
-
-也就是说：
-
-> **Build System 已经不再是“项目最后补上的脚本”，而是软件 architecture 的可执行表达。**
-
----
-
-# G9 完成状态
-
-```text
-G9.1   Artifact Graph / Target Model
-G9.2   Usage Requirements
-G9.3   PRIVATE / PUBLIC / INTERFACE
-G9.4   C++23 Compile Features
-G9.5   File Sets / Headers
-G9.6   Presets / Build Profiles
-G9.7   Toolchain / Cross Compilation
-G9.8   Dependency Discovery
-G9.9   Conan / vcpkg / FetchContent
-G9.10  Install / Export / Package Config
-G9.11  Generated Code
-G9.12  C++ Modules
-G9.13  PCH / Unity / LTO
-G9.14  Warnings / Sanitizers / Tooling
-G9.15  Testing / CTest
-G9.16  Packaging / CI / Reproducibility
-G9.17  Build Performance / DX
-────────────────────────────────────────
-G9      COMPLETE / FROZEN
-```
-
-当前官方 CMake 文档所体现的主流方向也与本章的核心模型一致：以 targets 和 usage requirements 建模 dependency relationships，使用 presets 管理 workflows，以 toolchain 描述目标环境，通过 package config/imported targets 进行依赖消费，并以 file sets 承载 headers/modules。:chatgpt-content-reference{index="20"}
-
----
-
-# 下一章：G10 — Systems Runtime Project
-
-从这里开始，**知识章节阶段基本结束**。
-
-G10 不再主要是：
-
-```text
-“讲一个新 C++ feature”
-```
-
-而是把 G0–G9 强制组合进一个真实 C++23 systems project。
-
-完整项目需要同时兑现：
-
-```text
-C++23
-RAII
-value semantics
-ownership
-span / ranges
-templates
-bounded memory
-cache-aware representation
-threading
-bounded queues
-backpressure
-graceful shutdown
-error model
-profiling
-C ABI boundary
-target-based CMake
-installable package
-tests
-sanitizers
-benchmarks
-```
-
-也就是说，G10 的核心问题会从：
-
-> **“这个机制是什么？”**
-
-正式转成：
-
-> **“面对一个真实系统约束，我该怎样把这些机制组合成一个可以长期维护的工程？”**
-
-这会是整个 Modern C++ Systems Track 的第一个综合验收章。
+### 21.6 Dependencies
+
+1. Module 模式寻找 FindFoo.cmake，常依赖外部查找逻辑；Config 模式由包提供导入信息。两者都不是版本锁定策略。
+
+2. 导入目标还能携带头文件、定义和传递依赖，不仅是一个路径列表。3. FetchContent 负责获取/接入源码，不自动提供完整二进制包管理。
+
+4. Conan/vcpkg 应尽量在包获取与工具链层工作，使核心 target 逻辑仍通过 find_package 消费。常见误判是以为“使用了包管理器”就自动得到 hermetic 或逐字节复现。
+
+### 21.7 Packaging
+
+1. 本仓库构建可能靠源码 include、缓存、全局路径或已有依赖偶然成功；安装缺头文件、缺目标和硬编码路径要由独立消费者发现。
+
+2. install(EXPORT) 生成安装后的目标描述。3. Config 负责加载目标、准备依赖和处理组件；Version 文件采用声明的版本接受策略。
+
+4. 可迁移包尽量相对安装前缀定位自身；具体交付也可有明确固定路径策略，不能隐含开发机位置。5. PUBLIC 依赖通常要 find_dependency；静态 PRIVATE 链接依赖同样可能需要，不能只检查公开头文件。
+
+G9-P1 验证同机静态包迁移及错误主版本拒绝，没有验证动态库加载路径、签名、发布事务或所有消费者配置。
+
+### 21.8 Advanced Build
+
+1. PCH 复用稳定头文件的解析产物，不能替代显式 include。2. Unity 合并翻译单元可能引入匿名命名空间、宏和静态名称碰撞；正常非 Unity 构建仍须成立。
+
+3. LTO 让链接阶段看到更多跨翻译单元中间信息，效果和成本需测量。4. 模块导入先后及编译模块产物依赖必须进入构建图，改后缀不能完成迁移。本批没有执行上述优化或模块实验。
+
+### 21.9 Tooling
+
+1. clangd 需要实际编译命令的头文件路径、宏和模式；数据库过期或缺生成头文件会使编辑器诊断偏离真实构建。
+
+2. Sanitizer/coverage 改变插桩与运行环境，应有独立配置和证据类别。3. Debug/ASan 不代表生产代码生成及时间成本，不能据其微基准得出发布性能结论。G9-P2 的命令日志与编译数据库是构建证据，不是性能测试。
+
+### 21.10 Cross Compilation
+
+1. 代码生成器运行于构建机，目标库运行于目标平台；必须区分两类工具和依赖。2. try_run 需要执行目标程序，交叉构建可能只能通过模拟器或预填结果解决，不能静默用宿主结果代替。
+
+3. toolchain 必须在编译器识别与特性探测前影响目标环境。仅换编译器路径而继续使用宿主头文件/库，是典型的混合配置错误。本批交叉编译为 NOT RUN。
+
+### 21.11 Architecture
+
+1. 构建成熟度来自依赖和支持矩阵清楚，而非函数、宏与选项数量。每个新增选项都增加需要支持的配置集合。
+
+2. 目标是准确表达产物、依赖和使用要求，让工具执行可检查的构建/交付流程。G9-P2 故意漏掉输入 DEPENDS 后仍能“构建成功”，但消费者看到旧值；因此成功退出并不等于依赖图正确。
+
+<a id="g9-section-22"></a>
+
+## 22. 工程原则与全链回查
+
+如果半年以后只保留十五条：
+
+1. Build system 的核心是 Artifact Dependency Graph，而不是 shell command 集合。
+
+2. Modern CMake 的核心 abstraction 是 Target：artifact + build properties + transitive usage requirements。
+
+3. `PRIVATE / PUBLIC / INTERFACE` 应从 C++ source interface dependency 推导，而不是靠经验背诵。
+
+4. Build requirement 应附着到最窄的 owning target，避免 global include paths、flags 和 linker state。
+
+5. Source Tree、Build Tree、Install Tree 是不同 representations；一个库必须测试真正的 install-consumer path。
+
+6. Preset 描述项目支持的 build workflow，Toolchain 描述 compiler/target environment；两者不能混。
+
+7. Dependency package 应尽量以 Imported Target 的形式进入 CMake graph，而不是裸路径和全局变量。
+
+8. CMake、Conan/vcpkg、Ninja 分别解决 build graph、package resolution、build execution 等不同问题，不应混为一层。
+
+9. 一个可发布 library 的完成条件不仅是 build 成功，而是 install/export/config/version/consumer 全链路成立。
+
+10. Generated code 也必须成为 build graph 中具有明确 input/output/dependency 的 artifact。
+
+11. C++ Modules 需要 build system参与 dependency scanning；语言 feature availability 不等于整个 compiler/stdlib/build stack 都已成熟。
+
+12. PCH、Unity、LTO 都是特定阶段的 optimization，不是“现代 C++ 必开选项”。
+
+13. Cross compilation 是 Host Universe 与 Target Universe 的分离，不只是换 compiler path。
+
+14. Developer tooling 应消费真实 build truth：clangd 来自 compile database，测试来自真实 targets，package tests来自 install tree。
+
+15. 优秀 CMake 的目标不是展示 CMake 技巧，而是用最少的隐式状态准确表达 C++ artifact architecture。
+
+一条 `target_link_libraries(app PUBLIC decoder)` 不只是链接语法：先检查源码接口，再追到使用要求、安装包依赖、ABI 配置和消费者工具链。构建描述是架构的可执行表达；不是 CMake 越复杂，工程就越成熟。
+
+<a id="g9-section-23"></a>
+
+## 23. 参考资料与验证边界
+
+CMake 规则引用固定的 4.4 文档线：[构建模型](https://cmake.org/cmake/help/v4.4/manual/cmake-buildsystem.7.html)、[链接传播](https://cmake.org/cmake/help/v4.4/command/target_link_libraries.html)、[生成器表达式](https://cmake.org/cmake/help/v4.4/manual/cmake-generator-expressions.7.html)、[包配置](https://cmake.org/cmake/help/v4.4/module/CMakePackageConfigHelpers.html)、[生成命令](https://cmake.org/cmake/help/v4.4/command/add_custom_command.html)、[预设](https://cmake.org/cmake/help/v4.4/manual/cmake-presets.7.html) 和 [模块支持](https://cmake.org/cmake/help/v4.4/manual/cmake-cxxmodules.7.html)。工具版本和源码摘要以本批记录为准，不使用“最新稳定版”作为永久事实。
+
+包管理器为范围说明，参见 [Conan](https://docs.conan.io/2/reference/tools/cmake/cmakeconfigdeps.html) 与 [vcpkg manifest](https://learn.microsoft.com/en-us/vcpkg/concepts/manifest-mode)。本批不运行包管理器，不验证其缓存或依赖复现性。
+
+[本批验证与限制](learning/native-revision.md)区分实际编译/链接/消费结果、未运行项及源稿风险。只有完整实验源码经过相应执行器验证，其余片段仅用于解释机制。PDF 未构建、未渲染、未验收；本章源稿状态不能代替出版或跨平台批准。

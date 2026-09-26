@@ -1,17 +1,18 @@
 # G 系列实验与证据
 
-这里保存 G0～G7 的定向执行器与记录；正文 Markdown 是实验源代码的单一维护入口。[Editorial Profile](../editorial-profile.md) 统一编辑规则，不由执行器重新定义学习目标。
+这里保存 G0～G9 的定向执行器与记录；正文 Markdown 是实验源代码的单一维护入口。[Editorial Profile](../editorial-profile.md) 统一编辑规则，不由执行器重新定义学习目标。
 
 从仓库根目录执行：
 
 ```sh
 python3 c++/learning/verify_g.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/verify_handbook.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 -m unittest discover -s c++/learning -p 'test_*.py'
 python3 c++/learning/check_docs.py
 ```
 
-只使用本机已有编译器，不下载依赖。两个实验执行器各自创建新系统临时目录，开头打印 `Evidence:` 路径；其中 `results.json` 保存提取源码摘要、完整命令、诊断与结果，源码/目标文件/汇编留在对应实验子目录。不会写入历史 PDF 或 FM 证据。`g-lab/g-file` 标识 G0～G4；`h-lab/h-file` 标识 G5～G7。其余代码块不纳入完整程序执行。
+只使用本机已有工具，不下载依赖。三个实验执行器各自创建新系统临时目录，开头打印 `Evidence:` 路径；其中 `results.json` 保存提取源码摘要、完整命令、诊断与结果，源码/目标文件/汇编留在对应实验子目录。不会写入历史 PDF 或 FM 证据。`g-lab/g-file` 标识 G0～G4；`h-lab/h-file` 标识 G5～G7；`n-lab/n-file` 标识 G8～G9。其余代码块不纳入完整程序执行。
 
 ## 四类证据
 
@@ -31,6 +32,19 @@ G6-M3 使用 -O3、分离编译、无 LTO，初始化不计时；每轮结果校
 先在正文预测，再运行，再解释差异。`PASS` 表示该实验的具体判据满足，不表示整篇文章、整套标准库或全部平台已经验证。编译失败反例必须匹配目标诊断；ASan 反例必须检测到指定错误，崩溃或超时不能替代它。工具缺失记为 `SKIP`，不计通过。
 
 执行器会编译并运行正文里的代码，**不是不可信代码沙箱**。仅运行已经检查过的本仓库实验。
+
+## G8～G9 的本机验证入口
+
+`verify_native.py` 当前明确支持 Darwin / Clang / Mach-O，要求指定 Clang++ 旁存在 Clang C 编译器，并已安装 CMake、CTest、Ninja、nm、otool。其他平台或缺工具返回 INCOMPLETE，不冒充已支持。完整实验声明最低 CMake 3.28；本批只实测结果中记录的版本。
+
+四个模块共 20 个正文文件：G8-B1 为 C/C++ 分离编译、符号观察与目标链接负例；G8-B2 为真实 C11 消费者和 C++23 共享提供者；G9-P1 为静态 PRIVATE 依赖、安装迁移及独立 Config 消费；G9-P2 为 dev presets 和输入依赖失效验证。另有错误计数与遗漏生成依赖两个受控变体，要求编译成功后按精确运行码拒绝。
+
+结果分为 `compile_link_consumer` 和 `binary_observation`，后者不是性能观察。性能测量与并发动态检测本批均为 NOT RUN；不沿用 G6/G7 的历史结果冒充本批覆盖。CTest 要求非空测试集成功，不接受任意零退出空跑。每个命令最多 60 秒，沿用已有进程组取消/超时清理；本批未重做真实 Ctrl-C 生命周期实验。
+
+P1 移动安装前缀并重命名临时生产者源码/构建目录，不删除原件；消费者只能使用新的安装位置。P2 将临时值文件从 7 改成 19，显式推进输入时间戳以避免粗粒度文件系统遗漏重建，再观察程序结果；这不是构建性能测量。其 CTest `generated.initial` 固定检查初始值 7，变更阶段由执行器直接用期望 19 检查程序，不宣称旧的固定期望测试在变更后仍通过。控制搜索环境不等于 hermetic 构建，生成脚本也不视为安全沙箱。
+
+- [G8～G9 修订、主题去向与验证边界](native-revision.md)
+- [G8～G9 本地原始证据](native-results.json)
 
 - [回到全系列学习导航](../README.md)
 - [Professional 批次修订与验证记录](professional-revision.md)

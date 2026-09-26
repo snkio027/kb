@@ -1,153 +1,70 @@
-# C++ Systems Track · G8 ABI / Libraries / C Interop
+# G8 · ABI、原生库与 C 互操作
 
-**Version:** 1.0  
-**Status:** Complete / Frozen Review Baseline  
-**Language Baseline:** C++23  
-**Prerequisites:** G0–G7  
-**Scope:** API / ABI / Linkage / Name Mangling / Calling Convention / Object Layout / VTable / RTTI / Exceptions / Symbol Visibility / Static & Shared Libraries / Versioning / PImpl / C ABI / Opaque Handle / Allocator Boundary / Callbacks / Plugins / Rust & Zig FFI  
-**Purpose:** 建立从 **C++ source-level interface** 到 **binary component boundary** 的完整模型，并学会设计能够长期演进、跨编译器/语言使用的 native library interface。
+**版本：** 1.1 · Professional Handbook Edition
 
----
+**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
 
-# 0. G8 的定位
+**语言基线：** C++23；C 接口实验使用 C11。
 
-到 G7 为止，我们已经能够回答：
+**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)
 
-```text
-G1
-这个 object 是否存在、能否合法访问？
+## 阅读入口
 
-G2
-谁拥有它、什么时候销毁？
+本章的问题是：库升级了，而调用者没有重新编译，原有调用还能成立吗？先读 §1～8 建立二进制模型，再读 §10～14 设计接口，最后以 §20 的实验检验符号、错误与输出合同。兼容审查可直接查 §9、§15～16；FFI、插件与版本演进保留为深入回查，不要求一次全部读完。
 
-G3
-它怎样 copy / move，成本是什么？
+首次出现的核心术语在主线中解释；代码标为机制片段时不承诺独立编译。只有完整实验标记纳入执行器。原稿的编号主题通过 `g8-topic-N` 锚点映射到对应主题组；新章节按工程问题组织，不再逐项复制数十个 Part。原稿的 Complete / Frozen 不沿用为技术验收。
 
-G4
-怎样用 container / view / algorithm 表达数据结构？
+- [1. API 与二进制合同](#g8-section-1)
+- [2. 符号、链接属性与 C 入口](#g8-section-2)
+- [3. 调用约定与数据模型](#g8-section-3)
+- [4. 对象布局、PImpl 与继承](#g8-section-4)
+- [5. RTTI 与异常边界](#g8-section-5)
+- [6. 分配域、标准库与不透明句柄](#g8-section-6)
+- [7. 结构版本与存储表示](#g8-section-7)
+- [8. 可见性、库与插件协商](#g8-section-8)
+- [9. 兼容性变更与构建配置](#g8-section-9)
+- [10. C 接口设计规则与错误输出](#g8-section-10)
+- [11. 回调、并发与销毁](#g8-section-11)
+- [12. 包装层、跨语言与借用](#g8-section-12)
+- [13. 二进制检查与语义合同](#g8-section-13)
+- [14. 库接口的分层实现](#g8-section-14)
+- [15. 兼容策略与边界分级](#g8-section-15)
+- [16. 接口审查清单](#g8-section-16)
+- [17. 实践路线与验证选择](#g8-section-17)
+- [18. 常见误判](#g8-section-18)
+- [19. C++、Zig 与 Rust 对照](#g8-section-19)
+- [20. 完整实验：符号与 C 二进制接口](#g8-section-20)
+- [21. 边界复核协议](#g8-section-21)
+- [22. Final Gate](#g8-section-22)
+- [23. Final Gate · 参考答案与常见误判](#g8-section-23)
+- [24. 工程原则与全链回查](#g8-section-24)
+- [25. 参考资料与验证边界](#g8-section-25)
 
-G5
-哪些差异属于 compile-time specialization？
+<a id="g8-section-1"></a>
 
-G6
-representation 怎样影响机器性能？
+<a id="g8-topic-0"></a>
+<a id="g8-topic-1"></a>
+<a id="g8-topic-2"></a>
+<a id="g8-topic-3"></a>
+<a id="g8-topic-4"></a>
 
-G7
-多个线程怎样合法访问和修改状态？
-```
+## 1. API 与二进制合同
 
-G8 增加一个新的问题：
+### 1.1 两种兼容性要分别验证
 
-> **如果代码不再处于同一个 compilation universe 中，而是跨越 `.o`、`.a`、`.so`、`.dylib`、插件、语言甚至编译器边界，会发生什么？**
+API 规定源码如何使用组件，包括名称、类型、前置条件、错误与所有权；ABI 规定独立编译组件对符号、传参、返回、布局和运行时的共同理解。源码重新编译后仍成立，不代表旧机器代码能消费新库。
 
-统一链路：
+例如 `Config` 从一个 `int mode` 变成再含一个 `int flags`，旧调用者已经按原大小分配对象。新库若直接读取新增字段，即使函数名完全未变，也可能越过旧对象。具体大小不能无条件写死为 4/8；那只是特定数据模型下的常见观察。正确审查比较的是双方真实的大小、对齐、偏移和传递方式，而非只看头文件是否还能编译。
 
-```text
-Source Code
-    ↓
-Declaration
-    ↓
-Compiler-specific type/function representation
-    ↓
-Symbol
-    ↓
-Calling Convention
-    ↓
-Object Layout
-    ↓
-ABI
-    ↓
-Linker / Loader
-    ↓
-Binary Component
-```
+### 1.2 从语言模型追到二进制合同
 
-最重要的思想：
+G1～G7 的问题没有在库边界消失：对象是否存活、谁负责清理、指针借用多久、异常如何处理、线程能否并发使用，都继续约束调用。所有权和线程规则不全属于狭义机器 ABI，但属于完整接口合同。二进制兼容、源码兼容和语义兼容应分别陈述。
 
-> **Source compatibility 和 binary compatibility 是两个不同问题。**
+首次阅读先建立“声明 → 类型/表示 → 符号 → 调用约定 → 链接/加载”的链路；审查现有 SDK 时则从边界暴露的类型逆向检查承诺。C++23 是语言基线，不是统一的跨编译器 ABI 证书。
 
----
+**机制示意。** 一个 Source-compatible 但 ABI-breaking 的例子；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-# Part I · API 与 ABI
-
-# 1. API 是什么？
-
-> **API — Application Programming Interface**
-
-是 source level contract。
-
-例如：
-
-```cpp
-class Decoder {
-public:
-    void decode(
-        std::span<const std::byte> input,
-        std::span<float> output);
-};
-```
-
-API 描述：
-
-```text
-type names
-function names
-parameter types
-return types
-semantics
-ownership expectations
-exceptions
-preconditions
-```
-
-Caller 需要重新编译时，只要源码仍能通过：
-
-> source API 可能仍然兼容。
-
----
-
-# 2. ABI 是什么？
-
-> **ABI — Application Binary Interface**
-
-描述已经编译好的两个 binary components 怎样彼此理解。
-
-至少涉及：
-
-```text
-symbol naming
-calling convention
-parameter passing
-return-value convention
-register usage
-stack alignment
-object layout
-vtable layout
-RTTI
-exception unwinding
-name mangling
-standard-library ABI
-data-model widths
-alignment
-```
-
-所以：
-
-```text
-API
-=
-source contract
-
-ABI
-=
-binary contract
-```
-
----
-
-# 3. 一个 Source-compatible 但 ABI-breaking 的例子
-
-原版：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct Config {
@@ -155,9 +72,7 @@ struct Config {
 };
 ```
 
-Library v1 和 application 分别编译。
-
-后来改为：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct Config {
@@ -166,583 +81,99 @@ struct Config {
 };
 ```
 
-Application 不重新编译。
+<a id="g8-section-2"></a>
 
-新的 library 认为：
+<a id="g8-topic-5"></a>
+<a id="g8-topic-6"></a>
+<a id="g8-topic-7"></a>
+<a id="g8-topic-8"></a>
+<a id="g8-topic-9"></a>
+<a id="g8-topic-10"></a>
+<a id="g8-topic-11"></a>
 
-```text
-sizeof(Config) = 8
-```
+## 2. 符号、链接属性与 C 入口
 
-旧 application 可能仍按：
+### 2.1 函数实体、符号与名字改编
 
-```text
-sizeof(Config) = 4
-```
+有跨翻译单元引用的普通非内联函数通常需要可链接定义，但“每个源函数必定成为最终符号”不成立：内联、未使用实体消除和 LTO 都可能改变结果。模板特化、源码函数与最终机器代码也不是一一对应。
 
-构造/传递。
+C++ 重载、命名空间、类、模板实参和成员 cv/ref 限定需要区分实体，具体 ABI 常用名字改编（name mangling）编码必要信息。不是所有信息都以直观方式进入名称，例如一些 ABI 的普通非模板函数名不编码返回类型。G8-B1 以分离编译观察 `add(int,int)`、`add(double,double)` 和 C 函数，而不规定所有平台必须采用相同拼写。
 
-源码上：
+### 2.2 C 语言链接属性的实际边界
 
-```cpp
-Config config;
-```
+语言链接属性（language linkage）作用于相应函数类型及具有外部链接的名称。C++ 中的 `extern "C"` 不是导出宏、动态加载指令或表示转换器；C 头文件须在 `__cplusplus` 条件下才出现这段语法。实现通常按目标平台 C 约定处理名称，但 Mach-O 目标文件可能带前导下划线，其他平台也可能有装饰。
 
-仍然完全合理。
+把返回类型写成 `std::string`，不会因入口是 C 名字就消除标准库布局、分配器、异常和生命周期要求。稳定跨语言接口常选择标量、指针、显式长度、简单结构和函数指针；优势是可描述、易绑定，不是“C ABI 在所有体系结构上都相同”。[N4950 dcl.link](https://timsong-cpp.github.io/cppwp/n4950/dcl.link)。
 
-但 binary contract 已经变了。
+**机制示意。** C++ 为什么不能简单把 Symbol 叫 `add`。以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
----
-
-# 4. ABI Compatibility 的本质
-
-如果两个 binary independently compile：
-
-```text
-Component A
-Component B
-```
-
-双方必须对跨 boundary 的东西有一致理解：
-
-```text
-Function symbol
-Parameter layout
-Register assignment
-Stack layout
-Object representation
-Ownership
-Error mechanism
-```
-
-只要其中一个不一致：
-
-> 源码看起来再合理也没有意义。
-
----
-
-# Part II · Linkage 与 Symbol
-
-# 5. 一个 Function 编译后必须成为 Symbol
-
-例如：
-
-```cpp
-int add(int a, int b) {
-    return a + b;
-}
-```
-
-Compiler/assembler 会生成某种 symbol。
-
-Linker最终解决：
-
-```text
-caller relocation
-        ↓
-which binary address is add?
-```
-
-这是 G0 中：
-
-```text
-symbol table
-relocation
-linker
-```
-
-的继续。
-
----
-
-# 6. C++ 为什么不能简单把 Symbol 叫 `add`？
-
-因为 C++ 支持 overload：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int add(int, int);
 double add(double, double);
 ```
 
-如果两个都只生成：
+<a id="g8-section-3"></a>
 
-```text
-add
-```
+<a id="g8-topic-12"></a>
+<a id="g8-topic-13"></a>
+<a id="g8-topic-14"></a>
+<a id="g8-topic-15"></a>
+<a id="g8-topic-16"></a>
+<a id="g8-topic-17"></a>
+<a id="g8-topic-18"></a>
 
-linker 无法区分。
+## 3. 调用约定与数据模型
 
-所以需要：
+### 3.1 调用约定与隐藏参数
 
-> **Name Mangling — 名字改编**
+调用约定（calling convention）至少涉及参数/结果所在的寄存器或栈位置、聚合体分类、保存寄存器责任、栈对齐及间接传递。大对象可能拆分传参，也可能通过调用者准备的存储传递；不能仅凭源码类型推断所有目标机器的指令序列。
 
-概念：
+一些返回约定让调用者分配结果存储，再传入隐藏地址，常称结构返回（sret）。这是 ABI lowering，不等于语言层 RVO 或保证复制消除。非静态成员调用还常有对象地址及子对象调整；概念上的 `f(object_address, x)` 不应伪装成合法显式 this 参数签名。虚调用涉及运行时分派元数据，优化器也可能消除实际间接调用。
 
-```text
-add(int,int)
-→ encoded symbol A
+### 3.2 数据模型与明确宽度
 
-add(double,double)
-→ encoded symbol B
-```
+LP64、LLP64 等数据模型使 `long` 与指针宽度关系不同。边界字段采用 `uint32_t`、`int64_t` 可明确数值宽度，但这些精确宽度类型以目标实现提供为前提；它们不同时保证结构对齐、端序、填充或语义兼容。
 
----
+`size_t` 适合当前进程的对象大小和索引，在同一目标 ABI 的指针＋长度接口中很自然；它不是跨架构的固定宽度线格式。持久文件和网络协议应另定整数宽度、字节序与范围检查，不把机器 ABI 当作存储模式。
 
-# 7. Mangled Name 编码什么？
+<a id="g8-section-4"></a>
 
-实现通常需要编码足够的信息来区分：
+<a id="g8-topic-19"></a>
+<a id="g8-topic-20"></a>
+<a id="g8-topic-21"></a>
+<a id="g8-topic-22"></a>
+<a id="g8-topic-23"></a>
+<a id="g8-topic-24"></a>
+<a id="g8-topic-25"></a>
+<a id="g8-topic-26"></a>
+<a id="g8-topic-27"></a>
+<a id="g8-topic-28"></a>
+<a id="g8-topic-29"></a>
+<a id="g8-topic-30"></a>
 
-```text
-namespace
-class
-function name
-parameter types
-template arguments
-cv/ref qualifiers
-```
+## 4. 对象布局、PImpl 与继承
 
-例如：
+### 4.1 公开类的私有表示仍可能暴露
 
-```cpp
-namespace math {
+调用者按值构造公开类时，必须知道大小与对齐；内联函数可能进一步固化成员偏移。给 private 区域增加字段、替换容器或改变基类，都可能影响旧调用者。private 是源码访问控制，不是二进制隔离。
 
-int add(int, int);
+指向实现（pointer to implementation，PImpl）把真实表示和依赖藏进实现文件。公开类只保留稳定约定的指针成员及非内联操作，可降低布局变化和头文件传播，但公开类自身仍有 ABI。`unique_ptr<Impl>` 并非由语言保证永远等于一个裸指针大小；涉及删除 Impl 的操作要在类型完整可见处定义。
 
-}
-```
+### 4.2 PImpl 的收益与成本
 
-binary symbol不会简单是：
+PImpl 同时服务布局稳定、编译隔离和依赖隔离。其代价可能包括分配、间接访问、非内联调用、优化可见性下降与特殊成员函数维护。它不是所有类的默认高级写法：一起重编译的内部数据类型可能更适合直接表示，独立演进的 SDK 则更值得付出隔离成本。
 
-```text
-add
-```
+### 4.3 布局性质、继承与虚表
 
----
+现代 C++ 应区分标准布局（standard-layout）、平凡可复制（trivially copyable）、特殊成员平凡性及隐式生命周期相关性质，而非仅用历史 POD 一词概括。标准布局提供特定布局与 offsetof 等推理条件，不保证任意平台上的相同表示。平凡可复制给出满足条件的对象表示复制保证，不授予任意资源对象按字节搬迁和遗忘源对象的权限，也不保证可移植序列化。[N4950 basic.types](https://timsong-cpp.github.io/cppwp/n4950/basic.types)。
 
-# 8. Name Mangling 不是 C++ 标准统一的 Binary Format
+继承可能引入基类子对象、虚基类、指针调整与虚表结构。常见实现通过对象中的虚表指针找到函数槽位，但那是实现 ABI，不是 C++ 标准规定的物理图。插入/重排虚函数或改变基类布局可能破坏旧槽位、偏移和转换；公开多态类因此形成较强承诺。
 
-C++ 标准主要规定：
+**机制示意。** 为什么 PImpl 存在。以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-> 语言语义。
-
-它并不定义一个跨所有 compiler/platform 统一的：
-
-```text
-C++ symbol mangling ABI
-```
-
-因此：
-
-```text
-Compiler A
-Compiler B
-```
-
-即使都实现 C++23，
-
-也不自动意味着：
-
-> 任意 C++ binary ABI 可以互操作。
-
-某些平台生态确实共享特定 ABI conventions，但这是平台/compiler ABI 层面的约定。
-
----
-
-# Part III · Language Linkage 与 `extern "C"`
-
-# 9. `extern "C"`
-
-```cpp
-extern "C" int decoder_create();
-```
-
-核心意义：
-
-> 使用 C language linkage。
-
-最常见效果之一：
-
-> 避免 C++ overload-style name mangling，使 symbol 能按照 C ABI 方式暴露。
-
-例如：
-
-```cpp
-extern "C" int add(int a, int b);
-```
-
-symbol 可以对应：
-
-```text
-add
-```
-
-而不是 C++ mangled name。
-
----
-
-# 10. `extern "C"` 不会把 C++ Function “变成 C”
-
-例如：
-
-```cpp
-extern "C" std::string foo();
-```
-
-从语言上某些实现环境也许允许你声明出各种形式，
-
-但：
-
-> 这不意味着 `std::string` 突然获得稳定 C ABI。
-
-`extern "C"` 主要影响：
-
-```text
-language linkage / symbol conventions
-```
-
-它不会自动解决：
-
-```text
-std::string layout
-allocator compatibility
-exception ABI
-lifetime
-```
-
----
-
-# 11. C ABI 为什么如此重要？
-
-因为 C ABI 相对简单：
-
-```text
-primitive scalars
-pointers
-plain structs
-function pointers
-explicit ownership
-```
-
-而且大量语言都能调用 C：
-
-```text
-C++
-Rust
-Zig
-Python native layer
-Go cgo
-Swift
-...
-```
-
-所以 native systems 中常见：
-
-> **内部用 C++，稳定外部边界用 C ABI。**
-
----
-
-# Part IV · Calling Convention
-
-# 12. Function Call 不是抽象魔法
-
-源码：
-
-```cpp
-int f(int a, int b);
-```
-
-binary双方必须约定：
-
-```text
-a 放哪里？
-b 放哪里？
-return value 放哪里？
-谁保存哪些 registers？
-stack 怎样对齐？
-```
-
-这就是：
-
-> **Calling Convention**
-
----
-
-# 13. 参数可能放在哪里？
-
-依据 target ABI，参数可能进入：
-
-```text
-general-purpose registers
-floating-point/vector registers
-stack
-indirect memory
-```
-
-例如小 scalar：
-
-```cpp
-int
-pointer
-float
-```
-
-通常很适合 registers。
-
-大 aggregate：
-
-```cpp
-LargeStruct
-```
-
-可能：
-
-```text
-split across registers
-passed indirectly
-copied into caller-provided storage
-```
-
-具体属于 ABI。
-
----
-
-# 14. Return Value 也有 ABI
-
-```cpp
-int f();
-```
-
-一般很容易。
-
-但：
-
-```cpp
-HugeObject make();
-```
-
-binary-level implementation 可能等价于：
-
-```text
-caller allocates result storage
-↓
-passes hidden pointer
-↓
-callee constructs result there
-```
-
-这常被称为类似：
-
-> **sret — structure return**
-
-机制。
-
-注意：
-
-> 这是 ABI lowering。
-
-它和 C++ source-level：
-
-```text
-RVO / guaranteed copy elision
-```
-
-相关，但不是同一个概念。
-
----
-
-# 15. Hidden Parameters
-
-成员函数：
-
-```cpp
-class A {
-public:
-    void f(int x);
-};
-```
-
-机器层通常还需要：
-
-```text
-this pointer
-```
-
-也就是类似：
-
-```cpp
-f(A* this, int x);
-```
-
-但这是 conceptual lowering，不是 C++ source signature。
-
-Virtual dispatch 又可能需要通过 object representation 找到 target。
-
----
-
-# Part V · Data Model
-
-# 16. `int`、`long`、Pointer 宽度不是语言里全部固定死的
-
-不同 ABI/data model 可能定义：
-
-```text
-sizeof(int)
-sizeof(long)
-sizeof(void*)
-```
-
-不同关系。
-
-常见 data models包括：
-
-```text
-LP64
-LLP64
-```
-
-等。
-
-所以 wire ABI 不应随便假设：
-
-```cpp
-long
-```
-
-永远 64-bit。
-
----
-
-# 17. Boundary 上优先 Fixed-width Types
-
-例如：
-
-```cpp
-std::uint32_t
-std::int64_t
-```
-
-比：
-
-```cpp
-unsigned long
-```
-
-更容易表达 binary intent。
-
-但也要注意：
-
-> fixed-width integer只解决数值宽度，不自动解决 alignment、endianness、packing、semantic versioning。
-
----
-
-# 18. `size_t` 也不是 Portable Wire Type
-
-```cpp
-std::size_t
-```
-
-非常适合：
-
-> 当前 process 的 object size/index。
-
-但它的宽度属于 target data model。
-
-所以持久格式/跨架构 protocol 不应该因为方便就直接定义成：
-
-```cpp
-size_t count;
-```
-
-更适合选择明确宽度。
-
----
-
-# Part VI · Object Layout 与 ABI
-
-# 19. C++ Object 跨 ABI Boundary 是高风险区域
-
-例如：
-
-```cpp
-class Decoder {
-private:
-    int mode_;
-    std::vector<float> buffer_;
-};
-```
-
-如果 object 跨 shared-library boundary：
-
-双方必须一致理解：
-
-```text
-member offsets
-alignment
-sizeof
-base classes
-vptr
-padding
-stdlib representation
-```
-
-这些都可能形成 ABI coupling。
-
----
-
-# 20. 改 Private Member 也可能 Break ABI
-
-这是 C++ ABI 最容易让人惊讶的一点。
-
-API：
-
-```cpp
-class Foo {
-public:
-    void run();
-
-private:
-    int x_;
-};
-```
-
-改成：
-
-```cpp
-private:
-    int x_;
-    int y_;
-```
-
-对 caller 源码：
-
-```text
-完全不影响 public API
-```
-
-但如果 caller 需要：
-
-```cpp
-Foo foo;
-```
-
-它在编译时必须知道：
-
-```text
-sizeof(Foo)
-alignment
-```
-
-所以：
-
-> private representation 仍然进入 ABI。
-
----
-
-# 21. 为什么 PImpl 存在？
-
-> **PImpl — Pointer to Implementation**
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Decoder {
@@ -761,818 +192,113 @@ private:
 };
 ```
 
-Header中：
-
-```text
-Decoder
-≈
-one pointer-like representation
-```
-
-真实 implementation：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Decoder::Impl {
     std::vector<float> buffer_;
     Config config_;
-    ...
+    // 其他实现成员省略。
 };
 ```
 
-藏在 `.cpp`。
+<a id="g8-section-5"></a>
 
----
+<a id="g8-topic-31"></a>
+<a id="g8-topic-32"></a>
+<a id="g8-topic-33"></a>
+<a id="g8-topic-34"></a>
+<a id="g8-topic-35"></a>
+<a id="g8-topic-36"></a>
 
-# 22. PImpl 的主要价值
+## 5. RTTI 与异常边界
 
-### ABI Stability
+### 5.1 RTTI 与异常需要兼容的运行时
 
-增加：
+dynamic_cast、typeid 和类型身份比较依赖相应实现的类型元数据；插件与宿主若使用不兼容编译器、标准库或选项，不能假定类型信息互通。禁用 RTTI、隐藏符号和混用运行时也要纳入支持配置，而非只检查类名相同。
 
-```cpp
-Impl::new_member_
-```
+异常传播不仅传递一个 Error 对象，还依赖异常存储、展开表、personality routine、类型匹配及析构执行。统一受控的 C++ 组件可以选择支持跨库异常，但须维护该运行时合同；第三方 SDK、长期插件和跨语言边界不宜隐含依赖它。
 
-不改变 public `Decoder` object layout。
+### 5.2 异常翻译和 noexcept 各负其责
 
-### Compile-time Isolation
+本章的 C 接口合同禁止 C++ 异常逸出，入口负责捕获并转换成显式状态。写 extern "C" 不会自动插入 catch；写 noexcept 也不自动生成错误码。异常试图离开 noexcept 函数会终止，转换和诊断路径本身也应避免再次抛出。
 
-caller header 不需要知道所有 implementation types。
+头文件和定义的异常说明必须一致。G8-B2 用条件宏给 C++ 声明与定义均加 noexcept，而 C 编译端看不到 C++ 专有语法。受控异常只验证翻译路径，不代表分配失败、损坏指针或所有终止路径都经过实验。
 
-### Dependency Firewall
+<a id="g8-section-6"></a>
 
-减少 header dependency传播。
+<a id="g8-topic-37"></a>
+<a id="g8-topic-38"></a>
+<a id="g8-topic-39"></a>
+<a id="g8-topic-40"></a>
+<a id="g8-topic-41"></a>
+<a id="g8-topic-42"></a>
+<a id="g8-topic-43"></a>
+<a id="g8-topic-44"></a>
+<a id="g8-topic-45"></a>
+<a id="g8-topic-46"></a>
+<a id="g8-topic-47"></a>
+<a id="g8-topic-48"></a>
 
----
+## 6. 分配域、标准库与不透明句柄
 
-# 23. PImpl 的代价
+### 6.1 分配域与调用者缓冲区
 
-```text
-heap allocation
-pointer indirection
-out-of-line calls
-more boilerplate
-less optimization visibility
-```
+创建方若使用不同运行时、自定义 arena 或专门分配器，消费者的 free/delete 未必匹配。稳健默认是由同一分配域释放：create/destroy、make_buffer/free_buffer 成对，明确句柄和缓冲区的拥有者。虚析构能够帮助选择析构逻辑，却不自动修复所有分配来源和运行时不匹配。
 
-所以：
+调用者提供输入和输出缓冲区，库只在调用期间借用，可避免跨库转移分配所有权。接口仍要说明元素单位、容量、零长度、空指针、重叠以及失败后计数。自定义分配器回调还须规定 context 生命周期、大小/对齐、失败值、线程安全和释放匹配，不能仅传一对函数指针就算完整协议。
 
-> PImpl 不是“高级 C++ 默认模式”。
+### 6.2 标准库接口与源代码包装层
 
-它是一种：
+vector、string、shared_ptr 等类型会把表示、模板实例化、分配器、异常和标准库 ABI 带到边界。同一产品统一工具链、同步重编译时可以接受；独立升级的 SDK 要显式控制。span 不分配，但仍是 C++ 库类型，不因此成为通用 C 参数。
 
-> **ABI / dependency boundary tool。**
+C++ 源接口可以使用 span、expected 和 RAII，底层二进制接口使用指针＋长度、状态码及成对创建销毁。包装层负责相互转换；“二进制接口简单”不要求 C++ 用户体验也退化为手工管理。
 
----
+### 6.3 不透明句柄隐藏布局，不自动赋予所有权
 
-# Part VII · Standard-layout / Trivial / POD
+公开头文件只声明 `typedef struct decoder decoder;`，消费者持有 decoder* 而不知道大小，库实现定义真正结构。内部可更换容器、arena 或调度器，不必把变化直接暴露给消费者。
 
-# 24. “POD” 已经不是现代 C++ 最好的思维单位
+拥有还是借用必须由函数合同规定：create 返回拥有型句柄，destroy 结束其生命周期，get_global 可能只借用。任意地址 reinterpret_cast 成指针不会创造对象；空检查也不能识别悬挂、类型混淆或重复销毁。销毁前无在途调用是常见且必要的前提。
 
-历史 C++ 常讲：
+<a id="g8-section-7"></a>
 
-> POD — Plain Old Data。
+<a id="g8-topic-49"></a>
+<a id="g8-topic-50"></a>
+<a id="g8-topic-51"></a>
+<a id="g8-topic-52"></a>
+<a id="g8-topic-53"></a>
+<a id="g8-topic-54"></a>
+<a id="g8-topic-55"></a>
+<a id="g8-topic-56"></a>
+<a id="g8-topic-57"></a>
+<a id="g8-topic-58"></a>
+<a id="g8-topic-59"></a>
+<a id="g8-topic-60"></a>
+<a id="g8-topic-61"></a>
 
-现代语言更精确拆成：
+## 7. 结构版本与存储表示
 
-```text
-standard-layout
-trivially copyable
-trivial special members
-implicit-lifetime related properties
-```
+### 7.1 结构版本、前缀和保留字段
 
-不同 property 服务不同问题。
+C 结构体比复杂 C++ 类容易约定，但增加字段仍可能改变大小、对齐、步长和传参。结构中携带 struct_size 与 abi_version，可声明调用者理解的版本和范围；库仍须先确认公共前缀可读，再逐项检查新增字段的完整字节范围，不能先按新版 sizeof 复制再检查旧大小。
 
----
+尾部追加可选字段比重排旧字段更容易兼容，但安全性取决于指针/按值传递、默认值、数组步长和目标 ABI。保留字段可提前预算扩展空间，同时应规定零初始化、禁止使用位及未来协商规则。G8-B2 仅执行 v1 的大小/版本拒绝，不声称完成 v1/v2 升级验证。
 
-# 25. `trivially_copyable`
+### 7.2 枚举、布尔与位域
 
-表示：
+内部 enum class 很适合类型安全。公开二进制字段应明确底层宽度和数值含义；C 接口也可用固定宽度状态类型加常量。已经发布的数值不能随意复用，消费者对未来未知值要有明确处理，不能无条件落入 unreachable。
 
-> 对这类 object representation 的 byte-level copy 有特定语言保证。
+bool、char 的语义与表示应按目标 ABI 或接口规则约定；长期跨语言字段可使用规定了 0/非零规则的整数。位域分配和布局依赖实现，不应直接用作可移植协议布局。明确整数宽度仍不等于明确结构布局。
 
-这对：
+### 7.3 内存布局、packing 与线格式
 
-```text
-memcpy
-binary relocation-like operations
-```
+pragma pack 可能改变对齐/填充，却不能解决端序、生命周期、未对齐访问、版本或语义。将字节缓冲区强转为结构体指针可能同时违反多个访问前提；“本机恰好能读”不是格式定义。
 
-非常重要。
+持久与网络格式应规定字节范围和端序，显式编码/解析并检查长度。领域对象和稳定模式之间建立转换，不把含指针、填充或实现布局的内存直接当长期文件。ABI 常用于同进程目标平台约定，wire/storage schema 面向更长时效和更宽环境，二者需要独立设计。
 
-但仍然：
+**机制示意。** Size-prefixed Struct；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-```text
-trivially copyable
-≠
-portable serialized format
-```
-
----
-
-# 26. `standard-layout`
-
-它主要约束：
-
-> object/member layout 具有较规则的语言保证。
-
-与：
-
-```text
-C-compatible-like layout reasoning
-offsetof
-```
-
-等相关。
-
-但：
-
-> `standard-layout` 也不等于跨所有 compiler/architecture 的永恒 ABI。
-
----
-
-# Part VIII · Inheritance 与 ABI
-
-# 27. Inheritance 会让 Object Layout 更复杂
-
-例如：
-
-```cpp
-class Base {
-public:
-    virtual void f();
-};
-
-class Derived : public Base {
-    int x_;
-};
-```
-
-可能涉及：
-
-```text
-base subobject
-vptr
-derived members
-padding
-```
-
-多个 inheritance：
-
-```text
-multiple inheritance
-virtual inheritance
-```
-
-进一步复杂。
-
----
-
-# 28. Virtual Function 一般需要 Runtime Dispatch Metadata
-
-典型 ABI implementation：
-
-```text
-object
-┌────────────┐
-│ vptr ─────────▶ vtable
-│ members    │
-└────────────┘
-```
-
-调用：
-
-```cpp
-base->f();
-```
-
-可能：
-
-```text
-load vptr
-↓
-load function pointer from vtable
-↓
-indirect call
-```
-
-G6 已经从性能角度看过。
-
-现在 G8 关心：
-
-> vtable layout 本身属于 ABI。
-
----
-
-# 29. 增加/重排 Virtual Functions 可能 Break ABI
-
-例如 v1：
-
-```cpp
-virtual void a();
-virtual void b();
-```
-
-调用者可能按某个 vtable slot contract 调用。
-
-如果 v2：
-
-```cpp
-virtual void x();
-virtual void a();
-virtual void b();
-```
-
-binary slot layout可能改变。
-
-所以：
-
-> public polymorphic class 是一个很强的 ABI commitment。
-
----
-
-# 30. Base Class Layout 变化也可能传播
-
-如果：
-
-```cpp
-Base
-```
-
-增加 data member，
-
-Derived layout也可能改变。
-
-所以 inheritance-rich public library API：
-
-> ABI evolution 成本通常很高。
-
----
-
-# Part IX · RTTI
-
-# 31. RTTI
-
-C++ runtime type information 支持：
-
-```cpp
-dynamic_cast
-typeid
-```
-
-通常依赖：
-
-```text
-type metadata
-vtable-related structures
-runtime type descriptors
-```
-
-这些同样属于 compiler/runtime ABI ecosystem。
-
----
-
-# 32. RTTI 跨 Binary Boundary 需要一致 Runtime Universe
-
-如果：
-
-```text
-plugin
-host
-```
-
-分别由不兼容 runtime/compiler options构建，
-
-可能在：
-
-```text
-type identity
-dynamic_cast
-type_info comparison
-```
-
-上出现问题。
-
-因此 plugin boundary 最稳健的设计通常不会把：
-
-> arbitrary C++ RTTI assumptions
-
-作为核心协议。
-
----
-
-# Part X · Exceptions Across ABI Boundary
-
-# 33. Exception 不只是一个 C++ Object
-
-```cpp
-throw Error{};
-```
-
-跨 function calls 传播需要：
-
-```text
-exception object allocation/storage
-unwind metadata
-stack unwinding
-personality routines
-RTTI/type matching
-destructor execution
-runtime library support
-```
-
-所以 exception system 深度依赖：
-
-> compiler/runtime ABI。
-
----
-
-# 34. 不要让 C++ Exception 穿过 C ABI
-
-例如：
-
-```cpp
-extern "C"
-int decoder_run(...) {
-    throw std::runtime_error{"bad"};
-}
-```
-
-然后 exception 穿出到 C caller：
-
-> 这是完全错误的 interface design。
-
-C caller 没有 C++ exception semantics。
-
-所以 C ABI boundary 必须捕获：
-
-```cpp
-extern "C"
-int decoder_run(...) noexcept {
-    try {
-        // C++ implementation
-        return DECODER_OK;
-    } catch (...) {
-        return DECODER_INTERNAL_ERROR;
-    }
-}
-```
-
----
-
-# 35. Public Binary Library 是否应该让 Exception 穿过去？
-
-如果整个 ecosystem：
-
-```text
-same compiler family
-same runtime ABI
-same build control
-```
-
-有时可以。
-
-但这形成非常强 coupling。
-
-如果目标是：
-
-```text
-stable SDK
-plugins
-cross-language FFI
-long-lived binary compatibility
-```
-
-更稳健：
-
-> **exception stops at boundary。**
-
----
-
-# 36. `noexcept` 作为 Boundary Contract
-
-例如：
-
-```cpp
-extern "C"
-decoder_status decoder_process(...) noexcept;
-```
-
-很好地表达：
-
-> C++ exception 不得逃逸。
-
-内部：
-
-```text
-exception
-↓
-catch
-↓
-error code
-```
-
-转换为 boundary error model。
-
----
-
-# Part XI · Allocator Boundary
-
-# 37. 谁 Allocate，谁 Free？
-
-这是 binary library 最重要的 ownership rule 之一。
-
-错误：
-
-Library：
-
-```cpp
-char* library_create_string();
-```
-
-Caller：
-
-```cpp
-std::free(ptr);
-```
-
-如果 library 使用：
-
-```text
-different allocator
-different runtime
-custom arena
-```
-
-则完全可能错误。
-
----
-
-# 38. Robust Rule
-
-> **Memory should normally be released by the same allocation domain that created it.**
-
-例如：
-
-```c
-decoder_buffer* decoder_buffer_create(...);
-void decoder_buffer_destroy(decoder_buffer*);
-```
-
-或者：
-
-```c
-char* decoder_make_string(...);
-void decoder_free_string(char*);
-```
-
-明确把 deallocation交回 library。
-
----
-
-# 39. 更好的方式：Caller Provides Buffer
-
-对于高性能接口：
-
-```c
-decoder_status decoder_process(
-    decoder_handle* handle,
-    const uint8_t* input,
-    size_t input_len,
-    float* output,
-    size_t output_capacity,
-    size_t* output_count);
-```
-
-这里：
-
-```text
-caller owns input
-caller owns output
-library borrows
-```
-
-没有：
-
-```text
-cross-library allocation ownership
-```
-
-非常清楚。
-
----
-
-# 40. Caller-provided Allocator
-
-某些 C ABI 还会定义：
-
-```c
-typedef void* (*alloc_fn)(
-    void* context,
-    size_t size,
-    size_t alignment);
-
-typedef void (*free_fn)(
-    void* context,
-    void* ptr,
-    size_t size,
-    size_t alignment);
-```
-
-然后 library 使用 caller allocator。
-
-适合：
-
-```text
-embedded
-games
-real-time systems
-allocator governance
-```
-
-但 ABI contract显著变复杂。
-
----
-
-# Part XII · STL Across Binary Boundaries
-
-# 41. 为什么 `std::vector<T>` 是强 ABI Coupling？
-
-假设：
-
-```cpp
-API_EXPORT
-std::vector<Record> get_records();
-```
-
-这把 boundary 与以下东西耦合：
-
-```text
-std::vector representation
-allocator model
-standard library ABI
-exception behavior
-template instantiation
-Record ABI
-compiler flags
-```
-
-因此长期稳定 SDK：
-
-> 通常避免在 public C ABI 中暴露 STL types。
-
----
-
-# 42. `std::string` 同样如此
-
-```cpp
-std::string name();
-```
-
-在“整个工程完全统一 toolchain”的内部 library 中可能没有问题。
-
-但对：
-
-```text
-plugins
-third-party SDK
-cross-language
-long-lived ABI
-```
-
-它通常不是最稳健 contract。
-
----
-
-# 43. `std::span` 是不是就稳定？
-
-源码层它非常优秀。
-
-但：
-
-```cpp
-std::span<const std::byte>
-```
-
-仍然是一个 C++ library type。
-
-如果目标是稳定 C ABI，
-
-应该展开：
-
-```c
-const uint8_t* data,
-size_t length
-```
-
-而不是直接向 C boundary暴露 `std::span`。
-
----
-
-# 44. Source API 与 C ABI 可以同时优秀
-
-C++ wrapper：
-
-```cpp
-class Decoder {
-public:
-    DecodeResult decode(
-        std::span<const std::byte> input,
-        std::span<float> output);
-};
-```
-
-底层 C ABI：
-
-```c
-decoder_status decoder_process(
-    decoder_handle*,
-    const uint8_t* input,
-    size_t input_len,
-    float* output,
-    size_t output_capacity,
-    size_t* output_count);
-```
-
-C++ wrapper负责：
-
-```text
-span → pointer/length
-status → expected/error
-RAII → create/destroy
-```
-
-这是一种非常成熟的设计。
-
----
-
-# Part XIII · Opaque Handle
-
-# 45. C ABI 如何隐藏 C++ Object？
-
-不要：
-
-```c
-struct decoder {
-    ...
-};
-```
-
-把内部 layout 暴露出去。
-
-而是：
-
-```c
-typedef struct decoder decoder;
-```
-
-只做 forward declaration。
-
-Caller 只能持：
-
-```c
-decoder* handle;
-```
-
-不知道内部 layout。
-
-这就是：
-
-> **Opaque Handle — 不透明句柄**
-
----
-
-# 46. Create / Destroy
-
-```c
-decoder* decoder_create(
-    const decoder_config* config);
-
-void decoder_destroy(
-    decoder* handle);
-```
-
-C++ implementation：
-
-```cpp
-struct decoder {
-    Decoder impl;
-};
-```
-
-或者 handle直接 reinterpret 到内部私有 implementation，取决于设计。
-
-外部 C code完全不需要知道。
-
----
-
-# 47. 为什么 Opaque Handle 很强？
-
-内部可以从：
-
-```text
-vector
-```
-
-改成：
-
-```text
-flat_map
-arena
-thread pool
-PImpl-like implementation
-```
-
-而：
-
-```text
-sizeof(decoder)
-```
-
-对 caller根本不存在。
-
-因此 public ABI 没有被内部 representation绑死。
-
----
-
-# 48. Handle Pointer 是不是 Ownership？
-
-API必须明确。
-
-例如：
-
-```c
-decoder* decoder_create();
-void decoder_destroy(decoder*);
-```
-
-自然表达：
-
-```text
-create
-→ caller owns handle
-
-destroy
-→ relinquish ownership
-```
-
-而：
-
-```c
-const decoder* decoder_get_global();
-```
-
-可能是 borrowed。
-
-不能只靠：
-
-```text
-pointer syntax
-```
-
-猜 ownership。
-
-C ABI 文档必须明确。
-
----
-
-# Part XIV · C Struct ABI
-
-# 49. C Struct 可以跨 ABI，但仍需严格版本设计
-
-例如：
-
-```c
-typedef struct decoder_config {
-    uint32_t mode;
-    uint32_t flags;
-} decoder_config;
-```
-
-这比 C++ class简单得多。
-
-但修改：
-
-```c
-add field
-```
-
-仍然可能改变：
-
-```text
-sizeof
-offsets
-alignment
-```
-
-所以 ABI versioning仍需设计。
-
----
-
-# 50. Size-prefixed Struct
-
-一种常见策略：
+[机制片段 · 不承诺独立编译]
 
 ```c
 typedef struct decoder_config {
@@ -1584,207 +310,9 @@ typedef struct decoder_config {
 } decoder_config;
 ```
 
-Caller：
+**机制示意。** `#pragma pack(1)` 不是“让 Struct 可以传网络”；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-```c
-config.struct_size = sizeof(config);
-```
-
-Library可以判断：
-
-> Caller认识的 struct 版本有多大。
-
----
-
-# 51. Append-only Evolution
-
-如果必须扩展 ABI struct，
-
-一种较稳健约束是：
-
-```text
-existing fields never reorder
-existing field meanings never change
-new optional fields append at end
-```
-
-配合：
-
-```text
-struct_size
-```
-
-支持旧 caller。
-
-但：
-
-> 是否真的安全还取决于所有 ABI/platform assumptions。
-
----
-
-# 52. Reserved Fields
-
-有些 long-lived ABI 预留：
-
-```c
-void* reserved[4];
-```
-
-或：
-
-```c
-uint64_t reserved[8];
-```
-
-为未来扩展留空间。
-
-代价：
-
-```text
-larger structs
-less elegant API
-```
-
-它是一种 ABI budget。
-
----
-
-# Part XV · Enum ABI
-
-# 53. C++ `enum class` 在内部非常好
-
-```cpp
-enum class Error {
-    None,
-    InvalidInput,
-    Internal,
-};
-```
-
-但 boundary 上最好显式 underlying type：
-
-```cpp
-enum class Error : std::uint32_t {
-    None = 0,
-    InvalidInput = 1,
-    Internal = 2,
-};
-```
-
-对于 C ABI 则更常见：
-
-```c
-typedef uint32_t decoder_status;
-```
-
-配 constants：
-
-```c
-#define DECODER_OK 0u
-#define DECODER_INVALID_INPUT 1u
-```
-
-或 C enum，视 ABI/profile要求。
-
----
-
-# 54. 不要随便重用 Enum 数值
-
-ABI/API发布后：
-
-```text
-1 = INVALID_INPUT
-```
-
-下一版不要变成：
-
-```text
-1 = INTERNAL_ERROR
-```
-
-Binary protocol里的 numeric value：
-
-> 本身就是 contract。
-
----
-
-# 55. Unknown Enum Values
-
-跨版本 caller/library可能遇到：
-
-> 新版本增加的 enum case。
-
-Consumer应该避免假设：
-
-```cpp
-switch (status) {
-case A:
-case B:
-}
-unreachable();
-```
-
-除非 ABI 明确保证 closed universe 且版本完全锁定。
-
-稳定 ABI要考虑：
-
-> forward compatibility。
-
----
-
-# Part XVI · `bool`、`char`、Bit-field
-
-# 56. Binary Boundary 不要过度依赖 C++ `bool`
-
-内部：
-
-```cpp
-bool enabled;
-```
-
-非常好。
-
-C ABI long-lived struct 中可以考虑：
-
-```c
-uint8_t enabled;
-```
-
-或明确 integer convention：
-
-```text
-0 = false
-nonzero = true
-```
-
-降低跨语言 representation ambiguity。
-
----
-
-# 57. Bit-field 不适合 Portable ABI
-
-例如：
-
-```cpp
-struct Flags {
-    unsigned a : 1;
-    unsigned b : 3;
-};
-```
-
-bit-field allocation/layout高度依赖 implementation/ABI。
-
-不要把它直接当：
-
-> portable protocol struct。
-
----
-
-# Part XVII · Packing
-
-# 58. `#pragma pack(1)` 不是“让 Struct 可以传网络”
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 #pragma pack(push, 1)
@@ -1795,141 +323,40 @@ struct Packet {
 #pragma pack(pop)
 ```
 
-它可能改变：
+<a id="g8-section-8"></a>
 
-```text
-member alignment
-struct layout
-```
+<a id="g8-topic-62"></a>
+<a id="g8-topic-63"></a>
+<a id="g8-topic-64"></a>
+<a id="g8-topic-65"></a>
+<a id="g8-topic-66"></a>
+<a id="g8-topic-67"></a>
+<a id="g8-topic-68"></a>
+<a id="g8-topic-69"></a>
+<a id="g8-topic-70"></a>
+<a id="g8-topic-71"></a>
+<a id="g8-topic-72"></a>
+<a id="g8-topic-73"></a>
+<a id="g8-topic-74"></a>
+<a id="g8-topic-75"></a>
 
-但并没有解决：
+## 8. 可见性、库与插件协商
 
-```text
-endianness
-versioning
-object lifetime
-unaligned access
-platform/compiler compatibility
-```
+### 8.1 控制导出面与静态/共享库边界
 
----
+共享库通常宜默认隐藏内部符号，显式导出稳定入口。暴露大量辅助函数、模板和运行时类型信息，会增加偶然耦合、冲突与演进成本。Windows 常用 dllexport/dllimport，Clang/GCC 系平台常用 visibility 属性；具体宏须考虑静态构建和平台支持，不能把示意宏当作所有编译器通用代码。
 
-# 59. Wire Format 应显式 Parse
+静态库通常是对象文件归档，最终链接器按需要选择成员；它本身不是运行时独立加载组件，但对象的调用/布局和运行时仍须兼容。LTO 可能进一步跨翻译单元优化，不保证每个静态链接都有收益。共享库则由加载器映射、绑定和定位依赖，形成更明显的独立升级边界。ELF .so、Mach-O .dylib 和 Windows DLL 的加载细节不同。
 
-更稳健：
+### 8.2 插件函数表与显式协商
 
-```text
-byte 0      → type
-bytes 1..4  → little-endian length
-```
+常见插件流程是加载库、查找单一稳定入口、请求版本化函数表。函数表由应用协议规定字段顺序、大小、可选函数和调用类型，不同于编译器控制的 C++ 虚表。只把工厂名字改成 extern "C"，却返回多态 Base*，仍会暴露 C++ 对象、析构、RTTI 和运行时。
 
-代码：
+软件版本描述产品演进，ABI 版本描述二进制合同代际。入口可以明确接受或拒绝 requested_version，而不依赖版本号“看起来接近”。函数表、回调、对象及线程都可能引用插件代码；卸载前应停止新调用、等待在途工作、销毁对象并解除回调。加载成功不能证明卸载安全。
 
-```cpp
-auto type = bytes[0];
-auto length = decode_le_u32(bytes.subspan(1, 4));
-```
+**机制示意。** Export Macro；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-而不是：
-
-```cpp
-auto* packet =
-    reinterpret_cast<const Packet*>(bytes.data());
-```
-
-后者可能触碰：
-
-```text
-alignment
-lifetime
-strict aliasing
-endianness
-padding
-```
-
-等问题。
-
----
-
-# Part XVIII · Endianness
-
-# 60. ABI 与 Wire Format 是不同层
-
-同一 process 的 C/C++ ABI 通常约定 native representation。
-
-但网络/文件：
-
-> 应明确 endianness。
-
-例如：
-
-```text
-little endian
-big endian
-```
-
-不能因为当前机器是某种 endian，就把 raw struct bytes永久写入文件当 portable format。
-
----
-
-# 61. Stable Storage Format 应独立于 In-memory Layout
-
-正确层次：
-
-```text
-Domain Object
-    ↓ encode
-Stable Wire/Storage Schema
-    ↓ decode
-Domain Object
-```
-
-不要：
-
-```text
-memcpy(struct)
-↓
-file
-```
-
-把 compiler ABI 当 storage schema。
-
----
-
-# Part XIX · Symbol Visibility
-
-# 62. Shared Library 不应该 Export 所有 Symbols
-
-一个大型 C++ library可能有：
-
-```text
-10,000 internal functions
-templates
-helpers
-RTTI
-```
-
-如果全部对外可见：
-
-```text
-dynamic symbol table ↑
-load/link work ↑
-accidental ABI surface ↑
-name collisions ↑
-interposition complexity ↑
-```
-
-所以：
-
-> **Default Hidden, Explicit Export**
-
-通常是优秀策略。
-
----
-
-# 63. Export Macro
-
-跨平台 library常有类似：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 #if defined(_WIN32)
@@ -1943,200 +370,16 @@ interposition complexity ↑
 #endif
 ```
 
-然后：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 MYLIB_API
 int decoder_create(...);
 ```
 
-具体 G9 会处理 build-system配置。
+**机制示意。** Function Table；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-G8 需要理解：
-
-> export set = ABI surface。
-
----
-
-# 64. ABI Surface 应尽量小
-
-假设内部有：
-
-```text
-200 classes
-1000 functions
-```
-
-但外部只需要：
-
-```text
-create
-destroy
-process
-get_error
-```
-
-那 public ABI最好就是这四个。
-
-小 ABI：
-
-```text
-easier versioning
-easier testing
-less accidental coupling
-```
-
----
-
-# Part XX · Static Library
-
-# 65. `.a` / `.lib` 的本质
-
-Static library通常是：
-
-> object files 的 archive。
-
-Linker在最终 executable/shared library 链接时：
-
-```text
-select needed object files
-↓
-copy/link code into final artifact
-```
-
-因此：
-
-> Static library 本身通常不是 runtime-loaded component boundary。
-
----
-
-# 66. Static Library 不等于没有 ABI
-
-即使 static linking：
-
-```text
-library object file
-+
-application object files
-```
-
-仍然必须在 link-time binary contract上兼容：
-
-```text
-calling convention
-symbol mangling
-object layout
-runtime options
-```
-
-只是所有东西最终被链接成一个 image。
-
----
-
-# 67. Static Link 的一个优势
-
-可以通过：
-
-```text
-LTO
-whole-program optimization
-```
-
-进一步优化跨 translation-unit boundaries。
-
-但：
-
-> 是否可用、效果如何属于 toolchain/build配置。
-
-G9 再深入。
-
----
-
-# Part XXI · Shared Library
-
-# 68. Shared Library
-
-概念：
-
-```text
-Executable
-   │
-   ├── references Library A
-   └── references Library B
-```
-
-Loader在 process启动/动态加载时：
-
-```text
-map shared library
-resolve symbols
-apply relocations/bindings
-```
-
-G0 已经学习过 loader。
-
-G8 的重点：
-
-> Shared library 创建真正的独立 binary evolution boundary。
-
----
-
-# 69. Linux / macOS / Windows 名称不同
-
-常见：
-
-```text
-ELF shared object  → .so
-Mach-O dynamic lib → .dylib
-Windows DLL        → .dll
-```
-
-底层格式和 loader机制不同。
-
-但架构问题相同：
-
-```text
-What is exported?
-How are symbols found?
-What is ABI?
-How are versions loaded?
-```
-
----
-
-# Part XXII · Dynamic Loading / Plugin
-
-# 70. Plugin Architecture
-
-典型：
-
-```text
-Host
- ↓
-load plugin library
- ↓
-find exported entry symbol
- ↓
-obtain function table/interface
-```
-
-不要让 host：
-
-> 猜一个 C++ class layout。
-
-更稳健：
-
-```c
-extern "C"
-plugin_api* plugin_get_api(
-    uint32_t requested_version);
-```
-
----
-
-# 71. Function Table
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```c
 typedef struct decoder_api_v1 {
@@ -2158,806 +401,113 @@ typedef struct decoder_api_v1 {
 } decoder_api_v1;
 ```
 
-Host得到一张：
+<a id="g8-section-9"></a>
 
-> C-compatible function table。
+<a id="g8-topic-76"></a>
+<a id="g8-topic-77"></a>
+<a id="g8-topic-78"></a>
+<a id="g8-topic-79"></a>
+<a id="g8-topic-80"></a>
+<a id="g8-topic-81"></a>
+<a id="g8-topic-82"></a>
+<a id="g8-topic-83"></a>
+<a id="g8-topic-84"></a>
+<a id="g8-topic-85"></a>
+<a id="g8-topic-86"></a>
+<a id="g8-topic-87"></a>
+<a id="g8-topic-88"></a>
+<a id="g8-topic-89"></a>
+<a id="g8-topic-90"></a>
+<a id="g8-topic-91"></a>
+<a id="g8-topic-92"></a>
+<a id="g8-topic-93"></a>
 
----
+## 9. 兼容性变更与构建配置
 
-# 72. Function Table 的优势
+### 9.1 哪些变化需要兼容性复核
 
-```text
-one stable entry symbol
-explicit version negotiation
-small symbol surface
-easy plugin swapping
-cross-language friendly
-```
+字段、基类、虚函数、对齐/packing、枚举表示、参数或返回类型、异常说明以及标准库/编译器 ABI 配置，都可能影响边界。参数类型变化不必然改变每个 ABI 的链接名；C 名字通常不编码类型，反而可能在错误签名下仍链接成功。某些普通 C++ 返回类型也不进入名字改编，所以“符号没变”远远不够。
 
-而且新版本可以：
+noexcept 同时涉及类型系统和失败语义，不能当无关装饰。Debug/Release 标签本身不决定兼容性；真正需要记录的是调试迭代器、运行时选择、RTTI/异常开关、调用约定、packing、标准库 ABI 选项和插桩配置。不是所有选项都会改变布局，但都应在支持配置中有去向。
 
-```text
-decoder_api_v2
-```
+### 9.2 头文件逻辑也会分发行为
 
-明确演进。
+inline 函数和模板实例化可能已编进调用者，更新共享库不能自动更新旧指令。公共头文件改变语义，即使新的库符号兼容，也可能让新旧消费者保留不同逻辑。模板定义通常需在实例化点可达，集中显式实例化是受控选择，不意味着任意组合都由二进制库提供。
 
----
+薄泛型前端可以校验约束、规范化输入，再进入非模板核心；稳定外部边界继续降为明确的 C 类型。这样保留类型友好的源码接口，同时控制实例化传播与二进制变化面。
 
-# 73. VTable 与 Function Table 看起来相似，但 Contract 不同
+### 9.3 ODR 与配置一致性
 
-C++ vtable：
+不同组件因宏、不同头文件或选项而看到不同 inline、模板或类定义，可能违反单一定义规则（ODR）。共享库不是语言规则的自动隔离层；加载器符号绑定行为还会增加诊断难度。
 
-```text
-compiler-controlled ABI detail
-```
+升级审查应同时记录头文件身份、导出符号、类型表示、依赖运行时与消费者构建配置。只保留 -std=c++23 不能重建 ABI 上下文；一起重编译与保留旧消费者的验证是不同命题。
 
-手工 function table：
+<a id="g8-section-10"></a>
 
-```text
-application-designed protocol
-```
+<a id="g8-topic-94"></a>
+<a id="g8-topic-95"></a>
+<a id="g8-topic-96"></a>
+<a id="g8-topic-97"></a>
+<a id="g8-topic-98"></a>
+<a id="g8-topic-99"></a>
+<a id="g8-topic-100"></a>
+<a id="g8-topic-101"></a>
+<a id="g8-topic-102"></a>
+<a id="g8-topic-103"></a>
+<a id="g8-topic-104"></a>
+<a id="g8-topic-105"></a>
+<a id="g8-topic-106"></a>
+<a id="g8-topic-107"></a>
+<a id="g8-topic-108"></a>
+<a id="g8-topic-109"></a>
+<a id="g8-topic-110"></a>
 
-后者你可以明确控制：
+## 10. C 接口设计规则与错误输出
 
-```text
-field order
-version
-optional functions
-struct size
-```
+### 10.1 十二条 C 接口约束的用途
 
-所以 plugin SDK更容易长期稳定。
+本章的外部接口 profile 包括：C 链接入口；异常止于边界；状态对象采用不透明句柄；显式拥有/借用；输入用指针＋长度；适用时由调用者拥有输出；稳定字段使用明确宽度；版本与范围协商；不暴露 STL；不使用 C++ 引用参数；明确线程安全；明确生命周期。
 
----
+这些规则缩小外部合同，不要求整个产品内部都用 C 风格。实现内部仍可使用容器、泛型、span、expected 和 RAII。每条规则都应有对应前提，例如指针＋长度须说明空范围是否允许空地址，以及库是否会在返回后保留输入。
 
-# Part XXIII · Version Negotiation
+### 10.2 错误状态要可独立解释
 
-# 74. 不要把 Library Version 和 ABI Version 混为一谈
+状态码应有稳定数值与明确成功/失败含义。last_error 可以提供详细消息，但必须规定是线程局部、句柄局部还是全局状态，何时覆盖以及并发读取是否安全。把错误对象或消息缓冲区作为调用者提供的输出，能减少隐式状态，却仍需要说明截断、所需长度和终止字符。
 
-软件版本：
+创建接口采用状态＋out_handle 时，失败将有效输出位置清空，成功转移一个可销毁句柄。不能把一个仍拥有旧对象的槽位交给 create 后期待自动替换；没有声明的清理和事务语义不会由输出参数形式自动产生。
 
-```text
-2.7.1
-```
+### 10.3 两次调用不自动形成快照
 
-可能包含：
+先用空缓冲区查询 required，再分配并读取，是可变长度输出的常见模式。两次调用之间数据可能增长或改变，因此需定义容量不足重试、版本号、快照句柄或锁定协议。
 
-```text
-bug fixes
-features
-internal changes
-```
+还要规定 required 与 written 的单位、查询是否有副作用、失败是否部分写入。消费者不能把第一次查询到的长度当成第二次必然足够的永久保证。
 
-ABI version：
+<a id="g8-section-11"></a>
 
-> binary contract generation。
+<a id="g8-topic-111"></a>
+<a id="g8-topic-112"></a>
+<a id="g8-topic-113"></a>
+<a id="g8-topic-114"></a>
+<a id="g8-topic-115"></a>
+<a id="g8-topic-116"></a>
 
-一个 software release可以：
+## 11. 回调、并发与销毁
 
-```text
-new version
-same ABI
-```
+### 11.1 函数指针与 context 构成回调协议
 
-也可以：
+C 回调通常组合 function pointer 与 void* context，C++ 包装层再经静态 trampoline 恢复对象。协议须说明回调是只在当前调用中借用，还是保存到未来；由哪些线程执行；能否并发；数据指针有效多久；注销是否等待已开始的回调结束。
 
-```text
-new version
-new ABI
-```
+若 context 已销毁而库稍后调用，仍是生命周期错误，类型签名不能保护它。回调应遵守不抛异常的边界约定；如果支持回调错误返回，必须定义它如何影响当前操作的输出和状态。
 
----
+### 11.2 重入、锁与销毁
 
-# 75. Explicit ABI Version
+持有内部锁调用不可控用户代码，可能因回调重入而死锁，也可能放大锁持有时间。接口需明确允许的重入集合；避免在热锁内调用外部代码是稳健默认，而不是单靠“回调很短”的假设。
 
-例如：
+线程合同至少区分同一句柄是否可并发、不同句柄是否独立、读者/写者规则和销毁前提。内部 mutex 不能让“另一线程已销毁的对象”重新合法；destroy 通常要求没有在途操作。异步接口还应定义 close/cancel/join 与销毁次序。G8-B2 故意采用同步回调，未验证异步注销协议。
 
-```c
-#define DECODER_ABI_VERSION 1
-```
+**机制示意。** C Callback；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-或者：
-
-```c
-decoder_status decoder_get_api(
-    uint32_t requested_version,
-    decoder_api* out);
-```
-
-Host明确说：
-
-> 我理解 ABI v1。
-
-Library：
-
-> 支持 / 不支持。
-
-这比：
-
-> “希望它们碰巧兼容”
-
-强得多。
-
----
-
-# Part XXIV · ABI Breaks Catalogue
-
-# 76. 修改 Class Data Members
-
-可能 break：
-
-```text
-sizeof
-offsets
-alignment
-```
-
----
-
-# 77. 修改 Base Classes
-
-可能改变：
-
-```text
-object layout
-pointer adjustment
-vtable organization
-```
-
----
-
-# 78. 添加 / 重排 Virtual Functions
-
-可能改变：
-
-```text
-vtable ABI
-```
-
----
-
-# 79. 修改 Function Parameter Types
-
-必然影响：
-
-```text
-symbol mangling
-calling convention
-```
-
----
-
-# 80. 修改 Return Type
-
-有趣的是某些 C++ mangling schemes 对普通非-template function 的 return type处理方式不一定和 parameter一样。
-
-但不要依赖这种细节设计兼容性。
-
-Source/API/ABI都应该明确认为：
-
-> return contract变化是接口变化。
-
----
-
-# 81. 修改 Exception Specification
-
-`noexcept` 可以影响：
-
-```text
-type system
-function types
-optimization
-ABI/toolchain details
-```
-
-不要把 public ABI 中的 exception specification 当作无关装饰。
-
----
-
-# 82. 修改 Enum Underlying Representation
-
-可能改变：
-
-```text
-size
-alignment
-calling convention
-```
-
----
-
-# 83. 修改 Packing / Alignment
-
-显然可能破坏：
-
-```text
-struct layout
-array stride
-parameter ABI
-```
-
----
-
-# 84. 修改 Standard Library / Toolchain ABI
-
-即使你的 public header没有变化，
-
-如果接口暴露：
-
-```text
-std::string
-std::vector
-std::shared_ptr
-```
-
-标准库 ABI变化也可能传递到你的 ABI。
-
----
-
-# Part XXV · Inline Functions
-
-# 85. Public Header 中的 `inline`
-
-例如：
-
-```cpp
-inline int version() {
-    return 1;
-}
-```
-
-Caller编译时可能：
-
-```text
-embed implementation directly
-```
-
-升级 shared library：
-
-```text
-version() implementation → 2
-```
-
-旧 executable：
-
-> 可能仍然运行已经编进自己的 old code。
-
-所以：
-
-> Header implementation 本身可能成为 distributed binary behavior。
-
----
-
-# 86. Inline API Evolution 要谨慎
-
-如果 inline function：
-
-```cpp
-inline int decode_mode(const Config& c) {
-    return c.flags & 7;
-}
-```
-
-下一版改变 semantics，
-
-旧 caller 不重新编译：
-
-> 新 library无法替换 caller 已经内联的逻辑。
-
-这不是 linker bug。
-
-是 inline ABI/API distribution 的自然结果。
-
----
-
-# Part XXVI · Templates Across Library Boundary
-
-# 87. Templates 通常要求 Definition 对 Caller 可见
-
-例如：
-
-```cpp
-template <typename T>
-T add(T a, T b) {
-    return a + b;
-}
-```
-
-Caller会：
-
-```text
-instantiate add<int>
-```
-
-到自己的 binary。
-
-因此 template implementation：
-
-> 通常不是隐藏在 shared library 里的普通 implementation detail。
-
----
-
-# 88. Header-only Template Library 的 ABI 特征
-
-大量逻辑最终被：
-
-```text
-compiled into caller
-```
-
-因此：
-
-```text
-library update
-```
-
-不自动更新 caller中已经实例化的旧代码。
-
-这更像：
-
-> source library distribution。
-
-而不是传统 opaque binary component。
-
----
-
-# 89. Thin Template Front-end + Stable Core
-
-一种很好的 architecture：
-
-```text
-Template / Concepts API
-        ↓
-normalize representation
-        ↓
-non-template binary core
-```
-
-例如：
-
-```cpp
-template <std::ranges::contiguous_range R>
-Result decode(R&& range) {
-    auto bytes = std::span{
-        std::data(range),
-        std::size(range)
-    };
-
-    return decode_span(bytes);
-}
-```
-
-真正 binary implementation：
-
-```cpp
-Result decode_span(
-    std::span<const std::byte>);
-```
-
-进一步跨稳定 ABI：
-
-```text
-pointer + length
-```
-
-这和 G5 的：
-
-> **Thin generic front-end, concrete core**
-
-完全一致。
-
----
-
-# Part XXVII · ODR Across Binary Components
-
-# 90. ODR 仍然存在
-
-> **One Definition Rule**
-
-Header中：
-
-```cpp
-inline constexpr int limit = ...;
-```
-
-或者 template：
-
-```cpp
-template <typename T>
-...
-```
-
-不同 components 如果因为：
-
-```text
-macros
-compiler flags
-different headers
-feature flags
-```
-
-看到不同 definitions，
-
-可能产生：
-
-> ODR violation。
-
----
-
-# 91. Shared Library 不会自动隔离 ODR Problems
-
-如果同名 C++ entities在多个 binaries中：
-
-```text
-definitions differ
-```
-
-linker/loader behavior与语言规则共同作用，
-
-可能出现非常难排查的问题。
-
-所以：
-
-> ABI compatibility 还依赖 header consistency。
-
----
-
-# Part XXVIII · Debug vs Release ABI
-
-# 92. 不同 Build Modes 也可能不兼容
-
-某些 standard library/toolchain：
-
-```text
-debug iterators
-checked containers
-sanitizer instrumentation
-ABI-affecting flags
-```
-
-可能改变：
-
-```text
-object representation
-runtime assumptions
-```
-
-因此 native binary packages必须明确：
-
-> supported build ABI profile。
-
----
-
-# 93. Compiler Flags 也可能成为 ABI Contract
-
-例如：
-
-```text
-exception enabled/disabled
-RTTI enabled/disabled
-packing
-ABI-version flags
-calling convention
-stdlib choice
-```
-
-都可能影响 binary interoperability。
-
-所以 library build不是只有：
-
-```text
--std=c++23
-```
-
-一个维度。
-
----
-
-# Part XXIX · C ABI Design Profile
-
-现在建立一套我们自己的稳定 native boundary profile。
-
----
-
-# 94. Rule 1 — Export C Linkage Entry Points
-
-```cpp
-extern "C"
-DECODER_API
-decoder_status decoder_process(...);
-```
-
----
-
-# 95. Rule 2 — No Exceptions Escape
-
-```cpp
-extern "C"
-decoder_status decoder_process(...) noexcept;
-```
-
-boundary内部：
-
-```text
-catch C++ exceptions
-↓
-convert to error code
-```
-
----
-
-# 96. Rule 3 — Opaque Handles for Stateful Objects
-
-```c
-typedef struct decoder decoder;
-```
-
----
-
-# 97. Rule 4 — Explicit Ownership
-
-```c
-decoder* decoder_create(...);
-void decoder_destroy(decoder*);
-```
-
-文档明确：
-
-```text
-create transfers ownership to caller
-destroy consumes/releases handle
-```
-
----
-
-# 98. Rule 5 — Pointer + Length for Borrowed Buffers
-
-```c
-const uint8_t* input,
-size_t input_len
-```
-
-不要：
-
-```text
-NUL termination assumptions
-hidden size
-```
-
----
-
-# 99. Rule 6 — Caller-owned Output Where Practical
-
-```c
-float* output,
-size_t output_capacity,
-size_t* output_count
-```
-
-避免 allocator crossover。
-
----
-
-# 100. Rule 7 — Fixed-width Types for Stable Fields
-
-```c
-uint32_t
-uint64_t
-```
-
-而不是把 platform-dependent integral width当 protocol。
-
----
-
-# 101. Rule 8 — Explicit Versioning
-
-```c
-uint32_t abi_version;
-uint32_t struct_size;
-```
-
----
-
-# 102. Rule 9 — No STL Types in C ABI
-
-不要：
-
-```text
-std::vector
-std::string
-std::span
-std::expected
-```
-
-跨 C ABI。
-
-Wrapper可以使用。
-
----
-
-# 103. Rule 10 — No C++ References in C ABI
-
-不要：
-
-```cpp
-extern "C"
-void process(const Config& config);
-```
-
-稳定 C interface使用：
-
-```c
-const decoder_config*
-```
-
----
-
-# 104. Rule 11 — Explicit Thread-safety Contract
-
-文档必须说明：
-
-```text
-Can one handle be called concurrently?
-Can different handles be used concurrently?
-Does destroy require no concurrent calls?
-Are callbacks concurrent?
-```
-
-ABI 类型本身无法表达这些。
-
----
-
-# 105. Rule 12 — Explicit Lifetime Contract
-
-例如：
-
-```text
-input only borrowed during call
-output written before return
-callback context must outlive registration
-handle must not be used after destroy
-```
-
-这是 FFI correctness 的核心。
-
----
-
-# Part XXX · Error Model
-
-# 106. Error Code
-
-例如：
-
-```c
-typedef uint32_t decoder_status;
-
-enum {
-    DECODER_OK = 0,
-    DECODER_INVALID_ARGUMENT = 1,
-    DECODER_BUFFER_TOO_SMALL = 2,
-    DECODER_INTERNAL_ERROR = 3,
-};
-```
-
-简单、跨语言。
-
----
-
-# 107. Detailed Error Message
-
-一种方式：
-
-```c
-decoder_status decoder_last_error(
-    decoder*,
-    char* buffer,
-    size_t capacity,
-    size_t* required);
-```
-
-但要明确：
-
-```text
-thread safety
-lifetime
-whether error state is per-handle
-```
-
----
-
-# 108. Better: Error as Output
-
-如果错误消息重要：
-
-```c
-typedef struct decoder_error {
-    uint32_t code;
-    char message[256];
-} decoder_error;
-```
-
-或 caller-owned buffer。
-
-减少：
-
-```text
-thread-local hidden state
-last-error races
-```
-
----
-
-# Part XXXI · Two-call Buffer Pattern
-
-# 109. Variable-size Output
-
-一种经典 C ABI：
-
-第一次：
-
-```c
-decoder_get_names(
-    handle,
-    NULL,
-    0,
-    &required);
-```
-
-得到：
-
-```text
-required size
-```
-
-Caller allocate：
-
-```text
-buffer
-```
-
-第二次：
-
-```c
-decoder_get_names(
-    handle,
-    buffer,
-    capacity,
-    &written);
-```
-
----
-
-# 110. Race Consideration
-
-如果两次 call之间数据会变化：
-
-```text
-required size
-↓
-state changes
-↓
-second call size no longer sufficient
-```
-
-必须定义：
-
-```text
-retry
-snapshot handle
-version
-locking
-```
-
-所以这种 API 不是自动正确。
-
----
-
-# Part XXXII · Callback ABI
-
-# 111. C Callback
-
-典型：
+[机制片段 · 不承诺独立编译]
 
 ```c
 typedef void (*decoder_log_fn)(
@@ -2967,7 +517,7 @@ typedef void (*decoder_log_fn)(
     size_t message_len);
 ```
 
-registration：
+[机制片段 · 不承诺独立编译]
 
 ```c
 decoder_set_log_callback(
@@ -2976,158 +526,52 @@ decoder_set_log_callback(
     void* context);
 ```
 
----
+<a id="g8-section-12"></a>
 
-# 112. `void* context`
+<a id="g8-topic-117"></a>
+<a id="g8-topic-118"></a>
+<a id="g8-topic-119"></a>
+<a id="g8-topic-120"></a>
+<a id="g8-topic-121"></a>
+<a id="g8-topic-122"></a>
+<a id="g8-topic-123"></a>
+<a id="g8-topic-124"></a>
+<a id="g8-topic-125"></a>
+<a id="g8-topic-126"></a>
+<a id="g8-topic-127"></a>
+<a id="g8-topic-128"></a>
+<a id="g8-topic-129"></a>
 
-C 没有 lambda capture object。
+## 12. 包装层、跨语言与借用
 
-所以：
+### 12.1 RAII 包装不改变底层合同
 
-```text
-function pointer
-+
-void* user context
-```
+C++ 包装器可以持有 decoder*，析构调用 destroy，禁用复制并在移动时转移句柄；返回 expected，将 span 转为指针＋长度。包装层仍要定义创建失败、移动后状态和自移动/替换行为，不能因为类有析构就假定所有权完整。
 
-组合出 closure-like interface。
+丰富的 C++ 源接口与小而稳定的 C 二进制接口可同时存在。包装器通常随消费者编译，因此其模板、inline 语义和所需标准库仍属于源码分发合同。
 
-C++ wrapper可以：
+### 12.2 Rust 与 Zig 的表示约定仍有边界
 
-```text
-context → object pointer
-callback trampoline
-```
+Rust 默认布局不是通用 C ABI。repr(C) 请求相应 C 表示规则，但嵌套成员的表示、枚举有效值和调用约定仍要单独审查；borrow checker 不会替外部原始指针证明有效期或线程安全。
 
----
+Zig 能导入和导出 C 接口，但 slice、error union、allocator 和 comptime 类型也不能未经设计直接当 C 类型。C++ span、Rust/Zig slice 通常展开为地址＋长度，并在语言包装层恢复检查。分配器抽象不会自动跨语言互通；由哪侧分配、哪侧释放仍需明确。
 
-# 113. Callback Lifetime
+### 12.3 拥有、借用和 const 是不同维度
 
-Caller注册：
+create 返回拥有型句柄；只在调用期间使用输入是短借用；保存输入指针到返回之后则是长期借用，必须额外约束寿命、可变性和并发。若不能建立这些约束，应复制数据或显式转移所有权，不能暗中延长借用。
 
-```text
-fn
-context
-```
+const T* 限制经该访问路径修改，不说明其他别名或线程不能改动。const decoder* 可以表达逻辑只读，但实现仍可能更新缓存、指标或同步状态；const 不是完整线程安全协议。
 
-Library必须明确：
+**机制示意。** C ABI 不意味着 C++ 用户体验差；以下仅展示接口或结构，所需头文件、依赖类型及实现须另行补齐。
 
-```text
-callback only during registration call?
-stored for future?
-which thread invokes it?
-can callback unregister itself?
-```
-
-否则：
-
-```text
-context dies
-↓
-library later callback
-↓
-UAF
-```
-
----
-
-# 114. Callback Reentrancy
-
-如果 library持内部 mutex：
-
-```text
-lock
-↓
-invoke user callback
-```
-
-Callback又：
-
-```text
-calls library API
-↓
-tries same lock
-```
-
-可能死锁。
-
-所以与 G7 一样：
-
-> **避免在内部 hot lock 下调用 uncontrolled external code。**
-
-ABI callback boundary尤其危险。
-
----
-
-# Part XXXIII · Thread Boundary Across ABI
-
-# 115. ABI 还必须规定 Concurrency
-
-例如：
-
-```c
-decoder_process(handle, ...)
-```
-
-可能是：
-
-### Not thread-safe per handle
-
-```text
-one handle
-one caller at a time
-```
-
-### Thread-safe per handle
-
-内部 synchronization。
-
-### Independent handles thread-safe
-
-```text
-different handles may be called concurrently
-```
-
-这些都属于 API/ABI semantic contract。
-
----
-
-# 116. Destroy 与 Concurrent Calls
-
-必须明确：
-
-```text
-decoder_destroy(handle)
-```
-
-要求：
-
-> no other concurrent operation on handle。
-
-不要试图靠：
-
-```text
-internal mutex
-```
-
-让“调用已经被销毁对象”合法。
-
-和 G7 thread object destruction完全相同。
-
----
-
-# Part XXXIV · C++ Wrapper
-
-# 117. C ABI 不意味着 C++ 用户体验差
-
-底层：
+[机制片段 · 不承诺独立编译]
 
 ```c
 decoder* decoder_create(...);
 void decoder_destroy(decoder*);
 ```
 
-C++ wrapper：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Decoder {
@@ -3152,1946 +596,549 @@ private:
 };
 ```
 
-这把：
+<a id="g8-section-13"></a>
 
-```text
-C ABI
+<a id="g8-topic-130"></a>
+<a id="g8-topic-131"></a>
+<a id="g8-topic-132"></a>
+<a id="g8-topic-133"></a>
+<a id="g8-topic-134"></a>
+<a id="g8-topic-135"></a>
+<a id="g8-topic-136"></a>
+<a id="g8-topic-137"></a>
+<a id="g8-topic-138"></a>
+
+## 13. 二进制检查与语义合同
+
+### 13.1 从二进制中读取证据
+
+使用 nm、反改编工具、objdump/readelf、otool 或 dumpbin，分别观察目标符号、动态导出和依赖。ELF 的完整符号表与动态符号表要区分；本批 Mach-O 实验记录原始/反改编符号与 otool 依赖，不把其中一个工具当成所有 ABI 属性的验证器。
+
+升级前比较导出集合、函数合同、类型大小/对齐/偏移、虚接口、枚举数值、版本协商和依赖 ABI。自动 ABI 比较工具可以辅助，但语义、生命周期和性能合同仍需有针对性的审查与实验。
+
+### 13.2 语义、有效期与运行约束
+
+同一个签名若把米改成厘米，二进制布局可能未变而调用语义已破坏。返回 const char* 还必须说明是静态存储、句柄内借用、下次调用失效还是调用者负责释放。同步入口若改为保存输入供异步处理，也改变了关键合同。
+
+同样的函数名可以对应不同的线程安全和实时行为。无动态分配、不阻塞或有界执行若是产品承诺，就应单独版本化并测试；不能由固定签名或“C ABI 简单”推导。本批不做实时性和性能验收。
+
+<a id="g8-section-14"></a>
+
+<a id="g8-topic-139"></a>
+<a id="g8-topic-140"></a>
+<a id="g8-topic-141"></a>
+<a id="g8-topic-142"></a>
+<a id="g8-topic-143"></a>
+<a id="g8-topic-144"></a>
+<a id="g8-topic-145"></a>
+<a id="g8-topic-146"></a>
+<a id="g8-topic-147"></a>
+
+## 14. 库接口的分层实现
+
+### 14.1 头文件、实现与包装分工
+
+公开 C 头文件只保留不透明类型、状态常量、配置、条件链接属性、导出声明及回调类型。实现文件定义对象，转换配置、检查调用前提并捕获可恢复异常；C++ 源包装提供 RAII、span 和 expected。本章完整可编译接口集中维护在 G8-B2，不让多份签名不同的示例成为并行事实源。
+
+创建时先清空有效的输出槽，再检查配置版本/大小并分配；处理时先置零有效计数位置，检查空范围和容量，再写数据。示例要求容量不足与受控异常发生时输出不变，成功时输出长度和全部元素正确。span 本身并不会验证外部指针的可读写性。
+
+### 14.2 插件与跨模块析构
+
+extern "C" BasePlugin* create_plugin() 只稳定入口名字，宿主仍需理解对象的虚表、析构和运行时。更强隔离可采用版本化 C 函数表和不透明句柄，显式约定 create/destroy/process。
+
+由创建域提供 destroy 可减少释放不匹配；虚析构的正确分派不等于任意自定义内存都能交给宿主 delete。无论采用哪种方案，都必须让对象先于提供析构代码的模块卸载。
+
+<a id="g8-section-15"></a>
+
+<a id="g8-topic-148"></a>
+<a id="g8-topic-149"></a>
+<a id="g8-topic-150"></a>
+<a id="g8-topic-151"></a>
+<a id="g8-topic-152"></a>
+<a id="g8-topic-153"></a>
+<a id="g8-topic-154"></a>
+<a id="g8-topic-155"></a>
+<a id="g8-topic-156"></a>
+<a id="g8-topic-157"></a>
+
+## 15. 兼容策略与边界分级
+
+### 15.1 三种策略按边界选择
+
+一起重编译全部组件的内部产品，可接受较丰富的 C++ 类、模板和容器接口，独立 ABI 演进压力较小。稳定 C++ ABI 则需要受控工具链、PImpl、可见性策略、谨慎虚接口和兼容检查。长期 SDK、插件及跨语言边界常采用稳定 C 接口加语言包装，但仍须控制平台 ABI 和语义版本。
+
+不能把最后一种策略机械推广到所有内部模块。边界越独立，显式合同越重要；本地算法和容器不必为想象中的跨语言需求退化为 void*。
+
+### 15.2 六类边界及审查强度
+
+同一翻译单元主要由单次编译控制；分离翻译单元增加声明、定义与 ODR 一致性；静态库增加预编译对象和最终链接兼容要求。同一产品中的共享库可以统一版本，但仍应理解加载和运行时耦合。
+
+第三方二进制 SDK/插件需要明确旧消费者与新提供者的支持矩阵；跨语言接口再增加表示、错误和生命周期映射。分级服务风险识别，不意味着前几类没有 ABI，也不意味着 C 接口可以跨不同位宽直接互调。
+
+<a id="g8-section-16"></a>
+
+<a id="g8-topic-158"></a>
+<a id="g8-topic-159"></a>
+<a id="g8-topic-160"></a>
+<a id="g8-topic-161"></a>
+<a id="g8-topic-162"></a>
+<a id="g8-topic-163"></a>
+<a id="g8-topic-164"></a>
+<a id="g8-topic-165"></a>
+<a id="g8-topic-166"></a>
+
+## 16. 接口审查清单
+
+### 16.1 从签名到生命周期的审查顺序
+
+先标明哪些类型穿过边界、是否含编译器或标准库特有表示；再逐项列拥有者、分配域、释放入口、借用期和是否保存指针。错误模型要区分状态、异常、部分输出及终止路径，不能只写“出错返回非零”。
+
+接着检查线程安全、回调线程、重入和销毁并发；核对版本协商、结构范围、未知值和保留位。最后检查异步句柄的停止、取消、等待与销毁顺序。没有这些文字合同的 pointer signature 不算完整接口设计。
+
+<a id="g8-section-17"></a>
+
+<a id="g8-topic-167"></a>
+<a id="g8-topic-168"></a>
+<a id="g8-topic-169"></a>
+<a id="g8-topic-170"></a>
+<a id="g8-topic-171"></a>
+<a id="g8-topic-172"></a>
+<a id="g8-topic-173"></a>
+
+## 17. 实践路线与验证选择
+
+### 17.1 本批验证与可选深化
+
+原有七条实践路线保留：名字改编、布局变化、PImpl、C 包装、跨语言调用、回调和版本演进。G8-B1 落实符号与链接负例；G8-B2 落实 C11 调用者、C++ 共享提供者、同步回调和 v1 拒绝合同。二者的完整代码和命令在后文集中提供。
+
+布局深化应分别在合法的 v1/v2 翻译单元观察表示，不把不兼容旧对象交给新代码执行并期待固定崩溃。PImpl 深化可比较实现字段变化前后的公开布局，但需固定工具链。Rust/Zig 调用、异步回调与 v1/v2 前缀协商仍是可选、未执行路线；不要把练习题列出等同于已经验证。
+
+<a id="g8-section-18"></a>
+
+<a id="g8-topic-174"></a>
+<a id="g8-topic-175"></a>
+<a id="g8-topic-176"></a>
+<a id="g8-topic-177"></a>
+<a id="g8-topic-178"></a>
+<a id="g8-topic-179"></a>
+<a id="g8-topic-180"></a>
+<a id="g8-topic-181"></a>
+<a id="g8-topic-182"></a>
+<a id="g8-topic-183"></a>
+<a id="g8-topic-184"></a>
+<a id="g8-topic-185"></a>
+<a id="g8-topic-186"></a>
+<a id="g8-topic-187"></a>
+
+## 18. 常见误判
+
+### 18.1 兼容性误判
+
+“public API 没变，所以 ABI 没变”遗漏私有布局；“都用 C++23”遗漏实现 ABI；“平凡可复制可以直接永久存盘”遗漏指针、填充、端序和版本；“pack(1) 就是网络格式”混淆布局和编码。
+
+“extern C 让 vector 变成 C 类型”以及“无分配的 span 适合直接跨所有 C ABI”都混淆名称/成本与表示。factory 返回 Base* 仍暴露 C++ 多态对象；exception 跨 DLL 总是安全也不是可支持的普遍结论。
+
+### 18.2 生命周期与演进误判
+
+“库分配、调用者 free 就行”遗漏分配域；“opaque 只是保密实现”遗漏布局隔离；“inline 或模板逻辑随共享库更新”遗漏消费者已编译代码。
+
+“符号仍兼容所以语义兼容”遗漏单位、所有权、借用与线程合同。狭义 ABI 主要约束机器交互，但工程接口审查必须覆盖这些非位级条件，不能借术语边界把责任删掉。
+
+<a id="g8-section-19"></a>
+
+<a id="g8-topic-188"></a>
+<a id="g8-topic-189"></a>
+<a id="g8-topic-190"></a>
+<a id="g8-topic-191"></a>
+
+## 19. C++、Zig 与 Rust 对照
+
+### 19.1 语言内部丰富，边界保持明确
+
+C++ 的类、模板、STL、异常和 RAII 适合内部建模，但在独立边界上需要评估运行时耦合。Zig 的显式布局、分配和 C 互操作便于集成，却仍有不直接等于 C 表示的 slice 和 error union。Rust 的所有权、枚举、trait 与 Result 也需通过受约束的 FFI 包装连接外部世界。
+
+共同结构是语言原生 API → 薄适配层 → 小而明确的 C 接口。它是常见工程策略，不是所有项目必须采用的唯一架构。学习时比较的是合同在哪里表达、哪些条件由语言检查、哪些只能由跨边界协议和测试承担。
+
+<a id="g8-section-20"></a>
+
+## 20. 完整实验：符号与 C 二进制接口
+
+这些实验由正文提取到新临时目录，完整文件是唯一维护来源。执行器只运行已审阅的本地代码，不是安全沙箱；不修改历史 PDF、FM 或出版系统。
+
+```sh
+python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 ```
 
-包装成：
+### 20.1 G8-B1 · 语言链接、符号与目标链接诊断
 
-```text
-RAII C++ API
-```
+**待验证命题。** 分别编译 C 定义、C++ 重载与调用者；观察 C/C++ 名称差异。缺少 C 链接声明的调用者可以编译，但必须因目标符号未解析而链接失败。
 
----
+**范围与前提。** 只观察本次 Clang/Mach-O 符号，不规定所有平台名字；不执行不匹配布局，不把每个源函数等同于最终符号。
 
-# 118. Wrapper 可以用 `expected`
+<!-- n-lab {"id":"G8-B1","mode":"symbols"} -->
 
-底层：
+[完整实验 · G8-B1 · sum.c]
 
+<!-- n-file {"path":"sum.c"} -->
 ```c
-decoder_status decoder_process(...);
+int native_sum(int a, int b) { return a + b; }
 ```
 
-上层：
+[完整实验 · G8-B1 · overloads.cpp]
 
+<!-- n-file {"path":"overloads.cpp"} -->
 ```cpp
-std::expected<std::size_t, DecoderError>
-Decoder::decode(
-    std::span<const std::byte> input,
-    std::span<float> output);
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
 ```
 
-这样：
+[完整实验 · G8-B1 · main.cpp]
 
-```text
-stable binary core
-+
-idiomatic C++23 source API
-```
-
-可以同时获得。
-
----
-
-# Part XXXV · Rust FFI
-
-# 119. Rust 与 C++ 最稳健的边界通常也是 C ABI
-
-Rust：
-
-```rust
-#[repr(C)]
-pub struct DecoderConfig {
-    pub mode: u32,
-    pub flags: u32,
-}
-```
-
-extern declarations调用：
-
-```text
-decoder_create
-decoder_process
-decoder_destroy
-```
-
----
-
-# 120. `repr(C)`
-
-Rust默认 layout不承诺：
-
-> C ABI compatible representation。
-
-`#[repr(C)]`：
-
-> 请求按 C-compatible representation 规则布局该 type。
-
-这和 C++ 的：
-
-```text
-“不要假设默认 complex class layout跨语言”
-```
-
-完全同源。
-
----
-
-# 121. Rust Ownership 不穿过 C ABI 自动保留
-
-Rust borrow checker只保护：
-
-> Rust language universe 中能够建模的 lifetime。
-
-一旦：
-
-```text
-raw pointer crosses FFI
-```
-
-你必须靠 ABI contract保证：
-
-```text
-pointer valid
-lifetime active
-threading correct
-alignment correct
-```
-
-FFI 会把很多安全责任重新暴露出来。
-
----
-
-# Part XXXVI · Zig FFI
-
-# 122. Zig 与 C ABI 非常自然
-
-Zig可以：
-
-```text
-import C declarations
-call C functions
-expose export functions
-```
-
-所以：
-
-```text
-C ABI
-```
-
-也是连接：
-
-```text
-C++ core
-↔
-Zig system layer
-```
-
-非常自然的最小公分母。
-
----
-
-# 123. Zig Slice 不能直接当 C ABI Type
-
-Zig：
-
-```zig
-[]const u8
-```
-
-是语言级 slice abstraction。
-
-C boundary仍然更自然展开：
-
-```text
-pointer
-+
-length
-```
-
-和 C++ span 一样。
-
----
-
-# 124. Allocator 不能偷偷跨 FFI
-
-Zig可能明确传：
-
-```text
-Allocator
-```
-
-但 C++ library内部可能使用自己的 allocator。
-
-如果一边 allocate、另一边 free：
-
-> 必须由 ABI 明确设计。
-
-语言的 allocator abstraction不会自动互通。
-
----
-
-# Part XXXVII · C ABI 与 Ownership Model
-
-# 125. Owner Handle
-
-```c
-decoder* decoder_create();
-```
-
-返回：
-
-> owning handle。
-
----
-
-# 126. Borrowed Input
-
-```c
-decoder_process(
-    decoder*,
-    const uint8_t* input,
-    size_t len);
-```
-
-如果文档说：
-
-> input only used during call，
-
-则 caller只需保证：
-
-```text
-input lifetime covers function call
-```
-
----
-
-# 127. Stored Borrow
-
-如果 library：
-
-```text
-stores input pointer after return
-```
-
-contract立刻复杂很多。
-
-Caller必须保证：
-
-```text
-buffer lifetime
-mutation
-thread safety
-```
-
-所以稳定 ABI优先：
-
-> copy data or transfer explicit ownership
-
-而不是偷偷保存 borrowed pointer。
-
----
-
-# Part XXXVIII · C ABI 与 `const`
-
-# 128. `const T*`
-
-```c
-const uint8_t* input
-```
-
-表示：
-
-> callee不会通过这条 access path 修改 bytes。
-
-但：
-
-```text
-const
-```
-
-不表示：
-
-> data immutable across all threads / aliases。
-
-和 C++ 内部完全一样。
-
----
-
-# 129. `const decoder*`
-
-如果 API：
-
-```c
-decoder_get_info(
-    const decoder* handle);
-```
-
-语义上可以表达：
-
-> logical read-only operation。
-
-但 implementation仍可能：
-
-```text
-cache lazily
-update metrics
-lock mutex
-```
-
-C/C++ const主要约束 access path/type semantics，
-
-不是完整 concurrency guarantee。
-
----
-
-# Part XXXIX · Binary Inspection
-
-# 130. ABI 不能只靠猜
-
-G8 必须实际观察 binary。
-
-常见工具：
-
-```text
-nm
-objdump
-readelf
-otool
-dumpbin
-```
-
-具体平台不同。
-
----
-
-# 131. 看 Symbols
-
-例如：
-
-```bash
-nm -C library.o
-```
-
-可以观察：
-
-```text
-C++ mangled / demangled symbols
-undefined references
-exported functions
-```
-
----
-
-# 132. 看 Dynamic Symbols
-
-ELF生态中常见：
-
-```bash
-readelf -Ws libfoo.so
-```
-
-Mach-O 环境可使用对应：
-
-```text
-nm
-otool
-```
-
-等工具。
-
-目的不是记命令，
-
-而是能回答：
-
-```text
-What exactly does this library export?
-```
-
----
-
-# 133. 看 Dependencies
-
-需要能观察：
-
-```text
-which shared libraries?
-rpath?
-loader paths?
-```
-
-因为“能编译链接”不等于：
-
-> runtime loader一定找到正确 library。
-
-G0 已经覆盖原理。
-
-G9 会把这些变成 build/install workflow。
-
----
-
-# Part XL · ABI Diff Thinking
-
-# 134. Library Upgrade 前应该比较什么？
-
-至少：
-
-```text
-exported symbol set
-function signatures
-type size/alignment
-virtual interface changes
-struct field offsets
-enum numeric values
-ABI version
-dependency ABI
-```
-
-大型 native libraries常使用专门 ABI compliance tooling。
-
-核心原则：
-
-> ABI compatibility 应该被测试，而不是依赖人工记忆。
-
----
-
-# Part XLI · Semantic ABI
-
-# 135. Binary-compatible 还不等于真正 Compatible
-
-假设：
-
-```c
-decoder_status decoder_process(...);
-```
-
-signature完全没变。
-
-v1：
-
-```text
-returns output in meters
-```
-
-v2：
-
-```text
-returns output in centimeters
-```
-
-Binary layout完全相同。
-
-但：
-
-> semantic contract 已经 break。
-
-所以完整 compatibility：
-
-```text
-Binary ABI
-+
-Semantic API contract
-```
-
-两者都需要稳定。
-
----
-
-# Part XLII · Lifetime 是 ABI 的一部分
-
-# 136. ABI 不只是 Bits
-
-例如：
-
-```c
-const char* decoder_name(
-    decoder*);
-```
-
-必须说明：
-
-```text
-who owns returned pointer?
-how long valid?
-until next call?
-until handle destroy?
-forever static?
-```
-
-没有 lifetime contract：
-
-> interface仍然不完整。
-
-这就是 G1/G2 进入 ABI 的方式。
-
----
-
-# Part XLIII · Concurrency 是 ABI 的一部分
-
-# 137. 同样的 Signature 可以有完全不同的 Thread Contract
-
-```c
-decoder_process(handle, ...);
-```
-
-可以是：
-
-```text
-not thread-safe
-```
-
-也可以：
-
-```text
-thread-safe
-```
-
-也可以：
-
-```text
-multiple readers allowed
-single writer only
-```
-
-这些不体现在 function ABI bits中，
-
-但属于：
-
-> **Semantic ABI/API contract。**
-
----
-
-# Part XLIV · Performance ABI
-
-# 138. 有些边界还需要 Performance Contract
-
-例如 real-time SDK：
-
-```text
-decoder_process
-```
-
-可能承诺：
-
-```text
-no dynamic allocation
-no blocking
-bounded execution
-```
-
-这些不是普通 binary ABI，
-
-但属于非常重要的：
-
-> operational contract。
-
-系统集成中同样要版本化/测试。
-
----
-
-# Part XLV · Practical Library Design
-
-现在设计一个真正可跨语言的 decoder library。
-
----
-
-# 139. Public C Header
-
-```c
-#ifndef SIGNAL_DECODER_H
-#define SIGNAL_DECODER_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#define SIGNAL_DECODER_ABI_VERSION 1u
-
-typedef struct signal_decoder signal_decoder;
-
-typedef uint32_t signal_decoder_status;
-
-enum {
-    SIGNAL_DECODER_OK = 0u,
-    SIGNAL_DECODER_INVALID_ARGUMENT = 1u,
-    SIGNAL_DECODER_BUFFER_TOO_SMALL = 2u,
-    SIGNAL_DECODER_INTERNAL_ERROR = 3u,
-};
-
-typedef struct signal_decoder_config {
-    uint32_t struct_size;
-    uint32_t abi_version;
-    uint32_t model_id;
-    uint32_t flags;
-} signal_decoder_config;
-
-signal_decoder* signal_decoder_create(
-    const signal_decoder_config* config);
-
-void signal_decoder_destroy(
-    signal_decoder* decoder);
-
-signal_decoder_status signal_decoder_decode(
-    signal_decoder* decoder,
-    const uint8_t* input,
-    size_t input_size,
-    float* output,
-    size_t output_capacity,
-    size_t* output_count);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
-```
-
-这已经形成相当不错的 binary boundary。
-
----
-
-# 140. Ownership
-
-明确：
-
-```text
-signal_decoder_create
-→ returns owning handle
-
-signal_decoder_destroy
-→ terminates handle lifetime
-
-input
-→ borrowed for duration of call
-
-output
-→ caller-owned mutable buffer
-
-output_count
-→ caller-owned out parameter
-```
-
-没有隐藏 allocator transfer。
-
----
-
-# 141. C++ Implementation Boundary
-
+<!-- n-file {"path":"main.cpp"} -->
 ```cpp
-struct signal_decoder {
-    Decoder implementation;
-};
-```
-
-Create：
-
-```cpp
-extern "C"
-signal_decoder* signal_decoder_create(
-    const signal_decoder_config* config) noexcept {
-
-    try {
-        if (config == nullptr) {
-            return nullptr;
-        }
-
-        return new signal_decoder{
-            Decoder{convert_config(*config)}
-        };
-    } catch (...) {
-        return nullptr;
-    }
-}
-```
-
-这里还能继续改善：
-
-> `nullptr` 无法表达创建失败原因。
-
-真正 production API 可增加：
-
-```text
-status + out_handle
-```
-
-形式。
-
----
-
-# 142. Better Create API
-
-```c
-signal_decoder_status
-signal_decoder_create(
-    const signal_decoder_config* config,
-    signal_decoder** out_decoder);
-```
-
-成功：
-
-```text
-status = OK
-*out_decoder = valid handle
-```
-
-失败：
-
-```text
-status != OK
-*out_decoder = NULL
-```
-
-错误语义更明确。
-
----
-
-# 143. Decode Boundary
-
-```cpp
-extern "C"
-signal_decoder_status signal_decoder_decode(
-    signal_decoder* decoder,
-    const std::uint8_t* input,
-    std::size_t input_size,
-    float* output,
-    std::size_t output_capacity,
-    std::size_t* output_count) noexcept {
-
-    try {
-        if (decoder == nullptr ||
-            input == nullptr ||
-            output_count == nullptr) {
-            return SIGNAL_DECODER_INVALID_ARGUMENT;
-        }
-
-        auto input_view =
-            std::span{
-                reinterpret_cast<
-                    const std::byte*>(input),
-                input_size
-            };
-
-        auto output_view =
-            std::span{
-                output,
-                output_capacity
-            };
-
-        const auto result =
-            decoder->implementation.decode(
-                input_view,
-                output_view);
-
-        *output_count = result.count;
-
-        return SIGNAL_DECODER_OK;
-    } catch (...) {
-        return SIGNAL_DECODER_INTERNAL_ERROR;
-    }
-}
-```
-
-C boundary：
-
-```text
-pointer + size
-```
-
-内部立即提升为：
-
-```text
-span
-```
-
-这是非常好的 layering。
-
----
-
-# Part XLVI · C++ Wrapper Layer
-
-# 144. Public C++23 Wrapper
-
-```cpp
-class SignalDecoder {
-public:
-    explicit SignalDecoder(
-        const SignalDecoderConfig& config);
-
-    ~SignalDecoder();
-
-    SignalDecoder(
-        const SignalDecoder&) = delete;
-
-    SignalDecoder&
-    operator=(const SignalDecoder&) = delete;
-
-    SignalDecoder(
-        SignalDecoder&& other) noexcept;
-
-    SignalDecoder&
-    operator=(SignalDecoder&& other) noexcept;
-
-    std::expected<std::size_t, DecodeError>
-    decode(
-        std::span<const std::byte> input,
-        std::span<float> output);
-
-private:
-    signal_decoder* handle_{};
-};
-```
-
-这让 C++ user 获得：
-
-```text
-RAII
-span
-expected
-move semantics
-```
-
-而 binary substrate 保持：
-
-```text
-small stable C ABI
-```
-
----
-
-# Part XLVII · Plugin ABI
-
-# 145. Plugin 不应直接 Export C++ Class Factory
-
-风险较大的：
-
-```cpp
-extern "C"
-BasePlugin* create_plugin();
-```
-
-虽然 symbol是 C linkage，
-
-但返回：
-
-```text
-C++ polymorphic object
-```
-
-host与plugin仍然共享：
-
-```text
-vtable ABI
-RTTI
-allocator
-destructor
-exception runtime
-```
-
-所以只是：
-
-> symbol名字看起来稳定，
-
-ABI并没有真正变成 C。
-
----
-
-# 146. 更稳健：Opaque Handle + Function Table
-
-Host只看到：
-
-```text
-C-compatible types
-```
-
-Plugin内部：
-
-```text
-arbitrary C++ implementation
-```
-
-这样隔离更彻底。
-
----
-
-# Part XLVIII · Cross-module Destruction
-
-# 147. Virtual Destructor 也不自动解决 Allocation Domain
-
-假设 host：
-
-```cpp
-delete plugin_object;
-```
-
-如果 object 是 plugin内：
-
-```text
-custom allocator
-```
-
-创建，
-
-即使 virtual destructor正确 dispatch：
-
-> deallocation domain仍必须正确。
-
-更稳妥：
-
-```c
-plugin_destroy(handle);
-```
-
-让 creator负责 destruction。
-
----
-
-# Part XLIX · ABI Stability Strategies
-
-# 148. Strategy A — Recompile Everything Together
-
-Monorepo/internal app：
-
-```text
-all components
-same toolchain
-same commit
-rebuilt together
-```
-
-可以接受更富 C++ 的 interface：
-
-```text
-vector
-string
-templates
-classes
-```
-
-ABI stability pressure较低。
-
----
-
-# 149. Strategy B — Stable C++ ABI
-
-需要：
-
-```text
-strict toolchain ABI policy
-PImpl
-symbol visibility
-careful virtual interfaces
-ABI checks
-```
-
-复杂但可行。
-
----
-
-# 150. Strategy C — Stable C ABI + C++ Wrapper
-
-最适合：
-
-```text
-SDK
-plugins
-cross-language
-long-lived binary compatibility
-```
-
-这是本 Track 默认推荐的 strongest boundary。
-
----
-
-# 151. 不同 Boundary 用不同策略
-
-不要认为：
-
-> “整个项目所有 module 都要用 C ABI。”
-
-内部：
-
-```text
-C++ types
-templates
-span
-vector
-expected
-```
-
-完全可以大量使用。
-
-只有真正：
-
-```text
-binary / language / plugin boundary
-```
-
-才需要更严格 profile。
-
----
-
-# Part L · ABI Boundary Classification
-
-# 152. Level 0 — Same Translation Unit
-
-几乎没有 ABI evolution问题。
-
----
-
-# 153. Level 1 — Separate Translation Units
-
-需要：
-
-```text
-declaration/definition
-ODR
-link compatibility
-```
-
-但通常一起构建。
-
----
-
-# 154. Level 2 — Static Libraries
-
-binary object boundary，
-
-但最终一起 link。
-
----
-
-# 155. Level 3 — Shared Libraries Under One Product
-
-较强 ABI coupling可接受，
-
-只要版本一起控制。
-
----
-
-# 156. Level 4 — Plugin / Third-party Binary SDK
-
-需要明确：
-
-```text
-ABI stability
-version negotiation
-ownership
-exception policy
-```
-
----
-
-# 157. Level 5 — Cross-language Boundary
-
-默认：
-
-> C ABI profile。
-
-越往下：
-
-> binary contract应该越小、越显式、越稳定。
-
----
-
-# Part LI · API Boundary Design Checklist
-
-# 158. Function Signature
-
-问：
-
-```text
-Does it expose compiler/library-specific types?
-```
-
----
-
-# 159. Ownership
-
-```text
-Who allocates?
-Who frees?
-Who owns handle?
-Who borrows?
-```
-
----
-
-# 160. Lifetime
-
-```text
-How long are pointers valid?
-Can library retain them?
-```
-
----
-
-# 161. Errors
-
-```text
-exceptions?
-status codes?
-error object?
-```
-
----
-
-# 162. Concurrency
-
-```text
-thread-safe?
-per-handle serialization?
-callbacks on what thread?
-```
-
----
-
-# 163. Versioning
-
-```text
-ABI version?
-struct size?
-feature discovery?
-```
-
----
-
-# 164. Representation
-
-```text
-endianness?
-packing?
-alignment?
-fixed widths?
-```
-
----
-
-# 165. Allocation
-
-```text
-same allocator domain?
-caller-provided output?
-```
-
----
-
-# 166. Shutdown
-
-对于异步 handle：
-
-```text
-close?
-cancel?
-join?
-destroy while callbacks running?
-```
-
-G7 的 lifecycle模型同样适用。
-
----
-
-# Part LII · Practical Labs
-
-# 167. Lab 1 — Name Mangling
-
-定义：
-
-```cpp
+extern "C" int native_sum(int, int);
 int add(int, int);
 double add(double, double);
+int main() {
+    return native_sum(2, 3) == 5 && add(4, 5) == 9 &&
+           add(1.25, 2.5) == 3.75 ? 0 : 1;
+}
 ```
 
-编译 object file。
+[完整实验 · G8-B1 · missing.cpp]
 
-使用：
-
-```text
-nm
-demangling tools
-```
-
-观察：
-
-> 两个 overload 对应不同 binary symbols。
-
-然后改：
-
+<!-- n-file {"path":"missing.cpp"} -->
 ```cpp
-extern "C"
+// Intentional link-negative: declaration has C++ linkage.
+int native_sum(int, int);
+int main() { return native_sum(2, 3) == 5 ? 0 : 1; }
 ```
 
-观察 symbol变化。
+**运行与解释。** 本节开头的统一命令按 `G8-B1` 提取全部文件；具体编译、链接、运行及负例命令保存在 `results.json`。先预测结果，再用完整诊断核对，不能把任意构建失败或超时当作预期反例。
 
----
+### 20.2 G8-B2 · 真正的 C 消费者与共享库接口
 
-# 168. Lab 2 — ABI Break by Struct Layout
+**待验证命题。** 头文件以 C11 编译，库以 C++23 编译，C 调用端链接并加载共享库。检验配置大小/版本、拥有句柄、完整输出、容量失败不写入、同步回调与异常到状态码的转换。
 
-Library v1：
+**范围与前提。** 非空配置指针必须指向完整可读 config 对象；struct_size 只是声明，不是内存验证。其他非空地址也必须有效。输入/输出/计数地址不重叠；同一句柄调用与销毁不并发；回调只在本次调用中同步借用，不抛异常、不销毁或重入该句柄。未测试分配失败、历史 v1/v2 混用、插件 dlopen/卸载或 Rust/Zig 调用。
 
-```cpp
-struct Config {
-    int mode;
-};
-```
+<!-- n-lab {"id":"G8-B2","mode":"c_shared"} -->
 
-Caller编译。
+[完整实验 · G8-B2 · decoder.h]
 
-Library v2改成：
-
-```cpp
-struct Config {
-    int mode;
-    int flags;
-};
-```
-
-只重编 library，不重编 caller。
-
-理解：
-
-> 为什么 source-level合法不代表 binary-compatible。
-
----
-
-# 169. Lab 3 — PImpl
-
-版本 A：
-
-```cpp
-class Decoder {
-    std::vector<float> buffer_;
-};
-```
-
-记录：
-
-```text
-sizeof(Decoder)
-```
-
-版本 B增加 internal members。
-
-观察 public type layout变化。
-
-然后改成 PImpl：
-
-```cpp
-std::unique_ptr<Impl>
-```
-
-再增加 Impl members。
-
-Public Decoder layout保持稳定得多。
-
----
-
-# 170. Lab 4 — C ABI Wrapper
-
-把：
-
-```cpp
-class Decoder
-```
-
-包装为：
-
-```text
-create
-destroy
-decode
-```
-
-三个 C functions。
-
-要求：
-
-```text
-no exception escape
-explicit ownership
-pointer+length
-caller-owned output
-```
-
----
-
-# 171. Lab 5 — Cross-language
-
-用 Zig 或 Rust 调：
-
+<!-- n-file {"path":"decoder.h"} -->
 ```c
-signal_decoder_create
-signal_decoder_decode
-signal_decoder_destroy
-```
-
-不暴露任何：
-
-```text
-std::vector
-std::string
-C++ class
-```
-
-验证：
-
-> C ABI 确实成为共同最小边界。
-
----
-
-# 172. Lab 6 — Callback
-
-设计：
-
-```c
-typedef void (*log_fn)(
-    void* context,
-    const char* data,
-    size_t len);
-```
-
-C++ caller传：
-
-```text
-object pointer as context
-+
-static trampoline
-```
-
-然后明确：
-
-```text
-callback lifetime
-threading
-reentrancy
-```
-
----
-
-# 173. Lab 7 — ABI Versioning
-
-定义 v1：
-
-```c
-struct config {
+#ifndef NATIVE_DECODER_H
+#define NATIVE_DECODER_H
+#include <stddef.h>
+#include <stdint.h>
+#ifdef __cplusplus
+#define DEC_NOEXCEPT noexcept
+extern "C" {
+#else
+#define DEC_NOEXCEPT
+#endif
+#define DEC_API __attribute__((visibility("default")))
+typedef struct decoder decoder;
+typedef uint32_t dec_status;
+enum { DEC_OK, DEC_INVALID, DEC_SMALL, DEC_INTERNAL };
+typedef struct dec_config {
     uint32_t struct_size;
     uint32_t abi_version;
-    uint32_t mode;
-};
+    uint32_t model;
+} dec_config;
+typedef void (*dec_callback)(void* context, size_t count);
+DEC_API dec_status dec_create(const dec_config*, decoder**) DEC_NOEXCEPT;
+DEC_API void dec_destroy(decoder*) DEC_NOEXCEPT;
+DEC_API dec_status dec_decode(decoder*, const uint8_t*, size_t,
+    float*, size_t, size_t*, dec_callback, void*) DEC_NOEXCEPT;
+#ifdef __cplusplus
+}
+#endif
+#endif
 ```
 
-v2 append：
+[完整实验 · G8-B2 · decoder.cpp]
 
+<!-- n-file {"path":"decoder.cpp"} -->
+```cpp
+#include "decoder.h"
+#include <stdexcept>
+struct decoder { uint32_t model; };
+extern "C" dec_status dec_create(const dec_config* config,
+                                  decoder** out) noexcept {
+    if (!out) return DEC_INVALID;
+    *out = nullptr;
+    if (!config || config->struct_size < sizeof(dec_config) ||
+        config->abi_version != 1 || config->model > 1) return DEC_INVALID;
+    try {
+        *out = new decoder{config->model};
+        return DEC_OK;
+    } catch (...) { return DEC_INTERNAL; }
+}
+extern "C" void dec_destroy(decoder* value) noexcept { delete value; }
+extern "C" dec_status dec_decode(decoder* value, const uint8_t* input,
+    size_t size, float* output, size_t capacity, size_t* count,
+    dec_callback callback, void* context) noexcept {
+    if (!count) return DEC_INVALID;
+    *count = 0;
+    if (!value || (!input && size) || (!output && capacity)) return DEC_INVALID;
+    if (capacity < size) return DEC_SMALL;
+    try {
+        if (value->model == 1) throw std::runtime_error{"controlled fault"};
+        for (size_t i = 0; i < size; ++i) output[i] = input[i] * 2.0f;
+        *count = size;
+        if (callback) callback(context, *count);
+        return DEC_OK;
+    } catch (...) { return DEC_INTERNAL; }
+}
+```
+
+[完整实验 · G8-B2 · consumer.c]
+
+<!-- n-file {"path":"consumer.c"} -->
 ```c
-uint32_t flags;
+#include "decoder.h"
+#include <stdio.h>
+static void counted(void* context, size_t count) { *(size_t*)context += count; }
+int main(void) {
+    dec_config config = {sizeof(dec_config), 1, 0};
+    decoder* handle = NULL;
+    if (dec_create(&config, &handle) != DEC_OK || !handle) return 1;
+    decoder* rejected = handle; /* borrowed alias used only as an output sentinel */
+    config.abi_version = 2;
+    if (dec_create(&config, &rejected) != DEC_INVALID || rejected) return 2;
+    config.abi_version = 1;
+    config.struct_size = sizeof(dec_config) - 1;
+    if (dec_create(&config, &rejected) != DEC_INVALID || rejected) return 3;
+    const uint8_t input[] = {1, 7, 255};
+    float output[] = {-1, -1, -1};
+    size_t count = 99, callbacks = 0;
+    if (dec_decode(handle, input, 3, output, 3, &count, counted, &callbacks) ||
+        count != 3 || output[0] != 2 || output[1] != 14 || output[2] != 510 ||
+        callbacks != 3) return 4;
+    output[0] = output[1] = output[2] = -1;
+    if (dec_decode(handle, input, 3, output, 2, &count, counted, &callbacks) != DEC_SMALL ||
+        count != 0 || output[0] != -1 || output[1] != -1 || output[2] != -1 ||
+        callbacks != 3) return 5;
+    if (dec_decode(handle, NULL, 0, NULL, 0, &count, NULL, NULL) != DEC_OK ||
+        count != 0) return 6;
+    if (dec_decode(handle, NULL, 3, output, 3, &count, NULL, NULL) != DEC_INVALID ||
+        count != 0) return 7;
+    dec_destroy(handle);
+    dec_destroy(NULL);
+    config.struct_size = sizeof(dec_config);
+    config.model = 1;
+    if (dec_create(&config, &handle) || !handle) return 8;
+    if (dec_decode(handle, input, 3, output, 3, &count, NULL, NULL) != DEC_INTERNAL ||
+        count != 0 || output[0] != -1 || output[1] != -1 || output[2] != -1) return 9;
+    dec_destroy(handle);
+    puts("c-abi-contract-ok");
+    return 0;
+}
 ```
 
-让 v2 library：
+**运行与解释。** 本节开头的统一命令按 `G8-B2` 提取全部文件；具体编译、链接、运行及负例命令保存在 `results.json`。先预测结果，再用完整诊断核对，不能把任意构建失败或超时当作预期反例。
 
-> 仍能接受 v1 config。
+**未执行路线。** 前面列出的扩展练习仍可用于学习，但不自动计入本批通过项。执行记录按文档检查、编译/链接/消费、性能观察、并发检测分别说明；后两类在本批不运行。
 
----
 
-# Part LIII · G8 Review Protocol
+<a id="g8-section-21"></a>
 
-面对一个 native boundary，按这个顺序问。
+## 21. 边界复核协议
 
-## 1. Boundary 类型
+从边界类型开始，依次追到消费者实际行为。这里的清单服务审查，不是全部已有自动化证据。
 
-```text
-same TU?
-static lib?
-shared lib?
-plugin?
-cross-language?
-```
+| 审查层次 | 核心问题 | 证据入口 |
+| --- | --- | --- |
+| 边界 / API / ABI | 独立升级还是一起重编译？ | 支持配置与消费者身份 |
+| 符号 / 调用 | 名称、类型、参数约定是否一致？ | 目标文件、诊断、平台 ABI |
+| 布局 / 版本 | 大小、偏移、范围如何协商？ | 布局观察与版本矩阵 |
+| 所有权 / 分配 | 谁创建，谁释放，在哪个域？ | 成对入口与失败路径 |
+| 错误 / 生命周期 | 失败输出是什么，借用到何时？ | 状态测试与文字合同 |
+| 并发 / 回调 | 可否重入，谁等待在途工作？ | 同步/销毁协议 |
+| 跨语言 | 表示及语义由哪一层恢复？ | 真正的异语言消费者 |
 
----
+<a id="g8-section-22"></a>
 
-## 2. API vs ABI
-
-```text
-什么是源码 contract？
-什么进入 binary contract？
-```
-
----
-
-## 3. Symbols
-
-```text
-哪些 symbols 对外？
-C++ mangling 还是 C linkage？
-```
-
----
-
-## 4. Calling Convention
-
-```text
-双方 toolchain/architecture 是否一致？
-```
-
----
-
-## 5. Data Layout
-
-```text
-哪些 structs/classes 跨 boundary？
-sizeof/alignment/offset 是否稳定？
-```
-
----
-
-## 6. Ownership
-
-```text
-谁 create？
-谁 destroy？
-```
-
----
-
-## 7. Allocation
-
-```text
-allocator domain是否一致？
-```
-
----
-
-## 8. Error
-
-```text
-exception能否穿 boundary？
-```
-
----
-
-## 9. Lifetime
-
-```text
-borrowed pointer 有效多久？
-```
-
----
-
-## 10. Concurrency
-
-```text
-thread safety / callback / destroy race contract是什么？
-```
-
----
-
-## 11. Versioning
-
-```text
-old caller + new library
-是否有明确兼容策略？
-```
-
----
-
-## 12. Cross-language
-
-```text
-是否应该降到 C ABI？
-```
-
----
-
-# Part LIV · 高频错误
-
-# 174. 错误 1
-
-> Public API 没变，所以 ABI 没变。
-
-错。
-
-Private layout也可能改变 `sizeof(class)`。
-
----
-
-# 175. 错误 2
-
-> `extern "C"` 可以让 `std::vector` 变成 C-compatible。
-
-错。
-
----
-
-# 176. 错误 3
-
-> C++23 标准相同，所以两个 compiler 的 ABI 必然兼容。
-
-错。
-
-语言标准与 platform/compiler ABI是不同层。
-
----
-
-# 177. 错误 4
-
-> `trivially_copyable` struct 可以直接存盘作为长期格式。
-
-错。
-
-还有：
-
-```text
-endianness
-ABI
-padding
-versioning
-```
-
----
-
-# 178. 错误 5
-
-> `#pragma pack(1)` 就获得 portable network format。
-
-错。
-
----
-
-# 179. 错误 6
-
-> Library allocate，caller `free` 就行。
-
-不一定。
-
-Allocator domain必须匹配。
-
----
-
-# 180. 错误 7
-
-> Opaque Handle 只是为了隐藏源码实现。
-
-更重要：
-
-> 隔离 binary object layout。
-
----
-
-# 181. 错误 8
-
-> `std::span` 没 allocation，所以适合 C ABI。
-
-它仍然是 C++ library type。
-
-C ABI 展开成 pointer + length。
-
----
-
-# 182. 错误 9
-
-> Exception 跨 DLL/shared library 一定没问题。
-
-只有在严格兼容 runtime ABI下才可能成为可支持 contract；稳定跨语言 boundary不应依赖它。
-
----
-
-# 183. 错误 10
-
-> Plugin factory 用 `extern "C"` 返回 C++ base pointer，就已经有稳定 C ABI。
-
-错。
-
-C++ object/vtable/RTTI/destructor ABI仍然暴露。
-
----
-
-# 184. 错误 11
-
-> Inline function在 shared library升级后也自动升级。
-
-旧 caller可能已经编入旧实现。
-
----
-
-# 185. 错误 12
-
-> Templates 是 shared library 内部 implementation。
-
-很多 template instantiation实际上发生在 caller。
-
----
-
-# 186. 错误 13
-
-> Binary-compatible 就表示 semantic-compatible。
-
-单位、ownership、lifetime等变化一样可以 break。
-
----
-
-# 187. 错误 14
-
-> ABI 只跟 bytes有关。
-
-Thread safety、ownership、lifetime虽然不是低层 bit ABI，也同样是完整 boundary contract。
-
----
-
-# Part LV · C++ / Zig / Rust 对照
-
-# 188. C++
-
-内部 abstraction能力最丰富：
-
-```text
-classes
-templates
-RAII
-exceptions
-STL
-virtual dispatch
-```
-
-但这些正是稳定 external ABI最容易产生 coupling 的区域。
-
-因此：
-
-```text
-rich inside
-small explicit boundary outside
-```
-
-通常是优秀设计。
-
----
-
-# 189. Zig
-
-Zig 强调：
-
-```text
-C interoperability
-explicit layout
-explicit allocation
-```
-
-因此 C ABI 是非常自然的 integration boundary。
-
-但 Zig-specific：
-
-```text
-slice
-error union
-allocator
-comptime type
-```
-
-同样不能未经设计直接假定为 C ABI。
-
----
-
-# 190. Rust
-
-Rust：
-
-```text
-ownership
-enums
-traits
-slices
-Result
-```
-
-内部非常强。
-
-跨稳定 native FFI 仍经常降为：
-
-```text
-#[repr(C)]
-raw pointers
-fixed-width integers
-explicit create/destroy
-```
-
-因为：
-
-> Rust language ABI也不是 C ABI。
-
----
-
-# 191. 三种语言的共同模式
-
-```text
-Rich Language-native API
-        ↓
-Thin FFI Adapter
-        ↓
-Small Stable C ABI
-```
-
-这几乎是：
-
-> C++ / Rust / Zig native interoperability 的通用黄金结构。
-
----
-
-# Part LVI · G8 Final Fifteen Axioms
-
-如果半年以后只能记十五条：
-
-1. **API 是 source-level contract，ABI 是 independently compiled binaries 之间的 machine-level contract。**
-
-2. **相同 C++ 标准版本不自动意味着相同 binary ABI；mangling、calling convention、layout 和 runtime属于 implementation/platform ABI。**
-
-3. **C++ public class 的 private representation 也可能进入 ABI，因为 caller 需要知道 `sizeof`、alignment 和 layout。**
-
-4. **PImpl 的核心价值之一是把 private representation 从 public binary layout 中移除。**
-
-5. **`extern "C"` 主要建立 C language linkage；它不会让 C++ object、STL、exception突然变成 C ABI。**
-
-6. **稳定跨语言/native SDK boundary 的默认最小公分母是：C linkage + opaque handles + primitive scalars + pointer/length + explicit ownership。**
-
-7. **谁 allocate，通常就应该由同一 allocation domain负责 free；allocator ownership 是 ABI contract。**
-
-8. **C++ exception 不应穿过 C ABI；boundary 应将异常转换为显式 error representation。**
-
-9. **不要把 in-memory C++ layout 当 wire/storage schema；packing、endianness、versioning、lifetime 是不同问题。**
-
-10. **STL types 在同一受控 toolchain 内可以很好用，但暴露它们会显著扩大 stable binary ABI coupling。**
-
-11. **Opaque Handle 能把内部 class layout、allocator、container 与实现演进隐藏在 stable ABI 后面。**
-
-12. **Plugin 边界优先使用 versioned C function table，而不是依赖 compiler-controlled C++ vtable/RTTI ABI。**
-
-13. **ABI versioning必须显式考虑 struct size、field order、enum values、symbol set 与 semantic behavior。**
-
-14. **Ownership、lifetime、thread safety、callback threading 和 shutdown 虽然不全是 bit-level ABI，却都是完整 binary interface contract 的一部分。**
-
-15. **优秀 native library architecture 通常是 Rich C++ Internals + Small Stable Binary Boundary + Idiomatic Language Wrappers。**
-
----
-
-# Part LVII · G8 Final Gate
+## 22. Final Gate
 
 应该能闭卷回答：
 
-## API / ABI
+### 22.1 API / ABI
 
 1. API 与 ABI 的区别是什么？
 2. 为什么 private member 变化也可能 ABI break？
 3. 为什么 source-compatible 不等于 binary-compatible？
 
-## Symbol
+### 22.2 Symbol
 
 1. C++ 为什么需要 name mangling？
 2. `extern "C"` 真正改变什么？
 3. 为什么它不能让 `std::string` 获得稳定 C ABI？
 
-## Calling Convention
+### 22.3 Calling Convention
 
 1. Calling convention 至少规定哪些东西？
 2. 为什么大型 return object 可能需要 hidden result pointer？
 
-## Layout
+### 22.4 Layout
 
 1. 为什么 class inheritance/vtable 会扩大 ABI surface？
 2. `trivially_copyable` 为什么不等于 portable serialization？
 3. 为什么 packing 不能解决 endianness？
 
-## Ownership
+### 22.5 Ownership
 
- 1. 为什么 library allocate / caller free 可能错误？
- 2. caller-provided output buffer 有什么优势？
- 3. opaque handle 如何表达 owning stateful object？
+1. 为什么 library allocate / caller free 可能错误？
+2. caller-provided output buffer 有什么优势？
+3. opaque handle 如何表达 owning stateful object？
 
-## Error
+### 22.6 Error
 
- 1. 为什么 exception 不应穿过 C ABI？
- 2. `noexcept` 在 FFI boundary 有什么作用？
+1. 为什么 exception 不应穿过 C ABI？
+2. `noexcept` 在 FFI boundary 有什么作用？
 
-## STL / Templates
+### 22.7 STL / Templates
 
- 1. 为什么 `vector` / `string` 会扩大 binary coupling？
- 2. 为什么 template implementation 经常实际编进 caller？
- 3. 为什么 inline implementation 会让旧 caller保留旧逻辑？
+1. 为什么 `vector` / `string` 会扩大 binary coupling？
+2. 为什么 template implementation 经常实际编进 caller？
+3. 为什么 inline implementation 会让旧 caller保留旧逻辑？
 
-## Versioning
+### 22.8 Versioning
 
- 1. `struct_size` 有什么价值？
- 2. 为什么 append-only field evolution 比 reorder field 更容易兼容？
- 3. Software version 与 ABI version 为什么不是一回事？
+1. `struct_size` 有什么价值？
+2. 为什么 append-only field evolution 比 reorder field 更容易兼容？
+3. Software version 与 ABI version 为什么不是一回事？
 
-## Plugins
+### 22.9 Plugins
 
- 1. 为什么 `extern "C" Base* create()` 仍然不是纯 C ABI？
- 2. versioned function table为什么适合插件？
+1. 为什么 `extern "C" Base* create()` 仍然不是纯 C ABI？
+2. versioned function table为什么适合插件？
 
-## Cross-language
+### 22.10 Cross-language
 
- 1. 为什么 Rust `repr(C)` / Zig C interoperability仍然不能取消 ownership/lifetime contract？
- 2. 为什么 pointer + length 是 span/slice 跨 FFI 的自然降级形式？
+1. 为什么 Rust `repr(C)` / Zig C interoperability仍然不能取消 ownership/lifetime contract？
+2. 为什么 pointer + length 是 span/slice 跨 FFI 的自然降级形式？
 
----
+<a id="g8-section-23"></a>
 
-# Part LVIII · G0 → G8 的完整闭环
+## 23. Final Gate · 参考答案与常见误判
 
-现在 G0 学到的：
+### 23.1 API / ABI
 
-```text
-source
-↓
-translation unit
-↓
-object file
-↓
-symbols
-↓
-linker
-↓
-shared library
-↓
-loader
-↓
-process
-```
+1. API 约束源码可见名称、类型和语义；ABI 约束独立编译组件对名称、调用与表示的共同理解。相同源码语言版本不保证相同 ABI。
 
-已经和 G1–G8 完整连接：
+2. 调用者若按值构造公开类，编译时已把大小、对齐甚至内联成员访问写入机器代码。private 只控制源码访问，不消除布局承诺；PImpl 减少这一承诺，但仍保留指针成员及运行时合同。
 
-```text
-G1
-Object / Lifetime
+3. 改动后重新编译可能成功，而旧机器代码仍按旧偏移读写。常见误判是拿“新头文件＋新库一起构建通过”证明旧调用者兼容；那其实没有测试旧调用者。
 
-↓
-G2
-Ownership
+### 23.2 Symbol
 
-↓
-G3
-Value / Move
+1. C++ 重载、命名空间和模板需要区分实体，具体 ABI 常用名字改编编码必要信息。并非所有函数都在优化后的制品中保留独立符号。
 
-↓
-G4
-Containers / Views
+2. extern "C" 指定相应名称/函数类型的语言链接属性；实现按平台 C 约定处理，不是统一跨平台符号拼写，也不是自动导出。
 
-↓
-G5
-Templates / Genericity
+3. std::string 的布局、分配、异常和生命周期不因链接名改变。G8-B1 的链接负例只说明名字约定不匹配，不证明任意 C 链接签名都适合 C 调用。
 
-↓
-G6
-Representation / Performance
+### 23.3 Calling Convention
 
-↓
-G7
-Concurrency / Mutation Authority
+1. 参数和返回值位置、寄存器保存责任、栈对齐、聚合体分类及隐藏参数都可能属于约定。不能仅检查双方函数名一致。
 
-↓
-G8
-Binary Boundary / ABI
-```
+2. 返回大对象时，某些 ABI 让调用者提供结果存储地址；是否采用该方式取决于类型和目标 ABI。它不是语言层 RVO 的同义词，优化后的汇编也不反向定义语言保证。
 
-现在看到：
+### 23.4 Layout
 
-```cpp
-std::vector<std::shared_ptr<Foo>>
-get_objects();
-```
+1. 继承会引入子对象、指针调整、可能的虚表与运行时类型信息。虚函数槽位和基类偏移改变可能破坏旧调用者，不能只审查显式字段。
 
-如果它只是内部 function，
+2. 平凡可复制只提供有条件的表示复制保证，不能把指针、填充、端序和目标布局固定成长期文件格式。
 
-可能完全合理。
+3. packing 影响布局/对齐，端序决定多字节数值的字节次序。二者独立；压紧布局也不解决任意字节地址的生命周期和合法访问。
 
-如果它是：
+### 23.5 Ownership
 
-> 第三方 plugin SDK 的 binary interface，
+1. 创建方可能使用不同运行时或自定义分配器，调用者的 free/delete 未必匹配。让同一分配域提供 destroy，或明确协商分配器。
 
-你应该立即看到：
+2. 调用者拥有输出缓冲区可以避免跨域转移，但还必须定义容量不足、部分输出、重叠和计数规则。指针＋长度不是内存安全认证。
 
-```text
-std::vector ABI
-shared_ptr ABI
-Foo layout
-allocator domain
-exception behavior
-stdlib ABI
-reference counting runtime
-thread safety
-ownership
-```
+3. create/destroy 及文字合同赋予句柄所有权，不透明类型本身只隐藏布局。G8-B2 检查成功非空、失败清空和同步借用；不验证悬挂地址或重复销毁。
 
-全部被推到了 boundary。
+### 23.6 Error
 
-这就是 G8 最重要的能力：
+1. C 调用者不理解任意 C++ 异常运行时；跨语言接口应把异常止于边界，输出可解释的状态。统一受控 C++ 运行时下跨库异常是另一种可选合同，不能和纯 C 接口混同。
 
-> **能看到一个源码 signature 背后的全部 binary commitments。**
+2. noexcept 限制传播而不自动 catch；异常离开会终止。声明/定义必须匹配，转换路径也不能再次失败。G8-B2 的 model=1 只注入受控异常，不代表实际分配失败已测试。
 
----
+### 23.7 STL / Templates
 
-# G8 完成状态
+1. vector/string 暴露标准库布局、分配器和运行时要求；同一产品统一构建可接受，不等于第三方 SDK 长期稳定。
 
-```text
-G8.1   API vs ABI
-G8.2   Symbols / Linkage / Name Mangling
-G8.3   Calling Convention
-G8.4   Data & Object Layout ABI
-G8.5   Inheritance / VTable / RTTI
-G8.6   Exception ABI
-G8.7   Allocator Boundary
-G8.8   STL / Templates / Inline ABI
-G8.9   Static / Shared Libraries
-G8.10  Symbol Visibility
-G8.11  PImpl
-G8.12  C ABI / Opaque Handle
-G8.13  Versioning
-G8.14  Callback / Plugin ABI
-G8.15  Rust / Zig Interop
-G8.16  Binary Inspection / Compatibility Review
-──────────────────────────────────────────────
-G8      COMPLETE / FROZEN
-```
+2. 模板定义通常在调用者可达处实例化，显式实例化是受控例外。3. inline 逻辑也可能编入旧调用者；只换共享库无法更新这些机器指令。常见误判是把头文件实现当成库端可随时替换的细节。
 
-下一份整章文档就是：
+### 23.8 Versioning
 
-# **G9 — Build & Native Ecosystem**
+1. struct_size 让库知道调用者声明的可读/可写范围，但不能验证任意指针或谎报大小；先检查公共前缀，再读可选字段。
 
-它会把我们从 G0 到 G8 的所有机制真正映射到现代 C++ 工程系统：
+2. 尾部追加可能保留已有偏移，但仍需检查传递方式、大小、对齐、默认值及数组步长，不自动兼容。3. 软件版本记录产品演进，ABI 版本记录特定二进制合同；二者可以独立变化。
 
-```text
-Source Files
-     ↓
-Targets
-     ↓
-Usage Requirements
-     ↓
-Compile Commands
-     ↓
-Object Files
-     ↓
-Static / Shared Libraries
-     ↓
-Executables
-     ↓
-Install / Export
-     ↓
-Package Discovery
-```
+G8-B2 仅拒绝未知版本与过小声明尺寸，没有执行 v1 调用者对 v2 实现的兼容实验。把版本检查成功写成全面 ABI 演进验收，是最需要避免的误判。
 
-核心会系统解决：
+### 23.9 Plugins
 
-```text
-现代 CMake 到底在建模什么？
-为什么 target 是核心，不应该全局堆 flags？
-PUBLIC / PRIVATE / INTERFACE 到底是什么？
-CMake Presets 与 toolchain file 分别解决什么？
-find_package / package config 是怎么工作的？
-FetchContent / system package / package manager 怎么选？
-Modules / PCH / Unity / LTO 应该放在哪一层？
-Sanitizer / debug / release profile 如何设计？
-怎样构建真正可安装、可消费、可跨平台的 C++23 library？
-```
+1. 返回 Base* 仍暴露 C++ 多态对象、析构、类型信息和运行时，C 名称仅稳定了入口名字。
 
-G9 完成以后，我们就会结束“知识章节阶段”，正式进入 **G10 Systems Project / Runtime Lab**。
+2. 版本化函数表让字段顺序、可选能力和协商显式化，但宿主仍要核对函数类型和可用范围。表和函数指针在插件卸载后不可继续使用；必须先停止调用、等待回调并销毁对象。动态加载成功不证明卸载协议安全。
+
+### 23.10 Cross-language
+
+1. Rust repr(C) 或 Zig C 互操作约定表示/调用的一部分，不替外部原始指针证明有效期、别名规则、线程访问或分配域。各语言的安全包装必须从同一文字合同恢复这些限制。
+
+2. pointer＋length 显式表达连续缓冲区地址和元素数，便于不同语言重建视图；还需规定元素单位、空范围、可写性及借用时长。本批 C11 消费者是跨语言的有限实例，不能替代未运行的 Rust/Zig FFI 检查。
+
+<a id="g8-section-24"></a>
+
+## 24. 工程原则与全链回查
+
+如果半年以后只能记十五条：
+
+1. API 是 source-level contract，ABI 是 independently compiled binaries 之间的 machine-level contract。
+
+2. 相同 C++ 标准版本不自动意味着相同 binary ABI；mangling、calling convention、layout 和 runtime属于 implementation/platform ABI。
+
+3. C++ public class 的 private representation 也可能进入 ABI，因为 caller 需要知道 `sizeof`、alignment 和 layout。
+
+4. PImpl 的核心价值之一是把 private representation 从 public binary layout 中移除。
+
+5. `extern "C"` 主要建立 C language linkage；它不会让 C++ object、STL、exception突然变成 C ABI。
+
+6. 稳定跨语言/native SDK boundary 的默认最小公分母是：C linkage + opaque handles + primitive scalars + pointer/length + explicit ownership。
+
+7. 谁 allocate，通常就应该由同一 allocation domain负责 free；allocator ownership 是 ABI contract。
+
+8. C++ exception 不应穿过 C ABI；boundary 应将异常转换为显式 error representation。
+
+9. 不要把 in-memory C++ layout 当 wire/storage schema；packing、endianness、versioning、lifetime 是不同问题。
+
+10. STL types 在同一受控 toolchain 内可以很好用，但暴露它们会显著扩大 stable binary ABI coupling。
+
+11. Opaque Handle 能把内部 class layout、allocator、container 与实现演进隐藏在 stable ABI 后面。
+
+12. Plugin 边界优先使用 versioned C function table，而不是依赖 compiler-controlled C++ vtable/RTTI ABI。
+
+13. ABI versioning必须显式考虑 struct size、field order、enum values、symbol set 与 semantic behavior。
+
+14. Ownership、lifetime、thread safety、callback threading 和 shutdown 虽然不全是 bit-level ABI，却都是完整 binary interface contract 的一部分。
+
+15. 优秀 native library architecture 通常是 Rich C++ Internals + Small Stable Binary Boundary + Idiomatic Language Wrappers。
+
+从 G0 的符号/重定位/加载到 G1～G7 的对象、所有权和同步，最终都落实到接口合同。内部返回 `std::vector<std::shared_ptr<Foo>>` 可以合理；若作为第三方 SDK 边界，则同时承诺容器、标准库、引用计数、分配域、对象表示与线程行为。
+
+<a id="g8-section-25"></a>
+
+## 25. 参考资料与验证边界
+
+语言规则采用 [N4950 链接属性](https://timsong-cpp.github.io/cppwp/n4950/dcl.link)、[对象表示](https://timsong-cpp.github.io/cppwp/n4950/basic.types) 和 [异常终止](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)。[Itanium C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html) 是具体 ABI 资料，不是 C++ 标准或所有平台通用实现；[Apple run-path 文档](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html) 用于理解本次 @rpath/@loader_path 配置。
+
+跨语言表示参见 [Rust Reference](https://doc.rust-lang.org/reference/type-layout.html#the-c-representation) 和 [Zig C 互操作文档](https://ziglang.org/documentation/master/#C)。这些链接支持概念回查，不代表本批运行了对应编译器。
+
+[本批验证与限制](learning/native-revision.md)区分实际编译/链接/消费结果、未运行项及源稿风险。只有完整实验源码经过相应执行器验证，其余片段仅用于解释机制。PDF 未构建、未渲染、未验收；本章源稿状态不能代替出版或跨平台批准。
