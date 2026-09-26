@@ -2,7 +2,7 @@
 
 这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
-[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线。[全书阅读约定与跨章索引](handbook-guide.md)统一术语主讲位置、章节交接、证据标签和引用版本，帮助将十三章作为一本手册使用。已接受源稿与本轮编辑修订分别登记，见[基线与证据状态](#基线与证据状态)。
+[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线。[全书阅读约定与跨章索引](handbook-guide.md)统一术语主讲位置、章节交接、证据标签和引用版本，帮助将十三章作为一本手册使用。技术源稿历史与已接受的 Markdown 内容冻结基线分别登记，见[基线与证据状态](#基线与证据状态)。
 
 ## 从哪里开始
 
@@ -26,7 +26,7 @@
 
 G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源请求和基准观察；G7 先论证同步与生命周期，再使用动态检测。G8 以真实 C 消费者检查接口，G9 以安装树和生成图检查交付。G10 组合跨组件协议与条件化性能观察，G11 分离逻辑安全模型和主机时序，G12 用三个推理案例审查证据边界。共同方法是“命题 → 判据 → 证据 → 边界”，不是复制同一种 exact-stdout 实验形态。
 
-本轮 [Cross-series Editorial Sweep](learning/editorial-sweep.md) 只处理全书一致性，不追加 G13，不扩大单章主题。跨章回查优先指向概念主讲处，应用章保留本地前提与必要重述；Final Gate、完整实验与历史证据不因去重而删除。当前形成 Markdown 冻结候选，待集中审核后再进入 G6/G7 PDF Pilot。
+[Cross-series Editorial Sweep](learning/editorial-sweep.md#6-集中复审接受与内容冻结) 已获集中复审接受，`8f479de` 为全系列 Markdown 内容冻结基线。跨章回查优先指向概念主讲处，应用章保留本地前提与必要重述；Final Gate、完整实验与历史证据不因去重而删除。Markdown 内容阶段已结束，不追加 G13、不再启动第二轮 Sweep 或单章扩写；下一批为 G6/G7 PDF Pilot，本次接受登记不启动构建。
 
 ## 每次怎么学
 
@@ -76,10 +76,14 @@ G2～G12 的原始字节先由提交 `2dbaa95` 保存；G0/G1 与 FM 的修改�
 | G8～G9 | `e91e255` 已接受；[记录](learning/native-revision.md#5-集中复审接受与停止边界) |
 | G10～G12 | `bc4c8c9` 已接受；[记录](learning/synthesis-revision.md#6-集中复审接受与停止边界) |
 | 全系列源稿里程碑 | `b4728e3`：ACCEPTED — Professional Handbook Source Baseline |
-| 本轮全书编辑修订 | G0～G4 v1.2.1 / G5～G12 v1.1.1；冻结候选，待集中审核 |
+| Markdown 内容冻结 | `8f479de`：ACCEPTED；G0～G4 v1.2.1 / G5～G12 v1.1.1 |
+| 实验源码与 Gate | 相对已接受技术基线保持不变；不是本轮重新执行 |
 | 证据身份 | 历史本地执行记录不变，不称为 CI 或本轮重跑 |
+| C++ 编译 / 性能 / 并发动态重跑 | NOT RUN |
 | 验证边界 | 跨平台、形式化并发证明、硬实时/物理安全 NOT ESTABLISHED |
 | Rust / Zig 可执行验证 | NOT RUN |
 | PDF | **NOT BUILT / NOT VALIDATED** |
 
-当前章稿为已接受内容之上的编辑修订，不把旧提交的 ACCEPTED 自动授予新字节。新旧摘要及代码/Gate 对应见[本轮记录](learning/editorial-sweep.md)与[冻结候选清单](learning/editorial-sweep-results.json)。内容候选不包含正式发布或第三方网页归档；集中复审后再确定内容冻结及 G6/G7 Pilot 的启动。
+正式状态：**ACCEPTED — Modern C++ Professional Handbook Markdown Content Freeze Baseline**。接受对象是 `8f479deaf660533b2ad82e1f721eb41a363112b6` 的全书编辑一致性与 Markdown 字节，不是新增技术执行或 PDF 验收。
+
+[接受登记](learning/editorial-sweep.md#6-集中复审接受与内容冻结)独立于冻结正文维护；[原始冻结清单](learning/editorial-sweep-results.json)继续指向 `8f479de` 的 17 个源文件，不随本 README 的登记更新重写。章节及阅读约定中提交时的“待审核／候选”文字保留为当时身份，当前接受状态以此处和接受登记为准。后续出版以冻结提交取源，不把活动工作树自动当作冻结字节；历史 professional/native/synthesis 等结果仍是原执行记录，不追写摘要来匹配新稿。

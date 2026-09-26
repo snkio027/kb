@@ -76,3 +76,31 @@ Rust 历史页面在网页检索工具中不可读，随后经官方 URL 的只�
 已声明的平台、性能、动态检测、形式化证明、ROS/硬件、Rust/Zig 执行和物理安全限制全部保留。完整程序长度仍由未来出版层处理，不用删代码消除源稿风险。**PDF NOT BUILT / NOT VALIDATED**；本轮不打开构建/渲染/发布入口。
 
 完成检查、提交与推送后停止，等待本批集中复审。通过后再正式确认全系列 Markdown 内容冻结，并另行启动 G6/G7 PDF Pilot；不增加 G13，不自动推进出版。
+
+## 6. 集中复审接受与内容冻结
+
+依据用户本次提供的集中复审意见，审核对象固定为 `8f479deaf660533b2ad82e1f721eb41a363112b6`，直接基于 `b4728e36f307eb4e4c639cdd1300ef7b33f8c929`。正式登记为：**ACCEPTED — Modern C++ Professional Handbook Markdown Content Freeze Baseline**。接受范围是全书编辑一致性与该提交的 Markdown 字节，不是对全书技术命题、所有平台或 PDF 的重新验收。
+
+这是用户复审意见的登记，不是新增独立技术复审。复审意见报告已通过 GitHub 核对提交、签名和 18 个文件的范围，未发现阻塞冻结的问题；查询时没有 Actions workflow 或 commit status。本轮本地检查不冒充 CI，也不以远端查询证明本机工作区状态。
+
+| 对象 | 复审后状态 |
+| --- | --- |
+| Editorial Profile v1.0 | ACTIVE BASELINE，文件不变 |
+| G0～G12 技术源稿历史 | ACCEPTED，既有验证限制保持 |
+| Cross-series Editorial Sweep @ 8f479de | ACCEPTED |
+| G0～G4 / G5～G12 | v1.2.1 / v1.1.1，正文不变 |
+| Markdown 内容 | FROZEN BASELINE @ 8f479de |
+| 实验 / 提取源码 / Gate | 相对已接受技术基线保持不变 |
+| C++ 编译与诊断 / 性能 / 并发动态重跑 | NOT RUN |
+| Rust / Zig 可执行验证 | NOT RUN |
+| PDF | NOT BUILT / NOT VALIDATED |
+
+G8 对象范围不重叠合同、G10 成功 start 后的公开操作前提、G12 固定资料线均按本次复审收口；前两项仍是调用方前提，不冒充动态拒绝，资料摘要也不冒充网页正文归档。原有 16 项 `code_or_diagram_pagination` 风险交给出版层，不通过删代码或破坏完整实验消除。
+
+§1～5 保留提交时的候选状态及本地检查记录；本节登记其后的接受结论。`editorial-sweep-results.json` 不变，17 项摘要仍对应冻结提交的源文件，其中 README 在本次接受登记中继续维护，因此必须从 `8f479de` 读取其冻结字节。其余 16 项当前源文件与清单一致。章节、阅读约定和实验入口中的“待审核／候选”表述不为改状态而重写，当前状态统一回查[系列入口](../README.md#基线与证据状态)。后续出版须明确取源提交，不直接用漂移工作树替代它。
+
+本次只修改系列 README 和本记录，不改正文、Editorial Profile、实验、执行器、原始 JSON、FM、design 或历史 PDF；不重新执行 C++、性能、并发动态检测和 Python 单元回归，不生成或渲染 PDF。接受登记的结构与字节检查结果列于本节末尾，不追写旧证据。
+
+Markdown 内容阶段至此结束。下一批按 G6/G7 PDF Pilot → 视觉与结构审计 → 出版样式冻结 → 全系列 PDF 的顺序推进；本次仅登记、检查、提交及推送，随后停止，不自动启动 Pilot，不做 Editorial Sweep 2 或单章扩写。
+
+本次实际运行 `python3 c++/learning/check_docs.py`：38 份 Markdown、962 处本地链接、13 章层级检查无错误，原 16 项分页风险不变；`git diff --check` 通过。另以只读 Python 调用 `git ls-tree -rz --name-only 8f479deaf660533b2ad82e1f721eb41a363112b6` 枚举 135 个已跟踪文件，逐一比较工作区字节与 `git show <冻结提交>:<路径>`：仅上述两份登记文件变化，其余 133 个不变，无新增文件。冻结清单的 17 项字节数及 SHA-256 均与该提交吻合，其中 16 项仍与当前工作区一致，唯一差异是继续维护状态的系列 README。这些是本次登记检查，不替代或重写上一轮审计。
