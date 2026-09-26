@@ -1,6420 +1,839 @@
-# C++ Systems Track · G12 C++ × Zig × Rust Unified Systems Model
-
-**Version:** 1.0  
-**Status:** Complete / Final Unified Baseline  
-**C++ Baseline:** C++23  
-**Rust Baseline:** Rust 2024 Edition  
-**Zig Baseline:** Modern Zig systems model  
-**Prerequisites:** G0–G11  
-**Scope:** Object / Storage / Lifetime / Ownership / Borrowing / Aliasing / Value Semantics / Allocation / Error Model / Genericity / ABI / Concurrency / Build / Performance / Real-Time / Systems Architecture  
-**Purpose:** 将整个 Modern C++ Systems Track 压缩到一套**语言无关的系统工程模型**，明确 C++、Rust、Zig 分别替程序员表达、约束和证明什么，以及哪些问题最终仍必须由架构与工程纪律解决。
-
----
-
-# 0. G12 的定位
-
-前面 G0–G11 表面上是在学习 C++：
-
-```text
-compiler
-object
-lifetime
-RAII
-move
-STL
-templates
-cache
-atomics
-ABI
-CMake
-runtime
-robotics
-```
-
-但真正形成的知识并不属于 C++。
-
-例如：
-
-```text
-Object Lifetime
-Ownership
-Aliasing
-Cache Locality
-Memory Reclamation
-Backpressure
-ABI
-Real-Time
-```
-
-这些首先是：
-
-> **Systems Problems**
-
-语言只是选择不同机制表达这些问题。
-
-因此 G12 不再问：
-
-> Rust 有没有 `std::vector`？
-
-> Zig 有没有 move constructor？
-
-> C++ 有没有 borrow checker？
-
-而是把问题反过来：
-
-```text
-系统约束是什么？
-       ↓
-谁拥有资源？
-       ↓
-谁可以访问？
-       ↓
-什么时候失效？
-       ↓
-是否需要动态分配？
-       ↓
-失败怎样传播？
-       ↓
-并发修改怎样协调？
-       ↓
-binary boundary 是什么？
-       ↓
-timing requirement 是什么？
-       ↓
-应该让语言证明哪些东西？
-```
-
-然后再比较：
-
-```text
-C++ 怎么表达？
-Rust 怎么约束？
-Zig 怎么显式控制？
-```
-
----
-
-# Part I · 三门语言不是同一个问题的三个“版本”
-
-# 1. 一个非常重要的定位
-
-把三门语言简单排成：
-
-```text
-C++
-↓
-Rust
-↓
-Zig
-```
+# G12 · 统一系统模型与工程审查
 
-或者：
+**版本：** 1.1 · Professional Handbook Edition · 综合与应用卷
 
-```text
-旧 → 新
-```
+**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
 
-是错误模型。
-
-它们更像三个不同设计点：
+**主线：** C++23；Unified Systems Model；Rust/Zig 仅作第二层机制对照。
 
-```text
-                  More static proof
-                        ▲
-                        │
-                       Rust
-                        │
-                        │
-C++ ────────────────────┼──────── Zig
-rich abstraction        │         explicit mechanism
-large ecosystem         │         explicit control
-                        │
-                        ▼
-                programmer discipline
-```
+**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)，保持 v1.0。
 
-这只是概念图，不是严格坐标。
+## 阅读入口
 
-真正区别在于：
+先用 §1～12 重建 C++ 系统模型，再做 §18 的综合审查。Rust/Zig 用来识别证明责任的差异，不要求并行学习三门语言，也不新增独立语言实验。
 
-> **哪类系统约束由语言负责，哪类约束留给程序员。**
+原稿的 Complete/Frozen 是历史编辑标记，不沿用为技术验收。编号主题以 `g12-topic-N` 映射到相应主题组，保留技术去向；章节不再逐个复制原有 Part。完整实验与机制片段有可见身份，Gate 答案是普通章节。
 
----
+- [1. 全书的终点：分配证明责任](#g12-section-1)
+- [2. 对象、存储与清理边界](#g12-section-2)
+- [3. 所有权、借用、别名与值传递](#g12-section-3)
+- [4. 分配与失败：机制不等于事务](#g12-section-4)
+- [5. 泛型、分派与容器抽象](#g12-section-5)
+- [6. 机器成本与并发协议](#g12-section-6)
+- [7. 二进制与构建：保证到哪里结束](#g12-section-7)
+- [8. 编译期元数据与外部生成](#g12-section-8)
+- [9. 时限、嵌入式与性能证据](#g12-section-9)
+- [10. 安全抽象、状态与 API 合同](#g12-section-10)
+- [11. 子系统选择与跨语言成本](#g12-section-11)
+- [12. 可迁移的系统审查协议](#g12-section-12)
+- [13. 四类项目的对照推理](#g12-section-13)
+- [14. 长期维护与常见错误推论](#g12-section-14)
+- [15. 三类论证与六张关系图](#g12-section-15)
+- [16. 跨章应用与语言反思](#g12-section-16)
+- [17. 可带入新项目的最终检查](#g12-section-17)
+- [18. 审查练习：把同一套模型用于三个案例](#g12-section-18)
+- [19. 全书回查与证据分层](#g12-section-19)
+- [20. Final Gate](#g12-section-20)
+- [21. Final Gate · 参考答案与常见误判](#g12-section-21)
+- [22. 参考资料与验证边界](#g12-section-22)
 
-# 2. C++ 的核心选择
+<a id="g12-section-1"></a>
 
-C++ 大体选择：
+<a id="g12-topic-0"></a>
+<a id="g12-topic-1"></a>
+<a id="g12-topic-2"></a>
+<a id="g12-topic-3"></a>
+<a id="g12-topic-4"></a>
 
-```text
-high-level abstraction
-+
-direct machine representation
-+
-backward compatibility
-+
-programmer-controlled lifetime
-```
+## 1. 全书的终点：分配证明责任
 
-它提供：
+### 1.1 先识别系统问题，再讨论语言
 
-```text
-RAII
-templates
-value semantics
-STL
-exceptions
-virtual dispatch
-atomics
-manual low-level control
-```
+本章不是 C++、Rust、Zig 功能排名。C++ 是正文主线；另两种语言帮助区分偶然的语言机制与真实系统复杂性。C++ 的值类别、重载规则和文本包含有明显语言历史；但所有权转移、借用失效、分配拓扑、跨核顺序、二进制合同和时限并不会因为换语言而消失。
 
-但允许程序员做：
+统一问题是：系统要求什么，哪个层次表达它，谁负责证明？类型检查、库封装、架构不变量、动态检测和部署观察不是互相替代的“安全分数”。选择语言是选择一部分证明责任（proof burden）的分配，不是把整个系统正确性外包给编译器。
 
-```text
-dangling pointer
-use-after-free
-data race
-invalid aliasing
-lifetime violation
-```
+### 1.2 比较的基线与限制
 
-并把许多错误归入：
+C++ 基线为 C++23/N4950；Rust 以 2024 Edition 的所有权/借用模型为对照，涉及 unsafe 规则时以官方 Reference 的当前说明为边界；Zig 机制回查固定 0.15.2 文档，不使用含糊的“Modern Zig”版本。本批不运行 Rust/Zig 编译器，所有比较均为解释模型，不构成交叉语言兼容性或性能验证。
 
-> Undefined Behavior
+C++ 提供 RAII、值类型、模板与机器表示控制，但许多非法访问要由程序员排除；safe Rust 把更多借用和线程共享合法性放进静态约束，仍依赖 unsafe 实现 soundness；Zig 的 allocator、错误和清理表达更显式，却不提供同样的 borrow-checking 保证。不要把示意风格画成优劣坐标。
 
-因此：
+<a id="g12-section-2"></a>
 
-> **C++ 给了极大的表达空间，也把很大的 proof burden 留给程序员。**
+<a id="g12-topic-5"></a>
+<a id="g12-topic-6"></a>
+<a id="g12-topic-7"></a>
+<a id="g12-topic-8"></a>
+<a id="g12-topic-9"></a>
+<a id="g12-topic-10"></a>
+<a id="g12-topic-11"></a>
+<a id="g12-topic-12"></a>
+<a id="g12-topic-13"></a>
+<a id="g12-topic-14"></a>
+<a id="g12-topic-15"></a>
+<a id="g12-topic-16"></a>
 
----
+## 2. 对象、存储与清理边界
 
-# 3. Rust 的核心选择
+### 2.1 用 C++ 对象模型打开问题
 
-Rust 选择：
+storage 是存放对象的资源，object 是具有类型与生命周期的语言实体，value 是其状态；三者不能互换。取得足够对齐的存储不普遍意味着已经构造任意 T；手工构造、销毁与复用继续受 [G1](g01-object-model.md) 的规则约束。Rust 的 value/place 与 Zig 的 typed storage 不是逐字对应 C++ 标准术语，但都要回答初始化、访问有效期和存储回收。
 
-```text
-ownership
-+
-borrowing
-+
-lifetimes
-+
-type-driven concurrency constraints
-```
+owner.reset 后旧指针仍有地址，并不意味着对象仍活着。RAII 可以可靠安排 owner 的释放，却不能自动证明所有 borrower 都已结束。Rust 静态借用规则能排除许多此类 safe-code 路径；Zig 的 defer 让配对可见，却不会检查整个借用图。
 
-把大量 C/C++ 常见错误变成：
+### 2.2 类型驱动与作用域驱动的清理
 
-> compile-time rejection
+C++ 的析构函数和 Rust Drop 可把资源清理能力绑定到拥有类型；Zig 常在获取资源旁用 defer/errdefer 安排清理。类型携带 deinit 方法不意味着 Zig 会自动调用它，复制一个资源结构体也不自动取消原值的清理责任。
 
-典型：
+这些是正常语言控制流下的机制，不是“任何进程终止都会执行清理”的保证。C++ terminate、Rust panic=abort、进程被杀或显式泄漏均需单独处理。不要用 cleanup 示例推导持久化事务、设备断电或远端副作用一定回滚；[FM 失败模型](failure-model/README.md)专门展开这些边界。
 
-```text
-use after free
-double free
-many aliasing violations
-non-Send type sent across threads
-ordinary unsynchronized data races
-```
+<a id="g12-section-3"></a>
 
-但代价是：
+<a id="g12-topic-17"></a>
+<a id="g12-topic-18"></a>
+<a id="g12-topic-19"></a>
+<a id="g12-topic-20"></a>
+<a id="g12-topic-21"></a>
+<a id="g12-topic-22"></a>
+<a id="g12-topic-23"></a>
+<a id="g12-topic-24"></a>
+<a id="g12-topic-25"></a>
+<a id="g12-topic-26"></a>
+<a id="g12-topic-27"></a>
+<a id="g12-topic-28"></a>
+<a id="g12-topic-29"></a>
+<a id="g12-topic-30"></a>
+<a id="g12-topic-31"></a>
+<a id="g12-topic-32"></a>
+<a id="g12-topic-33"></a>
+<a id="g12-topic-34"></a>
 
-```text
-stronger type constraints
-lifetime architecture visible in APIs
-unsafe boundary must be audited
-some designs need restructuring
-```
+## 3. 所有权、借用、别名与值传递
 
-Rust的核心价值不是：
+### 3.1 可写权限比指针形状更重要
+
+C++ 的 value、unique_ptr、shared_ptr、引用和 span 可表达不同意图；裸 T* 仍可能表示 owner、nullable borrow 或外部句柄，必须有合同。`span<const T>` 只禁止经该视图修改元素，不保证底层不可被其他别名修改，更不会延长 owner 生命周期；它与仅将视图对象声明为 `const span<T>` 不同。
+
+Rust &T 的共享访问需考虑 UnsafeCell 内部可变性，不能粗暴说“所有内容永远 immutable”；&mut T 提供受规则约束的独占访问。unsafe/raw pointer 并不免除别名与有效性义务，精确 unsafe 模型也不能被几句口号替代。[Rust Reference](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)
+
+Zig 的 []const T、[]T、指针形状表达访问方式与长度，但不静态证明整个 borrower graph。三种 slice 在机器层可能都类似地址+长度，不能据此跨 ABI 假定布局，也不能认为语言保证相同。
 
-> “内存管理自动化”。
+### 3.2 三种“移动”不能直接翻译
 
-而是：
+C++ std::move 是表达式转换，实际调用由重载决议决定；用户定义的 move 可转移资源，也可没有期望的廉价行为，移后源对象还存在并受其类型合同约束。Rust 非 Copy 值移动使原 binding 不再可用，不是调用用户 move constructor；Copy 也不是“成本必定很小”的性能保证。
 
-> **把 ownership / aliasing / lifetime 的大量 proof obligation交给编译器。**
+Zig 普通赋值没有 Rust 式源值不可用的所有权状态转移。拥有资源的 struct 若普通复制后两边都 deinit，可能重复释放。语言不同，但审查仍应画 owner、借用期限、别名和 mutation authority，再检查复制/移动究竟改变了哪条边，详见 [G2](g02-raii-and-ownership.md) 与 [G3](g03-value-semantics-and-performance.md)。
 
----
+<a id="g12-section-4"></a>
 
-# 4. Zig 的核心选择
+<a id="g12-topic-35"></a>
+<a id="g12-topic-36"></a>
+<a id="g12-topic-37"></a>
+<a id="g12-topic-38"></a>
+<a id="g12-topic-39"></a>
+<a id="g12-topic-40"></a>
+<a id="g12-topic-41"></a>
+<a id="g12-topic-42"></a>
+<a id="g12-topic-43"></a>
+<a id="g12-topic-44"></a>
+<a id="g12-topic-45"></a>
+<a id="g12-topic-46"></a>
+<a id="g12-topic-47"></a>
+<a id="g12-topic-48"></a>
+<a id="g12-topic-49"></a>
+<a id="g12-topic-50"></a>
 
-Zig更强调：
+## 4. 分配与失败：机制不等于事务
 
-```text
-explicit allocation
-explicit errors
-explicit cleanup
-explicit comptime
-minimal hidden runtime behavior
-```
+### 4.1 谁拥有存储策略
 
-例如：
+C++ vector/PMR 与 Rust Vec/Box 常把普通分配隐藏在 owner 内；Zig 常把 allocator 参数显式传给需要动态内存的函数。显式分配能力允许调用者选择 arena、池或固定缓冲，但 API 出现 allocator 不意味着内部不会分配、不会锁或一定更快。反过来，高层 owner 简化使用，却要求另标注容量、重用和分配失败边界。
 
-```zig
-const buffer = try allocator.alloc(u8, count);
-defer allocator.free(buffer);
-```
+分配拓扑要同时写明发生频率、由谁释放、何时回收和能否有界。C++ resource 必须比使用它的 PMR 容器活得久；传入 allocator 和保存 allocator 都有生命周期义务。机器成本取决于实际策略，而非语言名。
+
+### 4.2 错误通道没有自动回滚
 
-你能非常直接看到：
+expected、Result 与 Zig error union 都可把预期失败作为值传播；C++ exceptions 提供另一传播通道，panic/terminate/abort 又是不同级别的停止策略。取消是控制结果，不能无条件合并为业务错误；bug/invariant failure 与可恢复失败应分开处理。
 
-```text
-where allocation happens
-which allocator is used
-where cleanup happens
-```
+先修改 A，再修改 B，最后返回错误，三种语言都不会自动恢复 A。强事务保证仍需要 prepare → commit、补偿或明确部分提交合同。析构/Drop/defer 能处理资源，却不普遍撤销外部动作。跨边界转换错误时还要定义输出是否有效、是否重试以及谁已接收责任。
 
-但 Zig 没有 Rust borrow checker。
+<a id="g12-section-5"></a>
 
-所以：
+<a id="g12-topic-51"></a>
+<a id="g12-topic-52"></a>
+<a id="g12-topic-53"></a>
+<a id="g12-topic-54"></a>
+<a id="g12-topic-55"></a>
+<a id="g12-topic-56"></a>
+<a id="g12-topic-57"></a>
+<a id="g12-topic-58"></a>
+<a id="g12-topic-59"></a>
+<a id="g12-topic-60"></a>
+<a id="g12-topic-61"></a>
+<a id="g12-topic-62"></a>
+<a id="g12-topic-63"></a>
 
-```text
-dangling pointer
-aliasing mistakes
-lifetime mistakes
-concurrent races
-```
+## 5. 泛型、分派与容器抽象
 
-仍主要依赖：
+### 5.1 编译期特化共享同一种成本取舍
 
-> programmer architecture + testing + safety checks。
+C++ templates/concepts、Rust generics/traits 与 Zig comptime 都能让静态已知信息形成专门代码；具体机制、约束检查和实例化时机不同。C++ concepts 不证明任意运行时语义，Rust trait bounds 不自动证明业务合同，comptime 也不意味着所有成本免费。
 
-因此 Zig 的核心不是：
+特化可能减少运行时分支并促进内联，同时增加构建时间、二进制体积、调试复杂度与指令缓存压力。动态 virtual、trait object、函数表或类型擦除可能更紧凑，但带来间接分派及生命周期接口。选择依据实际变化维度，参见 [G5](g05-generics-and-compile-time.md)。
 
-> “Rust without borrow checker”。
+### 5.2 相似容器背后仍有失效规则
 
-更准确是：
+vector、Vec 与 allocator-backed dynamic array 都可能拥有连续存储；span、slice 则借用范围。增长引发重分配会改变地址，稳定地址、稳定索引和稳定逻辑身份不是同一要求。Rust 约束可阻止很多借用期间增长的 safe-code 错误，C++/Zig 需要明确 API 失效规则。
 
-> **一种强调机制显式性和低层可控性的现代 systems language。**
+“指针、大小、容量”是理解成本的模型，不是所有容器必须具有这三字段、可以跨语言 memcpy 的布局规范。跨 ABI 只传双方正式约定的表示，不能用容器相似性跳过 G8。
 
----
+<a id="g12-section-6"></a>
 
-# Part II · Unified Layer Model
+<a id="g12-topic-64"></a>
+<a id="g12-topic-65"></a>
+<a id="g12-topic-66"></a>
+<a id="g12-topic-67"></a>
+<a id="g12-topic-68"></a>
+<a id="g12-topic-69"></a>
+<a id="g12-topic-70"></a>
+<a id="g12-topic-71"></a>
+<a id="g12-topic-72"></a>
+<a id="g12-topic-73"></a>
+<a id="g12-topic-74"></a>
+<a id="g12-topic-75"></a>
+<a id="g12-topic-76"></a>
+<a id="g12-topic-77"></a>
+<a id="g12-topic-78"></a>
+<a id="g12-topic-79"></a>
+<a id="g12-topic-80"></a>
+<a id="g12-topic-81"></a>
+<a id="g12-topic-82"></a>
+<a id="g12-topic-83"></a>
+<a id="g12-topic-84"></a>
+<a id="g12-topic-85"></a>
+<a id="g12-topic-86"></a>
+<a id="g12-topic-87"></a>
+<a id="g12-topic-88"></a>
 
-以后无论使用哪门语言，都可以按以下层次推理：
+## 6. 机器成本与并发协议
 
-```text
-┌───────────────────────────────┐
-│ Domain Semantics              │
-├───────────────────────────────┤
-│ Ownership / Lifetime          │
-├───────────────────────────────┤
-│ Type / Value / Aliasing       │
-├───────────────────────────────┤
-│ Storage / Allocation          │
-├───────────────────────────────┤
-│ Concurrency / Synchronization │
-├───────────────────────────────┤
-│ Representation / Layout       │
-├───────────────────────────────┤
-│ ABI / Binary Boundary         │
-├───────────────────────────────┤
-│ Compiler / Build              │
-├───────────────────────────────┤
-│ CPU / Memory / Hardware       │
-└───────────────────────────────┘
-```
+### 6.1 类型安全不能取消缓存与同步成本
 
-语言改变的是中间若干层的表达方式。
+连续性、对齐、working set、指针追逐、TLB 和 AoS/SoA 取决于具体访问路径。shared_ptr、Arc 或自建原子引用计数都可能付出间接访问和缓存行竞争；安全拥有不是 contention-free。零额外抽象成本也不意味着所选算法、分配和同步本身免费，仍要测具体实现，详见 [G6](g06-memory-and-performance.md)。
 
-最底层：
+### 6.2 数据竞争安全不等于协议正确
 
-```text
-cache
-TLB
-pages
-branch predictor
-CPU memory hierarchy
-```
+C++ 通过 mutex/atomic 建立 happens-before；safe Rust 的 Send/Sync 与借用约束排除一大类非法跨线程访问，但不能自动排除死锁、错误关闭顺序、过载或原子状态机的逻辑错误。实现 Send/Sync 的 unsafe 责任不能交给命名猜测。[Rustonomicon](https://doc.rust-lang.org/nomicon/send-and-sync.html)
 
-完全不关心你使用的是：
+单写者、分片、不可变 generation 与消息传递能简化三种语言中的共享图。队列交接仍有接收点、失败、背压和析构责任；C++ 的 std::move 不像 Rust 一样禁止随后使用源变量。原子 acquire/release 只在具体读写关系满足条件时发布数据，不能把“用了 acquire”当普遍 barrier。
 
-```text
-C++
-Rust
-Zig
-```
+### 6.3 进展与回收是独立证明
 
----
+lock-free 描述系统进展，不保证每个线程在限定步骤内完成，也不是性能排名。并发节点何时可回收仍需要 hazard、epoch、引用拥有或其他协议；语言静态借用不能自动表达所有动态回收算法。Rust unsafe 将人工义务局部化，但仍须保持有效值、生命周期和别名不变量；C++/Zig 同样应缩小低层实现边界，而非让裸指针遍布业务。
 
-# Part III · Object
+<a id="g12-section-7"></a>
 
-# 5. C++ Object Model
+<a id="g12-topic-89"></a>
+<a id="g12-topic-90"></a>
+<a id="g12-topic-91"></a>
+<a id="g12-topic-92"></a>
+<a id="g12-topic-93"></a>
+<a id="g12-topic-94"></a>
+<a id="g12-topic-95"></a>
+<a id="g12-topic-96"></a>
+<a id="g12-topic-97"></a>
+<a id="g12-topic-98"></a>
+<a id="g12-topic-99"></a>
+<a id="g12-topic-100"></a>
+<a id="g12-topic-101"></a>
+<a id="g12-topic-102"></a>
+<a id="g12-topic-103"></a>
+<a id="g12-topic-104"></a>
+<a id="g12-topic-105"></a>
+<a id="g12-topic-106"></a>
 
-C++ 中：
+## 7. 二进制与构建：保证到哪里结束
 
-> object 是一段具有 type、lifetime、storage 和 value/state 的语言实体。
+### 7.1 C ABI 是可约定的底层边界，不是安全证书
 
-必须区分：
+C++ 与 Rust 原生 ABI 都不应被当作跨任意工具链版本的长期通用合同，Zig native 表示也不能直接等同 C。明确目标平台的 C ABI、版本化结构、不透明句柄和创建者销毁接口能缩小互操作表面，但仍须规定大小/对齐、空值、范围、借用、回调、线程与错误。
 
-```text
-storage
-≠
-object
-≠
-value
-```
+Rust raw pointer FFI 无法由编译器推断 C 库是否保留指针、能否并发销毁；错误的 safe wrapper 可以把不成立的 unsafe 假设暴露给所有调用者。C++ private vector 成员仍参与公开类布局，只有真正隐藏对象或合适 PImpl 等边界才能隔离，不能把 private 误认成 ABI 不可见。参见 [G8](g08-abi-and-c-interop.md)。
 
-例如：
+### 7.2 工具整合度不同，依赖图仍存在
+
+CMake/Ninja 与包管理器分工，Cargo 整合 package/build/test 流程，Zig toolchain 提供构建图工具。它们都有制品节点、输入与依赖边；遗漏生成器输入、工具身份或链接依赖，仍会造成陈旧或不完整产物。
+
+C++ 文本包含、宏配置、翻译单元与历史 ABI 增加一些语言特有复杂性；Rust cfg 与 Zig comptime/build options 用不同机制表达配置，但不会消除条件组合测试。源码能编译、能链接、能运行、能安装消费是不同 Gate，详见 [G9](g09-build-and-native-ecosystem.md)。
+
+<a id="g12-section-8"></a>
+
+<a id="g12-topic-107"></a>
+<a id="g12-topic-108"></a>
+<a id="g12-topic-109"></a>
+<a id="g12-topic-110"></a>
+<a id="g12-topic-111"></a>
+<a id="g12-topic-112"></a>
+
+## 8. 编译期元数据与外部生成
+
+### 8.1 不把所有 schema 塞进类型系统
+
+静态 DBC/schema、协议表和多车型配置可以用 C++ constexpr/生成源码、Rust const/build script/procedural macro、Zig comptime/外部生成表达。问题不是哪种语法最短，而是源数据身份、诊断位置、生成文件可审阅性与编译成本是否可控。
+
+大量外部元数据用独立生成阶段有利于区分解析错误和语言编译错误，也便于 diff 生成结果。若使用语言内特化，则要限制生成量并记录输入依赖。G9 的 build graph 原则继续适用，不能因为 generator 写在语言工具链里就不声明依赖。
+
+### 8.2 泛型预算是长期维护预算
+
+每个变体都可能增加诊断、链接、缓存和 code-size 成本。选择表驱动还是专门代码，应把版本更新、测试覆盖与可观察机器结果一起比较。本章不增加新的 decoder 实现；将此前知识压缩成设计选择问题，而不是再建一套特化框架。
+
+<a id="g12-section-9"></a>
+
+<a id="g12-topic-113"></a>
+<a id="g12-topic-114"></a>
+<a id="g12-topic-115"></a>
+<a id="g12-topic-116"></a>
+<a id="g12-topic-117"></a>
+<a id="g12-topic-118"></a>
+<a id="g12-topic-119"></a>
+<a id="g12-topic-120"></a>
+<a id="g12-topic-121"></a>
+<a id="g12-topic-122"></a>
+<a id="g12-topic-123"></a>
+<a id="g12-topic-124"></a>
+<a id="g12-topic-125"></a>
+<a id="g12-topic-126"></a>
+<a id="g12-topic-127"></a>
+<a id="g12-topic-128"></a>
+
+## 9. 时限、嵌入式与性能证据
+
+### 9.1 没有 GC 只是一个条件
+
+C++ 的析构、Rust 的 Drop、Zig 的 defer 都可能执行有成本的清理；通用 allocator、OS 调度、锁与 I/O 仍可能无可用上界。memory-safe 或 allocation-explicit 都不是 deadline 证明。嵌入式语言选择还受目标工具链、vendor SDK、no_std/runtime 支持、调试与认证约束。
+
+实时需求必须在平台、负载、输入上界与故障模型下分析，不能用桌面 microbenchmark 代替。[G11](g11-robotics.md) 的 timing observation 与物理时限论证分开，是这个原则的具体例子。
+
+### 9.2 性能比较必须比较同一个命题
+
+语言不能统一预测最快实现。算法、布局、分配、检查消除、编译器、并发拓扑和工作负载共同决定结果。Rust 的边界检查可能消除也可能保留；C++ 抽象可能优化掉也可能导致额外工作；Zig 显式代码也可能有差的局部性。
+
+用等价功能和失败边界比较，保留原始时间、参数和校验值。specialization 同时影响编译时间、代码大小与 I-cache；不能只比较执行热点忘记交付成本。本批没有三语言 benchmark、嵌入式或跨平台运行。
+
+<a id="g12-section-10"></a>
+
+<a id="g12-topic-129"></a>
+<a id="g12-topic-130"></a>
+<a id="g12-topic-131"></a>
+<a id="g12-topic-132"></a>
+<a id="g12-topic-133"></a>
+<a id="g12-topic-134"></a>
+<a id="g12-topic-135"></a>
+<a id="g12-topic-136"></a>
+<a id="g12-topic-137"></a>
+<a id="g12-topic-138"></a>
+<a id="g12-topic-139"></a>
+<a id="g12-topic-140"></a>
+<a id="g12-topic-141"></a>
+<a id="g12-topic-142"></a>
+<a id="g12-topic-143"></a>
+<a id="g12-topic-144"></a>
+<a id="g12-topic-145"></a>
+<a id="g12-topic-146"></a>
+<a id="g12-topic-147"></a>
+<a id="g12-topic-148"></a>
+<a id="g12-topic-149"></a>
+<a id="g12-topic-150"></a>
+
+## 10. 安全抽象、状态与 API 合同
+
+### 10.1 将非法状态排除到哪一层
+
+enum/variant、Rust enum 与 Zig tagged union 都能把状态相关数据绑在一个合法分支；但转换是否合法仍需要业务条件。nullable、optional、owned、borrowed 是不同维度，不能让一个裸指针无声地承担所有意义。
+
+Rust 的静态保证依赖正确的编译器、库与 unsafe 封装，并非“任何写着 Rust 的系统都不会出内存错误”；C++ 工程约定与 sanitizer 有价值，却不是同等静态保证；Zig 显式检查也不能自动证明生命周期。低层实现边界应小而可审查，外部 API 必须让安全使用者不容易破坏内部不变量。
+
+### 10.2 借用输入、拥有输出是同一个系统合同
+
+[机制片段 · C++ 接口合同示意，不承诺独立编译]
 
 ```cpp
-void* storage =
-    ::operator new(sizeof(T));
-
-T* object =
-    std::construct_at(
-        static_cast<T*>(storage),
-        args...);
-```
-
-先有 storage，
-
-然后：
-
-> T object lifetime begins。
-
----
-
-# 6. Rust 的 Object-like 模型
-
-Rust不使用完全相同的标准术语体系。
-
-但系统上仍然有：
-
-```text
-value
-storage
-place
-lifetime
-type
-```
-
-例如：
-
-```rust
-let value = Foo { ... };
-```
-
-`value` 必须存放于某处。
-
-Rust最大的不同不是：
-
-> 没有 object。
-
-而是：
-
-> ownership/lifetime规则更加进入语言静态语义。
-
----
-
-# 7. Zig Value / Storage 模型
-
-Zig通常更加直接：
-
-```zig
-var foo: Foo = .{ ... };
-```
-
-有：
-
-```text
-typed storage
-value
-address if taken
-```
-
-没有 C++：
-
-```text
-constructor
-destructor
-copy constructor
-move constructor
-```
-
-这一套隐式生命周期 hook。
-
-初始化和 cleanup通常显式表达。
-
----
-
-# 8. Unified Principle
-
-三门语言都逃不开：
-
-```text
-Storage exists
-    ↓
-Value/Object is initialized
-    ↓
-Program accesses it
-    ↓
-Lifetime ends
-    ↓
-Storage may be reused/released
-```
-
-真正区别是：
-
-> **谁负责证明每一步合法。**
-
----
-
-# Part IV · Lifetime
-
-# 9. C++
-
-C++ lifetime高度灵活：
-
-```text
-automatic
-dynamic
-static
-thread-local
-placement construction
-manual destruction
-```
-
-RAII提供非常强的结构化 lifetime管理，
-
-但语言仍允许：
-
-```cpp
-T* p = owner.get();
-
-owner.reset();
-
-use(*p); // UB
-```
-
-编译器通常无法阻止。
-
----
-
-# 10. Rust
-
-Rust把：
-
-```text
-ownership
-borrowing
-lifetime relationship
-```
-
-放入 static analysis。
-
-例如：
-
-```rust
-let r = &value;
-drop(value);
-use_ref(r);
-```
-
-安全 Rust 中无法合法通过 borrow checker。
-
-因此很多：
-
-```text
-G1 lifetime reasoning
-```
-
-在 Rust 中：
-
-> 编译器可以替程序员证明。
-
----
-
-# 11. Zig
-
-Zig不会静态证明：
-
-```text
-borrow lifetime <= owner lifetime
-```
-
-例如 slice/pointer是否 dangling：
-
-> 仍由程序员负责。
-
-Zig可以通过：
-
-```text
-defer
-errdefer
-allocator discipline
-```
-
-让 lifetime代码非常显式，
-
-但：
-
-> **显式 ≠ 静态证明。**
-
----
-
-# 12. 三种哲学
-
-```text
-C++
-lifetime expressed through scopes + RAII + conventions
-
-Rust
-lifetime partly encoded/proven through ownership/borrows
-
-Zig
-lifetime explicitly managed with lexical cleanup + discipline
-```
-
----
-
-# Part V · Resource Cleanup
-
-# 13. C++ — RAII
-
-```cpp
-class File {
-public:
-    explicit File(int fd)
-        : fd_{fd} {}
-
-    ~File() {
-        ::close(fd_);
-    }
-
-private:
-    int fd_;
-};
-```
-
-Scope exit：
-
-```text
-destructor automatically runs
-```
-
-因此：
-
-```text
-resource lifetime
-=
-object lifetime
-```
-
-是 C++ 最强大的架构之一。
-
----
-
-# 14. Rust — `Drop`
-
-Rust：
-
-```rust
-struct File {
-    fd: RawFd,
-}
-
-impl Drop for File {
-    fn drop(&mut self) {
-        // close
-    }
-}
-```
-
-同样：
-
-> lexical lifetime → deterministic cleanup。
-
-因此：
-
-```text
-C++ RAII
-≈
-Rust ownership + Drop
-```
-
-在资源管理思路上很接近。
-
----
-
-# 15. Zig — `defer`
-
-Zig：
-
-```zig
-const file = try openFile(...);
-defer file.close();
-```
-
-cleanup与 acquisition：
-
-> 在源码局部显式配对。
-
-没有 hidden destructor invocation。
-
-因此：
-
-```text
-C++ / Rust
-resource cleanup encoded in type
-
-Zig
-resource cleanup frequently encoded in control-flow scope
-```
-
-这是一个非常深的差异。
-
----
-
-# 16. Type-driven vs Scope-driven Cleanup
-
-### C++ / Rust
-
-```text
-Type says:
-"I own a resource"
-
-destroy/drop
-→ cleanup
-```
-
-### Zig
-
-通常：
-
-```text
-Acquire resource
-↓
-immediately write defer
-```
-
-所以 Zig的优势之一：
-
-> cleanup behavior非常可见。
-
-代价：
-
-> 类型本身可能没有完整表达 ownership policy。
-
----
-
-# Part VI · Ownership
-
-# 17. C++ Ownership 不主要存在于语言核心
-
-C++ 用类型和约定表达：
-
-```text
-T
-unique_ptr<T>
-shared_ptr<T>
-T*
-T&
-span<T>
-```
-
-但：
-
-```cpp
-T* p;
-```
-
-语言不能告诉你：
-
-```text
-owner?
-borrower?
-nullable?
-lifetime?
-```
-
-必须靠 API contract。
-
----
-
-# 18. Rust Ownership 是语言核心
-
-```rust
-let a = value;
-let b = a;
-```
-
-对于非-`Copy` type：
-
-```text
-ownership:
-a → b
-```
-
-之后 `a` 不再可用。
-
-因此：
-
-> move 是语言级 ownership transfer。
-
----
-
-# 19. Zig 没有 Rust式 Ownership Move
-
-Zig中赋值/传值不会形成：
-
-> “source 自动进入 moved-from / unusable 状态”
-
-的 Rust ownership语义。
-
-所以一个含资源 handle 的 struct：
-
-```zig
-var a = Resource{ ... };
-var b = a;
-```
-
-如果你把这种 value copy 当 ownership transfer，
-
-可能产生：
-
-```text
-double cleanup
-aliasing ownership
-```
-
-因此 Zig资源类型设计必须自己约束：
-
-> 哪些值可复制、哪些操作形成 logical transfer。
-
----
-
-# 20. 最重要区别
-
-```text
-C++
-ownership is a library/API convention strongly supported by RAII
-
-Rust
-ownership is a core language rule
-
-Zig
-ownership is explicit engineering discipline
-```
-
----
-
-# Part VII · Borrowing
-
-# 21. C++
-
-Borrow：
-
-```cpp
-const T&
-T&
-std::span<const T>
-std::span<T>
-T*
-```
-
-编译器主要保证：
-
-```text
-type correctness
-```
-
-而：
-
-```text
-borrow lifetime
-aliasing discipline
-```
-
-大量由程序员保证。
-
----
-
-# 22. Rust
-
-```rust
-&T
-&mut T
-```
-
-具有强 aliasing模型。
-
-粗略：
-
-```text
-&T
-→ shared immutable access
-
-&mut T
-→ exclusive mutable access
-```
-
-安全 Rust 会限制：
-
-> 同时存在不兼容 borrow。
-
-这是其优化和 data-race safety 的核心基础之一。
-
----
-
-# 23. Zig
-
-```zig
-[]const T
-[]T
-*T
-*const T
-```
-
-可以非常清晰表达：
-
-```text
-extent
-mutability
-pointer shape
-```
-
-但不会像 Rust：
-
-> 静态验证整个 borrow graph。
-
----
-
-# 24. 对照
-
-```text
-C++ span<const T>
-Zig []const T
-Rust &[T]
-```
-
-机器表示都大体可能类似：
-
-```text
-pointer
-+
-length
-```
-
-但语言 guarantee完全不同。
-
-这是非常重要的原则：
-
-> **相同 machine representation，不代表相同 language semantics。**
-
----
-
-# Part VIII · Aliasing
-
-# 25. 为什么 Aliasing 这么重要？
-
-编译器看到：
-
-```text
-pointer A
-pointer B
-```
-
-需要判断：
-
-> 它们可能指向同一 storage 吗？
-
-这直接影响：
-
-```text
-load reuse
-store reordering
-vectorization
-optimization
-```
-
----
-
-# 26. C++
-
-C++ 有复杂：
-
-```text
-type-based aliasing
-lifetime
-object representation
-```
-
-规则。
-
-错误的：
-
-```cpp
-reinterpret_cast<T*>
-```
-
-很容易触碰 UB。
-
----
-
-# 27. Rust
-
-Rust尤其通过：
-
-```text
-&mut T
-```
-
-表达强 exclusive access语义。
-
-这给 compiler更多优化信息。
-
-但：
-
-```rust
-unsafe
-raw pointers
-UnsafeCell
-```
-
-可以进入更低层模型。
-
----
-
-# 28. Zig
-
-Zig提供直接 pointer/slice 操作，
-
-但 aliasing proof主要靠：
-
-> programmer。
-
-某些函数/API可根据语义设计避免 alias。
-
----
-
-# 29. Unified Rule
-
-性能敏感系统应该尽量让：
-
-```text
-ownership
-+
-mutation authority
-+
-aliasing
-```
-
-保持简单。
-
-无论语言如何。
-
-因为：
-
-> 复杂 alias graph 同时伤 correctness 和 optimization。
-
----
-
-# Part IX · Value Semantics
-
-# 30. C++
-
-C++有：
-
-```text
-copy constructor
-move constructor
-copy assignment
-move assignment
-```
-
-并且：
-
-```cpp
-std::move
-```
-
-只是：
-
-> value-category cast。
-
-实际是否 move由 overload resolution和type behavior决定。
-
----
-
-# 31. Rust
-
-Rust默认：
-
-```text
-move semantics
-```
-
-对于非 `Copy` type。
-
-这里的 move更接近：
-
-> ownership transfer at language level。
-
-并不是：
-
-```text
-invoke user-defined move constructor
-```
-
-Rust没有 C++ 那种 move-constructor protocol。
-
----
-
-# 32. `Copy`
-
-Rust type如果实现：
-
-```rust
-Copy
-```
-
-赋值可以继续使用 source。
-
-适合：
-
-```text
-small plain values
-```
-
-这更接近 C++：
-
-```text
-trivially / cheaply copyable value
-```
-
-但语言机制完全不同。
-
----
-
-# 33. Zig
-
-Zig也没有 C++式 move constructor。
-
-Value assignment的语义更直接。
-
-这意味着：
-
-> “move-only resource type”
-
-不像 C++ `unique_ptr` 或 Rust owner那样由语言机制天然表达。
-
-需要 API / type discipline设计。
-
----
-
-# 34. 三种 Move 的区别
-
-```text
-C++
-move = overload-based resource transfer optimization
-
-Rust
-move = ownership transfer semantic
-
-Zig
-no dedicated ownership-move semantic;
-resource transfer is an engineering convention
-```
-
-这一点必须严格区分。
-
----
-
-# Part X · Allocation
-
-# 35. C++
-
-通常：
-
-```cpp
-std::vector<T> values;
-```
-
-默认 allocator隐含在 container abstraction内。
-
-也可以：
-
-```text
-custom allocator
-std::pmr
-arena
-pool
-```
-
-但普通 API常不显式传 allocator。
-
----
-
-# 36. Rust
-
-普通：
-
-```rust
-Vec<T>
-Box<T>
-String
-```
-
-通常也使用 allocator infrastructure，
-
-allocation strategy一般不像 Zig那样成为每个函数签名中的显式 dependency。
-
----
-
-# 37. Zig
-
-典型 API：
-
-```zig
-fn parse(
-    allocator: std.mem.Allocator,
-    input: []const u8,
-) !Result
-```
-
-allocation capability直接进入函数参数。
-
-这是 Zig 极具代表性的设计。
-
----
-
-# 38. Zig Allocator = Explicit Dependency Injection
-
-函数需要 dynamic memory：
-
-```text
-必须由 caller提供 allocator
-```
-
-于是 caller决定：
-
-```text
-general heap?
-arena?
-fixed buffer?
-testing allocator?
-```
-
-这不仅是 memory management。
-
-还是：
-
-> **architecture-level resource dependency。**
-
----
-
-# 39. 三种 Allocation Philosophy
-
-```text
-C++
-container/object often owns allocation policy implicitly
-
-Rust
-ownership strongly modeled,
-allocator often abstracted behind owning containers
-
-Zig
-allocator frequently explicit in API
-```
-
----
-
-# 40. 谁更快？
-
-这个问题本身错误。
-
-最终：
-
-```text
-malloc
-arena
-pool
-stack
-fixed buffer
-```
-
-的机器成本不取决于：
-
-> language logo。
-
-区别主要是：
-
-> 语言让 allocation topology 多容易被看见和控制。
-
----
-
-# Part XI · Error Model
-
-# 41. C++
-
-主要工具：
-
-```text
-exceptions
-expected<T,E>
-error codes
-optional
-```
-
-它允许项目自行定义：
-
-> domain error model。
-
----
-
-# 42. Exception
-
-优点：
-
-```text
-separate success path from failure propagation
-automatic unwinding
-RAII cleanup
-```
-
-代价/约束：
-
-```text
-exception ABI
-throw-path cost
-control-flow invisibility
-real-time concerns
-FFI boundary
-```
-
----
-
-# 43. Rust
-
-主要：
-
-```rust
-Result<T, E>
-Option<T>
-?
-```
-
-失败是：
-
-> normal value/control-flow semantics。
-
-Panic是：
-
-> 另一层 failure mechanism，
-
-不应该等同 `Result::Err`。
-
----
-
-# 44. Zig
-
-核心：
-
-```zig
-!T
-```
-
-error union。
-
-传播：
-
-```zig
-try operation();
-```
-
-处理：
-
-```zig
-catch
-```
-
-cleanup：
-
-```zig
-errdefer
-```
-
-语言层非常直接。
-
----
-
-# 45. 对照
-
-```text
-C++
-exceptions or expected
-
-Rust
-Result<T,E>
-
-Zig
-error union !T
-```
-
-Rust/Zig 默认更倾向：
-
-> error as explicit type flow。
-
-C++则同时支持：
-
-> exception channel
-
-和：
-
-> value channel。
-
----
-
-# 46. 但所有语言都还有一个共同问题
-
-假设：
-
-```text
-modify state A
-modify state B
-then error
-```
-
-即使返回：
-
-```text
-Err
-unexpected
-error union
-```
-
-都不会自动让：
-
-> A/B rollback。
-
-所以：
-
-> **Error Representation ≠ Transaction Safety**
-
-G2 的：
-
-```text
-prepare
-↓
-commit
-```
-
-在三门语言都成立。
-
----
-
-# Part XII · Panic / Abort / Fatal Errors
-
-# 47. Rust Panic
-
-通常表达：
-
-> 当前执行路径遇到不应该按普通 domain error 处理的失败。
-
-具体可能：
-
-```text
-unwind
-or
-abort
-```
-
-取决于编译策略/环境。
-
----
-
-# 48. Zig Panic
-
-安全检查失败等情况可能：
-
-> panic。
-
-它不是普通 error union。
-
----
-
-# 49. C++ `terminate`
-
-例如：
-
-```text
-uncaught exception from noexcept
-thread entry exception
-```
-
-可能：
-
-> terminate process。
-
----
-
-# 50. Unified Failure Taxonomy
-
-任何语言都应该区分：
-
-```text
-Domain Error
-Expected operational failure
-
-Cancellation
-Normal control outcome
-
-Bug / Invariant Failure
-Programming defect
-
-Fatal Infrastructure Failure
-Process/runtime cannot safely continue
-```
-
-不要全变成：
-
-```text
-bool false
-```
-
----
-
-# Part XIII · Generic Programming
-
-# 51. C++
-
-```cpp
-template <typename T>
-requires SomeConcept<T>
-void process(T&& value);
-```
-
-特点：
-
-```text
-template instantiation
-concept constraints
-overload resolution
-compile-time structural specialization
-```
-
----
-
-# 52. Rust
-
-```rust
-fn process<T: Trait>(value: T) {
-    ...
-}
-```
-
-泛型通常结合：
-
-```text
-traits
-monomorphization
-```
-
-表达 static polymorphism。
-
-也可以：
-
-```rust
-dyn Trait
-```
-
-使用 dynamic dispatch。
-
----
-
-# 53. Zig
-
-常见：
-
-```zig
-fn process(
-    comptime T: type,
-    value: T,
-) void
-```
-
-或者：
-
-```zig
-fn process(value: anytype) void
-```
-
-通过：
-
-```text
-comptime evaluation
-```
-
-直接生成具体代码。
-
----
-
-# 54. 三种 Compile-time Genericity
-
-机器层最终经常都是：
-
-```text
-generic source
-↓
-concrete type known
-↓
-specialized machine code
-```
-
-所以：
-
-```text
-C++ templates
-Rust generics
-Zig comptime
-```
-
-在很多场景共享：
-
-> static specialization
-
-这一机器成本模型。
-
----
-
-# 55. 主要差异
-
-### C++
-
-系统非常强大但历史复杂：
-
-```text
-deduction
-SFINAE
-concepts
-specialization
-overload resolution
-```
-
-### Rust
-
-generic constraints主要通过：
-
-```text
-Trait
-```
-
-统一表达。
-
-### Zig
-
-更多直接使用：
-
-```text
-comptime values/types
-compile-time reflection
-```
-
-构建泛型。
-
----
-
-# 56. Genericity Cost 三门语言都一样
-
-```text
-compile time
-code bloat
-I-cache footprint
-debug complexity
-```
-
-不会因为使用 Rust/Zig自动消失。
-
-G5/G6 的：
-
-> **Genericity Budget**
-
-是语言无关原则。
-
----
-
-# Part XIV · Static vs Dynamic Polymorphism
-
-# 57. C++
-
-Static：
-
-```cpp
-template <typename T>
-```
-
-Dynamic：
-
-```cpp
-virtual
-function pointer
-type erasure
-```
-
----
-
-# 58. Rust
-
-Static：
-
-```rust
-T: Trait
-```
-
-Dynamic：
-
-```rust
-dyn Trait
-```
-
----
-
-# 59. Zig
-
-Zig没有 C++/Rust 完全对应的 built-in OOP trait-object体系。
-
-可以通过：
-
-```text
-comptime
-function pointers
-explicit vtable structs
-tagged unions
-```
-
-设计 static/dynamic dispatch。
-
----
-
-# 60. Unified Machine Model
-
-最终：
-
-### Static
-
-```text
-target compile-time known
-→ inline/specialize easier
-→ potential code bloat
-```
-
-### Dynamic
-
-```text
-target runtime selected
-→ compact shared code
-→ indirect dispatch
-```
-
-三门语言完全共享这个 trade-off。
-
----
-
-# Part XV · Containers
-
-# 61. Dynamic Contiguous Owner
-
-C++：
-
-```cpp
-std::vector<T>
-```
-
-Rust：
-
-```rust
-Vec<T>
-```
-
-Zig：
-
-```text
-allocator-backed dynamic array/list abstraction
-```
-
-共同机器模型：
-
-```text
-pointer
-size
-capacity
-+
-contiguous T storage
-```
-
-具体 representation不应当跨 ABI 假设。
-
----
-
-# 62. Borrowed Slice
-
-C++：
-
-```cpp
-std::span<const T>
-```
-
-Rust：
-
-```rust
-&[T]
-```
-
-Zig：
-
-```zig
-[]const T
-```
-
-共同能力：
-
-```text
-pointer
-extent
-non-owning sequence view
-```
-
-核心差异仍是：
-
-> borrow/lifetime guarantees。
-
----
-
-# 63. Stable Address
-
-所有语言都必须理解：
-
-```text
-vector/Vec/dynamic array growth
-↓
-storage relocation
-↓
-old pointers/views invalid
-```
-
-Rust借用规则会阻止很多同时持有 borrow + mutable growth 的错误。
-
-C++/Zig更多依赖 programmer discipline。
-
----
-
-# Part XVI · Layout / Cache / Performance
-
-# 64. `sizeof` 不属于语言哲学
-
-无论：
-
-```text
-C++
-Rust
-Zig
-```
-
-object/value最终都需要进入：
-
-```text
-bytes
-alignment
-cache lines
-pages
-```
-
----
-
-# 65. AoS vs SoA
-
-完全语言无关：
-
-```text
-AoS:
-[x y z][x y z][x y z]
-
-SoA:
-[x x x]
-[y y y]
-[z z z]
-```
-
-选择由：
-
-> hot access pattern
-
-决定。
-
----
-
-# 66. Pointer Chasing
-
-```text
-Box<T>
-unique_ptr<T>
-heap pointer
-Zig pointer
-```
-
-最终如果是：
-
-```text
-pointer → scattered allocation
-```
-
-都会带来：
-
-```text
-cache miss
-TLB pressure
-dependent loads
-```
-
-语言不会取消物理定律。
-
----
-
-# 67. “Zero-cost Abstraction”的真正含义
-
-不是：
-
-> abstraction没有成本。
-
-而是理想情况下：
-
-> 不需要为未使用的抽象能力付额外运行时成本。
-
-但如果 abstraction本身选择：
-
-```text
-shared_ptr / Arc
-virtual dispatch / dyn Trait
-heap allocation
-```
-
-它当然有真实机器成本。
-
----
-
-# Part XVII · Shared Ownership
-
-# 68. C++
-
-```cpp
-std::shared_ptr<T>
-```
-
-通常：
-
-```text
-strong refcount
-weak refcount
-control block
-```
-
----
-
-# 69. Rust
-
-```rust
-Rc<T>
-Arc<T>
-```
-
-分别用于：
-
-```text
-single-thread reference counting
-atomic thread-safe reference counting
-```
-
-Rust类型系统进一步限制：
-
-> 哪些值可跨线程。
-
----
-
-# 70. Zig
-
-没有一个必须使用的语言级 shared-owner abstraction。
-
-可以自己设计：
-
-```text
-reference count
-arena lifetime
-owner registry
-handles
-```
-
----
-
-# 71. 共同成本
-
-Reference counting在机器层仍是：
-
-```text
-counter updates
-possible atomics
-cache-line sharing
-indirection
-```
-
-Rust的 `Arc`：
-
-> memory-safe
-
-并不意味着：
-
-> contention-free。
-
----
-
-# Part XVIII · Concurrency
-
-# 72. C++
-
-普通 non-atomic data race：
-
-> UB。
-
-程序员必须正确构建：
-
-```text
-mutex
-atomic
-happens-before
-```
-
-关系。
-
----
-
-# 73. Rust
-
-Safe Rust通过：
-
-```text
-ownership
-Send
-Sync
-borrow rules
-```
-
-防止大量普通 data races。
-
-例如：
-
-> 无法随便把 non-thread-safe reference送给另一个 thread。
-
----
-
-# 74. 但 Rust 不能阻止
-
-```text
-deadlock
-livelock
-race condition
-wrong atomic protocol
-priority inversion
-queue overload
-false sharing
-```
-
-因此：
-
-> **Data-race safety ≠ Concurrency correctness。**
-
----
-
-# 75. Zig
-
-线程和 atomics更加直接。
-
-程序员负责：
-
-```text
-synchronization
-data races
-lifetime
-```
-
-类似 C/C++ lower-level discipline。
-
----
-
-# 76. 三种 Concurrency Safety
-
-```text
-C++
-language gives atomics/mutex model;
-programmer proves protocol
-
-Rust
-safe type system proves a significant subset
-of sharing/lifetime legality;
-programmer still proves protocol
-
-Zig
-mechanisms explicit;
-programmer proves most sharing/lifetime protocol
-```
-
----
-
-# Part XIX · Single Writer Principle
-
-# 77. 这是最重要的跨语言规律之一
-
-无论哪门语言：
-
-```text
-multiple writers
-→ synchronization complexity
-```
-
-如果改成：
-
-```text
-single writer
-```
-
-就可以大量减少：
-
-```text
-mutex
-atomic
-borrow conflict
-cache-line ping-pong
-```
-
-因此：
-
-> **Architecture beats language safety.**
-
-Rust可以让错误 shared mutation更难写，
-
-但优秀架构仍然应该：
-
-```text
-thread-local
-single-writer
-shard
-immutable snapshot
-```
-
----
-
-# Part XX · Message Passing
-
-# 78. Rust 的 slogan 经常强调 message passing
-
-但底层本质仍是：
-
-```text
-ownership handoff
-+
-queue synchronization
-```
-
-C++：
-
-```cpp
-queue.push(std::move(job));
-```
-
-Rust：
-
-```rust
-sender.send(job);
-```
-
-Zig：
-
-> explicit channel/queue implementation。
-
-系统模型完全一样：
-
-```text
-Producer owns
-↓
-Channel/Queue owns
-↓
-Consumer owns
-```
-
----
-
-# 79. Language Difference
-
-Rust编译器能更强地确保：
-
-> moved value不再被 producer使用。
-
-C++依靠：
-
-```text
-move semantics + programmer discipline
-```
-
-Zig依靠：
-
-> API convention / logical ownership discipline。
-
----
-
-# Part XXI · Atomics
-
-# 80. Hardware Atomics 是共同底层
-
-最终：
-
-```text
-fetch_add
-CAS
-acquire
-release
-```
-
-要映射到：
-
-> CPU atomic/memory-ordering mechanisms。
-
-语言只是给它们不同 API和memory model表达。
-
----
-
-# 81. Acquire / Release 的概念也不是 C++ 独有
-
-Rust atomics同样有：
-
-```text
-Relaxed
-Acquire
-Release
-AcqRel
-SeqCst
-```
-
-背后来自：
-
-> 同类 memory-ordering模型。
-
-Zig atomics同样需要表达对应的 ordering semantics。
-
-因此 G7 的核心：
-
-```text
-publication
-HB-like ordering reasoning
-atomic state transition
-```
-
-是通用 systems knowledge。
-
----
-
-# 82. Rust 不是“不需要学 Memory Order”
-
-Safe Rust可以阻止很多 ordinary data races。
-
-但如果你写：
-
-```text
-lock-free queue
-atomic state machine
-```
-
-仍然必须理解：
-
-```text
-acquire
-release
-CAS
-ABA
-reclamation
-```
-
-Rust不会自动替你证明 lock-free algorithm正确。
-
----
-
-# Part XXII · Lock-free
-
-# 83. Lock-free 在三门语言中都是算法属性
-
-不是：
-
-```text
-C++ keyword
-Rust safety feature
-Zig optimization
-```
-
-它是：
-
-> Progress Guarantee。
-
----
-
-# 84. Reclamation 仍然存在
-
-即使 Rust拥有 borrow checker，
-
-真正 lock-free linked structure内部常需：
-
-```text
-unsafe
-hazard pointer
-epoch
-Arc
-```
-
-因为 ordinary lexical borrowing无法直接描述：
-
-> concurrent node reclamation algorithm的全部动态生命周期。
-
-这说明：
-
-> 某些 systems problem天然会穿过安全抽象层。
-
----
-
-# Part XXIII · Unsafe
-
-# 85. C++
-
-可以说：
-
-> 大量 C++ 本身就是“需要程序员维持 unsafe-like invariants”。
-
-C++没有一个统一：
-
-```cpp
-unsafe { ... }
-```
-
-边界。
-
----
-
-# 86. Rust
-
-Rust显式：
-
-```rust
-unsafe {
-    ...
-}
-```
-
-表示：
-
-> compiler不再替你证明某些 safety obligations，但你仍必须维护 Rust要求的 invariants。
-
-它的价值在于：
-
-> **把 proof boundary 显式局部化。**
-
----
-
-# 87. Zig
-
-Zig也没有 Rust同类型的语言级：
-
-```text
-safe world / unsafe block
-```
-
-二分。
-
-安全检查、低层操作与 programmer discipline形成另一种模型。
-
----
-
-# 88. Rust `unsafe` 的真正优势
-
-不是：
-
-> unsafe code不会出错。
-
-而是：
-
-```text
-99% safe code
-        │
-        ▼
-small unsafe boundary
-        │
-        ▼
-manually audited invariant
-```
-
-这使 review surface变小。
-
----
-
-# Part XXIV · ABI
-
-# 89. C++ ABI
-
-C++ native ABI：
-
-> 不是语言标准统一的稳定跨工具链 ABI。
-
-涉及：
-
-```text
-mangling
-vtable
-layout
-exceptions
-stdlib
-```
-
----
-
-# 90. Rust ABI
-
-Rust-native ABI也不是用于长期跨 compiler/version稳定互操作的通用 binary contract。
-
-稳定 FFI通常：
-
-```rust
-extern "C"
-#[repr(C)]
-```
-
-降到 C ABI。
-
----
-
-# 91. Zig ABI
-
-Zig与 C interop非常直接，
-
-但长期稳定 interoperability仍应优先使用：
-
-> 明确 C ABI contract
-
-而不是依赖 Zig-native representation。
-
----
-
-# 92. 三语言共同黄金边界
-
-```text
-C++ Core
-    │
-Rust Component
-    │
-Zig Component
-    │
-    ▼
-Stable C ABI
-```
-
-类型：
-
-```text
-fixed-width integers
-pointer + length
-opaque handles
-function pointers
-plain versioned structs
-```
-
----
-
-# Part XXV · FFI 会削弱语言 Guarantees
-
-# 93. Rust Example
-
-Rust：
-
-```rust
-unsafe extern "C" {
-    fn get_buffer(
-        ptr: *mut *const u8,
-        len: *mut usize,
-    );
-}
-```
-
-一旦进入 raw pointer FFI：
-
-borrow checker无法知道：
-
-```text
-who owns?
-how long valid?
-thread safe?
-aligned?
-```
-
-这些重新变成：
-
-> manual contract。
-
----
-
-# 94. C++ / Zig 也一样
-
-FFI boundary是：
-
-> language guarantee 的最低公共层。
-
-所以：
-
-> **FFI design quality比内部语言选择更重要。**
-
----
-
-# Part XXVI · Build Model
-
-# 95. C++
-
-典型：
-
-```text
-CMake
-+
-Ninja
-+
-Conan/vcpkg/system packages
-```
-
-多个工具协作。
-
-优势：
-
-> 巨大的 native ecosystem compatibility。
-
-代价：
-
-> configuration complexity。
-
----
-
-# 96. Rust
-
-Cargo高度整合：
-
-```text
-package
-dependency
-build
-test
-publish
-```
-
-开发体验统一得多。
-
----
-
-# 97. Zig
-
-`std.Build` 属于 toolchain-native build model。
-
-可以直接操作：
-
-```text
-artifacts
-targets
-modules
-C/C++ compilation
-```
-
-这也是 Zig非常有特色的一点。
-
----
-
-# 98. 语言集成程度
-
-粗略：
-
-```text
-Rust
-most integrated package/build experience
-
-Zig
-strong integrated build/toolchain model
-
-C++
-most heterogeneous ecosystem
-but widest legacy/native integration
-```
-
----
-
-# 99. 但 Build Graph 思想完全相同
-
-无论：
-
-```text
-CMake target
-Cargo crate/package
-Zig build artifact
-```
-
-本质还是：
-
-```text
-Artifact Nodes
-+
-Dependency Edges
-```
-
-G9知识完全可迁移。
-
----
-
-# Part XXVII · Compilation Model
-
-# 100. C++
-
-经典：
-
-```text
-translation units
-headers
-separate compilation
-linking
-```
-
-Modules正在逐步改变 source dependency模型。
-
----
-
-# 101. Rust
-
-crate/module system更统一进入 compiler/package model。
-
-编译单元模型与 C++ TU历史结构差异很大。
-
----
-
-# 102. Zig
-
-module/import与 build system结合更直接，
-
-没有 C/C++ preprocessor header inclusion同样的历史包袱。
-
----
-
-# 103. 为什么 C++ Build 特别复杂？
-
-很大一部分来自：
-
-```text
-textual inclusion
-separate compilation
-macro configuration
-ABI ecosystem
-30+ years compatibility
-```
-
-这不是：
-
-> CMake单独造成的。
-
----
-
-# Part XXVIII · Preprocessor
-
-# 104. C++
-
-Preprocessor仍然是核心现实：
-
-```cpp
-#include
-#define
-#if
-```
-
-优点：
-
-```text
-powerful compatibility/configuration
-```
-
-代价：
-
-```text
-textual model
-macro hygiene
-compile dependency
-ODR/config mismatch
-```
-
----
-
-# 105. Rust
-
-没有 C-style textual preprocessor作为日常 compilation model。
-
-Conditional compilation：
-
-```rust
-#[cfg(...)]
-```
-
-属于语言/toolchain系统。
-
----
-
-# 106. Zig
-
-也没有传统 C preprocessor作为 Zig代码核心机制。
-
-更多使用：
-
-```text
-comptime
-build options
-normal language constructs
-```
-
-因此 Zig/Rust把很多 C++：
-
-```text
-preprocessor metaprogramming/config
-```
-
-问题移动到了：
-
-> language-aware mechanisms。
-
----
-
-# Part XXIX · Reflection / Compile-time Evaluation
-
-# 107. C++
-
-C++23 compile-time能力：
-
-```text
-templates
-constexpr
-consteval
-concepts
-```
-
-非常强，
-
-但结构来源复杂。
-
----
-
-# 108. Zig
-
-`comptime` 是语言设计中心之一。
-
-例如：
-
-```zig
-fn Buffer(
-    comptime T: type,
-    comptime N: usize,
-) type {
-    ...
-}
-```
-
-Compile-time与ordinary language syntax高度统一。
-
----
-
-# 109. Rust
-
-主要通过：
-
-```text
-generics
-traits
-const generics
-const evaluation
-macros
-procedural macros
-```
-
-多个机制完成不同层次的 compile-time programming。
-
----
-
-# 110. Zig 的独特价值
-
-在：
-
-```text
-code generation
-protocol decoding
-static configuration
-C integration
-```
-
-场景中，
-
-`comptime` 能非常直接地：
-
-```text
-consume static metadata
-↓
-generate specialized program structure
-```
-
-这与你之前多车型 decoder / build-time decode plan 的方向非常契合。
-
----
-
-# Part XXX · Code Generation
-
-# 111. 三种策略
-
-假设有：
-
-```text
-6000 signals
-static DBC metadata
-```
-
-可以：
-
-### C++
-
-```text
-external codegen
-templates
-constexpr tables
-```
-
-### Rust
-
-```text
-build.rs
-proc macros
-generated Rust
-const generics
-```
-
-### Zig
-
-```text
-comptime
-build system codegen
-generated Zig
-```
-
----
-
-# 112. 什么时候 External Codegen 更好？
-
-如果 metadata来自：
-
-```text
-CSV
-DBC
-schema
-external specification
-```
-
-外部 codegen通常有优势：
-
-```text
-generated output inspectable
-generation errors separate
-compile-time complexity controlled
-```
-
-不要为了“语言可以 comptime”就把所有 generator塞进 type system。
-
----
-
-# Part XXXI · Real-Time
-
-# 113. 语言不会自动给你 Real-Time
-
-这条必须明确：
-
-```text
-Rust memory-safe
-≠
-real-time
-
-Zig explicit allocation
-≠
-real-time
-
-C++ no GC
-≠
-real-time
-```
-
-Real-time来自：
-
-```text
-bounded execution
-scheduling
-allocation discipline
-OS
-hardware
-I/O
-architecture
-```
-
----
-
-# 114. C++ 在 RT 中的优势
-
-```text
-mature embedded/robotics ecosystem
-deterministic destruction
-fine allocation control
-fixed-size abstractions
-hardware/vendor integration
-```
-
-但需审查：
-
-```text
-exceptions
-allocation
-STL growth
-locking
-```
-
----
-
-# 115. Rust 在 RT 中的优势
-
-```text
-ownership safety
-data-race safety
-strong state modeling
-no GC
-```
-
-但仍需处理：
-
-```text
-allocation
-panic policy
-executor behavior
-OS scheduling
-unsafe drivers/FFI
-```
-
----
-
-# 116. Zig 在 RT 中的优势
-
-显式 allocator：
-
-```text
-makes allocation points obvious
-```
-
-`defer`：
-
-```text
-cleanup explicit
-```
-
-较少 hidden control mechanisms。
-
-但仍无自动：
-
-```text
-deadline proof
-lifetime proof
-race proof
-```
-
----
-
-# Part XXXII · Embedded
-
-# 117. Bare-metal / Firmware
-
-选择通常受：
-
-```text
-toolchain
-vendor SDK
-target support
-certification
-runtime footprint
-ecosystem
-```
-
-强烈影响。
-
-不能只比较：
-
-> 语言语法。
-
----
-
-# 118. C++
-
-优势：
-
-```text
-very mature MCU ecosystem
-vendor SDK compatibility
-decades of embedded tooling
-```
-
----
-
-# 119. Rust
-
-优势：
-
-```text
-memory safety
-strong embedded community
-no_std model
-```
-
-但 target/vendor ecosystem仍需具体评估。
-
----
-
-# 120. Zig
-
-优势：
-
-```text
-cross-compilation design
-C integration
-explicit runtime control
-```
-
-非常适合 low-level experimentation和 C ecosystem modernisation。
-
----
-
-# Part XXXIII · Performance
-
-# 121. 最重要的一句话
-
-在优化良好的代码中：
-
-```text
-C++
-Rust
-Zig
-```
-
-理论上都能够生成非常接近硬件极限的 machine code。
-
-所以：
-
-> **语言名字通常不是第一性能变量。**
-
-更重要：
-
-```text
-algorithm
-layout
-allocation
-access pattern
-vectorization
-concurrency topology
-compiler quality
-```
-
----
-
-# 122. Rust 安全检查会不会慢？
-
-很多：
-
-```text
-bounds checks
-abstractions
-iterators
-```
-
-可以被 optimizer消除。
-
-但不是：
-
-> “Rust 永远零开销。”
-
-和 C++一样：
-
-> 看最终 codegen。
-
----
-
-# 123. Zig 显式是不是自动更快？
-
-不是。
-
-你完全可以写出：
-
-```text
-bad cache locality
-N allocations
-pointer chasing
-```
-
-的 Zig。
-
-显式只让：
-
-> 成本更容易被看到。
-
----
-
-# 124. C++ 抽象是不是自动有开销？
-
-也不是。
-
-```text
-span
-templates
-ranges
-RAII
-```
-
-大量 abstraction可被完全优化掉。
-
-这就是为什么：
-
-> Assembly / Profiling 比语言刻板印象更可靠。
-
----
-
-# Part XXXIV · Compile-time vs Runtime Cost
-
-# 125. C++ 典型 Trade-off
-
-大量 templates：
-
-```text
-runtime specialization ↑
-compile time ↑
-binary size ↑
-```
-
----
-
-# 126. Rust 同样存在 Monomorphization Cost
-
-大量 generic instantiations：
-
-```text
-compile time
-binary size
-I-cache
-```
-
-同样可能增加。
-
----
-
-# 127. Zig `comptime` 同样不是免费
-
-过多 compile-time specialization：
-
-```text
-compiler work ↑
-generated code ↑
-binary size ↑
-```
-
-所以三门语言都需要：
-
-> **Specialization Budget**
-
----
-
-# Part XXXV · Binary Size
-
-# 128. 高层语言 Feature 最终都可以增加 Code Footprint
-
-例如：
-
-```text
-C++ template instantiations
-Rust monomorphized generics
-Zig comptime specialization
-```
-
-全都可能：
-
-```text
-duplicate similar machine code
-```
-
-于是伤：
-
-```text
-I-cache
-binary size
-compile time
-```
-
----
-
-# Part XXXVI · Safety
-
-# 129. Memory Safety
-
-粗略比较：
-
-| Problem                | C++                  | Rust safe code                                     | Zig                          |
-| ---------------------- | -------------------- | -------------------------------------------------- | ---------------------------- |
-| UAF static prevention  | 弱                   | 强                                                 | 弱                           |
-| Double free prevention | 主要靠 RAII          | 强                                                 | 主要靠纪律                   |
-| Borrow lifetime        | 手动                 | 编译器                                             | 手动                         |
-| Ordinary data race     | programmer proof     | safe code强约束                                    | programmer proof             |
-| Bounds checks          | API/config dependent | generally language/runtime checks where applicable | safety-mode dependent checks |
-| Raw pointer access     | 普遍                 | `unsafe`                                           | 普遍可表达                   |
-
-这个表不是：
-
-> “安全分数”。
-
-而是说明：
-
-> proof responsibility在哪里。
-
----
-
-# 130. Rust最大的结构优势
-
-不是：
-
-> 不会写 bug。
-
-而是把：
-
-```text
-large class of invalid programs
-```
-
-直接从可编译程序集合中排除。
-
----
-
-# 131. C++的结构优势
-
-它可以：
-
-> 非常容易表达几乎任何 legacy/hardware/ABI shape。
-
-并且拥有：
-
-```text
-massive library ecosystem
-mature compiler ecosystem
-high-performance numerics
-native interoperability
-```
-
-代价：
-
-> 需要更强工程纪律。
-
----
-
-# 132. Zig的结构优势
-
-它倾向让：
-
-```text
-allocation
-cleanup
-errors
-compile-time behavior
-C interop
-```
-
-非常显式。
-
-适合：
-
-> 想直接掌控系统机制的工程师。
-
----
-
-# Part XXXVII · Unsafe Boundaries
-
-# 133. 一个成熟系统不应该追求“没有 Unsafe”
-
-而是：
-
-> **让 unsafe / low-level invariant boundary 小、明确、可测试。**
-
-C++可以人为建立：
-
-```text
-safe-ish core
-↓
-low-level detail namespace
-```
-
-Rust自然有：
-
-```text
-safe API
-↓
-unsafe implementation
-```
-
-Zig可以通过：
-
-```text
-module boundary
-explicit pointer/allocator APIs
-```
-
-实现类似工程纪律。
-
----
-
-# Part XXXVIII · State Modeling
-
-# 134. C++
-
-```cpp
-enum class State {
-    Idle,
-    Running,
-    Fault,
-};
-```
-
-非常好。
-
-但非法组合仍可通过复杂对象状态产生。
-
----
-
-# 135. Rust
-
-Rust enum：
-
-```rust
-enum State {
-    Idle,
-    Running(RunningState),
-    Fault(Error),
-}
-```
-
-非常适合：
-
-> 把状态相关 payload绑定到 variant。
-
-这是其 algebraic data type 的强项。
-
----
-
-# 136. Zig
-
-Zig：
-
-```zig
-const State = union(enum) {
-    idle,
-    running: RunningState,
-    fault: Error,
-};
-```
-
-同样非常自然。
-
----
-
-# 137. C++ `std::variant`
-
-可以实现相同思想：
-
-```cpp
-using State = std::variant<
-    Idle,
-    Running,
-    Fault>;
-```
-
-因此这个差距不是：
-
-> C++ 做不到。
-
-而是：
-
-> Rust/Zig 在语言习惯上更自然地围绕 sum types设计状态。
-
----
-
-# Part XXXIX · Nullability
-
-# 138. C++
-
-```cpp
-T*
-```
-
-同时可能表示：
-
-```text
-nullable pointer
-borrow
-owner?
-```
-
-语义模糊。
-
-现代 API用：
-
-```text
-reference
-optional
-unique_ptr
-span
-```
-
-减少歧义。
-
----
-
-# 139. Rust
-
-```rust
-Option<&T>
-Option<Box<T>>
-```
-
-把：
-
-> nullable
-
-显式进入 type。
-
----
-
-# 140. Zig
-
-```zig
-?*T
-?T
-```
-
-optional也是语言核心组合。
-
----
-
-# 141. Lesson
-
-> **Make invalid/optional state explicit in the type whenever practical.**
-
-这不是某一门语言的专属原则。
-
----
-
-# Part XL · Reflection of Ownership in APIs
-
-# 142. 一个 Buffer API
-
-## C++
-
-```cpp
-void process(
-    std::span<const std::byte> input);
-
-std::vector<std::byte> make_output();
-```
-
----
-
-## Rust
-
-```rust
-fn process(input: &[u8]);
-
-fn make_output() -> Vec<u8>;
-```
-
----
-
-## Zig
-
-```zig
-fn process(
-    input: []const u8,
-) void;
-
-fn makeOutput(
-    allocator: Allocator,
-) ![]u8;
-```
-
-这里差异极其有意义。
-
-Zig API直接告诉你：
-
-> 创建 output需要 allocator。
-
-C++/Rust普通 API则把 allocator隐藏在 owning container里。
-
----
-
-# Part XLI · Who Pays for Allocation?
-
-# 143. C++
-
-Caller：
-
-```cpp
-auto output = make_output();
-```
-
-allocation cost隐藏在 function/container内部。
-
----
-
-# 144. Rust
-
-类似：
-
-```rust
-let output = make_output();
-```
-
-allocation由 `Vec`内部承担。
-
----
-
-# 145. Zig
-
-通常：
-
-```zig
-const output =
-    try makeOutput(allocator);
-defer allocator.free(output);
-```
-
-allocation capability显式。
-
----
-
-# 146. 哪个更好？
-
-如果：
-
-> allocation policy是 architecture关键部分，
-
-Zig显式设计非常强。
-
-如果：
-
-> 只希望普通高层 API易用，
-
-C++/Rust owner container会更加简洁。
-
-所以：
-
-> **Explicitness has an ergonomic cost, abstraction has an observability cost.**
-
----
-
-# Part XLII · Library Design
-
-# 147. C++ Native Library
-
-内部可以：
-
-```text
-classes
-RAII
-templates
-STL
-exceptions
-```
-
-外部稳定边界：
-
-```text
-C ABI
-```
-
----
-
-# 148. Rust Library
-
-内部：
-
-```text
-ownership
-Result
-traits
-Arc
-```
-
-外部：
-
-```text
-C ABI
-```
-
----
-
-# 149. Zig Library
-
-内部：
-
-```text
-slices
-allocators
-error unions
-comptime
-```
-
-外部：
-
-```text
-C ABI
-```
-
----
-
-# 150. Unified Native Architecture
-
-```text
-┌──────────────────────────────┐
-│ Rich Language-native Core    │
-└──────────────┬───────────────┘
-               │ adapter
-               ▼
-┌──────────────────────────────┐
-│ Small Stable C ABI           │
-└──────────────┬───────────────┘
-               │
-      ┌────────┼────────┐
-      ▼        ▼        ▼
-     C++      Rust      Zig
-    Wrapper  Wrapper   Wrapper
-```
-
-这是整个 G8/G12 最值得保留的架构之一。
-
----
-
-# Part XLIII · Robotics Language Placement
-
-# 151. C++ 很自然的位置
-
-当前机器人生态中：
-
-```text
-ROS 2
-Eigen
-vendor SDKs
-control
-planning
-numerics
-hardware APIs
-```
-
-C++拥有极强现实优势。
-
-所以：
-
-```text
-Control Core
-Hardware Integration
-Numerical Robotics
-```
-
-通常非常自然。
-
----
-
-# 152. Rust 很自然的位置
-
-例如：
-
-```text
-network services
-mission infrastructure
-safe concurrent services
-data ingestion
-robot fleet infrastructure
-security-sensitive components
-```
-
-尤其当：
-
-```text
-memory safety
-concurrency safety
-```
-
-价值很高时。
-
----
-
-# 153. Zig 很自然的位置
-
-例如：
-
-```text
-device utility
-C library modernization
-embedded support tooling
-small runtime
-protocol parser
-native glue
-cross-compiled system tool
-```
-
-尤其当：
-
-```text
-explicit allocator
-C interop
-simple runtime
-```
-
-重要。
-
----
-
-# 154. 但不要按层机械分语言
-
-真正问题：
-
-```text
-ecosystem?
-team skill?
-vendor API?
-safety?
-latency?
-certification?
-deployment?
-```
-
-语言只是 architecture decision 的一部分。
-
----
-
-# Part XLIV · When C++ Is the Natural Choice
-
-# 155. 强信号
-
-```text
-large existing C++ ecosystem
-ROS / Eigen / robotics
-vendor C++ SDK
-very low-level native ABI
-large legacy native codebase
-library integration dominates
-```
-
----
-
-# 156. C++ 的风险信号
-
-如果系统：
-
-```text
-huge shared mutable graph
-many inexperienced developers
-security-critical memory safety
-complex async ownership
-```
-
-而团队无法维持强纪律，
-
-C++风险会明显上升。
-
----
-
-# Part XLV · When Rust Is the Natural Choice
-
-# 157. 强信号
-
-```text
-memory safety is central
-complex ownership/concurrency
-networked infrastructure
-security-sensitive code
-greenfield system
-```
-
-并且依赖 ecosystem足够成熟。
-
----
-
-# 158. Rust 的成本信号
-
-```text
-heavy C++ SDK integration
-FFI dominates architecture
-team lacks Rust expertise
-very dynamic self-referential structures
-specific vendor/toolchain limitations
-```
-
-需要认真评估。
-
----
-
-# Part XLVI · When Zig Is the Natural Choice
-
-# 159. 强信号
-
-```text
-C interop central
-allocator policy central
-small low-level system
-cross compilation important
-explicit runtime desired
-compile-time specialization useful
-```
-
----
-
-# 160. Zig 的风险信号
-
-```text
-large enterprise ecosystem requirements
-large library dependency needs
-heavy robotics/numerical ecosystem
-team-wide mature tooling expectations
-```
-
-需要对现实生态进行评估。
-
----
-
-# Part XLVII · Mixed-language Cost
-
-# 161. 多语言不是免费
-
-每增加一种语言：
-
-```text
-build toolchain
-package ecosystem
-debugger integration
-FFI
-ABI
-CI
-developer skill
-error model translation
-ownership translation
-```
-
-全部增加。
-
-所以：
-
-> **Use multiple languages only when the boundary value exceeds integration cost.**
-
----
-
-# 162. FFI Boundary 应该粗
-
-差：
-
-```text
-C++ function
-↓
-Rust function
-↓
-C++ function
-↓
-Zig function
-```
-
-每几个 micro-operations跨一次。
-
-好：
-
-```text
-large subsystem
-│
-│ coarse C ABI
-▼
-another subsystem
-```
-
-边界最好：
-
-```text
-stable
-coarse
-owned
-versioned
-```
-
----
-
-# Part XLVIII · Error Translation Across Languages
-
-# 163. C++ Exception
-
-不能直接进入 Rust/Zig/C。
-
-Boundary：
-
-```text
-exception
-↓
-catch
-↓
-C status/error
-```
-
----
-
-# 164. Rust `Result`
-
-进入 C ABI：
-
-```text
-Result<T,E>
-↓
-status + output
-```
-
----
-
-# 165. Zig Error Union
-
-```text
-!T
-↓
-C status + output
-```
-
-所以稳定 ABI通常统一成：
-
-```text
-status code
-+
-out parameters / owned result handle
-```
-
----
-
-# Part XLIX · Ownership Translation Across Languages
-
-# 166. 最安全原则
-
-> **Creator destroys.**
-
-例如：
-
-```c
-foo_handle* foo_create();
-void foo_destroy(foo_handle*);
-```
-
-不管内部是：
-
-```text
-C++
-Rust
-Zig
-```
-
-都成立。
-
----
-
-# 167. Borrowed Buffer
-
-```c
-process(
-    const uint8_t* data,
-    size_t len);
-```
-
-明确：
-
-```text
-valid for duration of call
-not retained
-```
-
----
-
-# 168. Ownership Transfer Buffer
-
-如果需要跨 boundary retain：
-
-最好：
-
-```text
-explicit handle
-or
-explicit release callback
-```
-
-不要：
-
-> “你传 pointer，我以后可能用。”
-
----
-
-# Part L · Concurrency Translation Across FFI
-
-# 169. Rust `Send/Sync` 不穿 C ABI
-
-C library返回：
-
-```text
-void*
-```
-
-Rust compiler不知道：
-
-```text
-thread-safe?
-```
-
-Wrapper必须决定：
-
-> 能否安全实现 `Send` / `Sync`。
-
-如果判断错：
-
-> safe Rust wrapper可以建立在错误 unsafe invariant上。
-
----
-
-# 170. C++ Thread Safety 也不会穿 ABI 自动表达
-
-C header：
-
-```c
-foo_process(foo*);
-```
-
-必须文档说明：
-
-```text
-same handle concurrent calls?
-different handles concurrent?
-destroy concurrently?
-callback thread?
-```
-
----
-
-# 171. Zig 同样如此
-
-FFI没有自动 thread-safety type proof。
-
-因此：
-
-> **Concurrency semantics必须成为 FFI contract的一部分。**
-
----
-
-# Part LI · Language Guarantees vs Architecture Guarantees
-
-# 172. Rust 能保证 Memory Safety，所以还需要 Architecture 吗？
-
-当然。
-
-Rust无法自动证明：
-
-```text
-queue capacity sufficient
-deadline met
-deadlock impossible
-business invariant correct
-correct unit
-correct coordinate frame
-correct shutdown semantics
-```
-
----
-
-# 173. Zig 显式，所以 Architecture 自动清晰吗？
-
-不会。
-
-你可以显式写出：
-
-> 一个非常糟糕的架构。
-
-显式机制只减少：
-
-> hidden behavior。
-
----
-
-# 174. C++ 工程规范能替代 Borrow Checker 吗？
-
-不能完全替代。
-
-规范：
-
-```text
-owner/borrow rules
-RAII
-span
-sanitizers
-reviews
-```
-
-能大幅降低风险，
-
-但不能提供 Rust那种 static guarantee。
-
----
-
-# 175. 所以三个层次必须区分
-
-```text
-Language Guarantee
-        ↓
-Library Abstraction
-        ↓
-Architecture Invariant
-```
-
-例如：
-
-### Rust
-
-```text
-Language:
-borrow safety
-
-Library:
-Arc
-
-Architecture:
-single-writer shard
-```
-
-### C++
-
-```text
-Language:
-types/lifetime rules
-
-Library:
-unique_ptr
-
-Architecture:
-single-writer shard
-```
-
-### Zig
-
-```text
-Language:
-typed pointers/slices/errors
-
-Library:
-allocator/container
-
-Architecture:
-single-writer shard
-```
-
-最高层架构仍然最重要。
-
----
-
-# Part LII · What the Compiler Can Prove
-
-# 176. C++
-
-Compiler能证明：
-
-```text
-type correctness
-template constraints
-many static semantic rules
-```
-
-但很多：
-
-```text
-pointer lifetime
-resource ownership
-alias validity
-thread sharing
-```
-
-不会完整证明。
-
----
-
-# 177. Rust
-
-Compiler还能证明更多：
-
-```text
-ownership uniqueness constraints
-borrow lifetime compatibility
-many aliasing rules
-Send/Sync constraints
-```
-
-但不能证明：
-
-```text
-logical correctness
-deadlock freedom
-bounded latency
-performance
-```
-
----
-
-# 178. Zig
-
-Compiler可以提供：
-
-```text
-strong type checking
-compile-time evaluation
-runtime safety checks depending build mode
-```
-
-但：
-
-```text
-ownership/lifetime graph
-data-race freedom
-```
-
-主要不是静态语言保证。
-
----
-
-# Part LIII · What No Compiler Can Prove for You Automatically
-
-# 179. Domain Semantics
-
-```text
-Is 30 degrees accidentally treated as 30 radians?
-```
-
----
-
-# 180. Correct Shard Key
-
-```text
-Does VehicleId partition the right ownership domain?
-```
-
----
-
-# 181. Backpressure
-
-```text
-What happens if producer permanently outruns consumer?
-```
-
----
-
-# 182. Real-Time
-
-```text
-Will this loop always finish before 1 ms deadline?
-```
-
----
-
-# 183. Business Transaction
-
-```text
-Does this state transition preserve domain invariant?
-```
-
----
-
-# 184. Physical Safety
-
-```text
-Will actuator enter safe state after host failure?
-```
-
-因此：
-
-> **Language Safety ≠ System Correctness**
-
-这是 G12 必须留下的核心结论。
-
----
-
-# Part LIV · A Unified Systems Design Procedure
-
-以后面对一个新问题，不先选语言。
-
-按下面顺序。
-
----
-
-# 185. Step 1 — Define the State
-
-```text
-系统真正管理哪些 state？
-```
-
----
-
-# 186. Step 2 — Define Lifetime
-
-```text
-什么时候创建？
-什么时候结束？
-谁能让它失效？
-```
-
----
-
-# 187. Step 3 — Define Ownership
-
-```text
-谁负责最终 cleanup？
-```
-
----
-
-# 188. Step 4 — Define Borrowing
-
-```text
-谁只临时访问？
-borrow能持续多久？
-```
-
----
-
-# 189. Step 5 — Define Mutation Authority
-
-```text
-有几个 writer？
-能否降为 single writer？
-```
-
----
-
-# 190. Step 6 — Define Representation
-
-```text
-inline?
-heap?
-AoS?
-SoA?
-stable address?
-```
-
----
-
-# 191. Step 7 — Define Allocation Topology
-
-```text
-how often?
-which allocator?
-bounded?
-reuse?
-```
-
----
-
-# 192. Step 8 — Define Failure
-
-```text
-domain error?
-cancel?
-fatal?
-bug?
-```
-
----
-
-# 193. Step 9 — Define Concurrency
-
-```text
-threads?
-queues?
-HB edges?
-backpressure?
-```
-
----
-
-# 194. Step 10 — Define Binary Boundaries
-
-```text
-same binary?
-shared library?
-plugin?
-cross-language?
-```
-
----
-
-# 195. Step 11 — Define Timing
-
-```text
-throughput?
-latency?
-deadline?
-jitter?
-```
-
----
-
-# 196. Step 12 — Only Then Choose Language
-
-问：
-
-```text
-哪门语言的默认 guarantees
-与上述约束最匹配？
-```
-
-而不是：
-
-> 我喜欢 Rust，所以全部 Rust。
-
-或者：
-
-> C++ 性能最好，所以全部 C++。
-
----
-
-# Part LV · Example 1 — Binary Decoder
-
-需求：
-
-```text
-large byte buffer
-high throughput
-static schema
-C ABI integration
-minimal allocation
-```
-
----
-
-# 197. C++
-
-非常自然：
-
-```text
-span
-generated decode functions
-vector/lease
-templates/constexpr
-```
-
----
-
-# 198. Zig
-
-也非常自然：
-
-```text
-slice
-explicit allocator
-comptime generated decode
-C ABI
-```
-
-甚至某些 low-level parser场景：
-
-> Zig的显式性非常有吸引力。
-
----
-
-# 199. Rust
-
-同样能很好完成：
-
-```text
-&[u8]
-Result
-generated code
-safe indexing abstractions
-```
-
-如果 parser面对 untrusted data：
-
-> memory-safety guarantee价值很高。
-
----
-
-# 200. 真正决定因素
-
-可能变成：
-
-```text
-existing codebase
-ecosystem
-build integration
-team expertise
-FFI
-```
-
-而不是 raw performance。
-
----
-
-# Part LVI · Example 2 — Concurrent Network Service
-
-需求：
-
-```text
-complex async ownership
-untrusted network
-high concurrency
-memory safety critical
-```
-
-Rust通常很有吸引力，
-
-因为：
-
-```text
-ownership
-safe concurrency
-Result
-async ecosystem
-```
-
-能够减少相当大的 bug surface。
-
-但仍需设计：
-
-```text
-backpressure
-timeouts
-task ownership
-shutdown
-```
-
----
-
-# Part LVII · Example 3 — Robotics Control Core
-
-需求：
-
-```text
-vendor C++ SDK
-Eigen
-ROS 2
-hard-ish timing path
-existing C++ ecosystem
-```
-
-C++往往现实优势非常强。
-
-通过：
-
-```text
-RAII
-fixed-capacity data
-single writer
-non-RT boundary
-```
-
-可以构造高质量 deterministic core。
-
-Rust/Zig可以用于周边子系统，
-
-但不应仅为了语言偏好牺牲生态。
-
----
-
-# Part LVIII · Example 4 — Small Cross-platform Native Tool
-
-需求：
-
-```text
-small binary
-C libraries
-cross compilation
-explicit resource control
-little runtime
-```
-
-Zig可能非常适合。
-
-尤其：
-
-```text
-build system
-C interop
-allocator explicitness
-```
-
-组合得非常自然。
-
----
-
-# Part LIX · The Wrong Language Question
-
-# 201. 错误问法
-
-> 哪门语言性能最好？
-
-正确：
-
-```text
-哪个具体 workload？
-什么 representation？
-什么 allocator？
-什么 algorithm？
-```
-
----
-
-# 202. 错误问法
-
-> 哪门语言最安全？
-
-正确：
-
-```text
-哪一类风险？
-memory safety?
-logic?
-concurrency?
-physical safety?
-```
-
----
-
-# 203. 错误问法
-
-> 哪门语言最现代？
-
-正确：
-
-> 哪种语言的 abstraction/guarantees 最匹配系统 constraints？
-
----
-
-# Part LX · Comparative Matrix
-
-| Dimension                    | C++23                                         | Rust 2024                       | Zig                            |
-| ---------------------------- | --------------------------------------------- | ------------------------------- | ------------------------------ |
-| Deterministic destruction    | RAII                                          | Drop                            | `defer`/explicit               |
-| Ownership static enforcement | 部分/库约定                                   | 强                              | 弱/显式纪律                    |
-| Borrow lifetime checking     | 弱                                            | 强                              | 弱                             |
-| Move semantics               | user-defined move operations/value categories | ownership move                  | 无专门 ownership move          |
-| Explicit allocator APIs      | 可选/PMR                                      | 通常抽象于 owners               | 核心风格                       |
-| Error-as-value               | `expected`                                    | `Result`                        | error union                    |
-| Exceptions                   | 是                                            | panic 不是普通 error            | 无 C++式 exceptions            |
-| Static genericity            | templates/concepts                            | generics/traits                 | comptime                       |
-| Dynamic polymorphism         | virtual/type erasure                          | trait objects                   | explicit tables/functions      |
-| Native ABI stability         | C++ ABI implementation-specific               | native Rust ABI不作稳定 FFI基础 | native ABI不应作长期跨语言契约 |
-| C ABI integration            | 强                                            | 强                              | 很强                           |
-| Data-race static prevention  | 弱                                            | safe code强                     | 弱                             |
-| Build/package integration    | 分散但生态巨大                                | Cargo 高度集成                  | toolchain-integrated build     |
-| Robotics ecosystem           | 极强                                          | 发展中/领域依赖                 | 较小                           |
-| Low-level explicitness       | 高                                            | 高但受 safety model约束         | 很高                           |
-| Legacy native integration    | 极强                                          | C FFI强，C++需边界              | C interop极强                  |
-
-这不是排名表。
-
-它说明：
-
-> **默认 proof responsibility 的分配不同。**
-
----
-
-# Part LXI · Performance Matrix
-
-在 hot code最终都要回答：
-
-```text
-How many bytes?
-How many allocations?
-How many branches?
-How many cache misses?
-How many synchronization operations?
-```
-
-而不是：
-
-```text
-Which language?
-```
-
----
-
-# 204. Contiguous Storage
-
-```text
-vector
-Vec
-Zig dynamic array
-```
-
-如果底层一样：
-
-> cache行为也一样。
-
----
-
-# 205. Shared Refcount
-
-```text
-shared_ptr
-Arc
-custom atomic RC
-```
-
-都可能产生：
-
-> cache-line contention。
-
----
-
-# 206. Hash Map
-
-语言标准/生态实现不同，
-
-性能差异可以很大。
-
-所以：
-
-> benchmark concrete implementation，
-
-不要 benchmark“语言”。
-
----
-
-# Part LXII · Concurrency Architecture Matrix
-
-| Problem                   | Best first thought         |
-| ------------------------- | -------------------------- |
-| Per-worker scratch        | thread-local/owned state   |
-| Shared immutable config   | snapshot                   |
-| One entity mutable state  | single writer              |
-| Many independent entities | sharding                   |
-| Work handoff              | ownership-transfer queue   |
-| Compound shared invariant | mutex                      |
-| Independent scalar metric | relaxed atomic candidate   |
-| Conditional atomic state  | CAS                        |
-| Lock-free node lifetime   | reclamation scheme         |
-| Overload                  | bounded queue/backpressure |
-
-注意：
-
-> 这张表与语言几乎无关。
-
-这就是 G12 最重要的迁移成果之一。
-
----
-
-# Part LXIII · Language Choice as Risk Allocation
-
-# 207. C++
-
-你选择承担更多：
-
-```text
-manual lifetime proof
-aliasing proof
-data-race proof
-ABI/build complexity
-```
-
-换：
-
-```text
-ecosystem
-flexibility
-integration
-performance control
-```
-
----
-
-# 208. Rust
-
-你把更多：
-
-```text
-ownership
-borrowing
-data-race legality
-```
-
-交给 compiler证明。
-
-换来：
-
-```text
-stronger constraints
-unsafe boundary design
-potential FFI friction
-```
-
----
-
-# 209. Zig
-
-你选择：
-
-```text
-allocation/error/control flow explicitness
-```
-
-并保留：
-
-```text
-low-level freedom
-```
-
-同时自行承担更多：
-
-```text
-lifetime/alias/concurrency proof
-```
-
----
-
-# 210. 因此语言选择其实是
-
-> **Where do you want the proof burden to live?**
-
-```text
-compiler?
-type system?
-library abstraction?
-code review?
-architecture?
-runtime checks?
-```
-
-这是比：
-
-> “语法哪个好看”
-
-深得多的问题。
-
----
-
-# Part LXIV · Team Effects
-
-# 211. 语言不是单人工具
-
-一个 100 人项目的真实约束包括：
-
-```text
-average engineer skill
-review quality
-tooling
-hiring
-debugging
-onboarding
-libraries
-```
-
-某语言对专家非常高效：
-
-> 不代表对组织整体风险最低。
-
----
-
-# 212. C++ Team
-
-需要非常强：
-
-```text
-style profile
-ownership conventions
-sanitizers
-code review
-API discipline
-build standards
-```
-
-才能把语言自由度控制住。
-
-这也是我们为什么前面用了整条 G0–G11 去建立系统规范。
-
----
-
-# 213. Rust Team
-
-Compiler会承担更多 guardrail。
-
-但团队仍必须学：
-
-```text
-ownership architecture
-async behavior
-unsafe review
-performance
-FFI
-```
-
----
-
-# 214. Zig Team
-
-语言简洁不代表 architecture自动一致。
-
-尤其需要：
-
-```text
-allocator conventions
-ownership conventions
-resource cleanup conventions
-module boundaries
-```
-
-这与你之前的 Zig Architecture Manifesto方向是一致的。
-
----
-
-# Part LXV · Long-lived Systems
-
-# 215. 10 年系统最重要的往往不是今天最快 3%
-
-而是：
-
-```text
-API evolution
-ABI stability
-debuggability
-dependency health
-team comprehension
-migration cost
-```
-
-语言生态稳定性成为核心 architecture constraint。
-
----
-
-# 216. FFI 可以成为 Migration Boundary
-
-例如：
-
-```text
-C++ subsystem
-↓
-stable C ABI
-↓
-new Rust implementation
-```
-
-只要 boundary不变：
-
-> 可以逐步替换 internals。
-
-同样：
-
-```text
-C implementation
-↓
-Zig implementation
-```
-
-也可以。
-
-这就是 stable ABI 的战略价值。
-
----
-
-# Part LXVI · Anti-patterns
-
-# 217. Anti-pattern 1 — Language Nationalism
-
-> “Rust 能解决所有系统问题。”
-
-> “C++ 永远最快。”
-
-> “Zig 是下一代 C，所以全部 Zig。”
-
-都不是工程推理。
-
----
-
-# 218. Anti-pattern 2 — Safety = Correctness
-
-Memory-safe 程序仍然可以：
-
-```text
-deadlock
-drop money
-miss deadline
-send wrong torque
-```
-
----
-
-# 219. Anti-pattern 3 — Explicit = Correct
-
-Zig代码非常显式：
-
-> 仍可以显式写错 lifetime。
-
----
-
-# 220. Anti-pattern 4 — RAII = Lifetime Safety
-
-RAII正确管理 owner，
-
-但 borrower仍然可以 dangling。
-
----
-
-# 221. Anti-pattern 5 — Borrow Checker = No Lifetime Problems Anywhere
-
-FFI、unsafe、logical lifetime、external resources仍然需要 architecture。
-
----
-
-# 222. Anti-pattern 6 — No GC = Real-Time
-
-完全错误。
-
----
-
-# 223. Anti-pattern 7 — Zero-cost = Free
-
-没有这种普遍规律。
-
----
-
-# 224. Anti-pattern 8 — C ABI = Safe ABI
-
-C ABI只是：
-
-> stable low-level calling convention。
-
-Ownership、bounds、lifetime仍需 contract。
-
----
-
-# 225. Anti-pattern 9 — Cross-language Makes Architecture Cleaner
-
-只有 boundary本身高度清晰时才可能。
-
-否则：
-
-> complexity只是被分散到三套工具链。
-
----
-
-# 226. Anti-pattern 10 — Rewrite for Language Purity
-
-如果现有系统：
-
-```text
-correct
-maintained
-meets SLO
-```
-
-仅因为：
-
-> “Rust/Zig 更现代”
-
-而重写，
-
-通常缺乏工程依据。
-
----
-
-# Part LXVII · Unified Review Protocol
-
-无论代码是 C++、Rust 还是 Zig，进行 systems review 时按以下顺序。
-
----
-
-## 1. Object / State
-
-```text
-What state exists?
-```
-
----
-
-## 2. Ownership
-
-```text
-Who owns it?
-```
-
----
-
-## 3. Lifetime
-
-```text
-When does it become invalid?
-```
-
----
-
-## 4. Borrowing
-
-```text
-Who temporarily accesses it?
-```
-
----
-
-## 5. Mutation
-
-```text
-Who may write?
-How many writers?
-```
-
----
-
-## 6. Aliasing
-
-```text
-Can there be multiple access paths?
-```
-
----
-
-## 7. Allocation
-
-```text
-Where?
-How often?
-Which lifetime topology?
-```
-
----
-
-## 8. Representation
-
-```text
-Inline?
-Indirect?
-AoS?
-SoA?
-```
-
----
-
-## 9. Error
-
-```text
-Expected?
-Cancelled?
-Fatal?
-Bug?
-```
-
----
-
-## 10. Concurrency
-
-```text
-Who synchronizes with whom?
-```
-
----
-
-## 11. Backpressure
-
-```text
-What happens under overload?
-```
-
----
-
-## 12. ABI
-
-```text
-What crosses binary/language boundary?
-```
-
----
-
-## 13. Timing
-
-```text
-Latency?
-Throughput?
-Deadline?
-Jitter?
-```
-
----
-
-## 14. Evidence
-
-```text
-What did we measure?
-```
-
----
-
-## 15. Language
-
-最后才问：
-
-```text
-Which language most naturally encodes
-the constraints above?
-```
-
----
-
-# Part LXVIII · The Three Proofs
-
-一个高水平 systems engineer最终应该同时做三类 proof。
-
----
-
-# 227. Semantic Proof
-
-```text
-Does the program do the right thing?
-```
-
-例如：
-
-```text
-correct decoder
-correct state transition
-correct torque
-```
-
----
-
-# 228. Safety Proof
-
-```text
-Can execution violate memory/lifetime/concurrency invariants?
-```
-
-Rust可以替你做更多。
-
-C++/Zig需要更多人工 proof。
-
----
-
-# 229. Operational Proof
-
-```text
-Does it meet latency/memory/backpressure/failure requirements?
-```
-
-任何语言都主要需要：
-
-> architecture + measurement
-
-完成。
-
----
-
-# Part LXIX · The Four Graphs Expanded
-
-我们在 G3 有四张图。
-
-现在升级为六张。
-
----
-
-# 230. Ownership Graph
-
-```text
-Who owns what?
-```
-
----
-
-# 231. Lifetime Graph
-
-```text
-Who must outlive whom?
-```
-
----
-
-# 232. Mutation Graph
-
-```text
-Who may write which state?
-```
-
----
-
-# 233. Storage / Cost Graph
-
-```text
-Where are allocations, copies, indirections?
-```
-
----
-
-# 234. Synchronization Graph
-
-```text
-Where are HB / locks / queues?
-```
-
----
-
-# 235. Binary Boundary Graph
-
-```text
-Which components are independently built/versioned?
-```
-
-如果这六张图清晰：
-
-> 大多数 systems architecture已经清晰了一半。
-
----
-
-# Part LXX · C++ Revisited After the Whole Track
-
-# 236. 现在重新看一个简单 Class
-
-```cpp
-class Buffer {
-public:
-    explicit Buffer(std::size_t size);
-
-    std::span<std::byte> bytes();
-
-private:
-    std::vector<std::byte> storage_;
-};
-```
-
-初学者看到：
-
-```text
-class
-vector
-span
-```
-
-现在应该看到：
-
-```text
-Buffer
-→ owner
-
-vector
-→ dynamic contiguous storage owner
-
-span
-→ non-owning mutable borrow
-
-Buffer move?
-→ transfers vector storage ownership
-
-bytes() lifetime
-→ <= Buffer storage validity
-
-vector growth
-→ invalidates old span
-
-allocation
-→ hidden behind vector
-
-ABI
-→ vector representation private if class hidden/PImpl boundary
-
-concurrency
-→ mutable span requires mutation authority
-```
-
-这就是整个 Track 的成果。
-
----
-
-# Part LXXI · Rust Revisited With C++ Knowledge
-
-# 237. 看
-
-```rust
-fn process(
-    input: &[u8],
-    output: &mut [f32],
-) -> Result<usize, Error>
-```
-
-现在你能立即映射：
-
-```text
-input
-→ borrowed immutable span
-
-output
-→ exclusive mutable borrowed span
-
-Result
-→ explicit error-as-value
-
-usize
-→ target-native size type
-
-borrow checker
-→ statically constrains alias/lifetime
-```
-
-机器世界仍是：
-
-```text
-pointer
-length
-loads
-stores
-```
-
-Rust type system只是提供更强 proof。
-
----
-
-# Part LXXII · Zig Revisited With C++ Knowledge
-
-# 238. 看
-
-```zig
-fn decode(
-    allocator: std.mem.Allocator,
-    input: []const u8,
-) ![]f32
-```
-
-现在你应该看到：
-
-```text
-allocator
-→ explicit dynamic storage capability
-
-input
-→ borrowed immutable slice
-
-![]f32
-→ error union containing owned? slice result
-```
-
-然后立刻追问：
-
-> 谁负责 free 返回 slice？
-
-因为：
-
-```text
-[]f32
-```
-
-本身不像 C++ `vector` / Rust `Vec`：
-
-> 自动携带 owning destructor。
-
-这就是 ownership contract必须额外明确的地方。
-
----
-
-# Part LXXIII · A Better Zig API
-
-可以用 owner type：
-
-```zig
-const ResultBuffer = struct {
-    allocator: std.mem.Allocator,
-    data: []f32,
-
-    pub fn deinit(self: *ResultBuffer) void {
-        self.allocator.free(self.data);
-    }
-};
-```
-
-然后：
-
-```zig
-fn decode(...) !ResultBuffer;
-```
-
-这开始接近：
-
-```text
-C++ RAII owner
-```
-
-但 cleanup仍需要 caller：
-
-```zig
-var result = try decode(...);
-defer result.deinit();
-```
-
-所以：
-
-> type carries cleanup capability，scope executes it explicitly。
-
-很 Zig。
-
----
-
-# Part LXXIV · API Design Comparison
-
-需求：
-
-> processing function borrows input and returns owned output。
-
-### C++
-
-```cpp
-std::expected<std::vector<float>, Error>
+std::expected<std::vector<float>, DecodeError>
 decode(std::span<const std::byte> input);
 ```
 
-### Rust
+这里输入只借用到调用返回，输出 owner 负责释放，但签名本身仍未说明别名限制、长度上界和分配失败。Rust 的 `Result<Vec<_>, _>` 以另一套类型约束表达拥有结果；Zig 的 ![]f32 则还需要写清结果由哪个 allocator 释放，或用显式 deinit 的 owner 结构封装。不能把任意 slice 都叫 owned。
+
+内部可以使用丰富语言抽象，稳定外部用小 C adapter 映射 status、输出和释放接口。便利 API 与分配可见性有取舍，关键是用户能知道调用期间哪些资源和责任发生变化。
+
+<a id="g12-section-11"></a>
+
+<a id="g12-topic-151"></a>
+<a id="g12-topic-152"></a>
+<a id="g12-topic-153"></a>
+<a id="g12-topic-154"></a>
+<a id="g12-topic-155"></a>
+<a id="g12-topic-156"></a>
+<a id="g12-topic-157"></a>
+<a id="g12-topic-158"></a>
+<a id="g12-topic-159"></a>
+<a id="g12-topic-160"></a>
+<a id="g12-topic-161"></a>
+<a id="g12-topic-162"></a>
+<a id="g12-topic-163"></a>
+<a id="g12-topic-164"></a>
+<a id="g12-topic-165"></a>
+<a id="g12-topic-166"></a>
+<a id="g12-topic-167"></a>
+<a id="g12-topic-168"></a>
+<a id="g12-topic-169"></a>
+<a id="g12-topic-170"></a>
+<a id="g12-topic-171"></a>
+<a id="g12-topic-172"></a>
+<a id="g12-topic-173"></a>
+<a id="g12-topic-174"></a>
+<a id="g12-topic-175"></a>
+
+## 11. 子系统选择与跨语言成本
+
+### 11.1 根据依赖与风险选局部边界
+
+已有 C++ SDK、数值库和原生生态可能使 C++ 最直接；复杂不可信输入及共享生命周期可能提高 Rust 静态约束的价值；显式 allocator、C glue 和小型底层工具可能契合 Zig。它们是评估维度，不是“控制一定 C++、服务一定 Rust、驱动一定 Zig”的固定分工。
+
+生态、团队熟悉度、debugger、构建支持、认证和五年维护成本都要进入决策。旧系统若已经满足合同，仅因语言更新而重写没有自动收益；也不能用既有生态为所有内存风险免责。
+
+### 11.2 FFI 要翻译语义，不只翻译类型
+
+跨语言增加工具链、包生态、CI、调试、错误与所有权翻译。边界宜粗且稳定，减少每几个操作就在语言间往返。Creator destroys 便于维持分配域；跨边界保留内存用显式 handle 或 release callback；调用期 borrow 不能被后台偷偷保存。
+
+exception/Result/error union 可转为 C status 与输出，但输出有效性和重试责任必须一起翻译。Send/Sync 不会穿过 void* 自动生效，同一 handle 是否可并发、destroy 是否需要静默期、callback 在何线程都要公开。语言保证、库抽象、架构不变量是三个层次，不能把其中一个当作全部。
+
+<a id="g12-section-12"></a>
+
+<a id="g12-topic-176"></a>
+<a id="g12-topic-177"></a>
+<a id="g12-topic-178"></a>
+<a id="g12-topic-179"></a>
+<a id="g12-topic-180"></a>
+<a id="g12-topic-181"></a>
+<a id="g12-topic-182"></a>
+<a id="g12-topic-183"></a>
+<a id="g12-topic-184"></a>
+<a id="g12-topic-185"></a>
+<a id="g12-topic-186"></a>
+<a id="g12-topic-187"></a>
+<a id="g12-topic-188"></a>
+<a id="g12-topic-189"></a>
+<a id="g12-topic-190"></a>
+<a id="g12-topic-191"></a>
+<a id="g12-topic-192"></a>
+<a id="g12-topic-193"></a>
+<a id="g12-topic-194"></a>
+<a id="g12-topic-195"></a>
+<a id="g12-topic-196"></a>
+
+## 12. 可迁移的系统审查协议
+
+### 12.1 用可回答的问题建立记录
+
+面对新项目，按如下顺序写出具体对象、边和证据，而不是勾“已考虑”。缺少证据可以记 UNKNOWN，不能根据语言选择补成 PASS。
+
+| 审查层 | 必须回答 | 需要的产物 |
+| --- | --- | --- |
+| State / lifetime | 什么状态，何时失效 | 对象与生命周期图 |
+| Owner / borrow | 谁释放，谁临时访问 | 拥有/借用期限 |
+| Mutation / alias | 谁可写，路径是否重叠 | writer 与别名合同 |
+| Storage / allocation | 大小、频率、上界、回收 | 资源预算与观测 |
+| Failure / commit | 失败前后谁已负责 | 状态机与提交点 |
+| Concurrency / overload | 顺序、等待、容量、唤醒 | 同步和关闭论证 |
+| ABI / build | 什么跨独立制品边界 | 接口与消费实验 |
+| Timing / evidence | 期限和已知证据范围 | 条件化观察及缺口 |
+
+### 12.2 语言选择放在约束之后
 
-```rust
-fn decode(
-    input: &[u8],
-) -> Result<Vec<f32>, Error>;
-```
+C++ 编译器检查类型、约束与部分静态语义，不完整证明动态指针合法性；Rust 提供更多所有权/共享约束，也不自动检查业务账目或调度；Zig 的类型、comptime 与模式相关检查同样不是全系统证明器。
 
-### Zig
+单位、正确 shard key、过载策略、交易提交和 actuator 安全仍需领域定义。随后才选择哪些义务交给类型系统、哪些交给库、哪些需审查和运行证据。这里的“证明”是明确前提下的论证，不暗示本手册已经完成形式化验证。
 
-```zig
-fn decode(
-    allocator: Allocator,
-    input: []const u8,
-) ![]f32;
-```
+<a id="g12-section-13"></a>
+
+<a id="g12-topic-197"></a>
+<a id="g12-topic-198"></a>
+<a id="g12-topic-199"></a>
+<a id="g12-topic-200"></a>
+<a id="g12-topic-201"></a>
+<a id="g12-topic-202"></a>
+<a id="g12-topic-203"></a>
+<a id="g12-topic-204"></a>
+<a id="g12-topic-205"></a>
+<a id="g12-topic-206"></a>
+<a id="g12-topic-207"></a>
+<a id="g12-topic-208"></a>
+<a id="g12-topic-209"></a>
+<a id="g12-topic-210"></a>
+
+## 13. 四类项目的对照推理
 
-三个 API机器语义可以非常接近。
+### 13.1 同一协议，不同风险权重
 
-区别：
+高吞吐二进制 decoder 应先写清输入不可信程度、边界检查、schema 身份、输出所有权和 C ABI。C++ 的 span/生成表、Rust 的 slice/Result、Zig 的 allocator/comptime 都能表达实现；选择取决于已有系统和风险，不先作速度排名。
 
-```text
-C++
-owner cleanup through destructor
+并发网络服务还需任务拥有、取消、超时和背压；memory safety 可以降低攻击面，却不能防止永不关闭的连接队列。机器人 core 增加测量时间、单位、硬件 watchdog 与部署时限；小型原生工具增加目标支持、C 库和可分发构建。四者不能由同一“语言得分表”解决。
 
-Rust
-owner cleanup through Drop
+### 13.2 成本问题要落到实现
 
-Zig
-allocator + caller cleanup protocol
-```
+问字节数、分配次数、分支、cache miss 和同步操作，而不是“哪门语言最快”。hash map 的具体实现、安全策略和数据分布可能比语言本身影响更大。原子计数、连续数组和间接图也只有在布局和访问一致时才可比较。
 
----
+选择语言实际上决定一部分风险由编译器排除、一部分通过清晰 API 限制、一部分靠测试和运行管理。它不是无代价转移，仍要记录替代方案与缺失证据。
 
-# Part LXXV · Thread-safe Shared Config
+<a id="g12-section-14"></a>
 
-需求：
+<a id="g12-topic-211"></a>
+<a id="g12-topic-212"></a>
+<a id="g12-topic-213"></a>
+<a id="g12-topic-214"></a>
+<a id="g12-topic-215"></a>
+<a id="g12-topic-216"></a>
+<a id="g12-topic-217"></a>
+<a id="g12-topic-218"></a>
+<a id="g12-topic-219"></a>
+<a id="g12-topic-220"></a>
+<a id="g12-topic-221"></a>
+<a id="g12-topic-222"></a>
+<a id="g12-topic-223"></a>
+<a id="g12-topic-224"></a>
+<a id="g12-topic-225"></a>
+<a id="g12-topic-226"></a>
 
-```text
-rare update
-many readers
-immutable generation
-```
+## 14. 长期维护与常见错误推论
 
-### C++
+### 14.1 系统由团队和时间共同塑造
 
-```cpp
-std::atomic<
-    std::shared_ptr<const Config>>
-current;
-```
+代码审查能力、工具链支持、依赖健康、入职成本、调试和升级能力，都影响长期风险。C++ 团队需要明确 owner/borrow 与构建规范；Rust 团队仍需审查 unsafe、async 和 FFI；Zig 团队仍需统一 allocator 与清理协议。语言简洁不自动带来一致架构。
 
----
+小而版本化的 C 边界可以作为渐进替换点，但替换实现仍要验证语义、并发、分配域和旧消费者。API 长寿、可调试性与迁移成本通常值得和今天的几个百分点性能一起权衡。
 
-### Rust
+### 14.2 不接受从局部优势推到整体正确
 
-概念上：
+Memory-safe 程序仍可死锁、错算金额或发错力矩；显式代码仍可显式写错 lifetime；RAII 仍允许悬挂 borrow；borrow checker 不能推断所有外部资源合同；无 GC 不等于 real-time；C ABI 不等于安全边界；多语言不必然降低复杂度。
 
-```text
-Arc<Config>
-+
-atomic/synchronization mechanism for swapping generation
-```
+工程上应要求每个强结论指出前提、机制、反例与证据，而非“某语言所以不需要检查”。本章不发布语言选型排名，也不倡导为了风格纯度整体重写。
 
----
+<a id="g12-section-15"></a>
 
-### Zig
+<a id="g12-topic-227"></a>
+<a id="g12-topic-228"></a>
+<a id="g12-topic-229"></a>
+<a id="g12-topic-230"></a>
+<a id="g12-topic-231"></a>
+<a id="g12-topic-232"></a>
+<a id="g12-topic-233"></a>
+<a id="g12-topic-234"></a>
+<a id="g12-topic-235"></a>
+<a id="g12-topic-236"></a>
+<a id="g12-topic-237"></a>
+<a id="g12-topic-238"></a>
+<a id="g12-topic-239"></a>
 
-需要显式设计：
+## 15. 三类论证与六张关系图
 
-```text
-generation pointer
-ownership/reclamation
-mutex/atomic
-allocator
-```
+### 15.1 语义、安全和运行合同分开
 
----
+语义论证回答输出/状态是否正确；安全论证回答执行是否违反内存、生命周期和共享规则；运行合同论证回答资源、过载、故障与时限是否满足部署需求。编译接受、sanitizer clean、吞吐更高分别只覆盖这些维度的一部分。
 
-# 239. 关键点
+六张图分别是 ownership、lifetime、mutation、storage/cost、synchronization 与 binary-boundary。一个 Buffer 的 private vector 管存储，span 借用，扩容使旧路径失效，线程写入需要权限，类是否跨 ABI 暴露仍取决于外部表示。这比只认识 class/vector/span 的语法多出整套工程含义。
 
-虽然 Rust/C++有成熟 owner types，
+### 15.2 不可变配置仍要发布与回收
 
-最终架构仍然相同：
+C++ `atomic<shared_ptr<const Config>>`、Rust 受同步保护的 Arc generation、Zig 明确的 pointer/reclamation 都须完成“私下构造 → 发布 → 旧读者结束 → 回收”。没有任何一个语法自动证明控制线程的最后释放有界。
 
-```text
-build new generation privately
-↓
-publish
-↓
-old readers finish
-↓
-reclaim old generation
-```
+借用输出接口、显式 allocator 及拥有型结果的对照，应回到这些图检查。G12 不再添加重复编译例子，而在 §18 用 G10/G11 的实际协议和证据缺口练习整套审查。
 
-这是语言无关的。
+<a id="g12-section-16"></a>
 
----
+<a id="g12-topic-240"></a>
+<a id="g12-topic-241"></a>
+<a id="g12-topic-242"></a>
+<a id="g12-topic-243"></a>
+<a id="g12-topic-244"></a>
+<a id="g12-topic-245"></a>
+<a id="g12-topic-246"></a>
+<a id="g12-topic-247"></a>
+<a id="g12-topic-248"></a>
+<a id="g12-topic-249"></a>
+<a id="g12-topic-250"></a>
+<a id="g12-topic-251"></a>
+<a id="g12-topic-252"></a>
+<a id="g12-topic-253"></a>
+<a id="g12-topic-254"></a>
+<a id="g12-topic-255"></a>
+<a id="g12-topic-256"></a>
+<a id="g12-topic-257"></a>
+<a id="g12-topic-258"></a>
+<a id="g12-topic-259"></a>
+<a id="g12-topic-260"></a>
 
-# Part LXXVI · Bounded Runtime Comparison
+## 16. 跨章应用与语言反思
 
-需求：
+### 16.1 G10 与 G11 共享底层责任
 
-```text
-Producer
-↓
-bounded queue
-↓
-N workers
-```
+G10 无论由哪种语言实现，仍要保证 accepted work 有结果、队列有界、abort 唤醒、线程先退出再销毁依赖；G11 在此之上增加单位、时间域、freshness、故障锁存与 safe actuation。改变语言不会消除这些架构边。
 
----
+语言能减少一类非法程序的可表达空间，仍不能决定 capacity 是否符合负载、deadline 是否可满足、业务事件是否允许丢失。比较 Rust/Zig 应帮助发现 C++ 接口中未表达的义务，不是把它们加入本手册当作新课程。
 
-# 240. C++
+### 16.2 从比较反过来改进 C++ 设计
 
-使用：
+从 Rust 学到的是缩短可变借用、使 owner 可见、用 variant/expected 减少非法状态；从 Zig 学到的是分配能力、失败与低层机制应在关键边界可见。C++ 也提醒其他语言：ABI、最终布局、析构顺序和原生工具链都是现实约束。
 
-```text
-jthread
-mutex/CV
-move-only task
-RAII
-```
+选择 subsystem 语言时同时看 ecosystem、safety、ABI、performance、timing、ownership、allocation、concurrency、tooling、team、certification 和 evolution，不简单给星级。保持 C++ 主线不是忽略其他设计，而是用同一套问题检验它们。
 
----
+<a id="g12-section-17"></a>
 
-# 241. Rust
+<a id="g12-topic-261"></a>
+<a id="g12-topic-262"></a>
+<a id="g12-topic-263"></a>
+<a id="g12-topic-264"></a>
+<a id="g12-topic-265"></a>
+<a id="g12-topic-266"></a>
+<a id="g12-topic-267"></a>
+<a id="g12-topic-268"></a>
+<a id="g12-topic-269"></a>
+<a id="g12-topic-270"></a>
+<a id="g12-topic-271"></a>
+<a id="g12-topic-272"></a>
+<a id="g12-topic-273"></a>
+<a id="g12-topic-274"></a>
+<a id="g12-topic-275"></a>
+<a id="g12-topic-276"></a>
+<a id="g12-topic-277"></a>
+<a id="g12-topic-278"></a>
 
-可以使用：
+## 17. 可带入新项目的最终检查
 
-```text
-threads/channels
-ownership transfer
-Result
-Send/Sync
-```
+### 17.1 十二个问题形成一个可复用入口
 
-Compiler能帮助保证更多 task ownership约束。
+对 Buffer、Connection、Job、RobotState、Decoder 或 Queue，回答：它是什么；住在哪里；谁拥有；谁借用；何时结束生命周期；什么使已有路径失效；复制/移动成本；分配在哪里；谁可写；跨线程顺序如何建立；什么跨 ABI；有何时限要求。
 
----
+回答要包含真实对象和条件，不能只写“RAII”“atomic”“C ABI”。若某题依赖外部模块，需要列出对方的合同及失效后果；若未测量，记录缺口而非猜测。这样语言选择才是实现工具，系统约束才是主线。
 
-# 242. Zig
+### 17.2 正文到 G12 封顶
 
-需要更显式设计：
+本书不再追加 G13。下一阶段是实际使用、跨章术语/引用/重复审计，然后才做出版试件，不扩成新百科。原稿末尾的全系列 COMPLETE 只表示主题目录闭环，不能覆盖当前审核状态、平台限制和 PDF 未构建事实。
 
-```text
-threads
-queue
-allocator
-shutdown state
-cleanup
-```
+G0～G9 已接受，G10～G12 本批待集中审核；全系列一致性清理、PDF Pilot、出版系统和正式发布均未在本批自动启动。学习成果应体现为能解释一个真实设计的责任与反例，而不是不断增加章节。
 
-API机制更低层。
+<a id="g12-section-18"></a>
 
----
+## 18. 审查练习：把同一套模型用于三个案例
 
-# 243. 但核心 invariants相同
+### 18.1 案例 A：运行时的账本为什么可能自洽却错误
 
-```text
-accepted work has outcome
-queue bounded
-no UAF
-shutdown wakes waiters
-threads join before state destroy
-```
+**给定实现。** 提交者把任务放入队列后再写 accepted；worker 可能已经结束。汇总只用 succeeded + failed + cancelled 推算 accepted，再验证二者相等。
 
-这就是为什么 G10知识能完全迁移。
+**独立推理。** 列出提交到消费的线性化点，寻找状态覆盖交错；指出从同一组终态算两边属于循环判据。应保留调用者实际 Accepted 返回记录、每个 ID 的预期和结果值；accepted 必须在消费者可见前登记。drain 后的未决项应暴露，而非悄悄归入 cancelled。
 
----
+**对应证据。** [G10 协议](g10-systems-runtime-project.md#g10-section-4)给出锁内提交；[运行时实验](g10-systems-runtime-project.md#g10-section-18)记录调用者数量、逐 ID 结果与提前关闭 output 的错误变体。只支持这些输入与调度观察，不是持久化 exactly-once 或形式化证明。
 
-# Part LXXVII · Robotics Comparison
+### 18.2 案例 B：机器人“时间没问题”的错误推论
 
-# 244. Controller Core
+**给定声明。** 某次 1 kHz 仿真平均执行很快，allocation counter 为 0，TSan 没有报告，于是控制器被称为 hard-real-time safe。
 
-三个语言都可以实现：
+**独立推理。** 平均耗时没有包含 release jitter 和最坏等待；计数器只观察当前线程的可替换 C++ allocation functions；TSan 不检查时限、单位或物理动作。还需明确平台、调度、驱动、页面、freshness、实际 safe state 和独立 watchdog。
 
-```text
-fixed-size math
-bounded memory
-single writer
-periodic execution
-```
+**对应证据。** [G11 时序与边界](g11-robotics.md#g11-section-16)区分确定性模型与 timing observation。结论应拆为“模型注入满足判据”“观测到该范围分配数”“记录本机 jitter”“硬实时/HIL/物理安全 NOT VALIDATED”。没有把 1000 个采样改写为普遍上界。
 
----
+### 18.3 案例 C：Rust 包装层为什么仍需审查 C++ 库
 
-# 245. C++ 的现实优势
+**给定接口。** C 库返回 opaque handle，包装者因为指针只是地址而为 wrapper 声明可跨线程共享；destroy 可能与后台 callback 并发。
 
-当前机器人 native生态：
+**独立推理。** 地址可复制不代表被指对象可并发访问；Send/Sync 的安全前提必须来自库合同。应确定回调线程、停止注册与静默点、句柄销毁前在途调用是否结束、谁释放 callback context，以及异常/panic 如何限制。无法确认则不能给 safe API 承诺该共享能力。
 
-```text
-ROS
-Eigen
-hardware SDKs
-existing code
-```
+**对应证据。** [G8 回调与销毁](g08-abi-and-c-interop.md#g8-section-11)提供审查模型。本批没有执行 Rust FFI、异步 callback 或动态卸载测试，案例 C 仅为推理练习。不能把前两例的 C++ 编译结果借来填补此缺口。
 
-是非常强的 network effect。
+<a id="g12-section-19"></a>
 
----
+## 19. 全书回查与证据分层
 
-# 246. Rust 的理论/工程优势
+### 19.1 十三章是一条责任链
 
-```text
-strong memory safety
-safer state ownership
-```
+| 章节 | 应能回答的系统问题 |
+| --- | --- |
+| G0 / G1 | 机器制品如何形成，对象何时合法存在 |
+| G2 / G3 | 谁管理资源，值怎样传递及付出什么成本 |
+| G4 / G5 | 数据如何访问，哪些变化在编译期表达 |
+| G6 / G7 | 机器成本与跨执行者共享如何分析 |
+| G8 / G9 | 二进制合同与可消费构建如何成立 |
+| G10 / G11 | 组件怎样组合，时间和物理约束怎样加入 |
+| G12 | 哪些义务由语言承担，哪些仍留给系统 |
 
-对未来机器人 infrastructure具有明显吸引力。
+### 19.2 四类证据不能压成一格
 
----
+文档结构与链接只证明可导航和源稿约束；C++ 编译及目标负例检查某些静态/运行命题；性能观察描述特定输入与环境；并发动态检测观察插桩路径。G12 再用审查案例解释这些证据各自能推出什么。
 
-# 247. Zig 的潜在位置
+本章没有独立实验执行器，也没有把解释题统计成技术测试数量。原始 G12 的全部 Final Gate 问题保留为下一节，参考答案独立呈现，便于先闭卷推理。
 
-```text
-device interface
-embedded support
-protocol/parser
-C SDK wrapping
-```
+<a id="g12-section-20"></a>
 
-尤其适合显式 resource constrained components。
+## 20. Final Gate
 
----
+先闭卷写出条件、机制与反例，再核对下一节；保留原稿问题，不在题干下先给结论。
 
-# Part LXXVIII · How to Choose a Language
-
-# 248. Scorecard 不应只看语言
-
-对 subsystem逐项问：
-
-| Dimension     | Question                      |
-| ------------- | ----------------------------- |
-| Ecosystem     | 必须使用哪些 libraries/SDK？  |
-| Safety        | memory-safety风险有多大？     |
-| ABI           | 需要跟什么语言/二进制互操作？ |
-| Performance   | 真正瓶颈是什么？              |
-| Timing        | 有 deadline/jitter吗？        |
-| Ownership     | state/lifetime有多复杂？      |
-| Allocation    | allocator policy是否核心？    |
-| Concurrency   | shared-state复杂度如何？      |
-| Tooling       | debugging/build/deploy如何？  |
-| Team          | 谁维护 5 年？                 |
-| Certification | 有行业要求吗？                |
-| Evolution     | binary/API寿命多长？          |
-
-然后再选择。
-
----
-
-# Part LXXIX · A Practical Default
-
-对于你的目标：
-
-```text
-high-performance systems
-infrastructure
-robotics
-```
-
-一个非常现实的组合思路是：
-
-```text
-C++23
-→ robotics / native high-performance core / vendor ecosystem
-
-Rust
-→ memory-safe infrastructure / services / concurrent backend
-
-Zig
-→ low-level explicit components / C-facing systems tools /
-   specialized native utilities
-```
-
-但这不是固定“分工表”。
-
-真正项目仍然从约束出发。
-
----
-
-# Part LXXX · What C++ Taught Us About Rust/Zig
-
-# 249. C++ 的复杂性并不全是历史垃圾
-
-例如：
-
-```text
-value category
-move
-RAII
-object lifetime
-ABI
-```
-
-虽然 C++表达很复杂，
-
-它们背后很多问题：
-
-> 本身是真实 systems problems。
-
-学习 C++后再看 Rust/Zig，
-
-你更容易区分：
-
-```text
-language complexity
-```
-
-和：
-
-```text
-machine/system complexity
-```
-
----
-
-# 250. Rust 消除了哪些“偶然复杂性”？
-
-例如大量：
-
-```text
-manual owner/borrow discipline
-```
-
-进入 compiler。
-
-但：
-
-```text
-ownership itself
-```
-
-没有消失。
-
-只是表达不同。
-
----
-
-# 251. Zig 消除了哪些“偶然复杂性”？
-
-例如：
-
-```text
-constructor/destructor overload machinery
-exceptions
-complex template grammar
-```
-
-大幅简化。
-
-但：
-
-```text
-resource lifetime
-error propagation
-generic specialization
-```
-
-仍然存在。
-
-变成更显式机制。
-
----
-
-# Part LXXXI · What Rust Teaches C++ Design
-
-# 252. Make Ownership Visible
-
-C++ API尽量：
-
-```text
-unique_ptr
-value
-span
-string_view
-```
-
-而不是所有东西：
-
-```cpp
-T*
-```
-
----
-
-# 253. Minimize Shared Mutable Aliasing
-
-Rust borrow model提供一个极好的 architecture intuition：
-
-> mutable access越独占，系统越简单。
-
-即使 C++ compiler不强制，
-
-我们也可以主动设计：
-
-```text
-single writer
-explicit borrow
-short mutable scope
-```
-
----
-
-# 254. Model States as Types
-
-用：
-
-```cpp
-variant
-enum class
-expected
-```
-
-减少：
-
-```text
-boolean soup
-invalid combinations
-```
-
----
-
-# Part LXXXII · What Zig Teaches C++ Design
-
-# 255. Make Allocation Visible
-
-C++可以主动问：
-
-```text
-Does this API allocate?
-Who chooses allocator?
-Can caller reuse storage?
-```
-
-而不是把所有 allocation当 implementation detail。
-
----
-
-# 256. Prefer Explicit Mechanisms at Low-level Boundaries
-
-尤其：
-
-```text
-buffer
-allocator
-error
-ABI
-```
-
-低层 systems API显式往往比魔法更可维护。
-
----
-
-# 257. Separate Mechanism From Policy
-
-Zig经常鼓励：
-
-```text
-allocator passed in
-```
-
-调用者选择 policy。
-
-C++也可以通过：
-
-```text
-span
-pmr
-policy objects
-explicit owner
-```
-
-实现类似架构。
-
----
-
-# Part LXXXIII · What C++ Teaches Rust/Zig Engineers
-
-# 258. ABI Matters
-
-Language-native elegance一旦跨：
-
-```text
-shared library
-plugin
-FFI
-```
-
-都会遇到：
-
-```text
-layout
-calling convention
-versioning
-ownership
-```
-
----
-
-# 259. Value Representation Matters
-
-Type系统再漂亮，
-
-最终：
-
-```text
-sizeof
-alignment
-cache line
-```
-
-仍决定机器成本。
-
----
-
-# 260. Destruction Order Matters
-
-即使语言帮你管理资源，
-
-复杂 owner graph：
-
-> 谁先结束 lifetime
-
-仍然是 architecture。
-
----
-
-# Part LXXXIV · Final Unified Mental Model
-
-面对任何 systems object：
-
-```text
-Buffer
-Connection
-Job
-RobotState
-Decoder
-Queue
-```
-
-问 12 个问题。
-
----
-
-# 261. What Is It?
-
-```text
-logical value?
-resource?
-handle?
-view?
-```
-
----
-
-# 262. Where Does It Live?
-
-```text
-stack?
-heap?
-pool?
-static?
-external memory?
-```
-
----
-
-# 263. Who Owns It?
-
-```text
-one owner?
-shared?
-external?
-```
-
----
-
-# 264. Who Borrows It?
-
-```text
-read-only?
-mutable?
-how long?
-```
-
----
-
-# 265. When Does Lifetime End?
-
----
-
-# 266. What Invalidates Existing Access Paths?
-
----
-
-# 267. How Expensive Is Copy/Move?
-
----
-
-# 268. Where Does Allocation Happen?
-
----
-
-# 269. Who May Mutate?
-
----
-
-# 270. How Is Cross-thread Ordering Established?
-
----
-
-# 271. What Crosses the ABI Boundary?
-
----
-
-# 272. What Are the Timing Requirements?
-
-如果你能对这十二个问题给出准确答案：
-
-> 语言本身已经只是实现工具。
-
-这就是整个 Track 最终希望达到的状态。
-
----
-
-# Part LXXXV · Final Anti-patterns
-
-# 273. “Rust 所以不用想 Lifetime”
-
-错。
-
-Compiler帮你想很多，但 architecture仍然决定 lifetime topology。
-
----
-
-# 274. “Zig 所以没有隐藏成本”
-
-错。
-
-OS、allocator、cache、library implementation仍可能隐藏复杂成本。
-
----
-
-# 275. “C++ 所以必须手动管理内存”
-
-错。
-
-现代 C++ 默认应依赖：
-
-```text
-value
-RAII
-containers
-smart owners
-```
-
-而不是裸 `new/delete`。
-
----
-
-# 276. “Rust 一定比 C++ 慢/快”
-
-没有意义。
-
-比较具体 implementation/workload。
-
----
-
-# 277. “Zig 是现代 C，所以不需要抽象”
-
-优秀 systems code依然需要：
-
-```text
-module
-ownership convention
-state machine
-architecture
-```
-
----
-
-# 278. “跨语言可以选每层最强语言，所以一定更好”
-
-integration cost真实存在。
-
----
-
-# Part LXXXVI · G12 Final Twenty Axioms
-
-如果整个 Modern C++ Systems Track 最后只能保留二十条：
-
-1. **Object、storage、value、type 和 lifetime 是不同概念；任何 systems language 最终都必须处理它们。**
-
-2. **Ownership 的本质是“谁负责保证资源一直有效并最终结束其 lifetime”，而不是某个特定 smart pointer。**
-
-3. **Borrowing 的本质是临时获得访问能力而不接管 lifetime；Rust 静态证明更多，C++/Zig更多依赖 contract。**
-
-4. **C++ move 是 value-category/overload驱动的资源转移机制；Rust move 是语言级 ownership transfer；Zig没有对应的 ownership-move状态机。**
-
-5. **RAII、Rust `Drop` 和 Zig `defer` 都服务 deterministic cleanup，但分别偏向 type-driven 与 scope-driven cleanup。**
-
-6. **Explicit allocator、hidden allocator 和 global allocator只是 API设计不同；机器最终仍然执行真实 storage management。**
-
-7. **Error representation不能自动保证 state rollback；`prepare → commit` 是跨语言的 failure-safety原则。**
-
-8. **Templates、Rust generics 和 Zig comptime最终都可能通过 specialization换 runtime work，同时付 compile-time/code-size成本。**
-
-9. **Container/layout性能由连续性、allocation、indirection、access pattern和working set决定，而不是语言名字。**
-
-10. **Memory safety、logical correctness、concurrency correctness、real-time correctness和physical safety是五个不同维度。**
-
-11. **Rust能静态排除大量 memory/lifetime/data-race错误，但不能自动证明 deadlock、backpressure、deadline或业务 invariant。**
-
-12. **Zig让 allocation、cleanup、error和compile-time机制高度显式，但显式本身不是 correctness proof。**
-
-13. **C++提供最大的 native生态、representation自由和兼容能力，同时要求最强的 lifetime/alias/concurrency工程纪律。**
-
-14. **Single-writer、sharding、immutable snapshot和ownership transfer通常比更聪明的 atomics更有价值。**
-
-15. **Lock-free是 progress property，不是语言特性，也不是性能排名。**
-
-16. **C++、Rust、Zig都应把长期跨语言 binary boundary尽量缩小到显式、versioned、ownership-clear的 C ABI。**
-
-17. **Build system、ABI、allocator和toolchain都是系统架构的一部分，而不是实现完成后的附属工具。**
-
-18. **Real-time来自 bounded execution和完整硬件/OS architecture，而不是“没有GC”、Rust safety或Zig explicitness。**
-
-19. **性能工程必须 Measure → Explain → Change → Measure Again；任何语言都不能取消这个证据要求。**
-
-20. **语言选择的核心不是“谁最好”，而是：系统有哪些 constraints，以及你希望哪些 proof obligations交给 compiler、type system、library、architecture和工程团队。**
-
----
-
-# Part LXXXVII · G12 Final Gate
-
-现在应该能闭卷回答。
-
-## Object / Lifetime
+### 20.1 Object / Lifetime
 
 1. C++、Rust、Zig 在 lifetime proof responsibility 上最大的区别是什么？
 2. 为什么 Zig `defer` 和 C++ RAII不是完全同一种 abstraction？
 3. 为什么 Rust borrow checker并没有消除 lifetime这个系统问题？
 
-## Ownership
+### 20.2 Ownership
 
 1. C++ `unique_ptr`、Rust ownership 与 Zig手动 ownership convention 有什么根本差别？
 2. Rust move 和 C++ move为什么不能简单翻译成同一概念？
 3. 为什么 Zig resource struct普通复制可能需要特别谨慎？
 
-## Borrowing
+### 20.3 Borrowing
 
 1. `span<const T>`、`&[T]`、`[]const T` 机器层可能很接近，为什么语言保证却差异巨大？
 2. Rust `&mut T` 对 aliasing表达了什么重要思想？
 
-## Allocation
+### 20.4 Allocation
 
 1. Zig allocator-as-parameter 的架构价值是什么？
 2. 为什么 allocator显式不自动意味着更高性能？
 3. C++/Rust隐藏 allocator有什么 API优势和可观测性代价？
 
-## Error
+### 20.5 Error
 
- 1. `expected<T,E>`、`Result<T,E>` 和 Zig error union 的共同系统模型是什么？
- 2. 为什么 error-as-value 不能自动提供 strong transactional guarantee？
+1. `expected<T,E>`、`Result<T,E>` 和 Zig error union 的共同系统模型是什么？
+2. 为什么 error-as-value 不能自动提供 strong transactional guarantee？
 
-## Genericity
+### 20.6 Genericity
 
- 1. C++ template、Rust generic、Zig comptime 最终有什么共同机器 trade-off？
- 2. 为什么更多 compile-time specialization可能伤 I-cache？
+1. C++ template、Rust generic、Zig comptime 最终有什么共同机器 trade-off？
+2. 为什么更多 compile-time specialization可能伤 I-cache？
 
-## Concurrency
+### 20.7 Concurrency
 
- 1. Rust safe code解决了哪些 C++ concurrency错误？
- 2. 为什么 Rust仍然需要理解 acquire/release 和 CAS？
- 3. 为什么 single-writer是三门语言共同的重要架构原则？
+1. Rust safe code解决了哪些 C++ concurrency错误？
+2. 为什么 Rust仍然需要理解 acquire/release 和 CAS？
+3. 为什么 single-writer是三门语言共同的重要架构原则？
 
-## ABI
+### 20.8 ABI
 
- 1. 为什么三门语言之间最稳健的长期 ABI仍然通常是 C ABI？
- 2. Rust的安全 guarantees为什么不能自动穿过 FFI？
- 3. 为什么 ownership/thread-safety必须写进 ABI contract？
+1. 为什么三门语言之间最稳健的长期 ABI仍然通常是 C ABI？
+2. Rust的安全 guarantees为什么不能自动穿过 FFI？
+3. 为什么 ownership/thread-safety必须写进 ABI contract？
 
-## Build
+### 20.9 Build
 
- 1. Cargo、Zig Build、CMake最大的生态模型差异是什么？
- 2. 为什么它们底层都仍然可以理解成 artifact graph？
+1. Cargo、Zig Build、CMake最大的生态模型差异是什么？
+2. 为什么它们底层都仍然可以理解成 artifact graph？
 
-## Real-Time
+### 20.10 Real-Time
 
- 1. 为什么 C++、Rust、Zig都不能自动保证 real-time？
- 2. 为什么没有 GC不是 sufficient condition？
+1. 为什么 C++、Rust、Zig都不能自动保证 real-time？
+2. 为什么没有 GC不是 sufficient condition？
 
-## Architecture
+### 20.11 Architecture
 
- 1. 什么时候应该选择 C++？
- 2. 什么时候 Rust的 static guarantees价值尤其高？
- 3. 什么类型的问题特别适合 Zig的显式 allocator/C interop/comptime模型？
- 4. 多语言系统的真正成本是什么？
- 5. 为什么 language choice 应该是 systems-design procedure 的后半部分，而不是第一步？
+1. 什么时候应该选择 C++？
+2. 什么时候 Rust的 static guarantees价值尤其高？
+3. 什么类型的问题特别适合 Zig的显式 allocator/C interop/comptime模型？
+4. 多语言系统的真正成本是什么？
+5. 为什么 language choice 应该是 systems-design procedure 的后半部分，而不是第一步？
 
----
+<a id="g12-section-21"></a>
 
-# Part LXXXVIII · 整个 Track 的最终闭环
+## 21. Final Gate · 参考答案与常见误判
 
-现在可以把 G0–G12 压成十三个问题：
+答案按上一节分组和题号对应。重点是推理与适用条件，不把关键词复述当作通过。
 
-```text
-G0
-程序怎样变成机器可执行物？
+### 21.1 Object / Lifetime
 
-G1
-一个 object 何时合法存在？
+1. C++ 主要靠对象规则、RAII 和 API 合同；safe Rust 静态检查更多借用关系；Zig 更依赖显式清理与工程约定。都仍有运行环境和低层边界义务。
 
-G2
-谁负责让资源活着并最终释放？
+2. RAII 把清理绑定到拥有类型的析构，defer 常绑定词法控制流。可调用 deinit 的类型也不自动在离域时执行，二者不能按名字等同。
 
-G3
-value 怎样传递，代价是什么？
+3. 静态检查限制可表达的借用，但架构仍决定谁拥有、多久有效、外部资源何时失效；FFI/unsafe 又增加人工义务。
 
-G4
-数据怎样组织、遍历和抽象？
+### 21.2 Ownership
 
-G5
-哪些变化应在 compile time 决定？
+1. unique_ptr 是 C++ 库的独占 owner，类型支持但不检查所有借用；Rust move/borrow 是核心规则；Zig 资源责任由 API 和显式清理约定维持。
 
-G6
-representation 怎样影响 CPU / memory？
+2. std::move 不本身转移资源，C++ move 调用后源对象仍存活；Rust 非 Copy 值移动使源不可用，且没有用户 move constructor 协议。
 
-G7
-多个执行者怎样合法共享和修改 state？
+3. 普通复制可能产生两个指向同一资源的值，若两边均清理会重复释放。要定义逻辑转移并限制误用，不能以复制语法推断独占。
 
-G8
-独立 binary components 怎样互相理解？
+### 21.3 Borrowing
 
-G9
-这些 artifacts 怎样被可靠地构建和分发？
+1. 相似地址+长度模型不等于相同生命周期/别名静态约束，也不等于正式 ABI 布局兼容。
 
-G10
-怎样把这些机制组合成真实 runtime？
+2. 它表达受规则约束的独占访问；不应再有冲突访问路径。unsafe 与内部可变性需按具体规则审查，不能只背“一个可变引用”。
 
-G11
-当软件进入物理世界和 deadline 后会发生什么？
+### 21.4 Allocation
 
-G12
-哪些问题属于语言，哪些问题属于系统本身？
-```
+1. 显式传入动态存储能力，让调用者选择策略、预算与寿命；依然要保证 allocator 比使用它的对象有效得更久。
 
-最后一问才是整个路线最重要的：
+2. 实际策略可能仍是锁竞争严重的通用堆，也可能有很多小分配；显式只改善可见性，不决定机器成本。
 
-> **哪些复杂性是 C++ 的历史复杂性，哪些复杂性是任何高性能系统都必须面对的真实复杂性？**
+3. 拥有容器封装清理、简化调用，但调用点未必看到分配/回收。性能或时限敏感 API 应另说明成本与复用合同。
 
-现在我们已经能够比较清楚地区分：
+### 21.5 Error
 
-```text
-C++ value categories
-→ largely language-specific machinery
+1. 都可表达成功值或预期错误，并通过控制流传播；取消、panic/terminate 和基础设施灾难仍需独立分类。
 
-but
+2. 错误值不撤销已发生的修改。准备所有会失败的工作后提交，或定义补偿/部分提交，才是状态保证。
 
-ownership transfer
-→ real systems problem
+### 21.6 Genericity
 
-C++ allocator syntax
-→ language/library-specific
+1. 静态特化可能减少运行时工作，同时增加编译、链接和代码体积；语言机制不同但预算相同。
 
-but
+2. 多个相似专门版本增加代码足迹，可能挤出热点。更易内联也可能更大，需测实际二进制和工作负载。
 
-allocation topology
-→ real systems problem
+### 21.7 Concurrency
 
-C++ memory_order API
-→ language-specific interface
+1. 在 sound 的实现前提下，借用和 Send/Sync 约束排除许多非同步共享、悬挂和非法跨线程访问；不保证所有业务并发结果正确。
 
-but
+2. 原子协议仍要证明发布、读到哪个写入、状态转换和回收；safe 使用 atomics 也能写出逻辑错误或死锁。
 
-cross-core synchronization
-→ real systems problem
+3. 减少同一状态竞争写入，使复合不变量与缓存成本更易分析；跨线程读者仍需同步和生命周期合同。
 
-CMake
-→ ecosystem-specific tool
+### 21.8 ABI
 
-but
+1. 目标平台 C ABI 可形成更小、明确的共同合同，避免语言私有对象/异常布局；仍须锁定平台和版本，不是普遍稳定魔法。
 
-artifact dependency graph
-→ real systems problem
-```
+2. raw pointer 和外部回调没有携带可由编译器验证的完整 owner/线程合同，wrapper 必须人工证明 unsafe 前提。
 
-这就是这条学习路线真正的终点。
+3. 类型签名不能说明保留多久、谁释放、并发何时合法或何时销毁；漏掉这些会让双方各自“正确”却集成出错。
 
----
+### 21.9 Build
 
-# Modern C++ Systems Track · Final Status
+1. Cargo 更整合包工作流，Zig 提供工具链构建模型，C++ 常由 CMake/生成器/包管理器协作；具体能力与版本相关。
 
-```text
-G0   Native Toolchain & Machine Boundary       COMPLETE
-G1   Object Model                              COMPLETE
-G2   RAII & Ownership                         COMPLETE
-G3   Value Semantics / Copy / Move            COMPLETE
-G4   STL & Abstraction                        COMPLETE
-G5   Generic Programming                      COMPLETE
-G6   Memory & Performance                     COMPLETE
-G7   Concurrency & Memory Model               COMPLETE
-G8   ABI / Libraries / C Interop              COMPLETE
-G9   Build & Native Ecosystem                 COMPLETE
-G10  Systems Runtime Project                  ARCHITECTURE COMPLETE
-G11  Robotics Systems                         COMPLETE
-G12  C++ × Zig × Rust Unified Systems Model   COMPLETE
-────────────────────────────────────────────────────────
-      MODERN C++ SYSTEMS TRACK                COMPLETE
-```
+2. 都有源、生成物、库、工具与依赖边。集成度高也不会自动知道未声明的输入或外部环境。
 
-从知识结构上，整条 **Modern C++ Systems Track 已经闭环**。
+### 21.10 Real-Time
 
-接下来最有价值的工作已经不再是继续增加 `G13/G14`，而是把其中需要真正形成肌肉记忆的部分变成**代码实践**：
+1. 时限取决于工作上界、调度、页面、锁、I/O 和硬件；语言保证只覆盖其中部分表达与安全性。
 
-```text
-G10 runtime
-        ↓
-实际实现
+2. 无 GC 仍可能因 allocator、析构、引用回收、缺页、锁或设备阻塞而迟到。absence of GC 不是完整时间分析。
 
-        ↓
-sanitizers / stress
+### 21.11 Architecture
 
-        ↓
-profiling
+1. 既有 C++/原生库、硬件 SDK、数值生态和接口成本主导，且团队能维持所需证明责任时；不是无条件因性能标签选择。
 
-        ↓
-profile-driven refactoring
+2. 不可信输入或复杂共享生命周期带来高内存风险，依赖与团队又能支持时；仍需设计资源与业务协议。
 
-        ↓
-G11 robot-control-core
+3. allocator 策略、C 互操作、静态元数据和小型底层组件很关键时值得评估；不忽略生态、目标支持和维护成本。
 
-        ↓
-真实 C++23 systems engineering
-```
+4. 多套工具链、包生态、调试、部署、FFI、错误/所有权翻译与升级矩阵；边界收益必须大于这些成本。
 
-也就是说，从这里开始，学习方式应该从：
+5. 先知道资源、失败、并发、二进制与时限约束，才知道哪些语言保证真正有价值。个人语法偏好不能替代需求。
 
-> **“继续学习更多 C++ 知识”**
+<a id="g12-section-22"></a>
 
-正式转为：
+## 22. 参考资料与验证边界
 
-> **“用真实项目不断迫使 G0–G12 的模型发生冲突，然后解决这些冲突。”**
+C++ 语义使用 [N4950](https://timsong-cpp.github.io/cppwp/n4950/)及前面章节的定向条款；Rust 比较回查 [Reference 的未定义行为边界](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)、[Send/Sync](https://doc.rust-lang.org/nomicon/send-and-sync.html)、[Ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)；Zig 回查 [0.15.2 文档](https://ziglang.org/documentation/0.15.2/)。Rust 2024 是 edition，不是具体编译器版本。本批未执行 Rust/Zig，不声明这些机制已在本机编译验证。编辑去向、审查练习与平台边界见[批次记录](learning/synthesis-revision.md)。
 
-这才是下一阶段真正提升 C++ 系统工程能力的主线。
+本章使用 [Editorial Profile v1.0](editorial-profile.md)，Markdown 是内容与完整实验事实源。PDF **NOT BUILT / NOT VALIDATED**；长文件与表格的源稿风险不等于实际分页已验收。

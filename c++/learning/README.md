@@ -1,6 +1,6 @@
 # G 系列实验与证据
 
-这里保存 G0～G9 的定向执行器与记录；正文 Markdown 是实验源代码的单一维护入口。[Editorial Profile](../editorial-profile.md) 统一编辑规则，不由执行器重新定义学习目标。
+这里保存 G0～G12 的定向证据与记录；正文 Markdown 是实验源代码的单一维护入口。G12 使用综合审查案例，不另造实验执行器。[Editorial Profile](../editorial-profile.md) 统一编辑规则，不由执行器重新定义学习目标。
 
 从仓库根目录执行：
 
@@ -8,11 +8,12 @@
 python3 c++/learning/verify_g.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/verify_handbook.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+python3 c++/learning/verify_synthesis.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 -m unittest discover -s c++/learning -p 'test_*.py'
 python3 c++/learning/check_docs.py
 ```
 
-只使用本机已有工具，不下载依赖。三个实验执行器各自创建新系统临时目录，开头打印 `Evidence:` 路径；其中 `results.json` 保存提取源码摘要、完整命令、诊断与结果，源码/目标文件/汇编留在对应实验子目录。不会写入历史 PDF 或 FM 证据。`g-lab/g-file` 标识 G0～G4；`h-lab/h-file` 标识 G5～G7；`n-lab/n-file` 标识 G8～G9。其余代码块不纳入完整程序执行。
+只使用本机已有工具，不下载依赖。四个实验执行器各自创建新系统临时目录，开头打印 `Evidence:` 路径；其中 `results.json` 保存提取源码摘要、完整命令、诊断与结果，源码/目标文件/汇编留在对应实验子目录。不会写入历史 PDF 或 FM 证据。`g-lab/g-file` 标识 G0～G4；`h-lab/h-file` 标识 G5～G7；`n-lab/n-file` 标识 G8～G9；`s-lab/s-file` 标识 G10～G11。其余代码块不纳入完整程序执行。
 
 ## 四类证据
 
@@ -45,6 +46,21 @@ P1 移动安装前缀并重命名临时生产者源码/构建目录，不删除�
 
 - [G8～G9 修订、主题去向与验证边界](native-revision.md)
 - [G8～G9 本地原始证据](native-results.json)
+
+## G10～G12 综合与应用卷
+
+`verify_synthesis.py` 使用已有 Clang C/C++、CMake、CTest 与 Ninja，当前只验证 Darwin 路径；不下载依赖、不连接硬件。17 个正文源文件形成两个模块，另有四个受控错误变体。G12 的三个案例是逻辑复核练习，不算编译或动态测试。
+
+G10-R1 包含固定载荷、有限账本的双队列运行时：实际等待输入满、输出满、空输入等条件后检查取消；检查多生产者记账、逐 ID 结果、graceful drain、异常、部分启动失败与析构。随后安装、迁移并隐藏临时生产树，编译运行独立 C11/C++23 消费者。worker/capacity sweep 共 18 个观测行，不设速度门槛。
+
+G11-C1 分开检查故障锁存/复位、确定性 plant、当前线程可替换 C++ 分配调用、并发 generation，以及 1000 周期的 1 kHz 主机时序。中点握手保证快照测试确实在 writer 结束前检查过一代。malloc、页面、真实 ROS/驱动/HIL、hard-real-time 与物理安全均未验证。
+
+结果分 `cpp_validation`、`performance_observation`、`concurrency_dynamic`；结构检查另报。`cpp_validation` 含编译/安装、功能不变量及 ASan/UBSan 的定向运行，不能把其中每条阶段断言称为一个新实验。TSan 先跑启动探针和来自既有 G7-D3 的已知竞争检测对照；这次重用对照不意味着 G7 正文或全套旧实验重新验收。各检测器环境分开，失败不得以信号崩溃或不相关退出码替代。原始证据记录受控 options，禁用外部符号化；ASan 未检查 leaks。
+
+每个命令最多 60 秒，调用既有进程组超时/取消 helper；本批没有新的真实 Ctrl-C 实验。探针或主实验失败、无法获得预期诊断、记录缺项都不能变成 RECORDED。缺少支持项记 SKIP/INCOMPLETE，动态无报告也不等于协议已证明。源码树与安装树移动仅发生在新临时目录内，不改仓库源码。
+
+- [综合与应用卷修订及验证边界](synthesis-revision.md)
+- [本批原始证据与失败历史](synthesis-results.json)
 
 - [回到全系列学习导航](../README.md)
 - [Professional 批次修订与验证记录](professional-revision.md)

@@ -63,8 +63,8 @@ def main():
             elif url.fragment and destination.suffix == '.md':
                 if unquote(url.fragment) not in parse(destination)[3]:
                     errors.append(f'{path.relative_to(ROOT)}: missing anchor {target}')
-        # Editorial Profile v1.0 applies to G0–G9; PDF is not rendered here.
-        if path.parent == CPP and re.match(r'g0[0-9]-', path.name):
+        # Editorial Profile v1.0 applies to G0–G12; PDF is not rendered here.
+        if path.parent == CPP and re.match(r'g(?:0[0-9]|1[0-2])-', path.name):
             if sum(header[0] == 1 for header in headers) != 1:
                 errors.append(f'{path.name}: expected exactly one H1')
             previous = 0
@@ -129,7 +129,7 @@ def main():
                         if not next_content or (following and len(following[1]) <= level):
                             errors.append(f'{path.name}:{index + 1}: heading without content')
     print(json.dumps({'markdown_files': len(paths), 'local_links': links,
-                      'upgraded_hierarchy_files': 10, 'errors': errors,
+                      'upgraded_hierarchy_files': 13, 'errors': errors,
                       'pdf': 'NOT BUILT / NOT VALIDATED',
                       'source_risks': source_risks},
                      ensure_ascii=False, indent=2))

@@ -1,5080 +1,1010 @@
-# C++ Systems Track · G11 Robotics Systems with Modern C++23
+# G11 · 机器人系统工程
 
-**Version:** 1.0  
-**Status:** Complete / Frozen Review Baseline  
-**Language Baseline:** C++23  
-**Prerequisites:** G0–G10  
-**Primary Environment:** Linux / POSIX-class robotics systems  
-**Integration Layer:** ROS 2 / `ros2_control` / native device SDKs  
-**Scope:** Real-time / Determinism / Control Loops / Time / Sensor Acquisition / Coordinate Frames / Numerical Representation / State Estimation / Control / Hardware Interface / Memory Discipline / Threading / Zero-copy / ROS 2 / DDS-QoS / Safety / Watchdogs / Simulation / HIL / Observability / Testing  
-**Purpose:** 建立一套从 **Physical World → Sensors → Estimation → Control → Actuation** 的现代 C++ 机器人系统工程模型。
+**版本：** 1.1 · Professional Handbook Edition · 综合与应用卷
 
-截至 2026 年 9 月，ROS Index 将 Humble、Jazzy、Kilted 和 Lyrical 列为活跃 ROS 2 distributions，Rolling 是开发发行线。本章不绑定某一个 distribution，而把 ROS 2 视为机器人系统的 integration/middleware layer；具体 API 应始终按照项目所选发行版验证。:chatgpt-content-reference{index="0"}
+**状态：** 待集中审核；PDF NOT BUILT / NOT VALIDATED
 
----
+**主线：** C++23；Robotics Systems Engineering；仿真不构成实时或物理安全保证。
 
-# 0. G11 的定位
+**编辑基线：** [Editorial Profile v1.0](editorial-profile.md)，保持 v1.0。
 
-G10 构建的是：
+## 阅读入口
 
-```text
-Input
-  ↓
-Queue
-  ↓
-Processing
-  ↓
-Output
-```
+本章在 G10 的资源与并发模型上加入时间、物理意义和安全状态。先读 §1～8，再读 §13 与 §16 的仿真实验；ROS/QoS 是 §9 的集成回查，不是学习主线。
 
-这是一个典型软件系统。
+原稿的 Complete/Frozen 是历史编辑标记，不沿用为技术验收。编号主题以 `g11-topic-N` 映射到相应主题组，保留技术去向；章节不再逐个复制原有 Part。完整实验与机制片段有可见身份，Gate 答案是普通章节。
 
-机器人增加了一个决定性的东西：
+- [1. 物理闭环与实时合同](#g11-section-1)
+- [2. 时间域、数据年龄与控制步长](#g11-section-2)
+- [3. 调度、干扰与优先级反转](#g11-section-3)
+- [4. 内存阶段与故障表示](#g11-section-4)
+- [5. 单位、坐标系与数值表示](#g11-section-5)
+- [6. 传感器采集、通道语义与快照回收](#g11-section-6)
+- [7. 估计、控制与硬件边界](#g11-section-7)
+- [8. 看门狗、故障锁存与命令仲裁](#g11-section-8)
+- [9. ROS 2、QoS 与借出缓冲区](#g11-section-9)
+- [10. 大载荷、配置事务与安全过滤](#g11-section-10)
+- [11. 故障隔离、观测与测试阶梯](#g11-section-11)
+- [12. 执行等级与集成拓扑](#g11-section-12)
+- [13. 输出不变量与工程分层](#g11-section-13)
+- [14. 可运行学习案例的范围](#g11-section-14)
+- [15. 常见误判与语言选择](#g11-section-15)
+- [16. 完整实验：逻辑仿真、快照与时序](#g11-section-16)
+- [17. 机器人路径复核记录](#g11-section-17)
+- [18. Final Gate](#g11-section-18)
+- [19. Final Gate · 参考答案与常见误判](#g11-section-19)
+- [20. 参考资料与验证边界](#g11-section-20)
 
-# **Physical Time**
+<a id="g11-section-1"></a>
 
-程序不再只需要：
+<a id="g11-topic-0"></a>
+<a id="g11-topic-1"></a>
+<a id="g11-topic-2"></a>
+<a id="g11-topic-3"></a>
+<a id="g11-topic-4"></a>
+<a id="g11-topic-5"></a>
+<a id="g11-topic-6"></a>
+<a id="g11-topic-7"></a>
+<a id="g11-topic-8"></a>
 
-> 算对。
+## 1. 物理闭环与实时合同
 
-还可能要求：
+### 1.1 软件结果会改变下一次输入
 
-> **在某个时间之前算对。**
-
-一个控制输出：
-
-```text
-correct answer
-```
-
-如果晚了 100 ms，
-
-可能已经是：
-
-```text
-wrong action
-```
-
-因此机器人 C++ 的统一模型是：
+机器人系统工程（robotics systems engineering）把软件正确性放进物理闭环：测量、估计、控制、执行再影响下一轮测量。正确数值若过期才送到执行器，可能已不是正确动作。因此本章关注 value、unit、frame、time、lifetime 与 failure 的联合合同，而不是 ROS 2 API 教程。
 
 ```text
-Correctness
-×
-Timing
-×
-Lifetime
-×
-Numerics
-×
-Physical Semantics
-×
-Failure Behavior
+World → Measure → Estimate → Control → Safety → Actuate
+  ▲                                               │
+  +--------------- feedback ----------------------+
+Non-RT: configuration / planning / ROS / logging
+Timing-critical: bounded state / control / safety
+Hardware: bus / driver / local watchdog
 ```
 
----
+三个执行域可以在部分场景合并，但不能默认共享不可控阻塞。视觉、规划、UI、控制和硬件 I/O 有不同的吞吐、时限与故障需求；“实时”不是给整个仓库贴的标签。
 
-# 1. 从软件系统进入物理系统
+### 1.2 快、可预测和安全是不同判断
 
-机器人典型闭环：
+周期（period）是计划 release 间隔；deadline 是完成期限；本章把 release jitter 明确定义为实际开始减计划开始，执行时间则是完成减实际开始。1 kHz 对应 1 ms 计划周期，不保证每次实际间隔恰为 1 ms。平均 10 µs 不能覆盖偶发 200 ms 停顿。
 
-```text
-Physical World
-      │
-      ▼
-   Sensors
-      │
-      ▼
-Acquisition / Timestamp
-      │
-      ▼
-State Estimation
-      │
-      ▼
-Planning / Command
-      │
-      ▼
-Control
-      │
-      ▼
-Actuator Command
-      │
-      ▼
-   Hardware
-      │
-      └──────────────▶ Physical World
-```
+Hard real-time 要在明确平台及负载假设下保证截止期限；firm real-time 的迟到结果失去价值但允许受控 miss；soft real-time 的迟到降低服务质量。它们描述需求和保证，不是根据一次最大值自动分类。§16 的桌面仿真只给出本机 timing observation，不能证明 WCET 或物理安全。
 
-这不是普通单向 pipeline。
+<a id="g11-section-2"></a>
 
-而是：
+<a id="g11-topic-9"></a>
+<a id="g11-topic-10"></a>
+<a id="g11-topic-11"></a>
+<a id="g11-topic-12"></a>
+<a id="g11-topic-13"></a>
+<a id="g11-topic-14"></a>
+<a id="g11-topic-15"></a>
+<a id="g11-topic-16"></a>
+<a id="g11-topic-17"></a>
+<a id="g11-topic-18"></a>
+<a id="g11-topic-19"></a>
+<a id="g11-topic-20"></a>
+<a id="g11-topic-21"></a>
+<a id="g11-topic-22"></a>
 
-# **Feedback Loop**
+## 2. 时间域、数据年龄与控制步长
 
-输出会改变下一次输入。
+### 2.1 时间戳必须有语义和来源
 
----
+测量时间、设备发送、内核接收、应用接收与处理完成不是同一时间。收到数据后写 steady_clock::now，只能给它应用接收时间，不能将通信抖动消掉而称作测量时间。设备计时器、主机单调时钟、UTC、PTP 与 ROS 仿真时钟即使都以 ns 表示，也不能未经映射直接相减。
 
-# 2. 机器人系统的三个 Execution Planes
+跨时钟域转换应声明偏移、漂移、同步误差和失效条件；时间戳倒退、设备重启和序列回绕也要处理。仿真时间可以暂停或回拨，主机 steady_clock 适合本地 duration，不应冒充物理测量时钟。控制的 freshness 先检查时间域和“非未来”，再计算 age，避免无符号减法下溢。
 
-本章建议把机器人软件至少分成三个 execution domains：
+### 2.2 固定步长与实际步长不能悄悄替换
 
-```text
-┌──────────────────────────────────────────────┐
-│ Non-Real-Time / Orchestration Plane          │
-│ ROS graph / config / logging / UI / planning │
-└──────────────────┬───────────────────────────┘
-                   │ snapshots / commands
-                   ▼
-┌──────────────────────────────────────────────┐
-│ Deterministic / Real-Time-ish Compute Plane  │
-│ estimation / control / safety / fast state   │
-└──────────────────┬───────────────────────────┘
-                   │ bounded data
-                   ▼
-┌──────────────────────────────────────────────┐
-│ Hardware I/O Plane                           │
-│ CAN / EtherCAT / serial / device SDK / GPIO  │
-└──────────────────────────────────────────────┘
-```
+固定步长离散控制器基于配置周期；measured-step 算法使用实际 elapsed time。两者都需要各自稳定性前提，不能将一次调度延迟直接当作大 dt 填入原本固定步长的积分器。控制接口应显式携带 tick/time/duration，并定义接近零、过大或非有限 dt 的策略。
 
-关键思想：
+典型循环为 read → estimate → control → safety → write；每步需审查输入规模、分配、等待、异常和未知回调。配置解析、模型加载与日志移到非实时域，经过验证的规范化配置在安全点发布。本章 timing 模块故意用逻辑 1 ms 仿真步长，同时单独记录主机 wake/finish；它不是实时物理 plant 的保真模拟。
 
-> **不要默认让 ROS callbacks、网络、日志、动态配置和 motor control loop 共享同一个 execution context。**
+<a id="g11-section-3"></a>
 
----
+<a id="g11-topic-23"></a>
+<a id="g11-topic-24"></a>
+<a id="g11-topic-25"></a>
+<a id="g11-topic-26"></a>
+<a id="g11-topic-27"></a>
+<a id="g11-topic-28"></a>
+<a id="g11-topic-29"></a>
+<a id="g11-topic-30"></a>
 
-# Part I · Real-Time 到底是什么意思
+## 3. 调度、干扰与优先级反转
 
-# 3. Real-Time ≠ Fast
+### 3.1 优先级是部署条件，不是证明
 
-这是机器人领域最必须消灭的误区。
+Linux 的 SCHED_FIFO/SCHED_RR、CPU affinity、隔离核心和 IRQ 布局可改变调度干扰，但 page fault、驱动、锁持有者、固件和热降频仍影响尾延迟。高优先级线程也可能因等待低优先级持锁者而发生优先级反转（priority inversion）。未分析竞争与锁持有时间，不能仅凭“平时不竞争”称其有界。
 
-一个程序：
+本章以 [ros2_control Jazzy Controller Manager](https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html) 为部署回查线，不给机器设置实时权限，也不更改调度器、内存锁定或系统配置。Linux 部署建议与 macOS 仿真实验是两种证据，不能互相替代。
 
-```text
-average latency = 10 µs
-```
+### 3.2 把不确定工作移出关键路径
 
-但偶尔：
+Non-RT 回调可慢慢构建完整 snapshot，控制线程在边界处接收。若选择 try_lock，读者失败时必须有“保留旧值并检查 age”策略，且仍不能声称底层调用有硬时间上界。若选择无锁发布，必须额外证明存储回收和重试上界。架构是在时间约束、数据新鲜度与实现复杂度间取舍，不是逢 mutex 必改 CAS。
 
-```text
-max latency = 200 ms
-```
+<a id="g11-section-4"></a>
 
-它可能非常“快”，
+<a id="g11-topic-31"></a>
+<a id="g11-topic-32"></a>
+<a id="g11-topic-33"></a>
+<a id="g11-topic-34"></a>
+<a id="g11-topic-35"></a>
+<a id="g11-topic-36"></a>
+<a id="g11-topic-37"></a>
+<a id="g11-topic-38"></a>
+<a id="g11-topic-39"></a>
+<a id="g11-topic-40"></a>
 
-却完全不适合作为严格周期控制器。
+## 4. 内存阶段与故障表示
 
-Real-time 更关心：
+### 4.1 初始化分配不等于运行期永不分配
 
-> **时间行为是否具有可接受的上界和可预测性。**
+general heap 的问题是时间和锁/页面行为未必满足合同，而非每次 new 必然慢。初始化可预留容器、构造对象、预热和触页；运行期复用有界表示。reserve 只保证一定容量，超过容量仍可扩张。C++23 没有标准 inplace_vector；可用 array + size 或经验证的有界容器，手动 raw storage 则重新承担对象生命周期责任。
 
----
+memory locking 与 pre-touch 把部分页面成本移出关键阶段，但不把任意程序变为 hard real-time。官方 [ROS 2 Jazzy 实时示例源码文档](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Demos/Real-Time-Programming.rst)讨论这些条件；本批没有执行该 Linux 示例或其特权操作。
 
-# 4. Period
+### 4.2 故障是受控状态，不只是 throw
 
-周期控制：
+关键路径可选择不抛接口，但 noexcept 遇到未处理异常会 terminate，不会自动生成安全命令。sensor timeout、非法状态和 actuator fault 应输入显式状态机；日志与报告失败也不能反过来阻塞安全路径。
 
-```text
-t0
-│ update
-├──────── T ────────┐
-                    t1
-                    │ update
-                    ├──── T ────▶
-```
+分配审计必须声明观测面。§16 替换可替换的 C++ allocation functions，在当前线程的确定性 control phase 计数，并用一次显式分配作检测对照；它不拦截第三方 malloc、驱动分配、OS 页面活动或其他线程。观察到 0 只支持此范围内的结论，不等于全进程零分配认证。
 
-如果：
+<a id="g11-section-5"></a>
 
-```text
-frequency = 1 kHz
-```
+<a id="g11-topic-41"></a>
+<a id="g11-topic-42"></a>
+<a id="g11-topic-43"></a>
+<a id="g11-topic-44"></a>
+<a id="g11-topic-45"></a>
+<a id="g11-topic-46"></a>
+<a id="g11-topic-47"></a>
+<a id="g11-topic-48"></a>
+<a id="g11-topic-49"></a>
+<a id="g11-topic-50"></a>
+<a id="g11-topic-51"></a>
+<a id="g11-topic-52"></a>
+<a id="g11-topic-53"></a>
+<a id="g11-topic-54"></a>
 
-理论 period：
+## 5. 单位、坐标系与数值表示
 
-```text
-T = 1 ms
-```
+### 5.1 double 没有物理语义
 
----
+米、弧度、秒、牛顿和力矩都可能表示为 double，却不是可互换量。边界把设备单位规范化到约定单位，接口用 strong units 或明确 schema。位置还必须属于 frame；T_A_B 需说明是把 B 坐标变到 A，还是相反。静态关节链可借助类型约束，运行时地图/传感器图则需要动态身份和校验，两者不宜无限模板化。
 
-# 5. Deadline
+刚体变换包含旋转和平移，四元数要统一 wxyz/xyzw、主动/被动旋转、乘法方向和归一化规则。本章保留这些审查责任，不把单自由度实验扩大成 SE(3) 数学验证。
 
-假设每个 control cycle：
+### 5.2 数值库的表达式仍要检查存储与别名
 
-```text
-release at t
-```
+固定维矩阵适合许多小规模控制状态，动态矩阵应在初始化确定形状并复用。固定尺寸也不意味着包含它的所有高层操作都无分配。Eigen 风格表达式可能融合计算，也可能为别名、安全或代价生成临时；noalias 只能在确实无别名时使用，不能为了提速掩盖 A = A * B 的依赖。
 
-必须在：
+NaN/Inf、奇异点、数值条件、近零 dt 和漂移属于算法边界。clamp 不负责把 NaN 变成安全数值；写执行器前应先检查 finite，再检查 limits 与 freshness。具体 Eigen 行为应按锁定版本回查；[官方 Aliasing 说明](https://libeigen.gitlab.io/eigen/docs-nightly/group__TopicAliasing.html)用于机制解释，是 nightly 文档而非本机验证版本。本批不编译 Eigen。
 
-```text
-t + 1 ms
-```
+<a id="g11-section-6"></a>
 
-之前完成。
+<a id="g11-topic-55"></a>
+<a id="g11-topic-56"></a>
+<a id="g11-topic-57"></a>
+<a id="g11-topic-58"></a>
+<a id="g11-topic-59"></a>
+<a id="g11-topic-60"></a>
+<a id="g11-topic-61"></a>
+<a id="g11-topic-62"></a>
+<a id="g11-topic-63"></a>
+<a id="g11-topic-64"></a>
+<a id="g11-topic-65"></a>
+<a id="g11-topic-66"></a>
+<a id="g11-topic-67"></a>
 
-那么：
+## 6. 传感器采集、通道语义与快照回收
 
-```text
-deadline = 1 ms
-```
+### 6.1 FIFO 与 latest-value 服务不同需求
 
-如果：
+驱动适配层把 vendor packet 转为规范样本，附测量时间、clock domain 和 sequence。timestamp 回答“何时”，sequence 帮助发现丢失、乱序和重启；二者不能互相替代。拥塞策略应按数据意义选阻塞、丢旧、丢新或进入 fault。
 
-```text
-execution = 200 µs
-```
+连续位置状态可能只需最新值；逐个排空百毫秒历史会使控制长期落后。Stop、ResetFault、交易或边沿事件则不能随意覆盖中间项。latest-value 与 FIFO 是两种合同，不是同一个 queue 调小容量。
 
-有：
+### 6.2 原子发布指针没有证明存储可复用
 
-```text
-800 µs margin
-```
+双缓冲先写 inactive，再发布索引，只解决发布顺序的一部分。读者可能仍在读 A，写者发布 B 后立刻复写 A 会形成竞争。需要阶段握手、读者 pin、引用拥有或回收协议。对非 atomic payload 使用“读版本号—复制—再读版本号”，即使最后丢弃副本，也不能消除复制期间已经发生的 C++ data race。
 
-但这只是一次 observation。
+实验使用受 mutex 保护的完整 Snapshot：writer 在锁内发布，reader try_lock 成功才整体复制，失败不修改旧值。它证明 generation 字段关系，并明确不是 lock-free 或 hard-RT 方案。真正无等待回收是独立设计问题，不拿一个双缓冲图冒充实现。
 
-真正关心的是：
+<a id="g11-section-7"></a>
 
-> worst-case / high-percentile / bounded execution behavior。
+<a id="g11-topic-68"></a>
+<a id="g11-topic-69"></a>
+<a id="g11-topic-70"></a>
+<a id="g11-topic-71"></a>
+<a id="g11-topic-72"></a>
+<a id="g11-topic-73"></a>
+<a id="g11-topic-74"></a>
+<a id="g11-topic-75"></a>
+<a id="g11-topic-76"></a>
+<a id="g11-topic-77"></a>
+<a id="g11-topic-78"></a>
+<a id="g11-topic-79"></a>
+<a id="g11-topic-80"></a>
+<a id="g11-topic-81"></a>
+<a id="g11-topic-82"></a>
 
----
+## 7. 估计、控制与硬件边界
 
-# 6. Jitter
+### 7.1 Single writer 保持算法状态一致
 
-理想 wakeup：
+估计器的状态向量、协方差和历史由一个执行上下文修改，多传感器输入先处理时钟映射、排序和迟到策略。摄像头 t0 的观测在 t0+50ms 才处理，算法应决定回溯、预测、丢弃或乱序更新，不能把 return 时间替换状态有效时间。
 
-```text
-0 ms
-1 ms
-2 ms
-3 ms
-```
+控制器一次 update 固定一份状态与目标 snapshot；逐字段读取不同 generation 可能组成从未存在过的配置。控制器可持有积分/滤波状态，但不直接发 ROS、重新解析配置或打开文件。单写者减少锁和一致性负担，不自动证明数值稳定。
 
-实际：
+### 7.2 限幅、速率限制与执行器 I/O
 
-```text
-0
-1.012
-1.997
-3.041
-3.998
-```
+saturation 限制数值范围，rate limit 限制每单位时间变化，积分器还需 anti-windup 协调。它们不能用同一个 clamp 替代。实验仅用有界 PD 控制和单自由度积分 plant，不实现 PID anti-windup，也不宣称真实机器人稳定。
 
-偏离期望时刻的变化：
+硬件接口返回规范状态和写入结果，不把 vendor 类型扩散进 core。若 read/write 有可分析上界，合并到一个循环减少 handoff；若可能堵塞，则隔离到 I/O 域并为延迟、丢包和 freshness 建模。C SDK/驱动边界继续遵守 [G8](g08-abi-and-c-interop.md) 的分配域、异常与句柄规则。
 
-> **Jitter — 抖动**
+<a id="g11-section-8"></a>
 
-机器人 control 中往往：
+<a id="g11-topic-83"></a>
+<a id="g11-topic-84"></a>
+<a id="g11-topic-85"></a>
+<a id="g11-topic-86"></a>
+<a id="g11-topic-87"></a>
+<a id="g11-topic-88"></a>
+<a id="g11-topic-89"></a>
+<a id="g11-topic-90"></a>
+<a id="g11-topic-91"></a>
+<a id="g11-topic-92"></a>
+<a id="g11-topic-93"></a>
+<a id="g11-topic-94"></a>
+<a id="g11-topic-95"></a>
 
-```text
-latency important
-+
-jitter equally important
-```
+## 8. 看门狗、故障锁存与命令仲裁
 
----
+### 8.1 安全动作必须由物理系统定义
 
-# 7. Hard / Firm / Soft Real-Time
+主机可能 hang、crash 或失联；执行器不能无限保持上一次危险输出。看门狗（watchdog）应尽量靠近驱动/MCU，并与独立安全链分层。软件 E-stop topic 可以传播意图，但不是硬件安全链的替代，也不构成认证结论。
 
-## Hard Real-Time
+safe state 可能是受控制动、失能、保持或其他动作，不能普遍等同“输出 0”。本章仿真把 0 作为模型内安全命令，只用于状态机实验，禁止直接据此驱动硬件。
 
-Deadline miss：
+### 8.2 状态、授权与超时共同控制输出
 
-> 不允许发生于系统正确性假设之内。
+用 Initializing/Standby/Active/Fault/Emergency/ShuttingDown 等明确状态代替互相冲突的 bool。某些 fault 应锁存，直到明确复位条件成立；下一帧正常不能自动恢复动力。多个 planner、teleop、校准和安全源先由 arbiter 决定优先级、模式、租约和有效期，再进入控制器。
 
-它需要非常强的：
+RT↔Non-RT 通道传经过验证的完整状态、命令或配置。普通 middleware 发布与日志放到非实时端；[realtime_tools Jazzy](https://control.ros.org/jazzy/doc/realtime_tools/doc/index.html)提供面向这类边界的工具，但使用工具名不自动满足端到端时限。
 
-```text
-timing analysis
-OS/hardware assumptions
-bounded operations
-```
+<a id="g11-section-9"></a>
 
----
+<a id="g11-topic-96"></a>
+<a id="g11-topic-97"></a>
+<a id="g11-topic-98"></a>
+<a id="g11-topic-99"></a>
+<a id="g11-topic-100"></a>
+<a id="g11-topic-101"></a>
+<a id="g11-topic-102"></a>
+<a id="g11-topic-103"></a>
+<a id="g11-topic-104"></a>
+<a id="g11-topic-105"></a>
+<a id="g11-topic-106"></a>
+<a id="g11-topic-107"></a>
+<a id="g11-topic-108"></a>
+<a id="g11-topic-109"></a>
+<a id="g11-topic-110"></a>
+<a id="g11-topic-111"></a>
+<a id="g11-topic-112"></a>
+<a id="g11-topic-113"></a>
+<a id="g11-topic-114"></a>
+<a id="g11-topic-115"></a>
+<a id="g11-topic-116"></a>
+<a id="g11-topic-117"></a>
 
-## Firm Real-Time
+## 9. ROS 2、QoS 与借出缓冲区
 
-结果超过 deadline：
+### 9.1 集成层不能接管未声明的控制责任
 
-> 已经没有价值，
+ROS adapter 依赖普通 C++ core，而非 Controller 继承 Node。这样算法可在 unit、replay、仿真和硬件部署间复用。Executor 决定 callbacks 在何时何线程执行；callback groups、组合进程与多线程配置会改变交错，不能把 ROS timer 当作具有硬期限的 motor scheduler。
 
-但偶发 miss 不一定造成灾难。
+本章固定以 Jazzy 文档线解释概念，不追逐“当前最新发行版”。RMW、传输、序列化、进程拓扑和具体版本必须随部署记录；ros2_control 管理控制器与硬件生命周期，但应用的分配、阻塞和回调仍由项目分析。configure/activate/read-write/deactivate/error/cleanup 应与物理状态关联。
 
----
+### 9.2 QoS 是数据合同，不是安全保证
 
-## Soft Real-Time
+History/Depth 决定积压语义，Reliability 决定传输保证，Durability 决定迟加入者的历史数据，Deadline/Lifespan/Liveliness 描述发布间隔、数据有效期及活跃性。配对不兼容可能根本不通信。高频 sensor profile 常选择 best effort 和小队列，但具体关键测量应按需求重选；reliable 不等于及时，不等于 actuator watchdog。[ROS 2 Jazzy QoS 文档](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst)
 
-Deadline miss：
+### 9.3 Zero-copy 必须说明减少了哪次复制
 
-> 降低质量，
+intra-process 转移、shared-memory transport、middleware loan 是不同路径。借出缓冲发布后所有权归还 middleware，不能继续读取原 loan；若要保留，需要新的合法拥有/复制合同。底层是否支持 loan、是否分配和是否无锁取决于实现，不能用“zero-copy”一词包办。[Jazzy RMW 接口合同](https://github.com/ros2/rmw/blob/jazzy/rmw/include/rmw/rmw.h)还区分参数错误的提前失败与已经归还所有权的路径；调用失败后也必须按具体函数合同处理，而非一律继续使用原指针。
 
-但系统仍可继续。
+少复制可能降低带宽，也会耦合池压力、回收与慢读者。原稿的 loan 规则保留，但本批没有安装 ROS、运行 RMW、验证 QoS 配对或 loan API，属于文档回查而非运行证据。
 
-大量：
+<a id="g11-section-10"></a>
 
-```text
-perception
-visualization
-high-level planning
-```
+<a id="g11-topic-118"></a>
+<a id="g11-topic-119"></a>
+<a id="g11-topic-120"></a>
+<a id="g11-topic-121"></a>
+<a id="g11-topic-122"></a>
+<a id="g11-topic-123"></a>
+<a id="g11-topic-124"></a>
+<a id="g11-topic-125"></a>
+<a id="g11-topic-126"></a>
+<a id="g11-topic-127"></a>
+<a id="g11-topic-128"></a>
+<a id="g11-topic-129"></a>
 
-更接近 soft real-time。
+## 10. 大载荷、配置事务与安全过滤
 
----
+### 10.1 数据布局由访问模式决定
 
-# 8. 不要把整个机器人标记成“Real-Time”
+1920×1080×3 字节约 6.22 MB，一次完整复制在 30 FPS 下约 187 MB/s 的数据量，尚未计读写总线流量和额外拷贝。共享不可变帧可服务感知、录制与可视化，但慢读者可能长期占用池；必须限制租约或退化策略。
 
-一个机器人内部同时可能有：
+关节状态若每次同时用位置、速度、力矩，AoS 可能自然；只扫描一个字段时 SoA 值得测量。固定结论“机器人都应 SoA”与 G6 的访问模式原则冲突。
 
-```text
-1 kHz motor loop          → strong timing requirement
+### 10.2 一次发布一套合法参数
 
-200 Hz state estimation   → deterministic/high-rate
+Kp/Ki/Kd 逐个 atomic 更新不保证读者看到同一套参数。非实时端构造、校验并预计算整个 ControllerConfig，再在安全点发布 generation，旧读者结束后回收。目标位置和速度也应同代消费。
 
-30 Hz vision              → throughput + latency
+安全过滤不仅接受 desired command，还接受 mode、当前状态、限制、故障和时间。合法数值的过期命令也可能危险；invalid input 应确定性地导致 safe command 或 fault，而不是继续上一次控制输出。
 
-10 Hz planning            → soft real-time
+<a id="g11-section-11"></a>
 
-logging                   → non-real-time
+<a id="g11-topic-130"></a>
+<a id="g11-topic-131"></a>
+<a id="g11-topic-132"></a>
+<a id="g11-topic-133"></a>
+<a id="g11-topic-134"></a>
+<a id="g11-topic-135"></a>
+<a id="g11-topic-136"></a>
+<a id="g11-topic-137"></a>
+<a id="g11-topic-138"></a>
+<a id="g11-topic-139"></a>
+<a id="g11-topic-140"></a>
+<a id="g11-topic-141"></a>
+<a id="g11-topic-142"></a>
+<a id="g11-topic-143"></a>
+<a id="g11-topic-144"></a>
+<a id="g11-topic-145"></a>
+<a id="g11-topic-146"></a>
+<a id="g11-topic-147"></a>
 
-UI                        → non-real-time
-```
+## 11. 故障隔离、观测与测试阶梯
 
-所以：
+### 11.1 不让低关键性失败拖垮高关键性路径
 
-> **Real-time 是某个 execution path 的 property，不是整个 repository 的标签。**
+感知超时、UI 崩溃和总线故障是不同 failure domain。控制器可按合同使用有限时间的旧状态、预测或安全模式，但不无限等待视觉。RT telemetry 写有界预分配记录，非实时线程格式化/落盘；缓冲满也要有丢弃或降级策略。
 
----
+观测包括 wake/执行时间、deadline miss、数据 age、乱序/丢失、队列深度、I/O 耗时和故障。平均值、p99 与 max 都来自有限样本，观测 max 不是理论上界。sequence、generation 与各时钟域时间戳共同支持追踪。
 
-# Part II · 时间模型
+### 11.2 Simulation、replay、HIL 各有不同覆盖
 
-# 9. 机器人最危险的数据之一：Timestamp
+算法单元测试使用确定输入；replay 固定测量时间和事件序列；SIL 连接软件 plant；HIL 再纳入部分真实硬件、驱动和时序；最终真机还要验证物理安全。仿真时间与主机时钟应分开，因此一个 replay 通过不说明部署 jitter 达标。
 
-普通：
+边界测试覆盖 NaN、Inf、近零/过大 dt、时间跳变、迟到、掉线、限幅、故障锁存和复位。控制 phase 分配计数也是特定观测，不证明所有输入或库路径都无分配。本批只做单自由度 SIL 风格逻辑与桌面时序观察，HIL、ROS、page fault、真实驱动及安全认证全部未验证。
 
+<a id="g11-section-12"></a>
+
+<a id="g11-topic-148"></a>
+<a id="g11-topic-149"></a>
+<a id="g11-topic-150"></a>
+<a id="g11-topic-151"></a>
+<a id="g11-topic-152"></a>
+<a id="g11-topic-153"></a>
+<a id="g11-topic-154"></a>
+<a id="g11-topic-155"></a>
+<a id="g11-topic-156"></a>
+<a id="g11-topic-157"></a>
+<a id="g11-topic-158"></a>
+<a id="g11-topic-159"></a>
+<a id="g11-topic-160"></a>
+<a id="g11-topic-161"></a>
+<a id="g11-topic-162"></a>
+<a id="g11-topic-163"></a>
+<a id="g11-topic-164"></a>
+
+## 12. 执行等级与集成拓扑
+
+### 12.1 RT-safe 必须展开为具体条件
+
+RT_SAFE、INIT_ONLY、NON_RT、BLOCKING 可以用作项目标签，但必须附“何平台、何输入规模、何分配/等待/异常限制”。标注 noexcept 或 high priority 都不能替代这些条件。数据通道应同时写明生产/消费频率、允许丢失、最旧可用 age 和关闭后行为。
+
+线程划分来自阻塞、所有权和时限：采集、估计、控制、ROS、遥测和感知可能分开；若 I/O 有界且任务周期一致，read-estimate-control-write 合并又可能更简单。组件同进程减少某些 IPC 成本，却扩大失败耦合；一节点一进程也不是默认正确。
+
+### 12.2 时间对齐与命令授权
+
+近似传感器同步的 tolerance 影响物理一致性和丢弃率；插值或积分到目标时间是算法选择，不是只加 mutex。估计 state(t_est) 供 t_now 控制时，需判断 age、预测误差和降级条件。命令也有自身生成时间和有效期。
+
+Disabled → Arming → Active、Active → Fault 与 Emergency 转移应指定发起者和条件。Shutdown 的验收终点是执行器进入定义好的状态，不只是线程退出。实验只涵盖 standby/active/fault/shutdown 简化机，未实现多源仲裁或真实 arming 流程。
+
+<a id="g11-section-13"></a>
+
+<a id="g11-topic-165"></a>
+<a id="g11-topic-166"></a>
+<a id="g11-topic-167"></a>
+<a id="g11-topic-168"></a>
+<a id="g11-topic-169"></a>
+<a id="g11-topic-170"></a>
+<a id="g11-topic-171"></a>
+<a id="g11-topic-172"></a>
+<a id="g11-topic-173"></a>
+<a id="g11-topic-174"></a>
+<a id="g11-topic-175"></a>
+<a id="g11-topic-176"></a>
+<a id="g11-topic-177"></a>
+
+## 13. 输出不变量与工程分层
+
+### 13.1 先检查是否允许动作，再检查数值
+
+允许 actuation 至少需要：Active、状态有效、clock domain 可比较、时间非未来且足够新、目标未过期、输入输出 finite、数值/速率在限制内、执行器健康。异常数值不能通过 clamp 被“洗白”，写入失败也不能只写日志后继续 Active。
+
+安全过滤决定模型内输出，底层 watchdog 处理上层停止更新；二者覆盖不同故障。真实 brake/drive 状态反馈、不可逆硬件动作和功能安全分析不在本章桌面实验里。
+
+### 13.2 依赖方向与性能优先级
+
+core 放 units/state/estimation/control/safety，runtime 放通道/生命周期，hardware 与 ROS 是 adapter，simulation 消费相同 core。内部同工具链可用 virtual driver；长期第三方二进制边界应回到小而明确的 C 合同，不能把 C++ 类布局当通用 ABI。
+
+优化先修错误时间域、不可控阻塞和无界通道，再查分配/页面、数据复制、缓存布局，最后才是指令级优化。把最快的数学核放在错误执行域，仍不能满足控制系统合同。
+
+<a id="g11-section-14"></a>
+
+<a id="g11-topic-178"></a>
+<a id="g11-topic-179"></a>
+<a id="g11-topic-180"></a>
+<a id="g11-topic-181"></a>
+<a id="g11-topic-182"></a>
+<a id="g11-topic-183"></a>
+<a id="g11-topic-184"></a>
+<a id="g11-topic-185"></a>
+<a id="g11-topic-186"></a>
+
+## 14. 可运行学习案例的范围
+
+### 14.1 robot-control-core 的阶段产物
+
+原项目阶段从纯数学、固定步长 plant、真实时钟循环，扩展到 sensor thread、非实时命令、故障注入、分配审计，最后 ROS adapter。完整实验保留其学习顺序，但明确划出本批切片：一个有界 PD 控制器、一个单自由度积分 plant、独立的快照并发测试、计数插桩及 1000 周期的主机时序记录。
+
+它不是整机调度器。多速率独立 sensor/control/ROS 线程、真实 bus、复杂估计器、ROS 参数生命周期和 HIL 继续是项目练习要求，不会因为 Markdown Edition 完成而变成已经实现。
+
+### 14.2 三种问题使用三种判据
+
+确定性注入要求非法输入使 fault 锁存且输出为模型定义的 0，正常帧不能自动恢复；显式 reset 后仍需 activate。快照测试要求观测到的所有字段属于同一 generation。分配测试要求当前线程该阶段的可替换 C++ 分配调用计数为 0，并先确认计数器能检测分配。
+
+时序则完整记录 wake offset、执行耗时和 deadline miss，不以固定 ns 阈值判 PASS。安全逻辑通过与 timing observation recorded 是不同状态。G11 的代码、运行平台和未验证部分见 §16 与批次记录。
+
+<a id="g11-section-15"></a>
+
+<a id="g11-topic-187"></a>
+<a id="g11-topic-188"></a>
+<a id="g11-topic-189"></a>
+<a id="g11-topic-190"></a>
+<a id="g11-topic-191"></a>
+<a id="g11-topic-192"></a>
+<a id="g11-topic-193"></a>
+<a id="g11-topic-194"></a>
+<a id="g11-topic-195"></a>
+<a id="g11-topic-196"></a>
+<a id="g11-topic-197"></a>
+<a id="g11-topic-198"></a>
+<a id="g11-topic-199"></a>
+<a id="g11-topic-200"></a>
+<a id="g11-topic-201"></a>
+<a id="g11-topic-202"></a>
+<a id="g11-topic-203"></a>
+<a id="g11-topic-204"></a>
+<a id="g11-topic-205"></a>
+
+## 15. 常见误判与语言选择
+
+### 15.1 相近的词往往掩盖不同合同
+
+fast 不是 real-time；高优先级不是期限保证；reserve 不是硬容量；接收时间不是测量时间；单位相同不代表同一时钟域；latest-state 不等于必须处理每一帧；reliable 不等于安全；zero-copy 不等于零生命周期成本；shared_ptr 不等于共享写入安全。
+
+同样，controller 直接依赖 vendor packet、关键循环偶尔日志、最后一次 clamp 代替 safety、软件 topic 代替硬件 E-stop、为“微服务风格”拆出大量 ROS 进程，都绕开了真实合同。应逐条回到时限、失效模式和所有权，而非靠框架名称作答。
+
+### 15.2 语言是工具选择，不是物理保证
+
+C++ 与既有数值库、ROS 和硬件 SDK 集成常有现实价值；Rust 可降低安全代码中的生命周期/数据竞争风险；Zig 的显式资源与 C 互操作有助于某些底层组件。但三者都不能自动证明 deadline、jitter、驱动行为或物理安全，也不能用语言标签代替具体依赖版本与团队能力评估。
+
+更多语言带来 FFI、构建、调试、错误与资源域成本。先把控制 core 与 adapter 边界设计清楚，再考虑替换局部实现，最后在 [G12](g12-cpp-zig-rust.md) 统一讨论证明责任。
+
+<a id="g11-section-16"></a>
+
+## 16. 完整实验：逻辑仿真、快照与时序
+
+### 16.1 分开运行，分开解释
+
+G11-C1 将确定性控制逻辑和主机时序分为两个程序。使用与 G10 同一条 `verify_synthesis.py` 命令，但分类记录，不把模型故障测试、分配计数和 jitter 混成一个 PASS。
+
+control_test 要求八类注入进入 Fault、保持模型定义的 0 输出、正常帧不自动复位、显式 reset/activate 与 shutdown 生效。10000 个逻辑步检查 finite、幅值/速率和受观测的 C++ 分配调用数。并发快照用 generation 与所有字段关联，允许跳过中间代，但不允许混代。
+
+两个错误变体分别删除 freshness 判定、在发布时破坏字段关系；均要求编译成功后以目标 invariant 和固定退出码拒绝。第三个变体在 step 内直接调用 allocation function，必须被分配计数拒绝。它们检验判据能辨认错误，不是声称原实现含这些错误。
+
+### 16.2 完整文件
+
+<!-- s-lab {"id":"G11-C1","mode":"control"} -->
+
+[完整实验 · G11-C1 · control.hpp]
+
+<!-- s-file {"path":"control.hpp"} -->
 ```cpp
-double position;
-```
-
-往往不够。
-
-真正状态是：
-
-```text
-position
-+
-what time does this value describe?
-```
-
-例如：
-
-```cpp
-struct JointSample {
-    JointPosition position;
-    TimePoint timestamp;
+#pragma once
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <mutex>
+namespace robot {
+enum class Mode { standby, active, fault, shutdown };
+struct Snapshot {
+    std::uint64_t generation{}, sensor_ns{}, command_ns{};
+    double position{}, velocity{}, target{};
 };
+class Mailbox {
+    std::mutex mutex_;
+    Snapshot value_{};
+public:
+    void publish(Snapshot value) {
+        std::lock_guard lock{mutex_};
+        value_ = value;
+    }
+    bool try_read(Snapshot& output) {
+        std::unique_lock lock{mutex_, std::try_to_lock};
+        if (!lock.owns_lock()) return false;
+        output = value_;
+        return true;
+    }
+};
+class Controller {
+    Mode mode_{Mode::standby};
+    double previous_{};
+    static bool valid(const Snapshot& s, std::uint64_t now) noexcept {
+        return s.generation != 0 && s.sensor_ns <= now && s.command_ns <= now
+            && now - s.sensor_ns <= 5'000'000
+            && now - s.command_ns <= 50'000'000
+            && std::isfinite(s.position) && std::isfinite(s.velocity)
+            && std::isfinite(s.target);
+    }
+    double fault() noexcept { mode_ = Mode::fault; previous_ = 0; return 0; }
+public:
+    Mode mode() const noexcept { return mode_; }
+    bool activate() noexcept {
+        if (mode_ != Mode::standby) return false;
+        mode_ = Mode::active;
+        return true;
+    }
+    bool reset(const Snapshot& s, std::uint64_t now) noexcept {
+        if (mode_ != Mode::fault || !valid(s, now)) return false;
+        mode_ = Mode::standby;
+        previous_ = 0;
+        return true;
+    }
+    void shutdown() noexcept { mode_ = Mode::shutdown; previous_ = 0; }
+    double step(const Snapshot& s, std::uint64_t now, double dt,
+                bool actuator_healthy = true) noexcept {
+        if (mode_ != Mode::active) return 0;
+        if (!valid(s, now) || !std::isfinite(dt) || dt <= 0 || dt > 0.01
+            || !actuator_healthy) return fault();
+        const double requested = 20 * (s.target - s.position) - 2 * s.velocity;
+        if (!std::isfinite(requested)) return fault();
+        const double limited = std::clamp(requested, -5.0, 5.0);
+        previous_ = std::clamp(limited, previous_ - 100 * dt, previous_ + 100 * dt);
+        return previous_;
+    }
+};
+} // namespace robot
 ```
 
----
+[完整实验 · G11-C1 · allocations.hpp]
 
-# 10. Measurement Time ≠ Receive Time
-
-传感器：
-
-```text
-physical measurement
-      │
-      ▼
-sensor firmware
-      │
-      ▼
-bus/network
-      │
-      ▼
-driver
-      │
-      ▼
-application
-```
-
-可以至少有：
-
-```text
-measurement timestamp
-device transmission timestamp
-kernel receive timestamp
-application receive timestamp
-```
-
-它们不是一回事。
-
----
-
-# 11. 错误做法
-
-收到 message：
-
+<!-- s-file {"path":"allocations.hpp"} -->
 ```cpp
-sample.timestamp =
-    std::chrono::steady_clock::now();
-```
-
-然后称：
-
-> “这是 sensor timestamp。”
-
-实际上它最多是：
-
-> application receive time。
-
-如果通信延迟有变化：
-
-```text
-measurement time
-→ receive time
-```
-
-的误差会进入 estimator。
-
----
-
-# 12. Clock Domains
-
-一个机器人可能同时存在：
-
-```text
-MCU hardware timer
-
-camera device clock
-
-LiDAR clock
-
-Linux CLOCK_MONOTONIC
-
-PTP synchronized clock
-
-ROS time
-
-wall clock / UTC
-```
-
-必须明确：
-
-> **每个 timestamp 属于哪个 clock domain。**
-
----
-
-# 13. Clock Domain 不可直接相减
-
-假设：
-
-```text
-camera_ts = device clock
-imu_ts    = host monotonic
-```
-
-直接：
-
-```cpp
-camera_ts - imu_ts
-```
-
-语义上毫无意义。
-
-必须先有：
-
-```text
-clock synchronization
-or
-clock-domain transformation
-```
-
----
-
-# 14. `steady_clock`
-
-进程内部 measurement：
-
-```cpp
-auto now =
-    std::chrono::steady_clock::now();
-```
-
-非常适合：
-
-```text
-durations
-timeouts
-benchmarking
-periodic scheduling
-```
-
-因为它的设计目标是：
-
-> monotonic，避免 wall-clock 调整破坏 duration reasoning。
-
----
-
-# 15. Wall Clock 不应驱动 Control Loop
-
-```text
-UTC / system_clock
-```
-
-可能因为：
-
-```text
-NTP
-manual correction
-time synchronization
-```
-
-发生 adjustment。
-
-控制算法更自然使用：
-
-> monotonic clock / hardware clock。
-
----
-
-# Part III · Periodic Control Loop
-
-# 16. 控制 Loop 的核心结构
-
-```cpp
-while (!stop_requested()) {
-    const auto wake_time = ...;
-
-    const SensorState sensors =
-        hardware.read();
-
-    const StateEstimate estimate =
-        estimator.update(sensors);
-
-    ControlCommand command =
-        controller.update(estimate);
-
-    safety.apply(command);
-
-    hardware.write(command);
-
-    wait_until_next_period();
+#pragma once
+#include <cstddef>
+namespace allocations {
+extern thread_local bool active;
+extern thread_local std::size_t calls;
 }
 ```
 
-真正需要审查的是：
+[完整实验 · G11-C1 · allocations.cpp]
 
-```text
-每一步是否 bounded？
-是否 allocate？
-是否 block？
-是否 throw？
-是否 page fault？
-是否获得 mutex？
-是否调用 unknown callback？
-```
-
----
-
-# 17. Real-Time Loop 的基本规则
-
-对于强 timing path，默认避免：
-
-```text
-general heap allocation
-unbounded lock contention
-blocking I/O without bound
-filesystem
-network DNS
-logging output
-dynamic plugin loading
-exception propagation
-sleep with uncontrolled semantics
-unbounded container growth
-```
-
-注意：
-
-> “避免”来自 determinism requirement，不是 C++ 语言禁止。
-
----
-
-# 18. Control Loop 不应该做 Configuration Parsing
-
-坏：
-
-```text
-control iteration
-↓
-read YAML
-↓
-lookup parameters
-↓
-allocate string
-↓
-update controller
-```
-
-更好：
-
-```text
-Non-RT configuration
-      │
-      ▼
-validate
-      │
-      ▼
-immutable ControllerConfig
-      │
-      ▼
-atomic/snapshot publication
-      │
-      ▼
-RT controller reads snapshot
-```
-
----
-
-# 19. Dynamic Outside, Static Inside 再次出现
-
-```text
-Non-RT world:
-complex dynamic decisions
-
-        ↓ once
-
-RT loop:
-simple fixed representation
-fixed bounds
-predictable code path
-```
-
-这是 G5/G6/G7 的机器人版。
-
----
-
-# Part IV · `dt` 到底是什么？
-
-# 20. 理想定周期
-
-Controller可能假设：
-
+<!-- s-file {"path":"allocations.cpp"} -->
 ```cpp
-constexpr Seconds dt{0.001};
+#include "allocations.hpp"
+#include <cstdlib>
+#include <new>
+namespace allocations {
+thread_local bool active = false;
+thread_local std::size_t calls = 0;
+}
+namespace {
+void count() noexcept { if (allocations::active) ++allocations::calls; }
+void* ordinary(std::size_t n) {
+    count();
+    if (void* p = std::malloc(n ? n : 1)) return p;
+    throw std::bad_alloc{};
+}
+void* aligned(std::size_t n, std::align_val_t a) {
+    count();
+    void* p = nullptr;
+    if (posix_memalign(&p, static_cast<std::size_t>(a), n ? n : 1) == 0) return p;
+    throw std::bad_alloc{};
+}
+}
+void* operator new(std::size_t n) { return ordinary(n); }
+void* operator new[](std::size_t n) { return ordinary(n); }
+void* operator new(std::size_t n, std::align_val_t a) { return aligned(n, a); }
+void* operator new[](std::size_t n, std::align_val_t a) { return aligned(n, a); }
+void* operator new(std::size_t n, const std::nothrow_t&) noexcept {
+    try { return ordinary(n); } catch (...) { return nullptr; }
+}
+void* operator new[](std::size_t n, const std::nothrow_t&) noexcept {
+    try { return ordinary(n); } catch (...) { return nullptr; }
+}
+void* operator new(std::size_t n, std::align_val_t a, const std::nothrow_t&) noexcept {
+    try { return aligned(n, a); } catch (...) { return nullptr; }
+}
+void* operator new[](std::size_t n, std::align_val_t a, const std::nothrow_t&) noexcept {
+    try { return aligned(n, a); } catch (...) { return nullptr; }
+}
+void operator delete(void* p) noexcept { std::free(p); }
+void operator delete[](void* p) noexcept { std::free(p); }
+void operator delete(void* p, std::size_t) noexcept { std::free(p); }
+void operator delete[](void* p, std::size_t) noexcept { std::free(p); }
+void operator delete(void* p, std::align_val_t) noexcept { std::free(p); }
+void operator delete[](void* p, std::align_val_t) noexcept { std::free(p); }
+void operator delete(void* p, std::size_t, std::align_val_t) noexcept { std::free(p); }
+void operator delete[](void* p, std::size_t, std::align_val_t) noexcept { std::free(p); }
+void operator delete(void* p, const std::nothrow_t&) noexcept { std::free(p); }
+void operator delete[](void* p, const std::nothrow_t&) noexcept { std::free(p); }
+void operator delete(void* p, std::align_val_t, const std::nothrow_t&) noexcept {
+    std::free(p);
+}
+void operator delete[](void* p, std::align_val_t, const std::nothrow_t&) noexcept {
+    std::free(p);
+}
 ```
 
-即 1 kHz。
+[完整实验 · G11-C1 · control_test.cpp]
 
-但真实 cycle：
-
-```text
-0.00098
-0.00101
-0.00103
-...
-```
-
----
-
-# 21. Two Models
-
-### Fixed-step Controller
-
-算法理论上基于：
-
-```text
-dt = exact configured period
-```
-
-适合某些离散控制设计。
-
-### Measured-step Controller
-
-使用：
-
-```text
-actual elapsed time
-```
-
-更新 integrator / estimator。
-
-两者都可以正确。
-
-关键：
-
-> 不要含糊地在两种模型之间漂移。
-
----
-
-# 22. Control Timing Contract
-
-Controller API可以显式：
-
+<!-- s-file {"path":"control_test.cpp"} -->
 ```cpp
-struct ControlTick {
-    SteadyTime timestamp;
-    Duration period;
-};
+#include "control.hpp"
+#include "allocations.hpp"
+#include <atomic>
+#include <cstdlib>
+#include <iostream>
+#include <limits>
+#include <new>
+#include <thread>
+void require(bool ok, int code) {
+    if (!ok) { std::cerr << "control invariant=" << code << '\n'; std::exit(code); }
+}
+int main() {
+    using robot::Mode;
+    constexpr std::uint64_t now = 100'000'000;
+    const robot::Snapshot good{1, now, now, 0, 0, 1};
+    // Independent injections: stale sensor, stale command, future, NaN, Inf, bad dt/I/O.
+    for (int which = 0; which != 8; ++which) {
+        robot::Controller c;
+        require(c.activate(), 1);
+        require(c.step(good, now, 0.001) > 0, 2);
+        auto bad = good;
+        double dt = 0.001;
+        bool io = true;
+        if (which == 0) bad.sensor_ns = now - 5'000'001;
+        if (which == 1) bad.command_ns = now - 50'000'001;
+        if (which == 2) bad.sensor_ns = now + 1;
+        if (which == 3) bad.position = std::numeric_limits<double>::quiet_NaN();
+        if (which == 4) bad.target = std::numeric_limits<double>::infinity();
+        if (which == 5) dt = 0;
+        if (which == 6) dt = 0.02;
+        if (which == 7) io = false;
+        require(c.step(bad, now, dt, io) == 0 && c.mode() == Mode::fault, 21);
+        require(c.step(good, now, 0.001) == 0 && c.mode() == Mode::fault, 22);
+        require(!c.activate(), 23);
+        require(c.reset(good, now) && c.mode() == Mode::standby, 24);
+        require(c.activate(), 25);
+        c.shutdown();
+        require(c.step(good, now, 0.001) == 0 && c.mode() == Mode::shutdown, 26);
+        require(!c.reset(good, now) && !c.activate(), 27);
+    }
+    // Count replaceable C++ allocation calls in THIS thread / phase only.
+    allocations::active = true;
+    void* probe = ::operator new(8); // Direct call avoids new-expression elision.
+    ::operator delete(probe);
+    allocations::active = false;
+    require(allocations::calls == 1, 28);
+    allocations::calls = 0;
+    robot::Controller c;
+    c.activate();
+    double position = 0, velocity = 0, previous = 0;
+    bool valid = true;
+    allocations::active = true;
+    for (std::uint64_t tick = 1; tick <= 10'000; ++tick) {
+        const auto stamp = tick * 1'000'000;
+        robot::Snapshot s{tick, stamp, stamp, position, velocity, 1};
+        const double command = c.step(s, stamp, 0.001);
+        valid = valid && std::isfinite(command) && std::abs(command) <= 5
+            && std::abs(command - previous) <= 0.1000001;
+        previous = command;
+        velocity += command * 0.001;
+        position += velocity * 0.001;
+    }
+    allocations::active = false;
+    require(valid && c.mode() == Mode::active, 29);
+    require(allocations::calls == 0, 30);
+    std::cout << "control verified; tracked_cpp_allocations=" << allocations::calls << '\n';
+    // Generation consistency: all fields are copied while holding the same mutex.
+    robot::Mailbox box;
+    std::atomic<bool> done{};
+    std::atomic<bool> midpoint_seen{};
+    std::jthread writer([&] {
+        for (std::uint64_t gen = 1; gen <= 10'000; ++gen) {
+            box.publish({gen, gen, gen, double(gen), double(gen * 2), double(gen * 3)});
+            if (gen == 5000)
+                while (!midpoint_seen.load()) std::this_thread::yield();
+        }
+        done.store(true);
+    });
+    std::size_t observed = 0;
+    auto inspect = [&](const robot::Snapshot& s) {
+        if (s.generation == 0) return;
+        ++observed;
+        require(s.sensor_ns == s.generation && s.command_ns == s.generation
+            && s.position == double(s.generation)
+            && s.velocity == double(s.generation * 2)
+            && s.target == double(s.generation * 3), 31);
+    };
+    robot::Snapshot snapshot{};
+    do {
+        if (box.try_read(snapshot)) inspect(snapshot);
+        if (snapshot.generation == 5000) midpoint_seen.store(true);
+    } while (!done.load());
+    writer.join();
+    require(box.try_read(snapshot), 32);
+    inspect(snapshot);
+    require(observed > 0 && midpoint_seen && snapshot.generation == 10'000, 33);
+    std::cout << "snapshot generations verified\n";
+}
 ```
 
-然后：
+[完整实验 · G11-C1 · timing.cpp]
 
+<!-- s-file {"path":"timing.cpp"} -->
 ```cpp
-ControlCommand update(
-    const ControlTick& tick,
-    const RobotState& state);
-```
-
-时间成为 first-class input。
-
----
-
-# Part V · Linux Scheduling / Determinism
-
-# 23. 普通 OS Scheduler 优化什么？
-
-普通 desktop/server Linux主要面向：
-
-```text
-fairness
-throughput
-general responsiveness
-```
-
-而不是：
-
-> 保证 motor loop 每 1 ms 精确运行。
-
----
-
-# 24. Real-Time Scheduling
-
-Linux提供类似：
-
-```text
-SCHED_FIFO
-SCHED_RR
-```
-
-实时 scheduling classes。
-
-`ros2_control` 官方 Controller Manager 文档明确把降低 main control loop jitter 作为目标，并尝试对主线程设置 `SCHED_FIFO` priority 50；官方也给出了 realtime priority 和 memory-lock 权限配置，并建议 real-time 或 low-latency kernel 来改善 determinism。:chatgpt-content-reference{index="1"}
-
----
-
-# 25. Priority 不等于 Deadline Guarantee
-
-设置：
-
-```text
-SCHED_FIFO
-priority high
-```
-
-只解决 scheduling policy 的一部分。
-
-仍有：
-
-```text
-interrupts
-drivers
-kernel sections
-page faults
-memory contention
-SMI/firmware
-thermal effects
-locks
-other RT tasks
-```
-
-所以：
-
-> `SCHED_FIFO` ≠ “现在就是 hard real-time”。
-
----
-
-# 26. CPU Affinity
-
-可将 control thread限定到：
-
-```text
-specific CPU/core set
-```
-
-目标：
-
-```text
-reduce migration
-improve cache affinity
-reduce scheduler interference
-```
-
-但 affinity也可能造成：
-
-```text
-load imbalance
-competing interrupts
-wrong core selection
-```
-
-所以需要测量。
-
----
-
-# 27. Isolation
-
-更严格系统可能：
-
-```text
-reserve CPU
-move IRQs
-partition RT/non-RT tasks
-```
-
-形成：
-
-```text
-Core 0:
-OS / network / ROS
-
-Core 1:
-control
-
-Core 2-3:
-perception
-```
-
-但这属于：
-
-> system deployment profile，
-
-不是 C++ 代码本身能保证的。
-
----
-
-# Part VI · Priority Inversion
-
-# 28. 场景
-
-```text
-Low-priority thread
-holds mutex
-
-High-priority control thread
-waits mutex
-
-Medium-priority thread
-keeps running
-```
-
-结果：
-
-```text
-high priority
-indirectly blocked by
-low priority
-```
-
-叫：
-
-> **Priority Inversion**
-
----
-
-# 29. 为什么 RT Loop 应避免普通 Shared Locks
-
-即使：
-
-```text
-mutex normally uncontended
-```
-
-只要存在：
-
-> unbounded holder execution
-
-就很难给 control path建立严格 timing bound。
-
----
-
-# 30. 更好的架构
-
-不要：
-
-```text
-ROS callback
-     │
-     ▼
-shared mutex
-     ▲
-     │
-RT control
-```
-
-倾向：
-
-```text
-ROS callback
-     │
-     ▼
-prepare immutable command snapshot
-     │
-     ▼
-single atomic/double-buffer publication
-     │
-     ▼
-RT control
-```
-
-把 unpredictable non-RT execution与 RT loop隔离。
-
----
-
-# Part VII · Memory Discipline
-
-# 31. `new` 为什么在 RT Loop 中危险？
-
-不是因为：
-
-> heap一定慢。
-
-而是 general allocator：
-
-```text
-fast path normally
-but
-possible slow path
-locks
-metadata
-page acquisition
-fragmentation
-```
-
-执行时间通常缺乏你想要的严格 bound。
-
----
-
-# 32. Initialization Phase vs Runtime Phase
-
-推荐：
-
-```text
-Initialization
-────────────────
-allocate
-reserve
-construct
-load model
-warm buffers
-prefault pages
-create threads
-
-        ↓
-
-Real-Time Runtime
-─────────────────
-reuse
-fixed capacity
-bounded operations
-```
-
-这是非常强的 phase separation。
-
----
-
-# 33. `vector.reserve()` 不是 Hard Capacity
-
-```cpp
-values.reserve(1024);
-```
-
-只保证：
-
-> 至少预留 capacity。
-
-仍可以：
-
-```cpp
-values.push_back(...); // 1025th
-```
-
-然后 reallocate。
-
-如果要求：
-
-> runtime绝不能 allocate，
-
-需要 abstraction真正编码：
-
-```text
-capacity <= N
-```
-
----
-
-# 34. C++23 没有标准 `inplace_vector`
-
-需要特别注意：
-
-```cpp
-std::inplace_vector
-```
-
-属于 C++26 方向，不是 C++23 baseline。
-
-在 C++23 中可以选择：
-
-```text
-carefully designed FixedVector<T,N>
-third-party static_vector
-array + explicit size
-domain-specific bounded container
-```
-
-不要把未来标准类型误当 C++23。
-
----
-
-# 35. 简单 Fixed Buffer
-
-```cpp
-template <typename T, std::size_t N>
-class FixedBuffer {
-public:
-    bool push(T value) noexcept(/* ... */);
-
-    [[nodiscard]]
-    std::span<T> values() noexcept;
-
-private:
-    std::array<T, N> storage_;
-    std::size_t size_{};
-};
-```
-
-但注意：
-
-```text
-array<T,N>
-```
-
-意味着 N 个 `T` 已构造。
-
-真正 fixed-capacity vector-like container：
-
-> 需要 raw storage + manual lifetime。
-
-G1 再次回来。
-
----
-
-# 36. Memory Locking
-
-在严格 latency-sensitive Linux system 中，可以考虑：
-
-```text
-mlockall
-```
-
-等机制，降低关键 pages 被换出、first-touch page fault 出现在 control loop 中的风险。ROS 2 的实时示例也明确以“控制执行期间避免 page faults”为目标，并通过 memory locking 等配置进行验证。:chatgpt-content-reference{index="2"}
-
----
-
-# 37. Pre-touch
-
-预先：
-
-```text
-allocate
-↓
-touch pages
-↓
-enter control phase
-```
-
-不是让 memory 更快，
-
-而是：
-
-> 把 demand-page cost 移出关键 timing window。
-
-G6.5 在机器人中变成实际 requirement。
-
----
-
-# Part VIII · Exceptions
-
-# 38. Real-Time Loop 中 Exception 的问题
-
-Exception 正常语义并非“慢所以禁止”。
-
-真正问题包括：
-
-```text
-unpredictable exceptional path
-stack unwinding
-cleanup execution
-error-path complexity
-```
-
-在 hard/firm RT path 中通常更倾向：
-
-> 在边界前验证好，把 hot loop变成非抛出操作。
-
----
-
-# 39. API 可以使用 `noexcept`
-
-例如：
-
-```cpp
-ControlCommand Controller::update(
-    const RobotState& state,
-    Duration dt) noexcept;
-```
-
-这形成：
-
-> failure policy contract。
-
-但只写 `noexcept` 并不会让内部自动可靠。
-
-如果真抛：
-
-> `std::terminate()`。
-
----
-
-# 40. Fault 应成为 State
-
-比在 loop中 throw：
-
-```cpp
-throw SensorFault{};
-```
-
-更常见的 RT架构：
-
-```cpp
-enum class ControlStatus {
-    Ok,
-    SensorTimeout,
-    InvalidState,
-    ActuatorFault,
-};
-```
-
-然后安全 state machine处理。
-
----
-
-# Part IX · Numerical Representation
-
-# 41. 机器人系统不是“全是 `double`”
-
-下面这些虽然机器表示都可能是：
-
-```cpp
-double
-```
-
-但语义完全不同：
-
-```text
-meter
-meter / second
-radian
-radian / second
-newton
-newton-meter
-second
-```
-
-把它们全部裸 `double`：
-
-> compiler无法帮助发现单位错误。
-
----
-
-# 42. Strong Units
-
-例如：
-
-```cpp
-struct Radians {
-    double value{};
-};
-
-struct Meters {
-    double value{};
-};
-```
-
-或者采用成熟 units library。
-
-目标：
-
-```cpp
-void set_angle(Radians angle);
-```
-
-而不是：
-
-```cpp
-void set_angle(double value);
-```
-
----
-
-# 43. Degrees vs Radians 是经典 Physical Type Bug
-
-```cpp
-controller.set_angle(90.0);
-```
-
-到底是：
-
-```text
-90 degrees
-or
-90 radians?
-```
-
-接口完全无法表达。
-
-在机器人边界：
-
-> 单位应该进入 type/schema/documentation contract。
-
----
-
-# Part X · Coordinate Frames
-
-# 44. Position 永远属于某个 Frame
-
-```text
-(1, 2, 3)
-```
-
-没有 frame：
-
-> 几乎没有物理意义。
-
-可能是：
-
-```text
-world frame
-base frame
-camera frame
-end-effector frame
-IMU frame
-```
-
----
-
-# 45. Transform
-
-一般：
-
-```text
-T_A_B
-```
-
-应该明确 convention：
-
-> 它表示把 B 中表示的坐标变换到 A？
-
-还是反过来？
-
-如果团队不统一：
-
-> 数学全部可能“看起来对”。
-
----
-
-# 46. SE(3)
-
-刚体 pose通常可以理解为：
-
-```text
-rotation R ∈ SO(3)
-translation t ∈ R³
-```
-
-组成：
-
-```text
-T =
-[R t]
-[0 1]
-```
-
-不用在 G11 重新讲 Lie group数学课程，
-
-但 C++ representation 必须保留：
-
-```text
-frame
-convention
-units
-normalization
-```
-
----
-
-# 47. Quaternion
-
-Quaternion：
-
-```text
-q
-```
-
-用于 rotation时通常要求：
-
-```text
-||q|| = 1
-```
-
-数值运算后：
-
-> 可能需要维护 normalization。
-
-还必须统一：
-
-```text
-wxyz vs xyzw storage order
-active vs passive rotation
-right/left multiplication convention
-```
-
-这些都是 API contract。
-
----
-
-# 48. Frame-safe API
-
-可以概念性设计：
-
-```cpp
-template <typename From, typename To>
-class Transform;
-```
-
-于是：
-
-```cpp
-Transform<CameraFrame, BaseFrame>
-```
-
-比裸：
-
-```cpp
-Eigen::Matrix4d
-```
-
-具有更强 semantic information。
-
-但不要无限 template 化 runtime frame graph。
-
----
-
-# 49. Static vs Runtime Frames
-
-Robot kinematic chain：
-
-```text
-Base
-→ Shoulder
-→ Elbow
-```
-
-可能 compile-time known。
-
-ROS/SLAM world中的：
-
-```text
-map
-odom
-sensor_137
-dynamic object
-```
-
-往往 runtime-known。
-
-所以：
-
-> frame type safety 和 dynamic frame graph 应在合适 boundary 组合。
-
----
-
-# Part XI · Eigen / Numerical C++
-
-# 50. Eigen 类库为什么在机器人常见？
-
-因为机器人核心大量涉及：
-
-```text
-vectors
-matrices
-rotations
-Jacobians
-least squares
-filters
-optimization
-```
-
-其 C++ abstraction 可以实现：
-
-```text
-high-level math expression
-+
-compile-time dimensions
-+
-SIMD-friendly codegen
-```
-
----
-
-# 51. Fixed-size Matrix
-
-例如：
-
-```cpp
-Eigen::Matrix<double, 6, 6>
-```
-
-尺寸 compile-time known。
-
-对机器人常见小矩阵很自然：
-
-```text
-3×3
-4×4
-6×6
-```
-
-通常也更容易避免 dynamic shape/allocation路径。
-
----
-
-# 52. Dynamic Matrix
-
-```cpp
-Eigen::MatrixXd
-```
-
-shape runtime-known。
-
-如果在 RT loop 中：
-
-```text
-resize
-allocate
-```
-
-就要特别审查。
-
-更好的 phase：
-
-```text
-initialize dynamic sizes before loop
-↓
-reuse matrix storage
-```
-
----
-
-# 53. Expression Templates
-
-代码：
-
-```cpp
-c = a + b;
-```
-
-不一定先创建完整：
-
-```text
-temporary a+b
-```
-
-再赋值。
-
-Expression template可以让 compiler fuse expression。
-
-但：
-
-> 复杂表达式仍需查看 aliasing、temporary materialization 与 codegen。
-
-不要认为：
-
-```text
-Eigen syntax
-=
-automatically optimal
-```
-
----
-
-# 54. Aliasing
-
-例如：
-
-```cpp
-A = A * B;
-```
-
-output与input alias。
-
-Math library必须知道是否：
-
-```text
-temporary required
-```
-
-某些 API提供：
-
-```text
-noalias-like
-```
-
-提示。
-
-只有在确实不存在 alias时使用。
-
-错误 noalias 声明：
-
-> 会破坏数学正确性。
-
----
-
-# Part XII · Sensor Acquisition
-
-# 55. Driver Boundary
-
-典型：
-
-```text
-Hardware
-   ↓
-Kernel / Vendor SDK
-   ↓
-Driver Adapter
-   ↓
-Canonical Sample
-```
-
-不要让：
-
-```text
-vendor-specific struct
-```
-
-扩散整个系统。
-
----
-
-# 56. Canonical Sample
-
-例如：
-
-```cpp
-struct ImuSample {
-    SensorTime timestamp;
-
-    Vec3 angular_velocity;
-    Vec3 linear_acceleration;
-
-    ImuSequence sequence{};
-};
-```
-
-Adapter负责：
-
-```text
-vendor units
-↓
-canonical SI units
-
-vendor timestamp
-↓
-clock-domain model
-```
-
----
-
-# 57. Normalize at Boundary
-
-如果某设备输出：
-
-```text
-degrees/s
-g
-milliseconds
-```
-
-进入 domain core 时立即转换成：
-
-```text
-rad/s
-m/s²
-seconds/nanoseconds
-```
-
-不要让单位差异流到 estimator内部。
-
----
-
-# 58. Sequence Number
-
-高频 sensor stream最好有：
-
-```text
-timestamp
-sequence
-```
-
-二者解决不同问题：
-
-```text
-timestamp
-→ when?
-
-sequence
-→ did we miss / reorder samples?
-```
-
----
-
-# 59. Overflow Policy
-
-Sensor producer：
-
-```text
-10 kHz
-```
-
-consumer暂时跟不上。
-
-你必须定义：
-
-```text
-block sensor?
-drop oldest?
-drop newest?
-overwrite latest?
-fault?
-```
-
-不是所有 sensor data 都应该“绝不丢”。
-
----
-
-# 60. Latest-state vs FIFO
-
-控制 loop可能真正需要：
-
-> 最新 joint state。
-
-如果 queue积压：
-
-```text
-state at t-100ms
-state at t-99ms
-...
-```
-
-逐个处理反而使 controller永远落后。
-
-这时 abstraction可能应该是：
-
-# **Latest Value**
-
-而不是 FIFO queue。
-
----
-
-# 61. Command 则可能不同
-
-例如：
-
-```text
-MoveArm
-Stop
-ResetFault
-```
-
-如果语义是 event sequence：
-
-> FIFO/order可能非常重要。
-
-所以：
-
-```text
-Sensor State
-Command Event
-```
-
-不能机械使用同一种 channel。
-
----
-
-# Part XIII · Latest-value Channel
-
-# 62. Latest Snapshot
-
-```text
-Sensor Thread
-     │
-     ▼
- latest state
-     │
-     ▼
-Control Thread
-```
-
-Producer不断覆盖：
-
-> 最新完整 generation。
-
-Consumer每 cycle：
-
-> 读取当前最新 snapshot。
-
-中间版本可以被跳过。
-
----
-
-# 63. 适合
-
-```text
-joint state
-latest pose estimate
-target setpoint
-configuration snapshot
-```
-
-前提：
-
-> 中间每个 update 没有独立事件语义。
-
----
-
-# 64. 不适合
-
-```text
-financial transaction
-button edge event
-state-machine command
-discrete action
-```
-
-因为跳过中间 value可能改变 semantics。
-
----
-
-# Part XIV · Double Buffering
-
-# 65. 基本结构
-
-```text
-Buffer A
-Buffer B
-
-Writer writes inactive buffer
-      ↓
-publish active index/pointer
-      ↓
-Reader reads published complete buffer
-```
-
-关键：
-
-> reader不观察 half-written state。
-
----
-
-# 66. 为什么比 Shared Mutex 更适合某些 RT Read Paths？
-
-Non-RT writer：
-
-```text
-build snapshot
-```
-
-可以慢一些。
-
-RT reader：
-
-```text
-load pointer/index
-↓
-read immutable snapshot
-```
-
-没有：
-
-```text
-mutex contention
-```
-
----
-
-# 67. 但 Double Buffering 有 Reuse 问题
-
-Writer不能：
-
-```text
-publish B
-↓
-立刻 overwrite A
-```
-
-如果 reader仍然使用 A。
-
-简单单-reader周期系统可以通过严格 phase协议解决。
-
-多个任意 reader：
-
-> 重新进入 generation reclamation 问题。
-
-G7.5 又回来了。
-
----
-
-# Part XV · State Estimation
-
-# 68. Estimator 的角色
-
-Sensors：
-
-```text
-noisy
-partial
-different rates
-different clocks
-```
-
-Estimator输出：
-
-```text
-coherent robot state
-```
-
-例如：
-
-```cpp
-struct RobotState {
-    StateTime timestamp;
-
-    Pose base_pose;
-    Velocity base_velocity;
-
-    JointState joints;
-    Covariance covariance;
-};
-```
-
----
-
-# 69. Estimator 应该有明确 Single Writer
-
-通常一个 estimator execution context：
-
-```text
-owns mutable filter state
-```
-
-例如：
-
-```text
-state vector
-covariance
-bias estimates
-history
-```
-
-避免多个 callbacks并发直接 mutate filter internals。
-
----
-
-# 70. Multi-sensor Input
-
-```text
-IMU ─────┐
-Encoder ─┼──▶ Estimator
-Camera ──┤
-LiDAR ───┘
-```
-
-需要解决：
-
-```text
-timestamp ordering
-clock conversion
-out-of-order observations
-latency
-interpolation
-buffering
-```
-
-而不仅：
-
-> “mutex保护 EKF。”
-
----
-
-# 71. State Timestamp
-
-Estimator output时间应该有明确含义：
-
-```text
-state estimate valid at time t
-```
-
-而不是：
-
-> “函数 return 的时间”。
-
-这对：
-
-```text
-prediction
-control
-sensor fusion
-```
-
-极其重要。
-
----
-
-# 72. Delayed Measurement
-
-视觉 measurement可能：
-
-```text
-captured at t0
-processed at t0 + 50ms
-```
-
-Estimator必须决定：
-
-```text
-apply as if now?
-rewind history?
-out-of-sequence update?
-discard?
-```
-
-这是算法 contract。
-
-Runtime不能凭 receive time替代 measurement time。
-
----
-
-# Part XVI · Control Architecture
-
-# 73. Controller 输入应该是完整 Consistent Snapshot
-
-不要：
-
-```cpp
-controller.read_position();
-controller.read_velocity();
-controller.read_target();
-```
-
-每次可能来自不同 generation。
-
-更好：
-
-```cpp
-ControlInput input{
-    .state = state_snapshot,
-    .target = target_snapshot,
-};
-```
-
-同一 update使用固定 snapshot。
-
----
-
-# 74. Controller 应尽量 Pure-ish
-
-理想：
-
-```cpp
-ControlOutput Controller::update(
-    const ControlInput& input,
-    Duration dt) noexcept;
-```
-
-内部可能有：
-
-```text
-integrator
-previous state
-filter state
-```
-
-所以不是纯函数。
-
-但 external side effects尽量少。
-
-不要在 `update()`：
-
-```text
-publish ROS
-write log file
-reload config
-open socket
-```
-
----
-
-# 75. Saturation
-
-控制输出必须进入 actuator physical limits：
-
-```text
-u_raw
-↓
-saturation
-↓
-u_safe
-```
-
-例如：
-
-```text
-torque min/max
-velocity limit
-position limit
-current limit
-```
-
-限制不是 UI validation。
-
-而是：
-
-> physical safety invariant。
-
----
-
-# 76. Rate Limit
-
-即使 target在合法范围，
-
-变化过快也可能危险：
-
-```text
-0 N·m
-↓ one cycle
-100 N·m
-```
-
-所以可以有：
-
-```text
-value limit
-rate limit
-acceleration/jerk limit
-```
-
-不同层。
-
----
-
-# 77. Anti-windup
-
-对包含积分项的 controller：
-
-```text
-actuator saturated
-```
-
-但 integrator仍无限增长，
-
-会产生：
-
-> integral windup。
-
-所以 saturation和controller state必须协同设计。
-
-这不是 C++问题，
-
-但必须进入 controller abstraction。
-
----
-
-# Part XVII · Hardware Interface
-
-# 78. Hardware Core Interface
-
-例如：
-
-```cpp
-class MotorBus {
-public:
-    [[nodiscard]]
-    BusState read() noexcept;
-
-    WriteStatus write(
-        std::span<const MotorCommand>) noexcept;
-};
-```
-
-它应该隔离：
-
-```text
-SocketCAN
-EtherCAT SDK
-vendor C API
-serial implementation
-```
-
----
-
-# 79. Avoid Vendor Types in Domain
-
-坏：
-
-```cpp
-void Controller::update(
-    VendorXMotorPacket packet);
-```
-
-这样 controller 被 SDK绑死。
-
-更好：
-
-```text
-Vendor Packet
-↓ adapter
-MotorState
-↓
-Controller
-```
-
----
-
-# 80. C ABI 非常适合 Driver Boundary
-
-很多硬件 SDK本身是：
-
-```text
-C
-C-compatible shared library
-vendor ABI
-```
-
-G8 模型正好适用：
-
-```text
-opaque handle
-pointer + length
-explicit create/destroy
-no exceptions across boundary
-```
-
----
-
-# Part XVIII · Device I/O Thread
-
-# 81. Hardware Read 是否应该直接发生在 Controller Thread？
-
-取决于设备 I/O guarantee。
-
-如果：
-
-```text
-read call
-has strict bounded duration
-```
-
-可以集成。
-
-如果可能：
-
-```text
-block
-driver stall
-network timeout
-```
-
-最好：
-
-```text
-I/O thread
-↓
-bounded/latest channel
-↓
-control
-```
-
----
-
-# 82. Trade-off
-
-独立 I/O thread：
-
-```text
-+ isolates blocking
-+ decouples driver
-
-- extra handoff
-- extra latency
-- timestamp complexity
-```
-
-没有 universal answer。
-
----
-
-# Part XIX · Watchdog
-
-# 83. 控制系统必须假设 Software 会停止正常更新
-
-例如：
-
-```text
-controller hang
-process crash
-communication lost
-```
-
-Actuator不能无限保持：
-
-> 上一次 torque command。
-
----
-
-# 84. Command Watchdog
-
-Motor controller / MCU 可以要求：
-
-```text
-new command every <= T
-```
-
-如果 timeout：
-
-```text
-enter safe state
-```
-
-这比上层软件自己：
-
-```text
-“我会一直正常跑”
-```
-
-可靠得多。
-
----
-
-# 85. Watchdog 应尽量靠近 Actuator
-
-```text
-Cloud watchdog
-```
-
-通常没有意义。
-
-更健康：
-
-```text
-host software watchdog
-+
-motor controller / MCU watchdog
-+
-hardware safety chain
-```
-
-分层防御。
-
----
-
-# 86. Emergency Stop
-
-E-stop 不应被理解成：
-
-> ROS topic `/emergency_stop`。
-
-真正 safety-critical E-stop 往往需要：
-
-```text
-independent hardware chain
-safety PLC/controller
-power/drive safe state
-```
-
-软件消息可以参与系统，
-
-但不应该是唯一安全屏障。
-
----
-
-# Part XX · Fault State Machine
-
-# 87. 不要用很多 Bool
-
-坏：
-
-```cpp
-bool sensor_fault;
-bool motor_fault;
-bool stopping;
-bool disabled;
-bool emergency;
-```
-
-组合可能产生：
-
-```text
-2^5 states
-```
-
-很多非法。
-
----
-
-# 88. Explicit State
-
-```cpp
-enum class RobotMode {
-    Initializing,
-    Standby,
-    Enabled,
-    Fault,
-    EmergencyStop,
-    ShuttingDown,
-};
-```
-
-定义合法 transition：
-
-```text
-Initializing → Standby
-Standby      → Enabled
-Enabled      → Fault
-Fault        → Standby
-*            → EmergencyStop
-```
-
----
-
-# 89. Fault Should Be Latched?
-
-某些 fault：
-
-```text
-sensor timeout
-overcurrent
-encoder fault
-```
-
-不应因为下一 cycle暂时正常：
-
-> 自动恢复。
-
-需要：
-
-```text
-fault latch
-+
-explicit reset conditions
-```
-
-这是 physical system safety contract。
-
----
-
-# Part XXI · Command Arbitration
-
-# 90. 一个机器人往往有多个 Command Sources
-
-```text
-autonomous planner
-teleoperation
-safety controller
-calibration
-manual service
-```
-
-不能都直接：
-
-```text
-write actuator target
-```
-
----
-
-# 91. Arbitration Layer
-
-```text
-Planner ─────┐
-Teleop ──────┼──▶ Command Arbiter ─▶ Controller
-Safety ──────┘
-```
-
-定义：
-
-```text
-priority
-ownership
-mode
-timeout
-validity
-```
-
----
-
-# 92. Command 也需要 Timestamp / Validity
-
-```cpp
-struct TargetCommand {
-    CommandTime timestamp;
-    Duration valid_for;
-    Target target;
-};
-```
-
-过期 command：
-
-> 不应继续作用于 actuator。
-
-这就是 ROS QoS lifespan / application validity semantics 背后的物理意义。
-
----
-
-# Part XXII · RT ↔ Non-RT Boundary
-
-# 93. 推荐结构
-
-```text
-                  NON-RT
-┌─────────────────────────────────────┐
-│ ROS / planning / config / logging   │
-└────────────────┬────────────────────┘
-                 │ snapshots/commands
-                 ▼
-        bounded RT-safe handoff
-                 │
-                 ▼
-┌─────────────────────────────────────┐
-│          RT / deterministic         │
-│ estimate → control → safety → write │
-└────────────────┬────────────────────┘
-                 │ state snapshots
-                 ▼
-        bounded RT-safe handoff
-                 │
-                 ▼
-┌─────────────────────────────────────┐
-│ ROS publish / logging / telemetry   │
-└─────────────────────────────────────┘
-```
-
----
-
-# 94. RT Thread 不应直接做普通 ROS Publish
-
-`realtime_tools` 官方文档明确指出，普通 ROS publisher 不应直接用于 hard-real-time controller update loop；`RealtimePublisher` 的设计就是让 realtime side准备数据，由额外 non-realtime thread执行 ROS topic publish。:chatgpt-content-reference{index="3"}
-
-这正好验证本章的边界设计：
-
-```text
-RT generates state
-↓
-handoff
-↓
-non-RT middleware publication
-```
-
----
-
-# 95. Reverse Direction
-
-ROS callback接收：
-
-```text
-new target
-new config
-mode change
-```
-
-也不要：
-
-```text
-callback thread
-locks controller internal state
-```
-
-更好：
-
-```text
-validate
-↓
-construct command/config snapshot
-↓
-publish
-↓
-RT loop consumes next safe point
-```
-
----
-
-# Part XXIII · ROS 2 在系统中的位置
-
-# 96. ROS 2 不是你的 Robot Control Algorithm
-
-ROS 2 提供：
-
-```text
-discovery
-message transport
-services
-actions
-parameters
-lifecycle
-tooling
-ecosystem integration
-```
-
-控制算法：
-
-> 应尽量是可脱离 ROS runtime 单独测试的普通 C++。
-
----
-
-# 97. 推荐 Dependency Direction
-
-不要：
-
-```text
-Controller
-↓
-rclcpp::Node
-```
-
-而是：
-
-```text
-ROS Adapter
-↓
-Controller Core
-```
-
-也就是：
-
-```text
-ROS
-is an adapter/integration layer
-```
-
-不是 domain core 的 superclass。
-
----
-
-# 98. 为什么？
-
-这样 controller可以：
-
-```text
-unit test without ROS
-simulation
-HIL
-embedded integration
-different middleware
-```
-
-并减少：
-
-```text
-callback/threading semantics
-```
-
-渗透算法内部。
-
----
-
-# Part XXIV · ROS 2 Middleware
-
-# 99. RMW Layer
-
-ROS 2 通过 middleware abstraction 将上层 ROS API 与具体传输实现隔离。当前 ROS 2 文档描述了 DDS/RTPS 家族以及 Zenoh 等不同 RMW backend；这意味着“ROS 2 topic”并不等价于一个固定 transport implementation。:chatgpt-content-reference{index="4"}
-
-因此性能分析不能只说：
-
-> “ROS 2 latency 是多少？”
-
-还必须知道：
-
-```text
-RMW implementation
-transport
-serialization
-process topology
-QoS
-message size
-network
-```
-
----
-
-# Part XXV · ROS 2 QoS
-
-# 100. QoS 不是“网络高级选项”
-
-机器人 message 有不同 physical semantics。
-
-例如：
-
-```text
-camera frames
-motor command
-map
-configuration
-heartbeat
-```
-
-不应该全部采用相同 delivery policy。
-
----
-
-# 101. 重要 QoS 维度
-
-ROS 2 的 QoS API 包括：
-
-```text
-History
-Depth
-Reliability
-Durability
-Deadline
-Lifespan
-Liveliness
-```
-
-等策略。当前 `rclcpp` QoS API 也明确暴露这些 policy categories。:chatgpt-content-reference{index="5"}
-
----
-
-# 102. Reliability
-
-典型：
-
-```text
-Reliable
-Best Effort
-```
-
-关键问题：
-
-> 丢数据和阻塞等待重传，哪个更符合 topic semantics？
-
----
-
-# 103. Sensor Data
-
-ROS 2 的 `SensorDataQoS` 默认采用 Keep Last depth 5、Best Effort、Volatile 等设置，这反映了高频传感数据经常更重视最新数据和低延迟，而不是为每一帧强制可靠重传。:chatgpt-content-reference{index="6"}
-
-但：
-
-> 不应该因为名字叫 sensor 就机械使用。
-
-例如：
-
-```text
-low-rate critical measurement
-```
-
-可能有不同要求。
-
----
-
-# 104. Durability
-
-回答：
-
-> 新 subscriber 加入时，是否应该获得历史/最近发布状态？
-
-例如：
-
-```text
-static config/map
-```
-
-与：
-
-```text
-camera stream
-```
-
-需求完全不同。
-
----
-
-# 105. History / Depth
-
-```text
-Keep Last N
-```
-
-实际上就是：
-
-> middleware backlog bound。
-
-深度太大：
-
-```text
-stale data latency ↑
-memory ↑
-```
-
-深度太小：
-
-```text
-burst drop ↑
-```
-
-又是 backpressure/queueing问题。
-
----
-
-# 106. Deadline
-
-可以表达：
-
-> publisher期望在某个时间尺度持续提供数据。
-
-这与 control system的：
-
-```text
-sensor timeout
-heartbeat
-```
-
-语义有关。
-
-但 middleware deadline事件：
-
-> 不应自动替代 application safety watchdog。
-
----
-
-# 107. Lifespan
-
-Lifespan描述 data有效期。DDS/RMW实现中的 lifespan policy就是限制一份数据被认为有效的最大持续时间。:chatgpt-content-reference{index="7"}
-
-对机器人：
-
-```text
-stale target
-```
-
-尤其值得建模。
-
----
-
-# 108. Liveliness
-
-帮助检测：
-
-> publisher 是否仍然 alive/maintaining liveliness contract。
-
-但同样：
-
-```text
-middleware liveliness
-≠
-actuator safety watchdog
-```
-
-两层都可能需要。
-
----
-
-# Part XXVI · ROS Executor
-
-# 109. Callback 并不是“凭空发生”
-
-ROS node的：
-
-```text
-subscription callbacks
-timers
-services
-actions
-```
-
-最终需要 executor决定：
-
-> 哪个 executable callback 什么时候在哪个 thread运行。
-
-因此：
-
-```text
-Callback Threading Model
-```
-
-是并发 architecture 的一部分。
-
----
-
-# 110. 不要在 Callback 内假设 Single Thread
-
-只要系统进入：
-
-```text
-multi-threaded executor
-callback groups
-composition
-```
-
-callback interleaving就可能改变。
-
-因此 state所有权必须明确。
-
----
-
-# 111. RT Core 不应该依赖 Executor Timing
-
-如果 motor loop requirement：
-
-```text
-1 kHz periodic
-low jitter
-```
-
-不要仅依赖：
-
-> “ROS timer callback应该差不多每 1ms 调一次。”
-
-更稳健是：
-
-```text
-dedicated control execution context
-```
-
-再通过 adapter和 ROS 交互。
-
----
-
-# Part XXVII · `ros2_control`
-
-# 112. `ros2_control` 的角色
-
-`ros2_control` 当前官方文档将其描述为面向 ROS 2 的机器人（实时）控制框架，包含 controller manager、hardware components、controllers 等机制。:chatgpt-content-reference{index="8"}
-
-从我们的模型看，它大致对应：
-
-```text
-ROS world
-   │
-Controller Manager
-   │
-Controller update
-   │
-Hardware Interfaces
-   │
-Physical robot
-```
-
----
-
-# 113. Control Framework 不等于 Automatic Real-Time Safety
-
-即使框架提供 realtime-oriented architecture，
-
-你自己的 controller若：
-
-```text
-allocates
-logs
-takes contended mutex
-calls blocking service
-```
-
-仍可能破坏 determinism。
-
----
-
-# 114. Hardware Interface Lifecycle
-
-硬件 adapter应该明确：
-
-```text
-configure
-activate
-read/write
-deactivate
-error
-cleanup
-```
-
-这和 G7/G10 lifecycle state machine完全一致。
-
----
-
-# Part XXVIII · Zero-copy / Loaned Messages
-
-# 115. “Zero-copy” 应该精确定义
-
-至少可能指：
-
-```text
-no user-level payload copy
-middleware-loaned buffer
-intra-process ownership transfer
-shared-memory transport
-```
-
-它们不是同一件事。
-
----
-
-# 116. ROS Loaned Messages
-
-ROS 2 RMW 接口支持 loaned message 的概念；官方 API 明确规定，loaned message publish 后 ownership 会交回 middleware，发布之后继续使用该 message 是 undefined behavior。同时，底层是否需要分配、是否 lock-free 是 implementation-defined，而非“用了 loaned message 就必然零分配/lock-free”。:chatgpt-content-reference{index="9"}
-
-这与我们 G2/G3 的模型完全一致：
-
-> **Loan = explicit temporary ownership/borrowing contract。**
-
----
-
-# 117. Zero-copy 的代价
-
-减少：
-
-```text
-memory bandwidth
-copy latency
-```
-
-但增加：
-
-```text
-buffer lifetime coordination
-ownership constraints
-pool pressure
-backpressure coupling
-```
-
-所以：
-
-> Zero-copy 不是免费性能按钮。
-
----
-
-# Part XXIX · Camera / LiDAR 大 Payload
-
-# 118. 大图像尤其不适合随意 Copy
-
-例如：
-
-```text
-1920×1080×3
-≈ 6 MB/frame
-```
-
-30 FPS：
-
-```text
-≈ 180 MB/s
-```
-
-仅一次完整 copy就是明显 bandwidth。
-
-如果 pipeline多 copy几次：
-
-> 很快进入 memory-bandwidth domain。
-
----
-
-# 119. Better Pattern
-
-```text
-Capture Buffer
-     │
-     ▼
-Owned / Loaned Frame
-     │
-     ├── perception borrow
-     ├── recorder borrow
-     └── visualization?
-```
-
-但这引入：
-
-> 多 reader lifetime。
-
-可使用：
-
-```text
-shared immutable frame
-reference count
-buffer pool
-loan protocol
-```
-
-取决于性能需求。
-
----
-
-# Part XXX · Robot Data Topology
-
-# 120. 高频状态通常适合 SoA 吗？
-
-例如 100 个 joints：
-
-```cpp
-struct JointState {
-    double position;
-    double velocity;
-    double effort;
-};
-```
-
-AoS：
-
-```text
-[p v e][p v e][p v e]
-```
-
-如果 controller每次对每 joint都同时用：
-
-```text
-position + velocity + effort
-```
-
-AoS完全可能很好。
-
----
-
-# 121. SoA 不是机器人默认答案
-
-如果 kernel只：
-
-```text
-process all position
-```
-
-SoA可能更好：
-
-```text
-positions[]
-velocities[]
-efforts[]
-```
-
-还是 G6：
-
-> access pattern drives layout。
-
----
-
-# Part XXXI · Command Snapshot
-
-# 122. Non-RT Command
-
-Planner产生：
-
-```cpp
-struct MotionTarget {
-    TargetTime timestamp;
-    Pose target_pose;
-    Velocity target_velocity;
-};
-```
-
-构造完成后：
-
-```text
-publish immutable target snapshot
-```
-
----
-
-# 123. RT Consume
-
-Control loop每 cycle：
-
-```text
-load current target generation
-↓
-hold same target during update
-```
-
-不要在一次 controller update中：
-
-```text
-position target = V1
-velocity target = V2
-```
-
-snapshot consistency很重要。
-
----
-
-# Part XXXII · Configuration
-
-# 124. Static Config
-
-例如：
-
-```text
-joint limits
-motor constants
-kinematic dimensions
-control gains
-```
-
-Initialization时：
-
-```text
-parse
-validate
-compile/precompute
-```
-
-运行时使用：
-
-> normalized config representation。
-
----
-
-# 125. Dynamic Gain Tuning
-
-ROS parameter callback：
-
-```text
-new gains
-```
-
-不要直接：
-
-```text
-write active controller fields one by one
-```
-
-构造：
-
-```cpp
-ControllerConfig next;
-```
-
-验证：
-
-```text
-all invariants
-```
-
-一次 publish generation。
-
----
-
-# 126. Parameter Update 是 Transaction
-
-如果：
-
-```text
-Kp
-Ki
-Kd
-```
-
-必须形成一个 consistent set，
-
-不要三个 independent atomics：
-
-```text
-Kp V2
-Ki V1
-Kd V2
-```
-
-immutable config snapshot是自然解。
-
----
-
-# Part XXXIII · Safety Layer
-
-# 127. Controller 和 Safety Filter 分离
-
-```text
-Controller
-produces desired command
-         │
-         ▼
-Safety / Limits Layer
-         │
-         ▼
-Hardware command
-```
-
-这样 safety rules不散落在：
-
-```text
-planner
-controller
-driver
-```
-
-各处。
-
----
-
-# 128. Safety Layer 输入
-
-至少：
-
-```text
-requested command
-current state
-limits
-fault status
-timestamp / age
-```
-
-输出：
-
-```text
-safe command
-or
-fault transition
-```
-
----
-
-# 129. Command Age
-
-如果 target：
-
-```text
-timestamp = t0
-```
-
-current：
-
-```text
-t0 + 3 sec
-```
-
-即使 numeric value完全合法，
-
-也可能：
-
-> 已经过期。
-
-因此 freshness是安全状态的一部分。
-
----
-
-# Part XXXIV · Failure Containment
-
-# 130. Perception Failure 不应该直接破坏 Motor Thread
-
-例如 vision：
-
-```text
-throws
-runs out of memory
-misses deadline
-```
-
-control loop应有：
-
-```text
-last valid state
-timeout policy
-fallback
-safe mode
-```
-
-而不是：
-
-```text
-control thread blocks waiting vision
-```
-
----
-
-# 131. Pipeline 要按 Failure Domain 分层
-
-```text
-Vision failure
-≠
-Motor bus failure
-≠
-Localization failure
-≠
-UI failure
-```
-
-不同 subsystem应有明确 containment boundary。
-
----
-
-# Part XXXV · Determinism 与 Logging
-
-# 132. RT Loop 中不应该直接格式化大型 Log
-
-例如：
-
-```cpp
-std::println(
-    "position={}, target={}, ...",
-    ...);
-```
-
-可能涉及：
-
-```text
-formatting
-locks
-I/O
-terminal
-allocation
-```
-
-都不适合 deterministic path。
-
----
-
-# 133. RT Telemetry Buffer
-
-RT loop只写：
-
-```cpp
-struct TraceSample {
-    std::uint64_t cycle;
-    std::int64_t jitter_ns;
-    double error;
-};
-```
-
-到：
-
-```text
-preallocated SPSC trace buffer
-```
-
-non-RT thread：
-
-```text
-format
-publish
-write disk
-```
-
----
-
-# Part XXXVI · Observability
-
-# 134. 必须测什么？
-
-控制 loop：
-
-```text
-period
-execution time
-deadline miss
-jitter
-max latency
-```
-
-Sensor：
-
-```text
-input rate
-age
-drops
-reordering
-```
-
-Queues：
-
-```text
-depth
-drops/full
-wait
-```
-
-Hardware：
-
-```text
-read/write duration
-timeouts
-faults
-```
-
----
-
-# 135. Average 不够
-
-机器人尤其要关注：
-
-```text
-max
-p99
-p99.9
-deadline miss count
-```
-
-一次：
-
-```text
-1 second stall
-```
-
-可能比平均 10 µs 更重要。
-
----
-
-# 136. Trace Timeline
-
-理想：
-
-```text
-sensor sample
-     │
-     ▼
-driver
-     │
-     ▼
-estimator
-     │
-     ▼
-controller
-     │
-     ▼
-motor write
-```
-
-跨 subsystem记录：
-
-```text
-timestamp
-sequence
-generation
-```
-
-才能分析真正 end-to-end latency。
-
----
-
-# Part XXXVII · Simulation
-
-# 137. Algorithm Core 必须能脱离 Hardware
-
-如果 controller只能通过：
-
-```text
-真实 CAN device
-```
-
-才能测试，
-
-设计耦合太强。
-
-理想：
-
-```text
-Hardware Interface
-       ▲
-       │
-Real ──┼── Simulated
-       │
-       └── Recorded Replay
-```
-
----
-
-# 138. Deterministic Replay
-
-记录：
-
-```text
-sensor samples
-timestamps
-commands
-```
-
-然后离线：
-
-```text
-replay same sequence
-```
-
-验证：
-
-```text
-estimator output
-controller decisions
-fault transitions
-```
-
-这是非常强的 debugging能力。
-
----
-
-# 139. Simulation Time
-
-Simulation可能：
-
-```text
-faster than real time
-slower than real time
-paused
-rewound/reset
-```
-
-所以：
-
-> algorithmic simulation time 不应和 host steady clock混为一体。
-
----
-
-# Part XXXVIII · Hardware-in-the-Loop
-
-# 140. HIL
-
-```text
-Real controller software
-        │
-        ▼
-simulated plant / partial physical hardware
-```
-
-用于验证：
-
-```text
-timing
-driver
-interfaces
-failure modes
-```
-
-比纯 simulation更接近 deployment。
-
----
-
-# 141. SIL / HIL / Real Robot
-
-测试阶梯：
-
-```text
-Unit mathematical model
-
-        ↓
-
-SIL
-Software-in-the-loop
-
-        ↓
-
-HIL
-Hardware-in-the-loop
-
-        ↓
-
-Bench hardware
-
-        ↓
-
-Full robot
-```
-
-不要把所有 bug留给：
-
-> 真机第一次发现。
-
----
-
-# Part XXXIX · Testing Control Code
-
-# 142. Pure Controller Tests
-
-输入：
-
-```text
-state
-target
-dt
-```
-
-验证：
-
-```text
-output
-saturation
-fault behavior
-```
-
-完全不需要 ROS。
-
----
-
-# 143. Property Tests
-
-例如：
-
-```text
-|command| <= actuator_limit
-```
-
-对大量 randomized state成立。
-
----
-
-# 144. Numerical Boundary Tests
-
-必须覆盖：
-
-```text
-NaN
-Inf
-near-zero dt
-large timestamp jump
-singularity
-quaternion norm drift
-sensor dropout
-```
-
-机器人算法最危险的问题常在边界。
-
----
-
-# 145. Timing Tests
-
-不要只：
-
-```text
-function correctness
-```
-
-还测：
-
-```text
-allocation count
-page faults
-cycle latency
-jitter
-```
-
-如果有 timing contract。
-
----
-
-# Part XL · Allocation Tests
-
-# 146. RT Phase “No Allocation” 应该被验证
-
-不是只靠 code review。
-
-可以：
-
-```text
-instrument allocator
-count allocations
-```
-
-控制 phase期望：
-
-```text
-0
-```
-
-如果 requirement是零动态分配。
-
----
-
-# 147. 但注意 Hidden Allocation
-
-可能来自：
-
-```text
-std::function
-string formatting
-vector growth
-ROS publish
-Eigen dynamic resize
-exception
-unordered_map insertion
-```
-
-所以必须用实际 instrumentation。
-
----
-
-# Part XLI · Real-Time Safety Classification
-
-# 148. 建议给 API 标注 Execution Class
-
-文档级：
-
-```text
-RT_SAFE
-RT_INIT_ONLY
-NON_RT
-BLOCKING
-```
-
-例如：
-
-```text
-MotorBus::write
-→ RT_SAFE under driver contract
-
-load_config
-→ NON_RT
-
-publish_debug
-→ NON_RT
-```
-
-不是 C++ keyword，
-
-而是工程 contract。
-
----
-
-# 149. RT-safe 的定义必须具体
-
-不要只写：
-
-> “real-time safe”。
-
-应该列出：
-
-```text
-does not allocate
-does not block on unbounded mutex
-does not perform filesystem I/O
-does not throw
-bounded input sizes
-execution analyzed under platform X
-```
-
-否则这个词没有审计价值。
-
----
-
-# Part XLII · Architecture Example
-
-# 150. 一套推荐机器人 Runtime
-
-```text
-                 ┌─────────────────────────┐
-                 │       ROS / UI          │
-                 │ planner / params / log  │
-                 └───────────┬─────────────┘
-                             │
-                       target snapshot
-                             │
-                             ▼
-┌───────────┐       ┌─────────────────────┐
-│ Sensors   │──────▶│   Estimator Thread  │
-└───────────┘       └─────────┬───────────┘
-                              │
-                        state snapshot
-                              │
-                              ▼
-                    ┌─────────────────────┐
-                    │    Control Thread   │
-                    │ estimator snapshot  │
-                    │ target snapshot     │
-                    │ safety              │
-                    └─────────┬───────────┘
-                              │
-                        actuator command
-                              │
-                              ▼
-                    ┌─────────────────────┐
-                    │ Hardware Interface  │
-                    └─────────────────────┘
-
-RT telemetry ─────────▶ SPSC ─────────▶ ROS/log thread
-```
-
-核心特点：
-
-```text
-single-writer estimator
-single-writer controller state
-immutable snapshots
-bounded handoffs
-non-RT ROS integration
-```
-
----
-
-# Part XLIII · Thread Topology
-
-# 151. Example
-
-```text
-Thread A
-Hardware acquisition
-
-Thread B
-State estimation
-
-Thread C
-Control loop
-
-Thread D
-ROS executor / commands
-
-Thread E
-Telemetry / logging
-
-Thread F...
-Vision/perception pool
-```
-
-不是：
-
-> “线程越多越专业”。
-
-而是 execution-class isolation。
-
----
-
-# 152. Could Acquisition + Control Be Same Thread?
-
-当然。
-
-如果：
-
-```text
-hardware read is bounded
-state estimation cheap
-timing aligned
-```
-
-一个 loop：
-
-```text
-read
-estimate
-control
-write
-```
-
-反而：
-
-```text
-fewer handoffs
-lower latency
-simpler timing
-```
-
-所以线程划分必须来自：
-
-> timing / blocking / ownership requirements。
-
----
-
-# Part XLIV · ROS Node Topology
-
-# 153. Process Boundary 不是免费
-
-把每个 subsystem：
-
-```text
-one ROS node
-one process
-```
-
-可能增加：
-
-```text
-serialization
-IPC
-context switches
-memory copy
-deployment complexity
-```
-
----
-
-# 154. Composition
-
-多个 components可在一个 process中 composition，
-
-减少某些 process boundaries。
-
-ROS 2 也提供 composable-node infrastructure。:chatgpt-content-reference{index="10"}
-
-但：
-
-> process composition 会增加 failure coupling。
-
-因此：
-
-```text
-performance isolation
-vs
-fault isolation
-```
-
-需要权衡。
-
----
-
-# Part XLV · QoS Design Examples
-
-# 155. Camera Frames
-
-常见需求：
-
-```text
-high rate
-latest data preferred
-occasional loss acceptable
-stale frame useless
-```
-
-可能倾向：
-
-```text
-Best Effort
-small depth
-volatile
-```
-
----
-
-# 156. Map / Static Configuration
-
-常见：
-
-```text
-low-rate
-new subscribers need latest state
-```
-
-可能倾向：
-
-```text
-Reliable
-transient-like durability semantics
-```
-
-具体选择必须结合 RMW和系统 requirements。
-
----
-
-# 157. Emergency Command
-
-不要简单认为：
-
-```text
-Reliable ROS message
-=
-safety mechanism
-```
-
-reliability只是一层 transport property。
-
-真正 safety stop通常需要：
-
-```text
-watchdog
-local safe state
-hardware path
-```
-
----
-
-# Part XLVI · Sensor Synchronization
-
-# 158. Exact-time Synchronization
-
-要求：
-
-```text
-camera.timestamp == imu.timestamp
-```
-
-现实中往往不成立。
-
----
-
-# 159. Approximate Synchronization
-
-定义：
-
-```text
-|t_camera - t_imu| <= tolerance
-```
-
-但 tolerance是物理系统 parameter。
-
-过大：
-
-```text
-temporal inconsistency
-```
-
-过小：
-
-```text
-drop rate ↑
-```
-
----
-
-# 160. Interpolation
-
-对于高频 IMU / encoder：
-
-```text
-state(t_camera)
-```
-
-可以通过邻近 samples：
-
-```text
-interpolate / integrate
-```
-
-而不是强行寻找 exact timestamp。
-
-这是 estimator设计问题。
-
----
-
-# Part XLVII · Latency Compensation
-
-# 161. State Age
-
-如果 estimator输出：
-
-```text
-state valid at t_est
-```
-
-controller现在：
-
-```text
-t_now
-```
-
-则：
-
-```text
-age = t_now - t_est
-```
-
-可能需要：
-
-```text
-predict state forward
-```
-
-而不是直接把旧 state当当前 state。
-
----
-
-# 162. Command Age
-
-同理 planner target：
-
-```text
-generated at t_cmd
-```
-
-控制器可以判断：
-
-```text
-too stale?
-```
-
-而不是永远执行最后一条 command。
-
----
-
-# Part XLVIII · Control-Loop State Machine
-
-# 163. 不要只有 `enabled`
-
-更清楚：
-
-```cpp
-enum class ControlMode {
-    Disabled,
-    Arming,
-    Active,
-    Fault,
-    Emergency,
-};
-```
-
----
-
-# 164. Transition Authority
-
-例如：
-
-```text
-Disabled → Arming
-```
-
-只允许 lifecycle manager。
-
-```text
-Active → Fault
-```
-
-可以由 safety system触发。
-
-```text
-* → Emergency
-```
-
-高优先级。
-
-State machine本身是 safety architecture。
-
----
-
-# Part XLIX · Numerical Failure
-
-# 165. `NaN` 是机器人中特别危险的值
-
-例如：
-
-```text
-position = NaN
-```
-
-然后：
-
-```cpp
-std::clamp(position, min, max);
-```
-
-不能简单假设：
-
-> clamp 会把所有异常数值变安全。
-
-Floating-point NaN comparison semantics需要明确处理。
-
----
-
-# 166. Validate Before Actuation
-
-最终 motor command：
-
-```text
-finite?
-within bounds?
-timestamp fresh?
-mode active?
-sensor state valid?
-```
-
-必须在 write boundary前验证。
-
----
-
-# Part L · Watchdog + Freshness Invariant
-
-# 167. 一个非常强的 Safety Invariant
-
-Actuator command只有当：
-
-```text
-control mode == Active
-AND
-state is valid
-AND
-state age <= max_age
-AND
-target age <= max_age
-AND
-command finite
-AND
-command within limits
-```
-
-时才允许输出。
-
-否则：
-
-```text
-safe command / fault
-```
-
-这种 invariant比：
-
-> 到处 if(error)
-
-更容易审计。
-
----
-
-# Part LI · Robot C++ Project Structure
-
-# 168. 推荐分层
-
-```text
-robot/
-├── core/
-│   ├── math/
-│   ├── units/
-│   ├── state/
-│   ├── estimation/
-│   ├── control/
-│   └── safety/
-│
-├── runtime/
-│   ├── channels/
-│   ├── scheduling/
-│   └── lifecycle/
-│
-├── hardware/
-│   ├── motor/
-│   ├── imu/
-│   └── camera/
-│
-├── adapters/
-│   └── ros2/
-│
-├── simulation/
-├── tests/
-└── apps/
-```
-
-依赖方向：
-
-```text
-ROS adapter ───────┐
-hardware adapter ──┼──▶ core
-simulation ────────┘
-```
-
-而不是：
-
-```text
-core → ROS
-```
-
----
-
-# Part LII · Build Boundaries
-
-# 169. Targets
-
-例如：
-
-```text
-Robot::math
-Robot::core
-Robot::control
-Robot::hardware
-Robot::ros2_adapter
-Robot::simulation
-```
-
----
-
-# 170. Core 应该尽量无 ROS Dependency
-
-```text
-Robot::control
-```
-
-只依赖：
-
-```text
-math
-state
-units
-```
-
-这样：
-
-```text
-unit tests
-benchmarks
-simulation
-```
-
-不需要启动 ROS runtime。
-
----
-
-# Part LIII · Hardware Plugin Boundary
-
-# 171. 是否使用 C++ Virtual Interface？
-
-内部同一产品/toolchain：
-
-```cpp
-class MotorDriver {
-public:
-    virtual ~MotorDriver() = default;
-    virtual BusState read() noexcept = 0;
-    virtual WriteStatus write(...) noexcept = 0;
-};
-```
-
-完全可能合理。
-
----
-
-# 172. 第三方 Binary Driver
-
-如果要：
-
-```text
-third-party plugin
-long-lived ABI
-different language
-```
-
-回到 G8：
-
-```text
-C ABI
-opaque handle
-function table
-```
-
-更稳健。
-
----
-
-# Part LIV · Robotics Performance Hierarchy
-
-# 173. 优先级 1 — Timing Architecture
-
-先解决：
-
-```text
-wrong execution context
-blocking operation
-unbounded queue
-bad timestamping
-```
-
----
-
-# 174. 优先级 2 — Memory Discipline
-
-```text
-unexpected allocation
-page fault
-buffer churn
-```
-
----
-
-# 175. 优先级 3 — Data Movement
-
-```text
-image copies
-point-cloud copies
-ROS serialization
-```
-
----
-
-# 176. 优先级 4 — Cache/Layout
-
-```text
-state representation
-SoA/AoS
-working sets
-```
-
----
-
-# 177. 优先级 5 — Instruction-level
-
-最后才：
-
-```text
-branchless
-SIMD
-intrinsics
-```
-
-不要反过来。
-
----
-
-# Part LV · Practical Project
-
-# 178. G11 Project：`robot-control-core`
-
-设计一个模拟 1 kHz joint-control runtime：
-
-```text
-Encoder Simulation
-        │
-        ▼
-Sensor Thread
-        │
-        ▼
-Latest State / SPSC
-        │
-        ▼
-Controller @ 1 kHz
-        │
-        ▼
-Safety Layer
-        │
-        ▼
-Simulated Motor
-```
-
-同时：
-
-```text
-ROS/non-RT adapter simulation
-        │
-        ▼
-Target Snapshot
-```
-
----
-
-# 179. Phase 0 — Pure Math
-
-实现：
-
-```text
-units
-joint state
-target
-PID/state-feedback controller
-limits
-```
-
-无线程、无 ROS。
-
----
-
-# 180. Phase 1 — Deterministic Simulator
-
-```text
-Plant
-↓
-Controller
-↓
-Plant
-```
-
-固定 simulation step。
-
-验证：
-
-```text
-stability
-saturation
-fault behavior
-```
-
----
-
-# 181. Phase 2 — Real Clock Runtime
-
-控制 loop：
-
-```text
-1 kHz
-```
-
-测：
-
-```text
-execution
-jitter
-deadline misses
-```
-
----
-
-# 182. Phase 3 — Sensor Thread
-
-传感器线程模拟：
-
-```text
-2 kHz encoder
-```
-
-通过：
-
-```text
-latest snapshot / SPSC
-```
-
-传给 controller。
-
----
-
-# 183. Phase 4 — Non-RT Commands
-
-另一个线程：
-
-```text
-10 Hz
-```
-
-更新 target snapshot。
-
-Controller不能：
-
-> lock configuration mutex。
-
----
-
-# 184. Phase 5 — Fault Injection
-
-模拟：
-
-```text
-sensor timeout
-NaN
-late samples
-motor write error
-stale target
-```
-
-验证：
-
-```text
-Fault
-Safe State
-```
-
----
-
-# 185. Phase 6 — Memory Audit
-
-控制 phase：
-
-```text
-allocation count = 0
-```
-
-若这是项目 requirement。
-
----
-
-# 186. Phase 7 — ROS Adapter
-
-最后才接 ROS 2：
-
-```text
-subscription target
-state publisher
-parameter config
-```
-
-Core不改变。
-
----
-
-# Part LVI · Robotics Review Protocol
-
-面对机器人 C++ path，按这个顺序问。
-
-| Layer       | Question                              |
-| ----------- | ------------------------------------- |
-| Physical    | 数据/command 对应什么物理量？         |
-| Units       | 单位是什么？                          |
-| Frame       | 属于哪个 coordinate frame？           |
-| Time        | timestamp 属于哪个 clock domain？     |
-| Freshness   | 数据多旧仍可用？                      |
-| Ownership   | 谁拥有 buffer/state？                 |
-| Writer      | 谁可以修改这份 state？                |
-| Execution   | RT / deterministic / non-RT？         |
-| Memory      | hot path 会 allocate/page fault 吗？  |
-| Blocking    | 会等待 mutex/I/O/OS 吗？              |
-| Bounds      | loops/queues/container 是否有上界？   |
-| Numerics    | NaN/singularity/conditioning？        |
-| Safety      | invalid input时输出什么？             |
-| Shutdown    | actuator最终进入什么 safe state？     |
-| Middleware  | ROS/QoS 是否符合 physical semantics？ |
-| Measurement | latency/jitter/deadline是否实际测过？ |
-
----
-
-# Part LVII · 高频错误
-
-# 187. 错误 1
-
-> 快就是 real-time。
-
-错。
-
-Real-time首先是 deadline/predictability问题。
-
----
-
-# 188. 错误 2
-
-> ROS timer = deterministic control scheduler。
-
-不能这样假设。
-
----
-
-# 189. 错误 3
-
-> 设置高 priority 后就 hard real-time。
-
-错。
-
----
-
-# 190. 错误 4
-
-> `reserve()` 后 vector 永远不会 allocate。
-
-错。
-
-超过 capacity仍会 grow。
-
----
-
-# 191. 错误 5
-
-> Sensor receive time就是 measurement time。
-
-错。
-
----
-
-# 192. 错误 6
-
-> 所有 timestamp 都是 nanoseconds，所以能相减。
-
-错。
-
-Clock domain不同仍无意义。
-
----
-
-# 193. 错误 7
-
-> 最新数据必须全部排队处理。
-
-对于 state stream可能反而导致系统越来越 stale。
-
----
-
-# 194. 错误 8
-
-> 所有 message 都应该 Reliable。
-
-可靠性取决于 message semantics。
-
----
-
-# 195. 错误 9
-
-> Zero-copy 永远更好。
-
-它用 lifetime/ownership coordination 换 copy reduction。
-
----
-
-# 196. 错误 10
-
-> shared_ptr 让机器人数据自动线程安全。
-
-它主要解决 lifetime，不解决 mutation。
-
----
-
-# 197. 错误 11
-
-> Controller 可以直接操作 vendor SDK type。
-
-会污染 domain boundary。
-
----
-
-# 198. 错误 12
-
-> RT loop中偶尔 logging没事。
-
-“偶尔”正是 tail latency不可预测的来源。
-
----
-
-# 199. 错误 13
-
-> Safety 就是在最后 clamp。
-
-Safety还包括：
-
-```text
-freshness
-mode
-fault
-watchdog
-finite values
-rate limit
-hardware state
-```
-
----
-
-# 200. 错误 14
-
-> 软件 E-stop topic足够。
-
-真正 safety-critical stop需要独立且符合安全要求的硬件/system设计。
-
----
-
-# 201. 错误 15
-
-> Robot architecture就是把所有东西拆成 ROS nodes。
-
-Node/process topology必须服从：
-
-```text
-latency
-copies
-fault isolation
-ownership
-deployment
-```
-
----
-
-# Part LVIII · C++ / Zig / Rust Robotics Perspective
-
-# 202. C++
-
-优势集中在：
-
-```text
-mature robotics ecosystem
-Eigen/numerics
-hardware SDK compatibility
-ROS 2 ecosystem
-zero-overhead abstractions
-fine control of memory/layout
-```
-
-代价：
-
-```text
-lifetime discipline
-UB surface
-complex build/ABI
-manual concurrency proof
-```
-
----
-
-# 203. Rust
-
-优势：
-
-```text
-ownership
-data-race prevention
-strong enums/result
-safer asynchronous architecture
-```
-
-但 robotics ecosystem / vendor SDK / numerical integration深度仍要按具体领域评估。
-
-Rust并不会自动解决：
-
-```text
-deadline
-jitter
-allocator determinism
-physical safety
-```
-
----
-
-# 204. Zig
-
-优势：
-
-```text
-explicit allocation
-simple C interop
-controllable runtime
-small systems layers
-```
-
-很适合：
-
-```text
-drivers
-embedded utilities
-C-facing components
-deterministic low-level tools
-```
-
-但高层 robotics/numerical ecosystem相对 C++ 小。
-
----
-
-# 205. 混合架构
-
-可以非常自然：
-
-```text
-C++:
-control / robotics ecosystem / numerical core
-
-Rust:
-networked services / safety-sensitive tooling
-
-Zig:
-low-level device / build / C integration
-
-C ABI:
-stable interoperability boundary
-```
-
-不要追求：
-
-> 一个语言统治整台机器人。
-
----
-
-# Part LIX · G11 Final Fifteen Axioms
-
-如果半年后只能留下十五条：
-
-1. **机器人中的 real-time 不是“算得快”，而是在规定 timing assumptions 下具有可接受、可预测的 deadline behavior。**
-
-2. **物理数据必须同时回答 value、unit、frame 和 timestamp；缺少任何一个都可能产生语义错误。**
-
-3. **Measurement time、receive time 和 processing time 是不同概念；多 sensor 系统必须显式管理 clock domains。**
-
-4. **Real-time/deterministic path 应与 ROS、logging、configuration、blocking I/O 等 non-RT work建立明确 execution boundary。**
-
-5. **RT hot path 优先使用 initialization-time allocation、fixed bounds、storage reuse 和 bounded algorithms；`reserve()` 不等于 hard capacity。**
-
-6. **控制器应尽量消费一个完整一致的 state/target snapshot，而不是在一次 update 中读取多个独立变化的 shared fields。**
-
-7. **Single writer、immutable snapshot、SPSC/latest-value handoff 往往比共享 mutex/复杂 atomics 更适合机器人高频状态。**
-
-8. **FIFO event stream 和 latest-state stream 是不同语义；不是所有 sensor update 都应该排队逐条处理。**
-
-9. **ROS 2 是 integration/middleware layer，不应成为 control/domain algorithm 的不可分离基础类。**
-
-10. **QoS 必须从数据的物理语义选择；Reliability、Depth、Deadline、Lifespan 等不是统一套用的“网络配置”。**
-
-11. **Zero-copy/loaned buffers减少 data movement，却增加 lifetime、ownership 和 buffer-pressure coordination；必须整体评估。**
-
-12. **Safety 是一条独立路径：limits、freshness、finite checks、fault state、watchdog 和 safe actuation 都应明确建模。**
-
-13. **机器人 shutdown 的最终正确性不是“线程退出”，而是 actuator、bus 和 physical system进入定义良好的 safe state。**
-
-14. **Simulation、replay、HIL 与 fault injection 是机器人软件正确性工程的一部分，而不是上线前可选测试。**
-
-15. **优秀 Robotics C++ 的目标不是让所有代码都“real-time/lock-free”，而是把真正需要 deterministic behavior 的最小核心隔离并证明，其余代码保持清晰、普通、可维护。**
-
----
-
-# Part LX · G11 Final Gate
-
-应该能闭卷回答：
-
-## Real-Time
+#include "control.hpp"
+#include <array>
+#include <chrono>
+#include <iostream>
+#include <thread>
+using Clock = std::chrono::steady_clock;
+using Ns = std::chrono::nanoseconds;
+struct Trace { long long wake_ns, execution_ns; bool missed; };
+int main() {
+    constexpr int cycles = 1000;
+    constexpr auto period = Ns{1'000'000};
+    std::array<Trace, cycles> traces{};
+    robot::Controller c;
+    c.activate();
+    double position = 0, velocity = 0;
+    const auto start = Clock::now() + std::chrono::milliseconds{5};
+    for (int tick = 0; tick != cycles; ++tick) {
+        const auto release = start + tick * period;
+        std::this_thread::sleep_until(release);
+        const auto wake = Clock::now();
+        const auto logical = std::uint64_t(tick + 1) * 1'000'000;
+        robot::Snapshot s{std::uint64_t(tick + 1), logical, logical,
+                          position, velocity, 1};
+        const double command = c.step(s, logical, 0.001);
+        velocity += command * 0.001;
+        position += velocity * 0.001;
+        const auto finish = Clock::now();
+        traces[tick] = {std::chrono::duration_cast<Ns>(wake - release).count(),
+                       std::chrono::duration_cast<Ns>(finish - wake).count(),
+                       finish > release + period};
+    }
+    if (!std::isfinite(position) || c.mode() != robot::Mode::active) return 2;
+    // All formatting is outside the sampled phase. No deadline threshold is a PASS oracle.
+    std::cout << "position=" << position << '\n';
+    for (int i = 0; i != cycles; ++i)
+        std::cout << i << ',' << traces[i].wake_ns << ','
+                  << traces[i].execution_ns << ',' << traces[i].missed << '\n';
+}
+```
+
+### 16.3 观察合同
+
+timing 的首行保留最终 plant 状态，后续 1000 行为 `tick,wake_offset_ns,execution_ns,deadline_missed`。绝对计划时刻为 start + tick × 1ms；迟到时继续执行下一逻辑步，可能出现连续赶进度。本实验没有丢周期、重同步或真实控制补偿策略，记录应据此解释。
+
+执行器计算 p50/p99/max 和 miss count，记录为 OBSERVED；无论本机 jitter 大小都不声称 hard real-time。程序正常返回仅检查模型状态与有限值。没有 affinity、mlock、特权调度、真实传感器、ROS、HIL 或硬件 actuation；也没有检测整个进程 malloc 或 page fault。
+
+<a id="g11-section-17"></a>
+
+## 17. 机器人路径复核记录
+
+### 17.1 十六个审查维度
+
+| 维度 | 应留下的回答 |
+| --- | --- |
+| Physical / units / frame | 物理量、规范单位、坐标变换方向 |
+| Time / freshness | 时钟域、测量时刻、age 与失效界限 |
+| Ownership / writer | buffer owner、借用期限、状态修改者 |
+| Execution / blocking | 关键域、等待点、平台假设 |
+| Memory / bounds | 分配面、容量、循环上界 |
+| Numerics / safety | finite、稳定性条件、fault 与安全动作 |
+| Shutdown / middleware | 停止后硬件状态、传输与回收合同 |
+| Measurement | 采样条件、时间分布和未覆盖路径 |
+
+### 17.2 本批的结论边界
+
+本章可执行部分检验简化控制模型、锁存、generation 和可替换 C++ 分配调用；采样的是本机调度，不是 Linux 实时部署。生成一致性由 mutex 整体复制提供，TSan 只补充动态观察，不能据无报告证明双缓冲无锁协议。零命令仅是仿真约定，不能当作真机操作建议。
+
+<a id="g11-section-18"></a>
+
+## 18. Final Gate
+
+先闭卷写出条件、机制与反例，再核对下一节；保留原稿问题，不在题干下先给结论。
+
+### 18.1 Real-Time
 
 1. Fast 和 real-time 有什么根本区别？
 2. Period、deadline、jitter 分别是什么？
 3. 为什么 average latency不能证明 real-time behavior？
 4. `SCHED_FIFO` 为什么不等于 hard-real-time guarantee？
 
-## Time
+### 18.2 Time
 
 1. measurement timestamp 和 receive timestamp有什么区别？
 2. 两个相同单位的 timestamp 为什么仍可能不能相减？
 3. `steady_clock` 适合解决什么问题？
 4. delayed camera observation进入 estimator时为什么不能假装是“现在”？
 
-## Memory
+### 18.3 Memory
 
 1. 为什么 RT loop避免 general heap allocation？
 2. `reserve()` 为什么不等于 fixed-capacity guarantee？
 3. pre-touch解决的是哪类成本？
 4. 为什么 C++23 中不能直接假定有 `std::inplace_vector`？
 
-## Concurrency
+### 18.4 Concurrency
 
- 1. 为什么 single-writer state对机器人特别有价值？
- 2. latest-value channel 与 FIFO queue适合的语义有什么区别？
- 3. 为什么 double-buffer仍然有 lifetime/reuse问题？
- 4. 为什么 RT loop通常不应等待 non-RT mutex？
+1. 为什么 single-writer state对机器人特别有价值？
+2. latest-value channel 与 FIFO queue适合的语义有什么区别？
+3. 为什么 double-buffer仍然有 lifetime/reuse问题？
+4. 为什么 RT loop通常不应等待 non-RT mutex？
 
-## Numerics
+### 18.5 Numerics
 
- 1. 为什么裸 `double` 在 robot API中容易制造单位错误？
- 2. coordinate frame为什么属于 type/API semantics？
- 3. quaternion使用时至少要统一哪些 conventions？
- 4. fixed-size numerical representation为什么常适合 control core？
+1. 为什么裸 `double` 在 robot API中容易制造单位错误？
+2. coordinate frame为什么属于 type/API semantics？
+3. quaternion使用时至少要统一哪些 conventions？
+4. fixed-size numerical representation为什么常适合 control core？
 
-## Control
+### 18.6 Control
 
- 1. 为什么 Controller 应该使用 consistent snapshot？
- 2. saturation 和 rate limiting分别限制什么？
- 3. 为什么 stale command可能比 numeric out-of-range一样危险？
- 4. cancellation/fault发生时 controller应该如何保持 invariant？
+1. 为什么 Controller 应该使用 consistent snapshot？
+2. saturation 和 rate limiting分别限制什么？
+3. 为什么 stale command可能比 numeric out-of-range一样危险？
+4. cancellation/fault发生时 controller应该如何保持 invariant？
 
-## Hardware
+### 18.7 Hardware
 
- 1. 为什么 vendor SDK type不应进入 domain core？
- 2. hardware read可能阻塞时为什么要重新考虑 thread topology？
- 3. actuator watchdog为什么应该尽量靠近硬件？
+1. 为什么 vendor SDK type不应进入 domain core？
+2. hardware read可能阻塞时为什么要重新考虑 thread topology？
+3. actuator watchdog为什么应该尽量靠近硬件？
 
-## ROS 2
+### 18.8 ROS 2
 
- 1. 为什么 ROS callback executor不应该自动等价于 motor-control scheduler？
- 2. QoS为什么必须由 message semantics决定？
- 3. SensorDataQoS 为什么典型采用 best-effort/small depth？
- 4. loaned message publish后为什么不能继续使用？
- 5. 为什么普通 ROS publisher不适合直接放进 hard-RT update loop？
+1. 为什么 ROS callback executor不应该自动等价于 motor-control scheduler？
+2. QoS为什么必须由 message semantics决定？
+3. SensorDataQoS 为什么典型采用 best-effort/small depth？
+4. loaned message publish后为什么不能继续使用？
+5. 为什么普通 ROS publisher不适合直接放进 hard-RT update loop？
 
-## Safety
+### 18.9 Safety
 
- 1. 为什么 software topic不能替代真正安全 E-stop architecture？
- 2. fault为什么通常应该进入显式 state machine？
- 3. 如何定义“允许向 actuator 输出 command”的完整 invariant？
+1. 为什么 software topic不能替代真正安全 E-stop architecture？
+2. fault为什么通常应该进入显式 state machine？
+3. 如何定义“允许向 actuator 输出 command”的完整 invariant？
 
----
+<a id="g11-section-19"></a>
 
-# Part LXI · G10 → G11 的升级
+## 19. Final Gate · 参考答案与常见误判
 
-G10：
+答案按上一节分组和题号对应。重点是推理与适用条件，不把关键词复述当作通过。
 
-```text
-Input
-↓
-Process
-↓
-Output
-```
+### 19.1 Real-Time
 
-主要关注：
+1. fast 只说明某种耗时统计；real-time 要在条件下满足时限/可预测性。短平均值不能担保每次截止期限。
 
-```text
-ownership
-queues
-backpressure
-shutdown
-performance
-```
+2. period 是计划 release 间隔，deadline 是完成期限，jitter 是指定事件相对计划时刻的偏移变化；必须说明测的是 wake 还是完成。
 
-G11：
+3. 平均抹去尾部，有限样本 max 也不是 WCET。需要平台/负载假设、阻塞上界和部署证据。
 
-```text
-Physical State(t)
-       ↓
-Estimate(t)
-       ↓
-Control(t)
-       ↓
-Actuation(t)
-       ↓
-Physical State(t + Δt)
-```
+4. 调度策略不消除中断、固件、page fault、锁、驱动和硬件干扰；优先级提升也可能伤害其他关键线程。
 
-新增：
+### 19.2 Time
 
-```text
-time
-units
-frames
-deadlines
-jitter
-numerical stability
-physical safety
-```
+1. 前者描述物理采样时刻，后者描述传输后的接收时刻；用后者替代会把可变通信延迟混入估计。
 
-这意味着：
+2. 单位相同仅表示刻度，原点、速度和跳变规则可能不同；先建立 clock-domain 转换及误差。
 
-> 软件系统 correctness 被扩展为 cyber-physical correctness。
+3. 适合进程内持续时间、超时和相对调度，不受 wall-clock 调整的同类影响；不能自动对应设备测量时钟。
 
----
+4. 估计值属于过去，需按算法回溯、预测、乱序更新或丢弃。假装现在会把时延误差变成状态误差。
 
-# Part LXII · G11 完成状态
+### 19.3 Memory
 
-```text
-G11.1   Real-Time / Deadline / Jitter
-G11.2   Clock Domains / Timestamp Semantics
-G11.3   Periodic Control Architecture
-G11.4   Linux RT Scheduling / Affinity
-G11.5   RT Memory Discipline
-G11.6   Numerical Representation / Units
-G11.7   Coordinate Frames / Geometry
-G11.8   Sensor Acquisition / Synchronization
-G11.9   State Estimation Architecture
-G11.10  Control / Limits / Safety
-G11.11  Hardware Interface / Drivers
-G11.12  Watchdogs / Fault State Machine
-G11.13  RT ↔ Non-RT Handoff
-G11.14  ROS 2 / RMW / QoS / Executors
-G11.15  ros2_control Integration
-G11.16  Zero-copy / Loaned Buffers
-G11.17  Simulation / Replay / HIL
-G11.18  Testing / Timing / Observability
-G11.19  Robotics Project Architecture
-─────────────────────────────────────────
-G11      COMPLETE / FROZEN
-```
+1. 问题在于 allocator 及页面路径的时间边界不明，不是每次分配都慢。初始化分配与运行期回收也要分别审查。
 
-G11 到这里完成以后，这条 Modern C++ Systems Track 只剩最后一个总收束章节：
+2. reserve 后还能超过 capacity；真正有界接口应拒绝超限或用固定表示。array 同时意味着所有元素已构造。
 
-# **G12 — C++ × Zig × Rust Unified Systems Model**
+3. 把首次触页等部分成本提前，不证明以后没有页面、缓存或 OS 干扰；需在目标平台验证。
 
-G12 不再是三门语言的 feature comparison。
+4. 它不属于 C++23 标准设施。应选 array+size 或明确依赖的静态容器，不把未来设施写成本基线。
 
-它会把整条路线压缩到同一组底层问题：
+### 19.4 Concurrency
 
-```text
-Object
-Storage
-Lifetime
-Ownership
-Borrowing
-Aliasing
-Value
-Allocation
-Error
-Genericity
-ABI
-Concurrency
-Build
-Real-Time
-```
+1. 估计器/控制器每份可变状态有一个写者，减少复合不变量与锁域；读者仍需合法快照与生命周期。
 
-然后对同一个系统设计分别回答：
+2. 连续状态允许跳过中间代时适合 latest；每个事件都有意义或顺序要求时用 FIFO。不能仅凭频率决定。
 
-```text
-C++ 如何表达？
-Rust 如何约束？
-Zig 如何显式控制？
+3. 发布新的索引后旧读者可能仍访问原槽；重用必须等读者结束或有回收协议，release/acquire 本身不够。
 
-语言替你证明了什么？
-程序员仍必须证明什么？
-机器最终看到什么？
-```
+4. 持锁者可能因非实时工作长期停顿，引入优先级反转。try_lock+旧值策略也需 freshness，且不是自动硬时限证明。
 
-最终目标不是得出“哪门语言最好”，而是建立：
+### 19.5 Numerics
 
-> **面对一个 systems problem，先识别约束，再决定哪些约束应该由语言、类型系统、runtime、architecture 或工程规范承担。**
+1. double 不区分角度、弧度、长度和力矩；单位进入类型/schema 才能限制误用。数值相等不是物理相同。
+
+2. 同一个三元组在不同 frame 含义不同；变换方向和可组合性属于接口正确性，不只是注释。
+
+3. 至少规定元素顺序、乘法方向、主动/被动约定及单位长度维护；否则数学形式相同仍可能旋转反向。
+
+4. 尺寸和工作量容易限定，减少动态 resize；但其他表达式、临时或库路径仍需检查，不是全链零分配保证。
+
+### 19.6 Control
+
+1. 分开读取可能拼出不同 generation 的状态/目标，控制计算需固定同代输入；snapshot 自身的取得也要合法。
+
+2. saturation 限幅值，rate limiting 限随时间变化；积分控制还要 anti-windup，不是一次 clamp 能完成。
+
+3. 目标可能已不适合当前状态，数值合法也可能产生危险动作；有效期与授权是输出条件。
+
+4. 保持 fault 锁存和模型定义的安全输出，停止非法更新，显式复位再激活。真实 safe state 由物理系统决定。
+
+### 19.7 Hardware
+
+1. vendor 单位、布局与时钟应在 adapter 规范化，否则算法/仿真被硬件接口绑住。
+
+2. 阻塞会侵蚀控制期限；可隔离 I/O，但新增 handoff、延迟和时钟责任。若 I/O 有界，单循环可能更合理。
+
+3. 主机挂死时上层软件已无法自救，靠近 actuator 的独立 watchdog 可在失联时执行本地策略；仍需硬件安全设计。
+
+### 19.8 ROS 2
+
+1. Executor 为 callbacks 提供执行机制，不自动给出 motor loop 期限保证；多线程/group 还会改变并发交错。
+
+2. 不同数据允许的丢失、过期、积压和迟加入行为不同；reliable 并非所有场景最合适，兼容性也要核对。
+
+3. 常重视及时最新测量而非补齐每帧；关键低频传感仍可能需要其他合同，不能机械照搬。
+
+4. 发布归还 loan 的所有权，继续访问不在原借用范围；需要按该 RMW/API 合同重新获得合法对象。
+
+5. 普通发布路径可能涉及不可控分配、锁和 I/O；关键端应通过经过分析的 handoff 交给非实时端。
+
+### 19.9 Safety
+
+1. 软件消息仍依赖进程、调度、通信和供电，无法覆盖它们共同失效；真正 E-stop 需要独立、经风险分析的安全链。
+
+2. 状态机把进入、锁存、复位和授权条件显式化，避免多个 bool 形成非法组合，也便于注入复核。
+
+3. Active、有效且新鲜状态/目标、可比较时钟、非未来时间、finite、幅值/速率限制和健康 actuator 同时成立；否则进入明确安全策略。
+
+<a id="g11-section-20"></a>
+
+## 20. 参考资料与验证边界
+
+ROS 概念回查固定 Jazzy 文档线：[QoS](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst)、[实时示例](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Demos/Real-Time-Programming.rst)、[Controller Manager](https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html)、[realtime_tools](https://control.ros.org/jazzy/doc/realtime_tools/doc/index.html)。这些是概念与部署回查，不是本机安装/运行记录。实验工具链、原始时序、覆盖面与未知项见[批次记录](learning/synthesis-revision.md)及[原始结果](learning/synthesis-results.json)。
+
+本章使用 [Editorial Profile v1.0](editorial-profile.md)，Markdown 是内容与完整实验事实源。PDF **NOT BUILT / NOT VALIDATED**；长文件与表格的源稿风险不等于实际分页已验收。

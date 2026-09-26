@@ -12,12 +12,12 @@
 | G0～G4 | ACCEPTED — Professional presentation refresh；原验证限制保持 |
 | G5～G7 | ACCEPTED — Professional Handbook Edition；原验证限制保持 |
 | G8～G9 | ACCEPTED — Professional Handbook Edition；定向原生证据保留平台与覆盖限制 |
-| G10～G12 | 保持历史稿件；“综合与应用卷”尚未启动 |
+| G10～G12 | Professional Handbook Edition · 综合与应用卷，待集中审核 |
 | PDF | **NOT BUILT / NOT VALIDATED** |
 
 ## 从哪里开始
 
-第一次按 **G0 → G1 → G2 → G3 → G4 → G5 → G6 → G7 → G8 → G9** 建立工具、对象、所有权、值、抽象、机器成本、并发、二进制接口与交付的连续模型。各章目录支持主阅读与按需回查，不要求一口气读完。Final Gate 的参考答案是普通章节，先独立解释，再核对前提与误判。
+第一次按 **G0 → G1 → G2 → G3 → G4 → G5 → G6 → G7 → G8 → G9** 建立工具、对象、所有权、值、抽象、机器成本、并发、二进制接口与交付的连续模型；再用 **G10 → G11 → G12** 组合成运行时、物理系统和可迁移审查方法。各章目录支持主阅读与按需回查，不要求一口气读完。Final Gate 的参考答案是普通章节，先独立解释，再核对前提与误判。
 
 | 阶段 | 章节与入口 | 这一站要解决的问题 | 动手产出 |
 | --- | --- | --- | --- |
@@ -31,11 +31,13 @@
 | 并发 | [G7 并发与内存模型](g07-concurrency-and-memory-model.md) | 共享数据怎样建立可证明的顺序？ | 画出同步关系 |
 | 语言边界 | [G8 ABI 与 C 互操作](g08-abi-and-c-interop.md) | 不同二进制怎样共享接口？ | C11 消费者检验 C++ 共享库合同 |
 | 工程工具 | [G9 构建与原生生态](g09-build-and-native-ecosystem.md) | 离开源码树后还能消费库吗？ | 安装迁移、独立消费与生成依赖验证 |
-| 综合实践 | [G10 系统运行时项目](g10-systems-runtime-project.md) | 如何整合前面的设计约束？ | 用完整项目检验取舍 |
-| 应用深化 | [G11 机器人系统](g11-robotics.md) | 时序、资源和故障如何共同设计？ | 回查实际系统边界 |
-| 对照复习 | [G12 C++、Zig 与 Rust](g12-cpp-zig-rust.md) | 相同问题，各语言把责任放在哪里？ | 比较合同，不只比较语法 |
+| 综合实践 | [G10 系统运行时工程](g10-systems-runtime-project.md) | 组件组合后如何仍然正确？ | 记账、排空、取消、故障与安装消费 |
+| 应用深化 | [G11 机器人系统工程](g11-robotics.md) | 时间、物理意义和故障怎样共同约束动作？ | 控制仿真、快照、分配与时序观察 |
+| 综合审查 | [G12 统一系统模型](g12-cpp-zig-rust.md) | 哪些复杂性属于语言，哪些属于系统？ | C++ 主线审查；Rust/Zig 辅助辨认责任 |
 
-G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源请求和基准观察；G7 先论证同步与生命周期，再使用动态检测。G8 以真实 C 消费者检查接口，G9 以安装树和生成图检查交付。共同方法是“命题 → 判据 → 证据 → 边界”，不是复制同一种 exact-stdout 实验形态。G10～G12 的 Frozen / Complete 仍只是历史标记，不代表本批授予工程基线资格。
+G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源请求和基准观察；G7 先论证同步与生命周期，再使用动态检测。G8 以真实 C 消费者检查接口，G9 以安装树和生成图检查交付。G10 组合跨组件协议与条件化性能观察，G11 分离逻辑安全模型和主机时序，G12 用三个推理案例审查证据边界。共同方法是“命题 → 判据 → 证据 → 边界”，不是复制同一种 exact-stdout 实验形态。
+
+[综合与应用卷记录](learning/synthesis-revision.md)说明本批范围和四类证据；G0～G9 已接受正文及 Editorial Profile v1.0 未改。G10～G12 不沿用历史 Frozen / Complete 作为技术验收。正文到 G12 封顶，不追加 G13；后续全系列一致性清理及 PDF Pilot 尚未启动。
 
 ## 每次怎么学
 
@@ -66,10 +68,11 @@ G5 使用编译诊断、类型断言与符号观察；G6 使用布局、资源�
 python3 c++/learning/verify_g.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/verify_handbook.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/verify_native.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+python3 c++/learning/verify_synthesis.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
 python3 c++/learning/check_docs.py
 ```
 
-[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)与 [G8～G9 已接受批次](learning/native-revision.md)分开记录。Markdown 是正文和完整实验的维护入口。G0～G9 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
+[实验说明](learning/README.md)解释输出位置、负例和 SKIP；[G0～G7 已接受批次](learning/professional-revision.md)、[G8～G9 已接受批次](learning/native-revision.md)与本批分别记录。Markdown 是正文和完整实验的维护入口。G0～G12 的 C/C++ 代码块有可见身份；机制片段与明确反例不能据此声称全部可独立编译。以前的[学习版记录](learning/revision-notes.md)及 JSON 保留为历史证据，不追写成本批结果。
 
 文件名采用 `gNN-英文主题.md`，编号补零方便排序，正文继续使用 G0～G12。主题名供定位，不作为学习进度或版本号。FM 正文与验证资料整体位于 `failure-model/`，已收口的技术内容不因目录调整重开。
 
