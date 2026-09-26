@@ -1958,11 +1958,11 @@ x = 1;
 use(x);
 ```
 
-在没有 synchronization 时不能只说：“B 可能读到 0 或 1”？ 因为：conflicting non-atomic accesses 可能构成 Data Race → UB。
+在没有 synchronization 时不能只说：“B 可能读到 0 或 1”？
 
 **2**
 
-为什么：`sleep 1 second` 不能建立 happens-before？ 因为：wall-clock waiting 不是 C++ synchronization relation。
+为什么：`sleep 1 second` 不能建立 happens-before？
 
 **B. Happens-before**
 

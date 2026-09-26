@@ -1,5 +1,8 @@
 import copy
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 import verify_handbook as h
 
@@ -9,6 +12,16 @@ def step(code=0, stderr='', timeout=False):
 
 
 class Oracles(unittest.TestCase):
+    def test_positive_control_evidence_wording(self):
+        lab = dict(id='G7-D3', mode='tsan_negative', files={'main.cpp': 'int main() {}\n'})
+        with tempfile.TemporaryDirectory() as directory, patch.object(h, 'command', side_effect=[
+                step(), step(66, 'WARNING: ThreadSanitizer: data race')]):
+            result = h.verify(lab, 'mock-clang++', Path(directory) / 'run',
+                              dict(available=True, env={}))
+        self.assertEqual(result['evidence'][0]['claim'],
+                         'known-race positive-control fixture compiled')
+        self.assertEqual(result['evidence'][1]['status'], 'DETECTED')
+
     def test_diagnostic_is_not_any_failure(self):
         self.assertTrue(h.diagnosed(step(1, 'constraints not satisfied'), 'constraints not satisfied'))
         for s in [step(0, 'constraints not satisfied'), step(1, 'file not found'),

@@ -142,7 +142,7 @@ def verify(lab, compiler, folder, tsan):
             record('concurrency', 'SKIP', 'known-race positive control', reason=tsan['reason'])
             return result
         build = run(flags + ['-O1', '-g', '-fsanitize=thread', 'main.cpp', '-o', 'race'])
-        record('compile', 'PASS' if clean_exit(build) else 'FAIL', 'TSan negative fixture compiled')
+        record('compile', 'PASS' if clean_exit(build) else 'FAIL', 'known-race positive-control fixture compiled')
         if clean_exit(build):
             step = run([str(folder / 'race')], tsan['env'])
             record('concurrency', 'DETECTED' if tsan_detected(step) else 'FAIL',

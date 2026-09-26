@@ -1546,23 +1546,21 @@ int main() { return scale(1.5) == 3.0 ? 0 : 1; }
 
 <a id="g5-topic-63"></a>
 
-### 14.1 Final Gate
-
 复习时至少能够闭卷解释这些问题：
 
-**Template**
+### 14.1 Template
 
 1. Function template 和普通 function 最大的编译模型区别是什么？
 2. 为什么一个 template 可以形成多个 concrete functions？
 3. Instantiation 和 specialization 分别是什么？
 
-**Deduction**
+### 14.2 Deduction
 
 1. `T`、`T&`、`const T&` 的 deduction 有什么区别？
 2. top-level `const` 为什么在 by-value deduction 中通常消失？
 3. 为什么 pointer-to-const 中的 const 不能随意消失？
 
-**Forwarding**
+### 14.3 Forwarding
 
 1. 普通 `Frame&&` 与 `template<typename T> T&&` 有什么不同？
 2. 什么条件下 `T&&` 才是 forwarding reference？
@@ -1570,35 +1568,35 @@ int main() { return scale(1.5) == 3.0 ? 0 : 1; }
 4. 为什么 named `T&&` expression 仍然是 lvalue？
 5. `std::move` 和 `std::forward` 的语义区别是什么？
 
-**Class Templates**
+### 14.4 Class Templates
 
  1. 为什么 `Buffer<float,16>` 与 `Buffer<float,32>` 是不同类型？
  2. Non-type template parameter 如何影响 object layout？
  3. 为什么不应该把普通 runtime identity 全部变成 NTTP？
 
-**Lifetime**
+### 14.5 Lifetime
 
  1. 为什么 `array<T,N>` 与 `vector<T>::reserve(N)` 的 object lifetime 完全不同？
 
-**Concepts**
+### 14.6 Concepts
 
  1. Concept 解决什么问题？
  2. Concept 是 runtime interface 吗？
  3. 为什么 Concept 不能保证 semantic laws？
 
-**Constant Evaluation**
+### 14.7 Constant Evaluation
 
  1. 为什么 `constexpr function` 不等于“永远编译期执行”？
  2. `const` 和 `constexpr` 有什么根本区别？
  3. `if constexpr` 与普通 `if` 的核心区别是什么？
 
-**Compilation**
+### 14.8 Compilation
 
  1. 为什么 template definitions 通常放 header？
  2. Explicit instantiation 解决什么问题？
  3. Header-only generic library 的主要工程成本是什么？
 
-**Architecture**
+### 14.9 Architecture
 
  1. 什么叫 `Dynamic Outside, Static Inside`？
  2. 哪些信息适合 compile time，哪些更适合 runtime？

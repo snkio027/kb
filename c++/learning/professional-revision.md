@@ -1,6 +1,6 @@
 # G0～G7 Professional 批次修订与验证
 
-日期：2026-09-27。Base：`60c5562f964717ba224d5e7f6f7bbcfe519a37ed`。本记录属于待集中审核的编辑交付，不授予全系列技术基线资格。
+日期：2026-09-27。Base：`60c5562f964717ba224d5e7f6f7bbcfe519a37ed`。§1～5 保留提交 `496d8973c113795340111053ddbc9ef2aaeec92d` 的交付记录；后续集中复审及收口见 §6。不授予全系列技术基线资格。
 
 ## 1. 编辑结果与范围
 
@@ -88,3 +88,13 @@ Base 的 119 个已跟踪文件中，11 个属于本批修改，另外 108 个�
 - Markdown 本地链接检查不验证网络 URL。Zig/Rust 对照未编译。PDF 未构建、未验收，正式发布未执行。
 
 完成检查后提交、推送，等待本批集中审核；不自动启动 G8～G9 或 G10～G12。
+
+## 6. 集中复审与非阻塞收口
+
+用户提供的集中复审接受 `496d8973c113795340111053ddbc9ef2aaeec92d`：Editorial Profile v1.0、G0～G4 呈现修订与 G5～G7 Professional Handbook Edition 可作为出版源稿基线；定向证据为 ACCEPTED WITH DECLARED LIMITATIONS。跨平台验证仍未建立，PDF 仍为 NOT BUILT / NOT VALIDATED。这是用户提交的审核结论，不是新增 CI 结果。
+
+本次仅处理三项非阻塞编辑意见：G7 Gate 前两题移除内嵌答案，保留独立参考答案；G5 Gate 九类问题改用分组标题，移除重复标题；G7-D3 编译证据统一称为 known-race positive-control fixture。实验源码、判据和历史 JSON 不变；旧 JSON 的措辞与摘要属于原提交，不追写成当前执行结果。
+
+本次实际检查：`python3 c++/learning/check_docs.py`（34 份 Markdown、662 处本地链接，无错误）；`python3 -m unittest discover -s c++/learning -p 'test_*.py'`（24 项通过，新增 1 项为模拟命令的证据措辞回归，不是 C++ 编译）；`git diff --check`（通过）。另与 `496d897` 比较，G5～G7 的 11 个实验元数据和源码完全一致。本次没有重跑 C++、性能或 TSan 实验，没有构建 PDF。
+
+三项收口单独提交、推送后，依据本轮明确授权继续 G8～G9 完整批次；G10～G12 不随之启动。

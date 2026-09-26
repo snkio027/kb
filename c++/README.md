@@ -2,7 +2,7 @@
 
 这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
-[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线，规定正文层级、术语、代码身份、实验与答案及出版源稿约束。本批状态如下；它们是编辑状态，不是全系列技术验收。
+[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线，规定正文层级、术语、代码身份、实验与答案及出版源稿约束。`496d897` 已获集中复审接受：G0～G7 为 Professional Handbook Source Baseline，定向证据保留已声明限制；[接受与收口记录](learning/professional-revision.md#6-集中复审与非阻塞收口)区分审核意见与本地检查。以下是编辑状态，不是全系列技术验收。
 
 | 范围 | 当前状态 |
 | --- | --- |
