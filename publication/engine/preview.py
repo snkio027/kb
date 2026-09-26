@@ -149,6 +149,23 @@ def tables_to_records(blocks, doc_id, ledger, policies=()):
             raise RuntimeError("unsupported table layout")
         task = override.get('task', override['layout']) if override else ('simple' if len(specs) <= 3 else 'record')
         table_id = f"{doc_id}-T{table_number:02}"
+        if not rows:
+            # A schema with no records is a writable template, not a synthetic
+            # data row. Keep field order and identity in a separate audit model.
+            title = '空表模板 · ' + (section_title or f'表 {table_number}')
+            fields = [text(c[4]) for c in headings]
+            short = sum(max(1, (len(f)+17)//18) for f in fields) <= 12
+            output.extend(copy.deepcopy(caption[1]))
+            output.append(raw(r'\begin{PreviewTemplateBox}[' + ('unbreakable' if short else 'breakable') + ']{' + escape(title) + '}'))
+            output.append(raw(r'\hypertarget{' + table_id + '-template-start}{}'))
+            for n, field in enumerate(fields, 1):
+                output.append(raw(r'\begin{PreviewField}{' + escape(field) + '}{' + table_id + f'-TF{n}' + r'}\PreviewEmptyField{}\end{PreviewField}'))
+            output.append(raw(r'\hypertarget{' + table_id + r'-template-end}{}\end{PreviewTemplateBox}'))
+            ledger.append({'table': table_id, 'section': section, 'section_title': section_title,
+                           'layout': 'empty-template', 'task': 'template', 'headers': fields,
+                           'template_title': title, 'template_fields': fields, 'keep_together': short,
+                           'cells': [], 'row_text': [], 'selection': 'empty-source-schema'})
+            continue
         if (override and override["layout"] in ("matrix", "comparison", "simple")) or (not override and len(specs) <= 3):
             # Fixed generous widths; long prose goes into records instead.
             lengths = [max([len(text(row[1][i][4])) for row in rows] + [len(text(headings[i][4]))]) for i in range(len(specs))]
@@ -174,15 +191,11 @@ def tables_to_records(blocks, doc_id, ledger, policies=()):
             output.append(para('排版说明：横线表示原表空字段，不表示已有值或已完成填写。'))
         if caption[1]:
             output.extend(caption[1])
-        if not rows:
-            output.append(para("空表模板 · 保留以下全部字段："))
-            for cell in headings:
-                output.extend(copy.deepcopy(cell[4]))
         mapping, record_titles = [], []
         for number, row in enumerate(rows, 1):
             short = sum(len(text(c[4])) for c in row[1]) < 550 and len(row[1]) <= 9
             key = text(row[1][0][4]) if row[1] else ''
-            title = f"{table_id} / 记录 {number}" + (' · ' + key if key and len(key)<48 else '')
+            title = f"表 {table_number} · 记录 {number}" + (' · ' + key if key and len(key)<48 else '')
             record_titles.append(title)
             output.append(raw(r"\begin{PreviewRecordBox}[" + ('unbreakable' if short else 'breakable') + ']{' + escape(title) + "}"))
             output.append(raw(r'\hypertarget{' + table_id + f'-R{number}-start' + '}{}'))
@@ -202,6 +215,32 @@ def tables_to_records(blocks, doc_id, ledger, policies=()):
     if any(n not in used for n, p in enumerate(policies) if p["document"] == doc_id):
         raise RuntimeError("unused/drifted explicit table layout for " + doc_id)
     return output
+
+
+def bind_code_roles(blocks):
+    """Move only explicit, adjacent source labels into the code's first title.
+
+    The source AST stays untouched; audits still require this exact source
+    paragraph before its code. Never infer a warning from arbitrary code text.
+    """
+    output = []
+    for block in blocks:
+        if block['t'] == 'CodeBlock' and output and output[-1]['t'] == 'Para':
+            label = text(output[-1])
+            if re.fullmatch(r'\[(反例(?:片段)?|完整实验|机制片段|命令) · [^\n]+\]', label):
+                block['c'][0][2].extend([['reading-source-label', label],
+                                         ['reading-role', label[1:].split(' · ')[0]]])
+                output.pop()
+        output.append(block)
+    return output
+
+
+def code_labels(attrs):
+    caption = attrs.get('reading-caption', {'flow': '流程示意', 'snippet': '机制片段', 'literal': '字面文本'}.get(attrs.get('reading-kind'), '代码'))
+    role = attrs.get('reading-role', '完整实验' if attrs.get('reading-kind') == 'experiment' else '')
+    continued = (role + ' · ' if role else '') + caption + ' · continued'
+    first = attrs.get('reading-source-label', ('完整实验 · ' + caption) if attrs.get('reading-kind') == 'experiment' else '')
+    return first, continued
 
 
 def compose(documents, selected, view, profile, resolver, policies=()):
@@ -256,7 +295,17 @@ def compose(documents, selected, view, profile, resolver, policies=()):
                     item['c'][0][2].append(['reading-kind', kind])
                 item['c'][0][2].extend([['reading-min-head', str(profile.get('reading', {}).get('min_head_lines', 4))],
                                       ['reading-min-tail', str(profile.get('reading', {}).get('min_tail_lines', 6))]])
+        body = bind_code_roles(body)
         body = tables_to_records(body, doc_id, ledger, policies)
+        # Local end matter: one bounded section group, selected by exact source
+        # headings in the product profile, never by physical page numbers.
+        closing = profile.get('reading', {}).get('closing_groups', {}).get(doc_id)
+        if closing:
+            found = [i for i, b in enumerate(body) if b['t'] == 'Header' and text(b) == closing]
+            if len(found) != 1:
+                raise RuntimeError('closing group source heading drift: ' + closing)
+            body.insert(found[0], raw(r'\begin{PreviewClosing}'))
+            body.append(raw(r'\end{PreviewClosing}'))
         blocks.extend(body)
     index = profile.get("index") if combined else None
     if index:
@@ -336,14 +385,22 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
         if item.get("t") == "CodeBlock":
             code_id = dict(item["c"][0][2])["preview-code-id"]
             attrs = dict(item['c'][0][2])
-            caption = attrs.get('reading-caption', {'flow': '流程示意', 'snippet': '机制片段', 'literal': '字面文本'}.get(attrs.get('reading-kind'), '代码'))
-            for suffix in (' · continued', ''):
-                label = code_id + ' / ' + caption + suffix
+            first_label, continued_label = code_labels(attrs)
+            labels = [continued_label]
+            if first_label and 'reading-source-label' not in attrs:
+                labels.append(first_label)
+            for label in labels:
                 if any(label in text(d["ast"]["blocks"]) for d in selected):
                     raise RuntimeError("generated/source label collision")
                 extracted = extracted.replace(normalize(label), "")
                 ignored_labels.append(label)
     for table in ledger:
+        if table['layout'] == 'empty-template':
+            label = table['template_title'] + ' · continued'
+            if any(label in text(d['ast']['blocks']) for d in selected):
+                raise RuntimeError('generated/source label collision')
+            extracted = extracted.replace(normalize(label), '')
+            ignored_labels.append(label)
         if table["layout"] == "records":
             for number in range(1, len(table["row_text"]) + 1):
                 label = table['record_titles'][number-1] + ' · 续'

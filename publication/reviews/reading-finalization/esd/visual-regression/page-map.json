@@ -1,0 +1,3550 @@
+{
+  "status": "STRUCTURAL_PASS",
+  "visual_status": "NOT_REVIEWED",
+  "scope": "Reading-quality signals, not a visual or technical proof",
+  "attempt": "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/353090fade94323347038eee2287dcc298656b9b3bb176e18d17318c94bdb9d9/97286c95c97c4253a6f5f2695c5f51b2",
+  "audit_sha256": "745da4643594ff759ff07eb318e489b8afe10779feee0ce0d002ca3e212b7546",
+  "corpus_sha256": "7e1c6f42eab77d6878d370028dce80ee770f2ef38022a7d11f823928134acd3c",
+  "views": [
+    {
+      "view": "ESD-SUITE-000",
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "sha256": "aa0aa6969a8fc6129fce4caa7ef8a7a270884b4641484956ac00e717f29675aa",
+      "pages": 17,
+      "components": {
+        "ESD-SUITE-000-T01": [
+          4
+        ],
+        "ESD-SUITE-000-C01": [
+          4
+        ],
+        "ESD-SUITE-000-C02": [
+          7
+        ],
+        "ESD-SUITE-000-T03": [
+          7
+        ],
+        "ESD-SUITE-000-C03": [
+          8
+        ],
+        "ESD-SUITE-000-T04": [
+          8
+        ],
+        "ESD-SUITE-000-C04": [
+          9
+        ],
+        "ESD-SUITE-000-C05": [
+          9
+        ],
+        "ESD-SUITE-000-T05": [
+          10
+        ],
+        "ESD-SUITE-000-T06": [
+          10
+        ],
+        "ESD-SUITE-000-C06": [
+          11
+        ],
+        "ESD-SUITE-000-T07": [
+          11
+        ],
+        "ESD-SUITE-000-T08": [
+          12
+        ],
+        "ESD-SUITE-000-T09": [
+          12
+        ],
+        "ESD-SUITE-000-C07": [
+          14
+        ],
+        "ESD-SUITE-000-C08": [
+          14
+        ],
+        "ESD-SUITE-000-C09": [
+          14
+        ],
+        "ESD-SUITE-000-C10": [
+          15
+        ],
+        "ESD-SUITE-000-C11": [
+          15
+        ],
+        "ESD-SUITE-000-T10": [
+          16
+        ],
+        "ESD-SUITE-000-C12": [
+          16
+        ],
+        "ESD-SUITE-000-T02": [
+          5,
+          6
+        ]
+      },
+      "line_position_checks": 68,
+      "wrap_observations": [],
+      "issues": []
+    },
+    {
+      "view": "ESD-METHOD-001",
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "sha256": "ab5774ab91cabb32f0b80a43f92e30918666d95603dfce4f1f592b8b9dba6aff",
+      "pages": 30,
+      "components": {
+        "ESD-METHOD-001-T01": [
+          4
+        ],
+        "ESD-METHOD-001-C01": [
+          6
+        ],
+        "ESD-METHOD-001-C02": [
+          6
+        ],
+        "ESD-METHOD-001-C03": [
+          6
+        ],
+        "ESD-METHOD-001-C04": [
+          6
+        ],
+        "ESD-METHOD-001-T02": [
+          7
+        ],
+        "ESD-METHOD-001-T03": [
+          7
+        ],
+        "ESD-METHOD-001-C05": [
+          7
+        ],
+        "ESD-METHOD-001-C06": [
+          9
+        ],
+        "ESD-METHOD-001-C07": [
+          10
+        ],
+        "ESD-METHOD-001-C08": [
+          10
+        ],
+        "ESD-METHOD-001-C09": [
+          11
+        ],
+        "ESD-METHOD-001-C10": [
+          11
+        ],
+        "ESD-METHOD-001-C11": [
+          11
+        ],
+        "ESD-METHOD-001-T04": [
+          12
+        ],
+        "ESD-METHOD-001-T05": [
+          12
+        ],
+        "ESD-METHOD-001-C12": [
+          13
+        ],
+        "ESD-METHOD-001-C13": [
+          14
+        ],
+        "ESD-METHOD-001-C14": [
+          14
+        ],
+        "ESD-METHOD-001-C15": [
+          15
+        ],
+        "ESD-METHOD-001-C16": [
+          15
+        ],
+        "ESD-METHOD-001-T06": [
+          16
+        ],
+        "ESD-METHOD-001-C17": [
+          16
+        ],
+        "ESD-METHOD-001-C18": [
+          16
+        ],
+        "ESD-METHOD-001-T07": [
+          17
+        ],
+        "ESD-METHOD-001-C19": [
+          17
+        ],
+        "ESD-METHOD-001-C20": [
+          17
+        ],
+        "ESD-METHOD-001-C21": [
+          18
+        ],
+        "ESD-METHOD-001-C22": [
+          18
+        ],
+        "ESD-METHOD-001-C23": [
+          19
+        ],
+        "ESD-METHOD-001-C24": [
+          19
+        ],
+        "ESD-METHOD-001-T08": [
+          20
+        ],
+        "ESD-METHOD-001-C25": [
+          20
+        ],
+        "ESD-METHOD-001-C26": [
+          20
+        ],
+        "ESD-METHOD-001-C27": [
+          21
+        ],
+        "ESD-METHOD-001-C28": [
+          21
+        ],
+        "ESD-METHOD-001-C29": [
+          21
+        ],
+        "ESD-METHOD-001-C30": [
+          21
+        ],
+        "ESD-METHOD-001-C31": [
+          22
+        ],
+        "ESD-METHOD-001-T09": [
+          22
+        ],
+        "ESD-METHOD-001-C32": [
+          23
+        ],
+        "ESD-METHOD-001-C33": [
+          23
+        ],
+        "ESD-METHOD-001-C34": [
+          24
+        ],
+        "ESD-METHOD-001-C35": [
+          24
+        ],
+        "ESD-METHOD-001-T10": [
+          25
+        ],
+        "ESD-METHOD-001-C36": [
+          25
+        ],
+        "ESD-METHOD-001-C37": [
+          25
+        ],
+        "ESD-METHOD-001-C38": [
+          26
+        ],
+        "ESD-METHOD-001-C39": [
+          26
+        ],
+        "ESD-METHOD-001-C40": [
+          27
+        ],
+        "ESD-METHOD-001-C41": [
+          27
+        ],
+        "ESD-METHOD-001-T11": [
+          28
+        ],
+        "ESD-METHOD-001-T12": [
+          28
+        ],
+        "ESD-METHOD-001-T13": [
+          29
+        ]
+      },
+      "line_position_checks": 273,
+      "wrap_observations": [],
+      "issues": []
+    },
+    {
+      "view": "ESD-REFERENCE-001",
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "sha256": "c0ccb9353c063063ce8fe77622f85abbcc925ad97ab01af6a3f39cb1726d2c1b",
+      "pages": 58,
+      "components": {
+        "ESD-REFERENCE-001-T01": [
+          4
+        ],
+        "ESD-REFERENCE-001-C01": [
+          4
+        ],
+        "ESD-REFERENCE-001-T02": [
+          5
+        ],
+        "ESD-REFERENCE-001-T03": [
+          5
+        ],
+        "ESD-REFERENCE-001-C02": [
+          5
+        ],
+        "ESD-REFERENCE-001-T04": [
+          6
+        ],
+        "ESD-REFERENCE-001-C03": [
+          6
+        ],
+        "ESD-REFERENCE-001-C04": [
+          7
+        ],
+        "ESD-REFERENCE-001-C05": [
+          7
+        ],
+        "ESD-REFERENCE-001-C06": [
+          7
+        ],
+        "ESD-REFERENCE-001-C07": [
+          7
+        ],
+        "ESD-REFERENCE-001-C08": [
+          8
+        ],
+        "ESD-REFERENCE-001-T05": [
+          9
+        ],
+        "ESD-REFERENCE-001-C09": [
+          9
+        ],
+        "ESD-REFERENCE-001-C10": [
+          10
+        ],
+        "ESD-REFERENCE-001-C11": [
+          10
+        ],
+        "ESD-REFERENCE-001-C12": [
+          11
+        ],
+        "ESD-REFERENCE-001-C13": [
+          11
+        ],
+        "ESD-REFERENCE-001-C14": [
+          12
+        ],
+        "ESD-REFERENCE-001-C15": [
+          13
+        ],
+        "ESD-REFERENCE-001-T06": [
+          13
+        ],
+        "ESD-REFERENCE-001-C16": [
+          14
+        ],
+        "ESD-REFERENCE-001-C17": [
+          17
+        ],
+        "ESD-REFERENCE-001-C18": [
+          17
+        ],
+        "ESD-REFERENCE-001-C19": [
+          18
+        ],
+        "ESD-REFERENCE-001-T08": [
+          18
+        ],
+        "ESD-REFERENCE-001-C20": [
+          21
+        ],
+        "ESD-REFERENCE-001-C21": [
+          21
+        ],
+        "ESD-REFERENCE-001-C22": [
+          22
+        ],
+        "ESD-REFERENCE-001-C23": [
+          23
+        ],
+        "ESD-REFERENCE-001-C24": [
+          23
+        ],
+        "ESD-REFERENCE-001-C25": [
+          23,
+          24
+        ],
+        "ESD-REFERENCE-001-C26": [
+          25
+        ],
+        "ESD-REFERENCE-001-C27": [
+          25
+        ],
+        "ESD-REFERENCE-001-C28": [
+          28
+        ],
+        "ESD-REFERENCE-001-C29": [
+          28,
+          29
+        ],
+        "ESD-REFERENCE-001-C30": [
+          30
+        ],
+        "ESD-REFERENCE-001-C31": [
+          30
+        ],
+        "ESD-REFERENCE-001-C32": [
+          31
+        ],
+        "ESD-REFERENCE-001-C33": [
+          32
+        ],
+        "ESD-REFERENCE-001-C34": [
+          33
+        ],
+        "ESD-REFERENCE-001-C35": [
+          34
+        ],
+        "ESD-REFERENCE-001-T18": [
+          37
+        ],
+        "ESD-REFERENCE-001-C36": [
+          38
+        ],
+        "ESD-REFERENCE-001-T19": [
+          38
+        ],
+        "ESD-REFERENCE-001-C37": [
+          40
+        ],
+        "ESD-REFERENCE-001-C38": [
+          41
+        ],
+        "ESD-REFERENCE-001-C39": [
+          41
+        ],
+        "ESD-REFERENCE-001-C40": [
+          41
+        ],
+        "ESD-REFERENCE-001-C41": [
+          41
+        ],
+        "ESD-REFERENCE-001-C42": [
+          44
+        ],
+        "ESD-REFERENCE-001-C43": [
+          44
+        ],
+        "ESD-REFERENCE-001-C44": [
+          45
+        ],
+        "ESD-REFERENCE-001-C45": [
+          45
+        ],
+        "ESD-REFERENCE-001-C46": [
+          46
+        ],
+        "ESD-REFERENCE-001-C47": [
+          46
+        ],
+        "ESD-REFERENCE-001-C48": [
+          49
+        ],
+        "ESD-REFERENCE-001-C49": [
+          49
+        ],
+        "ESD-REFERENCE-001-C50": [
+          49
+        ],
+        "ESD-REFERENCE-001-C51": [
+          50
+        ],
+        "ESD-REFERENCE-001-C52": [
+          50
+        ],
+        "ESD-REFERENCE-001-C53": [
+          50
+        ],
+        "ESD-REFERENCE-001-T22": [
+          51
+        ],
+        "ESD-REFERENCE-001-C54": [
+          52
+        ],
+        "ESD-REFERENCE-001-T23": [
+          52
+        ],
+        "ESD-REFERENCE-001-T24": [
+          52,
+          53
+        ],
+        "ESD-REFERENCE-001-C55": [
+          53,
+          54
+        ],
+        "ESD-REFERENCE-001-C56": [
+          54
+        ],
+        "ESD-REFERENCE-001-T25": [
+          57
+        ],
+        "ESD-REFERENCE-001-C57": [
+          57
+        ],
+        "ESD-REFERENCE-001-C58": [
+          58
+        ],
+        "ESD-REFERENCE-001-C59": [
+          58
+        ],
+        "ESD-REFERENCE-001-T07": [
+          15,
+          16
+        ],
+        "ESD-REFERENCE-001-T09": [
+          20
+        ],
+        "ESD-REFERENCE-001-T10": [
+          24
+        ],
+        "ESD-REFERENCE-001-T11": [
+          25
+        ],
+        "ESD-REFERENCE-001-T12": [
+          26
+        ],
+        "ESD-REFERENCE-001-T13": [
+          26
+        ],
+        "ESD-REFERENCE-001-T14": [
+          27
+        ],
+        "ESD-REFERENCE-001-T15": [
+          27
+        ],
+        "ESD-REFERENCE-001-T16": [
+          29
+        ],
+        "ESD-REFERENCE-001-T17": [
+          29
+        ],
+        "ESD-REFERENCE-001-T20": [
+          39,
+          40
+        ],
+        "ESD-REFERENCE-001-T21": [
+          42,
+          43
+        ]
+      },
+      "line_position_checks": 613,
+      "wrap_observations": [],
+      "issues": []
+    },
+    {
+      "view": "ESD-GOV-001",
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "sha256": "f5f60f59028e04936db8ce5e38f89e78dc2277556438c9a18036cc6d52649dc5",
+      "pages": 37,
+      "components": {
+        "ESD-GOV-001-T01": [
+          4
+        ],
+        "ESD-GOV-001-C01": [
+          4
+        ],
+        "ESD-GOV-001-C02": [
+          6
+        ],
+        "ESD-GOV-001-C03": [
+          7
+        ],
+        "ESD-GOV-001-T02": [
+          8
+        ],
+        "ESD-GOV-001-T03": [
+          9
+        ],
+        "ESD-GOV-001-T04": [
+          9
+        ],
+        "ESD-GOV-001-T05": [
+          10
+        ],
+        "ESD-GOV-001-T06": [
+          11
+        ],
+        "ESD-GOV-001-C04": [
+          11
+        ],
+        "ESD-GOV-001-C05": [
+          12
+        ],
+        "ESD-GOV-001-T07": [
+          12
+        ],
+        "ESD-GOV-001-T08": [
+          13
+        ],
+        "ESD-GOV-001-C06": [
+          14
+        ],
+        "ESD-GOV-001-T09": [
+          14
+        ],
+        "ESD-GOV-001-T10": [
+          15
+        ],
+        "ESD-GOV-001-C07": [
+          15
+        ],
+        "ESD-GOV-001-T11": [
+          16
+        ],
+        "ESD-GOV-001-C08": [
+          16
+        ],
+        "ESD-GOV-001-T12": [
+          17
+        ],
+        "ESD-GOV-001-T13": [
+          18
+        ],
+        "ESD-GOV-001-T14": [
+          18
+        ],
+        "ESD-GOV-001-C09": [
+          20,
+          21
+        ],
+        "ESD-GOV-001-C10": [
+          27
+        ],
+        "ESD-GOV-001-C11": [
+          27
+        ],
+        "ESD-GOV-001-C12": [
+          28
+        ],
+        "ESD-GOV-001-C13": [
+          29
+        ],
+        "ESD-GOV-001-C14": [
+          33
+        ],
+        "ESD-GOV-001-C15": [
+          34
+        ],
+        "ESD-GOV-001-C16": [
+          34,
+          35
+        ],
+        "ESD-GOV-001-C17": [
+          35,
+          36
+        ],
+        "ESD-GOV-001-C18": [
+          37
+        ],
+        "ESD-GOV-001-T15": [
+          19,
+          20
+        ],
+        "ESD-GOV-001-T16": [
+          21,
+          22,
+          23,
+          24
+        ],
+        "ESD-GOV-001-T17": [
+          25,
+          26
+        ]
+      },
+      "line_position_checks": 250,
+      "wrap_observations": [
+        {
+          "object": "ESD-GOV-001-C15",
+          "source_line": 22,
+          "page": 34,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "view": "ESD-ASSURANCE-001",
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "sha256": "67a7f28985b8cd74be441a26e8dac391aa68ff0d184c230b8ad8e6c2d025cf6c",
+      "pages": 41,
+      "components": {
+        "ESD-ASSURANCE-001-T01": [
+          5
+        ],
+        "ESD-ASSURANCE-001-C01": [
+          5
+        ],
+        "ESD-ASSURANCE-001-T02": [
+          6
+        ],
+        "ESD-ASSURANCE-001-T03": [
+          7
+        ],
+        "ESD-ASSURANCE-001-C02": [
+          7
+        ],
+        "ESD-ASSURANCE-001-C03": [
+          8
+        ],
+        "ESD-ASSURANCE-001-C04": [
+          10
+        ],
+        "ESD-ASSURANCE-001-C05": [
+          10
+        ],
+        "ESD-ASSURANCE-001-C06": [
+          10,
+          11
+        ],
+        "ESD-ASSURANCE-001-C07": [
+          11
+        ],
+        "ESD-ASSURANCE-001-C08": [
+          11
+        ],
+        "ESD-ASSURANCE-001-T04": [
+          11
+        ],
+        "ESD-ASSURANCE-001-C09": [
+          12
+        ],
+        "ESD-ASSURANCE-001-C10": [
+          13
+        ],
+        "ESD-ASSURANCE-001-C11": [
+          14
+        ],
+        "ESD-ASSURANCE-001-C12": [
+          14
+        ],
+        "ESD-ASSURANCE-001-T05": [
+          15
+        ],
+        "ESD-ASSURANCE-001-T06": [
+          16
+        ],
+        "ESD-ASSURANCE-001-C13": [
+          16
+        ],
+        "ESD-ASSURANCE-001-T07": [
+          17
+        ],
+        "ESD-ASSURANCE-001-T08": [
+          18
+        ],
+        "ESD-ASSURANCE-001-C14": [
+          18
+        ],
+        "ESD-ASSURANCE-001-C15": [
+          19,
+          20
+        ],
+        "ESD-ASSURANCE-001-T09": [
+          21
+        ],
+        "ESD-ASSURANCE-001-T10": [
+          21
+        ],
+        "ESD-ASSURANCE-001-T11": [
+          21
+        ],
+        "ESD-ASSURANCE-001-C16": [
+          22
+        ],
+        "ESD-ASSURANCE-001-C17": [
+          22
+        ],
+        "ESD-ASSURANCE-001-C18": [
+          23
+        ],
+        "ESD-ASSURANCE-001-T12": [
+          23
+        ],
+        "ESD-ASSURANCE-001-C19": [
+          26
+        ],
+        "ESD-ASSURANCE-001-C20": [
+          27
+        ],
+        "ESD-ASSURANCE-001-T13": [
+          28
+        ],
+        "ESD-ASSURANCE-001-T14": [
+          29
+        ],
+        "ESD-ASSURANCE-001-C21": [
+          29
+        ],
+        "ESD-ASSURANCE-001-C22": [
+          30
+        ],
+        "ESD-ASSURANCE-001-C23": [
+          31
+        ],
+        "ESD-ASSURANCE-001-C24": [
+          32
+        ],
+        "ESD-ASSURANCE-001-C25": [
+          33
+        ],
+        "ESD-ASSURANCE-001-C26": [
+          33
+        ],
+        "ESD-ASSURANCE-001-C27": [
+          34
+        ],
+        "ESD-ASSURANCE-001-C28": [
+          34
+        ],
+        "ESD-ASSURANCE-001-T15": [
+          36
+        ],
+        "ESD-ASSURANCE-001-C29": [
+          37,
+          38,
+          39
+        ],
+        "ESD-ASSURANCE-001-C30": [
+          40,
+          41
+        ],
+        "ESD-ASSURANCE-001-T16": [
+          39
+        ]
+      },
+      "line_position_checks": 362,
+      "wrap_observations": [
+        {
+          "object": "ESD-ASSURANCE-001-C06",
+          "source_line": 5,
+          "page": 10,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        },
+        {
+          "object": "ESD-ASSURANCE-001-C15",
+          "source_line": 4,
+          "page": 19,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        },
+        {
+          "object": "ESD-ASSURANCE-001-C29",
+          "source_line": 37,
+          "page": 38,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "view": "ESD-OPS-001",
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "sha256": "630c80e75cd2d2924bec34044562cedd82cba6f2d9b307f187f269995a6e23d5",
+      "pages": 47,
+      "components": {
+        "ESD-OPS-001-T01": [
+          5
+        ],
+        "ESD-OPS-001-C01": [
+          5
+        ],
+        "ESD-OPS-001-C02": [
+          6
+        ],
+        "ESD-OPS-001-C03": [
+          7
+        ],
+        "ESD-OPS-001-C04": [
+          7
+        ],
+        "ESD-OPS-001-C05": [
+          9
+        ],
+        "ESD-OPS-001-C06": [
+          9
+        ],
+        "ESD-OPS-001-T02": [
+          10
+        ],
+        "ESD-OPS-001-C07": [
+          10
+        ],
+        "ESD-OPS-001-C08": [
+          10
+        ],
+        "ESD-OPS-001-T03": [
+          11
+        ],
+        "ESD-OPS-001-C09": [
+          11
+        ],
+        "ESD-OPS-001-C10": [
+          12
+        ],
+        "ESD-OPS-001-C11": [
+          16
+        ],
+        "ESD-OPS-001-C12": [
+          19
+        ],
+        "ESD-OPS-001-C13": [
+          20
+        ],
+        "ESD-OPS-001-C14": [
+          21
+        ],
+        "ESD-OPS-001-C15": [
+          23
+        ],
+        "ESD-OPS-001-T06": [
+          24
+        ],
+        "ESD-OPS-001-C16": [
+          25
+        ],
+        "ESD-OPS-001-C17": [
+          26
+        ],
+        "ESD-OPS-001-C18": [
+          26
+        ],
+        "ESD-OPS-001-T07": [
+          28
+        ],
+        "ESD-OPS-001-T08": [
+          29
+        ],
+        "ESD-OPS-001-C19": [
+          30
+        ],
+        "ESD-OPS-001-C20": [
+          31
+        ],
+        "ESD-OPS-001-C21": [
+          32
+        ],
+        "ESD-OPS-001-T09": [
+          32
+        ],
+        "ESD-OPS-001-C22": [
+          36
+        ],
+        "ESD-OPS-001-T10": [
+          38
+        ],
+        "ESD-OPS-001-C23": [
+          40
+        ],
+        "ESD-OPS-001-C24": [
+          41
+        ],
+        "ESD-OPS-001-T11": [
+          42
+        ],
+        "ESD-OPS-001-C25": [
+          43,
+          44
+        ],
+        "ESD-OPS-001-C26": [
+          44,
+          45
+        ],
+        "ESD-OPS-001-C27": [
+          45
+        ],
+        "ESD-OPS-001-C28": [
+          47
+        ],
+        "ESD-OPS-001-T04": [
+          13,
+          14
+        ],
+        "ESD-OPS-001-T05": [
+          17,
+          18,
+          19
+        ],
+        "ESD-OPS-001-T12": [
+          44
+        ]
+      },
+      "line_position_checks": 315,
+      "wrap_observations": [],
+      "issues": []
+    },
+    {
+      "view": "ESD-HANDBOOK",
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "pages": 223,
+      "components": {
+        "ESD-SUITE-000-T01": [
+          9
+        ],
+        "ESD-SUITE-000-C01": [
+          9
+        ],
+        "ESD-SUITE-000-C02": [
+          12
+        ],
+        "ESD-SUITE-000-T03": [
+          12
+        ],
+        "ESD-SUITE-000-C03": [
+          13
+        ],
+        "ESD-SUITE-000-T04": [
+          13
+        ],
+        "ESD-SUITE-000-C04": [
+          14
+        ],
+        "ESD-SUITE-000-C05": [
+          14
+        ],
+        "ESD-SUITE-000-T05": [
+          15
+        ],
+        "ESD-SUITE-000-T06": [
+          15
+        ],
+        "ESD-SUITE-000-C06": [
+          16
+        ],
+        "ESD-SUITE-000-T07": [
+          16
+        ],
+        "ESD-SUITE-000-T08": [
+          17
+        ],
+        "ESD-SUITE-000-T09": [
+          17
+        ],
+        "ESD-SUITE-000-C07": [
+          19
+        ],
+        "ESD-SUITE-000-C08": [
+          19
+        ],
+        "ESD-SUITE-000-C09": [
+          19
+        ],
+        "ESD-SUITE-000-C10": [
+          20
+        ],
+        "ESD-SUITE-000-C11": [
+          20
+        ],
+        "ESD-SUITE-000-T10": [
+          21
+        ],
+        "ESD-SUITE-000-C12": [
+          21
+        ],
+        "ESD-METHOD-001-T01": [
+          23
+        ],
+        "ESD-METHOD-001-C01": [
+          25
+        ],
+        "ESD-METHOD-001-C02": [
+          25
+        ],
+        "ESD-METHOD-001-C03": [
+          25
+        ],
+        "ESD-METHOD-001-C04": [
+          25
+        ],
+        "ESD-METHOD-001-T02": [
+          26
+        ],
+        "ESD-METHOD-001-T03": [
+          26
+        ],
+        "ESD-METHOD-001-C05": [
+          26
+        ],
+        "ESD-METHOD-001-C06": [
+          28
+        ],
+        "ESD-METHOD-001-C07": [
+          29
+        ],
+        "ESD-METHOD-001-C08": [
+          29
+        ],
+        "ESD-METHOD-001-C09": [
+          30
+        ],
+        "ESD-METHOD-001-C10": [
+          30
+        ],
+        "ESD-METHOD-001-C11": [
+          30
+        ],
+        "ESD-METHOD-001-T04": [
+          31
+        ],
+        "ESD-METHOD-001-T05": [
+          31
+        ],
+        "ESD-METHOD-001-C12": [
+          32
+        ],
+        "ESD-METHOD-001-C13": [
+          33
+        ],
+        "ESD-METHOD-001-C14": [
+          33
+        ],
+        "ESD-METHOD-001-C15": [
+          34
+        ],
+        "ESD-METHOD-001-C16": [
+          34
+        ],
+        "ESD-METHOD-001-T06": [
+          35
+        ],
+        "ESD-METHOD-001-C17": [
+          35
+        ],
+        "ESD-METHOD-001-C18": [
+          35
+        ],
+        "ESD-METHOD-001-T07": [
+          36
+        ],
+        "ESD-METHOD-001-C19": [
+          36
+        ],
+        "ESD-METHOD-001-C20": [
+          36
+        ],
+        "ESD-METHOD-001-C21": [
+          37
+        ],
+        "ESD-METHOD-001-C22": [
+          37
+        ],
+        "ESD-METHOD-001-C23": [
+          38
+        ],
+        "ESD-METHOD-001-C24": [
+          38
+        ],
+        "ESD-METHOD-001-T08": [
+          39
+        ],
+        "ESD-METHOD-001-C25": [
+          39
+        ],
+        "ESD-METHOD-001-C26": [
+          39
+        ],
+        "ESD-METHOD-001-C27": [
+          40
+        ],
+        "ESD-METHOD-001-C28": [
+          40
+        ],
+        "ESD-METHOD-001-C29": [
+          40
+        ],
+        "ESD-METHOD-001-C30": [
+          40
+        ],
+        "ESD-METHOD-001-C31": [
+          41
+        ],
+        "ESD-METHOD-001-T09": [
+          41
+        ],
+        "ESD-METHOD-001-C32": [
+          42
+        ],
+        "ESD-METHOD-001-C33": [
+          42
+        ],
+        "ESD-METHOD-001-C34": [
+          43
+        ],
+        "ESD-METHOD-001-C35": [
+          43
+        ],
+        "ESD-METHOD-001-T10": [
+          44
+        ],
+        "ESD-METHOD-001-C36": [
+          44
+        ],
+        "ESD-METHOD-001-C37": [
+          44
+        ],
+        "ESD-METHOD-001-C38": [
+          45
+        ],
+        "ESD-METHOD-001-C39": [
+          45
+        ],
+        "ESD-METHOD-001-C40": [
+          46
+        ],
+        "ESD-METHOD-001-C41": [
+          46
+        ],
+        "ESD-METHOD-001-T11": [
+          47
+        ],
+        "ESD-METHOD-001-T12": [
+          47
+        ],
+        "ESD-METHOD-001-T13": [
+          48
+        ],
+        "ESD-REFERENCE-001-T01": [
+          50
+        ],
+        "ESD-REFERENCE-001-C01": [
+          50
+        ],
+        "ESD-REFERENCE-001-T02": [
+          51
+        ],
+        "ESD-REFERENCE-001-T03": [
+          51
+        ],
+        "ESD-REFERENCE-001-C02": [
+          51
+        ],
+        "ESD-REFERENCE-001-T04": [
+          52
+        ],
+        "ESD-REFERENCE-001-C03": [
+          52
+        ],
+        "ESD-REFERENCE-001-C04": [
+          53
+        ],
+        "ESD-REFERENCE-001-C05": [
+          53
+        ],
+        "ESD-REFERENCE-001-C06": [
+          53
+        ],
+        "ESD-REFERENCE-001-C07": [
+          53
+        ],
+        "ESD-REFERENCE-001-C08": [
+          54
+        ],
+        "ESD-REFERENCE-001-T05": [
+          55
+        ],
+        "ESD-REFERENCE-001-C09": [
+          55
+        ],
+        "ESD-REFERENCE-001-C10": [
+          56
+        ],
+        "ESD-REFERENCE-001-C11": [
+          56
+        ],
+        "ESD-REFERENCE-001-C12": [
+          57
+        ],
+        "ESD-REFERENCE-001-C13": [
+          57
+        ],
+        "ESD-REFERENCE-001-C14": [
+          58
+        ],
+        "ESD-REFERENCE-001-C15": [
+          59
+        ],
+        "ESD-REFERENCE-001-T06": [
+          59
+        ],
+        "ESD-REFERENCE-001-C16": [
+          60
+        ],
+        "ESD-REFERENCE-001-C17": [
+          63
+        ],
+        "ESD-REFERENCE-001-C18": [
+          63
+        ],
+        "ESD-REFERENCE-001-C19": [
+          64
+        ],
+        "ESD-REFERENCE-001-T08": [
+          64
+        ],
+        "ESD-REFERENCE-001-C20": [
+          67
+        ],
+        "ESD-REFERENCE-001-C21": [
+          67
+        ],
+        "ESD-REFERENCE-001-C22": [
+          68
+        ],
+        "ESD-REFERENCE-001-C23": [
+          69
+        ],
+        "ESD-REFERENCE-001-C24": [
+          69
+        ],
+        "ESD-REFERENCE-001-C25": [
+          69,
+          70
+        ],
+        "ESD-REFERENCE-001-C26": [
+          71
+        ],
+        "ESD-REFERENCE-001-C27": [
+          71
+        ],
+        "ESD-REFERENCE-001-C28": [
+          74
+        ],
+        "ESD-REFERENCE-001-C29": [
+          74,
+          75
+        ],
+        "ESD-REFERENCE-001-C30": [
+          76
+        ],
+        "ESD-REFERENCE-001-C31": [
+          76
+        ],
+        "ESD-REFERENCE-001-C32": [
+          77
+        ],
+        "ESD-REFERENCE-001-C33": [
+          78
+        ],
+        "ESD-REFERENCE-001-C34": [
+          79
+        ],
+        "ESD-REFERENCE-001-C35": [
+          80
+        ],
+        "ESD-REFERENCE-001-T18": [
+          83
+        ],
+        "ESD-REFERENCE-001-C36": [
+          84
+        ],
+        "ESD-REFERENCE-001-T19": [
+          84
+        ],
+        "ESD-REFERENCE-001-C37": [
+          86
+        ],
+        "ESD-REFERENCE-001-C38": [
+          87
+        ],
+        "ESD-REFERENCE-001-C39": [
+          87
+        ],
+        "ESD-REFERENCE-001-C40": [
+          87
+        ],
+        "ESD-REFERENCE-001-C41": [
+          87
+        ],
+        "ESD-REFERENCE-001-C42": [
+          90
+        ],
+        "ESD-REFERENCE-001-C43": [
+          90
+        ],
+        "ESD-REFERENCE-001-C44": [
+          91
+        ],
+        "ESD-REFERENCE-001-C45": [
+          91
+        ],
+        "ESD-REFERENCE-001-C46": [
+          92
+        ],
+        "ESD-REFERENCE-001-C47": [
+          92
+        ],
+        "ESD-REFERENCE-001-C48": [
+          95
+        ],
+        "ESD-REFERENCE-001-C49": [
+          95
+        ],
+        "ESD-REFERENCE-001-C50": [
+          95
+        ],
+        "ESD-REFERENCE-001-C51": [
+          96
+        ],
+        "ESD-REFERENCE-001-C52": [
+          96
+        ],
+        "ESD-REFERENCE-001-C53": [
+          96
+        ],
+        "ESD-REFERENCE-001-T22": [
+          97
+        ],
+        "ESD-REFERENCE-001-C54": [
+          98
+        ],
+        "ESD-REFERENCE-001-T23": [
+          98
+        ],
+        "ESD-REFERENCE-001-T24": [
+          98,
+          99
+        ],
+        "ESD-REFERENCE-001-C55": [
+          99,
+          100
+        ],
+        "ESD-REFERENCE-001-C56": [
+          100
+        ],
+        "ESD-REFERENCE-001-T25": [
+          103
+        ],
+        "ESD-REFERENCE-001-C57": [
+          103
+        ],
+        "ESD-REFERENCE-001-C58": [
+          104
+        ],
+        "ESD-REFERENCE-001-C59": [
+          104
+        ],
+        "ESD-GOV-001-T01": [
+          105
+        ],
+        "ESD-GOV-001-C01": [
+          105
+        ],
+        "ESD-GOV-001-C02": [
+          107
+        ],
+        "ESD-GOV-001-C03": [
+          108
+        ],
+        "ESD-GOV-001-T02": [
+          109
+        ],
+        "ESD-GOV-001-T03": [
+          110
+        ],
+        "ESD-GOV-001-T04": [
+          110
+        ],
+        "ESD-GOV-001-T05": [
+          111
+        ],
+        "ESD-GOV-001-T06": [
+          112
+        ],
+        "ESD-GOV-001-C04": [
+          112
+        ],
+        "ESD-GOV-001-C05": [
+          113
+        ],
+        "ESD-GOV-001-T07": [
+          113
+        ],
+        "ESD-GOV-001-T08": [
+          114
+        ],
+        "ESD-GOV-001-C06": [
+          115
+        ],
+        "ESD-GOV-001-T09": [
+          115
+        ],
+        "ESD-GOV-001-T10": [
+          116
+        ],
+        "ESD-GOV-001-C07": [
+          116
+        ],
+        "ESD-GOV-001-T11": [
+          117
+        ],
+        "ESD-GOV-001-C08": [
+          117
+        ],
+        "ESD-GOV-001-T12": [
+          118
+        ],
+        "ESD-GOV-001-T13": [
+          119
+        ],
+        "ESD-GOV-001-T14": [
+          119
+        ],
+        "ESD-GOV-001-C09": [
+          121,
+          122
+        ],
+        "ESD-GOV-001-C10": [
+          128
+        ],
+        "ESD-GOV-001-C11": [
+          128
+        ],
+        "ESD-GOV-001-C12": [
+          129
+        ],
+        "ESD-GOV-001-C13": [
+          130
+        ],
+        "ESD-GOV-001-C14": [
+          134
+        ],
+        "ESD-GOV-001-C15": [
+          135
+        ],
+        "ESD-GOV-001-C16": [
+          135,
+          136
+        ],
+        "ESD-GOV-001-C17": [
+          136,
+          137
+        ],
+        "ESD-GOV-001-C18": [
+          138
+        ],
+        "ESD-ASSURANCE-001-T01": [
+          139
+        ],
+        "ESD-ASSURANCE-001-C01": [
+          139
+        ],
+        "ESD-ASSURANCE-001-T02": [
+          140
+        ],
+        "ESD-ASSURANCE-001-T03": [
+          141
+        ],
+        "ESD-ASSURANCE-001-C02": [
+          141
+        ],
+        "ESD-ASSURANCE-001-C03": [
+          142
+        ],
+        "ESD-ASSURANCE-001-C04": [
+          144
+        ],
+        "ESD-ASSURANCE-001-C05": [
+          144
+        ],
+        "ESD-ASSURANCE-001-C06": [
+          144,
+          145
+        ],
+        "ESD-ASSURANCE-001-C07": [
+          145
+        ],
+        "ESD-ASSURANCE-001-C08": [
+          145
+        ],
+        "ESD-ASSURANCE-001-T04": [
+          145
+        ],
+        "ESD-ASSURANCE-001-C09": [
+          146
+        ],
+        "ESD-ASSURANCE-001-C10": [
+          147
+        ],
+        "ESD-ASSURANCE-001-C11": [
+          148
+        ],
+        "ESD-ASSURANCE-001-C12": [
+          148
+        ],
+        "ESD-ASSURANCE-001-T05": [
+          149
+        ],
+        "ESD-ASSURANCE-001-T06": [
+          150
+        ],
+        "ESD-ASSURANCE-001-C13": [
+          150
+        ],
+        "ESD-ASSURANCE-001-T07": [
+          151
+        ],
+        "ESD-ASSURANCE-001-T08": [
+          152
+        ],
+        "ESD-ASSURANCE-001-C14": [
+          152
+        ],
+        "ESD-ASSURANCE-001-C15": [
+          153,
+          154
+        ],
+        "ESD-ASSURANCE-001-T09": [
+          155
+        ],
+        "ESD-ASSURANCE-001-T10": [
+          155
+        ],
+        "ESD-ASSURANCE-001-T11": [
+          155
+        ],
+        "ESD-ASSURANCE-001-C16": [
+          156
+        ],
+        "ESD-ASSURANCE-001-C17": [
+          156
+        ],
+        "ESD-ASSURANCE-001-C18": [
+          157
+        ],
+        "ESD-ASSURANCE-001-T12": [
+          157
+        ],
+        "ESD-ASSURANCE-001-C19": [
+          160
+        ],
+        "ESD-ASSURANCE-001-C20": [
+          161
+        ],
+        "ESD-ASSURANCE-001-T13": [
+          162
+        ],
+        "ESD-ASSURANCE-001-T14": [
+          163
+        ],
+        "ESD-ASSURANCE-001-C21": [
+          163
+        ],
+        "ESD-ASSURANCE-001-C22": [
+          164
+        ],
+        "ESD-ASSURANCE-001-C23": [
+          165
+        ],
+        "ESD-ASSURANCE-001-C24": [
+          166
+        ],
+        "ESD-ASSURANCE-001-C25": [
+          167
+        ],
+        "ESD-ASSURANCE-001-C26": [
+          167
+        ],
+        "ESD-ASSURANCE-001-C27": [
+          168
+        ],
+        "ESD-ASSURANCE-001-C28": [
+          168
+        ],
+        "ESD-ASSURANCE-001-T15": [
+          170
+        ],
+        "ESD-ASSURANCE-001-C29": [
+          171,
+          172,
+          173
+        ],
+        "ESD-ASSURANCE-001-C30": [
+          174,
+          175
+        ],
+        "ESD-OPS-001-T01": [
+          176
+        ],
+        "ESD-OPS-001-C01": [
+          176
+        ],
+        "ESD-OPS-001-C02": [
+          177
+        ],
+        "ESD-OPS-001-C03": [
+          178
+        ],
+        "ESD-OPS-001-C04": [
+          178
+        ],
+        "ESD-OPS-001-C05": [
+          180
+        ],
+        "ESD-OPS-001-C06": [
+          180
+        ],
+        "ESD-OPS-001-T02": [
+          181
+        ],
+        "ESD-OPS-001-C07": [
+          181
+        ],
+        "ESD-OPS-001-C08": [
+          181
+        ],
+        "ESD-OPS-001-T03": [
+          182
+        ],
+        "ESD-OPS-001-C09": [
+          182
+        ],
+        "ESD-OPS-001-C10": [
+          183
+        ],
+        "ESD-OPS-001-C11": [
+          187
+        ],
+        "ESD-OPS-001-C12": [
+          190
+        ],
+        "ESD-OPS-001-C13": [
+          191
+        ],
+        "ESD-OPS-001-C14": [
+          192
+        ],
+        "ESD-OPS-001-C15": [
+          194
+        ],
+        "ESD-OPS-001-T06": [
+          195
+        ],
+        "ESD-OPS-001-C16": [
+          196
+        ],
+        "ESD-OPS-001-C17": [
+          197
+        ],
+        "ESD-OPS-001-C18": [
+          197
+        ],
+        "ESD-OPS-001-T07": [
+          199
+        ],
+        "ESD-OPS-001-T08": [
+          200
+        ],
+        "ESD-OPS-001-C19": [
+          201
+        ],
+        "ESD-OPS-001-C20": [
+          202
+        ],
+        "ESD-OPS-001-C21": [
+          203
+        ],
+        "ESD-OPS-001-T09": [
+          203
+        ],
+        "ESD-OPS-001-C22": [
+          207
+        ],
+        "ESD-OPS-001-T10": [
+          209
+        ],
+        "ESD-OPS-001-C23": [
+          211
+        ],
+        "ESD-OPS-001-C24": [
+          212
+        ],
+        "ESD-OPS-001-T11": [
+          213
+        ],
+        "ESD-OPS-001-C25": [
+          214,
+          215
+        ],
+        "ESD-OPS-001-C26": [
+          215,
+          216
+        ],
+        "ESD-OPS-001-C27": [
+          216
+        ],
+        "ESD-OPS-001-C28": [
+          218
+        ],
+        "ESD-SUITE-000-T02": [
+          10,
+          11
+        ],
+        "ESD-REFERENCE-001-T07": [
+          61,
+          62
+        ],
+        "ESD-REFERENCE-001-T09": [
+          66
+        ],
+        "ESD-REFERENCE-001-T10": [
+          70
+        ],
+        "ESD-REFERENCE-001-T11": [
+          71
+        ],
+        "ESD-REFERENCE-001-T12": [
+          72
+        ],
+        "ESD-REFERENCE-001-T13": [
+          72
+        ],
+        "ESD-REFERENCE-001-T14": [
+          73
+        ],
+        "ESD-REFERENCE-001-T15": [
+          73
+        ],
+        "ESD-REFERENCE-001-T16": [
+          75
+        ],
+        "ESD-REFERENCE-001-T17": [
+          75
+        ],
+        "ESD-REFERENCE-001-T20": [
+          85,
+          86
+        ],
+        "ESD-REFERENCE-001-T21": [
+          88,
+          89
+        ],
+        "ESD-GOV-001-T15": [
+          120,
+          121
+        ],
+        "ESD-GOV-001-T16": [
+          122,
+          123,
+          124,
+          125
+        ],
+        "ESD-GOV-001-T17": [
+          126,
+          127
+        ],
+        "ESD-ASSURANCE-001-T16": [
+          173
+        ],
+        "ESD-OPS-001-T04": [
+          184,
+          185
+        ],
+        "ESD-OPS-001-T05": [
+          188,
+          189,
+          190
+        ],
+        "ESD-OPS-001-T12": [
+          215
+        ]
+      },
+      "line_position_checks": 1881,
+      "wrap_observations": [
+        {
+          "object": "ESD-GOV-001-C15",
+          "source_line": 22,
+          "page": 135,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        },
+        {
+          "object": "ESD-ASSURANCE-001-C06",
+          "source_line": 5,
+          "page": 144,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        },
+        {
+          "object": "ESD-ASSURANCE-001-C15",
+          "source_line": 4,
+          "page": 153,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        },
+        {
+          "object": "ESD-ASSURANCE-001-C29",
+          "source_line": 37,
+          "page": 172,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "view": "ESD-REFERENCE-001-COMPACT",
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "sha256": "3366522894f651fb8f4b1bb3efdb49a5e3c734ca13c3be875f9990a5ce684cba",
+      "pages": 56,
+      "components": {
+        "ESD-REFERENCE-001-T01": [
+          4
+        ],
+        "ESD-REFERENCE-001-C01": [
+          4
+        ],
+        "ESD-REFERENCE-001-T02": [
+          5
+        ],
+        "ESD-REFERENCE-001-T03": [
+          5
+        ],
+        "ESD-REFERENCE-001-C02": [
+          5
+        ],
+        "ESD-REFERENCE-001-T04": [
+          6
+        ],
+        "ESD-REFERENCE-001-C03": [
+          6
+        ],
+        "ESD-REFERENCE-001-C04": [
+          7
+        ],
+        "ESD-REFERENCE-001-C05": [
+          7
+        ],
+        "ESD-REFERENCE-001-C06": [
+          7
+        ],
+        "ESD-REFERENCE-001-C07": [
+          7
+        ],
+        "ESD-REFERENCE-001-C08": [
+          8
+        ],
+        "ESD-REFERENCE-001-T05": [
+          9
+        ],
+        "ESD-REFERENCE-001-C09": [
+          9
+        ],
+        "ESD-REFERENCE-001-C10": [
+          10
+        ],
+        "ESD-REFERENCE-001-C11": [
+          10
+        ],
+        "ESD-REFERENCE-001-C12": [
+          11
+        ],
+        "ESD-REFERENCE-001-C13": [
+          11
+        ],
+        "ESD-REFERENCE-001-C14": [
+          12
+        ],
+        "ESD-REFERENCE-001-C15": [
+          13
+        ],
+        "ESD-REFERENCE-001-T06": [
+          13
+        ],
+        "ESD-REFERENCE-001-C16": [
+          14
+        ],
+        "ESD-REFERENCE-001-C17": [
+          16
+        ],
+        "ESD-REFERENCE-001-C18": [
+          17
+        ],
+        "ESD-REFERENCE-001-C19": [
+          17
+        ],
+        "ESD-REFERENCE-001-T08": [
+          18
+        ],
+        "ESD-REFERENCE-001-C20": [
+          20
+        ],
+        "ESD-REFERENCE-001-C21": [
+          21
+        ],
+        "ESD-REFERENCE-001-C22": [
+          22
+        ],
+        "ESD-REFERENCE-001-C23": [
+          22
+        ],
+        "ESD-REFERENCE-001-C24": [
+          23
+        ],
+        "ESD-REFERENCE-001-C25": [
+          23,
+          24
+        ],
+        "ESD-REFERENCE-001-C26": [
+          24
+        ],
+        "ESD-REFERENCE-001-C27": [
+          25
+        ],
+        "ESD-REFERENCE-001-C28": [
+          27
+        ],
+        "ESD-REFERENCE-001-C29": [
+          27,
+          28
+        ],
+        "ESD-REFERENCE-001-C30": [
+          29
+        ],
+        "ESD-REFERENCE-001-C31": [
+          30
+        ],
+        "ESD-REFERENCE-001-C32": [
+          30,
+          31
+        ],
+        "ESD-REFERENCE-001-C33": [
+          31,
+          32
+        ],
+        "ESD-REFERENCE-001-C34": [
+          32
+        ],
+        "ESD-REFERENCE-001-C35": [
+          33
+        ],
+        "ESD-REFERENCE-001-T18": [
+          36
+        ],
+        "ESD-REFERENCE-001-C36": [
+          37
+        ],
+        "ESD-REFERENCE-001-T19": [
+          37
+        ],
+        "ESD-REFERENCE-001-C37": [
+          39
+        ],
+        "ESD-REFERENCE-001-C38": [
+          39
+        ],
+        "ESD-REFERENCE-001-C39": [
+          39
+        ],
+        "ESD-REFERENCE-001-C40": [
+          40
+        ],
+        "ESD-REFERENCE-001-C41": [
+          40
+        ],
+        "ESD-REFERENCE-001-C42": [
+          42
+        ],
+        "ESD-REFERENCE-001-C43": [
+          42
+        ],
+        "ESD-REFERENCE-001-C44": [
+          43
+        ],
+        "ESD-REFERENCE-001-C45": [
+          43
+        ],
+        "ESD-REFERENCE-001-C46": [
+          44
+        ],
+        "ESD-REFERENCE-001-C47": [
+          44
+        ],
+        "ESD-REFERENCE-001-C48": [
+          47
+        ],
+        "ESD-REFERENCE-001-C49": [
+          47
+        ],
+        "ESD-REFERENCE-001-C50": [
+          47
+        ],
+        "ESD-REFERENCE-001-C51": [
+          48
+        ],
+        "ESD-REFERENCE-001-C52": [
+          48
+        ],
+        "ESD-REFERENCE-001-C53": [
+          48
+        ],
+        "ESD-REFERENCE-001-T22": [
+          49
+        ],
+        "ESD-REFERENCE-001-C54": [
+          50
+        ],
+        "ESD-REFERENCE-001-T23": [
+          50
+        ],
+        "ESD-REFERENCE-001-T24": [
+          50,
+          51
+        ],
+        "ESD-REFERENCE-001-C55": [
+          51,
+          52
+        ],
+        "ESD-REFERENCE-001-C56": [
+          52
+        ],
+        "ESD-REFERENCE-001-T25": [
+          55
+        ],
+        "ESD-REFERENCE-001-C57": [
+          55
+        ],
+        "ESD-REFERENCE-001-C58": [
+          56
+        ],
+        "ESD-REFERENCE-001-C59": [
+          56
+        ],
+        "ESD-REFERENCE-001-T07": [
+          15,
+          16
+        ],
+        "ESD-REFERENCE-001-T09": [
+          20
+        ],
+        "ESD-REFERENCE-001-T10": [
+          24
+        ],
+        "ESD-REFERENCE-001-T11": [
+          25
+        ],
+        "ESD-REFERENCE-001-T12": [
+          26
+        ],
+        "ESD-REFERENCE-001-T13": [
+          26
+        ],
+        "ESD-REFERENCE-001-T14": [
+          26
+        ],
+        "ESD-REFERENCE-001-T15": [
+          27
+        ],
+        "ESD-REFERENCE-001-T16": [
+          28
+        ],
+        "ESD-REFERENCE-001-T17": [
+          29
+        ],
+        "ESD-REFERENCE-001-T20": [
+          38,
+          39
+        ],
+        "ESD-REFERENCE-001-T21": [
+          40,
+          41,
+          42
+        ]
+      },
+      "line_position_checks": 613,
+      "wrap_observations": [],
+      "issues": []
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "esd-suite-record",
+      "purpose": "record-baseline-alignment",
+      "view": "ESD-SUITE-000",
+      "object": "ESD-SUITE-000-T02",
+      "pages": [
+        5,
+        6
+      ],
+      "pdf_sha256": "aa0aa6969a8fc6129fce4caa7ef8a7a270884b4641484956ac00e717f29675aa",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-SUITE-000-005.png",
+          "sha256": "28630a8323e92e6fb818585512385b18a23a22b3a87fa7696808e9f52c715dbd"
+        },
+        {
+          "path": "ESD-SUITE-000-006.png",
+          "sha256": "1165092d5661099e3d4ca33ec87655ef0f4e1fb66d6ee626f7c75d2347cf18e0"
+        }
+      ]
+    },
+    {
+      "id": "esd-method-hierarchy",
+      "purpose": "heading-hierarchy",
+      "view": "ESD-METHOD-001",
+      "object": "ESD-METHOD-001-f211319509041dbe",
+      "pages": [
+        11
+      ],
+      "pdf_sha256": "ab5774ab91cabb32f0b80a43f92e30918666d95603dfce4f1f592b8b9dba6aff",
+      "sources": [
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-METHOD-001-011.png",
+          "sha256": "134218e670e82fc26e4f5077c86668bf001114d5a0c07b227b7fa7830751c32f"
+        }
+      ]
+    },
+    {
+      "id": "esd-method-literal",
+      "purpose": "reader-facing-code-identity",
+      "view": "ESD-METHOD-001",
+      "object": "ESD-METHOD-001-C11",
+      "pages": [
+        11
+      ],
+      "pdf_sha256": "ab5774ab91cabb32f0b80a43f92e30918666d95603dfce4f1f592b8b9dba6aff",
+      "sources": [
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-METHOD-001-011.png",
+          "sha256": "134218e670e82fc26e4f5077c86668bf001114d5a0c07b227b7fa7830751c32f"
+        }
+      ]
+    },
+    {
+      "id": "esd-reference-toc",
+      "purpose": "chapter-navigation",
+      "view": "ESD-REFERENCE-001",
+      "object": "generated-toc",
+      "pages": [
+        3
+      ],
+      "pdf_sha256": "c0ccb9353c063063ce8fe77622f85abbcc925ad97ab01af6a3f39cb1726d2c1b",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-003.png",
+          "sha256": "d98fece09abd65e5d925c7bce8c7e6ecd47280eb7dd6258508ab0dc5954b1296"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-state",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-REFERENCE-001",
+      "object": "ESD-REFERENCE-001-T12",
+      "pages": [
+        26
+      ],
+      "pdf_sha256": "c0ccb9353c063063ce8fe77622f85abbcc925ad97ab01af6a3f39cb1726d2c1b",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-026.png",
+          "sha256": "bf99c6571e291d513df7c6d25f4ab5da4ffb0daa24ab6851e396463514dbcab7"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-mode",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-REFERENCE-001",
+      "object": "ESD-REFERENCE-001-T15",
+      "pages": [
+        27
+      ],
+      "pdf_sha256": "c0ccb9353c063063ce8fe77622f85abbcc925ad97ab01af6a3f39cb1726d2c1b",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-027.png",
+          "sha256": "b3fbc902c5cadb4db34b7ea1e88990a09c3443deb671853fb692ca6389b4af05"
+        }
+      ]
+    },
+    {
+      "id": "esd-raci",
+      "purpose": "comparison-matrix",
+      "view": "ESD-GOV-001",
+      "object": "ESD-GOV-001-T06",
+      "pages": [
+        11
+      ],
+      "pdf_sha256": "f5f60f59028e04936db8ce5e38f89e78dc2277556438c9a18036cc6d52649dc5",
+      "sources": [
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-GOV-001-011.png",
+          "sha256": "0441d12ee68ccb919bdb28976ab2ff471c682fda6ffdc4669912d9331859e5c4"
+        }
+      ]
+    },
+    {
+      "id": "esd-code-wrap",
+      "purpose": "semantic-soft-wrap",
+      "view": "ESD-ASSURANCE-001",
+      "object": "ESD-ASSURANCE-001-C15",
+      "pages": [
+        19,
+        20
+      ],
+      "pdf_sha256": "67a7f28985b8cd74be441a26e8dac391aa68ff0d184c230b8ad8e6c2d025cf6c",
+      "sources": [
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-ASSURANCE-001-019.png",
+          "sha256": "d0a0d1854601f44d09eec127ce9d61096551ec2a5fc3d3cee2e4ae2bb5c83092"
+        },
+        {
+          "path": "ESD-ASSURANCE-001-020.png",
+          "sha256": "efbcf60e6bffcc0affde6559a43f896e7e7418a276ce6c3ac809385f5aca25b3"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-template",
+      "purpose": "record-baseline-alignment",
+      "view": "ESD-OPS-001",
+      "object": "ESD-OPS-001-T05",
+      "pages": [
+        17,
+        18,
+        19
+      ],
+      "pdf_sha256": "630c80e75cd2d2924bec34044562cedd82cba6f2d9b307f187f269995a6e23d5",
+      "sources": [
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-OPS-001-017.png",
+          "sha256": "d07d0d5d70f41795b34edfaaa57fd2ef2d955e02728f8ac972c495775f44a9a3"
+        },
+        {
+          "path": "ESD-OPS-001-018.png",
+          "sha256": "ad7e8a1977ef6965f8c1b0942b6b85f90a596f08080b37d924e0725e90330b9a"
+        },
+        {
+          "path": "ESD-OPS-001-019.png",
+          "sha256": "a68e9f7598c9c2c9934e3d4d0a2b7f0bf00921d17f22316689972c93e791c254"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-comparison",
+      "purpose": "comparison-matrix",
+      "view": "ESD-OPS-001",
+      "object": "ESD-OPS-001-T11",
+      "pages": [
+        42
+      ],
+      "pdf_sha256": "630c80e75cd2d2924bec34044562cedd82cba6f2d9b307f187f269995a6e23d5",
+      "sources": [
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-OPS-001-042.png",
+          "sha256": "2434efdee1230c32aafe8bd94238df89249bd6ec846487afaacf69e50054c8d0"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-final",
+      "purpose": "short-tail-page",
+      "view": "ESD-OPS-001",
+      "object": "ESD-OPS-001-14163a5df29f258e",
+      "pages": [
+        47
+      ],
+      "pdf_sha256": "630c80e75cd2d2924bec34044562cedd82cba6f2d9b307f187f269995a6e23d5",
+      "sources": [
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-OPS-001-047.png",
+          "sha256": "4f156d6a91feca902b814eec65663f78fe1bb4856887909ab84e1e9e0c4549a9"
+        }
+      ]
+    },
+    {
+      "id": "esd-suite-record",
+      "purpose": "record-baseline-alignment",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-SUITE-000-T02",
+      "pages": [
+        10,
+        11
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-010.png",
+          "sha256": "bc60b813e89bb2f05ed8104288db4ffb0626f94ab5877117493056445c380bb9"
+        },
+        {
+          "path": "ESD-HANDBOOK-011.png",
+          "sha256": "f2829f796c5c12ab757269361dabb1d5f3958c3d3c678dd8d1dff2159c3d416d"
+        }
+      ]
+    },
+    {
+      "id": "esd-code-wrap",
+      "purpose": "semantic-soft-wrap",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-ASSURANCE-001-C15",
+      "pages": [
+        153,
+        154
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-153.png",
+          "sha256": "1611788f3873c5f5c9797b43542367a3324cb4e2d1bf75eb77bf8c5c407a677e"
+        },
+        {
+          "path": "ESD-HANDBOOK-154.png",
+          "sha256": "24c756fbbd695bbff53f9b72266719e81d6b579ba6433acf142e6865dc45fb9b"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-template",
+      "purpose": "record-baseline-alignment",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-OPS-001-T05",
+      "pages": [
+        188,
+        189,
+        190
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-188.png",
+          "sha256": "f1cd1abfaded7a06b9dd8138fe171f3c3098c3f2fac84f6bb4be8bf7b983c5e9"
+        },
+        {
+          "path": "ESD-HANDBOOK-189.png",
+          "sha256": "fb3e0e289ad38b4ab8798a44bc4de706173351be4539da5b1f45d9645f8f5ac2"
+        },
+        {
+          "path": "ESD-HANDBOOK-190.png",
+          "sha256": "ecc3e87810b1b7cb1b2a028cb49008bbb3ae818e0210caccda97d6940d838f14"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-comparison",
+      "purpose": "comparison-matrix",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-OPS-001-T11",
+      "pages": [
+        213
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-213.png",
+          "sha256": "c74730765de979e1578914fbdef45e7bcdcc2826fca0a461719374ff930f93c3"
+        }
+      ]
+    },
+    {
+      "id": "esd-raci",
+      "purpose": "comparison-matrix",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-GOV-001-T06",
+      "pages": [
+        112
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-112.png",
+          "sha256": "231398ab78ea11af273fcb8e4216bf2db3c85acd656b941bf0e2cadea679fa00"
+        }
+      ]
+    },
+    {
+      "id": "esd-method-hierarchy",
+      "purpose": "heading-hierarchy",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-METHOD-001-f211319509041dbe",
+      "pages": [
+        30
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-030.png",
+          "sha256": "97bce114d02345b1f51667a38607ae89466a4cf58f8699d3a1877196d7cb1499"
+        }
+      ]
+    },
+    {
+      "id": "esd-global-toc",
+      "purpose": "chapter-navigation",
+      "view": "ESD-HANDBOOK",
+      "object": "generated-toc",
+      "pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-003.png",
+          "sha256": "7908d5843d94e2a36b0007b1026b8030999b2cc5d0342ce72af9ba6aca3ae056"
+        },
+        {
+          "path": "ESD-HANDBOOK-004.png",
+          "sha256": "fa91743fa406d1cd6a2e9a53255dbee6cfba4789fe8bd7898ca31230fe6699b1"
+        },
+        {
+          "path": "ESD-HANDBOOK-005.png",
+          "sha256": "5b301e294ab17c808c3b21c97dcfdbe9434a23c61ea199d8148883208f8ac1ab"
+        },
+        {
+          "path": "ESD-HANDBOOK-006.png",
+          "sha256": "4a480fbe546a617acb76a076158f5da54333431b81088da51e8813f4e6767189"
+        },
+        {
+          "path": "ESD-HANDBOOK-007.png",
+          "sha256": "36186cbde50f5b0cd2d2eafd403a177a395737440a733fb2178764cf36b14eaa"
+        },
+        {
+          "path": "ESD-HANDBOOK-008.png",
+          "sha256": "d3505222a5af07983b5d35f4d129a3b893aa99fe25f06cacc8894ff9d4930a8d"
+        }
+      ]
+    },
+    {
+      "id": "esd-clause-index",
+      "purpose": "chapter-navigation",
+      "view": "ESD-HANDBOOK",
+      "object": "generated-requirement-index",
+      "pages": [
+        219
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-219.png",
+          "sha256": "c6bd3ff273fdd6163a542cf85a2699b8402af47b9c550eb809dce37961fa759d"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-state",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-REFERENCE-001-T12",
+      "pages": [
+        72
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-072.png",
+          "sha256": "122051fc746c788988d5fb2cbf94b4d70431668e388639f031c5854c19801df6"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-mode",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-REFERENCE-001-T15",
+      "pages": [
+        73
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-073.png",
+          "sha256": "b1cc81ad2b6d5ab5b699b8ebf6219e22e2b30e9287e5c18aca73ca2a65d6a5ac"
+        }
+      ]
+    },
+    {
+      "id": "esd-ops-final",
+      "purpose": "short-tail-page",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-OPS-001-14163a5df29f258e",
+      "pages": [
+        218,
+        219
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-218.png",
+          "sha256": "3258b148ac407a033b54dbc0182c705eaa519801ced4b327c7e269bd74ded40d"
+        },
+        {
+          "path": "ESD-HANDBOOK-219.png",
+          "sha256": "c6bd3ff273fdd6163a542cf85a2699b8402af47b9c550eb809dce37961fa759d"
+        }
+      ]
+    },
+    {
+      "id": "esd-method-literal",
+      "purpose": "reader-facing-code-identity",
+      "view": "ESD-HANDBOOK",
+      "object": "ESD-METHOD-001-C11",
+      "pages": [
+        30
+      ],
+      "pdf_sha256": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+      "sources": [
+        {
+          "bytes": 21532,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-SUITE-000",
+          "matches_commit": true,
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "snapshot_path": "sources/design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md"
+        },
+        {
+          "bytes": 48829,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-METHOD-001",
+          "matches_commit": true,
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "snapshot_path": "sources/design/01-优秀系统设计与工程保证方法论-v1.1.0.md"
+        },
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        },
+        {
+          "bytes": 45539,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-GOV-001",
+          "matches_commit": true,
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "snapshot_path": "sources/design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md"
+        },
+        {
+          "bytes": 52815,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-ASSURANCE-001",
+          "matches_commit": true,
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "snapshot_path": "sources/design/04-工程保证论证证据与裁决规范-v1.0.0.md"
+        },
+        {
+          "bytes": 44522,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-OPS-001",
+          "matches_commit": true,
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "revision": "WORKTREE",
+          "sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "snapshot_path": "sources/design/05-生产就绪与运行韧性标准-v1.0.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-HANDBOOK-030.png",
+          "sha256": "97bce114d02345b1f51667a38607ae89466a4cf58f8699d3a1877196d7cb1499"
+        }
+      ]
+    },
+    {
+      "id": "esd-reference-toc",
+      "purpose": "chapter-navigation",
+      "view": "ESD-REFERENCE-001-COMPACT",
+      "object": "generated-toc",
+      "pages": [
+        3
+      ],
+      "pdf_sha256": "3366522894f651fb8f4b1bb3efdb49a5e3c734ca13c3be875f9990a5ce684cba",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-COMPACT-003.png",
+          "sha256": "e9f67d392969a2db01bbca1a4900d147acf6c26cf79e0853eee30b2b6e37ff8f"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-state",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-REFERENCE-001-COMPACT",
+      "object": "ESD-REFERENCE-001-T12",
+      "pages": [
+        26
+      ],
+      "pdf_sha256": "3366522894f651fb8f4b1bb3efdb49a5e3c734ca13c3be875f9990a5ce684cba",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-COMPACT-026.png",
+          "sha256": "b441ae28638bacb0af88e50395e0e9b2a01489c4a4aba6e383d3d5c2d938a613"
+        }
+      ]
+    },
+    {
+      "id": "esd-empty-mode",
+      "purpose": "empty-template-continuation",
+      "view": "ESD-REFERENCE-001-COMPACT",
+      "object": "ESD-REFERENCE-001-T15",
+      "pages": [
+        27
+      ],
+      "pdf_sha256": "3366522894f651fb8f4b1bb3efdb49a5e3c734ca13c3be875f9990a5ce684cba",
+      "sources": [
+        {
+          "bytes": 78329,
+          "commit": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+          "id": "ESD-REFERENCE-001",
+          "matches_commit": true,
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "revision": "WORKTREE",
+          "sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "snapshot_path": "sources/design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md"
+        }
+      ],
+      "renders": [
+        {
+          "path": "ESD-REFERENCE-001-COMPACT-027.png",
+          "sha256": "c4a02cfeaa35d182599f2262f7e17159431903cd356030e93a248a72cdb2d2f5"
+        }
+      ]
+    }
+  ],
+  "issues": []
+}

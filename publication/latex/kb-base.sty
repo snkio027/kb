@@ -64,7 +64,7 @@
 \newcommand{\PreviewMeasureHeading}[2]{\setbox\PreviewTitleMeasure=\vbox{\hsize=\linewidth\PreviewHeadingFont{#1}#2\par}\addtolength{\PreviewKeepHeight}{\ht\PreviewTitleMeasure+\dp\PreviewTitleMeasure+22pt}}
 \newcommand{\PreviewKeepHeadings}[1]{\par\setlength{\PreviewKeepHeight}{3\baselineskip}#1\Needspace{\PreviewKeepHeight}}
 \makeatletter
-\newcommand{\PreviewHeading}[4]{\par\hypertarget{#3}{}\csname #1\endcsname*{#4}\def\@currentHref{#3}\label{#3}\addcontentsline{toc}{#2}{#4}\ifstrequal{#1}{section}{\markboth{#4}{}}{}\nobreak}
+\newcommand{\PreviewHeading}[4]{\par\hypertarget{#3}{}\csname #1\endcsname*{#4}\def\@currentHref{#3}\label{#3}\addcontentsline{toc}{#2}{#4}\ifstrequal{#1}{section}{\markboth{#4}{}\gdef\PreviewClosingMark{#4}}{}\nobreak}
 \makeatother
 \newcommand{\PreviewIndexEntry}[2]{\par\noindent\hyperlink{#1}{#2}\nobreak\hfill\mbox{\pageref*{#1}}\par}
 \providecommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{1pt}}
@@ -75,11 +75,19 @@
 \newcommand{\PreviewTableStretch}{1.2}
 \newenvironment{PreviewTable}{\begingroup\fontsize{9.5}{13}\selectfont\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{\PreviewTableStretch}}{\endgroup}
 \newtcolorbox{PreviewRecordBox}[2][]{enhanced,breakable,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewTeal,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#2},title after break={#2 · 续},boxrule=.3pt,arc=0pt,left=7pt,right=7pt,top=4pt,bottom=4pt,before skip=6pt,after skip=6pt,#1}
+\newtcolorbox{PreviewTemplateBox}[2][]{enhanced,breakable,lines before break=4,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewTeal,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#2},title after break={#2 · continued},boxrule=.3pt,arc=0pt,left=7pt,right=7pt,top=5pt,bottom=5pt,before skip=6pt,after skip=6pt,#1}
 \newlength{\PreviewFieldSkip}\setlength{\PreviewFieldSkip}{4pt}
-\newenvironment{PreviewField}[2]{\par\noindent\begin{minipage}{\linewidth}\setlength{\parskip}{0pt}\begin{minipage}[t]{.28\linewidth}\raggedright\sffamily\small\hypertarget{#2}{}#1\end{minipage}\hfill\begin{minipage}[t]{.69\linewidth}\setlength{\parskip}{0pt}}{\end{minipage}\end{minipage}\par\vspace{\PreviewFieldSkip}}
+% Start an actual first text line before placing the label destination. A
+% vertical-mode destination used to become the vtop reference instead, shifting
+% the label by half a line. Field spacing is deliberately unchanged.
+\newenvironment{PreviewField}[2]{\par\noindent\begin{minipage}{\linewidth}\setlength{\parskip}{0pt}\begin{minipage}[t]{.28\linewidth}\raggedright\sffamily\small\leavevmode\strut\hypertarget{#2}{}#1\end{minipage}\hfill\begin{minipage}[t]{.69\linewidth}\setlength{\parskip}{0pt}\everypar{\strut\hypertarget{#2-value}{}\everypar{}}}{\end{minipage}\end{minipage}\par\vspace{\PreviewFieldSkip}}
 \newcommand{\PreviewEmptyField}{\textcolor{PreviewLine}{\rule{.68\linewidth}{.3pt}}\strut}
-\tcbset{reading/experiment/.style={},reading/literal/.style={},reading/flow/.style={colbacktitle=white,borderline west={0pt}{0pt}{white}},reading/snippet/.style={colbacktitle=white,title after break={},top=2pt,bottom=2pt}}
-\newtcolorbox{PreviewCodeBox}[2]{enhanced,breakable,lines before break=4,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewMuted,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#1},title after break={#1 · continued},boxrule=0pt,borderline west={.6pt}{0pt}{PreviewLine},arc=0pt,left=5pt,right=5pt,top=4pt,bottom=4pt,before skip=5pt,after skip=5pt,reading/#2}
+\tcbset{reading/experiment/.style={},reading/literal/.style={},reading/flow/.style={colbacktitle=white,borderline west={0pt}{0pt}{white}},reading/snippet/.style={colbacktitle=white,top=2pt,bottom=2pt}}
+\newtcolorbox{PreviewCodeBox}[3]{enhanced,breakable,lines before break=4,colback=white,colframe=PreviewLine,colbacktitle=PreviewPaper,coltitle=PreviewMuted,fonttitle=\sffamily\fontsize{8}{10}\selectfont,title={#1},title after break={#2},boxrule=0pt,borderline west={.6pt}{0pt}{PreviewLine},arc=0pt,left=5pt,right=5pt,top=4pt,bottom=4pt,before skip=5pt,after skip=5pt,reading/#3}
+% A short, explicitly selected end-matter unit is kept, with local spacing
+% recovery only. No global page-fill target and no type-size reduction.
+\newcommand{\PreviewClosingMark}{}
+\newenvironment{PreviewClosing}{\par\begin{minipage}{\linewidth}\titlespacing*{\section}{0pt}{10pt}{5pt}\titlespacing*{\subsection}{0pt}{7pt}{4pt}\setlength{\parskip}{4pt}}{\end{minipage}\par\nobreak\markboth{\PreviewClosingMark}{}}
 % Draw the soft-wrap cue as vector strokes, not a text glyph: copy/extraction
 % cannot acquire an extra arrow character. Continuation indentation is visual.
 \newcommand{\PreviewWrapCue}{\textcolor{PreviewMuted}{\setlength{\unitlength}{1pt}\begin{picture}(7,5)\put(6,5){\line(0,-1){3}}\put(1,2){\line(1,0){5}}\put(1,2){\line(1,1){2}}\put(1,2){\line(1,-1){2}}\end{picture}}}
@@ -87,6 +95,30 @@
 \newcommand{\PreviewCodePolicy}[4]{\def\PreviewCodeID{#1}\def\PreviewCodeLines{#2}\def\PreviewCodeHead{#3}\def\PreviewCodeTail{#4}}
 \makeatletter
 \newcommand{\PreviewCodeFormat}{\hyphenpenalty=50\relax\exhyphenpenalty=50\relax\def\FV@LeftListNumber{\hypertarget{\PreviewCodeID-L\number\c@FancyVerbLine}{}}}
+\makeatother
+% fvextra normally treats every non-space character equally. Retain its scanner
+% and verbatim bytes, but assign boundary penalties in reader preference order.
+% Arbitrary character breaks are an emergency fallback, never a default tier.
+\makeatletter
+\def\PreviewSemanticTokens{|,;:!?=}
+\edef\PreviewIdentifierTokens{\detokenize{_/.-}}
+\def\PreviewSelectBreak{%
+  \def\PreviewNextBreak{\penalty9900 }%
+  \expandafter\@tfor\expandafter\PreviewToken\expandafter:\expandafter=\PreviewIdentifierTokens\do{%
+    \expandafter\ifx\PreviewToken\FV@LastToken\def\PreviewNextBreak{\penalty500 }\fi}%
+  \expandafter\@tfor\expandafter\PreviewToken\expandafter:\expandafter=\PreviewSemanticTokens\do{%
+    \expandafter\ifx\PreviewToken\FV@LastToken\def\PreviewNextBreak{\penalty100 }\fi}%
+}
+\def\FV@Break@AnyToken#1{%
+  \ifx\FV@FVSpaceToken#1\relax
+    \let\FV@LastToken=#1\FV@BreakBuffer@Append{#1}%
+  \else\ifx\FV@LastToken\FV@FVSpaceToken
+    \let\FV@LastToken=#1\FV@BreakBuffer@Append{#1}%
+  \else
+    \PreviewSelectBreak
+    \expandafter\FV@BreakBuffer@Append\expandafter{\PreviewNextBreak}%
+    \FV@BreakBuffer@Append{#1}\let\FV@LastToken=#1%
+  \fi\fi\FV@Break@Scan}
 \makeatother
 \DefineVerbatimEnvironment{PreviewCode}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,listparameters={\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}},breaklines=true,breakanywhere=true,breakanywheresymbolpre={},breaksymbolleft=\PreviewWrapCue,breaksymbolright={},breakindent=1em,breakautoindent=true,tabsize=4}
 \DefineVerbatimEnvironment{PreviewFlow}{Verbatim}{fontsize=\fontsize{9}{12}\selectfont,formatcom=\PreviewCodeFormat,listparameters={\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}},breaklines=false,tabsize=4}

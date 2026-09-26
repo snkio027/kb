@@ -1,0 +1,215 @@
+{
+  "role": "DERIVED_VISUAL_REVIEW_NOT_CANDIDATE_PAYLOAD",
+  "files": [
+    {
+      "path": "visual-regression/ESD-ASSURANCE-001-019.png",
+      "bytes": 182298,
+      "sha256": "d0a0d1854601f44d09eec127ce9d61096551ec2a5fc3d3cee2e4ae2bb5c83092"
+    },
+    {
+      "path": "visual-regression/ESD-ASSURANCE-001-020.png",
+      "bytes": 156625,
+      "sha256": "efbcf60e6bffcc0affde6559a43f896e7e7418a276ce6c3ac809385f5aca25b3"
+    },
+    {
+      "path": "visual-regression/ESD-GOV-001-011.png",
+      "bytes": 200444,
+      "sha256": "0441d12ee68ccb919bdb28976ab2ff471c682fda6ffdc4669912d9331859e5c4"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-001.png",
+      "bytes": 55186,
+      "sha256": "9da98e1d138ea18c2245fbcc3d37bdf33e47c462ef4d6559455177d26db19eb1"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-002.png",
+      "bytes": 222831,
+      "sha256": "756b392355a52b3d3a280ffb358b1a6a0e308de2f1bdda38a4c408465d8b7570"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-003.png",
+      "bytes": 165690,
+      "sha256": "7908d5843d94e2a36b0007b1026b8030999b2cc5d0342ce72af9ba6aca3ae056"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-004.png",
+      "bytes": 206143,
+      "sha256": "fa91743fa406d1cd6a2e9a53255dbee6cfba4789fe8bd7898ca31230fe6699b1"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-005.png",
+      "bytes": 149009,
+      "sha256": "5b301e294ab17c808c3b21c97dcfdbe9434a23c61ea199d8148883208f8ac1ab"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-006.png",
+      "bytes": 148291,
+      "sha256": "4a480fbe546a617acb76a076158f5da54333431b81088da51e8813f4e6767189"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-007.png",
+      "bytes": 154602,
+      "sha256": "36186cbde50f5b0cd2d2eafd403a177a395737440a733fb2178764cf36b14eaa"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-008.png",
+      "bytes": 86039,
+      "sha256": "d3505222a5af07983b5d35f4d129a3b893aa99fe25f06cacc8894ff9d4930a8d"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-010.png",
+      "bytes": 241140,
+      "sha256": "bc60b813e89bb2f05ed8104288db4ffb0626f94ab5877117493056445c380bb9"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-011.png",
+      "bytes": 167126,
+      "sha256": "f2829f796c5c12ab757269361dabb1d5f3958c3d3c678dd8d1dff2159c3d416d"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-030.png",
+      "bytes": 262277,
+      "sha256": "97bce114d02345b1f51667a38607ae89466a4cf58f8699d3a1877196d7cb1499"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-072.png",
+      "bytes": 65416,
+      "sha256": "122051fc746c788988d5fb2cbf94b4d70431668e388639f031c5854c19801df6"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-073.png",
+      "bytes": 62649,
+      "sha256": "b1cc81ad2b6d5ab5b699b8ebf6219e22e2b30e9287e5c18aca73ca2a65d6a5ac"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-112.png",
+      "bytes": 200648,
+      "sha256": "231398ab78ea11af273fcb8e4216bf2db3c85acd656b941bf0e2cadea679fa00"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-153.png",
+      "bytes": 182496,
+      "sha256": "1611788f3873c5f5c9797b43542367a3324cb4e2d1bf75eb77bf8c5c407a677e"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-154.png",
+      "bytes": 156661,
+      "sha256": "24c756fbbd695bbff53f9b72266719e81d6b579ba6433acf142e6865dc45fb9b"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-188.png",
+      "bytes": 125617,
+      "sha256": "f1cd1abfaded7a06b9dd8138fe171f3c3098c3f2fac84f6bb4be8bf7b983c5e9"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-189.png",
+      "bytes": 89426,
+      "sha256": "fb3e0e289ad38b4ab8798a44bc4de706173351be4539da5b1f45d9645f8f5ac2"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-190.png",
+      "bytes": 148473,
+      "sha256": "ecc3e87810b1b7cb1b2a028cb49008bbb3ae818e0210caccda97d6940d838f14"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-213.png",
+      "bytes": 212063,
+      "sha256": "c74730765de979e1578914fbdef45e7bcdcc2826fca0a461719374ff930f93c3"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-218.png",
+      "bytes": 247334,
+      "sha256": "3258b148ac407a033b54dbc0182c705eaa519801ced4b327c7e269bd74ded40d"
+    },
+    {
+      "path": "visual-regression/ESD-HANDBOOK-219.png",
+      "bytes": 296592,
+      "sha256": "c6bd3ff273fdd6163a542cf85a2699b8402af47b9c550eb809dce37961fa759d"
+    },
+    {
+      "path": "visual-regression/ESD-METHOD-001-011.png",
+      "bytes": 261976,
+      "sha256": "134218e670e82fc26e4f5077c86668bf001114d5a0c07b227b7fa7830751c32f"
+    },
+    {
+      "path": "visual-regression/ESD-OPS-001-017.png",
+      "bytes": 125214,
+      "sha256": "d07d0d5d70f41795b34edfaaa57fd2ef2d955e02728f8ac972c495775f44a9a3"
+    },
+    {
+      "path": "visual-regression/ESD-OPS-001-018.png",
+      "bytes": 89174,
+      "sha256": "ad7e8a1977ef6965f8c1b0942b6b85f90a596f08080b37d924e0725e90330b9a"
+    },
+    {
+      "path": "visual-regression/ESD-OPS-001-019.png",
+      "bytes": 148258,
+      "sha256": "a68e9f7598c9c2c9934e3d4d0a2b7f0bf00921d17f22316689972c93e791c254"
+    },
+    {
+      "path": "visual-regression/ESD-OPS-001-042.png",
+      "bytes": 211891,
+      "sha256": "2434efdee1230c32aafe8bd94238df89249bd6ec846487afaacf69e50054c8d0"
+    },
+    {
+      "path": "visual-regression/ESD-OPS-001-047.png",
+      "bytes": 247081,
+      "sha256": "4f156d6a91feca902b814eec65663f78fe1bb4856887909ab84e1e9e0c4549a9"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-003.png",
+      "bytes": 169744,
+      "sha256": "d98fece09abd65e5d925c7bce8c7e6ecd47280eb7dd6258508ab0dc5954b1296"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-026.png",
+      "bytes": 65552,
+      "sha256": "bf99c6571e291d513df7c6d25f4ab5da4ffb0daa24ab6851e396463514dbcab7"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-027.png",
+      "bytes": 62593,
+      "sha256": "b3fbc902c5cadb4db34b7ea1e88990a09c3443deb671853fb692ca6389b4af05"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-COMPACT-003.png",
+      "bytes": 169683,
+      "sha256": "e9f67d392969a2db01bbca1a4900d147acf6c26cf79e0853eee30b2b6e37ff8f"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-COMPACT-026.png",
+      "bytes": 88881,
+      "sha256": "b441ae28638bacb0af88e50395e0e9b2a01489c4a4aba6e383d3d5c2d938a613"
+    },
+    {
+      "path": "visual-regression/ESD-REFERENCE-001-COMPACT-027.png",
+      "bytes": 95100,
+      "sha256": "c4a02cfeaa35d182599f2262f7e17159431903cd356030e93a248a72cdb2d2f5"
+    },
+    {
+      "path": "visual-regression/ESD-SUITE-000-005.png",
+      "bytes": 241008,
+      "sha256": "28630a8323e92e6fb818585512385b18a23a22b3a87fa7696808e9f52c715dbd"
+    },
+    {
+      "path": "visual-regression/ESD-SUITE-000-006.png",
+      "bytes": 167190,
+      "sha256": "1165092d5661099e3d4ca33ec87655ef0f4e1fb66d6ee626f7c75d2347cf18e0"
+    },
+    {
+      "path": "visual-regression/geometry-disposition.json",
+      "bytes": 33027,
+      "sha256": "1a1e75275e391fdda16cda6c5e45a1270d53c18ae937bd6e68de5685608558b4"
+    },
+    {
+      "path": "visual-regression/geometry.json",
+      "bytes": 117848,
+      "sha256": "4a227d43af9091fa2728157b7f3c594c8a7ce2b350fa4509119a81c46c5defa6"
+    },
+    {
+      "path": "visual-regression/page-map.json",
+      "bytes": 99588,
+      "sha256": "9c3cda48201f9d7968f3af9ef352eb00cac1c8b6cd48aa944d00822aa01e654c"
+    }
+  ]
+}

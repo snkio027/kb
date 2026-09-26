@@ -1,0 +1,218 @@
+[
+  {
+    "from": "G6",
+    "source": "README.md#基线与证据状态",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md#%E5%9F%BA%E7%BA%BF%E4%B8%8E%E8%AF%81%E6%8D%AE%E7%8A%B6%E6%80%81"
+  },
+  {
+    "from": "G6",
+    "source": "editorial-profile.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/editorial-profile.md"
+  },
+  {
+    "from": "G6",
+    "source": "handbook-guide.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/handbook-guide.md"
+  },
+  {
+    "from": "G6",
+    "source": "g05-generics-and-compile-time.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g05-generics-and-compile-time.md"
+  },
+  {
+    "from": "G6",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md"
+  },
+  {
+    "from": "G6",
+    "source": "g07-concurrency-and-memory-model.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g07-concurrency-and-memory-model.md"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-1"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-2"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-3"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-4"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-5"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-6",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-6"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-7",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-7"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-8",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-8"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-9",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-9"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-10",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-10"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-11",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-11"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-12",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-12"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-13",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-13"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-14",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-14"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-15",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-15"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-16",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-16"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-17",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-17"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-18",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-18"
+  },
+  {
+    "from": "G6",
+    "source": "#g6-section-19",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g6-section-19"
+  },
+  {
+    "from": "G6",
+    "source": "g01-object-model.md#g1-object",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g01-object-model.md#g1-object"
+  },
+  {
+    "from": "G6",
+    "source": "g02-raii-and-ownership.md#g2-section-1",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g02-raii-and-ownership.md#g2-section-1"
+  },
+  {
+    "from": "G6",
+    "source": "g01-object-model.md#g1-object",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g01-object-model.md#g1-object"
+  },
+  {
+    "from": "G6",
+    "source": "g02-raii-and-ownership.md#g2-section-8",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g02-raii-and-ownership.md#g2-section-8"
+  },
+  {
+    "from": "G6",
+    "source": "g03-value-semantics-and-performance.md#g3-section-8",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g03-value-semantics-and-performance.md#g3-section-8"
+  },
+  {
+    "from": "G6",
+    "source": "g07-concurrency-and-memory-model.md#g7-section-3",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g07-concurrency-and-memory-model.md#g7-section-3"
+  },
+  {
+    "from": "G6",
+    "source": "handbook-guide.md#3-怎样读证据标签",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/handbook-guide.md#3-%E6%80%8E%E6%A0%B7%E8%AF%BB%E8%AF%81%E6%8D%AE%E6%A0%87%E7%AD%BE"
+  },
+  {
+    "from": "G6",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md"
+  },
+  {
+    "from": "G6",
+    "source": "learning/README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/learning/README.md"
+  },
+  {
+    "from": "G6",
+    "source": "learning/professional-revision.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/learning/professional-revision.md"
+  },
+  {
+    "from": "G6",
+    "source": "https://clang.llvm.org/docs/UsersManual.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://clang.llvm.org/docs/UsersManual.html"
+  }
+]

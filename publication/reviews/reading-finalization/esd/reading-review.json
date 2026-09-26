@@ -1,0 +1,188 @@
+{
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/ESD-ASSURANCE-001-draft.pdf": "67a7f28985b8cd74be441a26e8dac391aa68ff0d184c230b8ad8e6c2d025cf6c",
+    "output/pdf/ESD-GOV-001-draft.pdf": "f5f60f59028e04936db8ce5e38f89e78dc2277556438c9a18036cc6d52649dc5",
+    "output/pdf/ESD-HANDBOOK-draft.pdf": "97e8c46c9681dbfcb9135055180ec30b9f2cc65b1138304d484ceac83453f98c",
+    "output/pdf/ESD-METHOD-001-draft.pdf": "ab5774ab91cabb32f0b80a43f92e30918666d95603dfce4f1f592b8b9dba6aff",
+    "output/pdf/ESD-OPS-001-draft.pdf": "630c80e75cd2d2924bec34044562cedd82cba6f2d9b307f187f269995a6e23d5",
+    "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf": "3366522894f651fb8f4b1bb3efdb49a5e3c734ca13c3be875f9990a5ce684cba",
+    "output/pdf/ESD-REFERENCE-001-draft.pdf": "c0ccb9353c063063ce8fe77622f85abbcc925ad97ab01af6a3f39cb1726d2c1b",
+    "output/pdf/ESD-SUITE-000-draft.pdf": "aa0aa6969a8fc6129fce4caa7ef8a7a270884b4641484956ac00e717f29675aa"
+  },
+  "audit_sha256": "745da4643594ff759ff07eb318e489b8afe10779feee0ce0d002ca3e212b7546",
+  "structural_status": "STRUCTURAL_PASS",
+  "page_map_sha256": "9c3cda48201f9d7968f3af9ef352eb00cac1c8b6cd48aa944d00822aa01e654c",
+  "visual_inspection": {
+    "preview_attempt": "publication/build/preview/353090fade94323347038eee2287dcc298656b9b3bb176e18d17318c94bdb9d9/97286c95c97c4253a6f5f2695c5f51b2",
+    "inspected_images": [
+      {
+        "path": "ESD-SUITE-000-005.png",
+        "sha256": "28630a8323e92e6fb818585512385b18a23a22b3a87fa7696808e9f52c715dbd",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-SUITE-000-006.png",
+        "sha256": "1165092d5661099e3d4ca33ec87655ef0f4e1fb66d6ee626f7c75d2347cf18e0",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-026.png",
+        "sha256": "bf99c6571e291d513df7c6d25f4ab5da4ffb0daa24ab6851e396463514dbcab7",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-027.png",
+        "sha256": "b3fbc902c5cadb4db34b7ea1e88990a09c3443deb671853fb692ca6389b4af05",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-METHOD-001-011.png",
+        "sha256": "134218e670e82fc26e4f5077c86668bf001114d5a0c07b227b7fa7830751c32f",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-ASSURANCE-001-019.png",
+        "sha256": "d0a0d1854601f44d09eec127ce9d61096551ec2a5fc3d3cee2e4ae2bb5c83092",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-ASSURANCE-001-020.png",
+        "sha256": "efbcf60e6bffcc0affde6559a43f896e7e7418a276ce6c3ac809385f5aca25b3",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-OPS-001-047.png",
+        "sha256": "4f156d6a91feca902b814eec65663f78fe1bb4856887909ab84e1e9e0c4549a9",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-OPS-001-017.png",
+        "sha256": "d07d0d5d70f41795b34edfaaa57fd2ef2d955e02728f8ac972c495775f44a9a3",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-OPS-001-018.png",
+        "sha256": "ad7e8a1977ef6965f8c1b0942b6b85f90a596f08080b37d924e0725e90330b9a",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-OPS-001-019.png",
+        "sha256": "a68e9f7598c9c2c9934e3d4d0a2b7f0bf00921d17f22316689972c93e791c254",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-GOV-001-011.png",
+        "sha256": "0441d12ee68ccb919bdb28976ab2ff471c682fda6ffdc4669912d9331859e5c4",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-026.png",
+        "sha256": "b441ae28638bacb0af88e50395e0e9b2a01489c4a4aba6e383d3d5c2d938a613",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-027.png",
+        "sha256": "c4a02cfeaa35d182599f2262f7e17159431903cd356030e93a248a72cdb2d2f5",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-072.png",
+        "sha256": "122051fc746c788988d5fb2cbf94b4d70431668e388639f031c5854c19801df6",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-073.png",
+        "sha256": "b1cc81ad2b6d5ab5b699b8ebf6219e22e2b30e9287e5c18aca73ca2a65d6a5ac",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-153.png",
+        "sha256": "1611788f3873c5f5c9797b43542367a3324cb4e2d1bf75eb77bf8c5c407a677e",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-188.png",
+        "sha256": "f1cd1abfaded7a06b9dd8138fe171f3c3098c3f2fac84f6bb4be8bf7b983c5e9",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-218.png",
+        "sha256": "3258b148ac407a033b54dbc0182c705eaa519801ced4b327c7e269bd74ded40d",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-219.png",
+        "sha256": "c6bd3ff273fdd6163a542cf85a2699b8402af47b9c550eb809dce37961fa759d",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-003.png",
+        "sha256": "7908d5843d94e2a36b0007b1026b8030999b2cc5d0342ce72af9ba6aca3ae056",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-008.png",
+        "sha256": "d3505222a5af07983b5d35f4d129a3b893aa99fe25f06cacc8894ff9d4930a8d",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-003.png",
+        "sha256": "d98fece09abd65e5d925c7bce8c7e6ecd47280eb7dd6258508ab0dc5954b1296",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-REFERENCE-001-COMPACT-003.png",
+        "sha256": "e9f67d392969a2db01bbca1a4900d147acf6c26cf79e0853eee30b2b6e37ff8f",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-001.png",
+        "sha256": "9da98e1d138ea18c2245fbcc3d37bdf33e47c462ef4d6559455177d26db19eb1",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-002.png",
+        "sha256": "756b392355a52b3d3a280ffb358b1a6a0e308de2f1bdda38a4c408465d8b7570",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-OPS-001-042.png",
+        "sha256": "2434efdee1230c32aafe8bd94238df89249bd6ec846487afaacf69e50054c8d0",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-213.png",
+        "sha256": "c74730765de979e1578914fbdef45e7bcdcc2826fca0a461719374ff930f93c3",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-030.png",
+        "sha256": "97bce114d02345b1f51667a38607ae89466a4cf58f8699d3a1877196d7cb1499",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "ESD-HANDBOOK-112.png",
+        "sha256": "231398ab78ea11af273fcb8e4216bf2db3c85acd656b941bf0e2cadea679fa00",
+        "review_method": "Direct inspection of full final page PNG"
+      }
+    ],
+    "observations": [
+      "State Ownership Register and Operating Mode Matrix are named, bounded, ordered empty templates, including combined and compact views.",
+      "Record label/value first baselines align, including multiline values and empty writable lines; field spacing was not compressed.",
+      "OPERATIONAL remains whole after a pipe boundary; soft-wrap marker is visually distinguishable.",
+      "Ops final two lines are absorbed into the complete conclusion; the header is section 30 in standalone and combined views.",
+      "Method literal labels are subordinate; RACI/risk matrices remain horizontal comparison views; cover/control/TOC/index retain navigation.",
+      "No clipping, overlap, unreadable scaling or orphaned template identity observed in inspected pages."
+    ]
+  },
+  "limitations": [
+    "Self-review is not independent acceptance, VISUAL_PROFILE_FROZEN or formal release.",
+    "Automated destination, text and glyph geometry checks are bounded oracles, not proof of every visual relationship or technical correctness.",
+    "The 38-field long empty-template and long-danger continuation are real-compile synthetic regressions; final source templates are short and remain whole. Synthetic pages are not included in the 50 final-image review count.",
+    "G7 Final Gate retains source formatting of standalone expressions and question marks; this batch does not rewrite or repunctuate frozen questions.",
+    "Natural whitespace at chapter openings, TOC endings and complete closing units is retained; no page-fill target is imposed.",
+    "Writable template lines are a print/read view, not interactive AcroForm fields.",
+    "No C++ experiment, performance or concurrency rerun; no accessibility certification or cross-platform renderer validation."
+  ]
+}

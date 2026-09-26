@@ -18,7 +18,8 @@
     "heading_roles": {"1": "section", "2": "subsection", "3": "subsubsection"},
     "min_head_lines": 4,
     "min_tail_lines": 6,
-    "short_table_lines": 12
+    "short_table_lines": 12,
+    "closing_groups": {"ESD-OPS-001": "30. 结论"}
   },
   "sources": [
     {

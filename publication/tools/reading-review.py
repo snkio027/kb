@@ -41,9 +41,32 @@ def code_signals(component, positions):
         if len(last) < component['min_tail_lines']:
             issues.append('short_code_tail')
         tail = [component['source_lines'][n-1] for n in last]
-        if all(re.fullmatch(r'[\s}\]);]*', line) for line in tail):
+        nonempty = [line for line in tail if line.strip()]
+        closing = sum(bool(re.fullmatch(r'[\s}\]);]*', line)) for line in nonempty)
+        if nonempty and (closing == len(nonempty) or (len(nonempty) <= 6 and closing >= 3 and closing/len(nonempty) >= .75)):
             issues.append('closing_only_code_tail')
     return issues, groups
+
+
+def field_alignment(label, value, tolerance=.8):
+    return label[0] == value[0] and abs(label[1]-value[1]) <= tolerance
+
+
+def token_intact(token, page_texts):
+    return any(token in value for value in page_texts)
+
+
+def identity_signals(component, positions, role_position, page_texts):
+    issues=[]
+    if component.get('source_label') and role_position[0] != positions[0][0]:
+        issues.append('source_role_detached_from_code')
+    pages=list(dict.fromkeys(p for p,y in positions))
+    for page in pages[1:]:
+        if component.get('role') or component['kind']=='experiment':
+            needed=component['continued_label']
+            if re.sub(r'\s','',needed) not in re.sub(r'\s','',page_texts[page-1]):
+                issues.append('missing_continued_semantic_identity')
+    return issues
 
 
 def inspect(attempt, render=True):
@@ -80,6 +103,8 @@ def inspect(attempt, render=True):
                 continue
             pos = [position(reader,c['id']+'-L'+str(n)) for n in range(1,c['lines']+1)]
             found, groups = code_signals(c,pos)
+            if c.get('source_label'):
+                found += identity_signals(c,pos,position(reader,c['id']+'-role'),texts)
             issues.extend({'object':c['id'],'signal':s} for s in found)
             mapping[c['id']] = list(groups)
             if c['kind']=='experiment':
@@ -91,6 +116,21 @@ def inspect(attempt, render=True):
                     wraps.append({'object':c['id'],'source_line':n+1,'page':pos[n][0],
                                   'signal':'wrap_or_chunk_spacing; inspect rendered line'})
         for table in tables:
+            if table['layout']=='empty-template':
+                a=position(reader,table['table']+'-template-start')[0]
+                b=position(reader,table['table']+'-template-end')[0]
+                mapping[table['table']]=list(range(a,b+1))
+                if table['keep_together'] and a!=b:
+                    issues.append({'object':table['table'],'signal':'short_empty_template_split'})
+                for page in range(a+1,b+1):
+                    needed=table['template_title']+' · continued'
+                    if re.sub(r'\s','',needed) not in re.sub(r'\s','',texts[page-1]):
+                        issues.append({'object':table['table'],'page':page,'signal':'missing_template_continuation_identity'})
+                for n in range(1,len(table['template_fields'])+1):
+                    key=table['table']+f'-TF{n}'
+                    if not field_alignment(position(reader,key),position(reader,key+'-value')):
+                        issues.append({'object':key,'signal':'field_baseline_misaligned'})
+                continue
             if table['layout']!='records':
                 continue
             pages=[]
@@ -104,6 +144,10 @@ def inspect(attempt, render=True):
                     if len(tail)<=1:
                         issues.append({'object':table['table'],'row':row,'signal':'record_single_field_tail'})
             mapping[table['table']]=sorted(set(pages))
+            for cell in table['cells']:
+                key=table['table']+f'-R{cell["row"]}-F{cell["column"]}'
+                if not field_alignment(position(reader,key),position(reader,key+'-value')):
+                    issues.append({'object':key,'signal':'field_baseline_misaligned'})
         first=min(s['start_page'] for s in sections)
         toc=list(range(3,first))
         for page in toc[1:]:
@@ -136,6 +180,8 @@ def inspect(attempt, render=True):
                 matches=[s for s in sections if s['document']==f['document'] and s['title']==f['title']]
                 assert len(matches)==1,(f,matches)
                 bound=matches[0]['anchor']; pages=[position(reader,bound)[0]]
+                if f.get('include_section_end'):
+                    pages=list(range(pages[0],min(view['pages'],matches[0]['end_page'])+1))
             elif f['kind']=='opening':
                 d=next(d for d in docs if d['source']['id']==f['document'])
                 bound=next(iter(d['anchors'].values())); pages=[position(reader,bound)[0]]
@@ -143,7 +189,14 @@ def inspect(attempt, render=True):
                 bound=f['anchor']; pages=[position(reader,bound)[0]]
             elif f['kind']=='toc':
                 bound='generated-toc'; pages=toc
-            item={'id':f['id'],'view':view['view'],'object':bound,'pages':pages,
+            if f.get('unbroken_token'):
+                token=f['unbroken_token']
+                # Bounded negative regression: never treat normalization that
+                # erases line endings as proof of a semantically sound wrap.
+                if not token_intact(token, [texts[p-1] for p in pages]):
+                    issue={'view':view['view'],'object':bound,'signal':'protected_token_split','token':token}
+                    result['issues'].append(issue);issues.append(issue)
+            item={'id':f['id'],'purpose':f['purpose'],'view':view['view'],'object':bound,'pages':pages,
                   'pdf_sha256':view['sha256'],'sources':[d['source'] for d in docs], 'renders':[]}
             for page in pages:
                 name=f'{view["view"]}-{page:03d}'

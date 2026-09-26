@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reading presentation contracts; no C++/performance/concurrency execution."""
 import importlib.util
+import copy
 import json
 import subprocess
 import sys
@@ -32,9 +33,61 @@ class ReadingTests(unittest.TestCase):
 
     def test_semantic_corpus_has_no_physical_page_identity(self):
         fixtures=json.loads((ROOT/'publication/tools/reading-corpus.json').read_text())['fixtures']
-        self.assertEqual(len(fixtures),15)
-        self.assertEqual(len({f['id'] for f in fixtures}),15)
-        for f in fixtures:self.assertNotIn('page',f)
+        self.assertGreaterEqual(len(fixtures),23)
+        self.assertEqual(len({f['id'] for f in fixtures}),len(fixtures))
+        for f in fixtures:
+            self.assertNotIn('page',f)
+            self.assertTrue(f['purpose'])
+
+    def test_explicit_role_binding_preserves_source(self):
+        source='[反例 · 未定义行为；仅限 TSan 隔离检测 · G7-D3 · main.cpp]\n\n```cpp\nint value;\n```\n'
+        ast=json.loads(subprocess.check_output(['pandoc','-f','markdown','-t','json'],input=source.encode()))
+        before=copy.deepcopy(ast)
+        result=preview.bind_code_roles(copy.deepcopy(ast['blocks']))
+        self.assertEqual(ast,before)
+        self.assertEqual(len(result),1)
+        attrs=dict(result[0]['c'][0][2])
+        self.assertEqual(attrs['reading-role'],'反例')
+        self.assertEqual(attrs['reading-source-label'],preview.text(ast['blocks'][0]))
+        self.assertEqual(result[0]['c'][1],ast['blocks'][1]['c'][1])
+        ast['blocks'][0]=preview.para('Warning inferred from keywords is not a source role')
+        self.assertEqual(len(preview.bind_code_roles(ast['blocks'])),2)
+
+    def test_empty_template_has_no_invented_data(self):
+        source='## State Ownership Register\n\n|State|Writer|Owner|Recovery|\n|-|-|-|-|\n'
+        ast=json.loads(subprocess.check_output(['pandoc','-f','markdown','-t','json'],input=source.encode()))
+        ledger=[]
+        out=preview.tables_to_records(ast['blocks'],'TEST',ledger)
+        t=ledger[0]
+        self.assertEqual(t['layout'],'empty-template')
+        self.assertEqual(t['template_fields'],['State','Writer','Owner','Recovery'])
+        self.assertEqual((t['cells'],t['row_text']),([],[]))
+        self.assertIn('PreviewTemplateBox',json.dumps(out))
+        self.assertTrue(t['keep_together'])
+
+    def test_role_and_baseline_mutations_rejected(self):
+        c={'source_label':'[反例 · D3 · main.cpp]','role':'反例','kind':'experiment',
+           'continued_label':'反例 · D3 · main.cpp · continued'}
+        self.assertIn('source_role_detached_from_code',reading.identity_signals(c,[(2,700)],(1,100),['','']))
+        self.assertIn('missing_continued_semantic_identity',reading.identity_signals(c,[(1,100),(2,700)],(1,130),['','D3 · main.cpp']))
+        self.assertEqual(reading.identity_signals(c,[(1,100),(2,700)],(1,130),['',c['continued_label']]),[])
+        self.assertTrue(reading.field_alignment((1,700),(1,700)))
+        self.assertFalse(reading.field_alignment((1,700),(1,691.2)))
+        self.assertFalse(reading.field_alignment((1,700),(2,700)))
+
+    def test_code_labels_have_only_reader_identity(self):
+        attrs={'reading-kind':'experiment','reading-caption':'G7-D3 · main.cpp','reading-role':'反例',
+               'reading-source-label':'[反例 · 未定义行为 · G7-D3 · main.cpp]','preview-code-id':'G7-C68'}
+        first,continued=preview.code_labels(attrs)
+        self.assertEqual(first,attrs['reading-source-label'])
+        self.assertEqual(continued,'反例 · G7-D3 · main.cpp · continued')
+        self.assertNotIn('C68',first+continued)
+        self.assertEqual(preview.code_labels({'reading-kind':'literal'})[0],'')
+
+    def test_semantic_token_break_is_not_erased_by_normalization(self):
+        self.assertTrue(reading.token_intact('OPERATIONAL',['SECURITY|\nOPERATIONAL|RECOVERY']))
+        self.assertFalse(reading.token_intact('OPERATIONAL',['SECURITY|OPE\nRATIONAL|RECOVERY']))
+        self.assertFalse(reading.token_intact('OPERATIONAL',['SECURITY|OPE','RATIONAL|RECOVERY']))
 
     def test_density_does_not_change_body_or_code_fonts(self):
         source=(ROOT/'publication/latex/kb-base.sty').read_text()

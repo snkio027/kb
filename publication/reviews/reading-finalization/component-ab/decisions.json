@@ -1,0 +1,223 @@
+{
+  "baseline": "783c7d3b9b6a1e4f715a960c18e687604143f98b",
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "pairs": [
+    {
+      "semantic_purpose": "danger-role-binding",
+      "decision": "The source warning now shares the first code page. Long continuation is additionally exercised by the real compile regression.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/cpp-handbook/output/pdf/G7-draft.pdf",
+          "pdf_sha256": "aba7326bb9b80918d3c5771667534aa6e022a84aa9c4201f113efdac69750b0b",
+          "physical_page": 38,
+          "image": "danger-role-binding-A.png",
+          "image_sha256": "9e60aee03ae6087bb2010dfe0ddddd55e1c9769f941982b78b62cb0988d8e85c"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57/work/output/pdf/G7-draft.pdf",
+          "pdf_sha256": "7c0e493be7f7b3cf2de4343e8d466d4a48fc6b5f94b37d4ac3087a16e6b88342",
+          "physical_page": 37,
+          "image": "danger-role-binding-B.png",
+          "image_sha256": "dec3a6dccd46865ff4b9d52e696b56ff77acb5bb43522135e3ff4b1d33383207"
+        }
+      ],
+      "B_attempt": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57",
+      "B_preparation_id": "b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea"
+    },
+    {
+      "semantic_purpose": "experiment-identity",
+      "decision": "One source identity per experiment file; internal Cxx remains audit-only.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/cpp-handbook/output/pdf/G6-draft.pdf",
+          "pdf_sha256": "f9cd8e7d69e8cb9356d1f96457655524ad084e51790023089617a1efbcee8003",
+          "physical_page": 42,
+          "image": "experiment-identity-A.png",
+          "image_sha256": "b14e121f671692ef580bbd5156ae7b4be7e708ee4403ea29b1aeb244e9afc064"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57/work/output/pdf/G6-draft.pdf",
+          "pdf_sha256": "8dec50e068936ac2878442ca5a1167ca7160f7186c3ac04c63109ac25b34ca93",
+          "physical_page": 40,
+          "image": "experiment-identity-B.png",
+          "image_sha256": "41c201a1e74bc551e6783a192e292fbaa9d5472cc4eb1856b56b55e29fb4f0c6"
+        }
+      ],
+      "B_attempt": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57",
+      "B_preparation_id": "b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea"
+    },
+    {
+      "semantic_purpose": "empty-template",
+      "decision": "State Ownership Register becomes a bounded, named, writable schema with ordered fields, not an invented record.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/esd/output/pdf/ESD-REFERENCE-001-draft.pdf",
+          "pdf_sha256": "94eec21c940e7a49b70b83e4215d6820c9c5b2f57edf074a13d7913cdcbc0057",
+          "physical_page": 26,
+          "image": "empty-template-A.png",
+          "image_sha256": "6857e49aae465f7859ad08f5488302e7e21ea68e830dd770478dd703dd823013"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287/work/output/pdf/ESD-REFERENCE-001-draft.pdf",
+          "pdf_sha256": "f32de26ef781cd5e2b268df243cd5159e9061476e9a5b7bb20ffb71014ad6afe",
+          "physical_page": 26,
+          "image": "empty-template-B.png",
+          "image_sha256": "bf99c6571e291d513df7c6d25f4ab5da4ffb0daa24ab6851e396463514dbcab7"
+        }
+      ],
+      "B_attempt": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287",
+      "B_preparation_id": "a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a"
+    },
+    {
+      "semantic_purpose": "record-baseline",
+      "decision": "First text baselines align; field spacing has not been compressed.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/esd/output/pdf/ESD-SUITE-000-draft.pdf",
+          "pdf_sha256": "5a16c1333be62481677c8f123fa2d58fa259f70aa5587c317e4a00254aca6b6e",
+          "physical_page": 6,
+          "image": "record-baseline-A.png",
+          "image_sha256": "89fc79f1b03959a80dd26fadd8f2a98d37bfff27102469feb163bbf1aeeb4e9b"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/30ed557a11cf85941a0b1f1f54b1a6342b1a5af17f3e23d74f3391e43814a18e/c6019c023c5c4017a8d1a9111a0252ee/work/output/pdf/ESD-SUITE-000-draft.pdf",
+          "pdf_sha256": "634754d2508b4659b2995787e4395bd001d406db01c5fc6414ea0bea307e34e7",
+          "physical_page": 6,
+          "image": "record-baseline-B.png",
+          "image_sha256": "1165092d5661099e3d4ca33ec87655ef0f4e1fb66d6ee626f7c75d2347cf18e0"
+        }
+      ],
+      "B_attempt": "publication/build/preview/30ed557a11cf85941a0b1f1f54b1a6342b1a5af17f3e23d74f3391e43814a18e/c6019c023c5c4017a8d1a9111a0252ee",
+      "B_preparation_id": "30ed557a11cf85941a0b1f1f54b1a6342b1a5af17f3e23d74f3391e43814a18e"
+    },
+    {
+      "semantic_purpose": "semantic-soft-wrap",
+      "decision": "Break follows the pipe; OPERATIONAL stays whole. Vector continuation cue adds no character.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/esd/output/pdf/ESD-ASSURANCE-001-draft.pdf",
+          "pdf_sha256": "09965b7283000b0de94746af2643903912d0f93d7d51b9f0728ec12e45715950",
+          "physical_page": 19,
+          "image": "semantic-soft-wrap-A.png",
+          "image_sha256": "36f290c0104539a5b1488d982b9d159947c3abb93a44c16b9a1ee70e941c24c0"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287/work/output/pdf/ESD-ASSURANCE-001-draft.pdf",
+          "pdf_sha256": "7c36db5e08bf1672a78af737e141180cd465f985f420e4aefdbbbd0b3d04ee16",
+          "physical_page": 19,
+          "image": "semantic-soft-wrap-B.png",
+          "image_sha256": "d0a0d1854601f44d09eec127ce9d61096551ec2a5fc3d3cee2e4ae2bb5c83092"
+        }
+      ],
+      "B_attempt": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287",
+      "B_preparation_id": "a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a"
+    },
+    {
+      "semantic_purpose": "ops-final",
+      "decision": "Two-line final page removed; conclusion and closing paragraph share a readable unit.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/esd/output/pdf/ESD-OPS-001-draft.pdf",
+          "pdf_sha256": "5e84d482c4e80d2c08ed463affb6334defb2f32b2c6daa92ed1641a8f6b019fb",
+          "physical_page": 49,
+          "image": "ops-final-A.png",
+          "image_sha256": "91675b6eb43226b534689988ebb095bbacbeb206dd43666bfa40cba044c7b807"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287/work/output/pdf/ESD-OPS-001-draft.pdf",
+          "pdf_sha256": "970582d01a537ac3312c0e78de318348fcfd28164d634d402b80abfb88d3e73c",
+          "physical_page": 47,
+          "image": "ops-final-B.png",
+          "image_sha256": "478a1715e1f618198f5c261b96f795728f23932faf3c4195aa263c1c98c40842"
+        }
+      ],
+      "B_attempt": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287",
+      "B_preparation_id": "a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a"
+    },
+    {
+      "semantic_purpose": "compact-final",
+      "decision": "Keep transition plus reference entry as an end-matter unit. Intentional remaining whitespace is accepted; no font shrink.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/cpp-handbook/output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+          "pdf_sha256": "b825ed4414a521463489016a271217beba15dd679c756f98a0b12a5d8a119d02",
+          "physical_page": 50,
+          "image": "compact-final-A.png",
+          "image_sha256": "e4e4958d98e0e824f080a5bc8f9c78d242bda21dbe412af3583ec9d06ba6a9e3"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57/work/output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+          "pdf_sha256": "2e3dbe67dd3e19fb29a48ecbcb8316c15f2295ee2ad08039c5cd6d97a0f78052",
+          "physical_page": 49,
+          "image": "compact-final-B.png",
+          "image_sha256": "7064780fd43ba556f9a649a7e08d627fffaa04bb92720970051ba4a1631ef375"
+        }
+      ],
+      "B_attempt": "publication/build/preview/b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea/e894a417267844f09d58c6afb1a4df57",
+      "B_preparation_id": "b6826fbe3bd59bbc8e2df154fdf147af95af1d5bcf3de28b27462dea543925ea"
+    },
+    {
+      "semantic_purpose": "literal-labels",
+      "decision": "Ordinary literal blocks no longer repeat generated debug captions.",
+      "selected": "B",
+      "scope": "Component self-review, not final PDF acceptance",
+      "sides": [
+        {
+          "variant": "A",
+          "pdf": "publication/reviews/reading-edition/esd/output/pdf/ESD-METHOD-001-draft.pdf",
+          "pdf_sha256": "8b0d37d890996ecef7ecd5800b98e28b7630f1149edfe65bdf5d72efdb6f6b07",
+          "physical_page": 11,
+          "image": "literal-labels-A.png",
+          "image_sha256": "3352fed3847a881b3801c65bc0e71c7cd6f471dfee567d274279a628d55d3cc0"
+        },
+        {
+          "variant": "B",
+          "pdf": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287/work/output/pdf/ESD-METHOD-001-draft.pdf",
+          "pdf_sha256": "a8c4f50bf55ad0b95be68259cb25200475d4d22e13afd402543bf7049beea08c",
+          "physical_page": 11,
+          "image": "literal-labels-B.png",
+          "image_sha256": "134218e670e82fc26e4f5077c86668bf001114d5a0c07b227b7fa7830751c32f"
+        }
+      ],
+      "B_attempt": "publication/build/preview/a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a/4964daa56fb14363a5c532e7dfa68287",
+      "B_preparation_id": "a7b187e99fe66d6c34f2bfa56391abce4e16c89aece151b37c05e325db84cb8a"
+    }
+  ],
+  "subsequent_repairs": [
+    "Closing-container running marks were corrected after these proofs.",
+    "Long-template continuation labels were included in generated-label exclusion, with a real two-page regression."
+  ],
+  "not_claimed": [
+    "Pixel equivalence",
+    "Full-run visual acceptance",
+    "Independent review"
+  ]
+}

@@ -1,8 +1,8 @@
 # KB Publication System v2
 
-状态：**READING EDITION / VISUAL PROFILE CANDIDATE**。v2 架构保持稳定；当前批次仅优化阅读层的排版、分页与导航，视觉 profile 尚未冻结，正式 `publish` 关闭。
+状态：**READING EDITION / VISUAL PROFILE v1.0 FREEZE CANDIDATE**。v2 架构保持稳定；阅读组件、语义折行与收尾分页已收敛为集中审核候选。独立视觉冻结尚待审核，正式 `publish` 关闭。
 
-最新制品、受控密度样张、语义样页及证据见[阅读版集中审核入口](reviews/reading-edition/README.md)。[v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。两者均不是 release 或可维护的正文源。
+最新 12 份制品、八组组件 A/B、语义样页及证据见[阅读版定稿化审核入口](reviews/reading-finalization/README.md)。[上一轮阅读版](reviews/reading-edition/README.md)与 [v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。它们均不是 release 或可维护的正文源。
 
 ## 分层与权威
 
@@ -75,9 +75,9 @@ python3 -B publication/tests/test-preview.py
 python3 -B publication/tests/test-reading.py
 ```
 
-前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号；第五组检查阅读组件、代码头尾反例、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
+前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号，同时检查长模板／危险代码续页和软折行断点反例；第五组检查阅读组件、代码头尾、角色绑定、字段基线、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
 
-自动提取采用有界的文本、顺序、行内字面量、表格关系和定位检查，不声称逐字形、代码缩进、所有视觉缺陷或可访问性认证。人工阅读必须查看实际渲染，且单独注明范围。视觉定稿、全 G0～G12 构建与正式发布不在本批。
+自动提取采用有界的文本、顺序、行内字面量、表格关系和定位检查，不声称逐字形、代码缩进、所有视觉缺陷或可访问性认证。人工阅读必须查看实际渲染，且单独注明范围。本批交付视觉冻结候选；独立冻结批准、全 G0～G12 构建与正式发布不在本批。
 
 可选视觉辅助命令为 `python3 -B publication/tools/inspect-pages.py <preview-attempt>`，另需 Pillow；它只从已绑定的渲染生成 contact sheets，不自动授予人工阅读通过状态。
 
@@ -89,4 +89,4 @@ python3 -B publication/tools/reading-review.py --density-compare <page-map.json>
 python3 -B publication/tools/reading-review.py --compare <old-page-map.json> <new-page-map.json>
 ```
 
-第一条从绑定的 PDF 生成 `work/reading-regression/`（新目录，拒绝覆盖），输出语义目标、物理页、120 dpi PNG 和摘要。后两条只读比较相同语义目标，不把像素不同判为失败。`STRUCTURAL_PASS` 表示所定义的阅读信号未触发；实际查看图片另记 `VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL`。规则、已知限制及定稿决策见[视觉 Profile 候选](reviews/reading-edition/visual-profile.md)。
+第一条从绑定的 PDF 生成 `work/reading-regression/`（新目录，拒绝覆盖），输出样本语义目的、目标、物理页、120 dpi PNG 和摘要。后两条只读比较相同语义目标，不把像素不同判为失败。`STRUCTURAL_PASS` 表示所定义的阅读信号未触发；实际查看图片另记 `VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL`。规则、已知限制及冻结候选边界见[Visual Profile v1.0](reviews/reading-finalization/visual-profile.md)。

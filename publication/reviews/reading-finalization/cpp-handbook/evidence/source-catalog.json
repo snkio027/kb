@@ -1,0 +1,2201 @@
+[
+  {
+    "source": {
+      "bytes": 67250,
+      "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "id": "G6",
+      "matches_commit": true,
+      "path": "c++/g06-memory-and-performance.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+      "version": "1.1.1"
+    },
+    "metadata": {
+      "title": "G6 · 内存布局、机器成本与性能测量",
+      "document_id": "G6",
+      "version": "1.1.1",
+      "status": "ACCEPTED CONTENT / PILOT PDF",
+      "subtitle": "Professional Handbook · 阅读试件",
+      "owner": ""
+    },
+    "anchors": {
+      "g6-内存布局机器成本与性能测量": "G6-85932c58b5fe3c59",
+      "阅读入口": "G6-3ed1813ed946a77f",
+      "章节目录": "G6-baa45cfdeb2a1e34",
+      "阅读模型": "G6-95b7d8c87be35026",
+      "文档定位": "G6-fb2e657da67a315c",
+      "g6-的统一性能模型": "G6-e1dd0af17b3f5c75",
+      "对象布局": "G6-81dcc22c0a448548",
+      "sizeoft-的准确含义": "G6-bf6fb0dc4a17d34b",
+      "alignment": "G6-47ccb97a79f5a2bf",
+      "internal-padding-与-tail-padding": "G6-0dd3852ba0114cab",
+      "member-ordering": "G6-8fb8642c82abd929",
+      "inline-representation-与-indirect-representation": "G6-168be576c9d37ec0",
+      "object-representation-logical-value": "G6-cffb889c45e609e1",
+      "缓存与局部性": "G6-854dccc585670605",
+      "memory-hierarchy": "G6-d27a0f22700e8b7b",
+      "cache-line": "G6-f51226c50dc2deb9",
+      "spatial-locality": "G6-206a2b0f65d2c181",
+      "temporal-locality": "G6-5bf6fe34f156f341",
+      "cache-line-utilization": "G6-43f03956de43cf45",
+      "pointer-chasing": "G6-79dcc2fcb599928c",
+      "dependent-memory-access": "G6-11a28ad75b342106",
+      "hardware-prefetch": "G6-d2409722753ec47c",
+      "working-set": "G6-8894104979d46a1b",
+      "cache-density": "G6-0e1adc412d7e24b6",
+      "latency-与-bandwidth": "G6-96af23a49dc4cfd5",
+      "arithmetic-intensity": "G6-3524f5114271a271",
+      "数据布局aossoa-与-aosoa": "G6-74d4b842b7a31efa",
+      "aos-array-of-structures": "G6-6b3fe0f272726225",
+      "soa-structure-of-arrays": "G6-1f7160107a508e70",
+      "soa-的第一收益": "G6-cf4519f630cb55d7",
+      "soa-的成本": "G6-7befc3cf082758a6",
+      "aosoa": "G6-c0b242c1dda4fa9e",
+      "hot-cold-split": "G6-8539eae2804b5479",
+      "layout-的统一原则": "G6-19321e57bc8a74a7",
+      "phase-specific-representation": "G6-241a3799c313108d",
+      "分配区域与内存资源": "G6-8657c4258b3bf316",
+      "allocation-与-construction": "G6-df0049dec8e40324",
+      "general-heap-allocation-的成本": "G6-2194e8b8d1992718",
+      "stack-为什么便宜": "G6-c06b4f6af9beadd4",
+      "per-item-allocation": "G6-47b46562b76557a7",
+      "internal-external-fragmentation": "G6-4924359a6e43ebca",
+      "allocation-optimization-ladder": "G6-c5ef3d39191a90e7",
+      "reserve-clear": "G6-e39385ad45dc7e1c",
+      "arena-region-allocation": "G6-707bc7b05cdf3413",
+      "arena-的真正来源": "G6-e29a44d146d5c421",
+      "arena-与-object-lifetime": "G6-9995cf5fc5a7518c",
+      "pool": "G6-27cac5503836765c",
+      "arena-vs-pool": "G6-110bf4cccbf72f3e",
+      "stale-generation": "G6-4258a8e0252cf8d8",
+      "stdpmr": "G6-2dff56d6a828e4bf",
+      "monotonic_buffer_resource": "G6-045838fd67f37245",
+      "allocation-profile-要看什么": "G6-e38dbcc1520a8113",
+      "虚拟内存与地址翻译": "G6-08f1d8e248f743e6",
+      "pointer-通常是-virtual-address": "G6-6bcf73af3fb95e2a",
+      "pages": "G6-bfa062de040f55a1",
+      "mmu-page-table": "G6-8fa9e297e6019a65",
+      "tlb": "G6-1f5e7eb07cadaa0b",
+      "tlb-miss-与-page-fault": "G6-dc8299b48ba4f423",
+      "allocation-physical-memory-immediately": "G6-840b0e812096b5a7",
+      "first-touch": "G6-76a0b678b2cd9925",
+      "page-locality-tlb-reach": "G6-3504319dc6974e82",
+      "huge-pages": "G6-3fd30fab6416c58d",
+      "mmap": "G6-47e76b02c1464b8c",
+      "分支预测与控制流": "G6-72555dcb2faa03e2",
+      "branch-prediction": "G6-bb70e2c5202164d5",
+      "predictable-branch": "G6-61a31da916cc7183",
+      "misprediction": "G6-7321ab8467de067a",
+      "branch-cost-是-runtime-state-dependent": "G6-ea371d43e99777e3",
+      "source-branchless-machine-branchless": "G6-bfccda52e81fc772",
+      "branchless-的-trade-off": "G6-f08d8731cc22e7a2",
+      "simd-与-mask": "G6-baa79a4a7e952aff",
+      "fast-path-slow-path": "G6-9894341cdf9160e0",
+      "likely-unlikely": "G6-1a1dcb9338b81206",
+      "direct-indirect-dispatch": "G6-803a039bd56da031",
+      "static-dispatch": "G6-834b0990d3bf04e5",
+      "缓存一致性与伪共享": "G6-4ae7b431fa84daa9",
+      "coherence": "G6-b2f7f26289c74cdf",
+      "false-sharing": "G6-b9c2363578278efa",
+      "true-sharing-vs-false-sharing": "G6-47ef39c6bb10ec11",
+      "memory_order_relaxed-不能解决-false-sharing": "G6-54201032cef17a69",
+      "shared-immutable-data": "G6-50a7872a73d837f3",
+      "优先减少-shared-mutation": "G6-3f8e142d20ffb9f6",
+      "parallel-partition": "G6-e72b7b89c5628ea2",
+      "alignas-与-interference-size": "G6-25f173c6f5c6d429",
+      "测量剖析与证据": "G6-6988c2b423c98297",
+      "性能首先要定义-metric": "G6-f8f3f62fb2878115",
+      "latency-vs-throughput": "G6-86ee22b287fbbf14",
+      "tail-latency": "G6-15630f57a7a4d8d7",
+      "benchmark-profiler-tracing": "G6-d6a19f6af5b84853",
+      "end-to-end-first": "G6-12ef543ede6ceabf",
+      "microbenchmark": "G6-ab15ed981d92ab20",
+      "optimized-build": "G6-c4dbce5468e06ebc",
+      "dead-code-elimination": "G6-8aaf4d6ec38b4393",
+      "warm-up": "G6-b64f459893b6709b",
+      "dataset-size": "G6-04fb20ae161ff6c2",
+      "input-distribution": "G6-dae678d1375315a5",
+      "hardware-counters": "G6-8811590a6df1bb19",
+      "profiler-before-assembly": "G6-80202c4dde90fe0c",
+      "bottleneck-moves": "G6-d75f10ac4f37a4e0",
+      "one-variable-at-a-time": "G6-5baca90a5ad91ced",
+      "performance-evidence-ladder": "G6-61f5ab98f1f745f0",
+      "统一性能审查": "G6-9c21675786aff7d5",
+      "g6-九层-review-protocol": "G6-8bc8e7ef82718e13",
+      "g6-performance-smell-catalogue": "G6-d233a54cda7fc3bb",
+      "跨语言回查": "G6-581037d7c8727363",
+      "c": "G6-2e7d2c03a9507ae2",
+      "zig": "G6-77ebfe9993f116e0",
+      "rust": "G6-521fe5c9ece1aa1f",
+      "跨语言共同事实": "G6-b281390b38fadd6d",
+      "术语回查": "G6-9c32505c376f4745",
+      "g6-核心术语表": "G6-8816869833d64c21",
+      "实验与验证": "G6-e4b1f9797d9a2f84",
+      "g6-m1-对象布局不是语言常量": "G6-4d5867d6c06d8624",
+      "g6-m2-资源请求与对象生命周期分别计数": "G6-940a7d98635fdceb",
+      "g6-m3-同一求和工作负载的-aos-soa-观察": "G6-1da6c23f1516e8cc",
+      "final-gate": "G6-333ce6248bc62c04",
+      "object-layout": "G6-890ae5bc42a67143",
+      "cache": "G6-5e1ecee06a7fc06f",
+      "data-layout": "G6-c0bd0d8f86456134",
+      "allocation": "G6-165f0f8e557c4309",
+      "virtual-memory": "G6-d9c2a6a56978d61f",
+      "control-flow": "G6-2600da55cfeb8cdc",
+      "multi-core": "G6-f0b90753474f1768",
+      "measurement": "G6-6c5a6990038d66c5",
+      "final-gate-参考答案与常见误判": "G6-0da5d112b244561d",
+      "object-layout-与-cache": "G6-e07759bae6f6487e",
+      "data-layout-与-allocation": "G6-35df9cb908703ab7",
+      "virtual-memory-与-control-flow": "G6-51c7f902ced2bce3",
+      "multi-core-与-measurement": "G6-0652b3ad79a34841",
+      "工程原则回查": "G6-ba132b93f8c9fb69",
+      "如果半年后只能记住十五条": "G6-af1786b7e80619bb",
+      "g1g6-的统一系统模型": "G6-6b1467341af56cab",
+      "从机器观察转向语言并发模型": "G6-1769cea85d5b5d9c",
+      "参考与验证入口": "G6-85bf093a96c05aee"
+    },
+    "aliases": {
+      "g6-section-1": "阅读模型",
+      "g6-topic-0": "文档定位",
+      "g6-topic-1": "g6-的统一性能模型",
+      "g6-section-2": "对象布局",
+      "g6-topic-2": "sizeoft-的准确含义",
+      "g6-topic-3": "alignment",
+      "g6-topic-4": "internal-padding-与-tail-padding",
+      "g6-topic-5": "member-ordering",
+      "g6-topic-6": "inline-representation-与-indirect-representation",
+      "g6-topic-7": "object-representation-logical-value",
+      "g6-section-3": "缓存与局部性",
+      "g6-topic-8": "memory-hierarchy",
+      "g6-topic-9": "cache-line",
+      "g6-topic-10": "spatial-locality",
+      "g6-topic-11": "temporal-locality",
+      "g6-topic-12": "cache-line-utilization",
+      "g6-topic-13": "pointer-chasing",
+      "g6-topic-14": "dependent-memory-access",
+      "g6-topic-15": "hardware-prefetch",
+      "g6-topic-16": "working-set",
+      "g6-topic-17": "cache-density",
+      "g6-topic-18": "latency-与-bandwidth",
+      "g6-topic-19": "arithmetic-intensity",
+      "g6-section-4": "数据布局aossoa-与-aosoa",
+      "g6-topic-20": "aos-array-of-structures",
+      "g6-topic-21": "soa-structure-of-arrays",
+      "g6-topic-22": "soa-的第一收益",
+      "g6-topic-23": "soa-的成本",
+      "g6-topic-24": "aosoa",
+      "g6-topic-25": "hot-cold-split",
+      "g6-topic-26": "layout-的统一原则",
+      "g6-topic-27": "phase-specific-representation",
+      "g6-section-5": "分配区域与内存资源",
+      "g6-topic-28": "allocation-与-construction",
+      "g6-topic-29": "general-heap-allocation-的成本",
+      "g6-topic-30": "stack-为什么便宜",
+      "g6-topic-31": "per-item-allocation",
+      "g6-topic-32": "internal-external-fragmentation",
+      "g6-topic-33": "allocation-optimization-ladder",
+      "g6-topic-34": "reserve-clear",
+      "g6-topic-35": "arena-region-allocation",
+      "g6-topic-36": "arena-的真正来源",
+      "g6-topic-37": "arena-与-object-lifetime",
+      "g6-topic-38": "pool",
+      "g6-topic-39": "arena-vs-pool",
+      "g6-topic-40": "stale-generation",
+      "g6-topic-41": "stdpmr",
+      "g6-topic-42": "monotonic_buffer_resource",
+      "g6-topic-43": "allocation-profile-要看什么",
+      "g6-section-6": "虚拟内存与地址翻译",
+      "g6-topic-44": "pointer-通常是-virtual-address",
+      "g6-topic-45": "pages",
+      "g6-topic-46": "mmu-page-table",
+      "g6-topic-47": "tlb",
+      "g6-topic-48": "tlb-miss-与-page-fault",
+      "g6-topic-49": "allocation-physical-memory-immediately",
+      "g6-topic-50": "first-touch",
+      "g6-topic-51": "page-locality-tlb-reach",
+      "g6-topic-52": "huge-pages",
+      "g6-topic-53": "mmap",
+      "g6-section-7": "分支预测与控制流",
+      "g6-topic-54": "branch-prediction",
+      "g6-topic-55": "predictable-branch",
+      "g6-topic-56": "misprediction",
+      "g6-topic-57": "branch-cost-是-runtime-state-dependent",
+      "g6-topic-58": "source-branchless-machine-branchless",
+      "g6-topic-59": "branchless-的-trade-off",
+      "g6-topic-60": "simd-与-mask",
+      "g6-topic-61": "fast-path-slow-path",
+      "g6-topic-62": "likely-unlikely",
+      "g6-topic-63": "direct-indirect-dispatch",
+      "g6-topic-64": "static-dispatch",
+      "g6-section-8": "缓存一致性与伪共享",
+      "g6-topic-65": "coherence",
+      "g6-topic-66": "false-sharing",
+      "g6-topic-67": "true-sharing-vs-false-sharing",
+      "g6-topic-68": "memory_order_relaxed-不能解决-false-sharing",
+      "g6-topic-69": "shared-immutable-data",
+      "g6-topic-70": "优先减少-shared-mutation",
+      "g6-topic-71": "parallel-partition",
+      "g6-topic-72": "alignas-与-interference-size",
+      "g6-section-9": "测量剖析与证据",
+      "g6-topic-73": "性能首先要定义-metric",
+      "g6-topic-74": "latency-vs-throughput",
+      "g6-topic-75": "tail-latency",
+      "g6-topic-76": "benchmark-profiler-tracing",
+      "g6-topic-77": "end-to-end-first",
+      "g6-topic-78": "microbenchmark",
+      "g6-topic-79": "optimized-build",
+      "g6-topic-80": "dead-code-elimination",
+      "g6-topic-81": "warm-up",
+      "g6-topic-82": "dataset-size",
+      "g6-topic-83": "input-distribution",
+      "g6-topic-84": "hardware-counters",
+      "g6-topic-85": "profiler-before-assembly",
+      "g6-topic-86": "bottleneck-moves",
+      "g6-topic-87": "one-variable-at-a-time",
+      "g6-topic-88": "performance-evidence-ladder",
+      "g6-section-10": "统一性能审查",
+      "g6-topic-89": "g6-九层-review-protocol",
+      "g6-topic-90": "g6-performance-smell-catalogue",
+      "g6-section-11": "跨语言回查",
+      "g6-topic-91": "c",
+      "g6-topic-92": "zig",
+      "g6-topic-93": "rust",
+      "g6-topic-94": "跨语言共同事实",
+      "g6-section-12": "术语回查",
+      "g6-topic-95": "g6-核心术语表",
+      "g6-section-13": "实验与验证",
+      "g6-section-14": "final-gate",
+      "g6-topic-96": "object-layout",
+      "g6-topic-97": "cache",
+      "g6-topic-98": "data-layout",
+      "g6-topic-99": "allocation",
+      "g6-topic-100": "virtual-memory",
+      "g6-topic-101": "control-flow",
+      "g6-topic-102": "multi-core",
+      "g6-topic-103": "measurement",
+      "g6-section-15": "final-gate-参考答案与常见误判",
+      "g6-section-16": "工程原则回查",
+      "g6-topic-104": "如果半年后只能记住十五条",
+      "g6-section-17": "g1g6-的统一系统模型",
+      "g6-section-18": "从机器观察转向语言并发模型",
+      "g6-section-19": "参考与验证入口"
+    },
+    "semantic": [
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-1",
+        "heading": "阅读模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-0",
+        "heading": "文档定位",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-1",
+        "heading": "g6-的统一性能模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-2",
+        "heading": "对象布局",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-2",
+        "heading": "sizeoft-的准确含义",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-3",
+        "heading": "alignment",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-4",
+        "heading": "internal-padding-与-tail-padding",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-5",
+        "heading": "member-ordering",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-6",
+        "heading": "inline-representation-与-indirect-representation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-7",
+        "heading": "object-representation-logical-value",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-3",
+        "heading": "缓存与局部性",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-8",
+        "heading": "memory-hierarchy",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-9",
+        "heading": "cache-line",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-10",
+        "heading": "spatial-locality",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-11",
+        "heading": "temporal-locality",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-12",
+        "heading": "cache-line-utilization",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-13",
+        "heading": "pointer-chasing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-14",
+        "heading": "dependent-memory-access",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-15",
+        "heading": "hardware-prefetch",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-16",
+        "heading": "working-set",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-17",
+        "heading": "cache-density",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-18",
+        "heading": "latency-与-bandwidth",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-19",
+        "heading": "arithmetic-intensity",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-4",
+        "heading": "数据布局aossoa-与-aosoa",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-20",
+        "heading": "aos-array-of-structures",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-21",
+        "heading": "soa-structure-of-arrays",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-22",
+        "heading": "soa-的第一收益",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-23",
+        "heading": "soa-的成本",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-24",
+        "heading": "aosoa",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-25",
+        "heading": "hot-cold-split",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-26",
+        "heading": "layout-的统一原则",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-27",
+        "heading": "phase-specific-representation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-5",
+        "heading": "分配区域与内存资源",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-28",
+        "heading": "allocation-与-construction",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-29",
+        "heading": "general-heap-allocation-的成本",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-30",
+        "heading": "stack-为什么便宜",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-31",
+        "heading": "per-item-allocation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-32",
+        "heading": "internal-external-fragmentation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-33",
+        "heading": "allocation-optimization-ladder",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-34",
+        "heading": "reserve-clear",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-35",
+        "heading": "arena-region-allocation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-36",
+        "heading": "arena-的真正来源",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-37",
+        "heading": "arena-与-object-lifetime",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-38",
+        "heading": "pool",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-39",
+        "heading": "arena-vs-pool",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-40",
+        "heading": "stale-generation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-41",
+        "heading": "stdpmr",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-42",
+        "heading": "monotonic_buffer_resource",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-43",
+        "heading": "allocation-profile-要看什么",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-6",
+        "heading": "虚拟内存与地址翻译",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-44",
+        "heading": "pointer-通常是-virtual-address",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-45",
+        "heading": "pages",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-46",
+        "heading": "mmu-page-table",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-47",
+        "heading": "tlb",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-48",
+        "heading": "tlb-miss-与-page-fault",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-49",
+        "heading": "allocation-physical-memory-immediately",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-50",
+        "heading": "first-touch",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-51",
+        "heading": "page-locality-tlb-reach",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-52",
+        "heading": "huge-pages",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-53",
+        "heading": "mmap",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-7",
+        "heading": "分支预测与控制流",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-54",
+        "heading": "branch-prediction",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-55",
+        "heading": "predictable-branch",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-56",
+        "heading": "misprediction",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-57",
+        "heading": "branch-cost-是-runtime-state-dependent",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-58",
+        "heading": "source-branchless-machine-branchless",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-59",
+        "heading": "branchless-的-trade-off",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-60",
+        "heading": "simd-与-mask",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-61",
+        "heading": "fast-path-slow-path",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-62",
+        "heading": "likely-unlikely",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-63",
+        "heading": "direct-indirect-dispatch",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-64",
+        "heading": "static-dispatch",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-8",
+        "heading": "缓存一致性与伪共享",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-65",
+        "heading": "coherence",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-66",
+        "heading": "false-sharing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-67",
+        "heading": "true-sharing-vs-false-sharing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-68",
+        "heading": "memory_order_relaxed-不能解决-false-sharing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-69",
+        "heading": "shared-immutable-data",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-70",
+        "heading": "优先减少-shared-mutation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-71",
+        "heading": "parallel-partition",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-72",
+        "heading": "alignas-与-interference-size",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-9",
+        "heading": "测量剖析与证据",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-73",
+        "heading": "性能首先要定义-metric",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-74",
+        "heading": "latency-vs-throughput",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-75",
+        "heading": "tail-latency",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-76",
+        "heading": "benchmark-profiler-tracing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-77",
+        "heading": "end-to-end-first",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-78",
+        "heading": "microbenchmark",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-79",
+        "heading": "optimized-build",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-80",
+        "heading": "dead-code-elimination",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-81",
+        "heading": "warm-up",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-82",
+        "heading": "dataset-size",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-83",
+        "heading": "input-distribution",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-84",
+        "heading": "hardware-counters",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-85",
+        "heading": "profiler-before-assembly",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-86",
+        "heading": "bottleneck-moves",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-87",
+        "heading": "one-variable-at-a-time",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-88",
+        "heading": "performance-evidence-ladder",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-10",
+        "heading": "统一性能审查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-89",
+        "heading": "g6-九层-review-protocol",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-90",
+        "heading": "g6-performance-smell-catalogue",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-11",
+        "heading": "跨语言回查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-91",
+        "heading": "c",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-92",
+        "heading": "zig",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-93",
+        "heading": "rust",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-94",
+        "heading": "跨语言共同事实",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-12",
+        "heading": "术语回查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-95",
+        "heading": "g6-核心术语表",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-13",
+        "heading": "实验与验证",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G6-M1",
+          "mode": "observation"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G6-M2",
+          "mode": "observation"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G6-M3",
+          "mode": "benchmark"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "kernel.hpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "kernel.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-14",
+        "heading": "final-gate",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-96",
+        "heading": "object-layout",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-97",
+        "heading": "cache",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-98",
+        "heading": "data-layout",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-99",
+        "heading": "allocation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-100",
+        "heading": "virtual-memory",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-101",
+        "heading": "control-flow",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-102",
+        "heading": "multi-core",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-103",
+        "heading": "measurement",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-15",
+        "heading": "final-gate-参考答案与常见误判",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-16",
+        "heading": "工程原则回查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-topic-104",
+        "heading": "如果半年后只能记住十五条",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-17",
+        "heading": "g1g6-的统一系统模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-18",
+        "heading": "从机器观察转向语言并发模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g6-section-19",
+        "heading": "参考与验证入口",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g06-memory-and-performance.md"
+  },
+  {
+    "source": {
+      "bytes": 61629,
+      "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "id": "G7",
+      "matches_commit": true,
+      "path": "c++/g07-concurrency-and-memory-model.md",
+      "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+      "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+      "version": "1.1.1"
+    },
+    "metadata": {
+      "title": "G7 · 并发协议与 C++ 内存模型",
+      "document_id": "G7",
+      "version": "1.1.1",
+      "status": "ACCEPTED CONTENT / PILOT PDF",
+      "subtitle": "Professional Handbook · 阅读试件",
+      "owner": ""
+    },
+    "anchors": {
+      "g7-并发协议与-c-内存模型": "G7-9d570d1a6a8c7f59",
+      "阅读入口": "G7-3ed1813ed946a77f",
+      "章节目录": "G7-baa45cfdeb2a1e34",
+      "阅读模型": "G7-95b7d8c87be35026",
+      "g7-到底解决什么问题": "G7-24b9def8ab6d6b88",
+      "g7-的统一链路": "G7-eb3bc129cb347a00",
+      "数据竞争与语言内存模型": "G7-1da78f539b80f8b0",
+      "data-race-是-g7-的第一道门槛": "G7-7246153ebcc7366b",
+      "data-race-的核心条件": "G7-4803d58c642a9e5b",
+      "readread-与-readwrite": "G7-dcb5bd2eb6813a8a",
+      "data-race-不等于-race-condition": "G7-903399c0239a9410",
+      "volatile-不是并发同步": "G7-55ffd4bca71c2045",
+      "顺序与同步关系": "G7-9f1842806be44a9d",
+      "sequenced-before": "G7-ab8900773bc45607",
+      "synchronizes-with": "G7-ef7cb18f64550a8e",
+      "happens-before": "G7-fa75dc0721a87508",
+      "最重要的一张图": "G7-1c094c66227c8bb0",
+      "为什么-data-可以不是-atomic": "G7-8b7e419af9307656",
+      "原子性与内存序": "G7-985485482a016209",
+      "atomicity-ordering": "G7-0b3563b7c0d3e207",
+      "atomic-operation-三类": "G7-2125fe2653335c58",
+      "memory-order-属于-operation": "G7-c89e2f1972821da9",
+      "memory_order_relaxed": "G7-b040da6edb3d1312",
+      "modification-order": "G7-00d56a52ecf34675",
+      "memory_order_release": "G7-b806d89affd5309a",
+      "memory_order_acquire": "G7-c58ef62d047121a3",
+      "release-acquire-的核心不是-cache-flush": "G7-cef36abba7187218",
+      "memory_order_acq_rel": "G7-1051a861135bd978",
+      "memory_order_seq_cst": "G7-62a8688b92162e7a",
+      "memory-order-不是性能等级表": "G7-82b210fc4519a537",
+      "互斥锁与条件变量": "G7-9c11f021601b9fe3",
+      "mutex-保护的是-invariant": "G7-64196ce2a513af79",
+      "mutex-提供两件事": "G7-31e3d271d5472ab3",
+      "raii-locking": "G7-0f559ceee3b27a89",
+      "critical-section-原则": "G7-8e033d0c229a9afe",
+      "deadlock": "G7-4f6c0efa1a0f9935",
+      "condition-variable-等待的是-predicate": "G7-0f6431ecb49b71df",
+      "notification-是-edgepredicate-是-state": "G7-7bb2f56190be5c16",
+      "spurious-wakeup": "G7-1ee4bd54cf459bc4",
+      "原子状态转换与-cas": "G7-af6f7433a827bc72",
+      "为什么-load-store-不等于-atomic-transition": "G7-ef55855f5f4362fb",
+      "cas": "G7-0ab2b186c3d0980f",
+      "expected-是-inout-parameter": "G7-54a479c8b6007d77",
+      "cas-loop": "G7-e23708e0bc045462",
+      "weak-vs-strong": "G7-3b9533f784cd03ef",
+      "success-failure-ordering": "G7-4208c5e281785928",
+      "aba进展保证与安全回收": "G7-4ee9fc87c61c7936",
+      "cas-只比较-current-value": "G7-945c7b315aacc3bb",
+      "aba-不是-use-after-free": "G7-3fa7115491b02f16",
+      "unlinked-reclaimable": "G7-51ab7e15ea0a95f4",
+      "pointer-acquisition-safe-dereference": "G7-ceea515372e08a8e",
+      "tagged-pointer-generation": "G7-005e117a987ffe85",
+      "reclamation-strategies": "G7-35ed643091958958",
+      "lock-free-不是性能等级": "G7-8894c2eac30cdd47",
+      "progress-guarantees": "G7-068f99abf8e192fa",
+      "atomictis_lock_free-不是算法证明": "G7-906325f0c76e191f",
+      "并发队列的交接协议": "G7-f0433c5b5773be82",
+      "queue-首先按-topology-分类": "G7-3cb4459e0dcc08c1",
+      "spsc-的关键简化": "G7-2d1d078162a0e267",
+      "spsc-的两条-hb-edge": "G7-9f152f21b8cac180",
+      "mpsc-的关键新问题": "G7-61180fdeb424ae7e",
+      "mpmc-为什么需要-per-slot-generation": "G7-3d98b75a437ce0fe",
+      "bounded-queue-backpressure": "G7-679398563ddaf2bd",
+      "queue-是-ownership-boundary": "G7-7ff694c0e010dedb",
+      "线程生命周期与停机": "G7-c08356ccbadb558a",
+      "stdthread": "G7-7077d400cec61edc",
+      "detach-不解决-lifetime": "G7-38ab56cbabd1e258",
+      "stdjthread": "G7-e53d60623546593b",
+      "stop_token": "G7-34ce273d2a0f7aa0",
+      "cancellation-必须唤醒-blocked-thread": "G7-7964a073adf8aa1a",
+      "cancellation-point-必须保持-invariant": "G7-cd9d1526abbdb1f0",
+      "member-destruction-order": "G7-8ab153df61665d78",
+      "shutdown-基本顺序": "G7-a6cb1c4be079dc33",
+      "drain-vs-abort": "G7-46857d69ff05b25d",
+      "任务执行线程池与背压": "G7-b3fb8e42aa070130",
+      "thread-task": "G7-5158473a3b7f61f9",
+      "c23-task-representation": "G7-9d1be053e12562aa",
+      "worker-不能持-queue-lock-执行-task": "G7-f7dadb5c42adcb98",
+      "pool-必须考虑两种-bound": "G7-8620feeaa853aa05",
+      "cpu-bound-与-io-bound-pool": "G7-625a6f015e97bf34",
+      "resource-isolation": "G7-3f564013b81e3118",
+      "thread-pool-starvation-deadlock": "G7-d7839c0bdb43aaf0",
+      "bounded-submit-也能-deadlock": "G7-c4a95235253a9876",
+      "global-queue-vs-work-stealing": "G7-78a02a6f0d26c399",
+      "并发架构与写入权限": "G7-f11cc9efbb2ededc",
+      "并发设计最重要的问题有几个-writer": "G7-8079610c132ef31c",
+      "reasoning-complexity-ladder": "G7-fd2e23db82c7ee22",
+      "privatize-first": "G7-4202abc074f2c84c",
+      "single-writer-principle": "G7-d21823583a3a2ccd",
+      "message-passing-的真正价值": "G7-e24e9996634a36c9",
+      "sharding": "G7-a5756b8dad17b6db",
+      "shard-key-ownership-key": "G7-1e1e5c9997384a04",
+      "immutable-snapshot": "G7-e8f3c4fb2ef693e1",
+      "snapshot-consistency-vs-freshness": "G7-13ae200033091153",
+      "old-generation-的-lifetime": "G7-3571cbf6445a3ff7",
+      "跨层关系图": "G7-b3de468b86fe1a05",
+      "ownership-graph": "G7-1433ad33dcd5f773",
+      "synchronization-graph": "G7-a1c86b6445c5ac30",
+      "mutation-graph": "G7-4cf6fb5627525331",
+      "progress-graph": "G7-115b8ca90a54d2dc",
+      "lifetime-reclamation-graph": "G7-1305e720f784dd16",
+      "cache-ownership-graph": "G7-439d9dd8d979df89",
+      "queue-capacity-graph": "G7-0eff11261dae3edd",
+      "统一并发审查": "G7-f3c01a528ae1ba85",
+      "并发反模式": "G7-7500873184f3ddf4",
+      "smell-1-global-mutable-state": "G7-6f9e2d1cfca3caf6",
+      "smell-2-atomic-every-field": "G7-5717021995d279be",
+      "smell-3-relaxed-cargo-cult": "G7-e7f54dd95f92adfc",
+      "smell-4-lock-free-cargo-cult": "G7-a7b79060b44ae44b",
+      "smell-5-detached-thread": "G7-1471718208762acc",
+      "smell-6-unbounded-queue": "G7-39cf17c3e5684728",
+      "smell-7-worker-waits-same-pool": "G7-b5f95a620e5bdaaa",
+      "smell-8-notification-as-state": "G7-448ff9483e53546e",
+      "smell-9-remove-then-delete": "G7-18735a9717c4b987",
+      "smell-10-shared-shared_ptrmutablet-everywhere": "G7-8fe496e3e797bfd3",
+      "smell-11-all-workers-touch-all-entities": "G7-e419bfe206c75445",
+      "smell-12-shutdown-as-one-bool": "G7-69b6f00dedad0cae",
+      "工程原则回查": "G7-ba132b93f8c9fb69",
+      "实验与验证": "G7-e4b1f9797d9a2f84",
+      "g7-d1-单次发布的不变量与动态观察": "G7-64b79c882a6d6815",
+      "g7-d2-有界通道排空拒绝与停机": "G7-92cd1fa73bcb71ab",
+      "g7-d3-工具阳性对照缺少同步的写冲突": "G7-54d5ea76a486bb40",
+      "final-gate": "G7-333ce6248bc62c04",
+      "final-gate-参考答案与常见误判": "G7-0da5d112b244561d",
+      "data-racehb-与内存序18": "G7-369f0c06711fa985",
+      "mutexcv-与-cas914": "G7-b093195fe84ebc5c",
+      "aba回收与队列1522": "G7-284e62ababc26e70",
+      "线程生命周期与运行时2330": "G7-19909e5c2d4d4c5e",
+      "架构3135": "G7-eb197b4880b2564d",
+      "g0g7-的统一模型": "G7-e20ae2ae729da264",
+      "g1-object-model": "G7-f634b9dc49ffc536",
+      "g2-ownership": "G7-b34ecdf27b06a159",
+      "g3-value-semantics": "G7-66a324bbf7f9e34a",
+      "g5-genericity": "G7-25969ed3fc063832",
+      "g6-performance": "G7-729988a6e3ffa586",
+      "g7-concurrency": "G7-f1167a03088f6809",
+      "实际代码的跨层审查": "G7-2270badda8c3bcc5",
+      "本章范围与后续阅读": "G7-91bf4ce9f07276a5",
+      "参考与验证入口": "G7-85bf093a96c05aee"
+    },
+    "aliases": {
+      "g7-section-1": "阅读模型",
+      "g7-topic-0": "g7-到底解决什么问题",
+      "g7-topic-1": "g7-的统一链路",
+      "g7-section-2": "数据竞争与语言内存模型",
+      "g7-topic-2": "data-race-是-g7-的第一道门槛",
+      "g7-topic-3": "data-race-的核心条件",
+      "g7-topic-4": "readread-与-readwrite",
+      "g7-topic-5": "data-race-不等于-race-condition",
+      "g7-topic-6": "volatile-不是并发同步",
+      "g7-section-3": "顺序与同步关系",
+      "g7-topic-7": "sequenced-before",
+      "g7-topic-8": "synchronizes-with",
+      "g7-topic-9": "happens-before",
+      "g7-topic-10": "最重要的一张图",
+      "g7-topic-11": "为什么-data-可以不是-atomic",
+      "g7-section-4": "原子性与内存序",
+      "g7-topic-12": "atomicity-ordering",
+      "g7-topic-13": "atomic-operation-三类",
+      "g7-topic-14": "memory-order-属于-operation",
+      "g7-topic-15": "memory_order_relaxed",
+      "g7-topic-16": "modification-order",
+      "g7-topic-17": "memory_order_release",
+      "g7-topic-18": "memory_order_acquire",
+      "g7-topic-19": "release-acquire-的核心不是-cache-flush",
+      "g7-topic-20": "memory_order_acq_rel",
+      "g7-topic-21": "memory_order_seq_cst",
+      "g7-topic-22": "memory-order-不是性能等级表",
+      "g7-section-5": "互斥锁与条件变量",
+      "g7-topic-23": "mutex-保护的是-invariant",
+      "g7-topic-24": "mutex-提供两件事",
+      "g7-topic-25": "raii-locking",
+      "g7-topic-26": "critical-section-原则",
+      "g7-topic-27": "deadlock",
+      "g7-topic-28": "condition-variable-等待的是-predicate",
+      "g7-topic-29": "notification-是-edgepredicate-是-state",
+      "g7-topic-30": "spurious-wakeup",
+      "g7-section-6": "原子状态转换与-cas",
+      "g7-topic-31": "为什么-load-store-不等于-atomic-transition",
+      "g7-topic-32": "cas",
+      "g7-topic-33": "expected-是-inout-parameter",
+      "g7-topic-34": "cas-loop",
+      "g7-topic-35": "weak-vs-strong",
+      "g7-topic-36": "success-failure-ordering",
+      "g7-section-7": "aba进展保证与安全回收",
+      "g7-topic-37": "cas-只比较-current-value",
+      "g7-topic-38": "aba-不是-use-after-free",
+      "g7-topic-39": "unlinked-reclaimable",
+      "g7-topic-40": "pointer-acquisition-safe-dereference",
+      "g7-topic-41": "tagged-pointer-generation",
+      "g7-topic-42": "reclamation-strategies",
+      "g7-topic-43": "lock-free-不是性能等级",
+      "g7-topic-44": "progress-guarantees",
+      "g7-topic-45": "atomictis_lock_free-不是算法证明",
+      "g7-section-8": "并发队列的交接协议",
+      "g7-topic-46": "queue-首先按-topology-分类",
+      "g7-topic-47": "spsc-的关键简化",
+      "g7-topic-48": "spsc-的两条-hb-edge",
+      "g7-topic-49": "mpsc-的关键新问题",
+      "g7-topic-50": "mpmc-为什么需要-per-slot-generation",
+      "g7-topic-51": "bounded-queue-backpressure",
+      "g7-topic-52": "queue-是-ownership-boundary",
+      "g7-section-9": "线程生命周期与停机",
+      "g7-topic-53": "stdthread",
+      "g7-topic-54": "detach-不解决-lifetime",
+      "g7-topic-55": "stdjthread",
+      "g7-topic-56": "stop_token",
+      "g7-topic-57": "cancellation-必须唤醒-blocked-thread",
+      "g7-topic-58": "cancellation-point-必须保持-invariant",
+      "g7-topic-59": "member-destruction-order",
+      "g7-topic-60": "shutdown-基本顺序",
+      "g7-topic-61": "drain-vs-abort",
+      "g7-section-10": "任务执行线程池与背压",
+      "g7-topic-62": "thread-task",
+      "g7-topic-63": "c23-task-representation",
+      "g7-topic-64": "worker-不能持-queue-lock-执行-task",
+      "g7-topic-65": "pool-必须考虑两种-bound",
+      "g7-topic-66": "cpu-bound-与-io-bound-pool",
+      "g7-topic-67": "resource-isolation",
+      "g7-topic-68": "thread-pool-starvation-deadlock",
+      "g7-topic-69": "bounded-submit-也能-deadlock",
+      "g7-topic-70": "global-queue-vs-work-stealing",
+      "g7-section-11": "并发架构与写入权限",
+      "g7-topic-71": "并发设计最重要的问题有几个-writer",
+      "g7-topic-72": "reasoning-complexity-ladder",
+      "g7-topic-73": "privatize-first",
+      "g7-topic-74": "single-writer-principle",
+      "g7-topic-75": "message-passing-的真正价值",
+      "g7-topic-76": "sharding",
+      "g7-topic-77": "shard-key-ownership-key",
+      "g7-topic-78": "immutable-snapshot",
+      "g7-topic-79": "snapshot-consistency-vs-freshness",
+      "g7-topic-80": "old-generation-的-lifetime",
+      "g7-section-12": "跨层关系图",
+      "g7-topic-81": "ownership-graph",
+      "g7-topic-82": "synchronization-graph",
+      "g7-topic-83": "mutation-graph",
+      "g7-topic-84": "progress-graph",
+      "g7-topic-85": "lifetime-reclamation-graph",
+      "g7-topic-86": "cache-ownership-graph",
+      "g7-topic-87": "queue-capacity-graph",
+      "g7-section-13": "统一并发审查",
+      "g7-section-14": "并发反模式",
+      "g7-topic-88": "smell-1-global-mutable-state",
+      "g7-topic-89": "smell-2-atomic-every-field",
+      "g7-topic-90": "smell-3-relaxed-cargo-cult",
+      "g7-topic-91": "smell-4-lock-free-cargo-cult",
+      "g7-topic-92": "smell-5-detached-thread",
+      "g7-topic-93": "smell-6-unbounded-queue",
+      "g7-topic-94": "smell-7-worker-waits-same-pool",
+      "g7-topic-95": "smell-8-notification-as-state",
+      "g7-topic-96": "smell-9-remove-then-delete",
+      "g7-topic-97": "smell-10-shared-shared_ptrmutablet-everywhere",
+      "g7-topic-98": "smell-11-all-workers-touch-all-entities",
+      "g7-topic-99": "smell-12-shutdown-as-one-bool",
+      "g7-section-15": "工程原则回查",
+      "g7-section-16": "实验与验证",
+      "g7-section-17": "final-gate",
+      "g7-section-18": "final-gate-参考答案与常见误判",
+      "g7-section-19": "g0g7-的统一模型",
+      "g7-topic-100": "g1-object-model",
+      "g7-topic-101": "g2-ownership",
+      "g7-topic-102": "g3-value-semantics",
+      "g7-topic-103": "g5-genericity",
+      "g7-topic-104": "g6-performance",
+      "g7-topic-105": "g7-concurrency",
+      "g7-section-20": "实际代码的跨层审查",
+      "g7-section-21": "本章范围与后续阅读",
+      "g7-section-22": "参考与验证入口"
+    },
+    "semantic": [
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-1",
+        "heading": "阅读模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-0",
+        "heading": "g7-到底解决什么问题",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-1",
+        "heading": "g7-的统一链路",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-2",
+        "heading": "数据竞争与语言内存模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-2",
+        "heading": "data-race-是-g7-的第一道门槛",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-3",
+        "heading": "data-race-的核心条件",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-4",
+        "heading": "readread-与-readwrite",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-5",
+        "heading": "data-race-不等于-race-condition",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-6",
+        "heading": "volatile-不是并发同步",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-3",
+        "heading": "顺序与同步关系",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-7",
+        "heading": "sequenced-before",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-8",
+        "heading": "synchronizes-with",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-9",
+        "heading": "happens-before",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-10",
+        "heading": "最重要的一张图",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-11",
+        "heading": "为什么-data-可以不是-atomic",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-4",
+        "heading": "原子性与内存序",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-12",
+        "heading": "atomicity-ordering",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-13",
+        "heading": "atomic-operation-三类",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-14",
+        "heading": "memory-order-属于-operation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-15",
+        "heading": "memory_order_relaxed",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-16",
+        "heading": "modification-order",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-17",
+        "heading": "memory_order_release",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-18",
+        "heading": "memory_order_acquire",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-19",
+        "heading": "release-acquire-的核心不是-cache-flush",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-20",
+        "heading": "memory_order_acq_rel",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-21",
+        "heading": "memory_order_seq_cst",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-22",
+        "heading": "memory-order-不是性能等级表",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-5",
+        "heading": "互斥锁与条件变量",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-23",
+        "heading": "mutex-保护的是-invariant",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-24",
+        "heading": "mutex-提供两件事",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-25",
+        "heading": "raii-locking",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-26",
+        "heading": "critical-section-原则",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-27",
+        "heading": "deadlock",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-28",
+        "heading": "condition-variable-等待的是-predicate",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-29",
+        "heading": "notification-是-edgepredicate-是-state",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-30",
+        "heading": "spurious-wakeup",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-6",
+        "heading": "原子状态转换与-cas",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-31",
+        "heading": "为什么-load-store-不等于-atomic-transition",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-32",
+        "heading": "cas",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-33",
+        "heading": "expected-是-inout-parameter",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-34",
+        "heading": "cas-loop",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-35",
+        "heading": "weak-vs-strong",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-36",
+        "heading": "success-failure-ordering",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-7",
+        "heading": "aba进展保证与安全回收",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-37",
+        "heading": "cas-只比较-current-value",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-38",
+        "heading": "aba-不是-use-after-free",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-39",
+        "heading": "unlinked-reclaimable",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-40",
+        "heading": "pointer-acquisition-safe-dereference",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-41",
+        "heading": "tagged-pointer-generation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-42",
+        "heading": "reclamation-strategies",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-43",
+        "heading": "lock-free-不是性能等级",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-44",
+        "heading": "progress-guarantees",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-45",
+        "heading": "atomictis_lock_free-不是算法证明",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-8",
+        "heading": "并发队列的交接协议",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-46",
+        "heading": "queue-首先按-topology-分类",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-47",
+        "heading": "spsc-的关键简化",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-48",
+        "heading": "spsc-的两条-hb-edge",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-49",
+        "heading": "mpsc-的关键新问题",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-50",
+        "heading": "mpmc-为什么需要-per-slot-generation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-51",
+        "heading": "bounded-queue-backpressure",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-52",
+        "heading": "queue-是-ownership-boundary",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-9",
+        "heading": "线程生命周期与停机",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-53",
+        "heading": "stdthread",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-54",
+        "heading": "detach-不解决-lifetime",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-55",
+        "heading": "stdjthread",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-56",
+        "heading": "stop_token",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-57",
+        "heading": "cancellation-必须唤醒-blocked-thread",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-58",
+        "heading": "cancellation-point-必须保持-invariant",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-59",
+        "heading": "member-destruction-order",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-60",
+        "heading": "shutdown-基本顺序",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-61",
+        "heading": "drain-vs-abort",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-10",
+        "heading": "任务执行线程池与背压",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-62",
+        "heading": "thread-task",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-63",
+        "heading": "c23-task-representation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-64",
+        "heading": "worker-不能持-queue-lock-执行-task",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-65",
+        "heading": "pool-必须考虑两种-bound",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-66",
+        "heading": "cpu-bound-与-io-bound-pool",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-67",
+        "heading": "resource-isolation",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-68",
+        "heading": "thread-pool-starvation-deadlock",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-69",
+        "heading": "bounded-submit-也能-deadlock",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-70",
+        "heading": "global-queue-vs-work-stealing",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-11",
+        "heading": "并发架构与写入权限",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-71",
+        "heading": "并发设计最重要的问题有几个-writer",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-72",
+        "heading": "reasoning-complexity-ladder",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-73",
+        "heading": "privatize-first",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-74",
+        "heading": "single-writer-principle",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-75",
+        "heading": "message-passing-的真正价值",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-76",
+        "heading": "sharding",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-77",
+        "heading": "shard-key-ownership-key",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-78",
+        "heading": "immutable-snapshot",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-79",
+        "heading": "snapshot-consistency-vs-freshness",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-80",
+        "heading": "old-generation-的-lifetime",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-12",
+        "heading": "跨层关系图",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-81",
+        "heading": "ownership-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-82",
+        "heading": "synchronization-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-83",
+        "heading": "mutation-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-84",
+        "heading": "progress-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-85",
+        "heading": "lifetime-reclamation-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-86",
+        "heading": "cache-ownership-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-87",
+        "heading": "queue-capacity-graph",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-13",
+        "heading": "统一并发审查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-14",
+        "heading": "并发反模式",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-88",
+        "heading": "smell-1-global-mutable-state",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-89",
+        "heading": "smell-2-atomic-every-field",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-90",
+        "heading": "smell-3-relaxed-cargo-cult",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-91",
+        "heading": "smell-4-lock-free-cargo-cult",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-92",
+        "heading": "smell-5-detached-thread",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-93",
+        "heading": "smell-6-unbounded-queue",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-94",
+        "heading": "smell-7-worker-waits-same-pool",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-95",
+        "heading": "smell-8-notification-as-state",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-96",
+        "heading": "smell-9-remove-then-delete",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-97",
+        "heading": "smell-10-shared-shared_ptrmutablet-everywhere",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-98",
+        "heading": "smell-11-all-workers-touch-all-entities",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-99",
+        "heading": "smell-12-shutdown-as-one-bool",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-15",
+        "heading": "工程原则回查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-16",
+        "heading": "实验与验证",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G7-D1",
+          "mode": "concurrency",
+          "stdout": "publication=200\n"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G7-D2",
+          "mode": "concurrency",
+          "stdout": "fifo=50000; empty-close; full-close; joined\n"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "lab",
+        "payload": {
+          "id": "G7-D3",
+          "mode": "tsan_negative"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "file",
+        "payload": {
+          "path": "main.cpp"
+        },
+        "disposition": "NON_RENDERING_EXPERIMENT_METADATA; visible source identity retained"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-17",
+        "heading": "final-gate",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-18",
+        "heading": "final-gate-参考答案与常见误判",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-19",
+        "heading": "g0g7-的统一模型",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-100",
+        "heading": "g1-object-model",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-101",
+        "heading": "g2-ownership",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-102",
+        "heading": "g3-value-semantics",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-103",
+        "heading": "g5-genericity",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-104",
+        "heading": "g6-performance",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-topic-105",
+        "heading": "g7-concurrency",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-20",
+        "heading": "实际代码的跨层审查",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-21",
+        "heading": "本章范围与后续阅读",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      },
+      {
+        "kind": "anchor",
+        "source_id": "g7-section-22",
+        "heading": "参考与验证入口",
+        "disposition": "PDF_DESTINATION_ALIAS"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g07-concurrency-and-memory-model.md"
+  }
+]

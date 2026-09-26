@@ -1,0 +1,2602 @@
+{
+  "status": "STRUCTURAL_PASS",
+  "visual_status": "NOT_REVIEWED",
+  "scope": "Reading-quality signals, not a visual or technical proof",
+  "attempt": "/Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/c0ce3381c728be48e0f7cc676af5cece0feaad6c605666d926153580d80c403c/f4d7316b966f4bd2bec917cee6379079",
+  "audit_sha256": "9f08a1cc4cac2293e0fc8e8979c1ac032f62b7f7961ef41c999299836064cdb5",
+  "corpus_sha256": "7e1c6f42eab77d6878d370028dce80ee770f2ef38022a7d11f823928134acd3c",
+  "views": [
+    {
+      "view": "G6",
+      "pdf": "output/pdf/G6-draft.pdf",
+      "sha256": "7f64df57b01818a51012aa58f9a082f8e0dd902017104f1e02442e7224dbc853",
+      "pages": 48,
+      "components": {
+        "G6-C01": [
+          5
+        ],
+        "G6-C02": [
+          5,
+          6
+        ],
+        "G6-C03": [
+          6
+        ],
+        "G6-C04": [
+          6
+        ],
+        "G6-C05": [
+          7
+        ],
+        "G6-C06": [
+          7
+        ],
+        "G6-C07": [
+          7
+        ],
+        "G6-C08": [
+          8
+        ],
+        "G6-C09": [
+          8
+        ],
+        "G6-C10": [
+          9
+        ],
+        "G6-C11": [
+          9
+        ],
+        "G6-C12": [
+          10
+        ],
+        "G6-C13": [
+          10
+        ],
+        "G6-C14": [
+          10
+        ],
+        "G6-C15": [
+          10
+        ],
+        "G6-C16": [
+          11
+        ],
+        "G6-C17": [
+          11
+        ],
+        "G6-C18": [
+          11
+        ],
+        "G6-C19": [
+          11
+        ],
+        "G6-C20": [
+          12
+        ],
+        "G6-C21": [
+          12
+        ],
+        "G6-C22": [
+          12
+        ],
+        "G6-C23": [
+          12
+        ],
+        "G6-C24": [
+          13
+        ],
+        "G6-C25": [
+          13
+        ],
+        "G6-C26": [
+          14
+        ],
+        "G6-C27": [
+          15
+        ],
+        "G6-C28": [
+          15
+        ],
+        "G6-C29": [
+          15
+        ],
+        "G6-C30": [
+          16
+        ],
+        "G6-C31": [
+          17
+        ],
+        "G6-C32": [
+          17
+        ],
+        "G6-C33": [
+          18
+        ],
+        "G6-C34": [
+          18
+        ],
+        "G6-C35": [
+          19
+        ],
+        "G6-C36": [
+          19
+        ],
+        "G6-C37": [
+          19
+        ],
+        "G6-C38": [
+          19
+        ],
+        "G6-C39": [
+          20
+        ],
+        "G6-C40": [
+          21
+        ],
+        "G6-C41": [
+          21
+        ],
+        "G6-C42": [
+          21
+        ],
+        "G6-C43": [
+          22
+        ],
+        "G6-C44": [
+          22
+        ],
+        "G6-C45": [
+          23
+        ],
+        "G6-C46": [
+          23
+        ],
+        "G6-C47": [
+          23
+        ],
+        "G6-C48": [
+          23
+        ],
+        "G6-C49": [
+          24
+        ],
+        "G6-C50": [
+          24
+        ],
+        "G6-C51": [
+          24
+        ],
+        "G6-C52": [
+          26
+        ],
+        "G6-C53": [
+          26
+        ],
+        "G6-C54": [
+          26
+        ],
+        "G6-C55": [
+          27
+        ],
+        "G6-C56": [
+          27
+        ],
+        "G6-C57": [
+          27
+        ],
+        "G6-C58": [
+          27
+        ],
+        "G6-C59": [
+          28
+        ],
+        "G6-C60": [
+          28
+        ],
+        "G6-C61": [
+          30
+        ],
+        "G6-C62": [
+          30
+        ],
+        "G6-C63": [
+          31
+        ],
+        "G6-C64": [
+          31
+        ],
+        "G6-C65": [
+          31
+        ],
+        "G6-C66": [
+          34
+        ],
+        "G6-C67": [
+          34
+        ],
+        "G6-C68": [
+          35
+        ],
+        "G6-T01": [
+          36,
+          37
+        ],
+        "G6-C69": [
+          37
+        ],
+        "G6-C70": [
+          37,
+          38
+        ],
+        "G6-C71": [
+          38,
+          39
+        ],
+        "G6-C72": [
+          39
+        ],
+        "G6-C73": [
+          40
+        ],
+        "G6-C74": [
+          40,
+          41
+        ],
+        "G6-C75": [
+          47
+        ]
+      },
+      "line_position_checks": 511,
+      "wrap_observations": [],
+      "issues": []
+    },
+    {
+      "view": "G7",
+      "pdf": "output/pdf/G7-draft.pdf",
+      "sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "pages": 44,
+      "components": {
+        "G7-C01": [
+          6
+        ],
+        "G7-C02": [
+          6
+        ],
+        "G7-C03": [
+          6
+        ],
+        "G7-C04": [
+          6
+        ],
+        "G7-C05": [
+          7
+        ],
+        "G7-C06": [
+          7
+        ],
+        "G7-C07": [
+          7
+        ],
+        "G7-C08": [
+          7
+        ],
+        "G7-C09": [
+          8
+        ],
+        "G7-C10": [
+          8
+        ],
+        "G7-C11": [
+          9
+        ],
+        "G7-C12": [
+          9
+        ],
+        "G7-C13": [
+          10
+        ],
+        "G7-C14": [
+          10
+        ],
+        "G7-C15": [
+          10
+        ],
+        "G7-C16": [
+          11
+        ],
+        "G7-C17": [
+          11
+        ],
+        "G7-C18": [
+          12
+        ],
+        "G7-C19": [
+          12
+        ],
+        "G7-C20": [
+          12
+        ],
+        "G7-C21": [
+          13
+        ],
+        "G7-C22": [
+          14
+        ],
+        "G7-C23": [
+          14
+        ],
+        "G7-C24": [
+          14
+        ],
+        "G7-C25": [
+          15
+        ],
+        "G7-C26": [
+          15
+        ],
+        "G7-C27": [
+          16
+        ],
+        "G7-C28": [
+          16
+        ],
+        "G7-C29": [
+          17
+        ],
+        "G7-C30": [
+          17
+        ],
+        "G7-C31": [
+          17
+        ],
+        "G7-C32": [
+          18
+        ],
+        "G7-C33": [
+          18
+        ],
+        "G7-C34": [
+          18
+        ],
+        "G7-T01": [
+          19
+        ],
+        "G7-C35": [
+          20
+        ],
+        "G7-C36": [
+          20
+        ],
+        "G7-C37": [
+          20
+        ],
+        "G7-C38": [
+          21
+        ],
+        "G7-C39": [
+          21
+        ],
+        "G7-C40": [
+          22
+        ],
+        "G7-C41": [
+          22
+        ],
+        "G7-C42": [
+          22
+        ],
+        "G7-C43": [
+          22
+        ],
+        "G7-C44": [
+          23
+        ],
+        "G7-C45": [
+          23
+        ],
+        "G7-C46": [
+          24
+        ],
+        "G7-C47": [
+          24
+        ],
+        "G7-C48": [
+          24
+        ],
+        "G7-C49": [
+          24
+        ],
+        "G7-C50": [
+          25
+        ],
+        "G7-C51": [
+          25
+        ],
+        "G7-C52": [
+          25
+        ],
+        "G7-C53": [
+          26
+        ],
+        "G7-C54": [
+          26
+        ],
+        "G7-C55": [
+          27
+        ],
+        "G7-C56": [
+          27
+        ],
+        "G7-C57": [
+          27
+        ],
+        "G7-C58": [
+          27
+        ],
+        "G7-C59": [
+          27
+        ],
+        "G7-C60": [
+          28
+        ],
+        "G7-C61": [
+          31
+        ],
+        "G7-C62": [
+          31
+        ],
+        "G7-C63": [
+          32
+        ],
+        "G7-C64": [
+          32
+        ],
+        "G7-C65": [
+          34
+        ],
+        "G7-C66": [
+          34
+        ],
+        "G7-C67": [
+          35,
+          36,
+          37
+        ],
+        "G7-C68": [
+          37
+        ],
+        "G7-C69": [
+          38
+        ],
+        "G7-C70": [
+          38
+        ],
+        "G7-C71": [
+          38
+        ],
+        "G7-C72": [
+          38
+        ],
+        "G7-C73": [
+          39
+        ],
+        "G7-C74": [
+          39
+        ],
+        "G7-C75": [
+          43
+        ],
+        "G7-C76": [
+          44
+        ],
+        "G7-C77": [
+          44
+        ]
+      },
+      "line_position_checks": 475,
+      "wrap_observations": [
+        {
+          "object": "G7-C66",
+          "source_line": 11,
+          "page": 34,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "view": "CPP-PILOT-G6-G7",
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "pages": 90,
+      "components": {
+        "G6-C01": [
+          6
+        ],
+        "G6-C02": [
+          6,
+          7
+        ],
+        "G6-C03": [
+          7
+        ],
+        "G6-C04": [
+          7
+        ],
+        "G6-C05": [
+          8
+        ],
+        "G6-C06": [
+          8
+        ],
+        "G6-C07": [
+          8
+        ],
+        "G6-C08": [
+          9
+        ],
+        "G6-C09": [
+          9
+        ],
+        "G6-C10": [
+          10
+        ],
+        "G6-C11": [
+          10
+        ],
+        "G6-C12": [
+          11
+        ],
+        "G6-C13": [
+          11
+        ],
+        "G6-C14": [
+          11
+        ],
+        "G6-C15": [
+          11
+        ],
+        "G6-C16": [
+          12
+        ],
+        "G6-C17": [
+          12
+        ],
+        "G6-C18": [
+          12
+        ],
+        "G6-C19": [
+          12
+        ],
+        "G6-C20": [
+          13
+        ],
+        "G6-C21": [
+          13
+        ],
+        "G6-C22": [
+          13
+        ],
+        "G6-C23": [
+          13
+        ],
+        "G6-C24": [
+          14
+        ],
+        "G6-C25": [
+          14
+        ],
+        "G6-C26": [
+          15
+        ],
+        "G6-C27": [
+          16
+        ],
+        "G6-C28": [
+          16
+        ],
+        "G6-C29": [
+          16
+        ],
+        "G6-C30": [
+          17
+        ],
+        "G6-C31": [
+          18
+        ],
+        "G6-C32": [
+          18
+        ],
+        "G6-C33": [
+          19
+        ],
+        "G6-C34": [
+          19
+        ],
+        "G6-C35": [
+          20
+        ],
+        "G6-C36": [
+          20
+        ],
+        "G6-C37": [
+          20
+        ],
+        "G6-C38": [
+          20
+        ],
+        "G6-C39": [
+          21
+        ],
+        "G6-C40": [
+          22
+        ],
+        "G6-C41": [
+          22
+        ],
+        "G6-C42": [
+          22
+        ],
+        "G6-C43": [
+          23
+        ],
+        "G6-C44": [
+          23
+        ],
+        "G6-C45": [
+          24
+        ],
+        "G6-C46": [
+          24
+        ],
+        "G6-C47": [
+          24
+        ],
+        "G6-C48": [
+          24
+        ],
+        "G6-C49": [
+          25
+        ],
+        "G6-C50": [
+          25
+        ],
+        "G6-C51": [
+          25
+        ],
+        "G6-C52": [
+          27
+        ],
+        "G6-C53": [
+          27
+        ],
+        "G6-C54": [
+          27
+        ],
+        "G6-C55": [
+          28
+        ],
+        "G6-C56": [
+          28
+        ],
+        "G6-C57": [
+          28
+        ],
+        "G6-C58": [
+          28
+        ],
+        "G6-C59": [
+          29
+        ],
+        "G6-C60": [
+          29
+        ],
+        "G6-C61": [
+          31
+        ],
+        "G6-C62": [
+          31
+        ],
+        "G6-C63": [
+          32
+        ],
+        "G6-C64": [
+          32
+        ],
+        "G6-C65": [
+          32
+        ],
+        "G6-C66": [
+          35
+        ],
+        "G6-C67": [
+          35
+        ],
+        "G6-C68": [
+          36
+        ],
+        "G6-T01": [
+          37,
+          38
+        ],
+        "G6-C69": [
+          38
+        ],
+        "G6-C70": [
+          38,
+          39
+        ],
+        "G6-C71": [
+          39,
+          40
+        ],
+        "G6-C72": [
+          40
+        ],
+        "G6-C73": [
+          41
+        ],
+        "G6-C74": [
+          41,
+          42
+        ],
+        "G6-C75": [
+          48
+        ],
+        "G7-C01": [
+          52
+        ],
+        "G7-C02": [
+          52
+        ],
+        "G7-C03": [
+          52
+        ],
+        "G7-C04": [
+          52
+        ],
+        "G7-C05": [
+          53
+        ],
+        "G7-C06": [
+          53
+        ],
+        "G7-C07": [
+          53
+        ],
+        "G7-C08": [
+          53
+        ],
+        "G7-C09": [
+          54
+        ],
+        "G7-C10": [
+          54
+        ],
+        "G7-C11": [
+          55
+        ],
+        "G7-C12": [
+          55
+        ],
+        "G7-C13": [
+          56
+        ],
+        "G7-C14": [
+          56
+        ],
+        "G7-C15": [
+          56
+        ],
+        "G7-C16": [
+          57
+        ],
+        "G7-C17": [
+          57
+        ],
+        "G7-C18": [
+          58
+        ],
+        "G7-C19": [
+          58
+        ],
+        "G7-C20": [
+          58
+        ],
+        "G7-C21": [
+          59
+        ],
+        "G7-C22": [
+          60
+        ],
+        "G7-C23": [
+          60
+        ],
+        "G7-C24": [
+          60
+        ],
+        "G7-C25": [
+          61
+        ],
+        "G7-C26": [
+          61
+        ],
+        "G7-C27": [
+          62
+        ],
+        "G7-C28": [
+          62
+        ],
+        "G7-C29": [
+          63
+        ],
+        "G7-C30": [
+          63
+        ],
+        "G7-C31": [
+          63
+        ],
+        "G7-C32": [
+          64
+        ],
+        "G7-C33": [
+          64
+        ],
+        "G7-C34": [
+          64
+        ],
+        "G7-T01": [
+          65
+        ],
+        "G7-C35": [
+          66
+        ],
+        "G7-C36": [
+          66
+        ],
+        "G7-C37": [
+          66
+        ],
+        "G7-C38": [
+          67
+        ],
+        "G7-C39": [
+          67
+        ],
+        "G7-C40": [
+          68
+        ],
+        "G7-C41": [
+          68
+        ],
+        "G7-C42": [
+          68
+        ],
+        "G7-C43": [
+          68
+        ],
+        "G7-C44": [
+          69
+        ],
+        "G7-C45": [
+          69
+        ],
+        "G7-C46": [
+          70
+        ],
+        "G7-C47": [
+          70
+        ],
+        "G7-C48": [
+          70
+        ],
+        "G7-C49": [
+          70
+        ],
+        "G7-C50": [
+          71
+        ],
+        "G7-C51": [
+          71
+        ],
+        "G7-C52": [
+          71
+        ],
+        "G7-C53": [
+          72
+        ],
+        "G7-C54": [
+          72
+        ],
+        "G7-C55": [
+          73
+        ],
+        "G7-C56": [
+          73
+        ],
+        "G7-C57": [
+          73
+        ],
+        "G7-C58": [
+          73
+        ],
+        "G7-C59": [
+          73
+        ],
+        "G7-C60": [
+          74
+        ],
+        "G7-C61": [
+          77
+        ],
+        "G7-C62": [
+          77
+        ],
+        "G7-C63": [
+          78
+        ],
+        "G7-C64": [
+          78
+        ],
+        "G7-C65": [
+          80
+        ],
+        "G7-C66": [
+          80
+        ],
+        "G7-C67": [
+          81,
+          82,
+          83
+        ],
+        "G7-C68": [
+          83
+        ],
+        "G7-C69": [
+          84
+        ],
+        "G7-C70": [
+          84
+        ],
+        "G7-C71": [
+          84
+        ],
+        "G7-C72": [
+          84
+        ],
+        "G7-C73": [
+          85
+        ],
+        "G7-C74": [
+          85
+        ],
+        "G7-C75": [
+          89
+        ],
+        "G7-C76": [
+          90
+        ],
+        "G7-C77": [
+          90
+        ]
+      },
+      "line_position_checks": 986,
+      "wrap_observations": [
+        {
+          "object": "G7-C66",
+          "source_line": 11,
+          "page": 80,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "pages": 89,
+      "components": {
+        "G6-C01": [
+          6
+        ],
+        "G6-C02": [
+          6,
+          7
+        ],
+        "G6-C03": [
+          7
+        ],
+        "G6-C04": [
+          7
+        ],
+        "G6-C05": [
+          7
+        ],
+        "G6-C06": [
+          8
+        ],
+        "G6-C07": [
+          8
+        ],
+        "G6-C08": [
+          9
+        ],
+        "G6-C09": [
+          9
+        ],
+        "G6-C10": [
+          10
+        ],
+        "G6-C11": [
+          10
+        ],
+        "G6-C12": [
+          11
+        ],
+        "G6-C13": [
+          11
+        ],
+        "G6-C14": [
+          11
+        ],
+        "G6-C15": [
+          11
+        ],
+        "G6-C16": [
+          12
+        ],
+        "G6-C17": [
+          12
+        ],
+        "G6-C18": [
+          12
+        ],
+        "G6-C19": [
+          12
+        ],
+        "G6-C20": [
+          13
+        ],
+        "G6-C21": [
+          13
+        ],
+        "G6-C22": [
+          13
+        ],
+        "G6-C23": [
+          13
+        ],
+        "G6-C24": [
+          14
+        ],
+        "G6-C25": [
+          14
+        ],
+        "G6-C26": [
+          15
+        ],
+        "G6-C27": [
+          16
+        ],
+        "G6-C28": [
+          16
+        ],
+        "G6-C29": [
+          16
+        ],
+        "G6-C30": [
+          17
+        ],
+        "G6-C31": [
+          18
+        ],
+        "G6-C32": [
+          18
+        ],
+        "G6-C33": [
+          19
+        ],
+        "G6-C34": [
+          19
+        ],
+        "G6-C35": [
+          20
+        ],
+        "G6-C36": [
+          20
+        ],
+        "G6-C37": [
+          20
+        ],
+        "G6-C38": [
+          20
+        ],
+        "G6-C39": [
+          21
+        ],
+        "G6-C40": [
+          22
+        ],
+        "G6-C41": [
+          22
+        ],
+        "G6-C42": [
+          22
+        ],
+        "G6-C43": [
+          23
+        ],
+        "G6-C44": [
+          23
+        ],
+        "G6-C45": [
+          24
+        ],
+        "G6-C46": [
+          24
+        ],
+        "G6-C47": [
+          24
+        ],
+        "G6-C48": [
+          24
+        ],
+        "G6-C49": [
+          25
+        ],
+        "G6-C50": [
+          25
+        ],
+        "G6-C51": [
+          25
+        ],
+        "G6-C52": [
+          27
+        ],
+        "G6-C53": [
+          27
+        ],
+        "G6-C54": [
+          27
+        ],
+        "G6-C55": [
+          28
+        ],
+        "G6-C56": [
+          28
+        ],
+        "G6-C57": [
+          28
+        ],
+        "G6-C58": [
+          28
+        ],
+        "G6-C59": [
+          29
+        ],
+        "G6-C60": [
+          29
+        ],
+        "G6-C61": [
+          31
+        ],
+        "G6-C62": [
+          31
+        ],
+        "G6-C63": [
+          32
+        ],
+        "G6-C64": [
+          32
+        ],
+        "G6-C65": [
+          32
+        ],
+        "G6-C66": [
+          35
+        ],
+        "G6-C67": [
+          35
+        ],
+        "G6-C68": [
+          36
+        ],
+        "G6-T01": [
+          37,
+          38
+        ],
+        "G6-C69": [
+          38
+        ],
+        "G6-C70": [
+          38,
+          39
+        ],
+        "G6-C71": [
+          39,
+          40
+        ],
+        "G6-C72": [
+          40
+        ],
+        "G6-C73": [
+          41
+        ],
+        "G6-C74": [
+          41,
+          42
+        ],
+        "G6-C75": [
+          48
+        ],
+        "G7-C01": [
+          51
+        ],
+        "G7-C02": [
+          52
+        ],
+        "G7-C03": [
+          52
+        ],
+        "G7-C04": [
+          52
+        ],
+        "G7-C05": [
+          52
+        ],
+        "G7-C06": [
+          53
+        ],
+        "G7-C07": [
+          53
+        ],
+        "G7-C08": [
+          53
+        ],
+        "G7-C09": [
+          53
+        ],
+        "G7-C10": [
+          54
+        ],
+        "G7-C11": [
+          55
+        ],
+        "G7-C12": [
+          55
+        ],
+        "G7-C13": [
+          55
+        ],
+        "G7-C14": [
+          56
+        ],
+        "G7-C15": [
+          56
+        ],
+        "G7-C16": [
+          56
+        ],
+        "G7-C17": [
+          57
+        ],
+        "G7-C18": [
+          57
+        ],
+        "G7-C19": [
+          58
+        ],
+        "G7-C20": [
+          58
+        ],
+        "G7-C21": [
+          58
+        ],
+        "G7-C22": [
+          59
+        ],
+        "G7-C23": [
+          60
+        ],
+        "G7-C24": [
+          60
+        ],
+        "G7-C25": [
+          60
+        ],
+        "G7-C26": [
+          60
+        ],
+        "G7-C27": [
+          61
+        ],
+        "G7-C28": [
+          62
+        ],
+        "G7-C29": [
+          62
+        ],
+        "G7-C30": [
+          63
+        ],
+        "G7-C31": [
+          63
+        ],
+        "G7-C32": [
+          63
+        ],
+        "G7-C33": [
+          63
+        ],
+        "G7-C34": [
+          63
+        ],
+        "G7-T01": [
+          64
+        ],
+        "G7-C35": [
+          65
+        ],
+        "G7-C36": [
+          65
+        ],
+        "G7-C37": [
+          65
+        ],
+        "G7-C38": [
+          66
+        ],
+        "G7-C39": [
+          66
+        ],
+        "G7-C40": [
+          67
+        ],
+        "G7-C41": [
+          67
+        ],
+        "G7-C42": [
+          67
+        ],
+        "G7-C43": [
+          68
+        ],
+        "G7-C44": [
+          68
+        ],
+        "G7-C45": [
+          68
+        ],
+        "G7-C46": [
+          69
+        ],
+        "G7-C47": [
+          69
+        ],
+        "G7-C48": [
+          69
+        ],
+        "G7-C49": [
+          69
+        ],
+        "G7-C50": [
+          70
+        ],
+        "G7-C51": [
+          70
+        ],
+        "G7-C52": [
+          70
+        ],
+        "G7-C53": [
+          70
+        ],
+        "G7-C54": [
+          71
+        ],
+        "G7-C55": [
+          71
+        ],
+        "G7-C56": [
+          72
+        ],
+        "G7-C57": [
+          72
+        ],
+        "G7-C58": [
+          72
+        ],
+        "G7-C59": [
+          72
+        ],
+        "G7-C60": [
+          72
+        ],
+        "G7-C61": [
+          76
+        ],
+        "G7-C62": [
+          76
+        ],
+        "G7-C63": [
+          76
+        ],
+        "G7-C64": [
+          77
+        ],
+        "G7-C65": [
+          78
+        ],
+        "G7-C66": [
+          78,
+          79
+        ],
+        "G7-C67": [
+          79,
+          80,
+          81
+        ],
+        "G7-C68": [
+          81
+        ],
+        "G7-C69": [
+          83
+        ],
+        "G7-C70": [
+          83
+        ],
+        "G7-C71": [
+          83
+        ],
+        "G7-C72": [
+          83
+        ],
+        "G7-C73": [
+          84
+        ],
+        "G7-C74": [
+          84
+        ],
+        "G7-C75": [
+          88
+        ],
+        "G7-C76": [
+          88
+        ],
+        "G7-C77": [
+          89
+        ]
+      },
+      "line_position_checks": 986,
+      "wrap_observations": [
+        {
+          "object": "G7-C66",
+          "source_line": 11,
+          "page": 79,
+          "signal": "wrap_or_chunk_spacing; inspect rendered line"
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "cpp-g6-code-tail",
+      "purpose": "experiment-continuation",
+      "view": "G6",
+      "object": "G6-C74",
+      "pages": [
+        40,
+        41
+      ],
+      "pdf_sha256": "7f64df57b01818a51012aa58f9a082f8e0dd902017104f1e02442e7224dbc853",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G6-040.png",
+          "sha256": "41c201a1e74bc551e6783a192e292fbaa9d5472cc4eb1856b56b55e29fb4f0c6"
+        },
+        {
+          "path": "G6-041.png",
+          "sha256": "2bfbe054375d08a23535d115da30299d3213e968fc7c75c6a8292d089d2a705a"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-experiment-identity",
+      "purpose": "reader-facing-code-identity",
+      "view": "G6",
+      "object": "G6-C73",
+      "pages": [
+        40
+      ],
+      "pdf_sha256": "7f64df57b01818a51012aa58f9a082f8e0dd902017104f1e02442e7224dbc853",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G6-040.png",
+          "sha256": "41c201a1e74bc551e6783a192e292fbaa9d5472cc4eb1856b56b55e29fb4f0c6"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-final",
+      "purpose": "short-tail-page",
+      "view": "G6",
+      "object": "G6-1769cea85d5b5d9c",
+      "pages": [
+        48
+      ],
+      "pdf_sha256": "7f64df57b01818a51012aa58f9a082f8e0dd902017104f1e02442e7224dbc853",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G6-048.png",
+          "sha256": "6ae5c2f85b0bbeb629a8a903e6beeeb8053e065b689fe710f4bbd0c444fcc672"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-short-table",
+      "purpose": "short-table-integrity",
+      "view": "G7",
+      "object": "G7-T01",
+      "pages": [
+        19
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-019.png",
+          "sha256": "68db7b124873606604dc5e091b3c0b0e0817468255bfc6270c818c697f125e5f"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-experiment",
+      "purpose": "experiment-continuation",
+      "view": "G7",
+      "object": "G7-C67",
+      "pages": [
+        35,
+        36,
+        37
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-035.png",
+          "sha256": "74d01c65466239a753adc82a9d5c2fd8daa38f04046173690f2b39bd5184b242"
+        },
+        {
+          "path": "G7-036.png",
+          "sha256": "bf362c1740ba49831da3fadf59c9670164f757ab74c572894300afb59f0f17a6"
+        },
+        {
+          "path": "G7-037.png",
+          "sha256": "dec3a6dccd46865ff4b9d52e696b56ff77acb5bb43522135e3ff4b1d33383207"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-reference",
+      "purpose": "short-tail-page",
+      "view": "G7",
+      "object": "G7-85bf093a96c05aee",
+      "pages": [
+        44
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-044.png",
+          "sha256": "fee83175c12e1147cee2ff0e96f8f0ce0291a7bacc0747519deee52b1402ba20"
+        }
+      ]
+    },
+    {
+      "id": "cpp-source-status",
+      "purpose": "chapter-navigation",
+      "view": "G7",
+      "object": "G7-9d570d1a6a8c7f59",
+      "pages": [
+        4
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-004.png",
+          "sha256": "e1225f6b8ad9e48e2b6c6f9ad70f64e4264999be3f2ced2df1c842c57b4805d0"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-role",
+      "purpose": "danger-role-binding",
+      "view": "G7",
+      "object": "G7-C68",
+      "pages": [
+        37
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-037.png",
+          "sha256": "dec3a6dccd46865ff4b9d52e696b56ff77acb5bb43522135e3ff4b1d33383207"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-snippet",
+      "purpose": "danger-role-binding",
+      "view": "G7",
+      "object": "G7-C01",
+      "pages": [
+        6
+      ],
+      "pdf_sha256": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38",
+      "sources": [
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "G7-006.png",
+          "sha256": "70ba13e309793f5c9ca60df864c34bbd63b02617d48b3db6fa346f2b3accac90"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-code-tail",
+      "purpose": "experiment-continuation",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G6-C74",
+      "pages": [
+        41,
+        42
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-041.png",
+          "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-042.png",
+          "sha256": "193d16ea125d027a88e35c6f166571bdf91c3bef81613b03697644888072e849"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-short-table",
+      "purpose": "short-table-integrity",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-T01",
+      "pages": [
+        65
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-065.png",
+          "sha256": "b892f4d6ef1ca7171ed9a856b5f53ea60f55c5f4563c050388e392e9a50a74cf"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-experiment",
+      "purpose": "experiment-continuation",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-C67",
+      "pages": [
+        81,
+        82,
+        83
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-081.png",
+          "sha256": "1520c80b9a694158325f3360ae00193a63c05b3f666a8f4309971a4a42530aa1"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-082.png",
+          "sha256": "ac2c27ed590245808f0c0dcb9da4ef656b0f793c28dbfd416ddf78f73858a2c7"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-083.png",
+          "sha256": "dcbbcf9cb399cd4af2bd3380ef0163e6c157e650428fde928dd8b51b0f0cb960"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-reference",
+      "purpose": "short-tail-page",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-85bf093a96c05aee",
+      "pages": [
+        90
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-090.png",
+          "sha256": "288503727f145219bd89267a1cd975bdd2d15f2aa019f994202639635af69983"
+        }
+      ]
+    },
+    {
+      "id": "cpp-global-toc",
+      "purpose": "chapter-navigation",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "generated-toc",
+      "pages": [
+        3,
+        4
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-003.png",
+          "sha256": "6035c068e1fd8606bd35955dd676f1857cf2181f94d17fee774e1139d65c97ca"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-004.png",
+          "sha256": "52a32c0684a64d11562d4babc20b27ed6e41cf207d8bc3d066f457a2cad05a53"
+        }
+      ]
+    },
+    {
+      "id": "cpp-source-status",
+      "purpose": "chapter-navigation",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-9d570d1a6a8c7f59",
+      "pages": [
+        50
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-050.png",
+          "sha256": "76cfec0df28339e0552e15e9f43ff7136ed1e8d04bd4b83deec20af8290fe174"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-role",
+      "purpose": "danger-role-binding",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-C68",
+      "pages": [
+        83
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-083.png",
+          "sha256": "dcbbcf9cb399cd4af2bd3380ef0163e6c157e650428fde928dd8b51b0f0cb960"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-snippet",
+      "purpose": "danger-role-binding",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G7-C01",
+      "pages": [
+        52
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-052.png",
+          "sha256": "66a8daacc68603e380a1c855c485cf5ff294b92dd5b3fb2d62860b22afa4e9a5"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-experiment-identity",
+      "purpose": "reader-facing-code-identity",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G6-C73",
+      "pages": [
+        41
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-041.png",
+          "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-final",
+      "purpose": "short-tail-page",
+      "view": "CPP-PILOT-G6-G7",
+      "object": "G6-1769cea85d5b5d9c",
+      "pages": [
+        49
+      ],
+      "pdf_sha256": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-049.png",
+          "sha256": "1948c7990b515a6d1c5afed317f078ef2d1a39698da491566f43edc289efb795"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-code-tail",
+      "purpose": "experiment-continuation",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G6-C74",
+      "pages": [
+        41,
+        42
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-041.png",
+          "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-042.png",
+          "sha256": "193d16ea125d027a88e35c6f166571bdf91c3bef81613b03697644888072e849"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-short-table",
+      "purpose": "short-table-integrity",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-T01",
+      "pages": [
+        64
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-064.png",
+          "sha256": "f802487de025f70ab2c9518b465616f017f7d70cac83913963c89093ecd0c5b7"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-experiment",
+      "purpose": "experiment-continuation",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-C67",
+      "pages": [
+        79,
+        80,
+        81
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-079.png",
+          "sha256": "39248d0f5d6ee19c263a5d9849b890a88b1da0dcf51a23e8489062d1ac0d9266"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-080.png",
+          "sha256": "cc7b31d912ca609b0a8f520f5946aef4fa4142f92247c319624a2aaac2beaf1c"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-081.png",
+          "sha256": "9ede2f3350e8a8717a04806bea51ba2356dcae806dcd2eb02b6264e9f60ce0ee"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g7-reference",
+      "purpose": "short-tail-page",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-85bf093a96c05aee",
+      "pages": [
+        89
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-089.png",
+          "sha256": "22f929884eb23738b22e16a498b9245947f5bb3846a950c58a251f0b0b138984"
+        }
+      ]
+    },
+    {
+      "id": "cpp-global-toc",
+      "purpose": "chapter-navigation",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "generated-toc",
+      "pages": [
+        3,
+        4
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-003.png",
+          "sha256": "6343a1e1777b7ea7abc5cb8ae17d1bc27ee1c43a1cbf98906463edf2fdc0dfc3"
+        },
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-004.png",
+          "sha256": "597d9d3c16085a213723e255638e21092cc5f50b598b1569706c1dc87d027ff9"
+        }
+      ]
+    },
+    {
+      "id": "cpp-source-status",
+      "purpose": "chapter-navigation",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-9d570d1a6a8c7f59",
+      "pages": [
+        50
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-050.png",
+          "sha256": "6c752d60a4c835878c88a408624bda9093e9b00ade12f5ac190f529024d276a9"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-role",
+      "purpose": "danger-role-binding",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-C68",
+      "pages": [
+        81
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-081.png",
+          "sha256": "9ede2f3350e8a8717a04806bea51ba2356dcae806dcd2eb02b6264e9f60ce0ee"
+        }
+      ]
+    },
+    {
+      "id": "cpp-danger-snippet",
+      "purpose": "danger-role-binding",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G7-C01",
+      "pages": [
+        51
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-051.png",
+          "sha256": "72bca651e7a216df0c99a1b519666df484bbb4480cc67d31e82fb5ee5e8aea7f"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-experiment-identity",
+      "purpose": "reader-facing-code-identity",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G6-C73",
+      "pages": [
+        41
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-041.png",
+          "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+        }
+      ]
+    },
+    {
+      "id": "cpp-g6-final",
+      "purpose": "short-tail-page",
+      "view": "CPP-PILOT-G6-G7-COMPACT",
+      "object": "G6-1769cea85d5b5d9c",
+      "pages": [
+        49
+      ],
+      "pdf_sha256": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+      "sources": [
+        {
+          "bytes": 67250,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G6",
+          "matches_commit": true,
+          "path": "c++/g06-memory-and-performance.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+          "snapshot_path": "sources/c++/g06-memory-and-performance.md",
+          "version": "1.1.1"
+        },
+        {
+          "bytes": 61629,
+          "commit": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "id": "G7",
+          "matches_commit": true,
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "revision": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+          "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+          "snapshot_path": "sources/c++/g07-concurrency-and-memory-model.md",
+          "version": "1.1.1"
+        }
+      ],
+      "renders": [
+        {
+          "path": "CPP-PILOT-G6-G7-COMPACT-049.png",
+          "sha256": "1948c7990b515a6d1c5afed317f078ef2d1a39698da491566f43edc289efb795"
+        }
+      ]
+    }
+  ],
+  "issues": []
+}

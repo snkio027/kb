@@ -40,6 +40,10 @@ function CodeBlock(el)
   if not identity or not identity:match('^[A-Z0-9-]+$') then error('missing code identity') end
   local kind = el.attributes['reading-kind'] or 'literal'
   local caption = el.attributes['reading-caption'] or ({flow='流程示意',snippet='机制片段',literal='字面文本'})[kind]
+  local role = el.attributes['reading-role'] or (kind=='experiment' and '完整实验' or '')
+  local source_label = el.attributes['reading-source-label']
+  local first_label = source_label or (kind=='experiment' and ('完整实验 · '..caption) or '')
+  local continued_label = (role~='' and (role..' · ') or '')..caption..' · continued'
   local lines, closing = {}, 0
   for line in (el.text .. '\n'):gmatch('(.-)\n') do lines[#lines+1] = line end
   for i=#lines,1,-1 do
@@ -50,9 +54,11 @@ function CodeBlock(el)
   local tail_start = math.max(1, #lines-math.max(tail,closing+3)+1)
   components[#components+1] = {id=identity,kind=kind,caption=caption,lines=#lines,
     closing_tail=closing,min_head_lines=head,min_tail_lines=tail,tail_start=tail_start,
-    source_lines=lines,wrap=env~='PreviewFlow'}
+    source_lines=lines,wrap=env~='PreviewFlow',source_label=source_label,
+    role=role,first_label=first_label,continued_label=continued_label}
   local out = '\\PreviewCodePolicy{'..identity..'}{'..#lines..'}{'..head..'}{'..tail_start..'}\n'
-  out = out .. '\\begin{PreviewCodeBox}{' .. identity .. ' / ' .. textext(caption) .. '}{'..kind..'}\n'
+  local first_tex = first_label~='' and ('\\hypertarget{'..identity..'-role}{}'..textext(first_label)) or ''
+  out = out .. '\\begin{PreviewCodeBox}{' .. first_tex .. '}{'..textext(continued_label)..'}{'..kind..'}\n'
   local function chunk(first,last,keep)
     if first>last then return '' end
     local part='\\begin{'..env..'}[firstnumber='..first..']\n'..table.concat(lines,'\n',first,last)..'\n\\end{'..env..'}\n'

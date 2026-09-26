@@ -16,7 +16,8 @@
     "local_navigation_titles": ["章节目录"],
     "min_head_lines": 4,
     "min_tail_lines": 6,
-    "short_table_lines": 12
+    "short_table_lines": 12,
+    "closing_groups": {"G6": "18. 从机器观察转向语言并发模型"}
   },
   "sources": [
     {

@@ -203,6 +203,61 @@ class RealPreviewTests(unittest.TestCase):
         self.assertEqual(json.loads((self.run_path() / "preview-result.json").read_text())["status"], "FAILED")
         self.assertTrue(list(self.run_path().glob("work/typeset/*/compile-0.txt.command.json")))
 
+    def test_real_semantic_components_and_emergency_wrap(self):
+        # One deliberately over-page template and one long negative example.
+        # This exercises continuation semantics absent from the short real
+        # reference templates, without claiming new data rows or C++ validity.
+        self.inject(r'''\makeatletter
+\edef\PreviewProbe{\detokenize{_}}
+\expandafter\let\expandafter\FV@LastToken\PreviewProbe
+\PreviewSelectBreak
+\def\PreviewExpected{\penalty500 }
+\ifx\PreviewNextBreak\PreviewExpected\else\errmessage{underscore boundary priority lost}\fi
+\makeatother''')
+        path=self.root/'00-fixture.md'
+        header=path.read_text().split('# 1. 原文条件')[0]
+        fields=[f'Field{i:02}' for i in range(38)]
+        source=header+'# 1. Component proof\n\n## Writable schema\n\n'
+        source+='|'+'|'.join(fields)+'|\n|'+'|'.join(['---']*len(fields))+'|\n\n'
+        source+='## Negative example\n\n[反例 · 隔离检测 · LAB-1 · main.cpp]\n\n'
+        source+='```{.cpp reading-kind="experiment" reading-caption="LAB-1 · main.cpp"}\n'
+        source+='\n'.join(f'observe({i});' for i in range(82))+'\n```\n\n'
+        source+='## Wrap\n\n```yaml\nvalue: "FUNCTIONAL|SECURITY|OPERATIONAL|RECOVERY|ASSURANCE_META|'
+        source+='CONDITIONALLY_CONFORMANT|'*3+'"\n'
+        source+='hash: "'+'a'*180+'"\n```\n'
+        path.write_text(source)
+        config_path=self.root/'publication/profiles/fixture/profile.json'
+        config=json.loads(config_path.read_text())
+        config['views']=config['views'][:1]
+        config['required_headings']=[]
+        config_path.write_text(json.dumps(config))
+        child=self.start();out,err=child.communicate(timeout=240)
+        audit_path=self.run_path()/'work/preview-audit.json'
+        details=audit_path.read_text() if audit_path.exists() else ''
+        self.assertEqual(child.returncode,0,err+'\n'+(self.run_path()/'work/worker.log').read_text()+'\n'+details)
+        from pypdf import PdfReader
+        r=PdfReader(self.run_path()/'work/output/pdf/TEST-0-draft.pdf')
+        names=r.named_destinations
+        table=json.loads((self.run_path()/'work/typeset/TEST-0/table-map.json').read_text())[0]
+        self.assertEqual(table['row_text'],[])
+        a=r.get_destination_page_number(names['TEST-0-T01-template-start'])
+        b=r.get_destination_page_number(names['TEST-0-T01-template-end'])
+        self.assertGreater(b,a)
+        for n in range(a+1,b+1):
+            self.assertIn('continued',r.pages[n].extract_text())
+            self.assertIn('Writable schema',r.pages[n].extract_text())
+        for n in range(1,39):
+            self.assertAlmostEqual(float(names[f'TEST-0-T01-TF{n}']['/Top']),float(names[f'TEST-0-T01-TF{n}-value']['/Top']),delta=.8)
+        self.assertEqual(r.get_destination_page_number(names['TEST-0-C01-role']),r.get_destination_page_number(names['TEST-0-C01-L1']))
+        a=r.get_destination_page_number(names['TEST-0-C01-L1'])
+        b=r.get_destination_page_number(names['TEST-0-C01-L82'])
+        self.assertGreater(b,a)
+        for n in range(a+1,b+1):
+            self.assertIn('反例 · LAB-1 · main.cpp · continued',r.pages[n].extract_text())
+        self.assertIn('OPERATIONAL','\n'.join(p.extract_text() for p in r.pages))
+        log=(self.run_path()/'work/typeset/TEST-0/document.log').read_text()
+        self.assertNotIn('Overfull \\hbox',log)
+
     def test_real_pdf_missing_literal_spaces_is_rejected(self):
         self.inject(r'\renewcommand{\PreviewCodeSpace}{}')
         child = self.start()
@@ -211,6 +266,24 @@ class RealPreviewTests(unittest.TestCase):
         report = json.loads((self.run_path() / 'work/preview-audit.json').read_text())
         self.assertTrue(all(view['inline_literal_errors'] for view in report['views']))
         self.assertEqual(json.loads((self.run_path() / 'preview-result.json').read_text())['status'], 'FAILED')
+
+    def test_real_identifier_boundary_mutant_rejected(self):
+        style=self.root/'publication/latex/kb-base.sty'
+        value=style.read_text()
+        fixed=r'\edef\PreviewIdentifierTokens{\detokenize{_/.-}}'
+        self.assertIn(fixed,value)
+        style.write_text(value.replace(fixed,r'\def\PreviewIdentifierTokens{_/.-}'))
+        self.inject(r'''\makeatletter
+\edef\PreviewProbe{\detokenize{_}}
+\expandafter\let\expandafter\FV@LastToken\PreviewProbe
+\PreviewSelectBreak
+\def\PreviewExpected{\penalty500 }
+\ifx\PreviewNextBreak\PreviewExpected\else\errmessage{underscore boundary priority lost}\fi
+\makeatother''')
+        child=self.start();child.communicate(timeout=150)
+        self.assertNotEqual(child.returncode,0)
+        self.assertIn('underscore boundary priority lost',(self.run_path()/'work/worker.log').read_text())
+        self.assertEqual(json.loads((self.run_path()/'preview-result.json').read_text())['status'],'FAILED')
 
     def test_real_pdf_preface_target_on_cover_is_rejected(self):
         original = self.template.read_text()

@@ -1,0 +1,1573 @@
+{
+  "raw_geometry_sha256": "5527271eec4f550e93a2ce05d3116a6f155684b4baee660e603f64b5d4f08892",
+  "interpretation": "Bounded classification of CJK punctuation side bearings/protrusion; raw observations remain unchanged. Not a visual proof.",
+  "explained": [
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 11,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 276.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 13,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 513.61,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 14,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 620.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 15,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 293.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 17,
+      "text": "：",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 288.27,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 17,
+      "text": "（",
+      "x0": 56.91,
+      "x1": 67.82,
+      "bottom": 420.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 17,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 515.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 18,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 300.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 103.58,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 21,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 429.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.24,
+      "x1": 538.15,
+      "bottom": 589.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 538.9,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 23,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 189.7,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 23,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 565.49,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 25,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 213.9,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 27,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 239.27,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 28,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 587.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 28,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 709.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 29,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 283.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 36,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 759.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 38,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 469.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 40,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 440.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 42,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 207.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 189.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 351.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 422.88,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 472.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 651.06,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 684.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 153.24,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 47,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 191.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 526.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 563.46,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 48,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 621.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 50,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 413.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 52,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 250.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 52,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 602.86,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 52,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 619.39,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 54,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 232.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 54,
+      "text": "）",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 602.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 56,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 386.68,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 56,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 561.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 60,
+      "text": "。",
+      "x0": 527.29,
+      "x1": 538.2,
+      "bottom": 536.45,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 62,
+      "text": "。",
+      "x0": 526.82,
+      "x1": 537.73,
+      "bottom": 340.58,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 62,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 630.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 66,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 133.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 66,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 149.93,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 73,
+      "text": "？",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 133.4,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 73,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 267.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 78,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 74.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 78,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 251.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 82,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 86,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 513.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 86,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 532.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 87,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 87,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 422.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 88,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 217.05,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf",
+      "page": 89,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 351.94,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 11,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 280.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 13,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 527.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 14,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 655.08,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 15,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 332.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 17,
+      "text": "：",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 289.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 17,
+      "text": "（",
+      "x0": 56.91,
+      "x1": 67.82,
+      "bottom": 432.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 17,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 533.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 18,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 399.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 103.95,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 21,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 439.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.24,
+      "x1": 538.15,
+      "bottom": 600.58,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 562.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 23,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 190.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 23,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 581.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 25,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 265.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 27,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 400.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 28,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 754.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 29,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 164.66,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 29,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 448.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 37,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 38,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 614.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 40,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 531.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 42,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 207.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 193.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 360.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 481.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 665.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 698.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 154.24,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 47,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 192.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 537.37,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 574.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 48,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 667.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 50,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 422.86,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 52,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 454.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 53,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 53,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 121.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 54,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 55,
+      "text": "）",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 56,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 678.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 57,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 206.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 61,
+      "text": "。",
+      "x0": 527.29,
+      "x1": 538.2,
+      "bottom": 238.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 62,
+      "text": "。",
+      "x0": 526.82,
+      "x1": 537.73,
+      "bottom": 773.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 63,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 341.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 66,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 673.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 66,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 689.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 74,
+      "text": "？",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 274.64,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 74,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 413.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 79,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 457.09,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 79,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 633.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 83,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 520.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 87,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 522.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 87,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 540.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 88,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 110.56,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 88,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 467.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 89,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 293.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/CPP-PILOT-G6-G7-draft.pdf",
+      "page": 90,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 496.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 10,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 280.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 12,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 527.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 655.08,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 14,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 332.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 16,
+      "text": "：",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 289.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 16,
+      "text": "（",
+      "x0": 56.91,
+      "x1": 67.82,
+      "bottom": 432.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 16,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 533.73,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 17,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 399.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 20,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 103.95,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 20,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 439.34,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 20,
+      "text": "。",
+      "x0": 527.24,
+      "x1": 538.15,
+      "bottom": 600.58,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 562.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 190.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 581.43,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 24,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 265.16,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 26,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 400.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 27,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 754.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 28,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 164.66,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 28,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 448.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 36,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 37,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 614.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 39,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 531.8,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 41,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 207.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 193.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 360.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.85,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 481.44,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 665.01,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 45,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 698.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 46,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 154.24,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 192.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 46,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 537.37,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 46,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 574.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G6-draft.pdf",
+      "page": 47,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 667.17,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 4,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 422.86,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 6,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 454.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 7,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 104.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 7,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 121.18,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 8,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 431.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 9,
+      "text": "）",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 10,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 678.69,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 11,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 206.41,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 15,
+      "text": "。",
+      "x0": 527.29,
+      "x1": 538.2,
+      "bottom": 238.07,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 16,
+      "text": "。",
+      "x0": 526.82,
+      "x1": 537.73,
+      "bottom": 773.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 17,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 341.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 20,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 673.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 20,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 689.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 28,
+      "text": "？",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 274.64,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 28,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 413.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 33,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 457.09,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 33,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 633.76,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 37,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 520.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 41,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 522.47,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 41,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 540.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 42,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 110.56,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 42,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 467.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 43,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 293.28,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/G7-draft.pdf",
+      "page": 44,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 496.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    }
+  ],
+  "unresolved": []
+}

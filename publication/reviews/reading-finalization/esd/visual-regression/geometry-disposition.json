@@ -1,0 +1,1294 @@
+{
+  "raw_geometry_sha256": "4a227d43af9091fa2728157b7f3c594c8a7ce2b350fa4509119a81c46c5defa6",
+  "interpretation": "Bounded classification of CJK punctuation side bearings/protrusion; raw observations remain unchanged. Not a visual proof.",
+  "explained": [
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 5,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 646.52,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 7,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 602.09,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 8,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 740.7,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 436.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 481.27,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 17,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 558.93,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 17,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 591.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 20,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 595.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 22,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 719.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 27,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 660.57,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 28,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 666.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 29,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 430.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 33,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 155.54,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 33,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 410.22,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-ASSURANCE-001-draft.pdf",
+      "page": 34,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 652.48,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 17,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 587.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 17,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 759.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 18,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 416.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 18,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 525.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 21,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 457.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 26,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 311.82,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 29,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 642.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-GOV-001-draft.pdf",
+      "page": 32,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 400.98,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 10,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 191.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 13,
+      "text": "；",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 581.33,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 14,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 231.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 14,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 269.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 14,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 307.79,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 14,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 324.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 26,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 241.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 26,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 279.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 27,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 499.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 30,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 365.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 33,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 693.91,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 40,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 556.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 43,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 466.31,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 49,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 311.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 59,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 272.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 59,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 573.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 82,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 581.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 87,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 474.39,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 90,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 338.36,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 90,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 654.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 91,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 517.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 91,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 569.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 92,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 196.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 93,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 173.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 93,
+      "text": "，",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 292.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 93,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 540.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 93,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 573.06,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 94,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 137.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 94,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 230.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 94,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 743.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 96,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 608.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 98,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 324.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 104,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 571.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 118,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 587.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 118,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 759.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 119,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 416.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 119,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 525.78,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 122,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 457.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 127,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 311.82,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 130,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 642.14,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 133,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 400.98,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 139,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 646.52,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 141,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 602.09,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 142,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 740.7,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 147,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 436.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 147,
+      "text": "。",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 481.27,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 151,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 558.93,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 151,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 591.99,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 154,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 595.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 156,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 719.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 161,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 660.57,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 162,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 666.38,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 163,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 430.81,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 167,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 155.54,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 167,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 410.22,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 168,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 652.48,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 178,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 190,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 294.2,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 191,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 335.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 199,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 254.21,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 200,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 291.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-HANDBOOK-draft.pdf",
+      "page": 208,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 388.55,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 7,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 241.53,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 7,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 279.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 8,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 499.03,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 11,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 365.72,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 14,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 693.91,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 21,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 556.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 24,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 466.31,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-METHOD-001-draft.pdf",
+      "page": 30,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 311.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 7,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 144.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 19,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 294.2,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 20,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 335.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 28,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 254.21,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 29,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 291.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-OPS-001-draft.pdf",
+      "page": 37,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 388.55,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 272.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 13,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 564.04,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 35,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 652.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 40,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 245.12,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 42,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 479.42,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 43,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 75.5,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 43,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 558.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 43,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 609.59,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 44,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 195.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 45,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 172.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 45,
+      "text": "，",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 291.24,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 45,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 539.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 45,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 572.06,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 137.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 230.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 46,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 743.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 48,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 586.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 50,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 323.88,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-COMPACT-draft.pdf",
+      "page": 56,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 540.65,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 13,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 272.84,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 13,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 573.63,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 36,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.36,
+      "bottom": 581.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 41,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 474.39,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 44,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 338.36,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 44,
+      "text": "，",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 654.6,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 45,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 517.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 45,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 569.29,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 46,
+      "text": "。",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 196.51,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 47,
+      "text": "：",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 173.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 47,
+      "text": "，",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 292.23,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 540.0,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 47,
+      "text": "、",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 573.06,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 48,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 137.74,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 48,
+      "text": "，",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 230.35,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 48,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 743.83,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 50,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 608.25,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 52,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 324.87,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-REFERENCE-001-draft.pdf",
+      "page": 58,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 571.3,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 5,
+      "text": "；",
+      "x0": 527.46,
+      "x1": 538.37,
+      "bottom": 191.13,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 8,
+      "text": "；",
+      "x0": 527.47,
+      "x1": 538.38,
+      "bottom": 581.33,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 9,
+      "text": "、",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 231.71,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 9,
+      "text": "。",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 269.75,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 9,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 307.79,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    },
+    {
+      "pdf": "output/pdf/ESD-SUITE-000-draft.pdf",
+      "page": 9,
+      "text": "；",
+      "x0": 527.45,
+      "x1": 538.36,
+      "bottom": 324.32,
+      "classification": "CJK_PUNCTUATION_HALF_CELL_METRICS"
+    }
+  ],
+  "unresolved": []
+}

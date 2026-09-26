@@ -1,0 +1,278 @@
+[
+  {
+    "from": "G7",
+    "source": "README.md#基线与证据状态",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md#%E5%9F%BA%E7%BA%BF%E4%B8%8E%E8%AF%81%E6%8D%AE%E7%8A%B6%E6%80%81"
+  },
+  {
+    "from": "G7",
+    "source": "editorial-profile.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/editorial-profile.md"
+  },
+  {
+    "from": "G7",
+    "source": "handbook-guide.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/handbook-guide.md"
+  },
+  {
+    "from": "G7",
+    "source": "g06-memory-and-performance.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g06-memory-and-performance.md"
+  },
+  {
+    "from": "G7",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md"
+  },
+  {
+    "from": "G7",
+    "source": "g08-abi-and-c-interop.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g08-abi-and-c-interop.md"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-1"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-2"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-3"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-4"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-5"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-6",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-6"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-7",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-7"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-8",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-8"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-9",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-9"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-10",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-10"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-11",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-11"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-12",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-12"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-13",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-13"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-14",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-14"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-15",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-15"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-16",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-16"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-17",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-17"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-18",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-18"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-19",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-19"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-20",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-20"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-21",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-21"
+  },
+  {
+    "from": "G7",
+    "source": "#g7-section-22",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#g7-section-22"
+  },
+  {
+    "from": "G7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/intro.races",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/intro.races"
+  },
+  {
+    "from": "G7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/atomics.order",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/atomics.order"
+  },
+  {
+    "from": "G7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvarany",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvarany"
+  },
+  {
+    "from": "G7",
+    "source": "g01-object-model.md#g1-object",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g01-object-model.md#g1-object"
+  },
+  {
+    "from": "G7",
+    "source": "g02-raii-and-ownership.md#g2-section-1",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g02-raii-and-ownership.md#g2-section-1"
+  },
+  {
+    "from": "G7",
+    "source": "g02-raii-and-ownership.md#g2-section-9",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g02-raii-and-ownership.md#g2-section-9"
+  },
+  {
+    "from": "G7",
+    "source": "g03-value-semantics-and-performance.md#g3-section-4",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g03-value-semantics-and-performance.md#g3-section-4"
+  },
+  {
+    "from": "G7",
+    "source": "g03-value-semantics-and-performance.md#g3-section-8",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g03-value-semantics-and-performance.md#g3-section-8"
+  },
+  {
+    "from": "G7",
+    "source": "g05-generics-and-compile-time.md#g5-section-9",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g05-generics-and-compile-time.md#g5-section-9"
+  },
+  {
+    "from": "G7",
+    "source": "g06-memory-and-performance.md#g6-section-8",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g06-memory-and-performance.md#g6-section-8"
+  },
+  {
+    "from": "G7",
+    "source": "g08-abi-and-c-interop.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g08-abi-and-c-interop.md"
+  },
+  {
+    "from": "G7",
+    "source": "g10-systems-runtime-project.md#g10-section-7",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/g10-systems-runtime-project.md#g10-section-7"
+  },
+  {
+    "from": "G7",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/README.md"
+  },
+  {
+    "from": "G7",
+    "source": "learning/README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/learning/README.md"
+  },
+  {
+    "from": "G7",
+    "source": "learning/professional-revision.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/8f479deaf660533b2ad82e1f721eb41a363112b6/c%2B%2B/learning/professional-revision.md"
+  },
+  {
+    "from": "G7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/intro.races",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/intro.races"
+  },
+  {
+    "from": "G7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/atomics.order",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/atomics.order"
+  },
+  {
+    "from": "G7",
+    "source": "https://clang.llvm.org/docs/ThreadSanitizer.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://clang.llvm.org/docs/ThreadSanitizer.html"
+  }
+]

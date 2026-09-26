@@ -1,0 +1,210 @@
+{
+  "role": "DERIVED_VISUAL_REVIEW_NOT_CANDIDATE_PAYLOAD",
+  "files": [
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-001.png",
+      "bytes": 50453,
+      "sha256": "9ced74147e6c092756ab229daab419bc4e710e9d8a57dc0187cb3e4a53701d01"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-002.png",
+      "bytes": 163750,
+      "sha256": "1ae92e98b8aeafe6587f700020b036e5be2abfc1bd5d7eea1f2ad0a328cf41f0"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-003.png",
+      "bytes": 152203,
+      "sha256": "6035c068e1fd8606bd35955dd676f1857cf2181f94d17fee774e1139d65c97ca"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-004.png",
+      "bytes": 97519,
+      "sha256": "52a32c0684a64d11562d4babc20b27ed6e41cf207d8bc3d066f457a2cad05a53"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-041.png",
+      "bytes": 142638,
+      "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-042.png",
+      "bytes": 122559,
+      "sha256": "193d16ea125d027a88e35c6f166571bdf91c3bef81613b03697644888072e849"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-049.png",
+      "bytes": 96619,
+      "sha256": "1948c7990b515a6d1c5afed317f078ef2d1a39698da491566f43edc289efb795"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-050.png",
+      "bytes": 250086,
+      "sha256": "76cfec0df28339e0552e15e9f43ff7136ed1e8d04bd4b83deec20af8290fe174"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-052.png",
+      "bytes": 186895,
+      "sha256": "66a8daacc68603e380a1c855c485cf5ff294b92dd5b3fb2d62860b22afa4e9a5"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-065.png",
+      "bytes": 149100,
+      "sha256": "b892f4d6ef1ca7171ed9a856b5f53ea60f55c5f4563c050388e392e9a50a74cf"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-081.png",
+      "bytes": 184094,
+      "sha256": "1520c80b9a694158325f3360ae00193a63c05b3f666a8f4309971a4a42530aa1"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-082.png",
+      "bytes": 136243,
+      "sha256": "ac2c27ed590245808f0c0dcb9da4ef656b0f793c28dbfd416ddf78f73858a2c7"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-083.png",
+      "bytes": 233207,
+      "sha256": "dcbbcf9cb399cd4af2bd3380ef0163e6c157e650428fde928dd8b51b0f0cb960"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-090.png",
+      "bytes": 192043,
+      "sha256": "288503727f145219bd89267a1cd975bdd2d15f2aa019f994202639635af69983"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-003.png",
+      "bytes": 158698,
+      "sha256": "6343a1e1777b7ea7abc5cb8ae17d1bc27ee1c43a1cbf98906463edf2fdc0dfc3"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-004.png",
+      "bytes": 93527,
+      "sha256": "597d9d3c16085a213723e255638e21092cc5f50b598b1569706c1dc87d027ff9"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-041.png",
+      "bytes": 142638,
+      "sha256": "2248e0796ce0698ebead347495014f21648920139dfd67126fc8a352322a8422"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-042.png",
+      "bytes": 122559,
+      "sha256": "193d16ea125d027a88e35c6f166571bdf91c3bef81613b03697644888072e849"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-049.png",
+      "bytes": 96619,
+      "sha256": "1948c7990b515a6d1c5afed317f078ef2d1a39698da491566f43edc289efb795"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-050.png",
+      "bytes": 253131,
+      "sha256": "6c752d60a4c835878c88a408624bda9093e9b00ade12f5ac190f529024d276a9"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-051.png",
+      "bytes": 232436,
+      "sha256": "72bca651e7a216df0c99a1b519666df484bbb4480cc67d31e82fb5ee5e8aea7f"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-064.png",
+      "bytes": 162587,
+      "sha256": "f802487de025f70ab2c9518b465616f017f7d70cac83913963c89093ecd0c5b7"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-079.png",
+      "bytes": 207364,
+      "sha256": "39248d0f5d6ee19c263a5d9849b890a88b1da0dcf51a23e8489062d1ac0d9266"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-080.png",
+      "bytes": 130537,
+      "sha256": "cc7b31d912ca609b0a8f520f5946aef4fa4142f92247c319624a2aaac2beaf1c"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-081.png",
+      "bytes": 250426,
+      "sha256": "9ede2f3350e8a8717a04806bea51ba2356dcae806dcd2eb02b6264e9f60ce0ee"
+    },
+    {
+      "path": "visual-regression/CPP-PILOT-G6-G7-COMPACT-089.png",
+      "bytes": 160205,
+      "sha256": "22f929884eb23738b22e16a498b9245947f5bb3846a950c58a251f0b0b138984"
+    },
+    {
+      "path": "visual-regression/G6-040.png",
+      "bytes": 142793,
+      "sha256": "41c201a1e74bc551e6783a192e292fbaa9d5472cc4eb1856b56b55e29fb4f0c6"
+    },
+    {
+      "path": "visual-regression/G6-041.png",
+      "bytes": 122431,
+      "sha256": "2bfbe054375d08a23535d115da30299d3213e968fc7c75c6a8292d089d2a705a"
+    },
+    {
+      "path": "visual-regression/G6-048.png",
+      "bytes": 96758,
+      "sha256": "6ae5c2f85b0bbeb629a8a903e6beeeb8053e065b689fe710f4bbd0c444fcc672"
+    },
+    {
+      "path": "visual-regression/G7-004.png",
+      "bytes": 249795,
+      "sha256": "e1225f6b8ad9e48e2b6c6f9ad70f64e4264999be3f2ced2df1c842c57b4805d0"
+    },
+    {
+      "path": "visual-regression/G7-006.png",
+      "bytes": 186778,
+      "sha256": "70ba13e309793f5c9ca60df864c34bbd63b02617d48b3db6fa346f2b3accac90"
+    },
+    {
+      "path": "visual-regression/G7-019.png",
+      "bytes": 148992,
+      "sha256": "68db7b124873606604dc5e091b3c0b0e0817468255bfc6270c818c697f125e5f"
+    },
+    {
+      "path": "visual-regression/G7-035.png",
+      "bytes": 184175,
+      "sha256": "74d01c65466239a753adc82a9d5c2fd8daa38f04046173690f2b39bd5184b242"
+    },
+    {
+      "path": "visual-regression/G7-036.png",
+      "bytes": 136266,
+      "sha256": "bf362c1740ba49831da3fadf59c9670164f757ab74c572894300afb59f0f17a6"
+    },
+    {
+      "path": "visual-regression/G7-037.png",
+      "bytes": 233060,
+      "sha256": "dec3a6dccd46865ff4b9d52e696b56ff77acb5bb43522135e3ff4b1d33383207"
+    },
+    {
+      "path": "visual-regression/G7-038.png",
+      "bytes": 141205,
+      "sha256": "70c898e32493470e8dd6bf95d5c3edbcd7be34bd60ca1180413675492ed61efd"
+    },
+    {
+      "path": "visual-regression/G7-039.png",
+      "bytes": 205707,
+      "sha256": "61b057885287aa02c1a655d07aa94838c6a306f8d6097c2e05f69d67146fa6f1"
+    },
+    {
+      "path": "visual-regression/G7-044.png",
+      "bytes": 191886,
+      "sha256": "fee83175c12e1147cee2ff0e96f8f0ce0291a7bacc0747519deee52b1402ba20"
+    },
+    {
+      "path": "visual-regression/geometry-disposition.json",
+      "bytes": 39796,
+      "sha256": "b45ed62753e29de8179bd1909f0563e93c593fd23cb1e3649000b1ab91c406a5"
+    },
+    {
+      "path": "visual-regression/geometry.json",
+      "bytes": 77468,
+      "sha256": "5527271eec4f550e93a2ce05d3116a6f155684b4baee660e603f64b5d4f08892"
+    },
+    {
+      "path": "visual-regression/page-map.json",
+      "bytes": 62268,
+      "sha256": "97c90b490d925c59f20327b5989e617cc16e468ec1cfb5e0e723df29ef9fa24d"
+    }
+  ]
+}

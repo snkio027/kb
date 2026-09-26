@@ -1,0 +1,133 @@
+{
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "artifacts": {
+    "output/pdf/CPP-PILOT-G6-G7-COMPACT-draft.pdf": "a658f774ffb9bd2571af785ca6e16eee4ee14394d4ecce41db6feb4b59f27f40",
+    "output/pdf/CPP-PILOT-G6-G7-draft.pdf": "2f7a70fb4a36bbba3f2d038a47a7cdf9f7461e75ada2c0ccc65825060ebaeb7d",
+    "output/pdf/G6-draft.pdf": "7f64df57b01818a51012aa58f9a082f8e0dd902017104f1e02442e7224dbc853",
+    "output/pdf/G7-draft.pdf": "787f2a79d1cbc2c6cb4771cc27c460a8162c70e370f262ce1f7199a626c53b38"
+  },
+  "audit_sha256": "9f08a1cc4cac2293e0fc8e8979c1ac032f62b7f7961ef41c999299836064cdb5",
+  "structural_status": "STRUCTURAL_PASS",
+  "page_map_sha256": "97c90b490d925c59f20327b5989e617cc16e468ec1cfb5e0e723df29ef9fa24d",
+  "visual_inspection": {
+    "preview_attempt": "publication/build/preview/c0ce3381c728be48e0f7cc676af5cece0feaad6c605666d926153580d80c403c/f4d7316b966f4bd2bec917cee6379079",
+    "inspected_images": [
+      {
+        "path": "G6-040.png",
+        "sha256": "41c201a1e74bc551e6783a192e292fbaa9d5472cc4eb1856b56b55e29fb4f0c6",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G6-041.png",
+        "sha256": "2bfbe054375d08a23535d115da30299d3213e968fc7c75c6a8292d089d2a705a",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-035.png",
+        "sha256": "74d01c65466239a753adc82a9d5c2fd8daa38f04046173690f2b39bd5184b242",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-036.png",
+        "sha256": "bf362c1740ba49831da3fadf59c9670164f757ab74c572894300afb59f0f17a6",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-037.png",
+        "sha256": "dec3a6dccd46865ff4b9d52e696b56ff77acb5bb43522135e3ff4b1d33383207",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-006.png",
+        "sha256": "70ba13e309793f5c9ca60df864c34bbd63b02617d48b3db6fa346f2b3accac90",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-019.png",
+        "sha256": "68db7b124873606604dc5e091b3c0b0e0817468255bfc6270c818c697f125e5f",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-049.png",
+        "sha256": "1948c7990b515a6d1c5afed317f078ef2d1a39698da491566f43edc289efb795",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-038.png",
+        "sha256": "70c898e32493470e8dd6bf95d5c3edbcd7be34bd60ca1180413675492ed61efd",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-039.png",
+        "sha256": "61b057885287aa02c1a655d07aa94838c6a306f8d6097c2e05f69d67146fa6f1",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-003.png",
+        "sha256": "6035c068e1fd8606bd35955dd676f1857cf2181f94d17fee774e1139d65c97ca",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-004.png",
+        "sha256": "52a32c0684a64d11562d4babc20b27ed6e41cf207d8bc3d066f457a2cad05a53",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G6-048.png",
+        "sha256": "6ae5c2f85b0bbeb629a8a903e6beeeb8053e065b689fe710f4bbd0c444fcc672",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "G7-044.png",
+        "sha256": "fee83175c12e1147cee2ff0e96f8f0ce0291a7bacc0747519deee52b1402ba20",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-050.png",
+        "sha256": "76cfec0df28339e0552e15e9f43ff7136ed1e8d04bd4b83deec20af8290fe174",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-083.png",
+        "sha256": "dcbbcf9cb399cd4af2bd3380ef0163e6c157e650428fde928dd8b51b0f0cb960",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-001.png",
+        "sha256": "9ced74147e6c092756ab229daab419bc4e710e9d8a57dc0187cb3e4a53701d01",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-002.png",
+        "sha256": "1ae92e98b8aeafe6587f700020b036e5be2abfc1bd5d7eea1f2ad0a328cf41f0",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-081.png",
+        "sha256": "9ede2f3350e8a8717a04806bea51ba2356dcae806dcd2eb02b6264e9f60ce0ee",
+        "review_method": "Direct inspection of full final page PNG"
+      },
+      {
+        "path": "CPP-PILOT-G6-G7-COMPACT-003.png",
+        "sha256": "6343a1e1777b7ea7abc5cb8ae17d1bc27ee1c43a1cbf98906463edf2fdc0dfc3",
+        "review_method": "Direct inspection of full final page PNG"
+      }
+    ],
+    "observations": [
+      "Danger source role/warning stays with first code; G7-D3 is complete on the sampled first page in standalone, combined and compact views.",
+      "Long experiments retain ID and filename on continuation; no printed internal Cxx identity layer.",
+      "Comparison matrix, chapter opening, cover/control pages, TOCs and Gate pages retain hierarchy and readable scale.",
+      "G6 closing transition and reference form one exit unit; header follows the final section. G7 final page retains meaningful content.",
+      "No clipping, overlap, unreadable scaling or detached danger identity observed in inspected pages."
+    ]
+  },
+  "limitations": [
+    "Self-review is not independent acceptance, VISUAL_PROFILE_FROZEN or formal release.",
+    "Automated destination, text and glyph geometry checks are bounded oracles, not proof of every visual relationship or technical correctness.",
+    "The 38-field long empty-template and long-danger continuation are real-compile synthetic regressions; final source templates are short and remain whole. Synthetic pages are not included in the 50 final-image review count.",
+    "G7 Final Gate retains source formatting of standalone expressions and question marks; this batch does not rewrite or repunctuate frozen questions.",
+    "Natural whitespace at chapter openings, TOC endings and complete closing units is retained; no page-fill target is imposed.",
+    "Writable template lines are a print/read view, not interactive AcroForm fields.",
+    "No C++ experiment, performance or concurrency rerun; no accessibility certification or cross-platform renderer validation."
+  ]
+}

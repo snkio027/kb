@@ -1,21 +1,175 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "binding": "Exact document + source heading/table headers or experiment ID/file; source hashes come from the prepared source catalog. No physical page is a fixture identity.",
   "fixtures": [
-    {"id":"cpp-g6-code-tail","document":"G6","kind":"code","caption":"G6-M3 · main.cpp"},
-    {"id":"cpp-g7-short-table","document":"G7","kind":"table","section":"8.1 Queue 首先按 Topology 分类"},
-    {"id":"cpp-g7-experiment","document":"G7","kind":"code","caption":"G7-D2 · main.cpp"},
-    {"id":"cpp-g7-reference","document":"G7","kind":"heading","title":"22. 参考与验证入口"},
-    {"id":"cpp-global-toc","view":"CPP-PILOT-G6-G7","kind":"toc"},
-    {"id":"cpp-source-status","document":"G7","kind":"opening"},
-    {"id":"esd-reference-toc","view":"ESD-REFERENCE-001","kind":"toc"},
-    {"id":"esd-suite-record","document":"ESD-SUITE-000","kind":"table","section":"2.1 核心文档"},
-    {"id":"esd-code-wrap","document":"ESD-ASSURANCE-001","kind":"code","contains":"evidence_type:"},
-    {"id":"esd-ops-template","document":"ESD-OPS-001","kind":"table","headers":["资源","单位","正常上限","故障上限","满载行为","Owner","Signal"]},
-    {"id":"esd-ops-comparison","document":"ESD-OPS-001","kind":"table","section":"24. 按风险等级的最低运行要求"},
-    {"id":"esd-raci","document":"ESD-GOV-001","kind":"table","section":"5.2 RACI 最低要求"},
-    {"id":"esd-method-hierarchy","document":"ESD-METHOD-001","kind":"heading","title":"6. 从问题、约束与风险开始"},
-    {"id":"esd-global-toc","view":"ESD-HANDBOOK","kind":"toc"},
-    {"id":"esd-clause-index","view":"ESD-HANDBOOK","kind":"destination","anchor":"generated-requirement-index"}
-  ]
+    {
+      "id": "cpp-g6-code-tail",
+      "document": "G6",
+      "kind": "code",
+      "caption": "G6-M3 · main.cpp",
+      "purpose": "experiment-continuation"
+    },
+    {
+      "id": "cpp-g7-short-table",
+      "document": "G7",
+      "kind": "table",
+      "section": "8.1 Queue 首先按 Topology 分类",
+      "purpose": "short-table-integrity"
+    },
+    {
+      "id": "cpp-g7-experiment",
+      "document": "G7",
+      "kind": "code",
+      "caption": "G7-D2 · main.cpp",
+      "purpose": "experiment-continuation"
+    },
+    {
+      "id": "cpp-g7-reference",
+      "document": "G7",
+      "kind": "heading",
+      "title": "22. 参考与验证入口",
+      "purpose": "short-tail-page"
+    },
+    {
+      "id": "cpp-global-toc",
+      "view": "CPP-PILOT-G6-G7",
+      "kind": "toc",
+      "purpose": "chapter-navigation"
+    },
+    {
+      "id": "cpp-source-status",
+      "document": "G7",
+      "kind": "opening",
+      "purpose": "chapter-navigation"
+    },
+    {
+      "id": "esd-reference-toc",
+      "view": "ESD-REFERENCE-001",
+      "kind": "toc",
+      "purpose": "chapter-navigation"
+    },
+    {
+      "id": "esd-suite-record",
+      "document": "ESD-SUITE-000",
+      "kind": "table",
+      "section": "2.1 核心文档",
+      "purpose": "record-baseline-alignment"
+    },
+    {
+      "id": "esd-code-wrap",
+      "document": "ESD-ASSURANCE-001",
+      "kind": "code",
+      "contains": "evidence_type:",
+      "purpose": "semantic-soft-wrap",
+      "unbroken_token": "OPERATIONAL"
+    },
+    {
+      "id": "esd-ops-template",
+      "document": "ESD-OPS-001",
+      "kind": "table",
+      "headers": [
+        "资源",
+        "单位",
+        "正常上限",
+        "故障上限",
+        "满载行为",
+        "Owner",
+        "Signal"
+      ],
+      "purpose": "record-baseline-alignment"
+    },
+    {
+      "id": "esd-ops-comparison",
+      "document": "ESD-OPS-001",
+      "kind": "table",
+      "section": "24. 按风险等级的最低运行要求",
+      "purpose": "comparison-matrix"
+    },
+    {
+      "id": "esd-raci",
+      "document": "ESD-GOV-001",
+      "kind": "table",
+      "section": "5.2 RACI 最低要求",
+      "purpose": "comparison-matrix"
+    },
+    {
+      "id": "esd-method-hierarchy",
+      "document": "ESD-METHOD-001",
+      "kind": "heading",
+      "title": "6. 从问题、约束与风险开始",
+      "purpose": "heading-hierarchy"
+    },
+    {
+      "id": "esd-global-toc",
+      "view": "ESD-HANDBOOK",
+      "kind": "toc",
+      "purpose": "chapter-navigation"
+    },
+    {
+      "id": "esd-clause-index",
+      "view": "ESD-HANDBOOK",
+      "kind": "destination",
+      "anchor": "generated-requirement-index",
+      "purpose": "chapter-navigation"
+    },
+    {
+      "id": "cpp-danger-role",
+      "purpose": "danger-role-binding",
+      "document": "G7",
+      "kind": "code",
+      "caption": "G7-D3 · main.cpp"
+    },
+    {
+      "id": "cpp-danger-snippet",
+      "purpose": "danger-role-binding",
+      "document": "G7",
+      "kind": "code",
+      "contains": "int value = 0;\nbool ready = false;"
+    },
+    {
+      "id": "cpp-g6-experiment-identity",
+      "purpose": "reader-facing-code-identity",
+      "document": "G6",
+      "kind": "code",
+      "caption": "G6-M3 · kernel.cpp"
+    },
+    {
+      "id": "cpp-g6-final",
+      "purpose": "short-tail-page",
+      "document": "G6",
+      "kind": "heading",
+      "title": "18. 从机器观察转向语言并发模型",
+      "include_section_end": true
+    },
+    {
+      "id": "esd-empty-state",
+      "purpose": "empty-template-continuation",
+      "document": "ESD-REFERENCE-001",
+      "kind": "table",
+      "section": "13.5 State Ownership Register"
+    },
+    {
+      "id": "esd-empty-mode",
+      "purpose": "empty-template-continuation",
+      "document": "ESD-REFERENCE-001",
+      "kind": "table",
+      "section": "13.8 Operating Mode Matrix"
+    },
+    {
+      "id": "esd-ops-final",
+      "purpose": "short-tail-page",
+      "document": "ESD-OPS-001",
+      "kind": "heading",
+      "title": "30. 结论",
+      "include_section_end": true
+    },
+    {
+      "id": "esd-method-literal",
+      "purpose": "reader-facing-code-identity",
+      "document": "ESD-METHOD-001",
+      "kind": "code",
+      "contains": "validation_status: UNVALIDATED | VALIDATED | VIOLATED | UNKNOWN"
+    }
+  ],
+  "status": "VISUAL_PROFILE_v1.0_FREEZE_CANDIDATE"
 }
