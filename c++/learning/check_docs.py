@@ -31,6 +31,7 @@ def main():
     paths = sorted(CPP.rglob('*.md')) + [ROOT / 'README.md', ROOT / 'design/project/asset-register.md']
     cache = {}
     errors = []
+    source_risks = []
 
     def parse(path):
         if path not in cache:
@@ -62,12 +63,14 @@ def main():
             elif url.fragment and destination.suffix == '.md':
                 if unquote(url.fragment) not in parse(destination)[3]:
                     errors.append(f'{path.relative_to(ROOT)}: missing anchor {target}')
-        # Only upgraded G0–G4 use this edition's hierarchy rules.
-        if path.parent == CPP and re.match(r'g0[0-4]-', path.name):
+        # Editorial Profile v1.0 applies to G0–G7; PDF is not rendered here.
+        if path.parent == CPP and re.match(r'g0[0-7]-', path.name):
             if sum(header[0] == 1 for header in headers) != 1:
                 errors.append(f'{path.name}: expected exactly one H1')
             previous = 0
             for header in headers:
+                if header[0] > 3:
+                    errors.append(f'{path.name}: heading deeper than H3: {header[1][0]}')
                 if header[0] > previous + 1:
                     errors.append(f'{path.name}: skipped heading level at {header[1][0]}')
                 previous = header[0]
@@ -80,10 +83,55 @@ def main():
                     fence = not fence
             if fence:
                 errors.append(f'{path.name}: unclosed fence')
-            if text.count('<details>') != text.count('</details>'):
-                errors.append(f'{path.name}: unbalanced details')
+            if re.search(r'<\s*/?\s*(?:details|summary)\b', text, re.I):
+                errors.append(f'{path.name}: content depends on HTML folding')
+            lines = text.splitlines()
+            start = None
+            language = ''
+            for index, line in enumerate(lines):
+                if line.startswith('```'):
+                    if start is None:
+                        start, language = index, line[3:]
+                        if language == 'cpp':
+                            context = '\n'.join(lines[max(0, index - 7):index])
+                            if not re.search(r'\[(?:完整实验|机制片段|反例)', context):
+                                errors.append(f'{path.name}:{index + 1}: missing visible code identity')
+                    else:
+                        body = lines[start + 1:index]
+                        longest = max((sum(2 if ord(c) > 127 else 1 for c in l)
+                                       for l in body), default=0)
+                        if len(body) > 32 or longest > 96:
+                            source_risks.append(dict(file=path.name, line=start + 1,
+                                kind='code_or_diagram_pagination', language=language,
+                                lines=len(body), display_columns=longest))
+                        start = None
+                elif start is None:
+                    if re.fullmatch(r'\s*(?:---+|\*\*\*+)\s*', line):
+                        errors.append(f'{path.name}:{index + 1}: decorative horizontal rule')
+                    if line.startswith('|') and index + 1 < len(lines) and re.match(
+                            r'^\|[\s:|-]+\|$', lines[index + 1]):
+                        rows = []
+                        pos = index
+                        while pos < len(lines) and lines[pos].startswith('|'):
+                            rows.append(lines[pos])
+                            pos += 1
+                        cells = [re.split(r'(?<!\\)\|', row)[1:-1] for row in rows]
+                        if max(map(len, cells)) > 4 or any(
+                                sum(2 if ord(c) > 127 else 1 for c in cell.strip()) > 64
+                                for row in cells for cell in row):
+                            source_risks.append(dict(file=path.name, line=index + 1,
+                                kind='table_width', columns=max(map(len, cells)), rows=len(rows)))
+                    if re.match(r'^#{1,3} ', line):
+                        next_content = next((s for s in lines[index + 1:] if s.strip()
+                                             and not s.startswith('<a id=')), '')
+                        level = len(line.split(' ')[0])
+                        following = re.match(r'^(#{1,3}) ', next_content)
+                        if not next_content or (following and len(following[1]) <= level):
+                            errors.append(f'{path.name}:{index + 1}: heading without content')
     print(json.dumps({'markdown_files': len(paths), 'local_links': links,
-                      'upgraded_hierarchy_files': 5, 'errors': errors},
+                      'upgraded_hierarchy_files': 8, 'errors': errors,
+                      'pdf': 'NOT BUILT / NOT VALIDATED',
+                      'source_risks': source_risks},
                      ensure_ascii=False, indent=2))
     return 1 if errors else 0
 

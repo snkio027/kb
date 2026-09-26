@@ -1,15 +1,17 @@
-# C++ Systems Track · G4 Practical STL & Abstraction
+# G4 · STL、Ranges 与数据抽象
 
-- **Version:** 1.1
-- **Status:** 学习修订稿 · 关键实验定向验证
+Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+
+编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+
+- **Version:** 1.2 · 呈现修订稿
+- **Status:** Professional presentation refresh · 保留既有定向验证边界
 - **Language Baseline:** C++23
 - **Prerequisites:** G0–G3；G6/G7 的机器与并发模型可用于深化理解
 - **Scope:** Containers / Iterators / `span` / `mdspan` / Algorithms / Ranges / Views / Sorting / Searching / Associative Containers / Flat Representations / Invalidation / Ownership-friendly APIs / Vocabulary Types
 - **Purpose:** 学会根据语义、所有权、访问模式与系统成本选择和组合标准库 abstraction，而不是背容器 API。
 
----
-
-## 学习入口
+## 阅读入口
 
 [上一章：G3](g03-value-semantics-and-performance.md) · [全系列导航](README.md) · [下一章：G5](g05-generics-and-compile-time.md)
 
@@ -17,65 +19,46 @@
 
 首次学习不需要先读 G5～G7：
 
-1. Part I～III：用 vector 建立 owner、size/capacity 和失效模型。
-2. Part VII～VIII、XI～XIII：学习 span、字符串借用、算法与 view。
+1. [抽象模型](#g4-section-1)与[序列容器](#g4-section-2)：用 vector 建立 owner、size/capacity 和失效模型。
+2. [视图](#g4-section-3)与[算法、Ranges](#g4-section-4)：学习 span、字符串借用、算法与 view。
 3. [SignalBatch 完整实验](#g4-batch)：把排序、查询、统计和只读接口连起来。
 4. [容量与 view 实验](#g4-labs)：验证边界，再做 [Final Gate](#g4-gate)。
 
-Part IV～VI、IX、XIV～XVIII 是容器/布局/词汇类型速查；后面的 API、性能与跨语言材料用于第二遍对照。原 Part 和编号保留，方便回查，不要求逐条背诵。只带 `g-lab` 标记的代码属于本批完整运行例；其余按上下文作片段、反例或自主练习。
+其他容器、布局与状态类型用于回查；API、性能与跨语言材料用于第二遍对照。旧主题锚点保留，正文按下面的章节目录定位，不要求逐条背诵。只带 `g-lab` 标记的代码属于完整运行例；其余按上下文作片段、反例或自主练习。
 
 选型的推理顺序是：需求语义 → 所有权/有效期 → 访问与更新模式 → 算法能力 → 表示与测量。不要从“某容器是 O(1)”倒推全部设计。
 
----
+### 章节目录
 
+- [1. 标准库的抽象模型](#g4-section-1)
+- [2. 序列容器与失效](#g4-section-2)
+- [3. 连续、多维与字符视图](#g4-section-3)
+- [4. 迭代器、算法与 Ranges](#g4-section-4)
+- [5. 关联表示与容器选择](#g4-section-5)
+- [6. 状态建模](#g4-section-6)
+- [7. SignalBatch：完整组件实验](#g4-section-7)
+- [8. 数据修改与 API 边界](#g4-section-8)
+- [9. 内存资源与性能决策](#g4-section-9)
+- [10. 实验与观察](#g4-section-10)
+- [11. 工程审查与常见误判](#g4-section-11)
+- [12. 跨语言回查](#g4-section-12)
+- [13. 工程原则回查](#g4-section-13)
+- [14. Final Gate](#g4-section-14)
+- [15. Final Gate · 参考答案与常见误判](#g4-section-15)
+- [16. 统一模型](#g4-section-16)
+- [17. 接下来怎么用](#g4-section-17)
 
-<details>
-<summary>展开本章索引（进阶部分按需回查）</summary>
+<a id="g4-section-1"></a>
 
-- [Part I · STL 的正确 Mental Model](#g4-part-i)
-- [Part II · vector：动态序列的默认起点](#g4-part-ii)
-- [Part III · Iterator / Pointer / Reference Invalidation](#g4-part-iii)
-- [Part IV · `std::array`](#g4-part-iv)
-- [Part V · `std::deque`](#g4-part-v)
-- [Part VI · `list` / `forward_list`](#g4-part-vi)
-- [Part VII · `std::span`](#g4-part-vii)
-- [Part VIII · `std::string_view`](#g4-part-viii)
-- [Part IX · `std::mdspan` — C++23 多维 View](#g4-part-ix)
-- [Part X · Iterator：不是“高级 Pointer”](#g4-part-x)
-- [Part XI · Algorithm First](#g4-part-xi)
-- [Part XII · Ranges Views](#g4-part-xii)
-- [Part XIII · Borrowed Range](#g4-part-xiii)
-- [Part XIV · `std::map` / `std::set`](#g4-part-xiv)
-- [Part XV · `std::unordered_map`](#g4-part-xv)
-- [Part XVI · `std::flat_map` / `std::flat_set` — C++23](#g4-part-xvi)
-- [Part XVII · Container Selection](#g4-part-xvii)
-- [Part XVIII · `optional` / `variant` / `expected`](#g4-part-xviii)
-- [Part XIX · Practical SignalBatch](#g4-part-xix)
-- [Part XX · Erase / Filter](#g4-part-xx)
-- [Part XXI · API Design](#g4-part-xxi)
-- [Part XXII · Return Values](#g4-part-xxii)
-- [Part XXIII · Container Choice 与 ABI](#g4-part-xxiii)
-- [Part XXIV · Container Choice 与 Concurrency](#g4-part-xxiv)
-- [Part XXV · `vector<bool>`](#g4-part-xxv)
-- [Part XXVI · Flat vs Node-based](#g4-part-xxvi)
-- [Part XXVII · STL 与 Memory Resource](#g4-part-xxvii)
-- [Part XXVIII · STL Performance Review](#g4-part-xxviii)
-- [Part XXIX · Practical Selection Rules](#g4-part-xxix)
-- [Part XXX · Practical Lab](#g4-part-xxx)
-- [Part XXXI · G4 Review Protocol](#g4-part-xxxi)
-- [Part XXXII · 高频错误](#g4-part-xxxii)
-- [Part XXXIII · C++ / Zig / Rust 对照](#g4-part-xxxiii)
-- [Part XXXIV · G4 Final Fifteen Axioms](#g4-part-xxxiv)
-- [Part XXXV · G4 Final Gate](#g4-part-xxxv)
-- [Part XXXVI · G4 与整个 Track 的统一](#g4-part-xxxvi)
-
-</details>
+## 1. 标准库的抽象模型
 
 <a id="g4-part-i"></a>
 
-## Part I · STL 的正确 Mental Model
+### 1.1 STL 的正确 Mental Model
 
-### 1. STL 不只是容器目录
+**1. STL 不只是容器目录**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<int> values{3, 1, 4, 1, 5};
@@ -84,11 +67,11 @@ std::ranges::sort(values);
 
 vector 拥有元素，range/iterator 暴露访问能力，算法通过这些能力工作。sort 需要随机访问和可排序等约束，而不是要求容器名必须叫 vector。
 
-### 2. 容器与算法怎样解耦？
+**2. 容器与算法怎样解耦？**
 
 自由算法可以用于多个满足约束的表示，不必通过共同基类和虚函数。能力不满足时，不能靠“反正有 begin/end”调用；list 有适合自身结构的成员 sort。抽象的作用是表达必要能力，不是强迫一切操作使用同一形式。
 
-### 3. Owner、View 与 Algorithm
+**3. Owner、View 与 Algorithm**
 
 | 角色 | 问题 | 例子 |
 | --- | --- | --- |
@@ -100,15 +83,21 @@ vector 拥有元素，range/iterator 暴露访问能力，算法通过这些能�
 
 <a id="g4-part-ii"></a>
 
-## Part II · vector：动态序列的默认起点
+<a id="g4-section-2"></a>
 
-### 4. 先考虑 vector，再寻找反要求
+## 2. 序列容器与失效
+
+### 2.1 vector：动态序列的默认起点
+
+**4. 先考虑 vector，再寻找反要求**
 
 如果要拥有运行时数量的同类型值，vector 提供连续元素、常数下标和较低的逐元素元数据成本，适合顺序遍历。这里排除 vector<bool> 的特殊表示；连续也不等于可直接作为 wire format，padding、字节序、对象语义仍需处理。
 
 需要稳定节点、两端高频增长等反要求时，再比较其他容器。默认起点不等于无须测量的赢家。
 
-### 5. size 与 capacity 数的不是同一件事
+**5. size 与 capacity 数的不是同一件事**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<int> values;
@@ -118,13 +107,15 @@ values.reserve(1024);
 
 size 是现有元素数；capacity 是当前无需重分配能容纳的元素数。保留容量不许可访问 size 之外的元素。
 
-### 6. reserve 与 resize
+**6. reserve 与 resize**
 
 reserve 准备容量，不改变 size；resize 改变元素数，增长时初始化新元素，必要时还会分配。不是“一个快一个慢”的同义操作。想通过下标填充 N 个元素，应先建立这些元素，不能只 reserve(N)。
 
-### 7. clear 保留容量
+**7. clear 保留容量**
 
 clear 销毁元素，使 size 为 0，并保留 capacity。因此“clear 后重新填充”可以复用 vector 的存储。元素自身析构仍可能释放其内部资源；这不证明每次迭代零分配。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 循环片段：fill/process 的合同由应用定义。
@@ -137,27 +128,29 @@ for (;;) {
 }
 ```
 
-### 8. shrink_to_fit 是请求
+**8. shrink_to_fit 是请求**
 
 它不保证 capacity 最终等于 size。若发生重分配，会使旧访问失效；频繁收缩还可能抵消存储复用收益。除非确有内存压力和使用阶段边界，不要把它机械加在每次 clear 后。
 
-### 9. push_back 与 emplace_back
+**9. push_back 与 emplace_back**
 
 已有对象时，push_back 清楚表达加入一个值；直接给构造参数时，emplace_back 清楚表达就地构造。emplace_back(make_value()) 已经先求值出一个实参，并不能凭名字承诺完全免去转移；它不是高级版 push_back。
 
-### 10. 重分配是元素迁移，不只是字节 resize
+**10. 重分配是元素迁移，不只是字节 resize**
 
 当成功插入使新 size 超过原 capacity，vector 必须取得更大容量，并按元素规则建立新位置、结束旧元素和释放旧存储。增长因子不是固定语言承诺。用非平凡类型时，不能把迁移理解为通用 realloc/memcpy。
 
-### 11. noexcept 为什么影响迁移选择？
+**11. noexcept 为什么影响迁移选择？**
 
 若移动可能修改源后抛出，而复制可用，复制可能更有利于保持异常保证。选择还受操作、类型要求和 allocator 条件影响；不能根据一次计数推出所有 vector 都按同一路径实现。必须真实满足合同才声明 noexcept。[FM-5](failure-model/fm5-noexcept-move-copy.md) 展开这些边界。
 
 <a id="g4-part-iii"></a>
 
-## Part III · Iterator / Pointer / Reference Invalidation
+### 2.2 Iterator / Pointer / Reference Invalidation
 
-### 12. 从操作前提判断，而不是从地址外观判断
+**12. 从操作前提判断，而不是从地址外观判断**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 有条件危险的片段：若发生重分配，最后的读取非法。
@@ -169,19 +162,19 @@ use(*p);
 
 必须查原 capacity 与操作规则；不能依据 p 非空或一次运行没崩溃判断。本章 G4-L2 用可移植条件验证增长，不读取已失效指针。
 
-### 13. 重分配使旧元素的访问路径失效
+**13. 重分配使旧元素的访问路径失效**
 
 指向旧元素的 pointer、reference、iterator，以及旧 past-the-end iterator 都失效。后续要重新从 owner 获取合法访问，不能仅因为数值地址看似相同就继续用旧关系。
 
-### 14. 没有重分配，也有失效
+**14. 没有重分配，也有失效**
 
 vector::erase 使擦除点及之后的迭代器和引用失效，旧尾后迭代器也失效；原位置可能被后续元素占据。指针地址与逻辑元素身份不能混为一谈。clear 更是结束全部元素，哪怕容量仍在。
 
-### 15. 长期身份与物理地址分开
+**15. 长期身份与物理地址分开**
 
 Vehicle #1234 是逻辑身份，不必永久绑定一个 vector 元素地址。ID/handle 可通过查找映射到当前表示，但还需范围检查和代际策略，防止回收后把旧 ID 误认成新对象。地址稳定和 ID 安全各有合同，不是换成整数就万事大吉。
 
-### 16. 回查表：记住问题，使用时查精确操作
+**16. 回查表：记住问题，使用时查精确操作**
 
 | 容器 | 首先检查的稳定性边界 |
 | --- | --- |
@@ -195,19 +188,17 @@ Vehicle #1234 是逻辑身份，不必永久绑定一个 vector 元素地址。I
 
 此表不是完整操作合同，不能据它省略对 swap、move、allocator 等具体情形的检查。
 
----
-
 <a id="g4-part-iv"></a>
 
-## Part IV · `std::array`
+### 2.3 `std::array`
 
-### 17. `std::array<T, N>`
+**17. `std::array<T, N>`**
 
-当 element count 是：
-
-> compile-time fixed
+当 element count 是：compile-time fixed
 
 优先考虑：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::array<T, N>
@@ -215,11 +206,15 @@ std::array<T, N>
 
 而不是裸：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 T[N]
 ```
 
 它提供正常 container interface：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 size()
@@ -228,13 +223,11 @@ end()
 data()
 ```
 
-并保持：
+并保持：inline contiguous storage。
 
-> inline contiguous storage。
+**18. `array` 的 Representation**
 
----
-
-### 18. `array` 的 Representation
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::array<float, 16> values{}; // 本例初始化元素，避免读取不确定值。
@@ -260,23 +253,19 @@ protocol headers
 compile-time tables
 ```
 
----
-
-### 19. `array<T, N>` 的 N 个 T 都是活对象
+**19. `array<T, N>` 的 N 个 T 都是活对象**
 
 这一点 G5 已经强调过：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::array<T, 1024>
 ```
 
-不是：
+不是：capacity 1024 的 raw storage。
 
-> capacity 1024 的 raw storage。
-
-而是：
-
-> 1024 个正常 `T` objects。
+而是：1024 个正常 `T` objects。
 
 如果需要：
 
@@ -295,13 +284,11 @@ manual lifetime management
 
 是另一种 abstraction。
 
----
-
 <a id="g4-part-v"></a>
 
-## Part V · `std::deque`
+### 2.4 `std::deque`
 
-### 20. `deque` 是 Segmented Sequence
+**20. `deque` 是 Segmented Sequence**
 
 概念不是：
 
@@ -319,6 +306,8 @@ one contiguous block
 
 因此：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 deque[i]
 ```
@@ -327,15 +316,15 @@ deque[i]
 
 但：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 &deque[i + 1] == &deque[i] + 1
 ```
 
 不能作为一般连续存储假设。
 
----
-
-### 21. `deque` 什么时候有价值？
+**21. `deque` 什么时候有价值？**
 
 典型：
 
@@ -354,9 +343,7 @@ front insertion
 
 不需要整体移动全部 elements。
 
----
-
-### 22. `deque` 的代价
+**22. `deque` 的代价**
 
 相比 vector：
 
@@ -375,13 +362,13 @@ high-throughput contiguous numeric processing
 
 通常仍然优先 vector。
 
----
-
 <a id="g4-part-vi"></a>
 
-## Part VI · `list` / `forward_list`
+### 2.5 `list` / `forward_list`
 
-### 23. Linked List 的抽象优势
+**23. Linked List 的抽象优势**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::list<T>
@@ -397,9 +384,7 @@ splice
 
 这些是真正优势。
 
----
-
-### 24. 但 “O(1) Insert” 很容易骗人
+**24. 但 “O(1) Insert” 很容易骗人**
 
 对 vector：
 
@@ -415,9 +400,7 @@ known iterator insert
 → O(1)
 ```
 
-于是有人直接得出：
-
-> list 更快。
+于是有人直接得出：list 更快。
 
 但寻找 insertion point 可能仍然：
 
@@ -435,13 +418,9 @@ allocation
 
 实际成本很高。
 
-所以：
+所以：Big-O 必须和 G6 machine model 一起分析。
 
-> Big-O 必须和 G6 machine model 一起分析。
-
----
-
-### 25. 什么时候应该真的考虑 `list`？
+**25. 什么时候应该真的考虑 `list`？**
 
 当下面要求是真实核心需求：
 
@@ -452,13 +431,9 @@ frequent insert/erase at known positions
 large/non-movable nodes where relocation is unacceptable
 ```
 
-而不是：
+而不是：“听说中间删除是 O(1)。”
 
-> “听说中间删除是 O(1)。”
-
----
-
-### 26. `forward_list`
+**26. `forward_list`**
 
 单链：
 
@@ -476,19 +451,21 @@ forward-only intrusive-ish topology
 
 但普通 application/system data 默认通常仍不应该优先 linked list。
 
----
-
 <a id="g4-part-vii"></a>
 
-## Part VII · `std::span`
+<a id="g4-section-3"></a>
 
-### 27. `std::span<T>` 是 G4 最重要的 API 类型之一
+## 3. 连续、多维与字符视图
 
-`span` 表示：
+### 3.1 `std::span`
 
-> **non-owning contiguous sequence view**
+**27. `std::span<T>` 是 G4 最重要的 API 类型之一**
+
+`span` 表示：**non-owning contiguous sequence view**
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void decode(std::span<const std::byte> input);
@@ -506,6 +483,8 @@ extent available
 
 比：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 void decode(
     const std::byte* data,
@@ -514,9 +493,9 @@ void decode(
 
 更完整。
 
----
+**28. Span 不拥有数据**
 
-### 28. Span 不拥有数据
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<int> values{1, 2, 3};
@@ -540,13 +519,9 @@ span
 vector dies
 ```
 
-span：
+span：dangling。
 
-> dangling。
-
----
-
-### 29. Span 不延长 Lifetime
+**29. Span 不延长 Lifetime**
 
 访问时必须满足：
 
@@ -557,6 +532,8 @@ span：
 ```
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const int> get_view() {
@@ -575,9 +552,9 @@ values destroyed
 span dangling
 ```
 
----
+**30. `span` 也可能因 Reallocation 失效**
 
-### 30. `span` 也可能因 Reallocation 失效
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<int> values{1, 2, 3};
@@ -588,33 +565,29 @@ values.push_back(4);  // may reallocate
 use(view);
 ```
 
-如果 reallocation：
-
-> span 指向旧 storage。
+如果 reallocation：span 指向旧 storage。
 
 所以：
 
 owner 活着与地址未移动都只是必要审查项，还要检查元素生命周期、范围及具体操作的失效规则；不能把这句话当作完整安全公式。
 
----
+**31. `span<T>` vs `span<const T>`**
 
-### 31. `span<T>` vs `span<const T>`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<T>
 ```
 
-表示：
+表示：mutable borrowed elements。
 
-> mutable borrowed elements。
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const T>
 ```
 
-表示：
-
-> read-only access path。
+表示：read-only access path。
 
 注意：
 
@@ -632,25 +605,27 @@ span<const T>
 
 通常 API 输入：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::span<const T>
 ```
 
 非常自然。
 
----
+**32. Static Extent**
 
-### 32. Static Extent
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const std::byte, 8>
 ```
 
-表示：
-
-> extent = 8 是类型的一部分。
+表示：extent = 8 是类型的一部分。
 
 相比：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const std::byte>
@@ -660,24 +635,24 @@ std::span<const std::byte>
 
 固定协议字段：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::uint64_t decode(
     std::span<const std::byte, 8> bytes);
 ```
 
-可以把：
-
-> “必须恰好 8 bytes”
+可以把：“必须恰好 8 bytes”
 
 编码进 API type。
 
 从运行时范围构造静态 extent span 时，调用者仍须满足相应长度前置条件；类型中的 8 不是对任意输入自动执行的长度验证。外部输入应先验证，再建立这种受约束的 view。
 
----
-
-### 33. `span` 是非常好的 Representation Boundary
+**33. `span` 是非常好的 Representation Boundary**
 
 假设内部：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<float> values_;
@@ -690,6 +665,8 @@ vector ownership/capacity API
 ```
 
 可以暴露：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 [[nodiscard]]
@@ -704,17 +681,15 @@ std::span<const float> values() const noexcept {
 contiguous read-only range
 ```
 
-而不是：
-
-> 修改 owner representation 的能力。
-
----
+而不是：修改 owner representation 的能力。
 
 <a id="g4-part-viii"></a>
 
-## Part VIII · `std::string_view`
+### 3.2 `std::string_view`
 
-### 34. `string_view` 是字符领域的 Borrowed View
+**34. `string_view` 是字符领域的 Borrowed View**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void parse(std::string_view input);
@@ -738,9 +713,9 @@ lookup
 read-only string parameters
 ```
 
----
+**35. 最危险的 `string_view`**
 
-### 35. 最危险的 `string_view`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::string_view make_name() {
@@ -756,9 +731,7 @@ std::string_view make_name() {
 destroyed
 ```
 
-返回 view：
-
-> dangling。
+返回 view：dangling。
 
 因此：
 
@@ -772,13 +745,11 @@ string_view
 span
 ```
 
-一样首先是：
+一样首先是：lifetime contract。
 
-> lifetime contract。
+**36. `string_view` 不保证 Null Termination**
 
----
-
-### 36. `string_view` 不保证 Null Termination
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::string_view view;
@@ -791,6 +762,8 @@ pointer + length
 ```
 
 不能默认：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 C_api(view.data());
@@ -810,25 +783,25 @@ not NUL terminated
 
 这会在 G8 再出现。
 
----
-
 <a id="g4-part-ix"></a>
 
-## Part IX · `std::mdspan` — C++23 多维 View
+### 3.3 `std::mdspan` — C++23 多维 View
 
-### 37. `mdspan` 是 G4 与高性能计算的重要连接
+**37. `mdspan` 是 G4 与高性能计算的重要连接**
 
 C++23：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::mdspan
 ```
 
-表达：
-
-> 对多维数据的 non-owning structured view。
+表达：对多维数据的 non-owning structured view。
 
 例如概念：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::mdspan<float,
@@ -846,9 +819,7 @@ N × 3
 
 二维 logical view。
 
----
-
-### 38. 默认 mdspan 不负责底层元素所有权
+**38. 默认 mdspan 不负责底层元素所有权**
 
 使用默认 accessor/data handle 的常见模型是（自定义 accessor 可能改变句柄与资源管理语义）：
 
@@ -874,9 +845,7 @@ logical multidimensional indexing
 
 解耦。
 
----
-
-### 39. Layout Policy
+**39. Layout Policy**
 
 `mdspan` 的重要价值是可以表达：
 
@@ -886,9 +855,7 @@ layout_left
 layout_stride
 ```
 
-也就是说：
-
-> logical `(i, j)` 如何映射到 linear storage offset。
+也就是说：logical `(i, j)` 如何映射到 linear storage offset。
 
 这直接连接 G6：
 
@@ -900,11 +867,11 @@ strided layout
 
 和 cache locality。
 
----
-
-### 40. `mdspan` 的系统意义
+**40. `mdspan` 的系统意义**
 
 以前函数可能：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(
@@ -914,15 +881,11 @@ void process(
     std::size_t stride);
 ```
 
-现在可以将：
-
-> shape + layout mapping + element access
+现在可以将：shape + layout mapping + element access
 
 打包成 view abstraction。
 
-同时不要求算法：
-
-> 拥有数据。
+同时不要求算法：拥有数据。
 
 这非常适合：
 
@@ -934,13 +897,15 @@ tensor kernels
 sensor matrices
 ```
 
----
-
 <a id="g4-part-x"></a>
 
-## Part X · Iterator：不是“高级 Pointer”
+<a id="g4-section-4"></a>
 
-### 41. Iterator 的核心是 Traversal Capability
+## 4. 迭代器、算法与 Ranges
+
+### 4.1 Iterator：不是“高级 Pointer”
+
+**41. Iterator 的核心是 Traversal Capability**
 
 最简单：
 
@@ -956,13 +921,9 @@ contiguous iterator
 
 不要首先背继承层级。
 
-应该理解：
+应该理解：**Container topology 决定 iterator 能力。**
 
-> **Container topology 决定 iterator 能力。**
-
----
-
-### 42. Examples
+**42. Examples**
 
 ```text
 forward_list
@@ -980,15 +941,17 @@ vector
 
 所以：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::ranges::sort(range);
 ```
 
-需要：
-
-> random-access sortable range。
+需要：random-access sortable range。
 
 因此不能：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::ranges::sort(std::list<int>);
@@ -996,11 +959,11 @@ std::ranges::sort(std::list<int>);
 
 这不是标准库“故意刁难”。
 
-而是：
-
-> sort algorithm 的操作需求与 linked-list iterator capability 不匹配。
+而是：sort algorithm 的操作需求与 linked-list iterator capability 不匹配。
 
 `std::list` 有自己的：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 list.sort();
@@ -1008,13 +971,9 @@ list.sort();
 
 可以利用 node relinking。
 
----
+**43. Contiguous Iterator**
 
-### 43. Contiguous Iterator
-
-`vector` iterator 具有：
-
-> contiguous semantics。
+`vector` iterator 具有：contiguous semantics。
 
 所以可以和：
 
@@ -1029,21 +988,23 @@ SIMD
 
 这是 vector 与 deque 虽然都 random access，却存在的一个重要能力差异。
 
----
-
 <a id="g4-part-xi"></a>
 
-## Part XI · Algorithm First
+### 4.2 Algorithm First
 
-### 44. 优先表达“我要做什么”
+**44. 优先表达“我要做什么”**
 
 比如寻找：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto it = std::ranges::find(values, target);
 ```
 
 而不是首先：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 for (...) {
@@ -1053,9 +1014,7 @@ for (...) {
 }
 ```
 
-原因不是：
-
-> loop 不好。
+原因不是：loop 不好。
 
 而是：
 
@@ -1074,9 +1033,7 @@ correctness
 implementation optimization
 ```
 
----
-
-### 45. 但不要迷信“算法永远优于 Loop”
+**45. 但不要迷信“算法永远优于 Loop”**
 
 如果 hot loop 需要：
 
@@ -1103,6 +1060,8 @@ count_if
 
 这时一个 fused loop：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 for (const Sample& sample : samples) {
     ...
@@ -1111,21 +1070,21 @@ for (const Sample& sample : samples) {
 
 可能更合理。
 
-因此原则：
+因此原则：**Prefer algorithms when they express the operation naturally; fuse work when one-pass semantics/performance matters.**
 
-> **Prefer algorithms when they express the operation naturally; fuse work when one-pass semantics/performance matters.**
-
----
-
-### 46. Ranges Algorithms
+**46. Ranges Algorithms**
 
 传统：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::sort(values.begin(), values.end());
 ```
 
 现代 C++：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::ranges::sort(values);
@@ -1140,11 +1099,11 @@ projection support
 range-based composition
 ```
 
----
-
-### 47. Projection
+**47. Projection**
 
 非常好用：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct Signal {
@@ -1160,6 +1119,8 @@ std::ranges::sort(
 
 而不是：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::ranges::sort(
     signals,
@@ -1168,17 +1129,15 @@ std::ranges::sort(
     });
 ```
 
-Projection 表达：
-
-> “使用这个字段作为排序 key。”
+Projection 表达：“使用这个字段作为排序 key。”
 
 语义更清楚。
 
----
-
-### 48. `lower_bound`
+**48. `lower_bound`**
 
 如果数据已经按 `id` 排序：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto it = std::ranges::lower_bound(
@@ -1199,9 +1158,7 @@ comparisons
 
 memory behavior通常也很好。
 
----
-
-### 49. Sorted Vector 是一种非常强的 Associative Representation
+**49. Sorted Vector 是一种非常强的 Associative Representation**
 
 如果：
 
@@ -1237,19 +1194,17 @@ cache locality
 
 经常非常优秀。
 
-这就是：
-
-> **Flat Representation**
-
----
+这就是：**Flat Representation**
 
 <a id="g4-part-xii"></a>
 
-## Part XII · Ranges Views
+### 4.3 Ranges Views
 
-### 50. View 是 Lazy Transformation
+**50. View 是 Lazy Transformation**
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto positive =
@@ -1259,17 +1214,13 @@ auto positive =
     });
 ```
 
-`positive` 通常不是：
+`positive` 通常不是：一个新 vector。
 
-> 一个新 vector。
+它是：对原 range 的 lazy traversal adapter。
 
-它是：
+**51. Lazy 意味着什么？**
 
-> 对原 range 的 lazy traversal adapter。
-
----
-
-### 51. Lazy 意味着什么？
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto view =
@@ -1301,11 +1252,11 @@ temporary allocation
 
 通常可以避免。
 
----
-
-### 52. View 是否拥有数据，要看具体类型
+**52. View 是否拥有数据，要看具体类型**
 
 **问题：**下面两种写法都得到 view，能否认为都只借用？
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto borrowed = std::views::all(values);                    // values 为 vector 左值
@@ -1316,11 +1267,11 @@ auto owned = std::views::all(std::vector<int>{1, 2, 3});     // vector 右值
 
 **边界：**即使底层 range 被拥有，filter/transform 中按引用捕获的其他对象仍可能悬挂。借用型 view 也仍受底层容器失效规则影响；borrowed_range 不能替你证明底层元素活着。[N4950：Ranges](https://timsong-cpp.github.io/cppwp/n4950/ranges#range.all)
 
----
-
-### 53. Range Pipeline
+**53. Range Pipeline**
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto ids =
@@ -1343,9 +1294,7 @@ extract IDs
 
 非常接近数据流语义。
 
----
-
-### 54. Range Pipeline 不等于自动最快
+**54. Range Pipeline 不等于自动最快**
 
 Lazy pipeline 可能：
 
@@ -1365,13 +1314,9 @@ multiple abstraction layers
 
 产生不同 codegen。
 
-因此 G6 原则保持：
+因此 G6 原则保持：优先写清晰 abstraction，然后 profile/assembly 验证 hot path。
 
-> 优先写清晰 abstraction，然后 profile/assembly 验证 hot path。
-
----
-
-### 55. View 的 Lifetime Trap
+**55. View 的 Lifetime Trap**
 
 尤其不要随意：
 
@@ -1383,25 +1328,25 @@ store a view
 
 例如 class member：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::span<const T> view_;
 ```
 
-意味着 class 的 lifetime invariant必须包含：
-
-> 被 view_ 借用的 owner 永远活得更久，而且不会使 storage invalid。
+意味着 class 的 lifetime invariant必须包含：被 view_ 借用的 owner 永远活得更久，而且不会使 storage invalid。
 
 这是很强的 contract。
 
----
-
 <a id="g4-part-xiii"></a>
 
-## Part XIII · Borrowed Range
+### 4.4 Borrowed Range
 
-### 56. 为什么 Ranges 要有 `borrowed_range`？
+**56. 为什么 Ranges 要有 `borrowed_range`？**
 
 假设：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto it =
@@ -1426,19 +1371,17 @@ Ranges framework 会通过：
 borrowed_range
 ```
 
-等机制表达：
-
-> iterator 的有效性是否不依赖 range 对象本身的生命周期。
+等机制表达：iterator 的有效性是否不依赖 range 对象本身的生命周期。
 
 这不保证底层元素无限存活。例如 span 满足 borrowed_range，但它指向的 vector 已销毁时，iterator 仍会悬挂。
 
----
-
-### 57. `std::ranges::dangling`
+**57. `std::ranges::dangling`**
 
 对于不安全的 rvalue range：
 
 某些 range algorithm 的返回类型会成为：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::ranges::dangling
@@ -1446,19 +1389,21 @@ std::ranges::dangling
 
 而不是给你一个立即悬空的 iterator。
 
-这是一种非常漂亮的：
-
-> **Lifetime-aware generic API design**
+这是一种非常漂亮的：**Lifetime-aware generic API design**
 
 与 G1/G5 完全呼应。
 
----
-
 <a id="g4-part-xiv"></a>
 
-## Part XIV · `std::map` / `std::set`
+<a id="g4-section-5"></a>
 
-### 58. Ordered Associative Containers
+## 5. 关联表示与容器选择
+
+### 5.1 `std::map` / `std::set`
+
+**58. Ordered Associative Containers**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::map<K, V>
@@ -1477,13 +1422,9 @@ stable node-like element addresses/iterators across ordinary insertion
 
 实现通常基于 balanced tree，但标准 contract 并不要求你依赖具体树类型。
 
----
+**59. `map` 的真正优势**
 
-### 59. `map` 的真正优势
-
-不是：
-
-> O(log N) 听起来不错。
+不是：O(log N) 听起来不错。
 
 而是：
 
@@ -1502,19 +1443,19 @@ ordered traversal
 
 以及 node stability 可能有价值。
 
----
+**60. `operator[]` 的语义**
 
-### 60. `operator[]` 的语义
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 map[key]
 ```
 
-如果 key 不存在：
-
-> 会插入默认构造的 mapped value。
+如果 key 不存在：会插入默认构造的 mapped value。
 
 所以只想查询时不要机械：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (map[key] == ...)
@@ -1524,21 +1465,25 @@ if (map[key] == ...)
 
 查询优先：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 map.find(key)
 ```
 
 或者 C++20：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 map.contains(key)
 ```
 
----
-
-### 61. `try_emplace`
+**61. `try_emplace`**
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 map.try_emplace(
@@ -1546,9 +1491,7 @@ map.try_emplace(
     constructor_args...);
 ```
 
-如果 key 已存在：
-
-> 不需要构造 mapped object。
+如果 key 已存在：不需要构造 mapped object。
 
 但调用的参数表达式仍会先求值；`try_emplace(key, expensive())` 不会因为 key 已存在就自动跳过 expensive()。
 
@@ -1560,13 +1503,13 @@ lookup + conditional construction
 
 很自然。
 
----
-
 <a id="g4-part-xv"></a>
 
-## Part XV · `std::unordered_map`
+### 5.2 `std::unordered_map`
 
-### 62. Hash Table
+**62. Hash Table**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::unordered_map<K, V>
@@ -1588,13 +1531,9 @@ collision handling
 O(1)
 ```
 
-但这绝不意味着：
+但这绝不意味着：“一定比 map 快”。
 
-> “一定比 map 快”。
-
----
-
-### 63. Hash Lookup 的真实 Cost
+**63. Hash Lookup 的真实 Cost**
 
 至少包括：
 
@@ -1607,6 +1546,8 @@ key comparison
 ```
 
 如果 key 是：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::string
@@ -1622,13 +1563,11 @@ O(1)
 
 指 container size N 的平均渐进复杂度，
 
-不是：
+不是：one CPU instruction。
 
-> one CPU instruction。
+**64. Load Factor**
 
----
-
-### 64. Load Factor
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 map.load_factor();
@@ -1654,9 +1593,7 @@ bucket memory ↑
 cache footprint ↑
 ```
 
----
-
-### 65. `reserve`
+**65. `reserve`**
 
 如果预先知道约有：
 
@@ -1665,6 +1602,8 @@ N entries
 ```
 
 可以：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 table.reserve(N);
@@ -1678,17 +1617,11 @@ rehash
 
 次数。
 
-这和 vector reserve 是同一思想：
+这和 vector reserve 是同一思想：使用 domain knowledge 提前稳定 storage topology。
 
-> 使用 domain knowledge 提前稳定 storage topology。
+**66. Rehash Invalidation**
 
----
-
-### 66. Rehash Invalidation
-
-Rehash 会：
-
-> 重新组织 buckets。
+Rehash 会：重新组织 buckets。
 
 因此：
 
@@ -1708,9 +1641,7 @@ references/pointers
 
 仍然要对具体 erase 等 operation 单独分析。
 
----
-
-### 67. `unordered_map` 最大的误区
+**67. `unordered_map` 最大的误区**
 
 > “Lookup 是 O(1)，所以这是最快字典。”
 
@@ -1721,6 +1652,8 @@ N = 20
 ```
 
 一个线性 scan：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::ranges::find(...)
@@ -1737,21 +1670,19 @@ no hashing
 no node chasing
 ```
 
-因此：
-
-> **Small N changes the game.**
-
----
+因此：**Small N changes the game.**
 
 <a id="g4-part-xvi"></a>
 
-## Part XVI · `std::flat_map` / `std::flat_set` — C++23
+### 5.3 `std::flat_map` / `std::flat_set` — C++23
 
-本 Part 的连续存储分析以默认底层容器为前提。flat_map 默认使用分别保存 key 和 mapped value 的 vector，不是固定的 vector<pair>；替换底层序列后，要重新检查连续性、代理引用与失效规则。[N4950：flat.map.overview](https://timsong-cpp.github.io/cppwp/n4950/flat.map.overview)
+本 主题 的连续存储分析以默认底层容器为前提。flat_map 默认使用分别保存 key 和 mapped value 的 vector，不是固定的 vector<pair>；替换底层序列后，要重新检查连续性、代理引用与失效规则。[N4950：flat.map.overview](https://timsong-cpp.github.io/cppwp/n4950/flat.map.overview)
 
-### 68. Flat Associative Containers
+**68. Flat Associative Containers**
 
 C++23：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::flat_map
@@ -1760,15 +1691,11 @@ std::flat_set
 
 提供 associative-container-style interface，
 
-但 representation 更接近：
-
-> sorted contiguous sequence(s)
+但 representation 更接近：sorted contiguous sequence(s)
 
 而不是 node tree。
 
----
-
-### 69. Flat Map 的 Cost Model
+**69. Flat Map 的 Cost Model**
 
 Lookup：
 
@@ -1803,17 +1730,19 @@ query many
 moderate size
 ```
 
----
-
-### 70. `flat_map` vs Sorted Vector
+**70. `flat_map` vs Sorted Vector**
 
 如果只是内部实现：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<Entry>
 ```
 
 然后：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::ranges::sort
@@ -1822,9 +1751,7 @@ std::ranges::lower_bound
 
 已经非常好。
 
-`flat_map` 的价值：
-
-> 提供更明确 associative semantics/API。
+`flat_map` 的价值：提供更明确 associative semantics/API。
 
 选择取决于：
 
@@ -1834,9 +1761,7 @@ API expectations
 mutation pattern
 ```
 
----
-
-### 71. Dense Integer Key：别忘了 Array / Vector
+**71. Dense Integer Key：别忘了 Array / Vector**
 
 假设 key：
 
@@ -1846,17 +1771,23 @@ mutation pattern
 
 不要第一反应：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::unordered_map<int, Entry>
 ```
 
 直接：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::array<Entry, 64>
 ```
 
 或：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<Entry>
@@ -1865,6 +1796,8 @@ std::vector<Entry>
 可能更合理。
 
 Lookup：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 entries[id]
@@ -1878,17 +1811,13 @@ tree
 node
 ```
 
-这是一种非常重要的：
-
-> **Exploit Domain Constraints**
-
----
+这是一种非常重要的：**Exploit Domain Constraints**
 
 <a id="g4-part-xvii"></a>
 
-## Part XVII · Container Selection
+### 5.4 Container Selection
 
-### 72. 不要按 Big-O 选 Container
+**72. 不要按 Big-O 选 Container**
 
 先问 semantics：
 
@@ -1904,9 +1833,7 @@ Is N small?
 
 之后再看 performance。
 
----
-
-### 73. 一个实用选择矩阵
+**73. 一个实用选择矩阵**
 
 | Requirement                    | 默认候选                     |
 | ------------------------------ | ---------------------------- |
@@ -1924,19 +1851,21 @@ Is N small?
 
 默认不是定论。
 
-是：
-
-> starting point。
-
----
+是：starting point。
 
 <a id="g4-part-xviii"></a>
 
-## Part XVIII · `optional` / `variant` / `expected`
+<a id="g4-section-6"></a>
 
-### 74. STL 也提供“状态建模”类型
+## 6. 状态建模
+
+### 6.1 `optional` / `variant` / `expected`
+
+**74. STL 也提供“状态建模”类型**
 
 容器之外，现代标准库的重要抽象还有：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::optional<T>
@@ -1948,9 +1877,7 @@ std::expected<T, E>
 
 但对系统 API 非常重要。
 
----
-
-### 75. `optional<T>`
+**75. `optional<T>`**
 
 表达：
 
@@ -1962,11 +1889,15 @@ no T
 
 例如：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::optional<Job> try_pop();
 ```
 
 比：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 bool try_pop(Job& out);
@@ -1974,13 +1905,11 @@ bool try_pop(Job& out);
 
 有时更 value-oriented。
 
-但如果 `T` 很大：
+但如果 `T` 很大：返回 optional<T> 仍然要分析 representation/move cost。
 
-> 返回 optional<T> 仍然要分析 representation/move cost。
+**76. `variant`**
 
----
-
-### 76. `variant`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 using Command =
@@ -1990,9 +1919,7 @@ using Command =
         Update>;
 ```
 
-表示：
-
-> 正常有值时持有若干候选之一；部分抛异常的类型改变操作可能使 variant 进入 valueless_by_exception，不能无条件假定一直有值。
+表示：正常有值时持有若干候选之一；部分抛异常的类型改变操作可能使 variant 进入 valueless_by_exception，不能无条件假定一直有值。
 
 比：
 
@@ -2014,9 +1941,9 @@ state-machine commands
 protocol AST
 ```
 
----
+**77. `std::visit`**
 
-### 77. `std::visit`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::visit(
@@ -2026,17 +1953,13 @@ std::visit(
     cmd);
 ```
 
-配合 variant实现：
-
-> closed set static sum type dispatch。
+配合 variant实现：closed set static sum type dispatch。
 
 它不是 virtual inheritance hierarchy。
 
 C++ compiler可以基于 alternative set 静态生成 dispatch machinery。
 
----
-
-### 78. `expected<T, E>` — C++23
+**78. `expected<T, E>` — C++23**
 
 表示：
 
@@ -2047,6 +1970,8 @@ failure: E
 ```
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::expected<Message, ParseError>
@@ -2063,9 +1988,7 @@ out parameter
 
 更明确。
 
----
-
-### 79. `expected` 不会自动带来 Strong Exception Safety
+**79. `expected` 不会自动带来 Strong Exception Safety**
 
 如果函数内部：
 
@@ -2075,9 +1998,7 @@ modify shared state
 later return unexpected(error)
 ```
 
-已经发生的 side effects：
-
-> 不会因为返回 expected 自动 rollback。
+已经发生的 side effects：不会因为返回 expected 自动 rollback。
 
 所以：
 
@@ -2095,15 +2016,17 @@ state transaction guarantee
 
 G2 的 exception-safety model依旧适用。
 
----
-
 <a id="g4-part-xix"></a>
 
-## Part XIX · Practical SignalBatch
+<a id="g4-section-7"></a>
+
+## 7. SignalBatch：完整组件实验
+
+### 7.1 Practical SignalBatch
 
 <a id="g4-batch"></a>
 
-### 80. G4-L1：从拥有一批数据到可查询的只读组件
+**80. G4-L1：从拥有一批数据到可查询的只读组件**
 
 **需求：**构建时取得一批采样，之后多次读取；按 signal_id 查询，重复 ID 返回输入中第一条；空批次没有统计值。数据只允许有限 float，避免把 NaN 的业务规则藏在 min/max 里。
 
@@ -2112,6 +2035,8 @@ G2 的 exception-safety model依旧适用。
 先预测空输入、缺失 ID、小于/大于所有 ID、重复 ID 各会得到什么。下面是完整运行例：
 
 <!-- g-lab {"id":"G4-L1","mode":"run","stdout":"sorted; first-duplicate; misses; stats; empty; finite-only\n"} -->
+[完整实验 · G4-L1 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <algorithm>
@@ -2201,37 +2126,41 @@ int main() {
 }
 ```
 
-### 81. 为什么返回 span，而不是 const vector&？
+**81. 为什么返回 span，而不是 const vector&？**
 
 消费者只需“连续只读元素”，不需容量和 allocator API。span 提供较窄的接口，但仍有连续存储承诺，不能透明换成 list。它不保活；本例禁止直接从右值 batch 提取 span，也仍要求使用期间 owner 未销毁、未被移动/赋值、未通过外部别名改变元素。
 
-### 82. 为什么排序属于构建不变量？
+**82. 为什么排序属于构建不变量？**
 
 如果先发布 span，再允许任意 push，排序和借用有效性都可能破坏。此例在构造中用 stable_sort，保证重复 key 保留输入先后顺序。不是所有业务都该排序；时序读取和高频追加需要另一份明确接口合同。
 
-### 83. lower_bound 不等于“找到了”
+**83. lower_bound 不等于“找到了”**
 
 必须先满足与比较器/投影一致的分区前提，本例用排序建立它；再检查 end 与 key 相等。测试分别覆盖低端缺失、间隙缺失和高端缺失。只测一个命中会漏掉“返回第一个不小于目标的错误记录”。
 
-### 84. 重复记录与分组
+**84. 重复记录与分组**
 
 相同 ID 排在一起便于 equal_range 分组。本例 find 明确返回第一条的**值副本**；完整范围比较保留 timestamp、ID、value 的归属，不能只检查排序后的 ID 数量。更多聚合策略由需求定义，不暗中去重。
 
-### 85. 统计、预测与边界
+**85. 统计、预测与边界**
 
 一次 loop 同时计算 count/min/max/sum，是有明确理由的手工融合；空批次返回 nullopt，而不是制造一个伪造的最小值。
 
 实验使用可精确表示的小数值比较 sum，不把它推广成任意浮点求和的精确相等方案。只检查了一种非有限输入；没有注入分配失败或证明所有浮点误差界。改变条件练习：允许构建后追加会破坏哪些合同？应重新排序、失效旧 view，还是改用分阶段 builder？先说明选择，再写代码。
 
----
-
 <a id="g4-part-xx"></a>
 
-## Part XX · Erase / Filter
+<a id="g4-section-8"></a>
 
-### 86. 现代 Erase
+## 8. 数据修改与 API 边界
+
+### 8.1 Erase / Filter
+
+**86. 现代 Erase**
 
 以前典型：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 values.erase(
@@ -2244,15 +2173,17 @@ values.erase(
 
 现代：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::erase_if(values, pred);
 ```
 
 表达更清楚。
 
----
+**87. Filter View vs Physical Removal**
 
-### 87. Filter View vs Physical Removal
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto valid =
@@ -2260,27 +2191,23 @@ auto valid =
     std::views::filter(is_valid);
 ```
 
-只是：
-
-> logical filtered view。
+只是：logical filtered view。
 
 底层 samples 仍然全部存在。
 
 而：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::erase_if(samples, is_invalid);
 ```
 
-真正：
-
-> 修改 owner、结束 object lifetime、移动后续 elements。
+真正：修改 owner、结束 object lifetime、移动后续 elements。
 
 这两个 semantics 完全不同。
 
----
-
-### 88. Lazy Filter 的 Cost
+**88. Lazy Filter 的 Cost**
 
 filter view 遍历时每个 element：
 
@@ -2290,9 +2217,7 @@ predicate
 possibly skip
 ```
 
-如果同一个 filtered subset 被重复处理很多次：
-
-> 每次都重新 predicate。
+如果同一个 filtered subset 被重复处理很多次：每次都重新 predicate。
 
 有时一次 materialize：
 
@@ -2314,37 +2239,35 @@ vs
 reuse count
 ```
 
----
-
 <a id="g4-part-xxi"></a>
 
-## Part XXI · API Design
+### 8.2 API Design
 
-### 89. Owner API
+**89. Owner API**
 
-如果函数：
-
-> 接管一份 vector 所有权
+如果函数：接管一份 vector 所有权
 
 可以：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void consume(std::vector<Record> records);
 ```
 
-by-value 明确：
-
-> ownership enters function。
+by-value 明确：ownership enters function。
 
 Caller：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 consume(std::move(records));
 ```
 
----
+**90. Borrowed Read-only**
 
-### 90. Borrowed Read-only
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(
@@ -2359,22 +2282,20 @@ read-only
 contiguous
 ```
 
----
+**91. Borrowed Mutable**
 
-### 91. Borrowed Mutable
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void normalize(
     std::span<float> values);
 ```
 
-表达：
+表达：caller owns；function 可修改 elements。
 
-> caller owns；function 可修改 elements。
+**92. 不要滥用 `const vector&`**
 
----
-
-### 92. 不要滥用 `const vector&`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(
@@ -2388,6 +2309,8 @@ contiguous sequence
 ```
 
 则：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const Record>
@@ -2404,15 +2327,13 @@ C array
 subspan
 ```
 
----
+**93. 但也不要机械全部换 Span**
 
-### 93. 但也不要机械全部换 Span
-
-如果 API 的 semantic contract 就是：
-
-> “这是一个 vector owner，我需要 capacity、growth、push_back。”
+如果 API 的 semantic contract 就是：“这是一个 vector owner，我需要 capacity、growth、push_back。”
 
 那就应该：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<T>&
@@ -2422,27 +2343,25 @@ std::vector<T>&
 
 例如：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 void fill(std::vector<T>& output);
 ```
 
-如果目的明确是：
-
-> 重用 caller-owned dynamic storage。
+如果目的明确是：重用 caller-owned dynamic storage。
 
 这是合法设计。
 
-关键是：
-
-> 参数类型应该表达所需 capability。
-
----
+关键是：参数类型应该表达所需 capability。
 
 <a id="g4-part-xxii"></a>
 
-## Part XXII · Return Values
+### 8.3 Return Values
 
-### 94. 返回 `vector` 很正常
+**94. 返回 `vector` 很正常**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<Record> load_records();
@@ -2455,13 +2374,13 @@ copy elision
 move semantics
 ```
 
-使：
-
-> return container by value
+使：return container by value
 
 成为非常自然的 ownership transfer。
 
 不要为了“怕 copy”机械：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void load_records(
@@ -2478,11 +2397,11 @@ bounded environment
 
 确实是 API requirement。
 
----
-
-### 95. 不要返回指向 Local Container 的 View
+**95. 不要返回指向 Local Container 的 View**
 
 错误：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<const Record> load() {
@@ -2494,25 +2413,25 @@ std::span<const Record> load() {
 
 返回 owner：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::vector<Record> load();
 ```
 
 才正确。
 
-这是：
-
-> **Owner must cross boundary if data must outlive the function.**
-
----
+这是：**Owner must cross boundary if data must outlive the function.**
 
 <a id="g4-part-xxiii"></a>
 
-## Part XXIII · Container Choice 与 ABI
+### 8.4 Container Choice 与 ABI
 
-### 96. 不要轻易把 STL Container 放进稳定 Binary ABI
+**96. 不要轻易把 STL Container 放进稳定 Binary ABI**
 
 例如 public dynamic library C++ ABI：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<Record>
@@ -2531,37 +2450,29 @@ template instantiation
 
 带进 binary boundary。
 
-这不是说：
+这不是说：永远不能。
 
-> 永远不能。
-
-而是：
-
-> container-rich C++ API 会形成很强 ABI coupling。
+而是：container-rich C++ API 会形成很强 ABI coupling。
 
 G8 会正式展开。
 
----
-
 <a id="g4-part-xxiv"></a>
 
-## Part XXIV · Container Choice 与 Concurrency
+### 8.5 Container Choice 与 Concurrency
 
-### 97. STL Container 本身通常不是“自动线程安全”
+**97. STL Container 本身通常不是“自动线程安全”**
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<int> values;
 ```
 
-多个 threads 只读：
+多个 threads 只读：在正确 publication 后很自然。
 
-> 在正确 publication 后很自然。
-
-一个 thread修改、另一个同时读取：
-
-> 需要同步。
+一个 thread修改、另一个同时读取：需要同步。
 
 不能因为：
 
@@ -2571,9 +2482,7 @@ vector implementation internally complicated
 
 就认为标准库会自动锁。
 
----
-
-### 98. Different Elements 也要分析 Container Mutation
+**98. Different Elements 也要分析 Container Mutation**
 
 例如：
 
@@ -2594,6 +2503,8 @@ false sharing
 
 而：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::vector<bool>
 ```
@@ -2604,17 +2515,17 @@ std::vector<bool>
 
 所以不要把普通 vector element reasoning直接套给：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 vector<bool>
 ```
 
----
-
 <a id="g4-part-xxv"></a>
 
-## Part XXV · `vector<bool>`
+### 8.6 `vector<bool>`
 
-### 99. 为什么它特殊？
+**99. 为什么它特殊？**
 
 为了 bit packing：
 
@@ -2634,23 +2545,23 @@ sizeof(bool)
 
 因此：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 values[i]
 ```
 
-通常返回：
-
-> proxy reference
+通常返回：proxy reference
 
 而不是普通：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 bool&
 ```
 
----
-
-### 100. 什么时候可以用？
+**100. 什么时候可以用？**
 
 如果真实需求就是：
 
@@ -2671,6 +2582,8 @@ concurrency implications
 
 如果你只是想要正常 byte-addressable flags：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::vector<std::uint8_t>
 ```
@@ -2679,19 +2592,19 @@ std::vector<std::uint8_t>
 
 如果需要固定 bitset：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::bitset<N>
 ```
 
 也可能更适合。
 
----
-
 <a id="g4-part-xxvi"></a>
 
-## Part XXVI · Flat vs Node-based
+### 8.7 Flat vs Node-based
 
-### 101. 一个统一机器模型
+**101. 一个统一机器模型**
 
 Node-based：
 
@@ -2737,19 +2650,21 @@ insert/erase moves
 address instability
 ```
 
-所以：
-
-> **Topology is a trade-off, not ideology.**
-
----
+所以：**Topology is a trade-off, not ideology.**
 
 <a id="g4-part-xxvii"></a>
 
-## Part XXVII · STL 与 Memory Resource
+<a id="g4-section-9"></a>
 
-### 102. Containers 与 `std::pmr`
+## 9. 内存资源与性能决策
+
+### 9.1 STL 与 Memory Resource
+
+**102. Containers 与 `std::pmr`**
 
 G6 已经学习：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::pmr::vector<T>
@@ -2790,31 +2705,25 @@ arena resource
 
 组合。
 
----
-
-### 103. 不要让 Allocator Policy 泄漏过远
+**103. 不要让 Allocator Policy 泄漏过远**
 
 如果 subsystem 内部需要：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::pmr::vector<Temp>
 ```
 
-不代表：
+不代表：整个 domain model 所有 API 都需要传 `memory_resource*`。
 
-> 整个 domain model 所有 API 都需要传 `memory_resource*`。
-
-与 G5 genericity 一样：
-
-> **Policy propagation should stop at a deliberate boundary.**
-
----
+与 G5 genericity 一样：**Policy propagation should stop at a deliberate boundary.**
 
 <a id="g4-part-xxviii"></a>
 
-## Part XXVIII · STL Performance Review
+### 9.2 STL Performance Review
 
-### 104. 看到 Container 时问什么？
+**104. 看到 Container 时问什么？**
 
 不要只问 Big-O。
 
@@ -2834,41 +2743,63 @@ How often mutate?
 How often iterate?
 ```
 
----
-
-### 105. `map` vs `unordered_map` vs `flat_map` vs `vector`
+**105. `map` vs `unordered_map` vs `flat_map` vs `vector`**
 
 真正比较：
 
-| Question          | `map`          | `unordered_map`              | `flat_map` / sorted vector | dense vector            |
-| ----------------- | -------------- | ---------------------------- | -------------------------- | ----------------------- |
-| Ordered traversal | ✓              | —                            | ✓                          | by index/order          |
-| Lookup            | O(log N)       | avg O(1)                     | O(log N)                   | O(1) dense key          |
-| Insert            | O(log N)       | avg O(1)                     | O(N)                       | depends                 |
-| Locality          | poor/moderate  | poor/moderate                | high                       | very high               |
-| Address stability | high           | relatively high for elements | low                        | low                     |
-| Range query       | excellent      | poor                         | excellent                  | domain-specific         |
-| Small/read-mostly | often overkill | often overkill               | strong                     | strongest if applicable |
+**表示：`map`**
+
+- Ordered traversal：✓
+- Lookup：O(log N)
+- Insert：O(log N)
+- Locality：poor/moderate
+- Address stability：high
+- Range query：excellent
+- Small/read-mostly：often overkill
+
+**表示：`unordered_map`**
+
+- Ordered traversal：—
+- Lookup：avg O(1)
+- Insert：avg O(1)
+- Locality：poor/moderate
+- Address stability：relatively high for elements
+- Range query：poor
+- Small/read-mostly：often overkill
+
+**表示：`flat_map` / sorted vector**
+
+- Ordered traversal：✓
+- Lookup：O(log N)
+- Insert：O(N)
+- Locality：high
+- Address stability：low
+- Range query：excellent
+- Small/read-mostly：strong
+
+**表示：dense vector**
+
+- Ordered traversal：by index/order
+- Lookup：O(1) dense key
+- Insert：depends
+- Locality：very high
+- Address stability：low
+- Range query：domain-specific
+- Small/read-mostly：strongest if applicable
 
 没有一个 universal winner。
 
----
-
 <a id="g4-part-xxix"></a>
 
-## Part XXIX · Practical Selection Rules
+### 9.3 Practical Selection Rules
 
-### 106. Rule 1 — `vector` Until Proven Otherwise
+**106. Rule 1 — `vector` Until Proven Otherwise**
 
-动态 sequence：
-
-> 先 vector。
+动态 sequence：先 vector。
 
 换掉它需要明确 requirement。
 
----
-
-### 107. Rule 2 — Dense Key → Direct Index
+**107. Rule 2 — Dense Key → Direct Index**
 
 如果 key domain：
 
@@ -2886,9 +2817,7 @@ array/vector
 
 而不是 hash/tree。
 
----
-
-### 108. Rule 3 — Read-heavy Lookup → Consider Sorted Flat Data
+**108. Rule 3 — Read-heavy Lookup → Consider Sorted Flat Data**
 
 如果：
 
@@ -2905,13 +2834,9 @@ sorted vector
 flat_map
 ```
 
----
+**109. Rule 4 — Address Stability 必须是 Requirement 才值得付费**
 
-### 109. Rule 4 — Address Stability 必须是 Requirement 才值得付费
-
-不要为了：
-
-> “pointer 一直有效挺方便”
+不要为了：“pointer 一直有效挺方便”
 
 就默认 node containers。
 
@@ -2921,9 +2846,7 @@ flat_map
 ID / handle
 ```
 
----
-
-### 110. Rule 5 — Borrow with Span/View, Own with Container
+**110. Rule 5 — Borrow with Span/View, Own with Container**
 
 API boundary上：
 
@@ -2937,29 +2860,31 @@ borrow
 
 这是非常好的默认。
 
----
-
 <a id="g4-part-xxx"></a>
 
-## Part XXX · Practical Lab
+<a id="g4-section-10"></a>
 
-### 111. Lab 1 — Container Selection
+## 10. 实验与观察
+
+### 10.1 Practical Lab
+
+**111. Lab 1 — Container Selection**
 
 给四个 workload：
 
-#### A
+**A**
 
 10M `float` 顺序扫描。
 
-#### B
+**B**
 
 1000 个 key，build once，查询 10M 次，需要 sorted iteration。
 
-#### C
+**C**
 
 动态 queue，两端 push/pop。
 
-#### D
+**D**
 
 需要把 node 从一个 sequence O(1) splice 到另一个，地址必须稳定。
 
@@ -2973,15 +2898,15 @@ machine topology
 
 两方面解释。
 
----
-
-### 112. G4-L2 — 用实际 capacity 判断失效
+**112. G4-L2 — 用实际 capacity 判断失效**
 
 <a id="g4-labs"></a>
 
 **问题：**reserve(4) 之后第五次 push 一定重分配吗？不一定，capacity 只保证至少为 4。以下实验先填满实际 capacity，再成功追加，确保跨过容量边界。
 
 <!-- g-lab {"id":"G4-L2","mode":"run","stdout":"reserve-no-elements; growth; clear-keeps-capacity\n"} -->
+[完整实验 · G4-L2 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <algorithm>
@@ -3012,11 +2937,13 @@ int main() {
 
 为什么不读取扩容前的 p 来“证明它失效”？因为那样引入 UB，结果不是可移植判据。本实验检查触发条件，失效结论来自 [N4950：vector.capacity](https://timsong-cpp.github.io/cppwp/n4950/vector.capacity)。erase 即使没有重分配，也有自己的失效规则。
 
-### 113. G4-L3 / L4 — 借用、拥有与算法能力
+**113. G4-L3 / L4 — 借用、拥有与算法能力**
 
 下面的完整运行例同时检查 owning_view、borrowed_range 与 list 自有排序。先预测三个 range 的元素由谁保活。
 
 <!-- g-lab {"id":"G4-L3","mode":"run","stdout":"borrowed-view; owning-view; list-member-sort\n"} -->
+[完整实验 · G4-L3 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <algorithm>
@@ -3055,6 +2982,8 @@ int main() {
 以下是**编译失败反例**，须出现 sort 的约束不满足诊断：
 
 <!-- g-lab {"id":"G4-L4","mode":"compile_fail","diagnostic":"(?:no matching function|constraints not satisfied)[\\s\\S]*(?:sort|random_access)"} -->
+[反例 · 编译失败 · G4-L4 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <algorithm>
@@ -3067,9 +2996,7 @@ int main() {
 
 **自主练习（未计入本批运行结果）：**写 `std::optional<double> average(std::span<const float>)`，规定空范围返回 nullopt；让 vector、array、C 数组和连续子范围调用它。指出借用不保活，列出浮点非有限值与求和误差策略，不把“加个 span”当作全部安全合同。
 
----
-
-### 114. Lab 4 — Sorted Vector vs Hash
+**114. Lab 4 — Sorted Vector vs Hash**
 
 构造：
 
@@ -3101,17 +3028,15 @@ iteration
 
 本练习未在本批测量。先校验四种表示的查询结果相同，再分开计时构建、命中/缺失查找和遍历；固定输入种子、优化选项和工具链，重复运行并保留分布。memory footprint 必须说明测的是元素字节、分配量还是进程 RSS，不能混为一项。不要在看到结果前指定赢家。
 
-这个实验用于检验：
-
-> “O(1) 总比 O(logN) 快”
+这个实验用于检验：“O(1) 总比 O(logN) 快”
 
 这种直觉。
 
----
-
-### 115. Lab 5 — View Lifetime
+**115. Lab 5 — View Lifetime**
 
 逐个判断：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::string text = "hello";
@@ -3122,6 +3047,8 @@ std::string_view a = text;
 
 然后：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::string_view b = std::string{"hello"};
 ```
@@ -3130,23 +3057,23 @@ std::string_view b = std::string{"hello"};
 
 再：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 text += very_large_suffix;
 ```
 
 之后 `a` 是否仍然可靠？
 
-根据：
-
-> string storage invalidation
+根据：string storage invalidation
 
 分析。
 
----
-
-### 116. Lab 6 — Range Projection
+**116. Lab 6 — Range Projection**
 
 定义：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct Record {
@@ -3164,6 +3091,8 @@ find by id
 
 用：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::ranges::sort
 std::ranges::find
@@ -3171,32 +3100,30 @@ std::ranges::find
 
 以及 projection表达，而不是全部写 comparator boilerplate。
 
----
-
 <a id="g4-part-xxxi"></a>
 
-## Part XXXI · G4 Review Protocol
+<a id="g4-section-11"></a>
+
+## 11. 工程审查与常见误判
+
+### 11.1 Review Protocol
 
 看到一段 STL 代码，按这个顺序问。
 
-### 1. Ownership
+**1. Ownership**
 
 ```text
 Who owns elements?
 ```
 
----
-
-### 2. Lifetime
+**2. Lifetime**
 
 ```text
 Any span/view/string_view/iterator?
 What invalidates it?
 ```
 
----
-
-### 3. Required Semantics
+**3. Required Semantics**
 
 ```text
 ordered?
@@ -3206,9 +3133,7 @@ front/back growth?
 range query?
 ```
 
----
-
-### 4. Access Pattern
+**4. Access Pattern**
 
 ```text
 iterate?
@@ -3217,9 +3142,7 @@ batch?
 hot/cold?
 ```
 
----
-
-### 5. Mutation Pattern
+**5. Mutation Pattern**
 
 ```text
 build once?
@@ -3228,9 +3151,7 @@ frequent erase?
 append only?
 ```
 
----
-
-### 6. Scale
+**6. Scale**
 
 ```text
 N = 8?
@@ -3238,9 +3159,7 @@ N = 8?
 10M?
 ```
 
----
-
-### 7. Storage Topology
+**7. Storage Topology**
 
 ```text
 flat?
@@ -3248,9 +3167,7 @@ segmented?
 node-based?
 ```
 
----
-
-### 8. Invalidation
+**8. Invalidation**
 
 ```text
 which operation invalidates:
@@ -3260,17 +3177,13 @@ iterator?
 view?
 ```
 
----
-
-### 9. Algorithm Capability
+**9. Algorithm Capability**
 
 ```text
 what iterator/range category does algorithm actually require?
 ```
 
----
-
-### 10. Measurement
+**10. Measurement**
 
 如果是 hot path：
 
@@ -3280,13 +3193,11 @@ profile / benchmark
 
 而不是仅凭 Big-O 判断。
 
----
-
 <a id="g4-part-xxxii"></a>
 
-## Part XXXII · 高频错误
+### 11.2 高频错误
 
-### 117. 错误 1
+**117. 错误 1**
 
 > `list` insert 是 O(1)，所以中间插入很多时应该用 list。
 
@@ -3299,9 +3210,7 @@ cache misses
 pointer chasing
 ```
 
----
-
-### 118. 错误 2
+**118. 错误 2**
 
 > `unordered_map` O(1)，所以比 map/vector 快。
 
@@ -3315,9 +3224,7 @@ memory topology
 N
 ```
 
----
-
-### 119. 错误 3
+**119. 错误 3**
 
 > `reserve(N)` 创建 N 个 objects。
 
@@ -3325,17 +3232,13 @@ N
 
 它主要准备 capacity。
 
----
-
-### 120. 错误 4
+**120. 错误 4**
 
 > `clear()` 会释放 vector 内存。
 
 不对：它销毁元素并保留 capacity。成员析构可能释放各自拥有的资源，不要与 vector 的元素存储混淆。
 
----
-
-### 121. 错误 5
+**121. 错误 5**
 
 > `span` 更安全，所以可以忽略 lifetime。
 
@@ -3343,25 +3246,19 @@ N
 
 Span 不拥有也不延长 lifetime。
 
----
-
-### 122. 错误 6
+**122. 错误 6**
 
 > `const vector&` 永远比 span 好，因为类型更具体。
 
 通常 abstraction 反而过强。
 
----
-
-### 123. 错误 7
+**123. 错误 7**
 
 > Ranges/View 会产生很多临时 containers。
 
 许多 adaptor 是惰性处理，但 view 不等于 non-owning；既要查底层 range，也要查 predicate/capture 的生命周期。
 
----
-
-### 124. 错误 8
+**124. 错误 8**
 
 > Lazy 总比 materialize 快。
 
@@ -3369,9 +3266,7 @@ Span 不拥有也不延长 lifetime。
 
 重复多次 traversal 时 materialization 可能更好。
 
----
-
-### 125. 错误 9
+**125. 错误 9**
 
 > Iterator 没变成 null，所以仍然有效。
 
@@ -3379,39 +3274,37 @@ Invalid iterator/pointer 不需要变 null。
 
 Dangling address 可以看起来完全正常。
 
----
-
-### 126. 错误 10
+**126. 错误 10**
 
 > Stable address 就应该保存 pointer 作为长期 identity。
 
 长期逻辑 identity 通常更适合 ID/handle。
 
----
-
-### 127. 错误 11
+**127. 错误 11**
 
 > 返回 `vector` 会 copy 很多。
 
 现代 C++ 的 value return + copy elision/move 通常非常自然。
 
----
-
-### 128. 错误 12
+**128. 错误 12**
 
 > `vector<bool>` 和 `vector<T>` 没区别。
 
 它是 bit-packed specialization，reference semantics 特殊。
 
----
-
 <a id="g4-part-xxxiii"></a>
 
-## Part XXXIII · C++ / Zig / Rust 对照
+<a id="g4-section-12"></a>
 
-### 129. Dynamic Contiguous Owner
+## 12. 跨语言回查
+
+### 12.1 C++ / Zig / Rust 对照
+
+**129. Dynamic Contiguous Owner**
 
 C++：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<T>
@@ -3441,11 +3334,11 @@ relocation
 borrow invalidation
 ```
 
----
-
-### 130. Borrowed Contiguous View
+**130. Borrowed Contiguous View**
 
 C++：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::span<T>
@@ -3465,15 +3358,13 @@ Zig：
 []T
 ```
 
-一个重要差异：
+一个重要差异：Rust borrow checker 会静态约束大量 lifetime/aliasing 问题；C++ span 的 lifetime discipline主要由程序员/API architecture维护。
 
-> Rust borrow checker 会静态约束大量 lifetime/aliasing 问题；C++ span 的 lifetime discipline主要由程序员/API architecture维护。
-
----
-
-### 131. String View
+**131. String View**
 
 C++：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::string_view
@@ -3499,9 +3390,7 @@ pointer + length
 
 但 Unicode/text semantics各语言 abstraction不同。
 
----
-
-### 132. Iterator / Range
+**132. Iterator / Range**
 
 C++：
 
@@ -3518,19 +3407,13 @@ Iterator trait
 iterator adapters
 ```
 
-Zig：
+Zig：更常见显式 loops/custom iterators，没有与 C++/Rust 同等规模的统一高级 iterator生态。
 
-> 更常见显式 loops/custom iterators，没有与 C++/Rust 同等规模的统一高级 iterator生态。
-
-C++ STL 的突出特点是：
-
-> container topology + iterator capability + generic algorithm
+C++ STL 的突出特点是：container topology + iterator capability + generic algorithm
 
 形成一个历史悠久而庞大的统一模型。
 
----
-
-### 133. Ownership Difference
+**133. Ownership Difference**
 
 C++：
 
@@ -3540,13 +3423,9 @@ container/view distinction
 
 主要通过类型约定和 lifetime discipline。
 
-Rust：
+Rust：ownership/borrow关系更强地进入 type system。
 
-> ownership/borrow关系更强地进入 type system。
-
-Zig：
-
-> lifetime更显式但主要靠 programmer discipline。
+Zig：lifetime更显式但主要靠 programmer discipline。
 
 底层问题仍然一样：
 
@@ -3555,11 +3434,13 @@ owner dies
 → view must not remain usable
 ```
 
----
-
 <a id="g4-part-xxxiv"></a>
 
-## Part XXXIV · G4 Final Fifteen Axioms
+<a id="g4-section-13"></a>
+
+## 13. 工程原则回查
+
+### 13.1 Final Fifteen Axioms
 
 如果半年后只记十五条：
 
@@ -3593,31 +3474,33 @@ owner dies
 
 15. **Container 选择最终是 Semantics × Lifetime × Access Pattern × Mutation Pattern × Scale × Machine Topology 的联合决策。**
 
----
-
 <a id="g4-gate"></a>
 
 <a id="g4-part-xxxv"></a>
 
-## Part XXXV · G4 Final Gate
+<a id="g4-section-14"></a>
+
+## 14. Final Gate
+
+### 14.1 Final Gate
 
 应该能闭卷回答以下问题。
 
-### Vector
+**Vector**
 
 1. `size` 和 `capacity` 根本区别是什么？
 2. `reserve` 为什么不创建 N 个 objects？
 3. reallocation 为什么会使旧 reference/pointer/iterator 失效？
 4. 为什么 `noexcept` move 会影响 vector growth？
 
-### Views
+**Views**
 
 1. `span` 为什么不是 owner？
 2. `span<const T>` 与 `const vector<T>&` 的 abstraction boundary 有什么区别？
 3. 为什么 `string_view` 很容易从 temporary string 产生 dangling？
 4. `mdspan` 解决的是什么 abstraction 问题？
 
-### Containers
+**Containers**
 
 1. 为什么 vector 通常优于 list？
 2. 什么情况下 list 的 node stability/splice 真正有价值？
@@ -3626,7 +3509,7 @@ owner dies
 5. 什么 workload 适合 flat_map / sorted vector？
 6. dense integer ID 为什么经常应该 direct indexing？
 
-### Algorithms / Ranges
+**Algorithms / Ranges**
 
  1. 为什么 STL algorithm 不属于 container member？
  2. iterator capability 与 container topology 有什么关系？
@@ -3634,23 +3517,21 @@ owner dies
  4. lazy view 与 materialized vector 应如何选择？
  5. 什么情况下 manual fused loop 比多个 algorithm passes 更合理？
 
-### Lifetime
+**Lifetime**
 
  1. vector mutation后，如何判断已有 span 是否仍有效？
  2. stable physical address 与 logical identity 为什么不同？
  3. 为什么 `std::ranges::dangling` 是 lifetime-aware API design？
 
-### API
+**API**
 
  1. 什么时候参数应该是 `std::span<const T>`？
  2. 什么时候 `std::vector<T>&` 反而是正确 API？
  3. 为什么 return `std::vector<T>` by value 是现代 C++ 的正常设计？
 
----
+<a id="g4-section-15"></a>
 
-
-<details>
-<summary>推理答案与常见误判（按组和题号对应）</summary>
+## 15. Final Gate · 参考答案与常见误判
 
 - **Vector 1～4：**size 是现有元素数，capacity 是不重分配可容纳数；reserve 不增加 size。重分配结束旧元素/存储，旧路径失效。迁移时的异常保证影响复制/移动选择，不能把 noexcept 当作一定零成本。
 - **Views 1～4：**span 不管理清理；const span 元素路径与 const vector& 暴露的具体表示/API 不同。临时 string 被销毁，string_view 没有保活。mdspan 组合多维索引、映射和 accessor；默认 accessor 不拥有元素，自定义句柄语义另查。
@@ -3659,13 +3540,15 @@ owner dies
 - **Lifetime 1～3：**逐项查操作规则：重分配使全部旧元素路径失效，erase 等即使不重分配也可失效。地址没变不等于还是同一个逻辑元素；ID 也需代际/失效策略。dangling 阻止部分临时非 borrowed range 的迭代器结果误用，不是完整借用检查器。
 - **API 1～3：**同步连续只读输入可用 span<const T>，须声明不保存及有效期。确需改变容量/拥有序列结构时 vector<T>& 合理。按值返回表达拥有结果，可直接构造或移动；为避免想象中的复制而返回局部借用才危险。
 
-</details>
-
 **完成标准：**能解释 SignalBatch 的排序前提、重复 ID 合同、三种缺失查询和空统计；能指出四个 G4 实验分别没有证明什么。选型练习与 benchmark 保留为回访题，不伪记已完成。
 
 <a id="g4-part-xxxvi"></a>
 
-## Part XXXVI · G4 与整个 Track 的统一
+<a id="g4-section-16"></a>
+
+## 16. 统一模型
+
+### 16.1 与整个 Track 的统一
 
 现在：
 
@@ -3704,11 +3587,11 @@ G7
 Concurrency
 ```
 
-G4 在中间承担的角色变得非常清楚：
-
-> **把正确的 object/value/lifetime model，包装成可复用且具备机器成本意识的数据结构与算法接口。**
+G4 在中间承担的角色变得非常清楚：**把正确的 object/value/lifetime model，包装成可复用且具备机器成本意识的数据结构与算法接口。**
 
 以后看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::unordered_map<
@@ -3716,9 +3599,7 @@ std::unordered_map<
     std::shared_ptr<State>>
 ```
 
-不应该只识别：
-
-> “hash map + shared_ptr”。
+不应该只识别：“hash map + shared_ptr”。
 
 而应该连续追问：
 
@@ -3735,15 +3616,13 @@ lookup 是否 hot？
 能不能 shard by VehicleId？
 ```
 
-这就是 STL 从“库知识”转化为：
-
-> **Systems Design Vocabulary**
+这就是 STL 从“库知识”转化为：**Systems Design Vocabulary**
 
 的标志。
 
----
+<a id="g4-section-17"></a>
 
-## 接下来怎么用
+## 17. 接下来怎么用
 
 本章形成可学习的主线和定向实验，不宣称全部标准库能力冻结。下一次按 [G5 泛型与编译期编程](g05-generics-and-compile-time.md) 继续；遇到布局/并发成本再回查 G6/G7，遇到二进制接口再看 G8。
 

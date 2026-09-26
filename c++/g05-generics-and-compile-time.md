@@ -1,65 +1,56 @@
-# C++ Systems Track · G5 Generic Programming & Compile-time Abstraction
+# G5 · 泛型、类型推导与编译期抽象
 
-**Version:** 1.0  
-**Status:** Frozen Review Baseline  
-**Language Baseline:** C++23  
-**Prerequisites:** G0 Compiler / Linker Model, G1 Object Model, G2 RAII & Ownership, G3 Value Semantics  
-**Scope:** Templates / Deduction / Forwarding / Class Templates / Concepts Core / `constexpr` / Instantiation / Compile-time vs Runtime Design  
-**Deferred:** Advanced SFINAE / Constraint Subsumption / Heavy Template Metaprogramming
+Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md) 编辑状态：Professional Handbook Edition。PDF：NOT BUILT / NOT VALIDATED。
 
----
+- **Version:** 1.1
+- **Status:** Professional Handbook Edition · 待集中审核
+- **Language Baseline:** C++23
+- **Prerequisites:** G0 Compiler / Linker Model, G1 Object Model, G2 RAII & Ownership, G3 Value Semantics
+- **Scope:** Templates / Deduction / Forwarding / Class Templates / Concepts Core / `constexpr` / Instantiation / Compile-time vs Runtime Design
+- **Deferred:** Advanced SFINAE / Constraint Subsumption / Heavy Template Metaprogramming
 
-# 0. G5 到底解决什么问题？
+## 阅读入口
 
-G1 问：
+本章主线为模板实体、推导与转发、约束、常量求值、实例化控制及泛型边界。泛型编程（generic programming）处理可复用源码中的变化；编译期（compile time）与运行时（runtime）是决策发生的阶段，不是性能等级。首次阅读顺序见下列目录；跨语言、审查和术语用于回查。
 
-> 一个 C++ object 是什么，它什么时候存在，怎样访问才合法？
 
-G2 问：
+### 章节目录
 
-> 谁拥有 resource，谁负责 lifetime？
+- [1. 泛型源代码与实例化模型](#g5-section-1)
+- [2. 类型推导：实参与形参](#g5-section-2)
+- [3. 引用折叠、转发与消费边界](#g5-section-3)
+- [4. 类模板与编译期状态](#g5-section-4)
+- [5. 约束与语义合同](#g5-section-5)
+- [6. 常量求值与编译期分支](#g5-section-6)
+- [7. 特化与运行时分派](#g5-section-7)
+- [8. 编译模型与实例化控制](#g5-section-8)
+- [9. 泛型边界与工程预算](#g5-section-9)
+- [10. 跨语言回查](#g5-section-10)
+- [11. 工程审查与反模式](#g5-section-11)
+- [12. 统一模型与术语](#g5-section-12)
+- [13. 实验与验证](#g5-section-13)
+- [14. Final Gate](#g5-section-14)
+- [15. Final Gate · 参考答案与常见误判](#g5-section-15)
+- [16. 工程原则回查](#g5-section-16)
+- [17. 参考与验证入口](#g5-section-17)
 
-G3 问：
+<a id="g5-section-1"></a>
 
-> value 怎样 copy / move / return，成本是什么？
+## 1. 泛型源代码与实例化模型
 
-G5 开始问：
+<a id="g5-topic-0"></a>
 
-> **哪些程序结构可以由 compiler 根据类型和值在编译期生成？**
+### 1.1 编译期信息的工程边界
 
-核心链路：
+本章讨论哪些变化值得成为编译期信息。对象是否合法、谁负责清理以及值如何复制，分别属于 G1～G3；泛型编程（generic programming）则把类型、布局或算法策略的差异交给编译器形成具体实体。工程判断不在于模板写得多，而在于静态差异是否真正改善接口与实现，以及它应在哪一层停止传播。
 
-```text
-Generic Source
-    ↓
-Template Arguments
-    ↓
-Deduction
-    ↓
-Constraint Checking
-    ↓
-Instantiation
-    ↓
-Concrete Type / Function
-    ↓
-Optimization
-    ↓
-Machine Code
-```
+<a id="g5-topic-1"></a>
 
-最重要的思想不是：
+### 1.2 Template 的本质
 
-> “会写 `template<typename T>`。”
+函数模板（function template）是参数化源码，不是运行时根据任意类型解释执行的万能函数。调用 `max_value(1, 2)` 可以推导出 `T = int`；需要定义时，实例化（instantiation）形成相应模板实体。
 
-而是：
-
-> **能够判断什么信息值得进入 compile time，什么应该继续作为普通 runtime data。**
-
----
-
-# 1. Template 的本质
-
-## 1.1 Function Template 不是普通函数
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -68,461 +59,154 @@ T max_value(T a, T b) {
 }
 ```
 
-这不是一个 runtime 再检查 `T` 的“万能函数”。
+这里还隐含比较和返回值构造要求；并不是任意 `T` 都适用。模板定义、某组实参对应的特化（specialization）和最终二进制符号是三个层次。优化可以内联、常量折叠、合并或删除代码，因此不能通过源代码中的特化数直接推断最终函数符号数。
 
-更准确的模型：
+<a id="g5-topic-2"></a>
 
-```text
-             max_value<T>
-                  │
-       ┌──────────┼──────────┐
-       │          │          │
-    T = int    T = float  T = Robot
-       │          │          │
-       ▼          ▼          ▼
-max_value<int> ...
-```
+### 1.3 Type Template Parameter
 
-即：
+类型模板参数（type template parameter）占据的是类型位置。例如 `template<class T>` 中的 `T` 不是运行时变量、对象或类型描述符；当实参是 `int` 时，模板中的 `T value;` 按 `int` 的规则解释。类型替换并不取消初始化、对象生命周期或表达式合法性的要求。
 
-> **Template 是生成 concrete program entities 的 compile-time parameterized source。**
+<a id="g5-topic-3"></a>
 
----
+### 1.4 Template Argument Deduction
 
-## 1.2 Instantiation
+模板实参推导（template argument deduction）需要分开记录三件事：推导得到的模板实参 `T`、替换并折叠后的形参类型、使用该形参的表达式值类别。三者可能不同：`T` 可以是 `int&`，形参最终也是 `int&`，而源码仍写着 `T&&`。G5-C1 用 `static_assert` 同时观察这些层次，避免只凭变量声明猜结果。
 
-调用：
+<a id="g5-section-2"></a>
 
-```cpp
-max_value(1, 2);
-```
+## 2. 类型推导：实参与形参
 
-compiler 推导：
+<a id="g5-topic-4"></a>
 
-```text
-T = int
-```
+### 2.1 By-value Deduction：`T`
 
-并在需要时形成：
+按值形参 `T` 建立自己的参数对象。以 `const int x = 42;` 调用 `inspect(x)` 时，推导得到 `T = int`，不会把源对象的顶层 const 传播给新参数。
 
-```text
-max_value<int>
-```
-
-这个过程叫：
-
-> **Template Instantiation — 模板实例化**
-
-必须区分：
-
-```text
-template definition
-≠
-concrete specialization
-≠
-final binary symbol
-```
-
-因为 optimizer 还可能：
-
-```text
-inline
-constant-fold
-dead-code-eliminate
-merge
-```
-
-具体 specialization。
-
----
-
-# 2. Type Template Parameter
-
-```cpp
-template <typename T>
-```
-
-这里：
-
-```text
-T
-```
-
-是：
-
-> **Type Template Parameter**
-
-不是：
-
-```text
-runtime variable
-runtime type descriptor
-object
-```
-
-实例化：
-
-```text
-T = int
-```
-
-以后：
-
-```cpp
-T value;
-```
-
-就是：
-
-```cpp
-int value;
-```
-
----
-
-# 3. Template Argument Deduction
-
-这是 G5 最重要的机制之一。
-
-以后分析 template，始终分开：
-
-```text
-① deduced template argument
-
-② parameter type after substitution
-
-③ expression value category
-```
-
-这三者不是一个东西。
-
----
-
-# 4. By-value Deduction：`T`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
 void inspect(T value);
-```
-
-如果：
-
-```cpp
 const int x = 42;
-inspect(x);
+// 在函数体中调用 inspect(x)：T 为 int。
 ```
 
-通常：
+这里忽略的是顶层 cv 限定，不是删除类型中的所有 const。`const int*` 指向的对象仍受 const 限制；把它推导成 `int*` 会错误地授予修改能力。推导规则与之后发生的参数初始化也应分别分析。
 
-```text
-T = int
-parameter type = int
-```
+<a id="g5-topic-5"></a>
 
-原因：
+### 2.2 Reference Deduction：`T&`
 
-> 函数获得自己的新 object。
+`T&` 建立对实参的别名，推导必须保留使引用合法绑定的类型信息。以 const int 左值调用 `inspect_ref`，T 是 const int，最终形参是 const int&；以普通 int 左值调用，T 是 int。
 
-caller object 的 top-level `const` 不需要传递给这个 copy。
-
----
-
-## 4.1 Top-level `const`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-const int x;
+template<class T>
+void inspect_ref(T& value);
 ```
 
-这里 const 直接修饰整个 int object：
+这里讨论函数模板调用推导，不把 T& 理解成“函数必然修改数据”。它说明可绑定的对象与访问能力，实际修改与业务合同还要看函数。
 
-```text
-top-level const
-```
+<a id="g5-topic-6"></a>
 
-而：
+### 2.3 `const T&`
+
+`const T&` 中的 const 由形参模式提供。以 int 或 const int 左值调用时，T 通常都推导为 int，最终形参都是 const int&。这与 T& 对 const 对象推导出 const int 不同，不能把最终形参类型直接当作 T。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-const int* p;
+template<class T>
+void inspect_const_ref(const T& value);
 ```
 
-这里 pointer 本身不是 const。
+该接口可以只读借用不同值类别的对象，但 const 引用不是生命周期保险；如果函数保存引用或把它交给异步任务，仍要分析对象何时结束。
 
-const 修饰的是：
+<a id="g5-topic-7"></a>
 
-```text
-pointee
-```
+### 2.4 三种最重要 Pattern
 
-因此：
+在普通调用的核心情况中，可用下表区分三个推导模式。表中 const int 是对象本身的 const；指向 const 的指针、数组等情况应继续按完整规则分析，而不是机械套表。
 
-```cpp
-inspect(p);
-```
+| 形参模式 | int 左值的 T | const int 左值的 T | 接口侧含义 |
+| --- | --- | --- | --- |
+| T | int | int | 建立独立参数对象 |
+| T& | int | const int | 保留引用绑定所需限定 |
+| const T& | int | int | 形参模式提供只读访问 |
 
-会保留：
+推导后还要看参数初始化、重载决议及函数体。G5-C1 对表中的关键类型做静态断言，这与运行时打印一个编译器私有类型名相比，更直接地验证目标命题。
 
-```text
-T = const int*
-```
+<a id="g5-section-3"></a>
 
-不能随意把 pointee constness 丢掉。
+## 3. 引用折叠、转发与消费边界
 
----
+<a id="g5-topic-8"></a>
 
-# 5. Reference Deduction：`T&`
+### 3.1 普通 Rvalue Reference
 
-```cpp
-template <typename T>
-void inspect(T& value);
-```
+普通右值引用（rvalue reference）形参使用已经确定的类型，例如 `Frame&&`。它通常用于接收调用方显式交出的对象，但引用绑定本身不完成资源移动；函数体可以移动、读取，甚至完全不消费。
 
-如果：
-
-```cpp
-const int x = 42;
-inspect(x);
-```
-
-则：
-
-```text
-T = const int
-parameter = const int&
-```
-
-因为 reference 直接绑定 caller object。
-
-必须保留合法访问所需的 constness。
-
----
-
-# 6. `const T&`
-
-```cpp
-template <typename T>
-void inspect(const T& value);
-```
-
-对于：
-
-```cpp
-const int x = 42;
-inspect(x);
-```
-
-通常：
-
-```text
-T = int
-parameter = const int&
-```
-
-`const` 已经来自 parameter pattern：
-
-```cpp
-const T&
-```
-
-不需要再放进 T。
-
----
-
-# 7. 三种最重要 Pattern
-
-假设：
-
-```cpp
-const int x = 42;
-```
-
-## `T`
-
-```cpp
-template <typename T>
-void f(T);
-```
-
-得到：
-
-```text
-T = int
-parameter = int
-```
-
----
-
-## `T&`
-
-```cpp
-template <typename T>
-void f(T&);
-```
-
-得到：
-
-```text
-T = const int
-parameter = const int&
-```
-
----
-
-## `const T&`
-
-```cpp
-template <typename T>
-void f(const T&);
-```
-
-得到：
-
-```text
-T = int
-parameter = const int&
-```
-
----
-
-# 8. 普通 Rvalue Reference
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void consume(Frame&& frame);
 ```
 
-这里：
+Frame 左值不能直接绑定到这个形参。调用方写 `std::move(frame)` 只提供右值绑定选择；资源是否被转移、转移后的状态是什么，仍由选中的操作和 Frame 合同决定。
 
-```text
-Frame&&
-```
+<a id="g5-topic-9"></a>
 
-是普通：
+### 3.2 Forwarding Reference
 
-> **rvalue reference**
+转发引用是待推导类型模板参数上的特定形式：函数调用推导中的无 cv 限定 T&& 可以同时接收左值和右值，并把调用方的绑定选择编码到 T 中。
 
-普通 lvalue：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-Frame frame;
-consume(frame);
-```
-
-不能直接绑定。
-
-需要：
-
-```cpp
-consume(std::move(frame));
-```
-
----
-
-# 9. Forwarding Reference
-
-但：
-
-```cpp
-template <typename T>
+template<class T>
 void relay(T&& value);
 ```
 
-情况不同。
+这个规则不是“&& 能绑定任何东西”的通用规则。`const T&&` 和类模板中已经固定的 T 所构成的 T&&，都不满足上述条件；应先定位 T 在哪里被推导，再谈转发。
 
-如果 `T` 是这次函数调用中需要推导的 template parameter，则：
+<a id="g5-topic-10"></a>
 
-```text
-T&&
-```
+### 3.3 Forwarding Reference Deduction
 
-可以成为：
+下面以 int 为例逐层展开推导。表达式 `value` 是函数体内普通的具名参数使用；转发后的表达式类别由 T 与引用折叠共同决定。
 
-> **Forwarding Reference**
+| 调用实参 | 推导的 T | 最终形参类型 | std::forward<T>(value) |
+| --- | --- | --- | --- |
+| int 左值 | int& | int& | lvalue |
+| const int 左值 | const int& | const int& | const lvalue |
+| int 右值 | int | int&& | xvalue |
 
----
+右值实参可能原来是 prvalue，也可能是 xvalue；转发参数并不重建原来的 prvalue 求值过程。这是“保留绑定选择”比“恢复一切原始值类别”更准确的原因。
 
-# 10. Forwarding Reference Deduction
+<a id="g5-topic-11"></a>
 
-## Lvalue
+### 3.4 Reference Collapsing
 
-```cpp
-int x = 42;
-relay(x);
-```
+引用折叠（reference collapsing）在通过模板替换、类型别名等形成引用组合时生效。只要组合中有一个左值引用，结果就是左值引用；只有两个右值引用组合才得到右值引用。
 
-推导：
+| 组合 | 结果 |
+| --- | --- |
+| T& 与 & | T& |
+| T& 与 && | T& |
+| T&& 与 & | T& |
+| T&& 与 && | T&& |
 
-```text
-T = int&
-```
+这是类型形成规则，不表示运行时存在一个可嵌套的“引用对象”。转发引用把左值实参推导进 T，再通过折叠使最终形参保持左值引用，G5-C1 对这一结果直接断言。
 
-于是：
+<a id="g5-topic-12"></a>
 
-```text
-T&&
-→ int& &&
-→ int&
-```
-
----
-
-## Const Lvalue
-
-```cpp
-const int x = 42;
-relay(x);
-```
-
-：
-
-```text
-T = const int&
-parameter = const int&
-```
-
----
-
-## Rvalue
-
-```cpp
-relay(42);
-```
-
-：
-
-```text
-T = int
-parameter = int&&
-```
-
-统一表：
-
-| Argument           | `T`          | Parameter    |
-| ------------------ | ------------ | ------------ |
-| `int` lvalue       | `int&`       | `int&`       |
-| `const int` lvalue | `const int&` | `const int&` |
-| `int` rvalue       | `int`        | `int&&`      |
-
----
-
-# 11. Reference Collapsing
-
-核心规则：
-
-```text
-T&  &  → T&
-T&  && → T&
-T&& &  → T&
-T&& && → T&&
-```
-
-工程上可以压成：
-
-> **只要组合里出现 `&`，最终基本就是 `&`；只有纯 `&& + &&` 才保持 `&&`。**
-
----
-
-# 12. `T&&` 不一定是 Forwarding Reference
+### 3.5 `T&&` 不一定是 Forwarding Reference
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -534,172 +218,78 @@ public:
 
 如果：
 
-```cpp
-Box<Frame>
-```
+`Box<Frame>`
 
-已经确定：
+已经确定：`T = Frame` 那么：
 
-```text
-T = Frame
-```
+`void set(Frame&& value);`
 
-那么：
+这里是普通 rvalue reference。 原因：`T` 不是由这次 `set()` 调用推导出来的。
 
-```cpp
-void set(Frame&& value);
-```
+<a id="g5-topic-13"></a>
 
-这里是普通 rvalue reference。
+### 3.6 Named `T&&` 仍然是 Lvalue Expression
 
-原因：
+普通表达式中的具名右值引用参数是左值。即使形参类型为 `Frame&&` 或推导得到 `T&&`，在函数体中直接写 `value` 通常仍按左值参与重载决议；需要消费或转发时，再明确转换。
 
-> `T` 不是由这次 `set()` 调用推导出来的。
-
----
-
-# 13. Named `T&&` 仍然是 Lvalue Expression
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-void consume(Frame&& frame) {
-    use(frame);
+template<class T>
+void relay(T&& value) {
+    consume(value);                  // 普通具名表达式是 lvalue。
+    consume(std::forward<T>(value)); // 按推导结果转发。
 }
 ```
 
-尽管：
+两次调用只是对照片段，不建议实际消费同一参数两次。C++23 的 move-eligible return 等上下文另有隐式移动规则，不能把“具名就永远是 lvalue”当作无例外命题。
 
-```text
-declared type = Frame&&
-```
+<a id="g5-topic-14"></a>
 
-但是表达式：
+### 3.7 `std::move`
 
-```cpp
-frame
-```
+`std::move` 对对象表达式提供相应的 xvalue 转换，为后续重载决议开放右值路径。它自身不执行资源搬运，也不删除 const；结果可能选择移动、选择复制，或因没有可行操作而编译失败。
 
-是：
+在接口设计中，显式 move 应对应当前代码允许消费源值的边界，而不是用于保证 O(1) 的优化咒语。消费后还想依赖原来的逻辑值，通常意味着合同没有想清楚；类型允许的移出状态操作仍可继续使用。
 
-```text
-lvalue
-```
+<a id="g5-topic-15"></a>
 
-因为它有名字和 identity。
+### 3.8 `std::forward<T>`
 
-这就是为什么：
+`std::forward<T>(value)` 使用推导信息恢复调用方的左值或右值绑定选择：左值实参仍以左值转发，右值实参以 xvalue 转发。它不会把已经具名的参数表达式重新变成 prvalue，也不负责移动资源、延长生命周期或验证所有权。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-Frame(Frame&& other) noexcept
-    : bytes_(std::move(other.bytes_)) {}
-```
-
-内部仍然需要：
-
-```cpp
-std::move(other.bytes_)
-```
-
----
-
-# 14. `std::move`
-
-`std::move(x)` 不负责真正移动 resource。
-
-它本质上表达：
-
-> **允许后续 operation 把 x 当成可消费 source。**
-
-概念：
-
-```text
-std::move(x)
-↓
-xvalue expression
-↓
-move overload may be selected
-↓
-move constructor / assignment performs state transfer
-```
-
-所以应该读成：
-
-> **“我从这里开始允许消费 x。”**
-
-不是：
-
-> “优化一下 x。”
-
----
-
-# 15. `std::forward<T>`
-
-Generic wrapper：
-
-```cpp
-template <typename T>
+template<class T>
 void relay(T&& value) {
     consume(std::forward<T>(value));
 }
 ```
 
-`std::forward<T>` 的作用：
+转发引用（forwarding reference）要求相应推导上下文中的无 cv 限定类型模板参数右值引用。已经固定的类模板参数 `T` 所形成的成员函数 `T&&` 不是新的转发引用；G5-C2 用编译负例区分这两种模型。[规则：N4950 temp.deduct.call](https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call)
 
-> **恢复 caller 原本传来的 value category。**
+<a id="g5-topic-16"></a>
 
-如果 caller：
+### 3.9 `move` 与 `forward` 的根本区别
 
-```cpp
-relay(frame);
-```
+move 与 forward 的差别在于绑定选择来自谁。move 由当前函数决定开放右值路径，forward 使用模板推导记录的调用方选择。两者都不直接执行移动构造。
 
-则 forward 为 lvalue。
+在普通业务函数中，是否消费由当前层的合同决定；在泛型包装层中，通常应把选择传递给下游。不能因为 forward 看起来更通用，就用它掩盖 owner、borrower 或 sink 的职责。
 
-如果：
+<a id="g5-topic-17"></a>
 
-```cpp
-relay(Frame{});
-```
+### 3.10 API Role 决定 `move` / `forward`
 
-则 forward 为 xvalue。
+**Borrow**
 
----
-
-# 16. `move` 与 `forward` 的根本区别
-
-| 工具                 | 谁决定是否消费 source？ |
-| -------------------- | ----------------------- |
-| copy                 | source 必须保持         |
-| `std::move(x)`       | 当前这层代码            |
-| `std::forward<T>(x)` | 原始 caller             |
-
-压缩：
-
-```text
-copy
-→ preserve source
-
-move
-→ consume source
-
-forward
-→ preserve caller's choice
-```
-
----
-
-# 17. API Role 决定 `move` / `forward`
-
-## Borrow
-
-```cpp
-void inspect(const Frame& frame);
-```
+`void inspect(const Frame& frame);`
 
 无需 move/forward。
 
----
+**Ownership Sink**
 
-## Ownership Sink
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void submit(Frame frame) {
@@ -707,17 +297,13 @@ void submit(Frame frame) {
 }
 ```
 
-这里函数已经拥有自己的 Frame value。
+这里函数已经拥有自己的 Frame value。 可以消费：
 
-可以消费：
+`std::move(frame)`
 
-```cpp
-std::move(frame)
-```
+**Generic Forwarding Layer**
 
----
-
-## Generic Forwarding Layer
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -728,60 +314,29 @@ void relay(T&& value) {
 
 wrapper 不应该擅自改变 caller 的 ownership/value-category 决定。
 
----
+<a id="g5-topic-18"></a>
 
-# 18. By-value Sink
+### 3.11 By-value Sink
 
-非常重要的现代模式：
+按值 sink 先取得自己的参数对象，再将其移入成员，可以用一个明确接口同时处理复制调用方和允许被消费的调用方。
 
-```cpp
-class Robot {
-public:
-    explicit Robot(std::string name)
-        : name_(std::move(name)) {}
-
-private:
-    std::string name_;
-};
-```
-
-caller：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-Robot a{name};
+void set_name(std::string name) {
+    name_ = std::move(name);
+}
 ```
 
-lvalue：
+左值实参通常复制构造参数，再执行成员移动赋值；右值实参的参数初始化可能移动，某些 prvalue 情况直接形成参数对象。这里的收益取决于 string 等具体表示及赋值状态，不应把它解释为永远少一次操作。它适合合同就是“取得一个值”的接口，不必为每个 setter 引入转发引用。
 
-```text
-copy into parameter
-↓
-move into member
-```
+<a id="g5-topic-19"></a>
 
-caller：
-
-```cpp
-Robot b{std::move(name)};
-```
-
-：
-
-```text
-move into parameter
-↓
-move into member
-```
-
-如果 T move 很便宜，这是非常清晰的 ownership API。
-
-不要机械地全部改成 forwarding constructor。
-
----
-
-# 19. Perfect Forwarding 最自然的场景
+### 3.12 Perfect Forwarding 最自然的场景
 
 Factory / emplacement：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T, typename... Args>
@@ -793,16 +348,19 @@ std::unique_ptr<T> make_object(Args&&... args) {
 
 这里 wrapper：
 
-```text
-不知道 T constructor 需要什么
-也不应该替 caller 决定 copy/move
-```
+不知道 T constructor 需要什么、也不应该替 caller 决定 copy/move。
 
 所以 perfect forwarding 很合理。
 
----
+<a id="g5-section-4"></a>
 
-# 20. Class Template
+## 4. 类模板与编译期状态
+
+<a id="g5-topic-20"></a>
+
+### 4.1 Class Template
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T, std::size_t N>
@@ -819,34 +377,25 @@ N
 → non-type template parameter
 ```
 
----
+<a id="g5-topic-21"></a>
 
-# 21. Non-type Template Parameter
+### 4.2 Non-type Template Parameter
 
-```cpp
-template <std::size_t N>
-```
+`template <std::size_t N>`
 
-中的 N 是：
+中的 N 是：**compile-time value** 例如：
 
-> **compile-time value**
-
-例如：
-
-```cpp
-FixedBuffer<float, 16>
-```
+`FixedBuffer<float, 16>`
 
 ：
 
-```text
-T = float
-N = 16
-```
+T = float、N = 16。
 
----
+<a id="g5-topic-22"></a>
 
-# 22. Different Arguments → Different Types
+### 4.3 Different Arguments → Different Types
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 FixedBuffer<float, 16>
@@ -854,17 +403,13 @@ FixedBuffer<float, 32>
 FixedBuffer<int, 16>
 ```
 
-三个都是不同 concrete C++ types。
+三个都是不同 concrete C++ types。 不是：
 
-不是：
-
-```text
-一个 Buffer type
-+
-不同 runtime configuration
-```
+`一个 Buffer type + 不同 runtime configuration`
 
 所以：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 using A = FixedBuffer<float, 16>;
@@ -873,9 +418,11 @@ using B = FixedBuffer<float, 32>;
 static_assert(!std::is_same_v<A, B>);
 ```
 
----
+<a id="g5-topic-23"></a>
 
-# 23. Template Argument 可以影响 Object Layout
+### 4.4 Template Argument 可以影响 Object Layout
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T, std::size_t N>
@@ -884,23 +431,7 @@ struct Buffer {
 };
 ```
 
-于是：
-
-```text
-Buffer<float,16>
-```
-
-包含 16 个 float。
-
-而：
-
-```text
-Buffer<float,1024>
-```
-
-包含 1024 个。
-
-所以：
+于是：`Buffer<float,16>` 包含 16 个 float。 而：`Buffer<float,1024>` 包含 1024 个。 所以：
 
 ```text
 compile-time parameter
@@ -914,11 +445,13 @@ sizeof / alignment / generated operations
 
 都可能发生变化。
 
----
+<a id="g5-topic-24"></a>
 
-# 24. Compile-time Information vs Runtime State
+### 4.5 Compile-time Information vs Runtime State
 
 Runtime：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Buffer {
@@ -926,114 +459,43 @@ class Buffer {
 };
 ```
 
-每个 object 需要保存：
+每个 object 需要保存：`capacity_` Template：
 
-```text
-capacity_
-```
+`FixedBuffer<T, 16>`
 
-Template：
+capacity 已经由 type 表达。 可能不需要 object 再保存：`capacity = 16` 这一 runtime field。 所以：Template 可以把某些 runtime state 提升为 type-level compile-time information。
 
-```cpp
-FixedBuffer<T, 16>
-```
+<a id="g5-topic-25"></a>
 
-capacity 已经由 type 表达。
-
-可能不需要 object 再保存：
-
-```text
-capacity = 16
-```
-
-这一 runtime field。
-
-所以：
-
-> Template 可以把某些 runtime state 提升为 type-level compile-time information。
-
----
-
-# 25. 但不要把所有数据都 Template 化
+### 4.6 但不要把所有数据都 Template 化
 
 适合 compile time：
 
-```text
-type
-fixed extent
-small finite policy
-endianness
-algorithm mode
-protocol layout
-compile-time feature
-```
+type、fixed extent、small finite policy、endianness、algorithm mode、protocol layout、compile-time feature。
 
 通常不适合：
 
-```text
-timestamp
-vehicle ID
-request ID
-user ID
-sample value
-大量动态 configuration
-```
+timestamp、vehicle ID、request ID、user ID、sample value、大量动态 configuration。
 
-核心判断：
+核心判断：**它属于 program structure，还是 program data？**
 
-> **它属于 program structure，还是 program data？**
+<a id="g5-topic-26"></a>
 
----
+### 4.7 `std::array<T, N>` 与 Reserved Storage 的区别
 
-# 26. `std::array<T, N>` 与 Reserved Storage 的区别
+`std::array<T, N>` 将元素存储嵌入对象；成功构造的数组包含相应的 N 个元素对象（N 为零时没有元素）。`vector<T>::reserve(N)` 只保证容量下界，不把 size 增至 N，也不构造 N 个元素。固定长度既可进入类型和布局，也会影响构造、析构及移动成本；它不是可任意拿来按活对象访问的未初始化缓冲区。
 
-```cpp
-std::array<Frame, 1024> frames;
-```
+<a id="g5-section-5"></a>
 
-意味着：
+## 5. 约束与语义合同
 
-```text
-1024 Frame objects alive
-```
+<a id="g5-topic-27"></a>
 
-而：
+### 5.1 Concepts — 当前阶段只保留 Core
 
-```cpp
-std::vector<Frame> frames;
-frames.reserve(1024);
-```
+Concept：**Template argument 的 compile-time contract。** 例如：
 
-意味着：
-
-```text
-storage capacity >= 1024
-
-but
-
-size == 0
-0 Frame objects alive
-```
-
-必须永久区分：
-
-```text
-storage
-≠
-object lifetime
-```
-
-Template 不会改变 G1 的 lifetime rules。
-
----
-
-# 27. Concepts — 当前阶段只保留 Core
-
-Concept：
-
-> **Template argument 的 compile-time contract。**
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <std::integral T>
@@ -1042,13 +504,13 @@ T twice(T value) {
 }
 ```
 
-读成：
+读成：T 必须满足 `std::integral`。
 
-> T 必须满足 `std::integral`。
+<a id="g5-topic-28"></a>
 
----
+### 5.2 简单自定义 Concept
 
-# 28. 简单自定义 Concept
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -1057,109 +519,59 @@ concept HasSize = requires(const T& value) {
 };
 ```
 
-表示：
+表示：对这种 T，`value.size()` 必须是合法表达式。 然后：
 
-> 对这种 T，`value.size()` 必须是合法表达式。
-
-然后：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <HasSize T>
 void print_size(const T& value);
 ```
 
----
+<a id="g5-topic-29"></a>
 
-# 29. Concept 不是什么
+### 5.3 Concept 不是什么
 
 Concept 不是：
 
-```text
-base class
-runtime interface
-vtable
-runtime type object
-```
+base class、runtime interface、vtable、runtime type object。
 
-它工作在：
+它工作在：`compile time` 影响：
 
-```text
-compile time
-```
+candidate eligibility、generic contract、instantiation、overload resolution。
 
-影响：
+<a id="g5-topic-30"></a>
 
-```text
-candidate eligibility
-generic contract
-instantiation
-overload resolution
-```
+### 5.4 Concept 的边界
 
----
+Concept 可以检查表达式是否有效、结果类型是否符合限制，以及被编入约束的常量条件。它不能从一个比较表达式可调用就推导出严格弱序，也不能验证未编码的业务守恒关系。语法满足和语义建模应分别验收：编译负例可检验接口拒绝了不具备能力的类型，性质测试和论证才触及语义规律。
 
-# 30. Concept 的边界
+<a id="g5-topic-31"></a>
 
-Concept 可以检查：
-
-```text
-expression 是否存在
-type relationship
-compile-time property
-部分 noexcept property
-```
-
-但一般不能证明：
-
-```text
-comparison transitive
-hash 和 equality 语义一致
-copy 保持 logical value
-decoder 实际正确
-```
-
-因此 generic contract 仍然包含：
-
-```text
-machine-checkable structural requirements
-+
-human-guaranteed semantic laws
-```
-
----
-
-# 31. 不要 Over-constrain
+### 5.5 不要 Over-constrain
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <std::copyable T>
 void inspect(const T& value);
 ```
 
-如果函数根本不 copy T：
+如果函数根本不 copy T：`std::copyable` 就可能是多余限制。 原则：**Concept 应表达算法真正需要的最小充分 contract。**
 
-> `std::copyable` 就可能是多余限制。
+<a id="g5-topic-32"></a>
 
-原则：
+### 5.6 Concrete Interface 有时比 Concept 更好
 
-> **Concept 应表达算法真正需要的最小充分 contract。**
+如果 parser 只需要：contiguous bytes 那么：
 
----
-
-# 32. Concrete Interface 有时比 Concept 更好
-
-如果 parser 只需要：
-
-> contiguous bytes
-
-那么：
-
-```cpp
-void parse(std::span<const std::byte> bytes);
-```
+`void parse(std::span<const std::byte> bytes);`
 
 可能明显优于：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <ByteBuffer T>
@@ -1168,20 +580,19 @@ void parse(const T& input);
 
 因为 span 已经提供：
 
-```text
-明确 data shape
-简单 API
-少 template instantiation
-更小 compile surface
-```
+明确 data shape、简单 API、少 template instantiation、更小 compile surface。
 
-所以：
+所以：会 Concepts 不代表所有接口都应该 generic。
 
-> 会 Concepts 不代表所有接口都应该 generic。
+<a id="g5-section-6"></a>
 
----
+## 6. 常量求值与编译期分支
 
-# 33. `constexpr`
+<a id="g5-topic-33"></a>
+
+### 6.1 `constexpr`
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 constexpr int square(int x) {
@@ -1189,70 +600,38 @@ constexpr int square(int x) {
 }
 ```
 
-不要读成：
+不要读成：“这是编译期函数。” 应该读成：**这个函数可以参与 constant evaluation。**
 
-> “这是编译期函数。”
+<a id="g5-topic-34"></a>
 
-应该读成：
+### 6.2 同一个 `constexpr` Function 可以两种执行
 
-> **这个函数可以参与 constant evaluation。**
+`constexpr int a = square(4);`
 
----
+这里：`compile-time evaluation required` 而：
 
-# 34. 同一个 `constexpr` Function 可以两种执行
-
-```cpp
-constexpr int a = square(4);
-```
-
-这里：
-
-```text
-compile-time evaluation required
-```
-
-而：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int x = runtime_input();
 int b = square(x);
 ```
 
-可以：
+可以：`runtime evaluation` 所以：
 
-```text
-runtime evaluation
-```
+`constexpr ≠ always compile time`
 
-所以：
+<a id="g5-topic-35"></a>
 
-```text
-constexpr
-≠
-always compile time
-```
+### 6.3 `const` vs `constexpr`
 
----
+`const int x = runtime_input();`
 
-# 35. `const` vs `constexpr`
+x 可以是 runtime value。 只是不允许通过 x 修改。 而：
 
-```cpp
-const int x = runtime_input();
-```
+`constexpr int x = 42;`
 
-x 可以是 runtime value。
-
-只是不允许通过 x 修改。
-
-而：
-
-```cpp
-constexpr int x = 42;
-```
-
-必须拥有 constant-expression value。
-
-压缩：
+必须拥有 constant-expression value。 压缩：
 
 ```text
 const
@@ -1262,62 +641,43 @@ constexpr
 → constant-evaluation constraint/capability
 ```
 
----
+<a id="g5-topic-36"></a>
 
-# 36. `consteval`
+### 6.4 `consteval`
 
-```cpp
-consteval int square(int x) {
-    return x * x;
-}
-```
+`consteval` 声明立即函数（immediate function）。普通调用上下文中的立即调用必须满足常量表达式要求；将运行时输入传入这种调用应诊断失败。立即函数上下文有进一步规则，因此这里不把它简化成“函数体中的每个中间调用都能独立在源码位置求值”。G5-C4 用 `argc` 制造明确不满足条件的普通调用。
 
-调用必须在 compile time 成功求值。
+<a id="g5-topic-37"></a>
 
-粗略对照：
+### 6.5 `if constexpr`
 
-```text
-ordinary function
-→ runtime normally
+`if constexpr` 根据常量条件选择结构分支。在模板实例化中，当条件不再依赖模板参数时，被丢弃分支不会按该特化继续实例化，所以类型相关的不同操作可以分别存在。但整个源码仍须被解析，非依赖错误不会因为位于 discarded statement 中就一概消失。
 
-constexpr
-→ compile-time or runtime
-
-consteval
-→ compile-time required
-```
-
-当前阶段认识即可。
-
----
-
-# 37. `if constexpr`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-template <typename T>
-void process(T value) {
-    if constexpr (std::integral<T>) {
-        ...
+template<class T>
+constexpr auto scalar(T value) {
+    if constexpr (std::is_pointer_v<T>) {
+        return *value;
     } else {
-        ...
+        return value;
     }
 }
 ```
 
-它不是单纯：
+指针分支的调用还要求指针指向可合法读取的对象；编译期选择不证明运行时生命周期。普通 `if` 不提供这种模板分支丢弃机制。[规则：N4950 stmt.if](https://timsong-cpp.github.io/cppwp/n4950/stmt.if)
 
-> 更快的 `if`。
+<a id="g5-topic-38"></a>
 
-核心是：
+### 6.6 `if constexpr` 可以让分支拥有不同合法表达式
 
-> **根据 compile-time condition 选择当前 specialization 的代码结构。**
+模板分支可以使用不同类型能力，因为选中的条件和实例化规则决定哪些依赖表达式需要成立。
 
----
-
-# 38. `if constexpr` 可以让分支拥有不同合法表达式
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-template <typename T>
+template<class T>
 void process(T value) {
     if constexpr (std::integral<T>) {
         value += 1;
@@ -1327,29 +687,17 @@ void process(T value) {
 }
 ```
 
-对于：
+对 `process(42)`，未选的依赖分支不要求 int 拥有 do_something。若改为普通 if，不能以运行时条件为由跳过该特化中的类型检查。对其他 T，被选中的 do_something 仍必须有效；constexpr 分支不是隐藏任意坏代码的容器。
 
-```cpp
-process(42);
-```
+<a id="g5-section-7"></a>
 
-T = int。
+## 7. 特化与运行时分派
 
-else 分支是 discarded dependent branch。
+<a id="g5-topic-39"></a>
 
-不要求：
+### 7.1 Compile-time Specialization
 
-```cpp
-int::do_something()
-```
-
-存在。
-
-普通 `if` 不具备相同 template semantic behavior。
-
----
-
-# 39. Compile-time Specialization
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <Endian E>
@@ -1358,71 +706,32 @@ std::uint16_t decode(...);
 
 可能形成：
 
-```text
-decode<Endian::Little>
-decode<Endian::Big>
-```
+- decode<Endian::Little>
+- decode<Endian::Big>
 
-其中：
+其中：`Endian` 已经从 runtime state 变成 program structure。 这可以：
 
-```text
-Endian
-```
+remove repeated branch、enable constant propagation、enable inlining、specialize algorithm。
 
-已经从 runtime state 变成 program structure。
+<a id="g5-topic-40"></a>
 
-这可以：
-
-```text
-remove repeated branch
-enable constant propagation
-enable inlining
-specialize algorithm
-```
-
----
-
-# 40. 但 Template Version 不一定比 Runtime Version 快
+### 7.2 但 Template Version 不一定比 Runtime Version 快
 
 Runtime：
 
-```cpp
-decode(bytes, Endian::Little);
-```
+`decode(bytes, Endian::Little);`
 
-如果 optimizer 看得到：
+如果 optimizer 看得到：`Endian::Little` 是 constant，也可能通过：
 
-```text
-Endian::Little
-```
+inlining、constant propagation、branch elimination。
 
-是 constant，
+生成和 template specialization 几乎一样的 machine code。 所以：**不能仅凭源码有 template 就推断性能更好。** 要看：
 
-也可能通过：
+assembly、benchmark、profile。
 
-```text
-inlining
-constant propagation
-branch elimination
-```
+<a id="g5-topic-41"></a>
 
-生成和 template specialization 几乎一样的 machine code。
-
-所以：
-
-> **不能仅凭源码有 template 就推断性能更好。**
-
-要看：
-
-```text
-assembly
-benchmark
-profile
-```
-
----
-
-# 41. Dynamic Outside, Static Inside
+### 7.3 Dynamic Outside, Static Inside
 
 很多系统现实是：
 
@@ -1446,6 +755,8 @@ hot loop many times
 
 例如：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 switch (config.endian) {
 case Endian::Little:
@@ -1458,15 +769,19 @@ case Endian::Big:
 }
 ```
 
-核心思想：
+核心思想：**低频 dynamic decision 移出高频 hot path。**
 
-> **低频 dynamic decision 移出高频 hot path。**
+<a id="g5-section-8"></a>
 
----
+## 8. 编译模型与实例化控制
 
-# 42. Template Compilation Model
+<a id="g5-topic-42"></a>
+
+### 8.1 Template Compilation Model
 
 普通函数：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // foo.hpp
@@ -1478,13 +793,9 @@ int foo(int x) {
 }
 ```
 
-调用方编译时只需要 declaration。
+调用方编译时只需要 declaration。 最终由 linker 找 concrete definition。 Template：
 
-最终由 linker 找 concrete definition。
-
----
-
-Template：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -1493,27 +804,15 @@ T foo(T x);
 
 调用：
 
-```cpp
-foo(42);
-```
+`foo(42);`
 
-需要：
+需要：`foo<int>` compiler 要生成这个 concrete function，通常就必须看到：Template definition body。 这就是为什么 template definitions 经常位于 header。
 
-```text
-foo<int>
-```
+<a id="g5-topic-43"></a>
 
-compiler 要生成这个 concrete function，
+### 8.2 Header-only Template
 
-通常就必须看到：
-
-> Template definition body。
-
-这就是为什么 template definitions 经常位于 header。
-
----
-
-# 43. Header-only Template
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -1522,136 +821,59 @@ T foo(T value) {
 }
 ```
 
-定义放 header。
+定义放 header。 好处：
 
-好处：
-
-```text
-open genericity
-consumer can instantiate required T
-optimizer sees body
-```
+open genericity、consumer can instantiate required T、optimizer sees body。
 
 代价：
 
-```text
-more parsing
-more instantiation
-larger dependency surface
-rebuild propagation
-implementation exposure
-```
+more parsing、more instantiation、larger dependency surface、rebuild propagation、implementation exposure。
 
----
+<a id="g5-topic-44"></a>
 
-# 44. Zero Runtime Overhead ≠ Zero Engineering Cost
+### 8.3 Zero Runtime Overhead ≠ Zero Engineering Cost
 
-Template 可能拥有非常优秀 runtime performance。
+Template 可能拥有非常优秀 runtime performance。 但是可能支付：
 
-但是可能支付：
+compile time、binary size、debug symbol size、diagnostic complexity、dependency complexity。
 
-```text
-compile time
-binary size
-debug symbol size
-diagnostic complexity
-dependency complexity
-```
+所以：**zero-overhead abstraction 主要描述 runtime cost model，不等于 template 是免费机制。**
 
-所以：
+<a id="g5-topic-45"></a>
 
-> **zero-overhead abstraction 主要描述 runtime cost model，不等于 template 是免费机制。**
+### 8.4 Explicit Instantiation
 
----
+显式实例化（explicit instantiation）用于集中提供一组已知模板实参的实现。公共头文件给出声明和适当的 `extern template` 声明，提供方翻译单元持有定义并显式实例化所支持的类型；调用方链接到这些定义。 这不是让任意新类型都能在看不到定义时自动实例化。若公共接口允许写出 `scale<double>`，但提供方只生成 `scale<int>`，类型检查可能通过而链接失败。G5-C5 分别检查这种失败和提供 int 实现后的运行，并记录 `nm` 观察。符号拼写和优化后的实体数量不是可移植保证。
 
-# 45. Explicit Instantiation
+<a id="g5-section-9"></a>
 
-如果只支持：
+## 9. 泛型边界与工程预算
 
-```text
-int
-float
-double
-```
+<a id="g5-topic-46"></a>
 
-可以在 `.cpp`：
+### 9.1 Thin Template Front-end + Concrete Core
+
+薄模板前端负责真正依赖类型的检查、适配或策略选择，具体核心实现接收 `span`、视图或普通参数，避免把相同工作按每种类型重新实例化。例如序列化前端可以检查输入类型，但核心只能在明确表示合同后处理字节。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-template int foo<int>(int);
-template float foo<float>(float);
-template double foo<double>(double);
-```
-
-明确让这个 translation unit 产生对应 specializations。
-
-这样 generic code 从：
-
-```text
-open set of caller-selected T
-```
-
-更接近：
-
-```text
-controlled supported type set
-```
-
-可以改善：
-
-```text
-compile-time ownership
-binary ownership
-header exposure
-```
-
----
-
-# 46. Thin Template Front-end + Concrete Core
-
-这是 G5 很重要的工程模式。
-
-例如：
-
-```cpp
-template <typename T>
-void process(std::span<const T> values) {
-    process_bytes(std::as_bytes(values));
+void consume_bytes(std::span<const std::byte> bytes);
+template<class T>
+void inspect_representation(std::span<const T> values) {
+    consume_bytes(std::as_bytes(values));
 }
 ```
 
-核心：
+这里观察的是对象表示，不是通用序列化或逻辑值相等算法；padding、端序、指针及 ABI 条件仍存在。具体核心减少重复实例化，但不能以丢弃类型为代价掩盖必要的语义合同。
 
-```cpp
-void process_bytes(
-    std::span<const std::byte> bytes);
-```
+<a id="g5-topic-47"></a>
 
-结构：
+### 9.2 Where Should Genericity Stop?
 
-```text
-generic caller types
-      ↓
-thin type-dependent adapter
-      ↓
-common representation
-      ↓
-large non-template core
-```
+这是 G5 最重要的架构问题。 假设：
 
-这样可以避免：
-
-```text
-500 lines heavy algorithm
-× many template specializations
-```
-
----
-
-# 47. Where Should Genericity Stop?
-
-这是 G5 最重要的架构问题。
-
-假设：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 FixedBuffer<int, 16>
@@ -1659,9 +881,9 @@ FixedBuffer<int, 32>
 FixedBuffer<int, 64>
 ```
 
-如果算法不关心 N，
+如果算法不关心 N，不要机械写：
 
-不要机械写：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <std::size_t N>
@@ -1670,89 +892,53 @@ void analyze(const FixedBuffer<int, N>&);
 
 更合理的可能是：
 
-```cpp
-void analyze(std::span<const int>);
-```
+`void analyze(std::span<const int>);`
 
-这样：
+这样：`storage detail N` 在 algorithm boundary 被擦除。
 
-```text
-storage detail N
-```
+<a id="g5-topic-48"></a>
 
-在 algorithm boundary 被擦除。
-
----
-
-# 48. 为什么这很好？
+### 9.3 为什么这很好？
 
 减少：
 
-```text
-algorithm<16>
-algorithm<32>
-algorithm<64>
-```
+algorithm<16>、algorithm<32>、algorithm<64>。
 
-这些几乎相同的 specializations。
+这些几乎相同的 specializations。 同时获得：
 
-同时获得：
+simpler API、less compile time、smaller binary、less coupling。
 
-```text
-simpler API
-less compile time
-smaller binary
-less coupling
-```
+所以：**不要让 compile-time variability 传播得比必要范围更远。**
 
-所以：
+<a id="g5-topic-49"></a>
 
-> **不要让 compile-time variability 传播得比必要范围更远。**
-
----
-
-# 49. Template vs Runtime Parameter
+### 9.4 Template vs Runtime Parameter
 
 Runtime：
 
-```cpp
-decode(bytes, endian);
-```
+`decode(bytes, endian);`
 
 优点：
 
-```text
-one function
-simple API
-runtime flexibility
-small code size
-faster builds
-```
+one function、simple API、runtime flexibility、small code size、faster builds。
 
 Template：
 
-```cpp
-decode<Endian::Little>(bytes);
-```
+`decode<Endian::Little>(bytes);`
 
 优点：
 
-```text
-static policy
-compile-time structural specialization
-more optimization knowledge
-possibly no runtime branch
-```
+static policy、compile-time structural specialization、more optimization knowledge、possibly no runtime branch。
 
 没有永远正确的一边。
 
----
+<a id="g5-topic-50"></a>
 
-# 50. 如何决定 Static / Dynamic Boundary
+### 9.5 如何决定 Static / Dynamic Boundary
 
 问四个问题：
 
-## 1. 信息变化频率？
+**1. 信息变化频率？**
 
 ```text
 每次 sample
@@ -1762,9 +948,7 @@ possibly no runtime branch
 → specialization candidate
 ```
 
----
-
-## 2. 它改变算法结构吗？
+**2. 它改变算法结构吗？**
 
 ```text
 endianness
@@ -1774,17 +958,11 @@ timestamp
 → ordinary data
 ```
 
----
+**3. Hot path 会不会重复检查它？**
 
-## 3. Hot path 会不会重复检查它？
+如果每秒数百万次重复同一 decision：提前 bind/specialize 更有吸引力。
 
-如果每秒数百万次重复同一 decision：
-
-> 提前 bind/specialize 更有吸引力。
-
----
-
-## 4. 会产生多少 Specializations？
+**4. 会产生多少 Specializations？**
 
 ```text
 2
@@ -1800,11 +978,13 @@ combinatorial explosion
 → 危险
 ```
 
----
+<a id="g5-topic-51"></a>
 
-# 51. Combinatorial Instantiation Explosion
+### 9.6 Combinatorial Instantiation Explosion
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <
@@ -1817,31 +997,19 @@ template <
 struct Decoder;
 ```
 
-参数组合可能爆炸。
+参数组合可能爆炸。 你可能只是为了消除：
 
-你可能只是为了消除：
-
-```text
-一个 branch
-几个 metadata loads
-```
+一个 branch、几个 metadata loads。
 
 却换来了：
 
-```text
-huge build time
-huge code
-large debug information
-complex diagnostics
-```
+huge build time、huge code、large debug information、complex diagnostics。
 
-所以：
+所以：**compile-time 越多不等于越优秀。**
 
-> **compile-time 越多不等于越优秀。**
+<a id="g5-topic-52"></a>
 
----
-
-# 52. Template vs External Code Generation
+### 9.7 Template vs External Code Generation
 
 二者都能：
 
@@ -1853,66 +1021,35 @@ specialized executable structure
 
 Template 更适合：
 
-```text
-small policy set
-type-oriented variation
-compile-time dimensions
-generic reusable components
-```
+small policy set、type-oriented variation、compile-time dimensions、generic reusable components。
 
 External codegen 更适合：
 
-```text
-DBC
-IDL
-schema
-CSV
-hundreds/thousands of definitions
-large generated registries
-```
+DBC、IDL、schema、CSV、hundreds/thousands of definitions、large generated registries。
 
-语言无关核心：
+语言无关核心：**稳定 metadata 可以从 runtime data 转化为 generated program structure。**
 
-> **稳定 metadata 可以从 runtime data 转化为 generated program structure。**
+<a id="g5-topic-53"></a>
 
----
-
-# 53. Genericity Budget
+### 9.8 Genericity Budget
 
 任何 template abstraction 都应该做一次成本核算。
 
-## 收益
+**收益**
 
-```text
-static checking
-compile-time specialization
-inlining opportunities
-generic reuse
-type-level invariants
-```
+static checking、compile-time specialization、inlining opportunities、generic reuse、type-level invariants。
 
-## 成本
+**成本**
 
-```text
-compile time
-code size
-dependency propagation
-diagnostic complexity
-API complexity
-ABI/binary-boundary complexity
-```
+compile time、code size、dependency propagation、diagnostic complexity、API complexity、ABI/binary-boundary complexity。
 
-所以：
+所以：**Genericity 是 architecture budget。**
 
-> **Genericity 是 architecture budget。**
+<a id="g5-topic-54"></a>
 
----
+### 9.9 设计 Ladder
 
-# 54. G5 设计 Ladder
-
-遇到一个问题，不要直接 template。
-
-从最具体开始：
+遇到一个问题，不要直接 template。 从最具体开始：
 
 ```text
 Concrete Function
@@ -1926,151 +1063,86 @@ Generic Template
 Compile-time Specialized Template
 ```
 
-每向下一层增加能力，也增加复杂度。
+每向下一层增加能力，也增加复杂度。 选择：能表达真实需求的最简单 abstraction。
 
-选择：
+<a id="g5-topic-55"></a>
 
-> 能表达真实需求的最简单 abstraction。
+### 9.10 Concrete Type vs `span` vs Template
 
----
+假设算法只需要：连续只读 samples。 可以：
 
-# 55. Concrete Type vs `span` vs Template
-
-假设算法只需要：
-
-> 连续只读 samples。
-
-可以：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(
     const std::vector<Sample>& samples);
 ```
 
-但暴露了 vector。
+但暴露了 vector。 更窄：
 
-更窄：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(
     std::span<const Sample> samples);
 ```
 
-如果所有类型都能统一成这种 runtime view：
+如果所有类型都能统一成这种 runtime view：没必要 template。 只有当算法真正需要保留：
 
-> 没必要 template。
-
-只有当算法真正需要保留：
-
-```text
-different static types
-different operations
-different compile-time policies
-```
+different static types、different operations、different compile-time policies。
 
 时，template 才更自然。
 
----
+<a id="g5-topic-56"></a>
 
-# 56. Static Polymorphism vs Dynamic Polymorphism
+### 9.11 Static Polymorphism vs Dynamic Polymorphism
 
-## Virtual
+静态多态在编译期按具体类型选择行为，可能帮助内联和特化；动态多态通过运行时分派保留实现替换边界。两者应按变化发生的层次选择，而不是按“模板一定更快”排名。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-class Sensor {
-public:
-    virtual ~Sensor() = default;
-    virtual float read() = 0;
+struct Processor {
+    virtual ~Processor() = default;
+    virtual void process() = 0;
 };
 ```
 
-：
+虚函数接口可以隐藏某些实现细节，但不会自动形成跨编译器、跨版本的稳定 ABI。对象布局、调用约定、异常和所有权仍须约定。静态分派同样可能因代码膨胀损害指令工作集，实际成本交给 G6 的测量方法。
 
-```text
-runtime type selection
-virtual dispatch
-heterogeneous collection easy
-stable runtime interface
-```
+<a id="g5-section-10"></a>
 
----
+## 10. 跨语言回查
 
-## Template
+<a id="g5-topic-57"></a>
 
-```cpp
-template <typename T>
-float read_sensor(T& sensor) {
-    return sensor.read();
-}
-```
+### 10.1 C++ / Zig / Rust 对照
 
-：
+**C++**
 
-```text
-concrete T known at compile time
-static dispatch
-inlining/specialization possible
-more instantiations
-```
-
-不是：
-
-> static 一定比 dynamic 好。
-
-而是：
-
-> boundary 的 variability 在 compile time 还是 runtime？
-
----
-
-# 57. C++ / Zig / Rust 对照
-
-## C++
-
-```cpp
-template <typename T, std::size_t N>
-```
+`template <typename T, std::size_t N>`
 
 特点：
 
-```text
-template subsystem
-deduction
-specialization
-reference collapsing
-Concepts
-constexpr
-```
+template subsystem、deduction、specialization、reference collapsing、Concepts、constexpr。
 
 能力极强，但历史层次很多。
 
----
-
-## Zig
+**Zig**
 
 ```zig
 fn foo(comptime T: type, comptime N: usize) type
 ```
 
-倾向：
+倾向：`compile-time execution integrated with normal language model` 没有 C++：
 
-```text
-compile-time execution integrated with normal language model
-```
-
-没有 C++：
-
-```text
-forwarding reference
-reference collapsing
-std::forward
-```
+- forwarding reference
+- reference collapsing
+- std::forward
 
 整套机制。
 
----
-
-## Rust
+**Rust**
 
 ```rust
 struct Buffer<T, const N: usize>
@@ -2084,18 +1156,13 @@ fn foo<T: Trait>(...)
 
 分别提供：
 
-```text
-generics
-const generics
-trait bounds
-monomorphization
-```
+generics、const generics、trait bounds、monomorphization。
 
 Rust ownership/reference model和 C++ 不同，因此无需复制 C++ forwarding machinery。
 
----
+<a id="g5-topic-58"></a>
 
-# 58. 三种语言共同的机器级事实
+### 10.2 三种语言共同的机器级事实
 
 无论语言如何表达：
 
@@ -2117,67 +1184,64 @@ more compile work / code
 
 所以真正的 systems trade-off 是共同的。
 
----
+<a id="g5-section-11"></a>
 
-# 59. G5 Code Review Protocol
+## 11. 工程审查与反模式
 
-以后看到：
+<a id="g5-topic-59"></a>
 
-```cpp
-template <typename T>
-```
+### 11.1 Code Review Protocol
+
+看到：
+
+`template <typename T>`
 
 按下面检查。
 
-### 1. 为什么需要 Generic？
+**1. 为什么需要 Generic？**
 
 普通 concrete API 不够吗？
 
-### 2. 什么东西在变化？
+**2. 什么东西在变化？**
 
-```text
-type?
-layout?
-algorithm?
-policy?
-```
+- type?
+- layout?
+- algorithm?
+- policy?
 
-### 3. 变化真的需要发生在 Compile Time 吗？
+**3. 变化真的需要发生在 Compile Time 吗？**
 
 还是 runtime data 更合适？
 
-### 4. 会有多少 Specializations？
+**4. 会有多少 Specializations？**
 
-### 5. 每个 Specialization 机器代码真的不同吗？
+**5. 每个 Specialization 机器代码真的不同吗？**
 
-### 6. 是否在不必要地传播 Template Parameter？
+**6. 是否在不必要地传播 Template Parameter？**
 
-### 7. 是否能在某层收敛成
+**7. 是否能在某层收敛成**
 
-```text
-span
-view
-function pointer
-ordinary function
-```
+span、view、function pointer、ordinary function。
 
 ？
 
-### 8. 是否应该用 by-value sink，而不是 forwarding reference？
+**8. 是否应该用 by-value sink，而不是 forwarding reference？**
 
-### 9. `std::move` 是否真的代表一次合理的 consumption boundary？
+**9. `std::move` 是否真的代表一次合理的 consumption boundary？**
 
-### 10. `std::forward` 是否真的位于 generic forwarding layer？
+**10. `std::forward` 是否真的位于 generic forwarding layer？**
 
-### 11. Template 定义是否必须全部暴露在 Header？
+**11. Template 定义是否必须全部暴露在 Header？**
 
-### 12. 实际性能收益是否被 benchmark / assembly 验证？
+**12. 实际性能收益是否被 benchmark / assembly 验证？**
 
----
+<a id="g5-topic-60"></a>
 
-# 60. 高频 Anti-patterns
+### 11.2 高频 Anti-patterns
 
-## Anti-pattern 1：Everything is Generic
+**Anti-pattern 1：Everything is Generic**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -2186,64 +1250,42 @@ void parse(T&& input);
 
 实际上：
 
-```cpp
-void parse(std::span<const std::byte>);
-```
+`void parse(std::span<const std::byte>);`
 
 已经足够。
 
----
+**Anti-pattern 2：Cargo-cult Forwarding**
 
-## Anti-pattern 2：Cargo-cult Forwarding
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
 void set_model(T&& model);
 ```
 
-只因为：
+只因为：“perfect forwarding 最快”。 而实际上 API 就是：
 
-> “perfect forwarding 最快”。
+`void set_model(Model model);`
 
-而实际上 API 就是：
+**Anti-pattern 3：Cargo-cult `std::move`**
 
-```cpp
-void set_model(Model model);
-```
+`consume(std::move(value));`
 
----
+却没搞清：source 之后是否还需要保持原 value。
 
-## Anti-pattern 3：Cargo-cult `std::move`
+**Anti-pattern 4：Template Every Runtime Constant**
 
-```cpp
-consume(std::move(value));
-```
-
-却没搞清：
-
-> source 之后是否还需要保持原 value。
-
----
-
-## Anti-pattern 4：Template Every Runtime Constant
-
-```text
-Vehicle<123>
-Message<456>
-Request<789>
-```
+Vehicle<123>、Message<456>、Request<789>。
 
 导致 type proliferation。
 
----
-
-## Anti-pattern 5：Specialize Thousands of Equivalent Paths
+**Anti-pattern 5：Specialize Thousands of Equivalent Paths**
 
 为了一点微小 runtime branch 成本产生大量 machine code。
 
----
+**Anti-pattern 6：Heavy Template Core**
 
-## Anti-pattern 6：Heavy Template Core
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 template <typename T>
@@ -2252,37 +1294,21 @@ void process(...) {
 }
 ```
 
-而真正 type-dependent 部分只有几行。
+而真正 type-dependent 部分只有几行。 考虑：
 
-考虑：
+`thin template adapter + ordinary implementation core`
 
-```text
-thin template adapter
-+
-ordinary implementation core
-```
+**Anti-pattern 7：Compile-time Knowledge Leakage**
 
----
+底层只因为：`N = 16` 整个上层 call graph 都变成：`template<N>` 导致无意义 specialization 扩散。
 
-## Anti-pattern 7：Compile-time Knowledge Leakage
+<a id="g5-section-12"></a>
 
-底层只因为：
+## 12. 统一模型与术语
 
-```text
-N = 16
-```
+<a id="g5-topic-61"></a>
 
-整个上层 call graph 都变成：
-
-```text
-template<N>
-```
-
-导致无意义 specialization 扩散。
-
----
-
-# 61. G5 Final Mental Model
+### 12.1 Final Mental Model
 
 最终可以压缩为：
 
@@ -2331,9 +1357,9 @@ template   runtime data /
 specialize concrete view
 ```
 
----
+<a id="g5-topic-62"></a>
 
-# 62. G5 最终术语表
+### 12.2 最终术语表
 
 | Term                        | 核心含义                                             |
 | --------------------------- | ---------------------------------------------------- |
@@ -2347,9 +1373,9 @@ specialize concrete view
 | Template Argument Deduction | 从函数调用推导 template arguments                    |
 | Reference Collapsing        | `&` / `&&` 组合后的引用折叠规则                      |
 | Forwarding Reference        | 推导上下文中的特殊 `T&&`                             |
-| Perfect Forwarding          | 尽可能保持 caller cv/ref/value category 的转发       |
+| Perfect Forwarding          | 保留 cv/ref 约束及左值/右值绑定选择的转发       |
 | `std::move`                 | 无条件将表达式转换为可消费的 xvalue                  |
-| `std::forward`              | 根据模板参数恢复原始 value category                  |
+| `std::forward`              | 按推导参数保留左值/右值绑定选择（右值转为 xvalue）                  |
 | Concept                     | 对 template arguments 的命名 compile-time constraint |
 | `constexpr`                 | 可参与 constant evaluation 的语言机制                |
 | `consteval`                 | 要求 immediate compile-time evaluation               |
@@ -2359,25 +1385,184 @@ specialize concrete view
 | Code Bloat                  | 多 specializations 导致的代码体积增长                |
 | Static Polymorphism         | compile-time 根据 concrete type 生成/选择行为        |
 
----
+<a id="g5-section-13"></a>
 
-# 63. G5 Final Gate
+## 13. 实验与验证
+
+本章完整实验以 Markdown 中的源文件为准；从仓库根目录运行下列命令。执行器提取文件到新建临时目录，完整命令和原始输出写入结果记录，不修改历史制品。
+
+[命令 · 自动提取、编译及分项记录]
+
+```sh
+python3 c++/learning/verify_handbook.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+```
+
+只有带 `h-lab/h-file` 标记的完整实验及隔离反例参加本章定向执行；其他机制片段不是已验证的完整实现。改变条件用于理解判据，若未单独运行，不计作新增证据。
+
+### 13.1 G5-C1 · 推导、转发与常量分支
+
+**命题、观察与边界。** 用类型断言区分推导得到的 T、最终引用类型和表达式类别；同时让 constexpr 在常量与运行时输入上工作。运行输入为 argc，不把优化器常量折叠误称为语言要求。
+
+<!-- h-lab {"id":"G5-C1","mode":"run"} -->
+
+[完整实验 · G5-C1 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include <concepts>
+#include <type_traits>
+#include <utility>
+
+template<class T> auto by_value(T) -> std::type_identity<T>;
+template<class T> auto by_ref(T&) -> std::type_identity<T>;
+template<class T> auto by_const_ref(const T&) -> std::type_identity<T>;
+template<class T> constexpr bool inspect(T&& value) {
+    static_assert(std::is_lvalue_reference_v<decltype((value))>);
+    static_assert(std::same_as<decltype(std::forward<T>(value)), T&&>);
+    return std::is_lvalue_reference_v<T>;
+}
+template<class T> constexpr auto scalar(T value) {
+    if constexpr (std::is_pointer_v<T>) return *value;
+    else return value;
+}
+constexpr int square(int n) { return n * n; }
+template<std::integral T> constexpr T twice(T n) { return n + n; }
+
+int main(int argc, char**) {
+    int x = 7;
+    const int cx = 8;
+    const int* p = &cx;
+    static_assert(std::same_as<decltype(by_value(cx))::type, int>);
+    static_assert(std::same_as<decltype(by_value(p))::type, const int*>);
+    static_assert(std::same_as<decltype(by_ref(cx))::type, const int>);
+    static_assert(std::same_as<decltype(by_const_ref(cx))::type, int>);
+    static_assert(square(4) == 16 && twice(4) == 8);
+    static_assert(scalar(4) == 4);
+    if (!inspect(x) || !inspect(cx) || inspect(7)) return 1;
+    if (scalar(&x) != 7 || scalar(argc) != argc) return 2;
+}
+```
+
+**运行与判据。** 上述统一命令中的 `G5-C1` 提取并处理本模块。静态断言、编译与运行均须成立；运行不产生输出且返回 0。
+
+### 13.2 G5-C2 · 固定 T 的右值引用不能绑定左值
+
+**命题、观察与边界。** Box<int> 的 T 已固定；成员 set(T&&) 不是转发引用。正例 G5-C1 的推导必须成功，本反例必须因引用绑定失败而被拒绝。
+
+<!-- h-lab {"id":"G5-C2","mode":"compile_fail","diagnostic":"(?:rvalue reference.*cannot bind|cannot bind.*rvalue|expects an rvalue)"} -->
+
+[反例 · 编译失败 · G5-C2 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+template<class T> struct Box { void set(T&&) {} };
+int main() {
+    Box<int> box;
+    int value = 1;
+    box.set(value);
+}
+```
+
+**运行与判据。** 上述统一命令中的 `G5-C2` 提取并处理本模块。只编译不链接，必须匹配指定语义诊断；超时、信号退出和无关错误均不算符合预期。
+
+### 13.3 G5-C3 · Concept 拒绝不满足约束的类型
+
+**命题、观察与边界。** std::integral 约束拒绝 double；测试匹配约束诊断，不把缺少头文件或链接失败算作成功。它不检验比较器等概念的语义规律。
+
+<!-- h-lab {"id":"G5-C3","mode":"compile_fail","diagnostic":"(?:constraints not satisfied|constraint.*not satisfied)"} -->
+
+[反例 · 编译失败 · G5-C3 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include <concepts>
+template<std::integral T> constexpr T twice(T x) { return x + x; }
+int main() { return static_cast<int>(twice(1.5)); }
+```
+
+**运行与判据。** 上述统一命令中的 `G5-C3` 提取并处理本模块。只编译不链接，必须匹配指定语义诊断；超时、信号退出和无关错误均不算符合预期。
+
+### 13.4 G5-C4 · 立即调用不能使用运行时实参
+
+**命题、观察与边界。** 把 argc 传入普通上下文中的 consteval 调用，必须出现常量表达式相关诊断；对应的 constexpr 正例见 G5-C1。
+
+<!-- h-lab {"id":"G5-C4","mode":"compile_fail","diagnostic":"(?:not a constant expression|not usable in a constant expression)"} -->
+
+[反例 · 编译失败 · G5-C4 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+consteval int immediate(int n) { return n + 1; }
+int main(int argc, char**) { return immediate(argc); }
+```
+
+**运行与判据。** 上述统一命令中的 `G5-C4` 提取并处理本模块。只编译不链接，必须匹配指定语义诊断；超时、信号退出和无关错误均不算符合预期。
+
+### 13.5 G5-C5 · 显式实例化与二进制符号
+
+**命题、观察与边界。** 先分别编译 TU，再观察提供方目标文件。int 的显式实例化可链接并得到 6；调用未提供的 double 特化必须在链接阶段失败。nm 输出只作观察，不固定 ABI 拼写、地址或符号个数。
+
+<!-- h-lab {"id":"G5-C5","mode":"symbols","diagnostic":"(?:undefined|Undefined)[\\s\\S]*scale"} -->
+
+[完整实验 · G5-C5 · scale.hpp]
+
+<!-- h-file {"path":"scale.hpp"} -->
+```cpp
+#pragma once
+template<class T> T scale(T value);
+extern template int scale<int>(int);
+```
+
+[完整实验 · G5-C5 · scale.cpp]
+
+<!-- h-file {"path":"scale.cpp"} -->
+```cpp
+#include "scale.hpp"
+template<class T> T scale(T value) { return value + value; }
+template int scale<int>(int);
+```
+
+[完整实验 · G5-C5 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include "scale.hpp"
+int main() { return scale(3) == 6 ? 0 : 1; }
+```
+
+[完整实验 · G5-C5 · missing.cpp]
+
+<!-- h-file {"path":"missing.cpp"} -->
+```cpp
+#include "scale.hpp"
+int main() { return scale(1.5) == 3.0 ? 0 : 1; }
+```
+
+**运行与判据。** 上述统一命令中的 `G5-C5` 提取并处理本模块。分别编译 scale.cpp、main.cpp 与 missing.cpp；先记录符号，再检查正例和缺失特化的链接诊断。
+
+<a id="g5-section-14"></a>
+
+## 14. Final Gate
+
+<a id="g5-topic-63"></a>
+
+### 14.1 Final Gate
 
 复习时至少能够闭卷解释这些问题：
 
-### Template
+**Template**
 
 1. Function template 和普通 function 最大的编译模型区别是什么？
 2. 为什么一个 template 可以形成多个 concrete functions？
 3. Instantiation 和 specialization 分别是什么？
 
-### Deduction
+**Deduction**
 
 1. `T`、`T&`、`const T&` 的 deduction 有什么区别？
 2. top-level `const` 为什么在 by-value deduction 中通常消失？
 3. 为什么 pointer-to-const 中的 const 不能随意消失？
 
-### Forwarding
+**Forwarding**
 
 1. 普通 `Frame&&` 与 `template<typename T> T&&` 有什么不同？
 2. 什么条件下 `T&&` 才是 forwarding reference？
@@ -2385,35 +1570,35 @@ specialize concrete view
 4. 为什么 named `T&&` expression 仍然是 lvalue？
 5. `std::move` 和 `std::forward` 的语义区别是什么？
 
-### Class Templates
+**Class Templates**
 
  1. 为什么 `Buffer<float,16>` 与 `Buffer<float,32>` 是不同类型？
  2. Non-type template parameter 如何影响 object layout？
  3. 为什么不应该把普通 runtime identity 全部变成 NTTP？
 
-### Lifetime
+**Lifetime**
 
  1. 为什么 `array<T,N>` 与 `vector<T>::reserve(N)` 的 object lifetime 完全不同？
 
-### Concepts
+**Concepts**
 
  1. Concept 解决什么问题？
  2. Concept 是 runtime interface 吗？
  3. 为什么 Concept 不能保证 semantic laws？
 
-### Constant Evaluation
+**Constant Evaluation**
 
  1. 为什么 `constexpr function` 不等于“永远编译期执行”？
  2. `const` 和 `constexpr` 有什么根本区别？
  3. `if constexpr` 与普通 `if` 的核心区别是什么？
 
-### Compilation
+**Compilation**
 
  1. 为什么 template definitions 通常放 header？
  2. Explicit instantiation 解决什么问题？
  3. Header-only generic library 的主要工程成本是什么？
 
-### Architecture
+**Architecture**
 
  1. 什么叫 `Dynamic Outside, Static Inside`？
  2. 哪些信息适合 compile time，哪些更适合 runtime？
@@ -2422,9 +1607,41 @@ specialize concrete view
  5. 为什么要限制 genericity 的传播范围？
  6. Thin template front-end + concrete core 有什么价值？
 
----
+<a id="g5-section-15"></a>
 
-# 64. 如果半年后只记住十五条
+## 15. Final Gate · 参考答案与常见误判
+
+### 15.1 Template 与 Deduction
+
+Template 1～3：普通非模板函数的调用通常只需声明可见，模板特化需要遵守相应定义可达和实例化规则。同一参数化源码可以形成不同实参的实体；实例化是形成实体的机制，specialization 指对应具体实参的实体，不限于手写显式特化。最终是否保留独立机器符号还取决于优化与链接，不能把三者画成等号。
+
+Deduction 1～3：按值 T 忽略实参的顶层 cv；T& 保留所引用对象的 const；const T& 由形参模式提供 const，不能据最终形参含 const 就断言 T 也含 const。指向 const 对象的指针中的 const 不在顶层，去掉它会授予错误的写权限。G5-C1 分别断言这些类型；编译成功证明的是这些命题在本配置被接受，不是所有推导场景已穷举。
+
+### 15.2 Forwarding、Class Templates 与 Lifetime
+
+Forwarding 1～5：已知 Frame&& 只接受相应右值绑定；无 cv 的待推导类型参数 T&& 才可能是转发引用。左值实参使 T 推导为引用，再按“出现 & 则折叠为 &，仅 && 与 && 得 &&”形成最终类型。普通具名参数表达式是左值，C++23 隐式移动上下文另论。move 无条件产生相应右值引用转换，forward 按推导信息保留左值/右值绑定选择；二者都不搬运资源，也不证明生命周期。
+
+Class Templates 1～3：不同 N 属于不同模板实参组合，因而形成不同类型；N 若决定内嵌数组长度，就会影响表示与对象数。运行时 ID 若只用于比较而不改变结构，进入 NTTP 会扩大类型和特化集合，却不一定增加优化机会。Lifetime 1：成功构造的 array 有 N 个元素；reserve 只预留容量，不增加 vector 的元素数。把 capacity 当作活对象数是原有对象模型错误，不是泛型的特例。
+
+### 15.3 Concepts、Constant Evaluation 与 Compilation
+
+Concepts 1～3：Concept 在编译期表达被编码的约束，不是虚函数式运行时接口。表达式成立不证明严格弱序、复杂度或业务不变量；约束负例与语义测试承担不同责任。 Constant Evaluation 1～3：constexpr 函数允许符合条件的常量求值，也可用运行时输入执行；const 仅限制修改，不保证初始化来自常量表达式。if constexpr 可丢弃模板中的未选依赖分支，普通 if 不能提供同样的实例化选择；非依赖错误和语法仍须合法。不要用“优化后看不到指令”反推语言强制编译期执行。
+
+Compilation 1～3：隐式实例化需要相应定义，所以头文件是常见组织方式，但不是唯一手段。显式实例化可以集中提供已知组合；未提供的组合不会因此获得定义。头文件泛型会增加解析、实例化、诊断、依赖和增量构建成本，运行时零额外开销不等于工程零成本。
+
+### 15.4 Architecture
+
+Architecture 1～6：Dynamic Outside, Static Inside 在外层读取运行时配置，再选有限的静态内核。改变类型、布局或热路径结构且取值集合可控的信息更适合静态化；频繁变化的普通数据应留在运行时。优化器也能常量传播普通参数，特化还可能膨胀指令工作集，因此“模板更快”必须实测。
+
+已有 DBC、IDL 或协议描述适合外部代码生成，尤其当需要多语言产物或独立检查时；这不是再造一个模板元编程框架的理由。限制泛型传播能控制组合数和接口负担；薄前端只保留必要类型信息，具体核心复用真正相同的逻辑。代价是必须写清类型擦除后的表示合同，不能把任意对象字节当作可移植消息。
+
+<a id="g5-section-16"></a>
+
+## 16. 工程原则回查
+
+<a id="g5-topic-64"></a>
+
+### 16.1 如果半年后只记住十五条
 
 1. **Template 是 compile-time parameterization，不是 runtime dynamic genericity。**
 
@@ -2436,13 +1653,13 @@ specialize concrete view
 
 5. **Forwarding reference 是 deduction context 中特殊的 `T&&`，不是所有 `T&&`。**
 
-6. **Named rvalue-reference variable 仍然产生 lvalue expression。**
+6. **普通具名右值引用参数表达式是 lvalue；C++23 隐式移动上下文另有规则。**
 
 7. **`std::move` 表示当前代码允许消费 source；`std::forward` 表示 generic wrapper 保留 caller 的决定。**
 
 8. **Class template arguments 可以进入类型和 layout；`Buffer<T,16>` 与 `Buffer<T,32>` 是不同类型。**
 
-9. **`std::array<T,N>` 包含 N 个 live T objects；reserve 只提供 storage capacity。**
+9. **成功构造的 `std::array<T,N>` 包含 N 个元素对象；reserve 不增加 vector 的 size。**
 
 10. **Concept 是 compile-time generic contract，不是 runtime interface。**
 
@@ -2456,63 +1673,10 @@ specialize concrete view
 
 15. **优秀 Generic Programming 的标志不是 template 多，而是清楚知道 genericity 应该在哪里停止。**
 
----
+<a id="g5-section-17"></a>
 
-# 65. G5 → G6
+## 17. 参考与验证入口
 
-G5 到此可以正式冻结。
+[全系列导航](README.md) · [实验说明](learning/README.md) · [本批修订与证据](learning/professional-revision.md)
 
-我们已经学会从：
-
-```text
-source abstraction
-```
-
-一路追到：
-
-```text
-concrete type/function
-↓
-compiler
-↓
-machine code
-```
-
-G6 会换一个视角：
-
-> **即使 C++ abstraction 在语言层完全正确，它落到 CPU 和 memory hierarchy 上到底贵不贵？**
-
-下一阶段：
-
-```text
-G6 Memory & Performance
-│
-├── sizeof / alignment / padding
-├── object layout
-├── cache line
-├── spatial / temporal locality
-├── AoS / SoA
-├── indirection
-├── allocation cost
-├── arena / pool
-├── working set
-├── branch behavior
-├── false sharing
-└── profiling / measurement
-```
-
-G1–G5 到这里实际上已经组成了一个完整前半程：
-
-```text
-G1  Object 是否合法存在？
-G2  谁拥有它？
-G3  Value 怎样流动、成本多少？
-G5  哪些差异应该在编译期生成？
-
-                    ↓
-
-G6
-这些选择最终如何作用到 CPU / Cache / Memory？
-```
-
-**这份文档可以作为 G5 的长期 Frozen Review Baseline。**下一步进入 G6 时，我们会重新明显偏向底层、实验和机器直觉，而不是继续增加 template 语法。
+语言规则采用 N4950 的 [模板推导](https://timsong-cpp.github.io/cppwp/n4950/temp.deduct.call)、[模板实例化](https://timsong-cpp.github.io/cppwp/n4950/temp.inst) 与 [if constexpr](https://timsong-cpp.github.io/cppwp/n4950/stmt.if)；编译器实验不是这些规则的替代定义。

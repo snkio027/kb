@@ -1,117 +1,75 @@
-# C++ Systems Track · G7 Concurrency & C++ Memory Model
+# G7 · 并发协议与 C++ 内存模型
 
-**Version:** 1.0  
-**Status:** Frozen Review Baseline  
-**Language Baseline:** C++23  
-**Prerequisites:** G0–G6  
-**Scope:** Data Race / Happens-before / Atomics / Memory Ordering / Mutex / Condition Variable / CAS / Lock-free / ABA / Memory Reclamation / Concurrent Queues / Thread Lifetime / `std::jthread` / Cancellation / Thread Pool / Backpressure / Concurrency Architecture  
-**Purpose:** 建立一套能够从 C++ Memory Model 一直推导到真实并发系统架构的统一 reasoning framework。
+Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md) 编辑状态：Professional Handbook Edition。PDF：NOT BUILT / NOT VALIDATED。
 
----
+- **Version:** 1.1
+- **Status:** Professional Handbook Edition · 待集中审核
+- **Language Baseline:** C++23
+- **Prerequisites:** G0–G6
+- **Scope:** Data Race / Happens-before / Atomics / Memory Ordering / Mutex / Condition Variable / CAS / Lock-free / ABA / Memory Reclamation / Concurrent Queues / Thread Lifetime / `std::jthread` / Cancellation / Thread Pool / Backpressure / Concurrency Architecture
+- **Purpose:** 建立一套能够从 C++ Memory Model 一直推导到真实并发系统架构的统一 reasoning framework。
 
-# 0. G7 到底解决什么问题？
+## 阅读入口
 
-G6 已经告诉我们：
+本章先区分数据竞争（data race）、原子性（atomicity）和不变量（invariant），再建立顺序与生命周期协议。happens-before（HB）指语言允许依赖的先发生关系，不是墙钟上的先后。首次阅读第 1～11 节；跨层关系图、审查和反模式用于回查。读写改操作（read-modify-write，RMW）、比较并交换（compare-and-exchange，CAS）都是实现协议的手段，不是设计的出发点。
 
-```text
-CPU Core 0
-    │
-    ├── cache
-    │
-    └────────────┐
-                 │ coherence
-    ┌────────────┘
-    │
-CPU Core 1
-```
 
-我们已经知道：
+### 章节目录
 
-```text
-cache line
-false sharing
-atomic RMW
-coherence traffic
-```
+- [1. 阅读模型](#g7-section-1)
+- [2. 数据竞争与语言内存模型](#g7-section-2)
+- [3. 顺序与同步关系](#g7-section-3)
+- [4. 原子性与内存序](#g7-section-4)
+- [5. 互斥锁与条件变量](#g7-section-5)
+- [6. 原子状态转换与 CAS](#g7-section-6)
+- [7. ABA、进展保证与安全回收](#g7-section-7)
+- [8. 并发队列的交接协议](#g7-section-8)
+- [9. 线程生命周期与停机](#g7-section-9)
+- [10. 任务执行、线程池与背压](#g7-section-10)
+- [11. 并发架构与写入权限](#g7-section-11)
+- [12. 跨层关系图](#g7-section-12)
+- [13. 统一并发审查](#g7-section-13)
+- [14. 并发反模式](#g7-section-14)
+- [15. 工程原则回查](#g7-section-15)
+- [16. 实验与验证](#g7-section-16)
+- [17. Final Gate](#g7-section-17)
+- [18. Final Gate · 参考答案与常见误判](#g7-section-18)
+- [19. G0～G7 的统一模型](#g7-section-19)
+- [20. 实际代码的跨层审查](#g7-section-20)
+- [21. 本章范围与后续阅读](#g7-section-21)
+- [22. 参考与验证入口](#g7-section-22)
 
-会影响性能。
+<a id="g7-section-1"></a>
 
-但这还不能回答：
+## 1. 阅读模型
 
-> **两个 C++ threads 到底什么时候可以合法地观察彼此的内存操作？**
+<a id="g7-topic-0"></a>
 
-也就是说：
+### 1.1 G7 到底解决什么问题？
 
-```text
-Hardware Question
-─────────────────
-CPU 如何执行这些 loads/stores？
+G6 讨论缓存、地址翻译和一致性如何影响成本；本章讨论两个线程何时可以合法访问并观察同一状态。这是语言模型问题，不能由“处理器最终会把缓存同步”代替。
 
-            ≠
+工程上应先确定对象存活、写入权限与跨线程交接，再选择 atomic、mutex 或队列。协议若没有正确的同步和回收关系，某个平台上长期运行正常也不是其合法性的证明。
 
-C++ Language Question
-─────────────────────
-程序员什么时候有权推理：
-“Thread B 看到了 Thread A 写的数据”？
-```
+<a id="g7-topic-1"></a>
 
-G7 的核心就是后一件事。
+### 1.2 G7 的统一链路
 
----
+本章的推理顺序是：内存位置与冲突访问 → 数据竞争检查 → 原子性及顺序关系 → 对象所有权和生命周期 → 并发协议、进展及容量约束。原子 API 只解决链条中的一部分。
 
-# 1. G7 的统一链路
+先写清谁拥有数据、谁能修改、哪些字段必须保持一致、何时交接权限及哪些操作需要 HB；之后才选同步原语。队列、线程池和快照都应回到这组问题，而不是从某种“更高级的无锁结构”倒推业务模型。
 
-整个阶段可以压缩成：
+<a id="g7-section-2"></a>
 
-```text
-Memory Location
-      ↓
-Conflicting Access
-      ↓
-Data Race?
-      ↓
-Atomic / Non-atomic
-      ↓
-Ordering Relations
-      ↓
-Happens-before
-      ↓
-Synchronization Primitive
-      ↓
-Ownership / Lifetime
-      ↓
-Concurrent Protocol
-      ↓
-Progress Guarantee
-      ↓
-Queue / Runtime
-      ↓
-Concurrency Architecture
-```
+## 2. 数据竞争与语言内存模型
 
-最重要的一条纪律：
+<a id="g7-topic-2"></a>
 
-> **不要从 `atomic`、`mutex`、CAS API 开始设计并发系统。**
-
-而应该先问：
-
-```text
-谁拥有数据？
-谁可以修改？
-哪些状态必须一致？
-什么时候发生 ownership handoff？
-哪些关系必须建立 happens-before？
-```
-
-然后再选择 primitive。
-
----
-
-# Part I · Data Race & Memory Model
-
-# 2. Data Race 是 G7 的第一道门槛
+### 2.1 Data Race 是 G7 的第一道门槛
 
 考虑：
+
+[反例片段 · 未定义行为：无同步的冲突访问；不要用于生产代码]
 
 ```cpp
 int value = 0;
@@ -138,51 +96,17 @@ Thread A 肯定已经执行了 value = 42
 所以 value == 42
 ```
 
-C++ 并不允许这样推理。
+C++ 并不允许这样推理。 这里首先存在：**Data Race** 因此：**Undefined Behavior**
 
-这里首先存在：
+<a id="g7-topic-3"></a>
 
-> **Data Race**
+### 2.2 Data Race 的核心条件
 
-因此：
+数据竞争（data race）的判断对象是潜在并发的冲突操作：修改同一内存位置，或者开始/结束与访问重叠对象的生命周期，都可能形成冲突；至少一方非原子，且没有所需的 happens-before 次序时，会进入未定义行为。 只读且生命周期稳定的同一对象通常不构成数据竞争。不同成员是否对应独立内存位置还需留意位域等情况。这个规则不是“读到旧值”的概率模型，更不能用在某次机器运行中恰好没出错来否定。[规则：N4950 intro.races](https://timsong-cpp.github.io/cppwp/n4950/intro.races)
 
-> **Undefined Behavior**
+<a id="g7-topic-4"></a>
 
----
-
-# 3. Data Race 的核心条件
-
-一个实用模型：
-
-如果两个 potentially concurrent operations：
-
-1. 访问同一个 memory location；
-2. 至少一个是 write；
-3. accesses conflict；
-4. 至少一个是 non-atomic；
-5. 两者之间没有合适的 happens-before；
-
-那么可能形成：
-
-> **Data Race**
-
-C++ 对普通 data race 的态度不是：
-
-```text
-“也许读到旧值”
-```
-
-而是：
-
-```text
-Undefined Behavior
-```
-
-这点必须和 Java / Go 一类语言的某些直觉严格区分。
-
----
-
-# 4. `read/read` 与 `read/write`
+### 2.3 `read/read` 与 `read/write`
 
 通常：
 
@@ -201,47 +125,27 @@ write / write
 
 所以：
 
-```cpp
-const Config config;
-```
+`const Config config;`
 
-在正确 publication 后被多个 threads 只读：
+在正确 publication 后被多个 threads 只读：是非常自然的模型。 真正复杂的是：Shared Mutable State。
 
-> 是非常自然的模型。
+<a id="g7-topic-5"></a>
 
-真正复杂的是：
+### 2.4 Data Race 不等于 Race Condition
 
-> Shared Mutable State。
+**Data Race**
 
----
+是 C++ Memory Model 的技术概念。 例如：
 
-# 5. Data Race 不等于 Race Condition
+`non-atomic conflicting accesses + no happens-before`
 
-## Data Race
+结果：UB。
 
-是 C++ Memory Model 的技术概念。
+**Race Condition**
 
-例如：
+是更广义的逻辑问题：程序结果取决于不受控制的 interleaving。 例如：
 
-```text
-non-atomic conflicting accesses
-+
-no happens-before
-```
-
-结果：
-
-> UB。
-
----
-
-## Race Condition
-
-是更广义的逻辑问题：
-
-> 程序结果取决于不受控制的 interleaving。
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::atomic<int> balance{100};
@@ -253,74 +157,37 @@ if (balance.load() >= 80) {
 
 两个 threads 都可能：
 
-```text
-load 100
-load 100
-subtract
-subtract
-```
+load 100、load 100、subtract、subtract。
 
-最后：
+最后：`-60` 所有 atomic operations 本身合法，但业务 invariant 被破坏。 所以：
 
-```text
--60
-```
+`Data-race-free ≠ Race-condition-free`
 
-所有 atomic operations 本身合法，
+<a id="g7-topic-6"></a>
 
-但业务 invariant 被破坏。
+### 2.5 `volatile` 不是并发同步
 
-所以：
+C++ volatile 不提供原子性、线程间同步或 happens-before。把共享 ready 标志改成 volatile，不能修复普通 payload 的发布协议。
 
-```text
-Data-race-free
-≠
-Race-condition-free
-```
-
----
-
-# 6. `volatile` 不是并发同步
+[反例片段 · 未定义行为风险：volatile 不建立线程同步]
 
 ```cpp
 volatile bool ready = false;
 ```
 
-不能替代：
+它与 atomic、mutex 承担不同语义责任；应使用适合协议的同步机制，而不是借 volatile 阻止某种优化来模拟线程通信。
 
-```cpp
-std::atomic<bool>
-```
+<a id="g7-section-3"></a>
 
-C++ `volatile` 不提供：
+## 3. 顺序与同步关系
 
-```text
-atomicity
-happens-before
-inter-thread synchronization
-```
+<a id="g7-topic-7"></a>
 
-必须永久记：
+### 3.1 `sequenced-before`
 
-```text
-volatile
-≠
-atomic
-≠
-mutex
-```
+描述：同一 thread 内 C++ abstract machine 的顺序关系。 例如：
 
----
-
-# Part II · Ordering Relations
-
-# 7. `sequenced-before`
-
-描述：
-
-> 同一 thread 内 C++ abstract machine 的顺序关系。
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 data = 42;
@@ -337,23 +204,13 @@ data = 42
 ready.store(true)
 ```
 
-注意：
+注意：这不是“CPU 一定先把 data 写入 DRAM”。 它是：语言级 ordering relation。
 
-> 这不是“CPU 一定先把 data 写入 DRAM”。
+<a id="g7-topic-8"></a>
 
-它是：
+### 3.2 `synchronizes-with`
 
-> 语言级 ordering relation。
-
----
-
-# 8. `synchronizes-with`
-
-跨线程 synchronization primitive 可以建立：
-
-> **synchronizes-with**
-
-例如 release/acquire：
+跨线程 synchronization primitive 可以建立：**synchronizes-with** 例如 release/acquire：
 
 ```text
 Thread A                    Thread B
@@ -365,176 +222,67 @@ release store
                            acquire load
 ```
 
-前提是：
+前提是：acquire 真正接到了对应的 publication。 不是只因为源码中写了两个关键词。
 
-> acquire 真正接到了对应的 publication。
+<a id="g7-topic-9"></a>
 
-不是只因为源码中写了两个关键词。
+### 3.3 `happens-before`
 
----
+happens-before 是建立合法跨线程访问的重要关系。在本章不使用 consume 的协议中，可以沿线程内 sequenced-before 与跨线程 synchronizes-with 组成传递链。必须逐条说明同步边由哪一次实际观察建立，而不是只标注两端使用了 acquire/release。
 
-# 9. `happens-before`
+如果普通 payload 的冲突访问之间存在所需 HB，且对象生命周期和其余访问也合法，就可以推理这次读写。单条 HB 边不等于整个系统无数据竞争，更不决定所有无关原子操作的全局顺序。
 
-这是 G7 最核心的 relation。
+<a id="g7-topic-10"></a>
 
-如果：
+### 3.4 最重要的一张图
 
-```text
-A happens-before B
-```
-
-C++ 允许你在语言层推理：
-
-> A 的相关 memory effects 对 B 有定义良好的顺序保证。
-
-典型链：
+单次发布的关键不是时间先后，而是可组合的关系。生产者写 payload，随后 release-store 标志；消费者的 acquire-load 必须读到该 store（或它引领的适用 release sequence）的值，才能建立 synchronizes-with。结合线程内 sequenced-before，payload 写入 happens-before 消费者读取。
 
 ```text
-sequenced-before
-+
-synchronizes-with
-+
-transitivity
-=
-happens-before
+producer: payload write --SB--> ready.store(release)
+                                      |
+                                      SW (load reads this publication)
+                                      |
+consumer: payload read  <--SB-- ready.load(acquire)
 ```
 
----
+G7-D1 仅做一次发布，不重置标志，也不在发布后并发修改 payload。若复用同一槽位，还需消费者完成读取到生产者下一次写入的反向交接；看到 true 不自动授予永久读取许可。
 
-# 10. 最重要的一张图
+<a id="g7-topic-11"></a>
 
-```cpp
-int data = 0;
-std::atomic<bool> ready{false};
+### 3.5 为什么 `data` 可以不是 Atomic？
 
-// Producer
-data = 42;
-ready.store(true, std::memory_order_release);
+普通 payload 不必全部改为 atomic：在上述单次发布协议中，写入与读取已由 release/acquire 的 HB 链排序。原子标志承担交接责任，payload 在交接后不再被生产者修改。
 
-// Consumer
-while (!ready.load(std::memory_order_acquire)) {
-}
+这个结论依赖完整协议，不是“有一个 atomic 就保护附近变量”。若另有写者、重置标志后立即覆盖、或对象在读者使用前已销毁，原来的论证必须重做。
 
-use(data);
-```
+<a id="g7-section-4"></a>
 
-关系：
+## 4. 原子性与内存序
 
-```text
-Thread A                           Thread B
+<a id="g7-topic-12"></a>
 
-data = 42
-    │
-    │ SB
-    ▼
-ready.store(true, release)
-    │
-    │ SW
-    ▼
-                              ready.load(acquire)
-                                     │
-                                     │ SB
-                                     ▼
-                                  read data
-```
+### 4.1 Atomicity ≠ Ordering
 
-因此：
+原子性（atomicity）描述某个访问或 RMW 作为不可分割的操作被观察；内存序（memory ordering）说明它与其他相关操作建立什么顺序约束。原子对象本身的操作合法，不自动把一组业务操作合成事务。
 
-```text
-write data
-    │
-    │ HB
-    ▼
-read data
-```
+例如对余额先 load 再 store，两步各自原子却可能丢失并发更新。需要根据不变量选择互斥区或条件 RMW，而不是把每个字段换成 atomic 就结束审查。
 
-其中：
+<a id="g7-topic-13"></a>
 
-```text
-SB = sequenced-before
-SW = synchronizes-with
-HB = happens-before
-```
+### 4.2 Atomic Operation 三类
 
-这是整个 G7 最值得长期保留的图之一。
+**Load**
 
----
+`x.load(order);`
 
-# 11. 为什么 `data` 可以不是 Atomic？
+**Store**
 
-因为：
+`x.store(value, order);`
 
-```text
-Producer write data
-```
+**Read-Modify-Write**
 
-与：
-
-```text
-Consumer read data
-```
-
-已经通过：
-
-```text
-release/acquire synchronization
-```
-
-建立 HB。
-
-所以真正原则不是：
-
-> 跨线程数据全部必须 atomic。
-
-而是：
-
-> **Conflicting accesses 必须有合法 synchronization。**
-
-Atomic 只是建立 synchronization 的一种工具。
-
----
-
-# Part III · Atomicity & Memory Ordering
-
-# 12. Atomicity ≠ Ordering
-
-考虑：
-
-```cpp
-std::atomic<int> x;
-```
-
-Atomicity回答：
-
-> 对 `x` 的某个 operation 是否作为 indivisible atomic operation 被观察？
-
-Ordering回答：
-
-> 这个 operation 与其它 memory operations 之间建立什么顺序关系？
-
-这是两个维度。
-
----
-
-# 13. Atomic Operation 三类
-
-## Load
-
-```cpp
-x.load(order);
-```
-
----
-
-## Store
-
-```cpp
-x.store(value, order);
-```
-
----
-
-## Read-Modify-Write
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 x.fetch_add(...);
@@ -544,23 +292,15 @@ x.compare_exchange_weak(...);
 
 同时有：
 
-```text
-read side
-+
-write side
-```
+`read side + write side`
 
----
+<a id="g7-topic-14"></a>
 
-# 14. Memory Order 属于 Operation
+### 4.3 Memory Order 属于 Operation
 
-不是：
+不是：`“这个 atomic variable 是 acquire atomic”` 而是：
 
-```text
-“这个 atomic variable 是 acquire atomic”
-```
-
-而是：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 x.load(std::memory_order_acquire);
@@ -574,27 +314,19 @@ x.fetch_add(
     std::memory_order_relaxed);
 ```
 
-同一个 atomic object：
+同一个 atomic object：不同 operations 可以使用不同 memory order。
 
-> 不同 operations 可以使用不同 memory order。
+<a id="g7-topic-15"></a>
 
----
-
-# 15. `memory_order_relaxed`
+### 4.4 `memory_order_relaxed`
 
 保证：
 
-```text
-atomicity
-+
-该 atomic object 自己的 modification order
-```
+`atomicity + 该 atomic object 自己的 modification order`
 
-但不自动建立：
+但不自动建立：surrounding ordinary data 的跨线程 synchronization。 典型：
 
-> surrounding ordinary data 的跨线程 synchronization。
-
-典型：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 processed.fetch_add(
@@ -604,25 +336,15 @@ processed.fetch_add(
 
 适合：
 
-```text
-statistics
-independent counter
-ticket generation
-```
+statistics、independent counter、ticket generation。
 
-前提：
+前提：不依赖它去发布其它 state。
 
-> 不依赖它去发布其它 state。
+<a id="g7-topic-16"></a>
 
----
+### 4.5 Modification Order
 
-# 16. Modification Order
-
-每个 atomic object 都拥有：
-
-> 对其所有 modifications 的一致总顺序。
-
-例如：
+每个 atomic object 都拥有：对其所有 modifications 的一致总顺序。 例如：
 
 ```text
 x:
@@ -635,19 +357,15 @@ x:
 3
 ```
 
-所以 `relaxed` 并不是：
+所以 `relaxed` 并不是：“atomic value 本身也完全乱序。” 它仍然具有该 object 自己的 atomic coherence。
 
-> “atomic value 本身也完全乱序。”
+<a id="g7-topic-17"></a>
 
-它仍然具有该 object 自己的 atomic coherence。
+### 4.6 `memory_order_release`
 
----
+典型角色：**Publish**
 
-# 17. `memory_order_release`
-
-典型角色：
-
-> **Publish**
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 payload = build_payload();
@@ -657,21 +375,15 @@ ready.store(
     std::memory_order_release);
 ```
 
-表示：
+表示：release 之前 sequenced-before 的相关 operations，可以通过合适 acquire 建立跨线程 HB。 不要翻译成：`flush cache to RAM`
 
-> release 之前 sequenced-before 的相关 operations，可以通过合适 acquire 建立跨线程 HB。
+<a id="g7-topic-18"></a>
 
-不要翻译成：
-
-```text
-flush cache to RAM
-```
-
----
-
-# 18. `memory_order_acquire`
+### 4.7 `memory_order_acquire`
 
 典型：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (ready.load(
@@ -680,61 +392,27 @@ if (ready.load(
 }
 ```
 
-如果 acquire 观察到对应 release publication，
+如果 acquire 观察到对应 release publication，则 release 之前的 writes：`HB` acquire 之后的 reads。
 
-则 release 之前的 writes：
+<a id="g7-topic-19"></a>
 
-```text
-HB
-```
+### 4.8 Release / Acquire 的核心不是 Cache Flush
 
-acquire 之后的 reads。
+release/acquire 是语言排序合同，不是“先把所有缓存刷到 DRAM，再让另一核从 DRAM 重读”。编译器针对目标架构把所需约束映射为适当指令和屏障；硬件也可能直接在缓存之间传递数据。
 
----
+因此协议正确性在语言关系层证明，成本才在目标代码与机器层测量。二者分开，才能避免因某架构的强顺序或某次汇编看起来简单，就削弱可移植程序的必要关系。
 
-# 19. Release / Acquire 的核心不是 Cache Flush
+<a id="g7-topic-20"></a>
 
-错误模型：
-
-```text
-release
-↓
-flush all cache to DRAM
-
-acquire
-↓
-reload from DRAM
-```
-
-正确模型：
-
-```text
-C++ ordering contract
-        ↓
-compiler lowering
-        ↓
-hardware ordering + coherence
-```
-
-现代 CPU 可能：
-
-> cache-to-cache 直接传递数据。
-
-DRAM 根本不需要出现在这次交互里。
-
----
-
-# 20. `memory_order_acq_rel`
+### 4.9 `memory_order_acq_rel`
 
 主要用于 RMW：
 
-```text
-Acquire previous publication
-+
-Publish new state
-```
+`Acquire previous publication + Publish new state`
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 state.compare_exchange_weak(
@@ -743,111 +421,33 @@ state.compare_exchange_weak(
     std::memory_order_acq_rel);
 ```
 
-但：
+但：**RMW 不自动意味着一定需要 acq_rel。** 如果只需要 atomicity：`relaxed` 可能就够。 如果只需要 acquire：`acquire` 也可能够。
 
-> **RMW 不自动意味着一定需要 acq_rel。**
+<a id="g7-topic-21"></a>
 
-如果只需要 atomicity：
+### 4.10 `memory_order_seq_cst`
 
-```text
-relaxed
-```
+`memory_order_seq_cst` 除相应 acquire/release 作用外，还对 seq_cst 操作（包括相应 fence）提供符合标准约束的单一总序。它不是把所有非原子访问、混合弱序操作和外部事件都排成一个全局时钟。 选择 seq_cst 可以简化部分推理，但不能补救对象已销毁、复合不变量被拆散或存在非原子数据竞争的问题。混合内存序时仍需逐条说明同步关系，而不是引用“最强”两个字。[规则：N4950 atomics.order](https://timsong-cpp.github.io/cppwp/n4950/atomics.order)
 
-可能就够。
+<a id="g7-topic-22"></a>
 
-如果只需要 acquire：
+### 4.11 Memory Order 不是性能等级表
 
-```text
-acquire
-```
+内存序不是从 relaxed 到 seq_cst 的固定性能排行榜。目标架构、具体操作、编译结果和争用都会改变成本；相同关键字在不同场景中不保证相同开销。
 
-也可能够。
+选择顺序应是业务不变量、所需 HB、同步协议、足够的内存序，最后才是测量。无证据地降序可能破坏正确性；无分析地全部升到 seq_cst 也不能弥补生命周期或进展缺陷。
 
----
+<a id="g7-section-5"></a>
 
-# 21. `memory_order_seq_cst`
+## 5. 互斥锁与条件变量
 
-默认 atomic ordering：
+<a id="g7-topic-23"></a>
 
-```cpp
-x.load();
-x.store(...);
-```
+### 5.1 Mutex 保护的是 Invariant
 
-使用：
+不是：“锁住一个变量”。 例如：
 
-```text
-seq_cst
-```
-
-除了相应 acquire/release 类语义外，
-
-还对 seq_cst atomic operations 提供一个：
-
-> 单一 global sequentially-consistent total order。
-
-因此：
-
-> 最容易进行跨多个 atomic 的全局 reasoning。
-
----
-
-# 22. Memory Order 不是性能等级表
-
-错误：
-
-```text
-relaxed = fastest
-acquire/release = medium
-seq_cst = slowest
-```
-
-这会带偏思维。
-
-正确：
-
-> Memory order 是 correctness contract。
-
-性能成本取决于：
-
-```text
-target architecture
-compiler
-operation
-contention
-```
-
-选择顺序：
-
-```text
-Invariant
-↓
-Required HB edge
-↓
-Synchronization protocol
-↓
-Sufficient memory order
-```
-
-不是：
-
-```text
-想更快
-↓
-换 relaxed
-```
-
----
-
-# Part IV · Mutex & Condition Variable
-
-# 23. Mutex 保护的是 Invariant
-
-不是：
-
-> “锁住一个变量”。
-
-例如：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct Account {
@@ -858,29 +458,19 @@ struct Account {
 
 真正需要保护的是：
 
-```text
-balance >= 0
-reserved >= 0
-reserved <= balance
-```
+balance >= 0、reserved >= 0、reserved <= balance。
 
-也就是：
+也就是：多个字段构成的 logical invariant。
 
-> 多个字段构成的 logical invariant。
+<a id="g7-topic-24"></a>
 
----
+### 5.2 Mutex 提供两件事
 
-# 24. Mutex 提供两件事
+**Mutual Exclusion**
 
-## Mutual Exclusion
+同一时刻：只有一个 owner 进入 critical section。
 
-同一时刻：
-
-> 只有一个 owner 进入 critical section。
-
----
-
-## Memory Synchronization
+**Memory Synchronization**
 
 一个 thread：
 
@@ -898,47 +488,35 @@ successful lock
 reads
 ```
 
-可以建立相应 synchronization / HB。
+可以建立相应 synchronization / HB。 因此 mutex 内保护的数据：
 
-因此 mutex 内保护的数据：
-
-```cpp
-int value_;
-```
+`int value_;`
 
 不需要全部改 atomic。
 
----
+<a id="g7-topic-25"></a>
 
-# 25. RAII Locking
+### 5.3 RAII Locking
 
 默认：
 
-```cpp
-std::lock_guard lock{mutex};
-```
+`std::lock_guard lock{mutex};`
 
 需要：
 
-```text
-unlock/relock
-condition_variable
-deferred locking
-```
+unlock/relock、condition_variable、deferred locking。
 
 时使用：
 
-```cpp
-std::unique_lock lock{mutex};
-```
+`std::unique_lock lock{mutex};`
 
 多个 mutex：
 
-```cpp
-std::scoped_lock lock{a, b};
-```
+`std::scoped_lock lock{a, b};`
 
 优先避免手写：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 mutex.lock();
@@ -946,84 +524,52 @@ mutex.lock();
 mutex.unlock();
 ```
 
----
+<a id="g7-topic-26"></a>
 
-# 26. Critical Section 原则
+### 5.4 Critical Section 原则
 
-不是：
+不是：“越短越好。” 而是：**覆盖维护 invariant 所需的最小完整 logical transaction。** 不能为了缩短锁：
 
-> “越短越好。”
+check、unlock、...、lock、update。
 
-而是：
+把本应 atomic 的业务操作拆开。 同时不要无必要地把：
 
-> **覆盖维护 invariant 所需的最小完整 logical transaction。**
-
-不能为了缩短锁：
-
-```text
-check
-unlock
-...
-lock
-update
-```
-
-把本应 atomic 的业务操作拆开。
-
-同时不要无必要地把：
-
-```text
-I/O
-network
-sleep
-large computation
-callbacks
-```
+I/O、network、sleep、large computation、callbacks。
 
 放在 hot shared lock 内。
 
----
+<a id="g7-topic-27"></a>
 
-# 27. Deadlock
+### 5.5 Deadlock
 
 经典：
 
-```text
-Thread A:
-holds A
-waits B
-
-Thread B:
-holds B
-waits A
-```
+- Thread A:
+- holds A
+- waits B
+- Thread B:
+- holds B
+- waits A
 
 解决方法：
 
-```text
-consistent lock order
-std::scoped_lock
-architecture redesign
-```
+- consistent lock order
+- std::scoped_lock
+- architecture redesign
 
 如果系统出现：
 
-```text
-大量 mutex
-随机组合获取
-```
+大量 mutex、随机组合获取。
 
-应该考虑：
+应该考虑：是否 shared-state topology 本身已经过度复杂。
 
-> 是否 shared-state topology 本身已经过度复杂。
+<a id="g7-topic-28"></a>
 
----
+### 5.6 Condition Variable 等待的是 Predicate
 
-# 28. Condition Variable 等待的是 Predicate
+不是 Notification。 正确：
 
-不是 Notification。
-
-正确：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 cv.wait(lock, [&] {
@@ -1033,51 +579,27 @@ cv.wait(lock, [&] {
 
 真正业务事实：
 
-```text
-queue non-empty
-or
-closed
-```
+queue non-empty、or、closed。
 
-`notify_one()` 只是：
+`notify_one()` 只是：“state 可能已经改变，请重新检查。”
 
-> “state 可能已经改变，请重新检查。”
+<a id="g7-topic-29"></a>
 
----
+### 5.7 Notification 是 Edge，Predicate 是 State
 
-# 29. Notification 是 Edge，Predicate 是 State
+条件变量（condition variable）不保存一张可消费的通知清单。正确性依赖受同一互斥协议保护的谓词：生产者持锁改变状态；消费者持锁检查状态，并通过 wait 原子地释放锁进入等待。唤醒后重新持锁检查谓词。 若通知早于消费者检查，持久状态使它无需等待；若消费者需要等待，锁与 wait 的协议避免“检查完但尚未等待”的空窗丢失状态改变。仅把标志改成 atomic，再在锁外修改并通知，不自动提供这个保证。G7-D2 把队列、closed 和等待条件放在同一把 mutex 下。
 
-```text
-Predicate
-=
-persistent truth
+<a id="g7-topic-30"></a>
 
-Notification
-=
-transient wakeup hint
-```
+### 5.8 Spurious Wakeup
 
-所以 notification 先于 wait 发生：
+`wait()` 可以在没有目标业务事件时返回。 另外多个 waiters 竞争：
 
-> 不会因为“丢 notification”导致逻辑失败，
-
-只要 predicate state 仍然成立。
-
----
-
-# 30. Spurious Wakeup
-
-`wait()` 可以在没有目标业务事件时返回。
-
-另外多个 waiters 竞争：
-
-```text
-A wakes and consumes item
-B wakes afterwards
-queue empty
-```
+A wakes and consumes item、B wakes afterwards、queue empty。
 
 因此：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (!predicate()) {
@@ -1085,15 +607,13 @@ if (!predicate()) {
 }
 ```
 
-通常错误。
+通常错误。 应：
 
-应：
-
-```cpp
-cv.wait(lock, predicate);
-```
+`cv.wait(lock, predicate);`
 
 或：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 while (!predicate()) {
@@ -1101,11 +621,15 @@ while (!predicate()) {
 }
 ```
 
----
+<a id="g7-section-6"></a>
 
-# Part V · Atomic RMW / CAS
+## 6. 原子状态转换与 CAS
 
-# 31. 为什么 `load + store` 不等于 Atomic Transition？
+<a id="g7-topic-31"></a>
+
+### 6.1 为什么 `load + store` 不等于 Atomic Transition？
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (state.load() == Ready) {
@@ -1113,22 +637,17 @@ if (state.load() == Ready) {
 }
 ```
 
-两个 individually atomic operations，
+两个 individually atomic operations，仍然可能：
 
-仍然可能：
-
-```text
-Thread A load Ready
-Thread B load Ready
-Thread A store Running
-Thread B store Running
-```
+Thread A load Ready、Thread B load Ready、Thread A store Running、Thread B store Running。
 
 两个 threads 都认为自己抢到了 transition。
 
----
+<a id="g7-topic-32"></a>
 
-# 32. CAS
+### 6.2 CAS
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 value.compare_exchange_strong(
@@ -1138,44 +657,32 @@ value.compare_exchange_strong(
 
 语义：
 
-```text
-if current == expected:
-    current = desired
-    return true
-else:
-    expected = current
-    return false
-```
+- if current == expected:
+- current = desired
+- return true
+- else:
+- expected = current
+- return false
 
-关键：
+关键：CAS 把 check + update 合成一个 atomic RMW。
 
-> CAS 把 check + update 合成一个 atomic RMW。
+<a id="g7-topic-33"></a>
 
----
-
-# 33. `expected` 是 In/Out Parameter
+### 6.3 `expected` 是 In/Out Parameter
 
 成功：
 
-```text
-atomic = desired
-expected unchanged
-return true
-```
+atomic = desired、expected unchanged、return true。
 
 失败：
 
-```text
-atomic unchanged
-expected = actual observed value
-return false
-```
+atomic unchanged、expected = actual observed value、return false。
 
 这就是为什么 CAS loop 不需要每次重新 load。
 
----
+<a id="g7-topic-34"></a>
 
-# 34. CAS Loop
+### 6.4 CAS Loop
 
 ```text
 load current
@@ -1191,143 +698,53 @@ CAS
  retry
 ```
 
-这是：
+这是：**Optimistic Concurrency** 观察：`current state` 尝试：`conditional commit` 冲突：`retry`
 
-> **Optimistic Concurrency**
+<a id="g7-topic-35"></a>
 
-观察：
+### 6.5 Weak vs Strong
 
-```text
-current state
-```
+compare_exchange_weak 允许伪失败，适合本来就要重试的循环；compare_exchange_strong 不允许这种伪失败，适合需要解释单次失败含义的用法。两者仍须处理值确实改变的情况。
 
-尝试：
+weak/strong 描述 CAS 的失败模型，relaxed/acquire/release 描述排序与同步，不能互相替代。循环中还要根据更新后的 expected 重算 desired，并检查进展和重复副作用。
 
-```text
-conditional commit
-```
+<a id="g7-topic-36"></a>
 
-冲突：
+### 6.6 Success / Failure Ordering
 
-```text
-retry
-```
+双内存序 CAS 必须分别解释成功的 read-modify-write 和失败的 load。失败不执行写入，因此 failure order 不得是 release 或 acq_rel；应按失败后是否读取发布数据选择允许的顺序，不能把成功侧的 release 要求机械复制过来。
 
----
-
-# 35. Weak vs Strong
-
-```text
-compare_exchange_weak
-```
-
-允许：
-
-> spurious failure。
-
-适合：
-
-```text
-retry loop
-```
-
-因为失败本来就会重试。
-
-```text
-compare_exchange_strong
-```
-
-适合：
-
-> 一次失败就具有明确业务意义的 one-shot attempt。
-
-必须记：
-
-```text
-weak / strong
-```
-
-和：
-
-```text
-relaxed / acquire / release
-```
-
-是两条完全不同维度。
-
----
-
-# 36. Success / Failure Ordering
-
-成功：
-
-> RMW
-
-可以具有 acquire/release 角色。
-
-失败：
-
-> 只读，没有 modification。
-
-所以：
+[机制片段 · 不承诺独立编译]
 
 ```cpp
-compare_exchange_weak(
-    expected,
-    desired,
-    success_order,
-    failure_order);
+while (!state.compare_exchange_weak(expected, desired,
+                                   std::memory_order_acq_rel,
+                                   std::memory_order_acquire)) {
+    desired = next(expected); // 依据更新后的 expected 重算。
+}
 ```
 
-两条 path 可以需要不同 memory order。
+`next` 必须与实际状态转换合同匹配，循环内也不能不经处理地重复外部副作用。weak CAS 的伪失败与 memory order 的强弱是两个问题。
 
----
+<a id="g7-section-7"></a>
 
-# Part VI · ABA & Reclamation
+## 7. ABA、进展保证与安全回收
 
-# 37. CAS 只比较 Current Value
+<a id="g7-topic-37"></a>
 
-如果：
+### 7.1 CAS 只比较 Current Value
 
-```text
-A
-↓
-B
-↓
-A
-```
+CAS 比较当前值表示（value representation），不是调用用户定义的 `operator==`，也不记录对象经历过的历史。指针或索引可能从 A 变为 B 再回到相同表示 A；CAS 看到相等仍无法判断它是否属于同一逻辑代次，这就是 ABA。 需要历史身份时，可以把 generation/tag 纳入被比较状态；还要考虑宽度、回绕和原子实现条件。tag 并不保护已经取得的指针所指对象，内存回收协议仍是独立责任。
 
-CAS 最后看到：
+<a id="g7-topic-38"></a>
 
-```text
-current == expected == A
-```
+### 7.2 ABA 不是 Use-after-free
 
-会认为相等。
+ABA：state/version/history 问题。 Reclamation：object lifetime 问题。 两者经常同时出现，但必须分开。
 
-它不知道历史经历过 B。
+<a id="g7-topic-39"></a>
 
-这就是：
-
-> **ABA**
-
----
-
-# 38. ABA 不是 Use-after-free
-
-ABA：
-
-> state/version/history 问题。
-
-Reclamation：
-
-> object lifetime 问题。
-
-两者经常同时出现，但必须分开。
-
----
-
-# 39. Unlinked ≠ Reclaimable
+### 7.3 Unlinked ≠ Reclaimable
 
 一个 node：
 
@@ -1343,70 +760,27 @@ Reclaimable
 Destroyed
 ```
 
-从 lock-free structure 中删除：
+从 lock-free structure 中删除：只解决 Logical Membership。 不代表：没有 reader 仍持有 pointer。
 
-> 只解决 Logical Membership。
+<a id="g7-topic-40"></a>
 
-不代表：
-
-> 没有 reader 仍持有 pointer。
-
----
-
-# 40. Pointer Acquisition ≠ Safe Dereference
+### 7.4 Pointer Acquisition ≠ Safe Dereference
 
 并发：
 
-```cpp
-Node* p = head.load();
-```
+`Node* p = head.load();`
 
-只得到：
+只得到：pointer value。 并没有自动保证：`*p` object lifetime 仍然 active。 另一个 thread 可能：
 
-> pointer value。
+remove、delete。
 
-并没有自动保证：
+发生在：`load p` 和：`p->next` 之间。
 
-> `*p` object lifetime 仍然 active。
+<a id="g7-topic-41"></a>
 
-另一个 thread 可能：
+### 7.5 Tagged Pointer / Generation
 
-```text
-remove
-delete
-```
-
-发生在：
-
-```text
-load p
-```
-
-和：
-
-```text
-p->next
-```
-
-之间。
-
----
-
-# 41. Tagged Pointer / Generation
-
-把：
-
-```text
-pointer
-```
-
-扩展成：
-
-```text
-(pointer, generation)
-```
-
-例如：
+把：`pointer` 扩展成：`(pointer, generation)` 例如：
 
 ```text
 (A, 41)
@@ -1416,29 +790,13 @@ pointer
 (A, 43)
 ```
 
-旧：
+旧：`(A, 41)` 不再等于：`(A, 43)` 可以检测一类 ABA。 但：不自动解决 pointee lifetime。
 
-```text
-(A, 41)
-```
+<a id="g7-topic-42"></a>
 
-不再等于：
+### 7.6 Reclamation Strategies
 
-```text
-(A, 43)
-```
-
-可以检测一类 ABA。
-
-但：
-
-> 不自动解决 pointee lifetime。
-
----
-
-# 42. Reclamation Strategies
-
-## Reference Counting
+**Reference Counting**
 
 ```text
 reader holds ownership
@@ -1447,23 +805,11 @@ reader holds ownership
 
 简单组合，代价：
 
-```text
-atomic refcount
-control block
-coherence traffic
-```
+atomic refcount、control block、coherence traffic。
 
----
+**Hazard Pointer**
 
-## Hazard Pointer
-
-reader 显式发布：
-
-```text
-I currently protect Node A
-```
-
-reclaimer：
+reader 显式发布：`I currently protect Node A` reclaimer：
 
 ```text
 A appears in hazard set
@@ -1484,23 +830,11 @@ dereference
 clear hazard
 ```
 
----
+**Epoch-based Reclamation**
 
-## Epoch-based Reclamation
+reader 表示：`I am active in epoch E` retired node：等所有可能仍在旧 epoch 的 readers 离开后再 reclaim。
 
-reader 表示：
-
-```text
-I am active in epoch E
-```
-
-retired node：
-
-> 等所有可能仍在旧 epoch 的 readers 离开后再 reclaim。
-
----
-
-## RCU / QSBR
+**RCU / QSBR**
 
 ```text
 build new generation
@@ -1514,79 +848,49 @@ reclaim old generation
 
 特别适合：
 
-```text
-read-heavy
-write-rare
-```
+read-heavy、write-rare。
 
 系统。
 
----
+<a id="g7-topic-43"></a>
 
-# 43. Lock-free 不是性能等级
+### 7.7 Lock-free 不是性能等级
 
-Lock-free 是：
+Lock-free 是：Progress Guarantee。 不是：“一定比 mutex 快”。 CAS contention 可能产生：
 
-> Progress Guarantee。
-
-不是：
-
-> “一定比 mutex 快”。
-
-CAS contention 可能产生：
-
-```text
-retry storm
-cache-line ping-pong
-```
+retry storm、cache-line ping-pong。
 
 一个低 contention mutex 可能更快、更简单。
 
----
+<a id="g7-topic-44"></a>
 
-# 44. Progress Guarantees
+### 7.8 Progress Guarantees
 
 粗略：
 
-```text
-Wait-free
-⇒
-Lock-free
-⇒
-Obstruction-free
-```
+Wait-free、⇒、Lock-free、⇒、Obstruction-free。
 
-## Lock-free
+**Lock-free**
 
-系统整体保证：
+系统整体保证：持续有某个 operation 取得进展。 不保证每个 thread 都不饿死。
 
-> 持续有某个 operation 取得进展。
+**Wait-free**
 
-不保证每个 thread 都不饿死。
+更强：每个 operation 都在有限步骤内完成。
 
-## Wait-free
+<a id="g7-topic-45"></a>
 
-更强：
+### 7.9 `atomic<T>::is_lock_free()` 不是算法证明
 
-> 每个 operation 都在有限步骤内完成。
+它只回答：这个 atomic object 的 implementation 是否 lock-free。 不代表：整个 data structure / allocator / reclamation / operation path 是 lock-free。
 
----
+<a id="g7-section-8"></a>
 
-# 45. `atomic<T>::is_lock_free()` 不是算法证明
+## 8. 并发队列的交接协议
 
-它只回答：
+<a id="g7-topic-46"></a>
 
-> 这个 atomic object 的 implementation 是否 lock-free。
-
-不代表：
-
-> 整个 data structure / allocator / reclamation / operation path 是 lock-free。
-
----
-
-# Part VII · Concurrent Queue
-
-# 46. Queue 首先按 Topology 分类
+### 8.1 Queue 首先按 Topology 分类
 
 | Queue | Producer | Consumer |
 | ----- | -------: | -------: |
@@ -1597,36 +901,27 @@ Obstruction-free
 
 Topology 直接决定：
 
-```text
-谁写 enqueue cursor？
-谁写 dequeue cursor？
-哪里需要 CAS？
-哪里可能 single-writer？
-```
+- 谁写 enqueue cursor？
+- 谁写 dequeue cursor？
+- 哪里需要 CAS？
+- 哪里可能 single-writer？
 
----
+<a id="g7-topic-47"></a>
 
-# 47. SPSC 的关键简化
+### 8.2 SPSC 的关键简化
 
-```text
-Producer:
-only writer of tail
+- Producer:
+- only writer of tail
+- Consumer:
+- only writer of head
 
-Consumer:
-only writer of head
-```
+因此：不需要 CAS 去争抢 cursor ownership。 只需正确 publication。
 
-因此：
+<a id="g7-topic-48"></a>
 
-> 不需要 CAS 去争抢 cursor ownership。
+### 8.3 SPSC 的两条 HB Edge
 
-只需正确 publication。
-
----
-
-# 48. SPSC 的两条 HB Edge
-
-## Producer → Consumer
+**Producer → Consumer**
 
 ```text
 construct slot
@@ -1640,15 +935,9 @@ consume slot
 
 因此：
 
-```text
-slot write
-HB
-slot read
-```
+slot write、HB、slot read。
 
----
-
-## Consumer → Producer
+**Consumer → Producer**
 
 ```text
 finish consuming
@@ -1662,25 +951,15 @@ reuse slot
 
 因此：
 
-```text
-old generation use
-HB
-new generation construction
-```
+old generation use、HB、new generation construction。
 
 这两条就是 SPSC correctness 骨架。
 
----
+<a id="g7-topic-49"></a>
 
-# 49. MPSC 的关键新问题
+### 8.4 MPSC 的关键新问题
 
-多个 producers 可以：
-
-```text
-reserve slots
-```
-
-但 reservation completion 可以 out-of-order：
+多个 producers 可以：`reserve slots` 但 reservation completion 可以 out-of-order：
 
 ```text
 P0 reserves slot 10
@@ -1692,54 +971,23 @@ writes + publishes
 
 于是：
 
-```text
-reservation frontier
-≠
-ready frontier
-```
+`reservation frontier ≠ ready frontier`
 
 简单 global tail 不够。
 
----
+<a id="g7-topic-50"></a>
 
-# 50. MPMC 为什么需要 Per-slot Generation
+### 8.5 MPMC 为什么需要 Per-slot Generation
 
-Physical slot 会反复：
+常见有界 MPMC 环形队列用每槽 sequence/generation 区分空闲、已占位、已发布及可复用的代次。多生产者的 reservation 不等于元素构造和发布已经完成；消费者必须按设计好的槽状态取得元素。 这不是所有 MPMC 算法都必须采用同一种布局的定理。序号回绕、失败路径、对象构造/析构及消费者回收都需要单独证明。本章解释协议问题，不把一个 per-slot 数字当作完整队列正确性证明。
 
-```text
-slot 3 generation 0
-slot 3 generation 1
-slot 3 generation 2
-```
+<a id="g7-topic-51"></a>
 
-所以常见：
-
-```text
-per-slot sequence number
-```
-
-同时编码：
-
-```text
-free generation
-ready generation
-consumed generation
-```
-
-这其实就是：
-
-> ABA generation 思想在 ring slot 上的应用。
-
----
-
-# 51. Bounded Queue = Backpressure
+### 8.6 Bounded Queue = Backpressure
 
 如果 producer rate：
 
-```text
->
-consumer rate
-```
+>、consumer rate。
 
 无界 queue：
 
@@ -1748,31 +996,15 @@ memory ↑
 latency ↑
 ```
 
-bounded queue：
+bounded queue：`full` 显式告诉上游：系统已达到当前 processing capacity。 Full 是：正常系统状态。 不是异常。
 
-```text
-full
-```
+<a id="g7-topic-52"></a>
 
-显式告诉上游：
-
-> 系统已达到当前 processing capacity。
-
-Full 是：
-
-> 正常系统状态。
-
-不是异常。
-
----
-
-# 52. Queue 是 Ownership Boundary
+### 8.7 Queue 是 Ownership Boundary
 
 成功：
 
-```cpp
-queue.push(std::move(job));
-```
+`queue.push(std::move(job));`
 
 自然语义：
 
@@ -1786,70 +1018,39 @@ Consumer owns Job
 
 因此跨线程 queue 中优先：
 
-```text
-owned value
-move-only handle
-lease
-unique ownership
-```
+owned value、move-only handle、lease、unique ownership。
 
 而不是未经约束的 borrowed pointer。
 
----
+<a id="g7-section-9"></a>
 
-# Part VIII · Thread Lifetime & Shutdown
+## 9. 线程生命周期与停机
 
-# 53. `std::thread`
+<a id="g7-topic-53"></a>
 
-如果 destructor 时：
+### 9.1 `std::thread`
 
-```text
-joinable == true
-```
+如果 destructor 时：`joinable == true` 会：`std::terminate()`。 所以 thread lifetime 必须显式解决：
 
-会：
+join、or、detach。
 
-> `std::terminate()`。
+<a id="g7-topic-54"></a>
 
-所以 thread lifetime 必须显式解决：
+### 9.2 `detach()` 不解决 Lifetime
 
-```text
-join
-or
-detach
-```
+它只是：解除 `std::thread` object 与执行线程的 join relationship。 不会解决：
 
----
+thread still accesses this、thread still accesses queue、thread still accesses stack object。
 
-# 54. `detach()` 不解决 Lifetime
+所以 detach 常常只是：隐藏 ownership 问题。
 
-它只是：
+<a id="g7-topic-55"></a>
 
-> 解除 `std::thread` object 与执行线程的 join relationship。
-
-不会解决：
-
-```text
-thread still accesses this
-thread still accesses queue
-thread still accesses stack object
-```
-
-所以 detach 常常只是：
-
-> 隐藏 ownership 问题。
-
----
-
-# 55. `std::jthread`
+### 9.3 `std::jthread`
 
 核心：
 
-```text
-RAII join
-+
-cooperative stop
-```
+`RAII join + cooperative stop`
 
 Destructor 大体：
 
@@ -1859,27 +1060,13 @@ request_stop
 join
 ```
 
-但：
+但：stop 是 request，不是 kill。 Worker 必须 cooperate。
 
-> stop 是 request，不是 kill。
+<a id="g7-topic-56"></a>
 
-Worker 必须 cooperate。
+### 9.4 `stop_token`
 
----
-
-# 56. `stop_token`
-
-表示：
-
-> 观察 cancellation request 的 capability。
-
-不是：
-
-```text
-pause/resume state
-```
-
-而是 monotonic：
+表示：观察 cancellation request 的 capability。 不是：`pause/resume state` 而是 monotonic：
 
 ```text
 not requested
@@ -1887,41 +1074,17 @@ not requested
 requested
 ```
 
----
+<a id="g7-topic-57"></a>
 
-# 57. Cancellation 必须唤醒 Blocked Thread
+### 9.5 Cancellation 必须唤醒 Blocked Thread
 
-错误：
+合作取消必须同时解决请求可见、阻塞可唤醒和退出后可 join。`request_stop()` 只提出请求，不会强制终止任意 wait、I/O 或持锁操作。
 
-```text
-request_stop
-```
+一种方案是在同一 mutex 下设置 closed 等终止谓词并通知所有等待方；另一种是使用 `condition_variable_any` 提供的 stop-token 等待重载。仅注册一个在锁外调用 `notify_all` 的 stop callback，仍可能遗漏检查与等待之间的竞争窗口。普通条件变量实验 G7-D2 使用显式 close；它不冒充 stop-token 重载的验证。[规则：N4950 condition_variable_any](https://timsong-cpp.github.io/cppwp/n4950/thread.condition.condvarany)
 
-但 worker 正 blocked：
+<a id="g7-topic-58"></a>
 
-```cpp
-cv.wait(...)
-```
-
-它可能根本醒不过来检查 stop。
-
-因此需要：
-
-```text
-stop-aware wait
-```
-
-或：
-
-```text
-stop_callback
-↓
-notify
-```
-
----
-
-# 58. Cancellation Point 必须保持 Invariant
+### 9.6 Cancellation Point 必须保持 Invariant
 
 不能：
 
@@ -1933,9 +1096,7 @@ see stop
 return
 ```
 
-如果状态因此不一致。
-
-Cancellation 和 Exception Safety 有同样结构：
+如果状态因此不一致。 Cancellation 和 Exception Safety 有同样结构：
 
 ```text
 prepare
@@ -1945,78 +1106,31 @@ safe cancellation point
 commit
 ```
 
----
+<a id="g7-topic-59"></a>
 
-# 59. Member Destruction Order
+### 9.7 Member Destruction Order
 
-成员：
+成员按声明的逆序析构，因此让工作线程成员最后声明，可以使它先于其访问的依赖成员析构。但声明顺序只是前提之一：线程必须收到可执行的停止协议，被阻塞时能唤醒，且 join 不与被持有的锁形成死锁。`jthread` 析构在仍为 joinable 时请求停止并 join，却不能替代用户协议。若工作函数不响应停止、继续等待外部资源，或者回调重新进入已在析构的 owner，仅调整成员顺序并不能解决问题。
 
-> 按声明顺序构造，逆序析构。
+<a id="g7-topic-60"></a>
 
-所以如果 thread 访问：
+### 9.8 Shutdown 基本顺序
 
-```text
-mutex
-queue
-config
-```
+1. 停止接收新工作。
+2. 发布关闭或停止状态。
+3. 唤醒阻塞线程。
+4. 按合同排空已接收工作，或取消并处理未完成工作。
+5. 等待线程函数退出。
+6. 完成 join。
+7. 销毁共享状态及其资源。
 
-thread member 通常应：
+具体依赖可以要求更细的步骤，但不得在仍有访问者时先销毁依赖。
 
-> 最后声明。
+<a id="g7-topic-61"></a>
 
-例如：
+### 9.9 Drain vs Abort
 
-```cpp
-class Worker {
-    std::mutex mutex_;
-    Queue queue_;
-
-    std::jthread thread_;
-};
-```
-
-析构：
-
-```text
-thread_ joins
-↓
-queue_
-↓
-mutex_
-```
-
-保证：
-
-> worker 不会 outlive dependencies。
-
----
-
-# 60. Shutdown 基本顺序
-
-```text
-1. Stop accepting new work
-
-2. Publish close/stop state
-
-3. Wake blocked threads
-
-4. Drain or abort according to contract
-
-5. Thread functions return
-
-6. Join
-
-7. Destroy shared state/resources
-```
-
-这是必须长期保留的 shutdown template。
-
----
-
-# 61. Drain vs Abort
-
-## Drain
+**Drain**
 
 ```text
 reject new work
@@ -2026,7 +1140,7 @@ process already accepted work
 exit
 ```
 
-## Abort
+**Abort**
 
 ```text
 reject new work
@@ -2040,27 +1154,19 @@ exit
 
 两者绝不能用一个模糊：
 
-```cpp
-stop();
-```
+`stop();`
 
 让 caller 猜。
 
----
+<a id="g7-section-10"></a>
 
-# Part IX · Thread Pool & Runtime
+## 10. 任务执行、线程池与背压
 
-# 62. Thread ≠ Task
+<a id="g7-topic-62"></a>
 
-Thread：
+### 10.1 Thread ≠ Task
 
-> execution resource。
-
-Task：
-
-> unit of work。
-
-Thread pool 的本质：
+Thread：execution resource。 Task：unit of work。 Thread pool 的本质：
 
 ```text
 many tasks
@@ -2068,25 +1174,15 @@ many tasks
 bounded worker threads
 ```
 
-把：
+把：`logical concurrency` 和：`physical parallelism` 解耦。
 
-```text
-logical concurrency
-```
+<a id="g7-topic-63"></a>
 
-和：
-
-```text
-physical parallelism
-```
-
-解耦。
-
----
-
-# 63. C++23 Task Representation
+### 10.2 C++23 Task Representation
 
 非常适合：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 using Task =
@@ -2095,12 +1191,7 @@ using Task =
 
 因为 Task 经常捕获：
 
-```text
-unique_ptr
-socket
-buffer lease
-move-only handle
-```
+unique_ptr、socket、buffer lease、move-only handle。
 
 这和 ownership transfer 模型一致：
 
@@ -2110,9 +1201,9 @@ Submitter
 → Worker
 ```
 
----
+<a id="g7-topic-64"></a>
 
-# 64. Worker 不能持 Queue Lock 执行 Task
+### 10.3 Worker 不能持 Queue Lock 执行 Task
 
 正确：
 
@@ -2126,41 +1217,17 @@ unlock
 execute task
 ```
 
-Queue mutex 只保护：
+Queue mutex 只保护：queue invariant。 Task execution 已经变成：worker-local ownership。
 
-> queue invariant。
+<a id="g7-topic-65"></a>
 
-Task execution 已经变成：
+### 10.4 Pool 必须考虑两种 Bound
 
-> worker-local ownership。
+`Worker count` 限制：physical parallelism。 `Queue capacity` 限制：backlog。 只有 bounded workers、unbounded queue：overload 仍然可以把 memory/latency 推爆。
 
----
+<a id="g7-topic-66"></a>
 
-# 65. Pool 必须考虑两种 Bound
-
-```text
-Worker count
-```
-
-限制：
-
-> physical parallelism。
-
-```text
-Queue capacity
-```
-
-限制：
-
-> backlog。
-
-只有 bounded workers、unbounded queue：
-
-> overload 仍然可以把 memory/latency 推爆。
-
----
-
-# 66. CPU-bound 与 I/O-bound Pool
+### 10.5 CPU-bound 与 I/O-bound Pool
 
 CPU-bound：
 
@@ -2169,55 +1236,25 @@ worker count
 ≈ available compute resources
 ```
 
-从此附近开始 benchmark。
+从此附近开始 benchmark。 I/O-bound：threads 可能大量 blocked，worker count 可能更大。 但更成熟可能使用：`async I/O` 避免大量 blocked OS threads。
 
-I/O-bound：
+<a id="g7-topic-67"></a>
 
-> threads 可能大量 blocked，
-
-worker count 可能更大。
-
-但更成熟可能使用：
-
-```text
-async I/O
-```
-
-避免大量 blocked OS threads。
-
----
-
-# 67. Resource Isolation
+### 10.6 Resource Isolation
 
 不要把：
 
-```text
-CPU tasks
-blocking database calls
-fsync
-network waits
-background cleanup
-```
+CPU tasks、blocking database calls、fsync、network waits、background cleanup。
 
-全部塞进一个 global pool。
+全部塞进一个 global pool。 否则：blocking work 会 starve CPU work。 典型：
 
-否则：
-
-> blocking work 会 starve CPU work。
-
-典型：
-
-```text
-CPU pool
-blocking pool
-async I/O runtime
-```
+CPU pool、blocking pool、async I/O runtime。
 
 分离。
 
----
+<a id="g7-topic-68"></a>
 
-# 68. Thread Pool Starvation Deadlock
+### 10.7 Thread Pool Starvation Deadlock
 
 Pool 只有一个 worker：
 
@@ -2233,17 +1270,11 @@ B waits for a worker
 the only worker is occupied by A
 ```
 
-没有 mutex cycle，
+没有 mutex cycle，仍然 deadlock。 这是：execution-capacity dependency cycle。
 
-仍然 deadlock。
+<a id="g7-topic-69"></a>
 
-这是：
-
-> execution-capacity dependency cycle。
-
----
-
-# 69. Bounded Submit 也能 Deadlock
+### 10.8 Bounded Submit 也能 Deadlock
 
 多个 workers：
 
@@ -2253,21 +1284,7 @@ each running task
 blocking submit child task
 ```
 
-queue full。
-
-所有 workers：
-
-```text
-wait queue capacity
-```
-
-但 queue capacity 只能通过：
-
-> worker consuming tasks
-
-来释放。
-
-于是：
+queue full。 所有 workers：`wait queue capacity` 但 queue capacity 只能通过：worker consuming tasks 来释放。 于是：
 
 ```text
 Workers
@@ -2277,71 +1294,40 @@ Queue Capacity
 Workers
 ```
 
-形成 cycle。
+形成 cycle。 Backpressure 必须结合：resource graph 分析。
 
-Backpressure 必须结合：
+<a id="g7-topic-70"></a>
 
-> resource graph
-
-分析。
-
----
-
-# 70. Global Queue vs Work Stealing
+### 10.9 Global Queue vs Work Stealing
 
 Global MPMC：
 
-```text
-simple
-good natural balancing
-central contention
-```
+simple、good natural balancing、central contention。
 
 Per-worker queue：
 
-```text
-locality
-less global contention
-```
+locality、less global contention。
 
-空闲 worker：
+空闲 worker：`steals` Work stealing 本质：common case local ownership，rare case cross-worker coordination。
 
-```text
-steals
-```
+<a id="g7-section-11"></a>
 
-Work stealing 本质：
+## 11. 并发架构与写入权限
 
-> common case local ownership，rare case cross-worker coordination。
+<a id="g7-topic-71"></a>
 
----
+### 11.1 并发设计最重要的问题：有几个 Writer？
 
-# Part X · Concurrency Architecture
+不是：有几个线程。 而是：
 
-# 71. 并发设计最重要的问题：有几个 Writer？
+- 每一份 mutable state
+- 有几个 writer？
 
-不是：
+复杂度通常随着：`multiple writers` 急剧上升。
 
-> 有几个线程。
+<a id="g7-topic-72"></a>
 
-而是：
-
-```text
-每一份 mutable state
-有几个 writer？
-```
-
-复杂度通常随着：
-
-```text
-multiple writers
-```
-
-急剧上升。
-
----
-
-# 72. Reasoning Complexity Ladder
+### 11.2 Reasoning Complexity Ladder
 
 粗略：
 
@@ -2361,19 +1347,13 @@ Atomic shared mutable
 Multi-object lock-free shared mutable
 ```
 
-不是性能排名。
+不是性能排名。 而是：reasoning complexity。
 
-而是：
+<a id="g7-topic-73"></a>
 
-> reasoning complexity。
+### 11.3 Privatize First
 
----
-
-# 73. Privatize First
-
-例如 metrics：
-
-差：
+例如 metrics：差：
 
 ```text
 32 workers
@@ -2391,65 +1371,21 @@ periodic aggregation
 
 这可以显著减少：
 
-```text
-coherence traffic
-atomic contention
-```
+coherence traffic、atomic contention。
 
-所以：
+所以：**Privatize first, synchronize later.**
 
-> **Privatize first, synchronize later.**
+<a id="g7-topic-74"></a>
 
----
+### 11.4 Single Writer Principle
 
-# 74. Single Writer Principle
+单写者（single writer）使状态转换集中在一个序列中，减少多写者竞争和不变量证明分支。线程本地状态、按实体分片及消息传递，都可以用来构造这种所有权边界。 单写者不意味着其他线程可无同步读取同一可变对象。读者仍需快照、锁、消息回复或经过论证的发布协议；消息本身也要说明转移后谁可以继续访问底层数据。
 
-一份 mutable state：
+<a id="g7-topic-75"></a>
 
-```text
-one writer
-```
+### 11.5 Message Passing 的真正价值
 
-意味着内部可以恢复：
-
-> 普通单线程 C++。
-
-其它 threads：
-
-```text
-send command
-```
-
-而不是：
-
-```text
-direct mutation
-```
-
-这会消灭大量：
-
-```text
-mutex
-atomics
-CAS
-multi-field consistency problems
-```
-
----
-
-# 75. Message Passing 的真正价值
-
-不是：
-
-> “不用 shared memory。”
-
-Queue 本身仍然共享。
-
-真正变化的是：
-
-> **Mutation Authority**
-
-从：
+不是：“不用 shared memory。” Queue 本身仍然共享。 真正变化的是：**Mutation Authority** 从：
 
 ```text
 Many writers
@@ -2465,9 +1401,9 @@ Many producers
 → state
 ```
 
----
+<a id="g7-topic-76"></a>
 
-# 76. Sharding
+### 11.6 Sharding
 
 如果 single writer 成为 throughput ceiling：
 
@@ -2489,375 +1425,180 @@ EntityId → shard 1
 
 得到：
 
-```text
-within shard:
-single writer
+- within shard:
+- single writer
+- across shards:
+- parallelism
 
-across shards:
-parallelism
-```
+<a id="g7-topic-77"></a>
 
----
+### 11.7 Shard Key = Ownership Key
 
-# 77. Shard Key = Ownership Key
+Sharding 的本质不是：“分几个 queue”。 而是：哪个 key 决定谁拥有 mutation authority？ 例如：
 
-Sharding 的本质不是：
+VehicleId、AccountId、PartitionId、ConnectionId。
 
-> “分几个 queue”。
+选错 shard key：cross-shard coordination 会非常多。
 
-而是：
+<a id="g7-topic-78"></a>
 
-> 哪个 key 决定谁拥有 mutation authority？
+### 11.8 Immutable Snapshot
 
-例如：
+不可变快照（immutable snapshot）把读者需要的一组字段作为一致版本发布，适合读多写少且允许读到稍旧版本的场景。读者取得快照所有权后不需要逐字段争锁，但发布与旧版本回收仍需协议。
 
-```text
-VehicleId
-AccountId
-PartitionId
-ConnectionId
-```
+`std::atomic<std::shared_ptr<const Model>> current;`
 
-选错 shard key：
+`const Model` 只约束这条访问路径，不自动证明深层对象不可变；若写者仍持有可变别名并同时修改内容，快照承诺便被破坏。shared_ptr 保证的是所管理对象的生命周期，不是所有关联状态的线程安全。
 
-> cross-shard coordination 会非常多。
+<a id="g7-topic-79"></a>
 
----
+### 11.9 Snapshot Consistency vs Freshness
 
-# 78. Immutable Snapshot
+Reader 可能持有：`V1` 而 current 已经：`V2` 这可能是：stale but internally consistent。 是否允许由 product/system contract 决定。 不要把：`latest` 和：`consistent generation` 混为一谈。
 
-Read-heavy state：
+<a id="g7-topic-80"></a>
 
-```text
-Config
-RoutingTable
-ModelRegistry
-```
+### 11.10 Old Generation 的 Lifetime
 
-很适合：
+`not current ≠ safe to destroy`
 
-```text
-build V2 privately
-↓
-validate
-↓
-publish immutable V2
-↓
-readers use snapshot
-```
+Old reader 可能还在使用 V1。 因此仍需要：
 
-而不是每次：
+shared_ptr、epoch、RCU。
 
-```text
-lock config
-read
-unlock
-```
+等 generation reclamation。 这和 lock-free node reclamation 完全同构。
 
----
+<a id="g7-section-12"></a>
 
-# 79. Snapshot Consistency vs Freshness
+## 12. 跨层关系图
 
-Reader 可能持有：
+<a id="g7-topic-81"></a>
 
-```text
-V1
-```
+### 12.1 Ownership Graph
 
-而 current 已经：
+所有权图标出对象的 owner、borrower、转移点与销毁者。同步边并不自动延长存活时间，所以线程开始工作之前，就要知道谁保证它访问的对象仍然存在。
 
-```text
-V2
-```
+<a id="g7-topic-82"></a>
 
-这可能是：
+### 12.2 Synchronization Graph
 
-> stale but internally consistent。
+同步图标出每条 HB 的来源：读到发布的 acquire、相应 mutex 的解锁/加锁、线程完成后的 join 或已论证的队列交接。不能只画“线程 A → 线程 B”而省略触发该边的实际操作。
 
-是否允许由 product/system contract 决定。
+<a id="g7-topic-83"></a>
 
-不要把：
+### 12.3 Mutation Graph
 
-```text
-latest
-```
+修改权限图为每份状态列出全部写者、允许的读者与权限交接。多写者是重点审查位置，单写者也必须解释跨线程读取如何安全发生。
 
-和：
+<a id="g7-topic-84"></a>
 
-```text
-consistent generation
-```
+### 12.4 Progress Graph
 
-混为一谈。
+进展图描述谁等待谁、谁有能力使谁继续，检查死锁、线程池饥饿和背压环。只有容量限制而没有释放容量的可执行路径，系统仍可能停住。
 
----
+<a id="g7-topic-85"></a>
 
-# 80. Old Generation 的 Lifetime
+### 12.5 Lifetime / Reclamation Graph
 
-```text
-not current
-≠
-safe to destroy
-```
+生命周期与回收图区分逻辑移除和实际销毁。标出最后可能访问该对象的读者，以及证明这些访问已经结束的条件；不要把从容器 erase 当作跨线程的回收屏障。
 
-Old reader 可能还在使用 V1。
+<a id="g7-topic-86"></a>
 
-因此仍需要：
+### 12.6 Cache Ownership Graph
 
-```text
-shared_ptr
-epoch
-RCU
-```
+缓存所有权图追踪哪些核心高频写哪些物理邻近数据。它用于 G6 的争用/伪共享分析；race-free 仅是正确性前提，不等于一致性流量低。
 
-等 generation reclamation。
+<a id="g7-topic-87"></a>
 
-这和 lock-free node reclamation 完全同构。
+### 12.7 Queue / Capacity Graph
 
----
+容量图标出压力积累位置、满队列后的行为以及释放容量依赖谁。与进展图联读，可以发现 worker 全部阻塞在 submit、却无人能继续消费的闭环。
 
-# Part XI · Cross-cutting Principles
+<a id="g7-section-13"></a>
 
-# 81. Ownership Graph
-
-问：
-
-```text
-谁拥有 object？
-谁借用？
-谁转移？
-谁销毁？
-```
-
----
-
-# 82. Synchronization Graph
-
-问：
-
-```text
-哪些 HB edges 存在？
-来自哪里？
-```
-
-例如：
-
-```text
-release/acquire
-mutex
-join
-queue handoff
-```
-
----
-
-# 83. Mutation Graph
-
-问：
-
-```text
-每份 state
-有哪些 writer？
-```
-
-如果：
-
-```text
-N writers
-```
-
-重点审查。
-
----
-
-# 84. Progress Graph
-
-问：
-
-```text
-谁在等谁？
-谁能让谁继续？
-```
-
-用于发现：
-
-```text
-deadlock
-pool starvation
-backpressure cycles
-```
-
----
-
-# 85. Lifetime / Reclamation Graph
-
-问：
-
-```text
-logical removal
-之后
-什么时候真正能 destroy？
-```
-
----
-
-# 86. Cache Ownership Graph
-
-G6 加入：
-
-```text
-哪些 cores 高频写哪些 cache lines？
-```
-
-Race-free 并不意味着：
-
-> coherence-friendly。
-
----
-
-# 87. Queue / Capacity Graph
-
-问：
-
-```text
-压力积累在哪里？
-谁被 backpressure？
-capacity 释放依赖谁？
-```
-
-这对 runtime deadlock 极其重要。
-
----
-
-# Part XII · G7 Unified Review Protocol
+## 13. 统一并发审查
 
 任何并发问题，建议按以下顺序。
 
----
+**Layer 1 — State**
 
-## Layer 1 — State
+`共享的 state 到底是什么？`
 
-```text
-共享的 state 到底是什么？
-```
+**Layer 2 — Ownership**
 
----
+- 谁拥有它？
+- 谁控制 lifetime？
 
-## Layer 2 — Ownership
+**Layer 3 — Writers**
 
-```text
-谁拥有它？
-谁控制 lifetime？
-```
+- 有几个 writer？
+- 能不能降到 1？
 
----
+**Layer 4 — Conflict**
 
-## Layer 3 — Writers
+- read/read?
+- read/write?
+- write/write?
 
-```text
-有几个 writer？
-能不能降到 1？
-```
+**Layer 5 — Atomicity**
 
----
+- ordinary?
+- atomic?
+- compound invariant?
 
-## Layer 4 — Conflict
+**Layer 6 — Ordering**
 
-```text
-read/read?
-read/write?
-write/write?
-```
+`HB edge 从哪里来？`
 
----
-
-## Layer 5 — Atomicity
-
-```text
-ordinary?
-atomic?
-compound invariant?
-```
-
----
-
-## Layer 6 — Ordering
-
-```text
-HB edge 从哪里来？
-```
-
----
-
-## Layer 7 — Synchronization
+**Layer 7 — Synchronization**
 
 选择：
 
-```text
-mutex?
-CV?
-atomic?
-CAS?
-queue?
-join?
-```
+- mutex?
+- CV?
+- atomic?
+- CAS?
+- queue?
+- join?
 
----
+**Layer 8 — Lifetime**
 
-## Layer 8 — Lifetime
+`reader 持有 pointer 时 object 能不能死？`
 
-```text
-reader 持有 pointer 时 object 能不能死？
-```
+**Layer 9 — Progress**
 
----
+- blocking?
+- lock-free?
+- wait-free?
+- 谁会饿死？
 
-## Layer 9 — Progress
+**Layer 10 — Backpressure**
 
-```text
-blocking?
-lock-free?
-wait-free?
-谁会饿死？
-```
+`full / overload 时怎么办？`
 
----
+**Layer 11 — Shutdown**
 
-## Layer 10 — Backpressure
+- drain?
+- abort?
+- wake?
+- join?
 
-```text
-full / overload 时怎么办？
-```
-
----
-
-## Layer 11 — Shutdown
-
-```text
-drain?
-abort?
-wake?
-join?
-```
-
----
-
-## Layer 12 — Architecture
+**Layer 12 — Architecture**
 
 最后问：
 
-```text
-这份 shared mutable state
-真的需要共享修改吗？
-```
+- 这份 shared mutable state
+- 真的需要共享修改吗？
 
 这是最重要的一层。
 
----
+<a id="g7-section-14"></a>
 
-# Part XIII · Concurrency Smell Catalogue
+## 14. 并发反模式
 
-# 88. Smell 1 — Global Mutable State
+<a id="g7-topic-88"></a>
+
+### 14.1 Smell 1 — Global Mutable State
 
 ```text
 all threads
@@ -2866,15 +1607,13 @@ all threads
 
 然后不断增加：
 
-```text
-mutex
-atomics
-flags
-```
+mutex、atomics、flags。
 
----
+<a id="g7-topic-89"></a>
 
-# 89. Smell 2 — Atomic Every Field
+### 14.2 Smell 2 — Atomic Every Field
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 struct State {
@@ -2884,59 +1623,41 @@ struct State {
 };
 ```
 
-但没人定义：
+但没人定义：multi-field consistency。
 
-> multi-field consistency。
+<a id="g7-topic-90"></a>
 
----
-
-# 90. Smell 3 — Relaxed Cargo Cult
+### 14.3 Smell 3 — Relaxed Cargo Cult
 
 看到 atomic：
 
-```cpp
-memory_order_relaxed
-```
+`memory_order_relaxed`
 
-只因为：
+只因为：“更快”。 却画不出 HB proof。
 
-> “更快”。
+<a id="g7-topic-91"></a>
 
-却画不出 HB proof。
+### 14.4 Smell 4 — Lock-free Cargo Cult
 
----
+存在 mutex：第一反应就是 CAS。 没有 profile，也没有 progress requirement。
 
-# 91. Smell 4 — Lock-free Cargo Cult
+<a id="g7-topic-92"></a>
 
-存在 mutex：
+### 14.5 Smell 5 — Detached Thread
 
-> 第一反应就是 CAS。
-
-没有 profile，也没有 progress requirement。
-
----
-
-# 92. Smell 5 — Detached Thread
-
-```cpp
-std::thread{...}.detach();
-```
+`std::thread{...}.detach();`
 
 但 thread lifetime、dependencies、shutdown 全不明确。
 
----
+<a id="g7-topic-93"></a>
 
-# 93. Smell 6 — Unbounded Queue
+### 14.6 Smell 6 — Unbounded Queue
 
-用：
+用：“不阻塞 producer” 掩盖 processing capacity mismatch。
 
-> “不阻塞 producer”
+<a id="g7-topic-94"></a>
 
-掩盖 processing capacity mismatch。
-
----
-
-# 94. Smell 7 — Worker Waits Same Pool
+### 14.7 Smell 7 — Worker Waits Same Pool
 
 Pool worker：
 
@@ -2948,22 +1669,17 @@ wait child
 
 没有分析 execution-capacity cycle。
 
----
+<a id="g7-topic-95"></a>
 
-# 95. Smell 8 — Notification as State
+### 14.8 Smell 8 — Notification as State
 
-```text
-I got notify
-therefore condition true
-```
+I got notify、therefore condition true。
 
-错误。
+错误。 Predicate 才是 truth。
 
-Predicate 才是 truth。
+<a id="g7-topic-96"></a>
 
----
-
-# 96. Smell 9 — Remove Then Delete
+### 14.9 Smell 9 — Remove Then Delete
 
 Lock-free structure：
 
@@ -2975,50 +1691,36 @@ delete immediately
 
 却没有 reclamation proof。
 
----
+<a id="g7-topic-97"></a>
 
-# 97. Smell 10 — Shared `shared_ptr<MutableT>` Everywhere
+### 14.10 Smell 10 — Shared `shared_ptr<MutableT>` Everywhere
 
-解决了 lifetime，
+解决了 lifetime，没有解决：mutation authority。
 
-没有解决：
+<a id="g7-topic-98"></a>
 
-> mutation authority。
+### 14.11 Smell 11 — All Workers Touch All Entities
 
----
+随机 dispatch 所有 state，造成：
 
-# 98. Smell 11 — All Workers Touch All Entities
+locks、cache migration、poor affinity。
 
-随机 dispatch 所有 state，
+<a id="g7-topic-99"></a>
 
-造成：
+### 14.12 Smell 12 — Shutdown as One Bool
 
-```text
-locks
-cache migration
-poor affinity
-```
-
----
-
-# 99. Smell 12 — Shutdown as One Bool
-
-```cpp
-bool running;
-```
+`bool running;`
 
 却没有定义：
 
-```text
-accepting?
-draining?
-aborting?
-stopped?
-```
+- accepting?
+- draining?
+- aborting?
+- stopped?
 
----
+<a id="g7-section-15"></a>
 
-# Part XIV · G7 Final Fifteen Axioms
+## 15. 工程原则回查
 
 如果半年后只能保留十五条：
 
@@ -3052,19 +1754,199 @@ stopped?
 
 15. **优秀并发架构的目标不是使用更聪明的 synchronization，而是让绝大多数业务 state 根本不需要 concurrent mutation。**
 
----
+<a id="g7-section-16"></a>
 
-# Part XV · G7 Final Gate
+## 16. 实验与验证
+
+本章完整实验以 Markdown 中的源文件为准；从仓库根目录运行下列命令。执行器提取文件到新建临时目录，完整命令和原始输出写入结果记录，不修改历史制品。
+
+[命令 · 自动提取、编译及分项记录]
+
+```sh
+python3 c++/learning/verify_handbook.py /usr/bin/clang++ /opt/homebrew/opt/llvm/bin/clang++
+```
+
+只有带 `h-lab/h-file` 标记的完整实验及隔离反例参加本章定向执行；其他机制片段不是已验证的完整实现。改变条件用于理解判据，若未单独运行，不计作新增证据。
+
+### 16.1 G7-D1 · 单次发布的不变量与动态观察
+
+**命题、观察与边界。** 每轮创建新的 payload 和 ready，写者只写一次；读者只在 acquire 观察到发布后读取。写入 SB release、release SW acquire、acquire SB 读取给出 HB 链。join 完成后才销毁状态；有限 stress 与 TSan 无诊断仅支持本次路径，不证明所有调度、公平性或复用协议。
+
+<!-- h-lab {"id":"G7-D1","mode":"concurrency","stdout":"publication=200\n"} -->
+
+[完整实验 · G7-D1 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include <atomic>
+#include <iostream>
+#include <thread>
+
+int main() {
+    for (int round = 0; round < 200; ++round) {
+        int payload = 0;
+        std::atomic<bool> ready{false};
+        bool correct = false;
+        std::thread consumer([&] {
+            while (!ready.load(std::memory_order_acquire)) std::this_thread::yield();
+            correct = (payload == 42);
+        });
+        std::thread producer([&] {
+            payload = 42;
+            ready.store(true, std::memory_order_release);
+        });
+        producer.join();
+        consumer.join();
+        if (!correct) return 1;
+    }
+    std::cout << "publication=200" << std::endl;
+}
+```
+
+**运行与判据。** 上述统一命令中的 `G7-D1` 提取并处理本模块。先运行普通构建，再在 TSan 可用时运行插桩构建；需要指定输出和正常退出，超时为失败而非停机成功。
+
+### 16.2 G7-D2 · 有界通道：排空、拒绝与停机
+
+**命题、观察与边界。** 队列和 closed 由同一 mutex 保护；push 插入与 close 置位是各自线性化点。pop 在 closed 且空时结束，否则按 FIFO 取出；close 后不接受新值，已接受值仍排空。notify 只负责唤醒，谓词决定动作。实验检查完整 FIFO、空通道关闭、满通道关闭及重复 close；等待中的计数器在同锁下登记，保证关闭确实发生在等待路径，不用 sleep 猜时序。
+
+<!-- h-lab {"id":"G7-D2","mode":"concurrency","stdout":"fifo=50000; empty-close; full-close; joined\n"} -->
+
+[完整实验 · G7-D2 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include <condition_variable>
+#include <deque>
+#include <iostream>
+#include <mutex>
+#include <optional>
+#include <thread>
+
+class Channel {
+    std::mutex mutex_;
+    std::condition_variable changed_;
+    std::deque<int> queue_;
+    bool closed_ = false;
+    unsigned waiting_ = 0;
+public:
+    bool push(int value) {
+        std::unique_lock lock{mutex_};
+        while (!closed_ && queue_.size() == 4) {
+            ++waiting_; changed_.notify_all();
+            changed_.wait(lock);
+            --waiting_;
+        }
+        if (closed_) return false;
+        queue_.push_back(value);
+        changed_.notify_all();
+        return true;
+    }
+    std::optional<int> pop() {
+        std::unique_lock lock{mutex_};
+        while (!closed_ && queue_.empty()) {
+            ++waiting_; changed_.notify_all();
+            changed_.wait(lock);
+            --waiting_;
+        }
+        if (queue_.empty()) return std::nullopt;
+        int value = queue_.front();
+        queue_.pop_front();
+        changed_.notify_all();
+        return value;
+    }
+    void close() {
+        std::lock_guard lock{mutex_};
+        closed_ = true;
+        changed_.notify_all();
+    }
+    void wait_until_blocked() { // Test observation, not a production API.
+        std::unique_lock lock{mutex_};
+        changed_.wait(lock, [&] { return waiting_ != 0; });
+    }
+};
+int main() {
+    for (int round = 0; round < 50; ++round) {
+        Channel channel;
+        bool producer_ok = true, consumer_ok = true;
+        int count = 0;
+        std::thread reader([&] {
+            while (auto value = channel.pop()) {
+                if (*value != count) consumer_ok = false;
+                ++count;
+            }
+        });
+        std::thread writer([&] {
+            for (int i = 0; i < 1000; ++i)
+                if (!channel.push(i)) producer_ok = false;
+            channel.close();
+        });
+        writer.join();
+        reader.join();
+        channel.close();
+        if (!producer_ok || !consumer_ok || count != 1000 ||
+            channel.push(1001) || channel.pop()) return 1;
+    }
+    Channel empty;
+    bool ended = false;
+    std::thread reader([&] { ended = !empty.pop(); });
+    empty.wait_until_blocked();
+    empty.close();
+    reader.join();
+    if (!ended) return 2;
+
+    Channel full;
+    for (int i = 0; i < 4; ++i) if (!full.push(i)) return 3;
+    bool rejected = false;
+    std::thread writer([&] { rejected = !full.push(4); });
+    full.wait_until_blocked();
+    full.close();
+    writer.join();
+    if (!rejected) return 4;
+    for (int i = 0; i < 4; ++i) {
+        auto value = full.pop();
+        if (!value || *value != i) return 5;
+    }
+    if (full.pop()) return 6;
+    std::cout << "fifo=50000; empty-close; full-close; joined" << std::endl;
+}
+```
+
+**运行与判据。** 上述统一命令中的 `G7-D2` 提取并处理本模块。先运行普通构建，再在 TSan 可用时运行插桩构建；需要指定输出和正常退出，超时为失败而非停机成功。
+
+### 16.3 G7-D3 · 工具阳性对照：缺少同步的写冲突
+
+**命题、观察与边界。** 反例有意让两个线程无同步写入同一普通对象。只在隔离进程中启用 TSan 运行，要求 data race 诊断和指定退出码；不能把结果值、普通崩溃或超时算作成功。它验证工具对这个已知错误的检测能力，不验证 G7-D1/D2 的所有路径。
+
+<!-- h-lab {"id":"G7-D3","mode":"tsan_negative"} -->
+
+[反例 · 未定义行为；仅限 TSan 隔离检测 · G7-D3 · main.cpp]
+
+<!-- h-file {"path":"main.cpp"} -->
+```cpp
+#include <thread>
+int value = 0;
+int main() {
+    std::thread writer([] { value = 1; });
+    value = 2; // Deliberate data race: no HB edge between the two writes.
+    writer.join();
+}
+```
+
+**运行与判据。** 上述统一命令中的 `G7-D3` 提取并处理本模块。先运行无竞争的 TSan 探针；可用时要求 data race 诊断与退出码 66。环境不可用明确 SKIP，不将普通崩溃充作检测。 **协议论证边界。** D2 假设 mutex/CV 与标准容器正确、工作线程获得调度、内存分配不失败；它不覆盖任务执行异常、强制终止、MPMC 无锁回收或 stop-token API。状态只在锁内转换，所有工作线程先 join 再销毁 channel。有限 stress/TSan 结果不能证明公平性或全程序无竞争；D3 阳性对照也不能提升这一结论。
+
+<a id="g7-section-17"></a>
+
+## 17. Final Gate
 
 下面这些问题应该能闭卷回答。
 
----
+**A. Data Race**
 
-## A. Data Race
-
-### 1
+**1**
 
 为什么：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int x = 0;
@@ -3076,35 +1958,15 @@ x = 1;
 use(x);
 ```
 
-在没有 synchronization 时不能只说：
+在没有 synchronization 时不能只说：“B 可能读到 0 或 1”？ 因为：conflicting non-atomic accesses 可能构成 Data Race → UB。
 
-> “B 可能读到 0 或 1”？
+**2**
 
-因为：
+为什么：`sleep 1 second` 不能建立 happens-before？ 因为：wall-clock waiting 不是 C++ synchronization relation。
 
-> conflicting non-atomic accesses 可能构成 Data Race → UB。
+**B. Happens-before**
 
----
-
-### 2
-
-为什么：
-
-```text
-sleep 1 second
-```
-
-不能建立 happens-before？
-
-因为：
-
-> wall-clock waiting 不是 C++ synchronization relation。
-
----
-
-## B. Happens-before
-
-### 3
+**3**
 
 解释：
 
@@ -3112,31 +1974,25 @@ sleep 1 second
 SB + SW + transitivity → HB
 ```
 
----
-
-### 4
+**4**
 
 为什么普通 payload 可以通过 atomic flag publication 安全跨线程？
 
----
+**C. Memory Order**
 
-## C. Memory Order
-
-### 5
+**5**
 
 什么场景适合：
 
-```cpp
-memory_order_relaxed
-```
+`memory_order_relaxed`
 
 ？
 
----
-
-### 6
+**6**
 
 为什么：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 data = 42;
@@ -3145,31 +2001,25 @@ ready.store(true, relaxed);
 
 不能配合 relaxed load 正确发布普通 `data`？
 
----
-
-### 7
+**7**
 
 `acq_rel` 为什么主要自然出现在 RMW 上？
 
----
-
-### 8
+**8**
 
 `seq_cst` 比 release/acquire 多提供的核心是什么？
 
----
+**D. Mutex / CV**
 
-## D. Mutex / CV
-
-### 9
+**9**
 
 为什么 mutex 保护的是 invariant 而不是 variable？
 
----
-
-### 10
+**10**
 
 为什么：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (!pred()) {
@@ -3179,41 +2029,21 @@ if (!pred()) {
 
 通常错误？
 
----
-
-### 11
+**11**
 
 为什么 notification 可以发生在 waiter 真正等待之前，而正确 predicate-based design 仍然不丢工作？
 
----
+**E. CAS**
 
-## E. CAS
-
-### 12
+**12**
 
 CAS failure 为什么修改 `expected`？
 
----
+**13**
 
-### 13
+为什么：`weak CAS` 不等于：`weak memory ordering` ？
 
-为什么：
-
-```text
-weak CAS
-```
-
-不等于：
-
-```text
-weak memory ordering
-```
-
-？
-
----
-
-### 14
+**14**
 
 为什么 atomic：
 
@@ -3223,11 +2053,9 @@ load + store
 
 不能替代 CAS？
 
----
+**F. ABA / Reclamation**
 
-## F. ABA / Reclamation
-
-### 15
+**15**
 
 解释：
 
@@ -3237,259 +2065,212 @@ A → B → A
 
 为什么 CAS 可能无法发现中间变化。
 
----
-
-### 16
+**16**
 
 为什么：
 
-```text
-Unlinked
-≠
-Safe to delete
-```
+`Unlinked ≠ Safe to delete`
 
 ？
 
----
-
-### 17
+**17**
 
 Hazard Pointer 与 Epoch 的核心区别是什么？
 
----
-
-### 18
+**18**
 
 为什么 generation/tagged pointer 不能自动解决 lifetime reclamation？
 
----
+**G. Queue**
 
-## G. Queue
-
-### 19
+**19**
 
 SPSC 为什么通常不需要 CAS 更新 head/tail？
 
----
-
-### 20
+**20**
 
 SPSC 为什么需要两个方向的 release/acquire handoff？
 
----
+**21**
 
-### 21
+MPSC 中为什么：`reservation tail` 不能直接等价于：`published tail` ？
 
-MPSC 中为什么：
-
-```text
-reservation tail
-```
-
-不能直接等价于：
-
-```text
-published tail
-```
-
-？
-
----
-
-### 22
+**22**
 
 Per-slot sequence number 在 MPMC queue 中解决的核心是什么？
 
----
+**H. Thread Lifetime**
 
-## H. Thread Lifetime
-
-### 23
+**23**
 
 为什么 joinable `std::thread` 析构会 terminate？
 
----
-
-### 24
+**24**
 
 为什么 detach 不能解决 object lifetime？
 
----
-
-### 25
+**25**
 
 为什么 `jthread.request_stop()` 不能强制杀死 thread？
 
----
-
-### 26
+**26**
 
 为什么 thread member 通常应该最后声明？
 
----
+**I. Thread Pool**
 
-## I. Thread Pool
-
-### 27
+**27**
 
 为什么 worker 不应该持 queue mutex 执行 Task？
 
----
-
-### 28
+**28**
 
 为什么 bounded pool 中 worker 递归 blocking submit 可能 deadlock？
 
----
-
-### 29
+**29**
 
 为什么 CPU-bound 与 blocking-I/O task 不应该机械使用同一个 pool？
 
----
-
-### 30
+**30**
 
 为什么 work stealing 的主要架构价值不是“更复杂”，而是 common-case local ownership？
 
----
+**J. Architecture**
 
-## J. Architecture
-
-### 31
+**31**
 
 为什么 single writer 能显著降低 concurrency complexity？
 
----
+**32**
 
-### 32
+Sharding 的本质是什么？ 不是：多几个 queue。 而是？
 
-Sharding 的本质是什么？
-
-不是：
-
-> 多几个 queue。
-
-而是？
-
----
-
-### 33
+**33**
 
 Immutable snapshot 主要优化什么 workload？
 
----
+**34**
 
-### 34
+为什么：`old snapshot no longer current` 仍不代表可立即销毁？
 
-为什么：
-
-```text
-old snapshot no longer current
-```
-
-仍不代表可立即销毁？
-
----
-
-### 35
+**35**
 
 为什么“每个字段都 atomic”经常不如一个 immutable snapshot？
 
----
+<a id="g7-section-18"></a>
 
-# Part XVI · G0–G7 的统一模型
+## 18. Final Gate · 参考答案与常见误判
+
+### 18.1 Data Race、HB 与内存序（1～8）
+
+1. 无同步的冲突非原子访问属于数据竞争，语言不把结果限定为旧值/新值二选一。还必须验证对象生命周期，而不只检查 load/store。
+2. sleep 改变调度概率，不建立 synchronizes-with；必须由锁、原子发布或其他标准规定的同步机制建立关系。
+3. 在线程内用 sequenced-before 排列相关操作，跨线程找出 synchronizes-with，再使用传递性得到所需 HB。箭头必须有规则依据，不能按墙钟时间补画。
+4. 非原子 payload 的写与读可由单次 release/acquire 发布建立 HB。读者必须读到相应发布；写者不能在读者使用时再次改写同一 payload。
+5. 独立计数且不依赖该计数发布其他数据时可使用 relaxed；还要分析计数溢出、复合不变量和对象存活。
+6. relaxed 的读写没有所需发布同步，标志观察本身不使普通 data 读写合法。
+7. RMW 既读取此前状态又发布本次更新，可能同时需要 acquire 和 release；纯 load/store 不需要也不接受所有 RMW 组合。
+8. seq_cst 提供对相应 SC 操作的受约束总序，不会把其他错误协议变正确；混合弱序操作须另行推理。
+
+### 18.2 Mutex、CV 与 CAS（9～14）
+
+9. 相关字段组成一个状态不变量；只给各字段分别上锁可能仍让读者观察到不允许的组合。
+10. wait 可伪唤醒，醒来后谓词也可能已被其他线程改变；使用循环或谓词重载，并在同一锁协议下检查状态。
+11. 不是因为通知被保存，而是谓词状态受锁保护并持久存在。消费者持锁检查和 wait 的原子解锁/等待配合生产者的持锁修改，消除丢失工作的窗口；锁外 atomic 标志加 notify 不能机械替代。
+12. 失败意味着当前值不同或 weak 伪失败；expected 接收观察结果，下一次 desired 应由它重算。不能反复用旧假设提交状态。
+13. weak 指允许伪失败，内存序指定同步/排序，二者独立。
+14. 独立原子 load 和 store 之间可插入另一修改；CAS 把条件检查与更新合成一个原子转换。
+
+### 18.3 ABA、回收与队列（15～22）
+
+15. 比较当前值表示不能看到 A→B→A 的历史，因此相同表示不保证相同代次。
+16. 从结构摘除只阻止某些新获取，不能证明此前读者已不再使用对象。
+17. Hazard pointer 公开保护具体对象并要求正确的获取/重验协议；epoch 等待相关读者离开旧时期后批量回收。读者停顿、注册成本与回收延迟的权衡不同。
+18. tag 可区分某些历史变化，却不阻止对象被释放；还要处理回绕并提供真正的存活保护。
+19. 常见 SPSC 中每个游标各有唯一写者，不需要多个写者竞争同一个增量；交叉观察仍要同步。
+20. 正向发布元素供消费，反向发布消费完成供生产者安全复用槽位；缺少反向边会让下一轮写覆盖仍在读取的数据。
+21. 取得位置不等于元素已经构造完成；多生产者可按不同速度完成，消费者不能跨过未发布位置。
+22. 常见有界环中每槽序号区分空闲、就绪与复用代次；这只是协议组成，不是所有 MPMC 算法或内存回收的通用证明。
+
+### 18.4 线程生命周期与运行时（23～30）
+
+23. joinable thread 的析构按标准调用 terminate；不能偷偷把仍运行的工作和依赖责任丢掉。
+24. detach 只分离线程句柄的等待责任，不延长捕获对象生命周期，也不建立停机确认。
+25. stop_token 是合作机制；工作函数与阻塞操作必须响应请求。不能依靠强杀跳过不变量恢复。
+26. 最后声明通常先析构，可使 jthread 先于依赖销毁；仍须满足唤醒、退出、join 和锁依赖，声明顺序不是完整方案。
+27. 在队列锁内执行任务会串行化调度，并可能被回调重入、阻塞和再次提交拖入死锁。
+28. 所有 worker 都等待有界队列空位时，可能已没有线程能消费腾出位置。需非阻塞/拒绝、helping 或不同依赖拓扑。
+29. 阻塞 I/O 占住执行槽，会饿死需要 CPU 或完成回调的工作；线程数、队列和资源隔离须按负载决定。
+30. Work stealing 保留常见路径的本地队列操作，仅在需要时跨线程协调；仍有窃取、任务依赖与停机复杂度，并非自动更快。
+
+### 18.5 架构（31～35）
+
+31. 单写者集中状态转换和不变量；其他线程的读取仍需同步或快照，不能据此无锁读取可变状态。
+32. 分片按稳定的 ownership key 划分写入权限、执行位置与关联数据；跨片事务、迁移和热点仍须协议，不只是多建几个队列。
+33. 不可变快照适合读多写少、允许一定陈旧度的负载，以发布和版本保留换取简单读取。
+34. “非当前”不等于无人持有；必须等全部相关读者释放或到达回收安全点。
+35. 各字段 atomic 不自动构成一致版本。快照把相关字段作为一个逻辑版本发布，但需要真正不可变及正确生命周期管理。
+
+<a id="g7-section-19"></a>
+
+## 19. G0～G7 的统一模型
 
 现在我们已经可以把整个前半段课程连成一条线。
 
----
+<a id="g7-topic-100"></a>
 
-# 100. G1 — Object Model
+### 19.1 G1 — Object Model
 
-```text
-Can I legally access this object?
-```
+`Can I legally access this object?` 问：
 
-问：
+- storage?
+- lifetime?
+- type?
+- bounds?
+- alignment?
 
-```text
-storage?
-lifetime?
-type?
-bounds?
-alignment?
-```
+<a id="g7-topic-101"></a>
 
----
+### 19.2 G2 — Ownership
 
-# 101. G2 — Ownership
+`Who keeps it alive?` 问：
 
-```text
-Who keeps it alive?
-```
+- owner?
+- borrower?
+- transfer?
+- cleanup?
 
-问：
+<a id="g7-topic-102"></a>
 
-```text
-owner?
-borrower?
-transfer?
-cleanup?
-```
+### 19.3 G3 — Value Semantics
 
----
+`What moves and what does it cost?` 问：
 
-# 102. G3 — Value Semantics
+- copy?
+- move?
+- allocation?
+- representation?
 
-```text
-What moves and what does it cost?
-```
+<a id="g7-topic-103"></a>
 
-问：
+### 19.4 G5 — Genericity
 
-```text
-copy?
-move?
-allocation?
-representation?
-```
+`Which variation belongs at compile time?`
 
----
+<a id="g7-topic-104"></a>
 
-# 103. G5 — Genericity
+### 19.5 G6 — Performance
 
-```text
-Which variation belongs at compile time?
-```
+`How does representation interact with the machine?` 问：
 
----
+layout、cache、allocation、TLB、branch、coherence。
 
-# 104. G6 — Performance
+<a id="g7-topic-105"></a>
 
-```text
-How does representation interact with the machine?
-```
+### 19.6 G7 — Concurrency
 
-问：
-
-```text
-layout
-cache
-allocation
-TLB
-branch
-coherence
-```
-
----
-
-# 105. G7 — Concurrency
-
-```text
-Who may access or mutate this state concurrently,
-and what ordering/lifetime guarantees make that legal?
-```
+- Who may access or mutate this state concurrently,
+- and what ordering/lifetime guarantees make that legal?
 
 最终统一：
 
@@ -3513,11 +2294,13 @@ Concurrent Architecture
 
 这已经是一套相当完整的 systems reasoning model。
 
----
+<a id="g7-section-20"></a>
 
-# Part XVII · 一个实际 Review Example
+## 20. 实际代码的跨层审查
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::shared_ptr<MutableModel> model;
@@ -3529,11 +2312,7 @@ void worker() {
 }
 ```
 
-以前可能只问：
-
-> “mutex 会不会慢？”
-
-现在应该按完整链路分析：
+以前可能只问：“mutex 会不会慢？” 现在应该按完整链路分析：
 
 ```text
 G1
@@ -3556,74 +2335,18 @@ G7
 readers 是否可以使用 immutable snapshot？
 ```
 
-这就是 G7 真正想训练出来的能力：
+这项分析的目的在于：**把 synchronization problem 向上提升成 ownership architecture problem。**
 
-> **把 synchronization problem 向上提升成 ownership architecture problem。**
+<a id="g7-section-21"></a>
 
----
+## 21. 本章范围与后续阅读
 
-# Part XVIII · G7 Completion Status
+数据竞争、内存序、锁与等待、CAS、回收、队列、线程停机、任务运行时和并发架构均保留为本章主题。协议论证是明确假设下的工程推理，不是全程序形式化验证。下一阶段按总导航进入 [G8 ABI 与 C 互操作](g08-abi-and-c-interop.md)；该章本批未重编，也未获得新的技术验收状态。
 
-G7 当前正式冻结：
+<a id="g7-section-22"></a>
 
-```text
-G7.1  Data Race / Happens-before
-G7.2  Memory Ordering
-G7.3  Mutex / Condition Variable
-G7.4  Atomic RMW / CAS
-G7.5  Lock-free / ABA / Reclamation
-G7.6  SPSC / MPSC / SPMC / MPMC
-G7.7  Thread Lifetime / jthread / stop_token
-G7.8  Thread Pool / Task Runtime / Backpressure
-G7.9  Concurrency Architecture
-──────────────────────────────────────────
-G7     COMPLETE / FROZEN
-```
+## 22. 参考与验证入口
 
-到这里，最重量级的 C++ 语言/机器理论阶段基本完成。
+[全系列导航](README.md) · [实验说明](learning/README.md) · [本批修订与证据](learning/professional-revision.md)
 
-接下来按照我们已经调整过的路线，**先不直接进入 G8**。
-
-下一阶段应该回补之前主动跳过的：
-
-# G4 — Practical STL & Abstraction
-
-但这次不会回到：
-
-> “vector / map / algorithm 分类讲解”
-
-那种容易变成资料罗列的方式。
-
-而会以一个实际 C++23 数据处理组件为主线，把 STL 真正放进系统设计：
-
-```text
-contiguous data
-↓
-span
-↓
-algorithms
-↓
-ranges
-↓
-sorting / lookup
-↓
-iterator invalidation
-↓
-associative containers
-↓
-flat representations
-↓
-ownership-friendly container API
-```
-
-重点回答：
-
-> **什么时候应该让 STL abstraction 暴露出来，什么时候应该把 container choice 隐藏在系统 boundary 后面？**
-
-然后再进入：
-
-```text
-G8 ABI / Libraries / C Interop
-```
-
-从语言、内存、并发世界正式走向 binary interface 世界。
+语言模型参见 N4950 [数据竞争](https://timsong-cpp.github.io/cppwp/n4950/intro.races)、[原子内存序](https://timsong-cpp.github.io/cppwp/n4950/atomics.order)；工具边界参见 [Clang ThreadSanitizer](https://clang.llvm.org/docs/ThreadSanitizer.html)。

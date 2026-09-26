@@ -1,0 +1,4701 @@
+{
+  "schema": 1,
+  "edition": "Editorial Profile v1.0; G0–G4 presentation refresh; G5–G7 Professional Handbook Edition",
+  "date": "2026-09-27",
+  "base": "60c5562f964717ba224d5e7f6f7bbcfe519a37ed",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "evidence_kind": "local verification, not GitHub CI or full-series technical acceptance",
+  "document_structure": {
+    "command": [
+      "python3",
+      "c++/learning/check_docs.py"
+    ],
+    "exit_code": 0,
+    "result": {
+      "markdown_files": 34,
+      "local_links": 661,
+      "upgraded_hierarchy_files": 8,
+      "errors": [],
+      "pdf": "NOT BUILT / NOT VALIDATED",
+      "source_risks": [
+        {
+          "file": "g02-raii-and-ownership.md",
+          "line": 1078,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 41,
+          "display_columns": 66
+        },
+        {
+          "file": "g04-stl-and-ranges.md",
+          "line": 2041,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 85,
+          "display_columns": 80
+        },
+        {
+          "file": "g06-memory-and-performance.md",
+          "line": 2089,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 49,
+          "display_columns": 84
+        },
+        {
+          "file": "g06-memory-and-performance.md",
+          "line": 2181,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 35,
+          "display_columns": 74
+        },
+        {
+          "file": "g07-concurrency-and-memory-model.md",
+          "line": 1817,
+          "kind": "code_or_diagram_pagination",
+          "language": "cpp",
+          "lines": 94,
+          "display_columns": 76
+        }
+      ]
+    }
+  },
+  "runner_unit_tests": {
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "c++/learning",
+      "-p",
+      "test_*.py"
+    ],
+    "exit_code": 0,
+    "output": ".......................\n----------------------------------------------------------------------\nRan 23 tests in 0.120s\n\nOK\n"
+  },
+  "preservation": {
+    "command": [
+      "python3",
+      "-c",
+      "import subprocess,re,json,hashlib,sys\nfrom pathlib import Path\nsys.path.insert(0,'c++/learning')\nimport verify_g\nbase='60c5562f964717ba224d5e7f6f7bbcfe519a37ed'\nallowed={'c++/README.md','c++/learning/README.md','c++/learning/check_docs.py'}\nallowed.update(str(p) for p in Path('c++').glob('g0[0-7]-*.md'))\nnames=subprocess.check_output(['git','ls-tree','-r','--name-only',base]).decode().splitlines()\nprotected,changed=[],[]\nfor name in names:\n    before=subprocess.check_output(['git','show',base+':'+name])\n    current=Path(name).read_bytes()\n    entry={'path':name,'base_sha256':hashlib.sha256(before).hexdigest(),\n           'current_sha256':hashlib.sha256(current).hexdigest()}\n    (protected if before==current else changed).append(entry)\nif any(e['path'] not in allowed for e in changed):\n    raise SystemExit('unexpected changed tracked file')\npreserved={}\nfor p in sorted(Path('c++').glob('g0[0-4]-*.md')):\n    old=subprocess.check_output(['git','show',base+':'+str(p)],text=True)\n    new=p.read_text()\n    blocks=lambda s:re.findall(r'\\x60\\x60\\x60[^\\n]*\\n[\\s\\S]*?\\n\\x60\\x60\\x60',s)\n    anchors=lambda t:set(re.findall(r'<a id=\"([^\"]+)\"',t))\n    result={'code_blocks':len(blocks(old)),'all_code_bytes_equal':blocks(old)==blocks(new),\n            'old_explicit_anchors_preserved':anchors(old)<=anchors(new),\n            'lab_metadata_and_source_equal':verify_g.extract([(p.name,old)])==verify_g.extract([(p.name,new)])}\n    assert all(result[k] for k in result if k!='code_blocks'),p\n    preserved[str(p)]=result\ntopics={}\nfor i in (5,6,7):\n    p=next(Path('c++').glob(f'g0{i}-*.md'))\n    old=subprocess.check_output(['git','show',base+':'+str(p)],text=True)\n    expected=set(re.findall(r'^# (\\d+)\\. ',old,re.M))\n    if i==5:expected.remove('65')\n    current=set(re.findall(f'<a id=\"g{i}-topic-(\\\\d+)\"',p.read_text()))\n    assert expected==current,p\n    topics[str(p)]={'original_topics':len(expected),'current_topics':len(current)}\nprint(json.dumps({'base':base,'base_file_count':len(names),'changed':changed,\n 'protected':protected,'g0_g4_preservation':preserved,'g5_g7_topic_mapping':topics},ensure_ascii=False))"
+    ],
+    "exit_code": 0,
+    "result": {
+      "base": "60c5562f964717ba224d5e7f6f7bbcfe519a37ed",
+      "base_file_count": 119,
+      "changed": [
+        {
+          "path": "c++/README.md",
+          "base_sha256": "95cc181e065915dc597f32ae9ea59856ab0374331b1795244bbad1b1b9bb3b6a",
+          "current_sha256": "94455d64c1546f515e65c89c40eac6888d4c124f19035a346b9a99d9c755a4d4"
+        },
+        {
+          "path": "c++/g00-native-toolchain.md",
+          "base_sha256": "585cce523df9608765abd970f29eab31109d002507d344f927e8c6c37518ffa0",
+          "current_sha256": "692fbea1b9824caaa14fffa031c98e328289c55056aa201b2a9be18078260316"
+        },
+        {
+          "path": "c++/g01-object-model.md",
+          "base_sha256": "f3a62a435f9887cef5a208bb10d0eb9e1ccef50da2ca465ea9f46fada4b4526d",
+          "current_sha256": "61dc905e4424b04e4453201c8e16165caa2d4906f4e8ab2fa9ca61b0c51ed518"
+        },
+        {
+          "path": "c++/g02-raii-and-ownership.md",
+          "base_sha256": "454038213988cc2b6817b4501b1fd4cef3d61a964fb90a244169dfe7ef088891",
+          "current_sha256": "2f2eda75dccf691db9d3d9e4fb88e8df3644523f1ecc652d97e6e6d52ebbdb8a"
+        },
+        {
+          "path": "c++/g03-value-semantics-and-performance.md",
+          "base_sha256": "29d063131eef4144e18dfe0541b75424a6967e7ce286eea3cd5da7e2e3a132f9",
+          "current_sha256": "fc29f733c0126fde5ab4dbd3225d0297e42fe5e12c45d3cd95fb612c3db335e4"
+        },
+        {
+          "path": "c++/g04-stl-and-ranges.md",
+          "base_sha256": "9e0afefb338d7e8ee3c8621f9829e256a2a12d40f14e7986e1f3478184a26094",
+          "current_sha256": "4a237ac91dc42aef2a06f2a0cf718f374cb0aeaa2b4598f01bf200b321fd45f1"
+        },
+        {
+          "path": "c++/g05-generics-and-compile-time.md",
+          "base_sha256": "98df28793b1cb0ca8404e32e151c1f686b3513c86c36dd02edf088c394180657",
+          "current_sha256": "388f490bc556deed6ac69d1ab4dd785ad26c2a32749523bfe5840e0224051bdd"
+        },
+        {
+          "path": "c++/g06-memory-and-performance.md",
+          "base_sha256": "dcb15c3d78abe9c1396d2ba4d8343f1a425740290ecdd80fa5df8543b17bc6f8",
+          "current_sha256": "d790003bad14d8ce439341bcbd8bd5daa418585aea7a2c9d469d575681990368"
+        },
+        {
+          "path": "c++/g07-concurrency-and-memory-model.md",
+          "base_sha256": "0b35a4d063acf165f571c9c365dc0160713f83d8a36b8c37aabe5dd4caf64769",
+          "current_sha256": "df39bf10151c4123d404334d51e656b833e9a57fec7ac0f76906a726d2e4e647"
+        },
+        {
+          "path": "c++/learning/README.md",
+          "base_sha256": "d21e689be3e216e059837ac825fa5b85192063111334046cacf4c432fad96f29",
+          "current_sha256": "8a24455b0e5fa51ff514b76d3ec837b9a41da282c89b6fb646d7322db76066bd"
+        },
+        {
+          "path": "c++/learning/check_docs.py",
+          "base_sha256": "a8664da869ffacdbaaf6214a6ffca89b06e2e01035d962e5d13f684dab90472f",
+          "current_sha256": "59e6428ab6c4b470566825953986cf952f5d8a37cc724728305dff6753ea6e00"
+        }
+      ],
+      "protected": [
+        {
+          "path": ".gitignore",
+          "base_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717",
+          "current_sha256": "fa492d19823da6754ab67cfd8496b79d6031dd5b649417fb46b8612b80d6c717"
+        },
+        {
+          "path": "README.md",
+          "base_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4",
+          "current_sha256": "1c42fe79dc7429dbba31cef90b7803fe7640234272bd4d77ed36b4ffe93b9ab4"
+        },
+        {
+          "path": "atlas/AI-Native Platform Control Plane Architecture Standard.md",
+          "base_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d",
+          "current_sha256": "7e75e33fa6ccf0cde856abc37b9cd62bd76fb4789d06e1c529170ef99ad22d9d"
+        },
+        {
+          "path": "atlas/Atlas Architecture Design.md",
+          "base_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810",
+          "current_sha256": "d889a2e7fb038214587e243f673acfe3f7460aabc2ab387d2a46e8916878d810"
+        },
+        {
+          "path": "atlas/Atlas GitOps Control Plane Design.md",
+          "base_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6",
+          "current_sha256": "160d1f309d1842d32c1eb3a6304d6842f1dc63472338ccafb4db644eec4f75d6"
+        },
+        {
+          "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.pdf",
+          "base_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37",
+          "current_sha256": "4dd006e37865656295dd072f2ab931019e8949fdd664475e4e2e9d14b10f7f37"
+        },
+        {
+          "path": "atlas/pdf_build/AI-Native Platform Control Plane Architecture Standard.tex",
+          "base_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea",
+          "current_sha256": "c1ae2523e23f31ad68d91ca757e3bb53c8c1b726cdfca40a233681028131f2ea"
+        },
+        {
+          "path": "atlas/pdf_build/Atlas Architecture Design.pdf",
+          "base_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a",
+          "current_sha256": "b426924f05803b91165af4f6b69518d0ccc067ede919167f43d0f83d6a27866a"
+        },
+        {
+          "path": "atlas/pdf_build/Atlas Architecture Design.tex",
+          "base_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2",
+          "current_sha256": "12f1f5f5415fe2b89a027486e91cbc6388d553f747a9314593fe84714c0040f2"
+        },
+        {
+          "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.pdf",
+          "base_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31",
+          "current_sha256": "116084c0077237e2b05dc056fb5697ab96b677e1c69124fca79a333b41edbf31"
+        },
+        {
+          "path": "atlas/pdf_build/Atlas GitOps Control Plane Design.tex",
+          "base_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f",
+          "current_sha256": "58452ac8b42e3eb57ac17c5bc1bc0f256babe0ed7f5c7fd7ad0e5178f41e135f"
+        },
+        {
+          "path": "c++/failure-model/README.md",
+          "base_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7",
+          "current_sha256": "4dd9fb2547036fb711f7e0ea3407e7d6d6003783ac33af2c19a22b75e1a4d6b7"
+        },
+        {
+          "path": "c++/failure-model/fm0-failure-model.md",
+          "base_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+          "current_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa"
+        },
+        {
+          "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+          "base_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+          "current_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c"
+        },
+        {
+          "path": "c++/failure-model/fm2-value-based-failure.md",
+          "base_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+          "current_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb"
+        },
+        {
+          "path": "c++/failure-model/fm3-exception-semantics.md",
+          "base_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+          "current_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68"
+        },
+        {
+          "path": "c++/failure-model/fm4-raii-exception-safety.md",
+          "base_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+          "current_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6"
+        },
+        {
+          "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+          "base_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+          "current_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65"
+        },
+        {
+          "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+          "base_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+          "current_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3"
+        },
+        {
+          "path": "c++/failure-model/fm7-error-code-system-error.md",
+          "base_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+          "current_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700"
+        },
+        {
+          "path": "c++/failure-model/fm8-failure-boundaries.md",
+          "base_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+          "current_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6"
+        },
+        {
+          "path": "c++/failure-model/fm9-project-failure-profile.md",
+          "base_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+          "current_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647"
+        },
+        {
+          "path": "c++/failure-model/review/fm-claims.md",
+          "base_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+          "current_sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466"
+        },
+        {
+          "path": "c++/failure-model/review/fm-review-7869082.md",
+          "base_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+          "current_sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57"
+        },
+        {
+          "path": "c++/failure-model/review/fm-verification-results.json",
+          "base_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+          "current_sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461"
+        },
+        {
+          "path": "c++/failure-model/review/fm-verification-samples.md",
+          "base_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+          "current_sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa"
+        },
+        {
+          "path": "c++/failure-model/review/verify_fm.py",
+          "base_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+          "current_sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684"
+        },
+        {
+          "path": "c++/g08-abi-and-c-interop.md",
+          "base_sha256": "aaa2250d54a0d7eb28343220a7f33322f86ebe1cfe0fb33bb8b1650f29daf862",
+          "current_sha256": "aaa2250d54a0d7eb28343220a7f33322f86ebe1cfe0fb33bb8b1650f29daf862"
+        },
+        {
+          "path": "c++/g09-build-and-native-ecosystem.md",
+          "base_sha256": "2f61cf0f78d61f37cc293dd438b9541afc917cc7f0363cdebbc513c706bcc288",
+          "current_sha256": "2f61cf0f78d61f37cc293dd438b9541afc917cc7f0363cdebbc513c706bcc288"
+        },
+        {
+          "path": "c++/g10-systems-runtime-project.md",
+          "base_sha256": "e0ce4f4db4a4a9b07a6f92d51a6cc3992da1e3af3041cf93ba9d96771ddbe41e",
+          "current_sha256": "e0ce4f4db4a4a9b07a6f92d51a6cc3992da1e3af3041cf93ba9d96771ddbe41e"
+        },
+        {
+          "path": "c++/g11-robotics.md",
+          "base_sha256": "a973a8fda3af7fab1431d8c6b22b42fbe73f854da5d2eacd4cc4b1bcd9ee90dd",
+          "current_sha256": "a973a8fda3af7fab1431d8c6b22b42fbe73f854da5d2eacd4cc4b1bcd9ee90dd"
+        },
+        {
+          "path": "c++/g12-cpp-zig-rust.md",
+          "base_sha256": "a4123d89040040e5b935dcfe31864b53b6affddf107a37b6179e99491a81f6d9",
+          "current_sha256": "a4123d89040040e5b935dcfe31864b53b6affddf107a37b6179e99491a81f6d9"
+        },
+        {
+          "path": "c++/learning/revision-notes.md",
+          "base_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51",
+          "current_sha256": "298f52075bb9e2725b90a3d2b822c1b50cf6563ef07d41aae9f030443f385c51"
+        },
+        {
+          "path": "c++/learning/test_verify_g.py",
+          "base_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9",
+          "current_sha256": "632b4beee4a48ca907096417acee62ff344a18c1aced8e7e93750cec5cab86c9"
+        },
+        {
+          "path": "c++/learning/verification-results.json",
+          "base_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594",
+          "current_sha256": "afb72662a39a9cd11460d0e4e21ef38674b0b7cd48fd0df116f1ed348a393594"
+        },
+        {
+          "path": "c++/learning/verify_g.py",
+          "base_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+          "current_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f"
+        },
+        {
+          "path": "c++/pdf_build/g0-native-toolchain.pdf",
+          "base_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0",
+          "current_sha256": "ce48b0731db87f27533f30b612edd8185e1a3fdbfc4fb5300ec23ce55c48afa0"
+        },
+        {
+          "path": "c++/pdf_build/g0-native-toolchain.tex",
+          "base_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697",
+          "current_sha256": "52a9b3540505ad589676037ca19a6f0accb391b8918071d9a5681d6c6edcb697"
+        },
+        {
+          "path": "c++/pdf_build/g1-object-model.pdf",
+          "base_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75",
+          "current_sha256": "69042ca68e1f720ffcc5ab874efa20728fd4c72ab420f62cf1047af9d426ad75"
+        },
+        {
+          "path": "c++/pdf_build/g1-object-model.tex",
+          "base_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38",
+          "current_sha256": "df6970cb1175989bab64460d7b1b50d9d2e60747da31b3d1d5ec4a4362f0dc38"
+        },
+        {
+          "path": "design/.gitignore",
+          "base_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16",
+          "current_sha256": "ca526357ae54796a4629ba15a7a44549465be564110c4e51ca146a77144c5a16"
+        },
+        {
+          "path": "design/00-优秀系统设计与工程保证标准-文档体系与规范关系-v1.0.0.md",
+          "base_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f",
+          "current_sha256": "6f86cdf53579f90f03f3cffad50d11caa76ac698ca6e379d5d6871b8b8629f5f"
+        },
+        {
+          "path": "design/01-优秀系统设计与工程保证方法论-v1.1.0.md",
+          "base_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2",
+          "current_sha256": "2351864741fe50b0a6a16999f48ea7d798d3b9ad603d5612b0ab8ef5ca08b3e2"
+        },
+        {
+          "path": "design/02-优秀系统设计-从约束不变量到证据-v1.1.0.md",
+          "base_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3",
+          "current_sha256": "9b47739f578d867c7e3bc899de79ac4fe65684e67e4a081aa80a6ecfb1f1d2f3"
+        },
+        {
+          "path": "design/03-系统设计与工程保证治理及符合性规范-v1.0.0.md",
+          "base_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09",
+          "current_sha256": "75217cef57cccc01258967c3ed9075f9f4f33257f67aa2a1409019d8f9a11a09"
+        },
+        {
+          "path": "design/04-工程保证论证证据与裁决规范-v1.0.0.md",
+          "base_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d",
+          "current_sha256": "0b2273747bff2150c23da1509d137d68889e75a3ec917f972010afd927026f4d"
+        },
+        {
+          "path": "design/05-生产就绪与运行韧性标准-v1.0.0.md",
+          "base_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a",
+          "current_sha256": "710b0c1d268ffddce2a960b5900b1bcb397d4d32dc36370169d38c70efdfcc1a"
+        },
+        {
+          "path": "design/README.md",
+          "base_sha256": "70899ba373605655ee69ad8f32a2d0124ec92b0dd1ad861ac08faad9be9c9402",
+          "current_sha256": "70899ba373605655ee69ad8f32a2d0124ec92b0dd1ad861ac08faad9be9c9402"
+        },
+        {
+          "path": "design/dist/01-优秀系统设计与工程保证方法论-v1.1.0.pdf",
+          "base_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099",
+          "current_sha256": "e4965c8bb13596b76828358240bdd10644fc6c9d428b6739075f997eec64d099"
+        },
+        {
+          "path": "design/dist/02-优秀系统设计-从约束不变量到证据-v1.1.0.pdf",
+          "base_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb",
+          "current_sha256": "9f7c2ffd1e1c9301afed8eb02bc915247a76b877a2cc899663e72017b463f2eb"
+        },
+        {
+          "path": "design/dist/build-manifest.json",
+          "base_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c",
+          "current_sha256": "02b8d5dc78d04e7dde93575323bc2142681982051ebf908f8104dcf587fa929c"
+        },
+        {
+          "path": "design/dist/sha256sums.txt",
+          "base_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a",
+          "current_sha256": "9acecaabafa51f366b3d5824b3e77b2819587f1fc9ff5a00c72c4dabbb52bf0a"
+        },
+        {
+          "path": "design/examples/pilots/README.md",
+          "base_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa",
+          "current_sha256": "623ad539513b6f303b9c1449589a3aa47ff77a15f1ab0ff0425d2b2b2bb376fa"
+        },
+        {
+          "path": "design/examples/pilots/atlas-bootstrap-status-review.md",
+          "base_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65",
+          "current_sha256": "aaa6e0e277a5cb51058ba10bcaae7e7eb515c0629e5f56ec390290dca1fa1c65"
+        },
+        {
+          "path": "design/examples/pilots/evidence/atlas-status-aca4ff1.json",
+          "base_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0",
+          "current_sha256": "e10f6f3e51969d9cbbdcfd5e2ea9880095ec85620d6bef54b44a4044e9bdf8e0"
+        },
+        {
+          "path": "design/fonts.lock",
+          "base_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba",
+          "current_sha256": "5746422ca85f2fdb922165b0b3f1904b62a813efced630fdc38756e411df9eba"
+        },
+        {
+          "path": "design/package-lock.txt",
+          "base_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff",
+          "current_sha256": "8bb659ac486663c135c7af60f581bdc207f0ad8164b5168f73526f5473d77dff"
+        },
+        {
+          "path": "design/project/asset-register.md",
+          "base_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512",
+          "current_sha256": "38968cf44d9b959b093d6abcb4c5765c370cb136e25bfee5040fc0baef545512"
+        },
+        {
+          "path": "design/project/plan.md",
+          "base_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71",
+          "current_sha256": "f358fe1ca7a77bff264835295d5dab3548081b15ca111c3f485cb0f292587b71"
+        },
+        {
+          "path": "design/project/publication-b1a.md",
+          "base_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21",
+          "current_sha256": "ab7656897531f4066b34118d900517c426830e5ab42c45926554bb7170224b21"
+        },
+        {
+          "path": "design/project/publication-design.md",
+          "base_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc",
+          "current_sha256": "181d00bfbb27e1957cc920e7e4d13dd733e31aa7787d71c83fdc014cb73356dc"
+        },
+        {
+          "path": "design/project/publication-preview.md",
+          "base_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d",
+          "current_sha256": "91937cfb9312446e52b43ef326f773bf81830cad168955263fc90501f992ea9d"
+        },
+        {
+          "path": "design/project/sources/KB-PLAN-001-v0.1.0-original.md",
+          "base_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1",
+          "current_sha256": "a4a76466f04c20a763ecf1073348c8d608e3854dea9661fc133982b7d96afee1"
+        },
+        {
+          "path": "design/publication/diagrams/assurance-chain.tex",
+          "base_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55",
+          "current_sha256": "7edafbe68ed87a2536dcd9a89b14a386e04e967bd59d8dd7db245e0529c08b55"
+        },
+        {
+          "path": "design/publication/diagrams/can-pipeline.tex",
+          "base_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103",
+          "current_sha256": "530100cccd640bd16fde7f7105745fbb51a283d8999f0f6516d945a518ae8103"
+        },
+        {
+          "path": "design/publication/diagrams/commit-sequence.tex",
+          "base_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238",
+          "current_sha256": "373ef2a7aff0f22767094d01f0d4f2fa20fcf2242b32eaa03025c33f45548238"
+        },
+        {
+          "path": "design/publication/diagrams/derivation-chain.tex",
+          "base_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216",
+          "current_sha256": "a513a506b5033afe3e25728fb17b749e4a6feb3c9c7373ed9dd40042b4be4216"
+        },
+        {
+          "path": "design/publication/diagrams/four-planes.tex",
+          "base_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c",
+          "current_sha256": "3d5aa35f5b4ee1a354e4722a634c7decf482f3b55110d03f13d0d5733cd3019c"
+        },
+        {
+          "path": "design/publication/diagrams/stage-gate.tex",
+          "base_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2",
+          "current_sha256": "60e0855fba69fef9e19570cc0957f9b7765ee54620e76aa1eb9c70101fe814c2"
+        },
+        {
+          "path": "design/publication/esd-theme.sty",
+          "base_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb",
+          "current_sha256": "7b1e10ea65938adb30672a3112c1332d06c5e4205130082ed38862fe08eaabcb"
+        },
+        {
+          "path": "design/publication/esdbook.cls",
+          "base_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8",
+          "current_sha256": "6aee040066c57cf2723e0a0ee809e77e46a1d47920d343742d3c2afac07745c8"
+        },
+        {
+          "path": "design/publication/filters/code-blocks.lua",
+          "base_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112",
+          "current_sha256": "52dedf188331071c96ac270db8e9ca000a5e623302b1073f4d0fa7f323623112"
+        },
+        {
+          "path": "design/publication/filters/cross-references.lua",
+          "base_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f",
+          "current_sha256": "71602d7699dad6040bf426ec7e904f4e5a6bfa2efe2214391594b945eef0627f"
+        },
+        {
+          "path": "design/publication/filters/normalize-headings.lua",
+          "base_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c",
+          "current_sha256": "ef38b090d13bc94adfaa704025d3f8b5450aa8e2705079580cc4ed2de81feb9c"
+        },
+        {
+          "path": "design/publication/filters/pdf-metadata.lua",
+          "base_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55",
+          "current_sha256": "eca60ec4ef8e69a3214b54e84110902da44290c9ab607159da1e4dccf14d8d55"
+        },
+        {
+          "path": "design/publication/filters/preview.lua",
+          "base_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b",
+          "current_sha256": "b2513768217cf8c2f0674921cf435a75f4c58a0a1b7e53b7e0cadeac3f0c3b8b"
+        },
+        {
+          "path": "design/publication/filters/semantic-blocks.lua",
+          "base_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc",
+          "current_sha256": "3f4aac415db668149af740b8d708777c7e6212dca7bcf8f023cd53470f6a25bc"
+        },
+        {
+          "path": "design/publication/filters/tables.lua",
+          "base_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0",
+          "current_sha256": "04c24c12576f0a1bee18c1287e75f0f64f399f0aa27508357cef2c3a6ac960f0"
+        },
+        {
+          "path": "design/publication/preview-theme.sty",
+          "base_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017",
+          "current_sha256": "8226e00c48521b6aaa6986c041d834f0762174ec6306c0960bbe74f41cdd5017"
+        },
+        {
+          "path": "design/publication/preview.tex",
+          "base_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c",
+          "current_sha256": "64826202e70870c71b82327eb92497f2d5bbfa7e5e650e8018982c848e110c7c"
+        },
+        {
+          "path": "design/publication/profiles/accessible-experimental.yaml",
+          "base_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941",
+          "current_sha256": "008920ad92dc3fd175790933451b1ad66347a377b362240ff64984cdb0b52941"
+        },
+        {
+          "path": "design/publication/profiles/release.yaml",
+          "base_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e",
+          "current_sha256": "6040c916339ef5e8b8627ef73a56543d3c5431c81a6e12f00659d27e173d6d8e"
+        },
+        {
+          "path": "design/publication/requirements-preview.txt",
+          "base_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33",
+          "current_sha256": "035ae6669e882ab5c8eab059c124b7a41d74f372ff328ca659cbf30b00fd5c33"
+        },
+        {
+          "path": "design/publication/source-catalog.json",
+          "base_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312",
+          "current_sha256": "b1639009ca099904452a777e9c940223d69b9f4cddf6603bac08bde4d88f8312"
+        },
+        {
+          "path": "design/publication/table-layouts.json",
+          "base_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7",
+          "current_sha256": "c4e48530125e4ef3160ba317dfa8905bb03078dc69971cb570506d3711d610a7"
+        },
+        {
+          "path": "design/publication/template.tex",
+          "base_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6",
+          "current_sha256": "a78303520c56d3e5d2094f0b12951ea05863294e42b60c6cfde6468a654949a6"
+        },
+        {
+          "path": "design/reviews/a67fb25-review-status.md",
+          "base_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e",
+          "current_sha256": "d0ce45395caafd84c0c4fbf5c376102c5cfae2876931a5015899c4665521a12e"
+        },
+        {
+          "path": "design/scripts/build.sh",
+          "base_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b",
+          "current_sha256": "24958e5f7e07b58327e2d5764fe8e0a10aadf3e268f99b2381b5a1f5eb89421b"
+        },
+        {
+          "path": "design/scripts/candidate.py",
+          "base_sha256": "5061c365fce44b8f61b7a262cae54e562236d221da435e3b07db634e8e36fd7d",
+          "current_sha256": "5061c365fce44b8f61b7a262cae54e562236d221da435e3b07db634e8e36fd7d"
+        },
+        {
+          "path": "design/scripts/compare-renders.sh",
+          "base_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013",
+          "current_sha256": "7b4f4c137d0473f16749bf50980f4caa36bf68534d46d3690b7c7c1ac2f42013"
+        },
+        {
+          "path": "design/scripts/content-audit.py",
+          "base_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3",
+          "current_sha256": "a4b5d909474a64653c694cee3fd10916324088cb0d4439349ff725a289d6cec3"
+        },
+        {
+          "path": "design/scripts/pdf-structure-audit.py",
+          "base_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523",
+          "current_sha256": "29ce5661de5d7232b8b228352b1d7fb4dda554489cbb287e88efa7704a715523"
+        },
+        {
+          "path": "design/scripts/preflight.sh",
+          "base_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e",
+          "current_sha256": "4c5649907548ee6f3c74c506a0a0bff4951621a4ccce29b47c19166b17b6346e"
+        },
+        {
+          "path": "design/scripts/preview.py",
+          "base_sha256": "24b6acfa93689fe783f96ee52c26738b2b22b9d17c9a268db3a3bf8988da1779",
+          "current_sha256": "24b6acfa93689fe783f96ee52c26738b2b22b9d17c9a268db3a3bf8988da1779"
+        },
+        {
+          "path": "design/scripts/preview.sh",
+          "base_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b",
+          "current_sha256": "2b0d65b412805c5b50749c1f8319d7bb142038c9e44ab6adc90632e0afd4605b"
+        },
+        {
+          "path": "design/scripts/preview_audit.py",
+          "base_sha256": "9f9698ec8a8212b1521f99512f92a118c580008d2592ebd4eafe943f64d72ca6",
+          "current_sha256": "9f9698ec8a8212b1521f99512f92a118c580008d2592ebd4eafe943f64d72ca6"
+        },
+        {
+          "path": "design/scripts/pub.py",
+          "base_sha256": "e6f4f34dba2237511d8a847f5e179b8b7c9aa968a41ac9c29e5243d6cd1d5502",
+          "current_sha256": "e6f4f34dba2237511d8a847f5e179b8b7c9aa968a41ac9c29e5243d6cd1d5502"
+        },
+        {
+          "path": "design/scripts/render-pdfium.py",
+          "base_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004",
+          "current_sha256": "b1de4ab2f082a647ffd1ff80f3a6dcb3167499ec877b109a16c68751c95fc004"
+        },
+        {
+          "path": "design/scripts/render-verify.sh",
+          "base_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7",
+          "current_sha256": "e8087adab3460d8d6d6ee83af25eb3f2dbb74a014e4b92f53fecac89f7cdafd7"
+        },
+        {
+          "path": "design/scripts/test-candidate.py",
+          "base_sha256": "21e1338eedb85e137d7d562666c0d6f0b7e4bb86da219207e6da0fca2718fd97",
+          "current_sha256": "21e1338eedb85e137d7d562666c0d6f0b7e4bb86da219207e6da0fca2718fd97"
+        },
+        {
+          "path": "design/scripts/test-preview.py",
+          "base_sha256": "89311f748b754e63b4178859e48088174ca3d82395f21ea0cfea63a5aa33df20",
+          "current_sha256": "89311f748b754e63b4178859e48088174ca3d82395f21ea0cfea63a5aa33df20"
+        },
+        {
+          "path": "design/scripts/test-publication-isolation.py",
+          "base_sha256": "136c33bcdce7044284d3c93d8f28129b0db08dec837883553b94eb94936fae7f",
+          "current_sha256": "136c33bcdce7044284d3c93d8f28129b0db08dec837883553b94eb94936fae7f"
+        },
+        {
+          "path": "design/scripts/write-manifest.py",
+          "base_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f",
+          "current_sha256": "8f6d418c72c79b8926504c2722cf639a26c613a17f71de086318d8d38e02f92f"
+        },
+        {
+          "path": "design/texlive.profile",
+          "base_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7",
+          "current_sha256": "6b659591a5d429d301d3a053a3cdad2a268a8aa393049288ed5b66bdfd227bc7"
+        },
+        {
+          "path": "design/to-pdf.md",
+          "base_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628",
+          "current_sha256": "0fbed70dbcda4e56931ffcb27885a9e1b3da5594ca3b21671b1dd1c70ea15628"
+        },
+        {
+          "path": "zig/Zig Project Architecture Standard.md",
+          "base_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678",
+          "current_sha256": "4231a8713b502be2827c4a3b72c3e455872c4e8789cde8f867f87447622c0678"
+        },
+        {
+          "path": "zig/pdf_build/Zig Project Architecture Standard.pdf",
+          "base_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d",
+          "current_sha256": "77bee4eee80a31817ae5f8384edf590e8febe494751ed0d98f1f1d40f255de3d"
+        },
+        {
+          "path": "zig/pdf_build/Zig Project Architecture Standard.tex",
+          "base_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06",
+          "current_sha256": "292440826170856d13a917f3b2a813cd9cac369083e6c199dbffec3727174d06"
+        }
+      ],
+      "g0_g4_preservation": {
+        "c++/g00-native-toolchain.md": {
+          "code_blocks": 8,
+          "all_code_bytes_equal": true,
+          "old_explicit_anchors_preserved": true,
+          "lab_metadata_and_source_equal": true
+        },
+        "c++/g01-object-model.md": {
+          "code_blocks": 10,
+          "all_code_bytes_equal": true,
+          "old_explicit_anchors_preserved": true,
+          "lab_metadata_and_source_equal": true
+        },
+        "c++/g02-raii-and-ownership.md": {
+          "code_blocks": 164,
+          "all_code_bytes_equal": true,
+          "old_explicit_anchors_preserved": true,
+          "lab_metadata_and_source_equal": true
+        },
+        "c++/g03-value-semantics-and-performance.md": {
+          "code_blocks": 210,
+          "all_code_bytes_equal": true,
+          "old_explicit_anchors_preserved": true,
+          "lab_metadata_and_source_equal": true
+        },
+        "c++/g04-stl-and-ranges.md": {
+          "code_blocks": 273,
+          "all_code_bytes_equal": true,
+          "old_explicit_anchors_preserved": true,
+          "lab_metadata_and_source_equal": true
+        }
+      },
+      "g5_g7_topic_mapping": {
+        "c++/g05-generics-and-compile-time.md": {
+          "original_topics": 65,
+          "current_topics": 65
+        },
+        "c++/g06-memory-and-performance.md": {
+          "original_topics": 105,
+          "current_topics": 105
+        },
+        "c++/g07-concurrency-and-memory-model.md": {
+          "original_topics": 106,
+          "current_topics": 106
+        }
+      }
+    }
+  },
+  "g0_g4_final": {
+    "schema": 1,
+    "scope": "G0-G4 targeted learning labs, not full technical acceptance",
+    "source_documents_sha256": {
+      "g00-native-toolchain.md": "692fbea1b9824caaa14fffa031c98e328289c55056aa201b2a9be18078260316",
+      "g01-object-model.md": "61dc905e4424b04e4453201c8e16165caa2d4906f4e8ab2fa9ca61b0c51ed518",
+      "g02-raii-and-ownership.md": "2f2eda75dccf691db9d3d9e4fb88e8df3644523f1ecc652d97e6e6d52ebbdb8a",
+      "g03-value-semantics-and-performance.md": "fc29f733c0126fde5ab4dbd3225d0297e42fe5e12c45d3cd95fb612c3db335e4",
+      "g04-stl-and-ranges.md": "4a237ac91dc42aef2a06f2a0cf718f374cb0aeaa2b4598f01bf200b321fd45f1"
+    },
+    "runner_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+    "toolchains": [
+      {
+        "compiler": "/usr/bin/clang++",
+        "version": {
+          "command": [
+            "/usr/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+          "stderr": ""
+        },
+        "identity_command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-dM",
+          "-E",
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/identity.cpp"
+        ],
+        "library_macros": [
+          "#define _LIBCPP_VERSION 220106",
+          "#define __cplusplus 202302L"
+        ]
+      },
+      {
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "version": {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+          "stderr": ""
+        },
+        "identity_command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-dM",
+          "-E",
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/identity.cpp"
+        ],
+        "library_macros": [
+          "#define _LIBCPP_VERSION 230102",
+          "#define __cplusplus 202302L"
+        ]
+      }
+    ],
+    "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8",
+    "results": [
+      {
+        "id": "G0-L1",
+        "mode": "link",
+        "stdout": "sum=7\n",
+        "diagnostic": "(?:undefined|Undefined)[\\s\\S]*add",
+        "document": "g00-native-toolchain.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "math.cpp",
+              "-o",
+              "math.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "main.o",
+              "-o",
+              "missing"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "math.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "sum=7\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "math.hpp": "5da331d23d6ee4886110784b5ea0407aeb84f5f07a56534376872c4a35f4ef78",
+          "math.cpp": "e7349fab44f59f35c6bb8e6dc9b0a4d5c263540a2222b6fb19e721fbfdcf79c8",
+          "main.cpp": "605b09c731e7360251e182366f8050455a8314f0613de2688be97247118ad021"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G1-L1",
+        "mode": "run",
+        "stdout": "live=0,1,0; capacity-preserved\n",
+        "document": "g01-object-model.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "live=0,1,0; capacity-preserved\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "59c8d5c4b132f8cff3e9d4a179438d60ef0dea89d7c568881c8ac1d7a0c9e72f"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G1-L2",
+        "mode": "asan_negative",
+        "diagnostic": "AddressSanitizer: heap-use-after-free",
+        "document": "g01-object-model.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O0",
+              "-g",
+              "-fsanitize=address",
+              "-fno-omit-frame-pointer",
+              "asan_probe.cpp",
+              "-o",
+              "asan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/asan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O0",
+              "-g",
+              "-fsanitize=address",
+              "-fno-omit-frame-pointer",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2",
+            "timed_out": false,
+            "returncode": 86,
+            "stdout": "",
+            "stderr": "=================================================================\n==56209==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000290 at pc 0x000104af46bc bp 0x00016b30a230 sp 0x00016b30a228\nREAD of size 4 at 0x602000000290 thread T0\n    #0 0x000104af46b8  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/demo:arm64+0x1000006b8)\n    #1 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\n0x602000000290 is located 0 bytes inside of 4-byte region [0x602000000290,0x602000000294)\nfreed by thread T0 here:\n    #0 0x000105220558  (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64e+0x50558)\n    #1 0x000104af4664  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/demo:arm64+0x100000664)\n    #2 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\npreviously allocated by thread T0 here:\n    #0 0x000105220150  (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64e+0x50150)\n    #1 0x000104af45ec  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/demo:arm64+0x1000005ec)\n    #2 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\nSUMMARY: AddressSanitizer: heap-use-after-free (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G1-L2/demo:arm64+0x1000006b8) \nShadow bytes around the buggy address:\n  0x602000000000: fa fa fd fa fa fa fd fd fa fa fd fd fa fa 00 00\n  0x602000000080: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd\n  0x602000000100: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000180: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000200: fa fa fd fa fa fa 00 07 fa fa 00 00 fa fa 00 04\n=>0x602000000280: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n  Left alloca redzone:     ca\n  Right alloca redzone:    cb\n==56209==ABORTING\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "5f0fbd663f22771a1c6f093727560f53629dd950ecaed16d4356e52828edf264"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G2-L1",
+        "mode": "run",
+        "stdout": "acquired=4 released=4 live=0 session-dtors=0\n",
+        "document": "g02-raii-and-ownership.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "acquired=4 released=4 live=0 session-dtors=0\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "b656d77cdac9736f951f56552dfe415c2ac7b0f6e6fe5f0d9734f2a44709e0e0"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G2-L2",
+        "mode": "run",
+        "stdout": "lease-keeps-alive; expired-after-release\n",
+        "document": "g02-raii-and-ownership.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G2-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "lease-keeps-alive; expired-after-release\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "147ef2cd847a5ae73d6c3ff13f2d34d4f193268b238147753c5d3f91fc6662cd"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G3-L1",
+        "mode": "run",
+        "stdout": "value-independent; view-aliases; shared-aliases\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "value-independent; view-aliases; shared-aliases\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "b3a346eaa9e5cf9fc2f8ee95d6aa688baa70077652ac34e1de62b1d535d555f4"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G3-L2",
+        "mode": "run",
+        "stdout": "copies=2 moves=1 copy-only=1\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "copies=2 moves=1 copy-only=1\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "66d61b4cfd73507fe4000bc6afd77b3100b2d99f4195718ccb9e108c77e8c021"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G3-L3",
+        "mode": "run",
+        "stdout": "direct-result=7\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "direct-result=7\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "2707553c1a2bbfd822eb5b9630cd0c8093f35fe51b892634b364e87056b05f77"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G3-L4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:deleted constructor|call to deleted|use of deleted)[\\s\\S]*Immovable",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:9:12: error: call to deleted constructor of 'Immovable'\n    9 |     return local;\n      |            ^~~~~\nmain.cpp:4:5: note: 'Immovable' has been explicitly marked deleted here\n    4 |     Immovable(Immovable&&) = delete;\n      |     ^\nmain.cpp:11:19: warning: unused variable 'value' [-Wunused-variable]\n   11 | int main() { auto value = make(); }\n      |                   ^~~~~\n1 warning and 1 error generated.\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "58a29ccc97827fb0141b47dbdea32b213e1af47eb5cf1233b4db581cc561ca2d"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G4-L1",
+        "mode": "run",
+        "stdout": "sorted; first-duplicate; misses; stats; empty; finite-only\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "sorted; first-duplicate; misses; stats; empty; finite-only\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "0fe7f7684aa856cd9e51ecc9124bab22a17bbbd96a1edfb5a62169a6d9704c92"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G4-L2",
+        "mode": "run",
+        "stdout": "reserve-no-elements; growth; clear-keeps-capacity\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "reserve-no-elements; growth; clear-keeps-capacity\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "e1638d0f1c13db93dfbd49663dbea813ea0ae1e67faa9570ce250dd9ebaa68d7"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G4-L3",
+        "mode": "run",
+        "stdout": "borrowed-view; owning-view; list-member-sort\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "borrowed-view; owning-view; list-member-sort\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "e458d9c299f55d812ed7e5b1b6415a06732a79665c0747091c6f13d2dd364167"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G4-L4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:no matching function|constraints not satisfied)[\\s\\S]*(?:sort|random_access)",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:5:5: error: no matching function for call to object of type 'const __sort'\n    5 |     std::ranges::sort(values);\n      |     ^~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:64:3: note: candidate template ignored: constraints not satisfied [with _Range = std::list<int> &, _Comp = ranges::less, _Proj = identity]\n   64 |   operator()(_Range&& __r, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:61:13: note: because 'std::list<int> &' does not satisfy 'random_access_range'\n   61 |   template <random_access_range _Range, class _Comp = ranges::less, class _Proj = identity>\n      |             ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__ranges/concepts.h:116:59: note: because 'iterator_t<std::list<int, std::allocator<int>> &>' (aka '__list_iterator<int, void *>') does not satisfy 'random_access_iterator'\n  116 | concept random_access_range = bidirectional_range<_Tp> && random_access_iterator<iterator_t<_Tp>>;\n      |                                                           ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/concepts.h:219:36: note: because 'derived_from<_ITER_CONCEPT<std::__list_iterator<int, void *>>, random_access_iterator_tag>' evaluated to false\n  219 |     bidirectional_iterator<_Ip> && derived_from<_ITER_CONCEPT<_Ip>, random_access_iterator_tag> &&\n      |                                    ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/derived_from.h:27:24: note: because 'is_base_of_v<std::random_access_iterator_tag, std::bidirectional_iterator_tag>' evaluated to false\n   27 | concept derived_from = is_base_of_v<_Bp, _Dp> && is_convertible_v<const volatile _Dp*, const volatile _Bp*>;\n      |                        ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:57:3: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided\n   57 |   operator()(_Iter __first, _Sent __last, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "c4c11b8f841b87b10e6d0d57e043ca0aef8432f040448014cb720b801ff0855d"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G3-L1-truncate-copy",
+        "mode": "run",
+        "stdout": "",
+        "document": "g03-value-semantics-and-performance.md",
+        "kind": "mutation-rejected",
+        "expected_exit": 1,
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1-truncate-copy",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1-truncate-copy/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G3-L1-truncate-copy",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "78e130b5e98282c973ecbc7b99870f503329337fcd001c7cc44ade4d67ea7054"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G4-L1-accept-next-key",
+        "mode": "run",
+        "stdout": "",
+        "document": "g04-stl-and-ranges.md",
+        "kind": "mutation-rejected",
+        "expected_exit": 3,
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1-accept-next-key",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1-accept-next-key/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-0/G4-L1-accept-next-key",
+            "timed_out": false,
+            "returncode": 3,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "ab242dd44bb024626bb9941a8dc84047a9e6f099e61ceb5d9ea6a6e65453a336"
+        },
+        "compiler": "/usr/bin/clang++"
+      },
+      {
+        "id": "G0-L1",
+        "mode": "link",
+        "stdout": "sum=7\n",
+        "diagnostic": "(?:undefined|Undefined)[\\s\\S]*add",
+        "document": "g00-native-toolchain.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "math.cpp",
+              "-o",
+              "math.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "main.o",
+              "-o",
+              "missing"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "math.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G0-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "sum=7\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "math.hpp": "5da331d23d6ee4886110784b5ea0407aeb84f5f07a56534376872c4a35f4ef78",
+          "math.cpp": "e7349fab44f59f35c6bb8e6dc9b0a4d5c263540a2222b6fb19e721fbfdcf79c8",
+          "main.cpp": "605b09c731e7360251e182366f8050455a8314f0613de2688be97247118ad021"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G1-L1",
+        "mode": "run",
+        "stdout": "live=0,1,0; capacity-preserved\n",
+        "document": "g01-object-model.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "live=0,1,0; capacity-preserved\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "59c8d5c4b132f8cff3e9d4a179438d60ef0dea89d7c568881c8ac1d7a0c9e72f"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G1-L2",
+        "mode": "asan_negative",
+        "diagnostic": "AddressSanitizer: heap-use-after-free",
+        "document": "g01-object-model.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O0",
+              "-g",
+              "-fsanitize=address",
+              "-fno-omit-frame-pointer",
+              "asan_probe.cpp",
+              "-o",
+              "asan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/asan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O0",
+              "-g",
+              "-fsanitize=address",
+              "-fno-omit-frame-pointer",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2",
+            "timed_out": false,
+            "returncode": 86,
+            "stdout": "",
+            "stderr": "=================================================================\n==56385==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000290 at pc 0x000100c4c6b8 bp 0x00016f1b2220 sp 0x00016f1b2218\nREAD of size 4 at 0x602000000290 thread T0\n    #0 0x000100c4c6b4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/demo:arm64+0x1000006b4)\n    #1 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\n0x602000000290 is located 0 bytes inside of 4-byte region [0x602000000290,0x602000000294)\nfreed by thread T0 here:\n    #0 0x0001011c9854  (/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64+0x65854)\n    #1 0x000100c4c660  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/demo:arm64+0x100000660)\n    #2 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\npreviously allocated by thread T0 here:\n    #0 0x0001011c945c  (/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64+0x6545c)\n    #1 0x000100c4c5e4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/demo:arm64+0x1000005e4)\n    #2 0x00018806c4e0  (/usr/lib/dyld:arm64e+0x204e0)\n\nSUMMARY: AddressSanitizer: heap-use-after-free (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G1-L2/demo:arm64+0x1000006b4) \nShadow bytes around the buggy address:\n  0x602000000000: fa fa fd fa fa fa fd fd fa fa fd fd fa fa 00 00\n  0x602000000080: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd\n  0x602000000100: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000180: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000200: fa fa fd fa fa fa 00 07 fa fa 00 00 fa fa 00 04\n=>0x602000000280: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n  Left alloca redzone:     ca\n  Right alloca redzone:    cb\n==56385==ABORTING\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "5f0fbd663f22771a1c6f093727560f53629dd950ecaed16d4356e52828edf264"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G2-L1",
+        "mode": "run",
+        "stdout": "acquired=4 released=4 live=0 session-dtors=0\n",
+        "document": "g02-raii-and-ownership.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "acquired=4 released=4 live=0 session-dtors=0\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "b656d77cdac9736f951f56552dfe415c2ac7b0f6e6fe5f0d9734f2a44709e0e0"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G2-L2",
+        "mode": "run",
+        "stdout": "lease-keeps-alive; expired-after-release\n",
+        "document": "g02-raii-and-ownership.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G2-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "lease-keeps-alive; expired-after-release\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "147ef2cd847a5ae73d6c3ff13f2d34d4f193268b238147753c5d3f91fc6662cd"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G3-L1",
+        "mode": "run",
+        "stdout": "value-independent; view-aliases; shared-aliases\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "value-independent; view-aliases; shared-aliases\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "b3a346eaa9e5cf9fc2f8ee95d6aa688baa70077652ac34e1de62b1d535d555f4"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G3-L2",
+        "mode": "run",
+        "stdout": "copies=2 moves=1 copy-only=1\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "copies=2 moves=1 copy-only=1\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "66d61b4cfd73507fe4000bc6afd77b3100b2d99f4195718ccb9e108c77e8c021"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G3-L3",
+        "mode": "run",
+        "stdout": "direct-result=7\n",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "direct-result=7\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "2707553c1a2bbfd822eb5b9630cd0c8093f35fe51b892634b364e87056b05f77"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G3-L4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:deleted constructor|call to deleted|use of deleted)[\\s\\S]*Immovable",
+        "document": "g03-value-semantics-and-performance.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:9:12: error: call to deleted constructor of 'Immovable'\n    9 |     return local;\n      |            ^~~~~\nmain.cpp:4:5: note: 'Immovable' has been explicitly marked deleted here\n    4 |     Immovable(Immovable&&) = delete;\n      |     ^\nmain.cpp:11:19: warning: unused variable 'value' [-Wunused-variable]\n   11 | int main() { auto value = make(); }\n      |                   ^~~~~\n1 warning and 1 error generated.\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "58a29ccc97827fb0141b47dbdea32b213e1af47eb5cf1233b4db581cc561ca2d"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G4-L1",
+        "mode": "run",
+        "stdout": "sorted; first-duplicate; misses; stats; empty; finite-only\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "sorted; first-duplicate; misses; stats; empty; finite-only\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "0fe7f7684aa856cd9e51ecc9124bab22a17bbbd96a1edfb5a62169a6d9704c92"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G4-L2",
+        "mode": "run",
+        "stdout": "reserve-no-elements; growth; clear-keeps-capacity\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "reserve-no-elements; growth; clear-keeps-capacity\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "e1638d0f1c13db93dfbd49663dbea813ea0ae1e67faa9570ce250dd9ebaa68d7"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G4-L3",
+        "mode": "run",
+        "stdout": "borrowed-view; owning-view; list-member-sort\n",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "borrowed-view; owning-view; list-member-sort\n",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "e458d9c299f55d812ed7e5b1b6415a06732a79665c0747091c6f13d2dd364167"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G4-L4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:no matching function|constraints not satisfied)[\\s\\S]*(?:sort|random_access)",
+        "document": "g04-stl-and-ranges.md",
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:5:5: error: no matching function for call to object of type 'const __sort'\n    5 |     std::ranges::sort(values);\n      |     ^~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:64:3: note: candidate template ignored: constraints not satisfied [with _Range = std::list<int> &, _Comp = ranges::less, _Proj = identity]\n   64 |   operator()(_Range&& __r, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:61:13: note: because 'std::list<int> &' does not satisfy 'random_access_range'\n   61 |   template <random_access_range _Range, class _Comp = ranges::less, class _Proj = identity>\n      |             ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__ranges/concepts.h:116:59: note: because 'iterator_t<std::list<int, std::allocator<int>> &>' (aka '__list_iterator<int, void *>') does not satisfy 'random_access_iterator'\n  116 | concept random_access_range = bidirectional_range<_Tp> && random_access_iterator<iterator_t<_Tp>>;\n      |                                                           ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__iterator/concepts.h:218:36: note: because 'derived_from<_ITER_CONCEPT<std::__list_iterator<int, void *> >, random_access_iterator_tag>' evaluated to false\n  218 |     bidirectional_iterator<_Ip> && derived_from<_ITER_CONCEPT<_Ip>, random_access_iterator_tag> &&\n      |                                    ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__concepts/derived_from.h:27:24: note: because 'is_base_of_v<std::random_access_iterator_tag, std::bidirectional_iterator_tag>' evaluated to false\n   27 | concept derived_from = is_base_of_v<_Bp, _Dp> && is_convertible_v<const volatile _Dp*, const volatile _Bp*>;\n      |                        ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:57:3: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided\n   57 |   operator()(_Iter __first, _Sent __last, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "c4c11b8f841b87b10e6d0d57e043ca0aef8432f040448014cb720b801ff0855d"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G3-L1-truncate-copy",
+        "mode": "run",
+        "stdout": "",
+        "document": "g03-value-semantics-and-performance.md",
+        "kind": "mutation-rejected",
+        "expected_exit": 1,
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1-truncate-copy",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1-truncate-copy/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G3-L1-truncate-copy",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "78e130b5e98282c973ecbc7b99870f503329337fcd001c7cc44ade4d67ea7054"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      },
+      {
+        "id": "G4-L1-accept-next-key",
+        "mode": "run",
+        "stdout": "",
+        "document": "g04-stl-and-ranges.md",
+        "kind": "mutation-rejected",
+        "expected_exit": 3,
+        "status": "PASS",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1-accept-next-key",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1-accept-next-key/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g-learning-j3jtoyq8/toolchain-1/G4-L1-accept-next-key",
+            "timed_out": false,
+            "returncode": 3,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "ab242dd44bb024626bb9941a8dc84047a9e6f099e61ceb5d9ea6a6e65453a336"
+        },
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++"
+      }
+    ],
+    "status": "PASS"
+  },
+  "g5_g7_final": {
+    "schema": 1,
+    "started_at_utc": "2026-09-26T16:53:09.575270+00:00",
+    "platform": "macOS-26.7-arm64-arm-64bit",
+    "machine": "arm64",
+    "scope": "G5–G7 targeted claims, not cross-platform or complete technical acceptance",
+    "pdf": "NOT BUILT / NOT VALIDATED",
+    "source_documents_sha256": {
+      "g05-generics-and-compile-time.md": "388f490bc556deed6ac69d1ab4dd785ad26c2a32749523bfe5840e0224051bdd",
+      "g06-memory-and-performance.md": "d790003bad14d8ce439341bcbd8bd5daa418585aea7a2c9d469d575681990368",
+      "g07-concurrency-and-memory-model.md": "df39bf10151c4123d404334d51e656b833e9a57fec7ac0f76906a726d2e4e647"
+    },
+    "runner_sha256": "a4d7fc9f1cd5e79a02a4e7188222ececdeddf72bc0d620b8e20c43998878aabd",
+    "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+    "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu",
+    "toolchains": [
+      {
+        "compiler": "/usr/bin/clang++",
+        "version": {
+          "command": [
+            "/usr/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+          "stderr": ""
+        },
+        "identity_command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-dM",
+          "-E",
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/identity.cpp"
+        ],
+        "library_macros": [
+          "#define _LIBCPP_VERSION 220106",
+          "#define __cplusplus 202302L"
+        ],
+        "status": "IDENTIFIED",
+        "tsan_probe": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-pthread",
+              "-fsanitize=thread",
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/tsan_probe.cpp",
+              "-o",
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/tsan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/tsan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "tsan_available": true,
+        "tsan_options": "halt_on_error=1:abort_on_error=0:exitcode=66:symbolize=0"
+      },
+      {
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "version": {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+          "stderr": ""
+        },
+        "identity_command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-dM",
+          "-E",
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/identity.cpp"
+        ],
+        "library_macros": [
+          "#define _LIBCPP_VERSION 230102",
+          "#define __cplusplus 202302L"
+        ],
+        "status": "IDENTIFIED",
+        "tsan_probe": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-O1",
+              "-g",
+              "-pthread",
+              "-fsanitize=thread",
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/tsan_probe.cpp",
+              "-o",
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/tsan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/tsan_probe"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "tsan_available": true,
+        "tsan_options": "halt_on_error=1:abort_on_error=0:exitcode=66:symbolize=0"
+      }
+    ],
+    "results": [
+      {
+        "id": "G5-C1",
+        "mode": "run",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "finite native execution with explicit invariants/output"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "a596d1390b6f79cb7d371c6ff76c23c4417f73d2a303c022f433f88057bd0e99"
+        }
+      },
+      {
+        "id": "G5-C2",
+        "mode": "compile_fail",
+        "diagnostic": "(?:rvalue reference.*cannot bind|cannot bind.*rvalue|expects an rvalue)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C2",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:5:13: error: rvalue reference to type 'int' cannot bind to lvalue of type 'int'\n    5 |     box.set(value);\n      |             ^~~~~\nmain.cpp:1:44: note: passing argument to parameter here\n    1 | template<class T> struct Box { void set(T&&) {} };\n      |                                            ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "ca06dff394c65b31fd3e732f60c283f297c0e7ac6ca2aae58a702d2a9fb272ed"
+        }
+      },
+      {
+        "id": "G5-C3",
+        "mode": "compile_fail",
+        "diagnostic": "(?:constraints not satisfied|constraint.*not satisfied)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C3",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:3:38: error: no matching function for call to 'twice'\n    3 | int main() { return static_cast<int>(twice(1.5)); }\n      |                                      ^~~~~\nmain.cpp:2:39: note: candidate template ignored: constraints not satisfied [with T = double]\n    2 | template<std::integral T> constexpr T twice(T x) { return x + x; }\n      |                                       ^\nmain.cpp:2:10: note: because 'double' does not satisfy 'integral'\n    2 | template<std::integral T> constexpr T twice(T x) { return x + x; }\n      |          ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/arithmetic.h:28:20: note: because 'is_integral_v<double>' evaluated to false\n   28 | concept integral = is_integral_v<_Tp>;\n      |                    ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "102899adc5cfcd3d230344ab9b59a9053f42d8c713a023260dedf69cfccdabb8"
+        }
+      },
+      {
+        "id": "G5-C4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:not a constant expression|not usable in a constant expression)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:2:37: error: call to consteval function 'immediate' is not a constant expression\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |                                     ^\nmain.cpp:2:47: note: function parameter 'argc' with unknown value cannot be used in a constant expression\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |                                               ^\nmain.cpp:2:14: note: declared here\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |              ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "f839a5d0a11787ad32d161a2290e95622d15cf963b6debd593c5d1c4c3d075bc"
+        }
+      },
+      {
+        "id": "G5-C5",
+        "mode": "symbols",
+        "diagnostic": "(?:undefined|Undefined)[\\s\\S]*scale",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "scale.cpp",
+              "-o",
+              "scale.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "missing.cpp",
+              "-o",
+              "missing.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "scale.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "missing.o",
+              "scale.o",
+              "-o",
+              "missing"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Undefined symbols for architecture arm64:\n  \"double scale<double>(double)\", referenced from:\n      _main in missing.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+          },
+          {
+            "command": [
+              "/usr/bin/nm",
+              "-C",
+              "scale.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "0000000000000000 T int scale<int>(int)\n0000000000000000 t ltmp0\n0000000000000020 s ltmp1\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "unsupported specialization rejected at link, after successful compile"
+          },
+          {
+            "category": "compile",
+            "status": "OBSERVED",
+            "claim": "target symbol table"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "finite native execution with explicit invariants/output"
+          }
+        ],
+        "source_sha256": {
+          "scale.hpp": "22800eb0e356ca7634fd810432d0ec583d10844fad98e7848b2c8ed056fd7032",
+          "scale.cpp": "f1c433683e418feb6cdd5e596ac6af363aae7f422f2c84a6b260f353e6df9a72",
+          "main.cpp": "f8fc0a4a97fd69f7997a09a4f4957c66699b32a2d242d52534fe18b9656a3aed",
+          "missing.cpp": "2e5e6ff8c6870383c8fc8f8d420443651a7d8ac7ae84776052069182b54c1938"
+        }
+      },
+      {
+        "id": "G6-M1",
+        "mode": "observation",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"size\":12,\"align\":4,\"id_offset\":4,\"value_offset\":8,\"reordered_size\":12}\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "size": 12,
+                "align": 4,
+                "id_offset": 4,
+                "value_offset": 8,
+                "reordered_size": 12
+              }
+            ]
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "400387a501872918f17b0257e0a4419e4b8a479512ade75e514836209419f4ec"
+        }
+      },
+      {
+        "id": "G6-M2",
+        "mode": "observation",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"allocations\":1,\"deallocations\":1,\"requested_bytes\":64}\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "allocations": 1,
+                "deallocations": 1,
+                "requested_bytes": 64
+              }
+            ]
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "8a6feeea0da6241a1b62e34d88e46757669c0a57e0d4635e967b2054dd7330c8"
+        }
+      },
+      {
+        "id": "G6-M3",
+        "mode": "benchmark",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-c",
+              "kernel.cpp",
+              "-o",
+              "kernel.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "kernel.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"n\":1024,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":1334,\"checksum\":125690}\n{\"n\":1024,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":375,\"checksum\":125690}\n{\"n\":1024,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":167,\"checksum\":125690}\n{\"n\":1024,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":1334,\"checksum\":125690}\n{\"n\":1024,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":1166,\"checksum\":125690}\n{\"n\":1024,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":333,\"checksum\":125690}\n{\"n\":1024,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":167,\"checksum\":125690}\n{\"n\":1024,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":1333,\"checksum\":125690}\n{\"n\":1024,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":1208,\"checksum\":125690}\n{\"n\":1024,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":334,\"checksum\":125690}\n{\"n\":1024,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":125,\"checksum\":125690}\n{\"n\":1024,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":1333,\"checksum\":125690}\n{\"n\":1024,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":1125,\"checksum\":125690}\n{\"n\":1024,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":291,\"checksum\":125690}\n{\"n\":65536,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":73959,\"checksum\":8189175}\n{\"n\":65536,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":16875,\"checksum\":8189175}\n{\"n\":65536,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":14875,\"checksum\":8189175}\n{\"n\":65536,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":80708,\"checksum\":8189175}\n{\"n\":65536,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":86792,\"checksum\":8189175}\n{\"n\":65536,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":20750,\"checksum\":8189175}\n{\"n\":65536,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":12917,\"checksum\":8189175}\n{\"n\":65536,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":78334,\"checksum\":8189175}\n{\"n\":65536,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":63959,\"checksum\":8189175}\n{\"n\":65536,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":13625,\"checksum\":8189175}\n{\"n\":65536,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":17917,\"checksum\":8189175}\n{\"n\":65536,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":70791,\"checksum\":8189175}\n{\"n\":65536,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":67709,\"checksum\":8189175}\n{\"n\":65536,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":18458,\"checksum\":8189175}\n{\"n\":1048576,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":1442583,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":206166,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":189875,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":1721542,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":1520750,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":315208,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":289167,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":4162416,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":3335833,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":316416,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":289875,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":2330208,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":2106958,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":503875,\"checksum\":131064401}\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-S",
+              "kernel.cpp",
+              "-o",
+              "kernel.s"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "n": 1024,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 1334,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 375,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 167,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 1334,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 1166,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 333,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 167,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 1333,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 1208,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 334,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 125,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 1333,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 1125,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 291,
+                "checksum": 125690
+              },
+              {
+                "n": 65536,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 73959,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 16875,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 14875,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 80708,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 86792,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 20750,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 12917,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 78334,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 63959,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 13625,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 17917,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 70791,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 67709,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 18458,
+                "checksum": 8189175
+              },
+              {
+                "n": 1048576,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 1442583,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 206166,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 189875,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 1721542,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 1520750,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 315208,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 289167,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 4162416,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 3335833,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 316416,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 289875,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 2330208,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 2106958,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 503875,
+                "checksum": 131064401
+              }
+            ]
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "generated assembly, not CPU profile",
+            "artifact": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G6-M3/kernel.s",
+            "sha256": "dea9666d30bc08a42d208b468bef50fe24c25a9ffa34b949d70149fef45e0ce5"
+          }
+        ],
+        "source_sha256": {
+          "kernel.hpp": "01b8f82958359044802f48a10a822353ab9ad728a1b08b7c0c680bc7fe1eccf7",
+          "kernel.cpp": "12ea2624825e10394b4888040bb0c5bc03bced3146eb51a6eb4e2118acbd1112",
+          "main.cpp": "796ed1142ef141df3dd058248de2126d93d34459fcee5ef841bcdb64f0cc82ca"
+        }
+      },
+      {
+        "id": "G7-D1",
+        "mode": "concurrency",
+        "stdout": "publication=200\n",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "publication=200\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1/instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "publication=200\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "finite native execution with explicit invariants/output"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan positive fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "invariants and no TSan diagnostic in this execution; not a protocol proof"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "0377462bbf0932ae09e9a5d4e7fb212b67be2002e96e88dbd95134a008bb1f51"
+        }
+      },
+      {
+        "id": "G7-D2",
+        "mode": "concurrency",
+        "stdout": "fifo=50000; empty-close; full-close; joined\n",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "fifo=50000; empty-close; full-close; joined\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2/instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "fifo=50000; empty-close; full-close; joined\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "finite native execution with explicit invariants/output"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan positive fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "invariants and no TSan diagnostic in this execution; not a protocol proof"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "49a64b9f8bf6d7000eda69498b9cc6cc197cf592071110c6ceedf0540fc01321"
+        }
+      },
+      {
+        "id": "G7-D3",
+        "mode": "tsan_negative",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D3/race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D3",
+            "timed_out": false,
+            "returncode": 66,
+            "stdout": "",
+            "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=57496)\n  Write of size 4 at 0x0001042f8000 by thread T1:\n    #0 <null> <null> (race:arm64+0x100000898)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33b18)\n\n  Previous write of size 4 at 0x0001042f8000 by main thread:\n    #0 <null> <null> (race:arm64+0x1000007a4)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Thread T1 (tid=6785294, running) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33bac)\n    #1 <null> <null> (race:arm64+0x100000770)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-0/G7-D3/race:arm64+0x100000898) \n==================\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan negative fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "DETECTED",
+            "claim": "TSan reports data race and exits 66"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "427862acebbae7d82fa6e0c6333bfae6f62125bc2c86f99676f0eda40e357365"
+        }
+      },
+      {
+        "id": "G5-C1",
+        "mode": "run",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "finite native execution with explicit invariants/output"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "a596d1390b6f79cb7d371c6ff76c23c4417f73d2a303c022f433f88057bd0e99"
+        }
+      },
+      {
+        "id": "G5-C2",
+        "mode": "compile_fail",
+        "diagnostic": "(?:rvalue reference.*cannot bind|cannot bind.*rvalue|expects an rvalue)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C2",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:5:13: error: rvalue reference to type 'int' cannot bind to lvalue of type 'int'\n    5 |     box.set(value);\n      |             ^~~~~\nmain.cpp:1:44: note: passing argument to parameter here\n    1 | template<class T> struct Box { void set(T&&) {} };\n      |                                            ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "ca06dff394c65b31fd3e732f60c283f297c0e7ac6ca2aae58a702d2a9fb272ed"
+        }
+      },
+      {
+        "id": "G5-C3",
+        "mode": "compile_fail",
+        "diagnostic": "(?:constraints not satisfied|constraint.*not satisfied)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C3",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:3:38: error: no matching function for call to 'twice'\n    3 | int main() { return static_cast<int>(twice(1.5)); }\n      |                                      ^~~~~\nmain.cpp:2:39: note: candidate template ignored: constraints not satisfied [with T = double]\n    2 | template<std::integral T> constexpr T twice(T x) { return x + x; }\n      |                                       ^\nmain.cpp:2:10: note: because 'double' does not satisfy 'integral'\n    2 | template<std::integral T> constexpr T twice(T x) { return x + x; }\n      |          ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__concepts/arithmetic.h:28:20: note: because 'is_integral_v<double>' evaluated to false\n   28 | concept integral = is_integral_v<_Tp>;\n      |                    ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "102899adc5cfcd3d230344ab9b59a9053f42d8c713a023260dedf69cfccdabb8"
+        }
+      },
+      {
+        "id": "G5-C4",
+        "mode": "compile_fail",
+        "diagnostic": "(?:not a constant expression|not usable in a constant expression)",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-fsyntax-only",
+              "main.cpp"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C4",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "main.cpp:2:37: error: call to consteval function 'immediate' is not a constant expression\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |                                     ^\nmain.cpp:2:47: note: function parameter 'argc' with unknown value cannot be used in a constant expression\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |                                               ^\nmain.cpp:2:14: note: declared here\n    2 | int main(int argc, char**) { return immediate(argc); }\n      |              ^\n1 error generated.\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "target diagnostic, not timeout/signal/unrelated failure"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "f839a5d0a11787ad32d161a2290e95622d15cf963b6debd593c5d1c4c3d075bc"
+        }
+      },
+      {
+        "id": "G5-C5",
+        "mode": "symbols",
+        "diagnostic": "(?:undefined|Undefined)[\\s\\S]*scale",
+        "document": "g05-generics-and-compile-time.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "scale.cpp",
+              "-o",
+              "scale.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O0",
+              "-fno-inline",
+              "-c",
+              "missing.cpp",
+              "-o",
+              "missing.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "scale.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "missing.o",
+              "scale.o",
+              "-o",
+              "missing"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "Undefined symbols for architecture arm64:\n  \"double scale<double>(double)\", referenced from:\n      _main in missing.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+          },
+          {
+            "command": [
+              "/usr/bin/nm",
+              "-C",
+              "scale.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "0000000000000000 T int scale<int>(int)\n0000000000000000 t ltmp0\n0000000000000020 s ltmp1\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G5-C5",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "unsupported specialization rejected at link, after successful compile"
+          },
+          {
+            "category": "compile",
+            "status": "OBSERVED",
+            "claim": "target symbol table"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "finite native execution with explicit invariants/output"
+          }
+        ],
+        "source_sha256": {
+          "scale.hpp": "22800eb0e356ca7634fd810432d0ec583d10844fad98e7848b2c8ed056fd7032",
+          "scale.cpp": "f1c433683e418feb6cdd5e596ac6af363aae7f422f2c84a6b260f353e6df9a72",
+          "main.cpp": "f8fc0a4a97fd69f7997a09a4f4957c66699b32a2d242d52534fe18b9656a3aed",
+          "missing.cpp": "2e5e6ff8c6870383c8fc8f8d420443651a7d8ac7ae84776052069182b54c1938"
+        }
+      },
+      {
+        "id": "G6-M1",
+        "mode": "observation",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"size\":12,\"align\":4,\"id_offset\":4,\"value_offset\":8,\"reordered_size\":12}\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "size": 12,
+                "align": 4,
+                "id_offset": 4,
+                "value_offset": 8,
+                "reordered_size": 12
+              }
+            ]
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "400387a501872918f17b0257e0a4419e4b8a479512ade75e514836209419f4ec"
+        }
+      },
+      {
+        "id": "G6-M2",
+        "mode": "observation",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"allocations\":1,\"deallocations\":1,\"requested_bytes\":64}\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "allocations": 1,
+                "deallocations": 1,
+                "requested_bytes": 64
+              }
+            ]
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "8a6feeea0da6241a1b62e34d88e46757669c0a57e0d4635e967b2054dd7330c8"
+        }
+      },
+      {
+        "id": "G6-M3",
+        "mode": "benchmark",
+        "document": "g06-memory-and-performance.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-c",
+              "kernel.cpp",
+              "-o",
+              "kernel.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-c",
+              "main.cpp",
+              "-o",
+              "main.o"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "kernel.o",
+              "main.o",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "{\"n\":1024,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":417,\"checksum\":125690}\n{\"n\":1024,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":291,\"checksum\":125690}\n{\"n\":1024,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":250,\"checksum\":125690}\n{\"n\":1024,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":541,\"checksum\":125690}\n{\"n\":1024,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":375,\"checksum\":125690}\n{\"n\":1024,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":209,\"checksum\":125690}\n{\"n\":1024,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":167,\"checksum\":125690}\n{\"n\":1024,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":292,\"checksum\":125690}\n{\"n\":1024,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":291,\"checksum\":125690}\n{\"n\":1024,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":208,\"checksum\":125690}\n{\"n\":1024,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":166,\"checksum\":125690}\n{\"n\":1024,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":291,\"checksum\":125690}\n{\"n\":1024,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":291,\"checksum\":125690}\n{\"n\":1024,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":167,\"checksum\":125690}\n{\"n\":65536,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":92417,\"checksum\":8189175}\n{\"n\":65536,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":12292,\"checksum\":8189175}\n{\"n\":65536,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":28541,\"checksum\":8189175}\n{\"n\":65536,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":93750,\"checksum\":8189175}\n{\"n\":65536,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":92708,\"checksum\":8189175}\n{\"n\":65536,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":13250,\"checksum\":8189175}\n{\"n\":65536,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":11375,\"checksum\":8189175}\n{\"n\":65536,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":92375,\"checksum\":8189175}\n{\"n\":65536,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":92084,\"checksum\":8189175}\n{\"n\":65536,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":12250,\"checksum\":8189175}\n{\"n\":65536,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":11333,\"checksum\":8189175}\n{\"n\":65536,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":91875,\"checksum\":8189175}\n{\"n\":65536,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":91792,\"checksum\":8189175}\n{\"n\":65536,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":12500,\"checksum\":8189175}\n{\"n\":1048576,\"trial\":0,\"layout\":\"aos\",\"elapsed_ns\":5037042,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":0,\"layout\":\"soa\",\"elapsed_ns\":341708,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":1,\"layout\":\"soa\",\"elapsed_ns\":307542,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":1,\"layout\":\"aos\",\"elapsed_ns\":4116917,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":2,\"layout\":\"aos\",\"elapsed_ns\":2844000,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":2,\"layout\":\"soa\",\"elapsed_ns\":672917,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":3,\"layout\":\"soa\",\"elapsed_ns\":296125,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":3,\"layout\":\"aos\",\"elapsed_ns\":5269250,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":4,\"layout\":\"aos\",\"elapsed_ns\":4862541,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":4,\"layout\":\"soa\",\"elapsed_ns\":500167,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":5,\"layout\":\"soa\",\"elapsed_ns\":818125,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":5,\"layout\":\"aos\",\"elapsed_ns\":4686416,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":6,\"layout\":\"aos\",\"elapsed_ns\":2107792,\"checksum\":131064401}\n{\"n\":1048576,\"trial\":6,\"layout\":\"soa\",\"elapsed_ns\":1130917,\"checksum\":131064401}\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O3",
+              "-S",
+              "kernel.cpp",
+              "-o",
+              "kernel.s"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "recorded values; no performance threshold",
+            "rows": [
+              {
+                "n": 1024,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 417,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 291,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 250,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 541,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 375,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 209,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 167,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 292,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 291,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 208,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 166,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 291,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 291,
+                "checksum": 125690
+              },
+              {
+                "n": 1024,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 167,
+                "checksum": 125690
+              },
+              {
+                "n": 65536,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 92417,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 12292,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 28541,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 93750,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 92708,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 13250,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 11375,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 92375,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 92084,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 12250,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 11333,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 91875,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 91792,
+                "checksum": 8189175
+              },
+              {
+                "n": 65536,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 12500,
+                "checksum": 8189175
+              },
+              {
+                "n": 1048576,
+                "trial": 0,
+                "layout": "aos",
+                "elapsed_ns": 5037042,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 0,
+                "layout": "soa",
+                "elapsed_ns": 341708,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 1,
+                "layout": "soa",
+                "elapsed_ns": 307542,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 1,
+                "layout": "aos",
+                "elapsed_ns": 4116917,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 2,
+                "layout": "aos",
+                "elapsed_ns": 2844000,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 2,
+                "layout": "soa",
+                "elapsed_ns": 672917,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 3,
+                "layout": "soa",
+                "elapsed_ns": 296125,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 3,
+                "layout": "aos",
+                "elapsed_ns": 5269250,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 4,
+                "layout": "aos",
+                "elapsed_ns": 4862541,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 4,
+                "layout": "soa",
+                "elapsed_ns": 500167,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 5,
+                "layout": "soa",
+                "elapsed_ns": 818125,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 5,
+                "layout": "aos",
+                "elapsed_ns": 4686416,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 6,
+                "layout": "aos",
+                "elapsed_ns": 2107792,
+                "checksum": 131064401
+              },
+              {
+                "n": 1048576,
+                "trial": 6,
+                "layout": "soa",
+                "elapsed_ns": 1130917,
+                "checksum": 131064401
+              }
+            ]
+          },
+          {
+            "category": "performance",
+            "status": "OBSERVED",
+            "claim": "generated assembly, not CPU profile",
+            "artifact": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G6-M3/kernel.s",
+            "sha256": "af297829754cddd85ce5f2f4f90299c7081f1bc3f889d4b813099172d178c000"
+          }
+        ],
+        "source_sha256": {
+          "kernel.hpp": "01b8f82958359044802f48a10a822353ab9ad728a1b08b7c0c680bc7fe1eccf7",
+          "kernel.cpp": "12ea2624825e10394b4888040bb0c5bc03bced3146eb51a6eb4e2118acbd1112",
+          "main.cpp": "796ed1142ef141df3dd058248de2126d93d34459fcee5ef841bcdb64f0cc82ca"
+        }
+      },
+      {
+        "id": "G7-D1",
+        "mode": "concurrency",
+        "stdout": "publication=200\n",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "publication=200\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1/instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D1",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "publication=200\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "finite native execution with explicit invariants/output"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan positive fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "invariants and no TSan diagnostic in this execution; not a protocol proof"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "0377462bbf0932ae09e9a5d4e7fb212b67be2002e96e88dbd95134a008bb1f51"
+        }
+      },
+      {
+        "id": "G7-D2",
+        "mode": "concurrency",
+        "stdout": "fifo=50000; empty-close; full-close; joined\n",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "main.cpp",
+              "-o",
+              "demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2/demo"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "fifo=50000; empty-close; full-close; joined\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2/instrumented"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D2",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "fifo=50000; empty-close; full-close; joined\n",
+            "stderr": ""
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "complete positive program compiled/linked"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "finite native execution with explicit invariants/output"
+          },
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan positive fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "CLEAN_OBSERVED",
+            "claim": "invariants and no TSan diagnostic in this execution; not a protocol proof"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "49a64b9f8bf6d7000eda69498b9cc6cc197cf592071110c6ceedf0540fc01321"
+        }
+      },
+      {
+        "id": "G7-D3",
+        "mode": "tsan_negative",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D3/race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D3",
+            "timed_out": false,
+            "returncode": 66,
+            "stdout": "",
+            "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=57741)\n  Write of size 4 at 0x000100660000 by main thread:\n    #0 <null> <null> (race:arm64+0x1000007a4)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Previous write of size 4 at 0x000100660000 by thread T1:\n    #0 <null> <null> (race:arm64+0x1000008a0)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32990)\n\n  Thread T1 (tid=6803306, finished) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32a20)\n    #1 <null> <null> (race:arm64+0x10000076c)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu/toolchain-1/G7-D3/race:arm64+0x1000007a4) \n==================\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan negative fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "DETECTED",
+            "claim": "TSan reports data race and exits 66"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "427862acebbae7d82fa6e0c6333bfae6f62125bc2c86f99676f0eda40e357365"
+        }
+      }
+    ],
+    "not_run": [
+      "CPU sampling profile",
+      "hardware counters",
+      "PDF",
+      "formal model checking",
+      "Zig/Rust compilation"
+    ],
+    "machine_queries": [
+      {
+        "command": [
+          "/usr/sbin/sysctl",
+          "hw.machine"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu",
+        "timed_out": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "sysctl: sysctl fmt -1 1024 1: Operation not permitted\n",
+        "category": "performance",
+        "status": "SKIP",
+        "reason": "optional machine query unavailable"
+      },
+      {
+        "command": [
+          "/usr/sbin/sysctl",
+          "hw.pagesize"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu",
+        "timed_out": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "sysctl: sysctl fmt -1 1024 1: Operation not permitted\n",
+        "category": "performance",
+        "status": "SKIP",
+        "reason": "optional machine query unavailable"
+      },
+      {
+        "command": [
+          "/usr/sbin/sysctl",
+          "hw.cachelinesize"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-2a4rh7lu",
+        "timed_out": false,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "sysctl: sysctl fmt -1 1024 1: Operation not permitted\n",
+        "category": "performance",
+        "status": "SKIP",
+        "reason": "optional machine query unavailable"
+      }
+    ],
+    "summary_by_category": {
+      "compile": {
+        "PASS": 32,
+        "OBSERVED": 2
+      },
+      "performance": {
+        "OBSERVED": 8,
+        "SKIP": 3
+      },
+      "concurrency": {
+        "CLEAN_OBSERVED": 8,
+        "DETECTED": 2
+      }
+    },
+    "execution": "INCOMPLETE"
+  },
+  "initial_failed_tsan_controls": {
+    "scope": "initial TSan D3 failures only; superseded by final rerun",
+    "tsan_options": "halt_on_error=1:exitcode=66:symbolize=0",
+    "runner_sha256": "956bb0182538af17c486cb095d251aefdd1f20efd208d4f0c41b1b51f04a583f",
+    "results": [
+      {
+        "id": "G7-D3",
+        "mode": "tsan_negative",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/usr/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/usr/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-0/G7-D3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-0/G7-D3/race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-0/G7-D3",
+            "timed_out": false,
+            "returncode": -6,
+            "stdout": "",
+            "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=53480)\n  Write of size 4 at 0x0001046f4000 by thread T1:\n    #0 <null> <null> (race:arm64+0x100000898)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33b18)\n\n  Previous write of size 4 at 0x0001046f4000 by main thread:\n    #0 <null> <null> (race:arm64+0x1000007a4)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Thread T1 (tid=6640003, running) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33bac)\n    #1 <null> <null> (race:arm64+0x100000770)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-0/G7-D3/race:arm64+0x100000898) \n==================\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan negative fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "FAIL",
+            "claim": "TSan reports data race and exits 66"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "427862acebbae7d82fa6e0c6333bfae6f62125bc2c86f99676f0eda40e357365"
+        }
+      },
+      {
+        "id": "G7-D3",
+        "mode": "tsan_negative",
+        "document": "g07-concurrency-and-memory-model.md",
+        "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+        "steps": [
+          {
+            "command": [
+              "/opt/homebrew/opt/llvm/bin/clang++",
+              "-std=c++23",
+              "-Wall",
+              "-Wextra",
+              "-Wpedantic",
+              "-pthread",
+              "-O1",
+              "-g",
+              "-fsanitize=thread",
+              "main.cpp",
+              "-o",
+              "race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-1/G7-D3",
+            "timed_out": false,
+            "returncode": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-1/G7-D3/race"
+            ],
+            "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-1/G7-D3",
+            "timed_out": false,
+            "returncode": -6,
+            "stdout": "",
+            "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=53560)\n  Write of size 4 at 0x000100b2c000 by thread T1:\n    #0 <null> <null> (race:arm64+0x1000008a0)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32990)\n\n  Previous write of size 4 at 0x000100b2c000 by main thread:\n    #0 <null> <null> (race:arm64+0x1000007a4)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Thread T1 (tid=6641662, running) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32a20)\n    #1 <null> <null> (race:arm64+0x10000076c)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-handbook-5id_0v8c/toolchain-1/G7-D3/race:arm64+0x1000008a0) \n==================\n"
+          }
+        ],
+        "evidence": [
+          {
+            "category": "compile",
+            "status": "PASS",
+            "claim": "TSan negative fixture compiled"
+          },
+          {
+            "category": "concurrency",
+            "status": "FAIL",
+            "claim": "TSan reports data race and exits 66"
+          }
+        ],
+        "source_sha256": {
+          "main.cpp": "427862acebbae7d82fa6e0c6333bfae6f62125bc2c86f99676f0eda40e357365"
+        }
+      }
+    ]
+  },
+  "diff_check": {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "boundaries": [
+    "Performance numbers are observations, not speed thresholds",
+    "Finite stress and clean TSan are not protocol proofs",
+    "Three optional sysctl queries skipped: Operation not permitted",
+    "CPU profile and hardware counters NOT RUN",
+    "G8–G12, FM, historical PDFs and design publishing files untouched"
+  ]
+}

@@ -1,10 +1,14 @@
 # G1 · 对象模型与生命周期
 
-学习修订稿 1.1 · C++23。前置：能用 G0 的语言层/机器层区分法解释“源码变量不一定有独立栈槽”。
+Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+
+编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+
+呈现修订稿 1.2 · C++23。前置：能用 G0 的语言层/机器层区分法解释“源码变量不一定有独立栈槽”。
 
 [上一章：G0](g00-native-toolchain.md) · [全系列导航](README.md) · [下一章：G2](g02-raii-and-ownership.md)
 
-## 学习入口
+## 阅读入口
 
 本章的问题是：**指针非空、地址可读，为什么还可能不能合法访问？**
 
@@ -20,9 +24,13 @@
 
 <a id="g1-object"></a>
 
+<a id="g1-section-1"></a>
+
 ## 1. 同一个地址，不等于同一个活对象
 
-### 问题与例子
+### 1.1 问题与例子
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int a = 42;
@@ -42,7 +50,7 @@ int b = a;
 
 这些概念需要区分，但并非互不相关的“六个正交公理”。类型、初始化和存储等一起决定对象语义；编译器仍可按 as-if 规则省去不影响可观察行为的物理操作。
 
-### 生命周期与存储期
+### 1.2 生命周期与存储期
 
 通常要有足够大小和正确对齐的存储，并完成相应初始化，生命周期才开始。对 class，析构调用**开始时**生命周期结束，构造/析构期间的访问另有专门规则。释放或复用存储也可能结束原对象的生命周期。精确边界见 [N4950：basic.life](https://timsong-cpp.github.io/cppwp/n4950/basic.life)。
 
@@ -50,13 +58,17 @@ int b = a;
 
 把资源操作拆成“取得存储 → 初始化 → 清理 → 归还存储”有助于推理，但**分配一定不创建对象**不是普遍规则：C++23 有 implicit-lifetime 对象的隐式创建机制。本章不尝试用四步图代替全部低层对象规则。
 
-### 表示不是访问许可
+### 1.3 表示不是访问许可
 
 `00 00 80 3F` 在常见小端、32 位 IEEE 754 float 表示下可对应 1.0；这不是所有平台的字节约定，更不允许把任意 `int*` 强转为 `float*` 后读取。需要位级转换时，检查类型与表示条件，使用合适的 `std::bit_cast` 等机制；“bits 看起来正确”不能绕过类型可访问性和生命周期要求。
 
 <a id="g1-access"></a>
 
+<a id="g1-section-2"></a>
+
 ## 2. 指针、引用与别名
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int x = 1;
@@ -78,7 +90,9 @@ p = &y;      // p 这个指针对象改存另一指针值。
 
 `const T*` 限制这条访问路径，不证明其他别名不能修改同一对象。裸指针类型也不编码“由我 delete”还是“只是借用”；接口必须说明。
 
-### 临时对象延寿不是传染性能力
+### 2.1 临时对象延寿不是传染性能力
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 const std::string& text = std::string{"hello"};
@@ -86,11 +100,13 @@ const std::string& text = std::string{"hello"};
 
 这种直接绑定可延长临时对象的生命周期；把引用传过函数、再保存函数返回的引用，不会一概获得同样延寿。遇到引用返回值，必须追到真正的对象及其结束时间，而不是看到 `const&` 就判安全。
 
-### 每次访问前问什么？
+### 2.2 每次访问前问什么？
 
 有有效存储吗？目标对象是否活着？类型访问、对齐、边界、可修改性是否满足？并发访问是否有必要的同步？这些是审查问题，不是编译器会替你验证的乘法公式。`p != nullptr` 只排除空指针值；若指针自身都未初始化，连读取它也不能拿来做安全证明。
 
 <a id="g1-array"></a>
+
+<a id="g1-section-3"></a>
 
 ## 3. 数组、退化与借用
 
@@ -100,28 +116,32 @@ const std::string& text = std::string{"hello"};
 
 函数形参 `void f(int a[100])` 会调整为指针形参，不强制调用方提供 100 个元素。若要保留数组长度，使用合适的数组引用、模板或带长度的接口。
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 // 接口片段：同步读取，不保存借用。
 int sum(std::span<const int> values);
 ```
 
-`std::span` 携带范围信息，不拥有元素，也不会阻止 vector 扩容或销毁。正确约束是：
-
-> **每次使用借用访问元素时，目标元素必须存活，且期间没有使该访问路径失效的操作。**
+`std::span` 携带范围信息，不拥有元素，也不会阻止 vector 扩容或销毁。正确约束是：**每次使用借用访问元素时，目标元素必须存活，且期间没有使该访问路径失效的操作。**
 
 不是“view 对象的生命周期必须小于 owner”的机械时间比较：一个已失效但不再被用于访问的 span 对象可以仍然存在；反过来，owner 还活着，扩容或 erase 也可能已经使借用失效。G4 再逐项解释失效规则。
 
 <a id="g1-labs"></a>
 
+<a id="g1-section-4"></a>
+
 ## 4. 实验：对象可以先于存储结束
 
-### G1-L1：reserve 没有构造元素
+### 4.1 G1-L1：reserve 没有构造元素
 
 **预测：**reserve 后、emplace 后、clear 后，活对象数分别是多少？clear 后 capacity 会不会变为 0？
 
 完整运行例：
 
 <!-- g-lab {"id":"G1-L1","mode":"run","stdout":"live=0,1,0; capacity-preserved\n"} -->
+[完整实验 · G1-L1 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <iostream>
@@ -164,11 +184,13 @@ int main() {
 
 **边界：**实验只证明本例中的构造/析构与容量关系，不证明所有分配操作都不创建任何对象，也不验证自定义 allocator 或分配失败。
 
-### G1-L2：一个明确的错误读取
+### 4.2 G1-L2：一个明确的错误读取
 
 这是**必须被拒绝的 UB 反例**，不是建议写法。只在新建临时目录的独立进程中运行，并启用 AddressSanitizer。
 
 <!-- g-lab {"id":"G1-L2","mode":"asan_negative","diagnostic":"AddressSanitizer: heap-use-after-free"} -->
+[反例 · 未定义行为；仅限隔离检测 · G1-L2 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 int main() {
@@ -182,7 +204,9 @@ int main() {
 
 **为什么不能用“退出码是 42”验收？**因为发生 UB 后语言不保证任何结果。ASan 提供的是本工具在本次执行中检测到错误的证据；未报告不代表没有 UB。[ASan 官方说明](https://clang.llvm.org/docs/AddressSanitizer.html)
 
-### 手工存储复用只作进阶回查
+### 4.3 手工存储复用只作进阶回查
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 示意片段：需要 <cstddef>、<new> 以及实际 T 定义。
@@ -195,6 +219,8 @@ p->~T(); // storage 仍在，不能再按原来的活 T 访问。
 
 <a id="g1-category"></a>
 
+<a id="g1-section-5"></a>
+
 ## 5. 表达式值类别：先看表达式，不给对象贴标签
 
 | 基本类别 | 含义与常见例子 |
@@ -204,6 +230,8 @@ p->~T(); // storage 仍在，不能再按原来的活 T 访问。
 | prvalue | 初始化结果对象或计算操作数的值；`42`、返回 T 的普通调用 |
 
 `glvalue = lvalue 或 xvalue`；`rvalue = prvalue 或 xvalue`。xvalue 同时在两组里，不要画成互不相交的两棵树。精确定义见 [N4950：basic.lval](https://timsong-cpp.github.io/cppwp/n4950/basic.lval)。
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void use(T&& r) {
@@ -219,6 +247,8 @@ void use(T&& r) {
 返回 T、T&、对象类型 T&& 的函数调用分别通常得到 prvalue、lvalue、xvalue；这决定表达式类别，**不证明返回引用指向的对象活着**。
 
 <a id="g1-tools"></a>
+
+<a id="g1-section-6"></a>
 
 ## 6. 跨语言回查与检查工具
 
@@ -248,6 +278,8 @@ Warnings、ASan、UBSan、测试和语言规则互相补充。UBSan 不是完整
 
 <a id="g1-gate"></a>
 
+<a id="g1-section-7"></a>
+
 ## 7. Final Gate
 
 1. `int a = 1; int b = a; int& c = a;` 有几个 int 对象？修改谁会影响谁？
@@ -259,8 +291,9 @@ Warnings、ASan、UBSan、测试和语言规则互相补充。UBSan 不是完整
 7. 把 Zig 两个 defer 的登记顺序倒过来，会发生什么？
 8. ASan 没有报告，能否关闭整个生命周期正确性问题？
 
-<details>
-<summary>推理答案与常见误判</summary>
+<a id="g1-section-8"></a>
+
+## 8. Final Gate · 参考答案与常见误判
 
 1. 两个 int 对象；c 是 a 的引用。b 独立，c 写入 a。误判：把每个变量声明都数成一个独立对象。
 2. reserve 不创建元素，clear 销毁元素但保留容量。size 为 0 时下标读取不合法。误判：capacity 是可读取的元素数。
@@ -270,7 +303,5 @@ Warnings、ASan、UBSan、测试和语言规则互相补充。UBSan 不是完整
 6. 类型描述声明，值类别描述表达式；普通具名参数表达式是 lvalue，转换后可参与不同重载决议。move 本身不搬运。误判：T&& 是“对象已经被移动”的状态。
 7. 逆序执行会先释放存储，再通过 p 清理，顺序错误。误判：defer 按书写顺序执行。
 8. 不能。只覆盖工具能检测且此次执行走到的行为。误判：把工具证据提升为全程序证明。
-
-</details>
 
 **完成标准：**能画出“owner → 存储/元素 ← 借用”的关系，指出何时失效；对每个实验先给预测，后解释结果。下一步用 G2 的类型设计把清理责任固定下来。

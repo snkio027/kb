@@ -1,71 +1,55 @@
-# C++ Systems Track · G2 RAII & Ownership Architecture
+# G2 · RAII、资源与所有权
 
-- **Version:** 1.1 · 学习修订稿
+Modern C++ Systems Engineering · [Editorial Profile v1.0](editorial-profile.md)
+
+编辑状态：Professional presentation refresh。PDF：NOT BUILT / NOT VALIDATED。
+
+- **Version:** 1.2 · 呈现修订稿
 - **Prerequisite:** G1 Object Model & Lifetime
 - **Language Baseline:** C++23
 - **Comparison Language:** Zig
 - **Scope:** RAII / Ownership / `unique_ptr` / Rule of Zero & Five / Failure Safety / `shared_ptr` / `weak_ptr` / Ownership Graph / Lease
 - **Purpose:** 作为进入 G3 Value Semantics & Performance 前的长期资源管理与所有权推理手册
 
----
-
-## 学习入口
+## 阅读入口
 
 [上一章：G1](g01-object-model.md) · [全系列导航](README.md) · [下一章：G3](g03-value-semantics-and-performance.md)
 
 本章只抓住一个问题：**同一资源经过提前返回、异常和异步交接后，谁仍负有清理责任？**
 
-- 首次学习：Part 1～6 → Part 9～12 → [清理实验](#g2-lab-cleanup) → Part 14～17 → [共享实验](#g2-lab-shared) → [Final Gate](#g2-gate)。
-- 第二次回查：Part 7～8 对照接口；Part 19～23 对照异步与停机；Part 24～31 是架构、跨语言及审查材料。
+- 主阅读线：[资源与 RAII](#g2-part-1) → [独占所有权](#g2-part-4) → [失败安全](#g2-part-10) → [清理实验](#g2-lab-cleanup) → [共享所有权](#g2-part-14) → [共享实验](#g2-lab-shared) → [Final Gate](#g2-gate)。
+- 回查层：按下面的主题目录查找接口、架构、跨语言和审查材料，不要求一次连续读完。
 - 前置自测：能否从 G1 解释“unique_ptr 活着，get() 得到的旧指针仍可能失效”？若不能，先画 reset 前后的对象关系。
 - 完成目标：为一个 owner 标出获取、交接、借用失效和清理点，并能解释失败路径。只读懂智能指针 API 不算完成。
 
-正文保留原 Part 编号供回查。只有带 `g-lab` 标记的程序是本批提取运行的完整实验，其余块按上下文视为片段或设计示意。跨语言对照未在本批编译。公式用于提示审查维度，不是形式化安全证明。
+旧主题编号保留为回查锚点，正文按主题重新分层。只有带 `g-lab` 标记的程序是本批提取运行的完整实验，其余块按上下文视为片段或设计示意。跨语言对照未在本批编译。公式用于提示审查维度，不是形式化安全证明。
 
+### 章节目录
 
-<details>
-<summary>展开本章索引（进阶部分按需回查）</summary>
+- [1. 资源与清理模型](#g2-section-1)
+- [2. 独占所有权与值成员](#g2-section-2)
+- [3. 接口与所有权合同](#g2-section-3)
+- [4. 特殊成员与失败安全](#g2-section-4)
+- [5. 实验 · G2-L1：清理不是只覆盖快乐路径](#g2-section-5)
+- [6. 回滚与共享所有权](#g2-section-6)
+- [7. 实验 · G2-L2：弱观察不持有资源，lock 暂时持有](#g2-section-7)
+- [8. 共享所有权的适用边界](#g2-section-8)
+- [9. 异步边界与停机](#g2-section-9)
+- [10. 架构与跨语言回查](#g2-section-10)
+- [11. 工程审查与常见误判](#g2-section-11)
+- [12. 术语与统一模型](#g2-section-12)
+- [13. Final Gate](#g2-section-13)
+- [14. Final Gate · 参考答案与常见误判](#g2-section-14)
+- [15. 工程原则回查](#g2-section-15)
+- [16. G2 → G3](#g2-section-16)
 
-- [Part 0 · G2 的根本问题](#g2-part-0)
-- [Part 1 · Resource、Handle 与 Ownership](#g2-part-1)
-- [Part 2 · Manual Cleanup 为什么难维护](#g2-part-2)
-- [Part 3 · RAII](#g2-part-3)
-- [Part 4 · Unique Ownership](#g2-part-4)
-- [Part 5 · `std::unique_ptr<T>`](#g2-part-5)
-- [Part 6 · Value Ownership 优先](#g2-part-6)
-- [Part 7 · Ownership Taxonomy](#g2-part-7)
-- [Part 8 · Function Signature 就是 Ownership Contract](#g2-part-8)
-- [Part 9 · Rule of Three / Five / Zero](#g2-part-9)
-- [Part 10 · Failure Safety](#g2-part-10)
-- [Part 11 · Transactional Update](#g2-part-11)
-- [Part 12 · Constructor Failure](#g2-part-12)
-- [Part 13 · C++ vs Zig Failure Rollback](#g2-part-13)
-- [Part 14 · Shared Ownership](#g2-part-14)
-- [Part 15 · `std::weak_ptr`](#g2-part-15)
-- [Part 16 · Shared Ownership Cycles](#g2-part-16)
-- [Part 17 · Shared Ownership ≠ Thread Safety](#g2-part-17)
-- [Part 18 · Shared Ownership 的使用准则](#g2-part-18)
-- [Part 19 · Async Boundary](#g2-part-19)
-- [Part 20 · `enable_shared_from_this`](#g2-part-20)
-- [Part 21 · Pool + Lease](#g2-part-21)
-- [Part 22 · Shutdown Architecture](#g2-part-22)
-- [Part 23 · Healthy Ownership Graph](#g2-part-23)
-- [Part 24 · Robot Runtime 参考模型](#g2-part-24)
-- [Part 25 · C++ vs Zig Ownership Architecture](#g2-part-25)
-- [Part 26 · Rust 第三坐标](#g2-part-26)
-- [Part 27 · G2 Code Review Protocol](#g2-part-27)
-- [Part 28 · 高频 Smells](#g2-part-28)
-- [Part 29 · 高频错误直觉](#g2-part-29)
-- [Part 30 · G2 核心术语表](#g2-part-30)
-- [Part 31 · G2 最终统一公式](#g2-part-31)
-- [Part 32 · G2 Final Gate](#g2-part-32)
-- [Part 33 · 如果几个月后只记住十五条](#g2-part-33)
+<a id="g2-section-1"></a>
 
-</details>
+## 1. 资源与清理模型
 
 <a id="g2-part-0"></a>
 
-## Part 0 · G2 的根本问题
+### 1.1 本章的工程问题
 
 G1 问“访问是否合法”，G2 问“谁让资源活着，谁负责最终清理”。先画最小关系，再选智能指针：
 
@@ -78,13 +62,15 @@ value、unique、shared 是不同的责任组织方式，不是智能指针 API 
 
 <a id="g2-part-1"></a>
 
-## Part 1 · Resource、Handle 与 Ownership
+### 1.2 Resource、Handle 与 Ownership
 
-### 1.1 Resource 不等于 Memory
+**Resource 不等于 Memory**
 
 文件描述符、socket、锁、线程、GPU buffer、数据库事务、映射区域、临时文件和帧缓冲 lease，都有取得、使用和释放协议。清理动作不一定是 delete：它可以是 close、unlock、rollback、munmap 或归还池。
 
-### 1.2 Handle 不等于 Resource
+**Handle 不等于 Resource**
+
+[反例片段 · 依邻近说明判定失效条件；不要用于生产代码]
 
 ```cpp
 // POSIX 接口片段，省略头文件和错误处理。
@@ -93,11 +79,13 @@ int fd = ::open("data.bin", O_RDONLY);
 
 fd 是一个 int 对象，内核里的打开文件状态才是被管理资源。复制这个整数不会复制资源，也不会替你决定哪一份负责 close。同理，T* 只表示一条访问路径，不能独自说明所有权。
 
-### 1.3 Ownership 的工程定义
+**Ownership 的工程定义**
 
 owner 负有按协议结束资源使用并完成最终清理的责任。独占 owner 负责这项责任；共享 owner 共同决定管理资源何时释放；borrower 可以访问但不能擅自清理。资源可以临时为空，责任也可以按类型合同转移。
 
-### 1.4 Aliasing ≠ Ownership
+**Aliasing ≠ Ownership**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int value{42};
@@ -110,9 +98,11 @@ int& r = value;
 
 <a id="g2-part-2"></a>
 
-## Part 2 · Manual Cleanup 为什么难维护
+### 1.3 Manual Cleanup 为什么难维护
 
-### 2.1 单一路径很容易遗漏隐藏条件
+**单一路径很容易遗漏隐藏条件**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 演示手工清理路径，不是完整的文件处理实现。
@@ -127,23 +117,25 @@ int process() {
 
 正常路径看起来成对，但还没有处理实际读取失败、close 结果等合同。此处只讨论“是否到达清理”，不把它当作可靠文件事务。
 
-### 2.2 一个提前返回就改变清理路径
+**一个提前返回就改变清理路径**
 
 若在 use fd 处插入 `if (!validate(fd)) return -2;`，成功打开的描述符就越过 close。每增加分支，都要求作者重新检查所有已取得资源。
 
-### 2.3 多资源形成手工 Cleanup Stack
+**多资源形成手工 Cleanup Stack**
 
 取得 A 后取得 B，再取得 C；若 C 失败，必须清理已成功取得的 B、A，不能清理未取得的 C。返回、异常、部分初始化和回调会增加路径数。RAII 的价值是把这份状态记录交给对象结构，而不是复制多份 cleanup 分支。
 
 <a id="g2-part-3"></a>
 
-## Part 3 · RAII
+### 1.4 RAII
 
-### 3.1 把资源协议放进类型
+**把资源协议放进类型**
 
 RAII（Resource Acquisition Is Initialization）把资源管理与对象的初始化/清理绑定。对象可以在创建时取得资源，也可表示空状态再按合同取得；核心是任何已拥有状态都有相应清理责任。
 
-### 3.2 确定性清理及其边界
+**确定性清理及其边界**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 接口片段：假定 FileDescriptor 已正确定义清理协议。
@@ -155,11 +147,11 @@ RAII（Resource Acquisition Is Initialization）把资源管理与对象的初�
 
 正常退出、提前 return，以及实际发生的异常展开，会按规则销毁已构造的局部 owner。它不依赖稍后某次 GC 才清理，但也**不承诺 terminate、强制结束进程或断电会完整展开**。失败细节见 [FM-3](failure-model/fm3-exception-semantics.md)。
 
-### 3.3 RAII 不等于 Smart Pointer
+**RAII 不等于 Smart Pointer**
 
 vector 管元素和存储，lock_guard 管解锁，FileDescriptor 管句柄，FrameLease 管归还使用权。设计类型时问“析构履行什么协议”，而不是“能不能套一层 unique_ptr”。需要向调用方报告的 flush/close 失败通常应有显式操作，析构承担不抛出的后备清理。
 
-### 3.4 C++ 与 Zig 的责任放置不同
+**C++ 与 Zig 的责任放置不同**
 
 C++ 把清理协议放进类型的析构；Zig 的常见做法是在调用作用域登记 defer。概念片段如下，未在本批编译：
 
@@ -173,13 +165,15 @@ fn run() !void {
 
 两者都能组织成对清理，但一个跟随 owner 对象，一个跟随词法作用域。跨作用域交接资源时，仍须明确谁接手责任；defer 的逆序规则见 G1 的版本化示例。
 
----
-
 <a id="g2-part-4"></a>
 
-## Part 4 · Unique Ownership
+<a id="g2-section-2"></a>
 
-### 4.1 Unique Ownership Invariant
+## 2. 独占所有权与值成员
+
+### 2.1 Unique Ownership
+
+**Unique Ownership Invariant**
 
 ```text
 At most one final owner
@@ -194,17 +188,15 @@ At most one final owner
 many borrowers
 ```
 
-但只能有：
+但只能有：一个最终 cleanup responsibility owner。
 
-> 一个最终 cleanup responsibility owner。
-
----
-
-### 4.2 为什么不能复制同一资源的清理责任？
+**为什么不能复制同一资源的清理责任？**
 
 问题不是“unique owner 这个词禁止一切复制”，而是两份句柄如果都对**同一个资源**执行最终清理，就会 double close / double free。
 
 因此，类似文件描述符所有者通常禁用复制：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 接口片段
@@ -214,9 +206,7 @@ FileDescriptor& operator=(const FileDescriptor&) = delete;
 
 另一种合法设计是复制时创建独立资源：例如 vector 的元素副本，或明确定义 clone 的资源包装。这样每份对象仍唯一拥有自己的资源。能否复制应由资源语义决定；不能把“复制一个地址”冒充“复制完整值”。
 
----
-
-### 4.3 为什么允许 Move？
+**为什么允许 Move？**
 
 需要交接清理责任的 owner 可以设计为可移动；固定地址、不可迁移的 owner 也可以禁止移动。可移动 owner 的目标是：
 
@@ -236,6 +226,8 @@ exactly one owner
 
 因此：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 FileDescriptor(FileDescriptor&& other) noexcept;
 ```
@@ -252,25 +244,21 @@ Empty/New
 → Owning(resource)
 ```
 
----
-
 <a id="g2-part-5"></a>
 
-## Part 5 · `std::unique_ptr<T>`
+### 2.2 `std::unique_ptr<T>`
 
-### 5.1 正确定位
+**正确定位**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::unique_ptr<T>
 ```
 
-不是：
+不是：更聪明的 `T*`。
 
-> 更聪明的 `T*`。
-
-而是：
-
-> **unique-owning RAII object whose resource happens to be pointer-shaped。**
+而是：**unique-owning RAII object whose resource happens to be pointer-shaped。**
 
 它编码：
 
@@ -283,15 +271,17 @@ nullable/empty state
 pointer-like borrow access
 ```
 
----
+**默认创建方式**
 
-### 5.2 默认创建方式
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto robot = std::make_unique<Robot>();
 ```
 
 优先于：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::unique_ptr<Robot> robot{new Robot};
@@ -307,9 +297,7 @@ immediately enters owner abstraction
 
 减少 raw owning pointer 暴露。
 
----
-
-### 5.3 核心 API 按 Ownership 理解
+**核心 API 按 Ownership 理解**
 
 | Operation         | Ownership Meaning                      |
 | ----------------- | -------------------------------------- |
@@ -323,9 +311,9 @@ immediately enters owner abstraction
 | move assignment   | replace current ownership via transfer |
 | copy              | forbidden                              |
 
----
+**`get()` vs `release()`**
 
-### 5.4 `get()` vs `release()`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 T* view = owner.get();
@@ -340,6 +328,8 @@ view only borrows
 
 而：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 T* raw = owner.release();
 ```
@@ -351,13 +341,11 @@ owner → empty
 raw handle now carries cleanup responsibility by convention
 ```
 
-必须记：
+必须记：**`get()` borrows；`release()` transfers responsibility out。**
 
-> **`get()` borrows；`release()` transfers responsibility out。**
+**`unique_ptr` 不证明 Borrow Lifetime**
 
----
-
-### 5.5 `unique_ptr` 不证明 Borrow Lifetime
+[反例片段 · 依邻近说明判定失效条件；不要用于生产代码]
 
 ```cpp
 auto owner = std::make_unique<Robot>();
@@ -380,19 +368,19 @@ does not solve borrow lifetime
 
 G1 仍然有效。
 
----
+**`unique_ptr<T[]>`**
 
-### 5.6 `unique_ptr<T[]>`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto values = std::make_unique<int[]>(count);
 ```
 
-表达：
-
-> unique ownership of dynamically allocated array。
+表达：unique ownership of dynamically allocated array。
 
 但普通动态序列通常优先：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::vector<T>
@@ -408,11 +396,11 @@ iteration
 copy/move
 ```
 
----
-
-### 5.7 Custom Deleter
+**Custom Deleter**
 
 完整模型：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::unique_ptr<T, Deleter>
@@ -431,6 +419,8 @@ custom allocated objects
 
 例如：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 struct FileCloser {
     void operator()(std::FILE* file) const noexcept {
@@ -445,17 +435,19 @@ using File = std::unique_ptr<std::FILE, FileCloser>;
 
 此处是后备清理片段，忽略 fclose 返回值不等于证明写入/关闭成功。需要向调用方报告 I/O 失败时，提供显式 finish/close 协议，再保留不抛出的析构兜底。
 
----
-
-### 5.8 非 Pointer-shaped Resource 不要硬套 `unique_ptr`
+**非 Pointer-shaped Resource 不要硬套 `unique_ptr`**
 
 POSIX：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 int fd;
 ```
 
 更自然：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class FileDescriptor;
@@ -468,17 +460,15 @@ fd is integer handle
 not naturally pointer-shaped
 ```
 
-所以：
-
-> dedicated RAII owner type 往往比强行使用 `unique_ptr` 更准确。
-
----
+所以：dedicated RAII owner type 往往比强行使用 `unique_ptr` 更准确。
 
 <a id="g2-part-6"></a>
 
-## Part 6 · Value Ownership 优先
+### 2.3 Value Ownership 优先
 
-### 6.1 Unique Ownership 不等于 `unique_ptr`
+**Unique Ownership 不等于 `unique_ptr`**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class RobotRuntime {
@@ -498,13 +488,13 @@ owns Logger
 
 不需要：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::unique_ptr<Logger>
 ```
 
----
-
-### 6.2 Value Ownership 为什么通常最好推理？
+**Value Ownership 为什么通常最好推理？**
 
 如果 Logger 的存在与父对象紧密绑定，直接写 `Logger logger_;`，就不必再为这个成员引入可空指针、单独分配和间接访问。成员仍可能在内部拥有动态缓冲区；“value member”不等于“整个对象零堆分配”。
 
@@ -512,11 +502,13 @@ std::unique_ptr<Logger>
 
 选择顺序可从 value member 开始；确有可选存在、独立动态生命周期、多态等需要时考虑 unique ownership；只有多个独立参与者确需共同延长生命时再考虑 shared ownership。这是设计起点，不是禁止其他表示的语言规则。
 
----
-
 <a id="g2-part-7"></a>
 
-## Part 7 · Ownership Taxonomy
+<a id="g2-section-3"></a>
+
+## 3. 接口与所有权合同
+
+### 3.1 Ownership Taxonomy
 
 可以把常见关系统一成：
 
@@ -533,9 +525,7 @@ std::unique_ptr<Logger>
 | Pool-backed temporary right | dedicated move-only Lease |
 | Raw OS resource owner       | dedicated RAII type       |
 
----
-
-### 7.1 五个独立 API 维度
+**五个独立 API 维度**
 
 任何参数/返回类型都可以问：
 
@@ -548,6 +538,8 @@ Lifetime / Invalidation
 ```
 
 例如：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 const T&
@@ -564,6 +556,8 @@ Extent      = one object
 
 而：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::span<const T>
 ```
@@ -576,51 +570,45 @@ Mutability  = read-only
 Extent      = runtime bounded sequence
 ```
 
----
-
 <a id="g2-part-8"></a>
 
-## Part 8 · Function Signature 就是 Ownership Contract
+### 3.2 Function Signature 就是 Ownership Contract
 
-### 8.1 `T`
+**`T`**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(T value);
 ```
 
-通常：
-
-> callee 获得自己的 value。
+通常：callee 获得自己的 value。
 
 参数对象有自己的生命周期，但若 T 是 span、指针或带借用成员的类型，底层数据仍依赖 caller 的资源；按值传参不自动消除别名。
 
----
+**`T&`**
 
-### 8.2 `T&`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(T& value);
 ```
 
-通常：
+通常：required mutable borrow。
 
-> required mutable borrow。
+**`const T&`**
 
----
-
-### 8.3 `const T&`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(const T& value);
 ```
 
-通常：
+通常：required read-only borrow。
 
-> required read-only borrow。
+**`T*`**
 
----
-
-### 8.4 `T*`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(T* value);
@@ -640,37 +628,29 @@ array start
 
 所以需要额外 contract。
 
----
+**`std::unique_ptr<T>`**
 
-### 8.5 `std::unique_ptr<T>`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void consume(std::unique_ptr<T> value);
 ```
 
-非常清晰：
+非常清晰：callee takes unique ownership。
 
-> callee takes unique ownership。
+**`std::shared_ptr<T>`**
 
----
-
-### 8.6 `std::shared_ptr<T>`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void schedule(std::shared_ptr<T> value);
 ```
 
-应读成：
+应读成：callee acquires a shared ownership stake。
 
-> callee acquires a shared ownership stake。
+而不是：传一个 pointer。
 
-而不是：
-
-> 传一个 pointer。
-
----
-
-### 8.7 不要泄漏 Ownership Representation
+**不要泄漏 Ownership Representation**
 
 如果函数只是：
 
@@ -680,11 +660,15 @@ read T
 
 不要因为 caller 恰好有：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::unique_ptr<T>
 ```
 
 就写：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void inspect(const std::unique_ptr<T>&);
@@ -692,21 +676,25 @@ void inspect(const std::unique_ptr<T>&);
 
 更合理：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 void inspect(const T&);
 ```
 
-原则：
-
-> **Accept the least ownership-aware abstraction the function actually needs.**
-
----
+原则：**Accept the least ownership-aware abstraction the function actually needs.**
 
 <a id="g2-part-9"></a>
 
-## Part 9 · Rule of Three / Five / Zero
+<a id="g2-section-4"></a>
 
-### 9.1 为什么 Raw Owner 会触发 Special Member 问题？
+## 4. 特殊成员与失败安全
+
+### 4.1 Rule of Three / Five / Zero
+
+**为什么 Raw Owner 会触发 Special Member 问题？**
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Buffer {
@@ -732,9 +720,7 @@ copy allocation ownership semantically correctly
 
 于是可能 double delete。
 
----
-
-### 9.2 Rule of Three
+**Rule of Three**
 
 C++98：
 
@@ -746,9 +732,7 @@ Copy Assignment
 
 如果一个 raw-resource class 需要自己管理其中一个，通常必须系统审查三个。
 
----
-
-### 9.3 Rule of Five
+**Rule of Five**
 
 C++11 以后再加入：
 
@@ -767,21 +751,15 @@ move construct
 move assign
 ```
 
----
+**Rule of Five 不是目标**
 
-### 9.4 Rule of Five 不是目标
+不是：每个 class 都手写五个函数。
 
-不是：
+而是：如果你已经直接管理 raw resource，就必须完整定义 resource state transition。
 
-> 每个 class 都手写五个函数。
+**Rule of Zero 才是现代默认目标**
 
-而是：
-
-> 如果你已经直接管理 raw resource，就必须完整定义 resource state transition。
-
----
-
-### 9.5 Rule of Zero 才是现代默认目标
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Robot {
@@ -802,13 +780,9 @@ destruction
 
 语义，那么外层 class 不需要自己写这些机制。
 
-这就是：
+这就是：**semantic composition。**
 
-> **semantic composition。**
-
----
-
-### 9.6 Rule of Zero 的本质
+**Rule of Zero 的本质**
 
 ```text
 Raw Resource
@@ -820,35 +794,29 @@ Higher-Level Domain Types
 Rule of Zero
 ```
 
-复杂度集中在：
-
-> 少数真正的 resource boundary types。
+复杂度集中在：少数真正的 resource boundary types。
 
 而不是散布到每个业务 class。
 
----
+**`= default` 不等于“不声明”**
 
-### 9.7 `= default` 不等于“不声明”
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 ~Widget() = default;
 ```
 
-仍然是：
-
-> user-declared destructor。
+仍然是：user-declared destructor。
 
 这会影响某些 implicit move-generation rules。
 
-所以：
+所以：没有必要就不要为了“显式”机械写 special members。
 
-> 没有必要就不要为了“显式”机械写 special members。
-
----
-
-### 9.8 Member Type 语义向上传播
+**Member Type 语义向上传播**
 
 如果：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Robot {
@@ -873,13 +841,11 @@ Robot can be implicitly movable
 
 这就是 C++ ownership composition 很强的一点。
 
----
-
 <a id="g2-part-10"></a>
 
-## Part 10 · Failure Safety
+### 4.2 Failure Safety
 
-### 10.1 Exception Safety 真正研究什么？
+**Exception Safety 真正研究什么？**
 
 不是：
 
@@ -887,13 +853,9 @@ Robot can be implicitly movable
 try/catch
 ```
 
-而是：
+而是：**如果 operation 中途失败，剩下的 program state 仍满足什么 guarantee？**
 
-> **如果 operation 中途失败，剩下的 program state 仍满足什么 guarantee？**
-
-因此更广义应该理解：
-
-> Failure Safety。
+因此更广义应该理解：Failure Safety。
 
 即使使用：
 
@@ -905,9 +867,7 @@ C error code
 
 同样需要。
 
----
-
-### 10.2 Object Invariant
+**Object Invariant**
 
 一个 class 应保证：
 
@@ -931,9 +891,7 @@ half-own
 dangling internally
 ```
 
----
-
-### 10.3 Basic Guarantee
+**Basic Guarantee**
 
 失败后：
 
@@ -943,34 +901,22 @@ object invariants remain valid
 object may have changed state
 ```
 
-即：
+即：valid but state may change。
 
-> valid but state may change。
+**Strong Guarantee**
 
----
-
-### 10.4 Strong Guarantee
-
-失败时：
-
-> state 保持原样。
+失败时：state 保持原样。
 
 ```text
 success → commit S1
 failure → rollback S0
 ```
 
-即：
+即：commit-or-rollback。
 
-> commit-or-rollback。
+**No-throw Guarantee**
 
----
-
-### 10.5 No-throw Guarantee
-
-Operation 保证：
-
-> 不允许 exception 逃出。这不等于操作一定完成：noexcept 函数仍可能终止或返回错误状态；事务提交需要另证 no-fail 条件。
+Operation 保证：不允许 exception 逃出。这不等于操作一定完成：noexcept 函数仍可能终止或返回错误状态；事务提交需要另证 no-fail 条件。
 
 典型：
 
@@ -981,11 +927,9 @@ simple resource move
 cleanup primitive
 ```
 
----
-
 <a id="g2-part-11"></a>
 
-## Part 11 · Transactional Update
+### 4.3 Transactional Update
 
 高质量 mutation 常采用：
 
@@ -1011,11 +955,11 @@ Start risky work
 Hope it succeeds
 ```
 
----
-
-### 11.1 先准备，再在可证明的提交点替换
+**先准备，再在可证明的提交点替换**
 
 **问题：**先 reset 旧模型，再构建新模型，构建失败后还有可用模型吗？
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 // 不佳片段：失败前已经销毁旧值。
@@ -1024,6 +968,8 @@ model_ = build_model(config);
 ```
 
 把可能失败的构建放在临时状态中：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto next = build_model(config);
@@ -1034,9 +980,9 @@ model_ = std::move(next);
 
 **边界：**一个 `noexcept` 标注只禁止异常逃出，函数仍可能终止或通过其他渠道失败。强保证必须说明保护的状态范围，检查构建、验证、提交、返回和清理；参见 [FM-4](failure-model/fm4-raii-exception-safety.md)。
 
----
+**Copy-and-Swap 的真正意义**
 
-### 11.2 Copy-and-Swap 的真正意义
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 T copy{other};
@@ -1063,13 +1009,11 @@ Cleanup old state
 
 这是事务更新的候选结构。还必须证明 swap、提交后的返回和清理不会破坏所承诺的结果；单独看到 noexcept swap 不足以完成证明。
 
----
-
 <a id="g2-part-12"></a>
 
-## Part 12 · Constructor Failure
+### 4.4 Constructor Failure
 
-### 12.1 非委托构造失败与成员清理
+**非委托构造失败与成员清理**
 
 如果 constructor 中：
 
@@ -1088,11 +1032,11 @@ destroy A
 
 对这种非委托构造失败，完整对象没有构造完成，不调用它自身的析构函数，已完成的子对象按规则清理。不要推广成“所有构造函数体抛异常都不析构完整对象”：委托构造的目标已成功完成、委托体随后抛出时，完整对象会析构。[N4950：except.ctor](https://timsong-cpp.github.io/cppwp/n4950/except.ctor)
 
----
-
-### 12.2 为什么 Member RAII 如此重要？
+**为什么 Member RAII 如此重要？**
 
 Raw resource：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Session {
@@ -1101,11 +1045,11 @@ class Session {
 };
 ```
 
-constructor 中途 throw：
-
-> 很容易 leak。
+constructor 中途 throw：很容易 leak。
 
 RAII members：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Session {
@@ -1115,13 +1059,11 @@ private:
 };
 ```
 
-construction failure：
+construction failure：已构造 members 自动 rollback。
 
-> 已构造 members 自动 rollback。
+<a id="g2-section-5"></a>
 
----
-
-## 学习实验 · G2-L1：清理不是只覆盖快乐路径
+## 5. 实验 · G2-L1：清理不是只覆盖快乐路径
 
 <a id="g2-lab-cleanup"></a>
 
@@ -1130,6 +1072,8 @@ construction failure：
 先预测四次调用后，资源的获取/释放数，以及完整 Session 的析构次数。这里用计数器模拟资源，避免把 OS 的关闭语义混入最小实验。
 
 <!-- g-lab {"id":"G2-L1","mode":"run","stdout":"acquired=4 released=4 live=0 session-dtors=0\n"} -->
+[完整实验 · G2-L1 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <iostream>
@@ -1181,13 +1125,17 @@ int main() {
 
 **边界：**这是模拟资源和已实际展开的异常路径，不证明 terminate、进程强制退出、断电或 OS close 失败都可自动恢复。析构不抛出也不等于外部数据已经持久化。
 
----
-
 <a id="g2-part-13"></a>
 
-## Part 13 · C++ vs Zig Failure Rollback
+<a id="g2-section-6"></a>
+
+## 6. 回滚与共享所有权
+
+### 6.1 C++ vs Zig Failure Rollback
 
 C++：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Session {
@@ -1234,13 +1182,11 @@ Zig
 scope/control-flow-driven rollback
 ```
 
----
-
 <a id="g2-part-14"></a>
 
-## Part 14 · Shared Ownership
+### 6.2 Shared Ownership
 
-### 14.1 什么是真正 Shared Ownership？
+**什么是真正 Shared Ownership？**
 
 ```text
 Owner A ─┐
@@ -1248,9 +1194,7 @@ Owner B ─┼──→ Resource
 Owner C ─┘
 ```
 
-三个 owner 都参与：
-
-> resource 必须保持 alive。
+三个 owner 都参与：resource 必须保持 alive。
 
 只有：
 
@@ -1260,9 +1204,9 @@ last strong owner gone
 
 时 resource 才销毁。
 
----
+**`shared_ptr` Copy 不复制 Pointee**
 
-### 14.2 `shared_ptr` Copy 不复制 Pointee
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 auto a = std::make_shared<Model>();
@@ -1277,15 +1221,11 @@ a ─┐
 b ─┘
 ```
 
-复制的是：
-
-> ownership handle。
+复制的是：ownership handle。
 
 不是 Model value。
 
----
-
-### 14.3 Control Block
+**Control Block**
 
 典型实现需要：
 
@@ -1304,17 +1244,13 @@ shared_ptr B ─┼──▶ Control Block ──▶ Resource
 weak_ptr W ···┘
 ```
 
----
-
-### 14.4 Resource 与 Control Block Lifetime
+**Resource 与 Control Block Lifetime**
 
 最后一个 strong owner 释放时执行被管理资源的释放协议；只要仍有 strong owner 或 weak observer，控制信息就还需要存在。只有两类关联都结束后，控制块才可释放，不能仅凭“外部 weak_ptr 数为 0”就推导控制块释放。
 
 还要区分 managed resource 与 stored pointer：shared_ptr 的别名构造可让保存的指针与真正管理的对象不同。管理对象活着，不自动证明任意别名目标仍有效。下方实验只使用普通 make_shared，不覆盖自定义 deleter 和别名构造。
 
----
-
-### 14.5 Shared Ownership 最大成本：Non-local Lifetime
+**Shared Ownership 最大成本：Non-local Lifetime**
 
 Unique：
 
@@ -1330,29 +1266,21 @@ many owners across program
 → last-owner point may be non-local
 ```
 
-所以：
-
-> deterministic rule，不等于 locally obvious destruction。
-
----
+所以：deterministic rule，不等于 locally obvious destruction。
 
 <a id="g2-part-15"></a>
 
-## Part 15 · `std::weak_ptr`
+### 6.3 `std::weak_ptr`
 
-### 15.1 Weak Observer
+**Weak Observer**
 
-`weak_ptr`：
+`weak_ptr`：不增加 strong ownership count，因此不延长 pointee lifetime。
 
-> 不增加 strong ownership count，因此不延长 pointee lifetime。
+它观察：shared ownership domain。
 
-它观察：
+**`lock()`**
 
-> shared ownership domain。
-
----
-
-### 15.2 `lock()`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 if (auto model = weak.lock()) {
@@ -1371,13 +1299,9 @@ if expired
 → return empty shared_ptr
 ```
 
-因此：
+因此：`lock()` = lifetime re-acquisition attempt。
 
-> `lock()` = lifetime re-acquisition attempt。
-
----
-
-### 15.3 为什么不先 `expired()`？
+**为什么不先 `expired()`？**
 
 因为：
 
@@ -1393,15 +1317,11 @@ use
 
 存在 TOCTOU race。
 
-正确：
-
-> 直接 `lock()` 获得 lifetime right。
-
----
+正确：直接 `lock()` 获得 lifetime right。
 
 <a id="g2-part-16"></a>
 
-## Part 16 · Shared Ownership Cycles
+### 6.4 Shared Ownership Cycles
 
 ```text
 A ──strong──▶ B
@@ -1418,15 +1338,11 @@ B count >= 1
 
 永不归零。
 
-结果：
-
-> leak。
+结果：leak。
 
 Reference counting 无法自动收集 strong cycles。
 
----
-
-### 16.1 打破 Cycle
+**打破 Cycle**
 
 典型：
 
@@ -1435,13 +1351,13 @@ Parent ──strong──▶ Child
 Parent ◀··weak··── Child
 ```
 
-反向关系：
-
-> observation
+反向关系：observation
 
 而不是 ownership。
 
 所以用：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::weak_ptr<Parent>
@@ -1449,21 +1365,23 @@ std::weak_ptr<Parent>
 
 或者普通 borrow，取决于 topology。
 
----
-
 <a id="g2-part-17"></a>
 
-## Part 17 · Shared Ownership ≠ Thread Safety
+### 6.5 Shared Ownership ≠ Thread Safety
 
 `shared_ptr` control-block bookkeeping 对独立 shared handles 的并发 copy/destruction 提供相应线程安全语义。
 
 但：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::shared_ptr<std::vector<int>>
 ```
 
 并不会自动让：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 values->push_back(...)
@@ -1479,15 +1397,17 @@ shared lifetime safety
 pointee data-race safety
 ```
 
----
+<a id="g2-section-7"></a>
 
-## 学习实验 · G2-L2：弱观察不持有资源，lock 暂时持有
+## 7. 实验 · G2-L2：弱观察不持有资源，lock 暂时持有
 
 <a id="g2-lab-shared"></a>
 
 **预测：**原 owner reset 后，weak 是否马上 expired？先看局部 lease 是否还在。完整运行例：
 
 <!-- g-lab {"id":"G2-L2","mode":"run","stdout":"lease-keeps-alive; expired-after-release\n"} -->
+[完整实验 · G2-L2 · main.cpp]
+
 <!-- g-file {"path":"main.cpp"} -->
 ```cpp
 #include <iostream>
@@ -1522,11 +1442,13 @@ int main() {
 
 **边界：**本例不涉及并发，也不证明 Model 的读写线程安全；不同 shared_ptr 实例的控制块协作不等于同一个 shared_ptr 变量可以无同步并发改写。
 
----
-
 <a id="g2-part-18"></a>
 
-## Part 18 · Shared Ownership 的使用准则
+<a id="g2-section-8"></a>
+
+## 8. 共享所有权的适用边界
+
+### 8.1 Shared Ownership 的使用准则
 
 优先只有在：
 
@@ -1557,13 +1479,17 @@ event fan-out
 
 就直接升级到 `shared_ptr`。
 
----
-
 <a id="g2-part-19"></a>
 
-## Part 19 · Async Boundary
+<a id="g2-section-9"></a>
+
+## 9. 异步边界与停机
+
+### 9.1 Async Boundary
 
 同步：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 void process(const Frame& frame);
@@ -1577,19 +1503,19 @@ Frame alive through call
 
 异步：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 executor.submit(...)
 ```
 
 function 已返回。
 
-因此：
+因此：**Async boundary 经常也是 ownership boundary。**
 
-> **Async boundary 经常也是 ownership boundary。**
+**Raw `this`**
 
----
-
-### 19.1 Raw `this`
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 executor.submit([this] {
@@ -1605,9 +1531,9 @@ executor.submit([this] {
 *this outlives callback
 ```
 
----
+**Shared Self**
 
-### 19.2 Shared Self
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 executor.submit([self] {
@@ -1617,9 +1543,9 @@ executor.submit([self] {
 
 callback 成为 owner。
 
----
+**Weak Self**
 
-### 19.3 Weak Self
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 executor.submit([weak] {
@@ -1631,17 +1557,15 @@ executor.submit([weak] {
 
 仅保存 weak_ptr 的 callback 不在两次调用之间延长目标生命周期；成功 lock() 获得的局部 shared_ptr 会在本次使用期间延长它。
 
-object 不存在时：
-
-> no-op / cancel / domain-specific behavior。
-
----
+object 不存在时：no-op / cancel / domain-specific behavior。
 
 <a id="g2-part-20"></a>
 
-## Part 20 · `enable_shared_from_this`
+### 9.2 `enable_shared_from_this`
 
 如果 object 已经属于某个 shared ownership domain：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Session : public std::enable_shared_from_this<Session> {
@@ -1649,25 +1573,21 @@ class Session : public std::enable_shared_from_this<Session> {
 };
 ```
 
-`shared_from_this()`：
-
-> 获取属于同一 control block 的新 shared owner。
+`shared_from_this()`：获取属于同一 control block 的新 shared owner。
 
 千万不要：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::shared_ptr<Session>{this};
 ```
 
-因为这会创建独立 control block，可能造成：
-
-> double deletion。
-
----
+因为这会创建独立 control block，可能造成：double deletion。
 
 <a id="g2-part-21"></a>
 
-## Part 21 · Pool + Lease
+### 9.3 Pool + Lease
 
 并不是所有 multi-consumer resource 都应该 shared-own。
 
@@ -1701,9 +1621,9 @@ return buffer to pool
 
 所以 Lease 是另一种 ownership semantics。
 
----
+**RAII Lease**
 
-### 21.1 RAII Lease
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class FrameLease {
@@ -1732,11 +1652,9 @@ destructor returns resource to pool
 
 RAII 依然成立。
 
----
-
 <a id="g2-part-22"></a>
 
-## Part 22 · Shutdown Architecture
+### 9.4 Shutdown Architecture
 
 Ownership 不只是 startup。
 
@@ -1768,15 +1686,13 @@ destroy FramePool / ModelManager
 destroy Logger
 ```
 
-原则：
+原则：**Borrowers must end before their owners/backing resources。**
 
-> **Borrowers must end before their owners/backing resources。**
-
----
-
-### 22.1 Member Declaration Order
+**Member Declaration Order**
 
 C++ members：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 class Runtime {
@@ -1806,13 +1722,9 @@ models
 logger
 ```
 
-所以 member order 可以编码：
+所以 member order 可以编码：destruction dependency。
 
-> destruction dependency。
-
----
-
-### 22.2 不要用 Shared Ownership 掩盖 Shutdown Bug
+**不要用 Shared Ownership 掩盖 Shutdown Bug**
 
 如果 domain 要求：
 
@@ -1820,11 +1732,11 @@ logger
 Worker must stop before Logger
 ```
 
-正确方案：
-
-> 修 Worker shutdown/join protocol。
+正确方案：修 Worker shutdown/join protocol。
 
 不是：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::shared_ptr<Logger>
@@ -1832,15 +1744,11 @@ std::shared_ptr<Logger>
 
 让 Logger 神秘地继续活。
 
-必须记：
-
-> **Do not use shared ownership to hide an ordering bug.**
-
----
+必须记：**Do not use shared ownership to hide an ordering bug.**
 
 <a id="g2-part-23"></a>
 
-## Part 23 · Healthy Ownership Graph
+### 9.5 Healthy Ownership Graph
 
 一个成熟系统通常希望：
 
@@ -1860,11 +1768,13 @@ Broad Value / Unique Ownership Tree
 Everything is shared_ptr
 ```
 
----
-
 <a id="g2-part-24"></a>
 
-## Part 24 · Robot Runtime 参考模型
+<a id="g2-section-10"></a>
+
+## 10. 架构与跨语言回查
+
+### 10.1 Robot Runtime 参考模型
 
 ```text
 RobotRuntime
@@ -1900,11 +1810,9 @@ InferenceTask - -borrow- -▶ Logger
 
 这张图基本概括了 G2 的最终目标。
 
----
-
 <a id="g2-part-25"></a>
 
-## Part 25 · C++ vs Zig Ownership Architecture
+### 10.2 C++ vs Zig Ownership Architecture
 
 | 维度                  | C++                           | Zig                           |
 | --------------------- | ----------------------------- | ----------------------------- |
@@ -1933,11 +1841,9 @@ Zig
 留在显式 control flow
 ```
 
----
-
 <a id="g2-part-26"></a>
 
-## Part 26 · Rust 第三坐标
+### 10.3 Rust 第三坐标
 
 Rust：
 
@@ -1962,19 +1868,19 @@ Generation or mutation?
 Who should own whom?
 ```
 
-所以：
-
-> Ownership topology 始终是 architecture problem。
-
----
+所以：Ownership topology 始终是 architecture problem。
 
 <a id="g2-part-27"></a>
 
-## Part 27 · G2 Code Review Protocol
+<a id="g2-section-11"></a>
+
+## 11. 工程审查与常见误判
+
+### 11.1 Code Review Protocol
 
 以后审查任何资源型 C++ 系统，按以下顺序。
 
-### Step 1 — Enumerate Resources
+**Step 1 — Enumerate Resources**
 
 ```text
 memory
@@ -1988,27 +1894,21 @@ lock
 transaction
 ```
 
----
+**Step 2 — Identify Natural Owner**
 
-### Step 2 — Identify Natural Owner
+问：谁应该执行最终 cleanup？
 
-问：
-
-> 谁应该执行最终 cleanup？
-
----
-
-### Step 3 — Prefer Value Ownership
+**Step 3 — Prefer Value Ownership**
 
 如果 lifetime 与 parent 完全一致：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 T member_;
 ```
 
----
-
-### Step 4 — Identify Real Dynamic Lifetime
+**Step 4 — Identify Real Dynamic Lifetime**
 
 若有：
 
@@ -2022,15 +1922,15 @@ independent lifetime
 
 才进入：
 
+[机制片段 · 不承诺独立编译]
+
 ```cpp
 std::unique_ptr<T>
 ```
 
 等 dynamic owner。
 
----
-
-### Step 5 — Mark Borrow Edges
+**Step 5 — Mark Borrow Edges**
 
 ```text
 T&
@@ -2041,13 +1941,9 @@ string_view
 iterator
 ```
 
-并回答：
+并回答：谁必须 outlive 谁？
 
-> 谁必须 outlive 谁？
-
----
-
-### Step 6 — Find Ownership Transfer Boundaries
+**Step 6 — Find Ownership Transfer Boundaries**
 
 例如：
 
@@ -2068,9 +1964,7 @@ shared ownership acquisition
 lease transfer
 ```
 
----
-
-### Step 7 — Find Invalidators
+**Step 7 — Find Invalidators**
 
 ```text
 destroy
@@ -2083,17 +1977,11 @@ shutdown
 generation replacement
 ```
 
----
+**Step 8 — Find Shared Islands**
 
-### Step 8 — Find Shared Islands
+问：多个独立参与者是否真的需要共同延长 lifetime？
 
-问：
-
-> 多个独立参与者是否真的需要共同延长 lifetime？
-
----
-
-### Step 9 — Find Strong Cycles
+**Step 9 — Find Strong Cycles**
 
 ```text
 A owns B
@@ -2108,9 +1996,7 @@ borrow edge
 or redesign
 ```
 
----
-
-### Step 10 — Review Failure Paths
+**Step 10 — Review Failure Paths**
 
 问：
 
@@ -2130,9 +2016,7 @@ invariants preserved
 rollback semantics明确
 ```
 
----
-
-### Step 11 — Review Async Captures
+**Step 11 — Review Async Captures**
 
 ```text
 [this]
@@ -2144,200 +2028,148 @@ rollback semantics明确
 
 每一种 capture 都是 lifetime semantics。
 
----
+**Step 12 — Review Shutdown Order**
 
-### Step 12 — Review Shutdown Order
-
-确保：
-
-> borrowers/tasks end before resources they borrow。
-
----
+确保：borrowers/tasks end before resources they borrow。
 
 <a id="g2-part-28"></a>
 
-## Part 28 · 高频 Smells
+### 11.2 高频 Smells
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 T* member_;
 ```
 
-先问：
-
-> owner or borrow？
-
----
+先问：owner or borrow？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 delete member_;
 ```
 
-问：
-
-> 为什么没有 RAII owner？
-
----
+问：为什么没有 RAII owner？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::shared_ptr<T>
 ```
 
-问：
-
-> 为什么 domain 真需要 shared ownership？
-
----
+问：为什么 domain 真需要 shared ownership？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 const std::unique_ptr<T>&
 ```
 
-问：
-
-> 函数真的需要 ownership handle，还是只需要 `const T&`？
-
----
+问：函数真的需要 ownership handle，还是只需要 `const T&`？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 [this]
 ```
 
-进入 async callback：
-
-> 立即审查 object lifetime。
-
----
+进入 async callback：立即审查 object lifetime。
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 ~Foo();
 ```
 
-问：
-
-> 为什么 Foo 需要 user-declared destructor？是否影响 implicit move？
-
----
+问：为什么 Foo 需要 user-declared destructor？是否影响 implicit move？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 owner.reset();
 owner = build_new();
 ```
 
-问：
-
-> 为什么不先 prepare new state，再 commit？
-
----
+问：为什么不先 prepare new state，再 commit？
 
 看到：
+
+[机制片段 · 不承诺独立编译]
 
 ```cpp
 std::move(x)
 ```
 
-问：
-
-> 哪个后续 move operation 真正消费 xvalue？
-
----
+问：哪个后续 move operation 真正消费 xvalue？
 
 <a id="g2-part-29"></a>
 
-## Part 29 · 高频错误直觉
+### 11.3 高频错误直觉
 
-### 错误
+**错误**
 
 > RAII = smart pointer。
 
-正确：
+正确：RAII 是 acquire/release protocol 与 object lifetime 的绑定。
 
-> RAII 是 acquire/release protocol 与 object lifetime 的绑定。
-
----
-
-### 错误
+**错误**
 
 > Unique ownership = `unique_ptr`。
 
-正确：
+正确：value member 本身经常就是最佳 unique owner。
 
-> value member 本身经常就是最佳 unique owner。
-
----
-
-### 错误
+**错误**
 
 > 多个 users = shared ownership。
 
-正确：
+正确：多数 users 只是 borrowers。
 
-> 多数 users 只是 borrowers。
-
----
-
-### 错误
+**错误**
 
 > shared_ptr 是更安全的 unique_ptr。
 
-正确：
+正确：它表达不同、且更复杂的 ownership topology。
 
-> 它表达不同、且更复杂的 ownership topology。
-
----
-
-### 错误
+**错误**
 
 > `unique_ptr` 解决 dangling。
 
-正确：
+正确：它解决 owner uniqueness，不证明 borrow lifetime。
 
-> 它解决 owner uniqueness，不证明 borrow lifetime。
-
----
-
-### 错误
+**错误**
 
 > Rule of Five 是现代 class 标准模板。
 
-正确：
+正确：高层 class 应尽量 Rule of Zero。
 
-> 高层 class 应尽量 Rule of Zero。
-
----
-
-### 错误
+**错误**
 
 > `try/catch` = exception safety。
 
-正确：
+正确：exception/failure safety 是 failure 后的 state guarantee。
 
-> exception/failure safety 是 failure 后的 state guarantee。
-
----
-
-### 错误
+**错误**
 
 > shared_ptr thread-safe = T thread-safe。
 
 错误。
 
----
-
-### 错误
+**错误**
 
 > zero-copy = shared_ptr。
 
@@ -2349,9 +2181,7 @@ std::move(x)
 Pool + Lease
 ```
 
----
-
-### 错误
+**错误**
 
 > raw pointer 出现就是坏 C++。
 
@@ -2359,11 +2189,13 @@ Pool + Lease
 
 Raw non-owning pointer 可以非常合理。
 
----
-
 <a id="g2-part-30"></a>
 
-## Part 30 · G2 核心术语表
+<a id="g2-section-12"></a>
+
+## 12. 术语与统一模型
+
+### 12.1 核心术语表
 
 | English            | 核心含义                                             |
 | ------------------ | ---------------------------------------------------- |
@@ -2388,11 +2220,9 @@ Raw non-owning pointer 可以非常合理。
 | Invalidation       | 某操作使 borrow/view 不再合法                        |
 | Shutdown Order     | resource dependency 的反向 teardown 顺序             |
 
----
-
 <a id="g2-part-31"></a>
 
-## Part 31 · G2 最终统一公式
+### 12.2 最终统一公式
 
 G1 可以写：
 
@@ -2441,24 +2271,26 @@ Can I access it?
 Will its owner keep it alive?
 ```
 
----
-
 <a id="g2-gate"></a>
 
 <a id="g2-part-32"></a>
 
-## Part 32 · G2 Final Gate
+<a id="g2-section-13"></a>
+
+## 13. Final Gate
+
+### 13.1 Final Gate
 
 你应能够独立回答：
 
-### RAII
+**RAII**
 
 1. Resource 与 handle 为什么不同？
 2. RAII 为什么不等于 smart pointer？
 3. RAII 如何处理 early return 与 exception？
 4. C++ RAII 与 Zig `defer` 的根本差异是什么？
 
-### Unique Ownership
+**Unique Ownership**
 
 1. Ownership 到底是什么责任？
 2. 为什么不能复制同一资源的清理责任？深复制新资源为何是另一回事？
@@ -2466,14 +2298,14 @@ Will its owner keep it alive?
 4. `unique_ptr::get()` 和 `release()` 区别是什么？
 5. 为什么 `unique_ptr` 仍可能产生 dangling borrow？
 
-### Rule of Zero
+**Rule of Zero**
 
  1. Rule of Three、Five、Zero 的区别是什么？
  2. 为什么业务 class 手写完整 Rule of Five 常是 smell？
  3. 为什么 `std::vector` / `std::string` / `unique_ptr` 能让外层 class 回归 Rule of Zero？
  4. 为什么 `~T() = default` 仍值得审查 move generation？
 
-### Failure Safety
+**Failure Safety**
 
  1. Basic Guarantee 与 Strong Guarantee 区别是什么？
  2. 为什么 prepare → commit 是重要 mutation pattern？
@@ -2481,7 +2313,7 @@ Will its owner keep it alive?
  4. 为什么 destructor 不应该让 exception 逃出？
  5. Zig `errdefer` 与 C++ partial-construction rollback 有什么对应关系？
 
-### Shared Ownership
+**Shared Ownership**
 
  1. Aliasing 和 shared ownership 有什么区别？
  2. control block 为什么存在？
@@ -2491,7 +2323,7 @@ Will its owner keep it alive?
  6. weak_ptr `lock()` 在 lifetime 上做了什么？
  7. 为什么 `shared_ptr<T>` 不意味着 `T` thread-safe？
 
-### Architecture
+**Architecture**
 
  1. 为什么 value member 应优先于 unique_ptr？
  2. 多个 users 为什么不等于多个 owners？
@@ -2501,11 +2333,9 @@ Will its owner keep it alive?
  6. 为什么 async boundary 经常也是 ownership boundary？
  7. 为什么 shared_ptr 不能用于掩盖错误的 join/shutdown protocol？
 
----
+<a id="g2-section-14"></a>
 
-
-<details>
-<summary>推理答案与常见误判（按上面的组和题号对应）</summary>
+## 14. Final Gate · 参考答案与常见误判
 
 - **RAII 1～4：**资源是受协议约束的能力，handle 只是标识；RAII 把协议绑定到对象清理，所以锁、文件和 lease 都能使用。已构造局部对象在正常退出与实际展开时清理，不保证终止路径展开。Zig defer 绑定词法作用域，C++ RAII 绑定对象；误判是把二者当作同一种隐式 GC。
 - **Unique 1～5：**owner 负最终清理责任；不能浅复制同一资源的独占责任，但可明确 clone 独立资源。std::move 仅转换，转移在实际操作中发生。get 借用，release 交出指针并放弃管理而不释放资源；随后责任须有人接住。reset/销毁等仍可使 borrow 悬挂。
@@ -2514,13 +2344,15 @@ Will its owner keep it alive?
 - **Shared 1～7：**alias 只是访问，共享拥有才延长管理资源生命；控制块维护强/弱关联及释放信息。strong 归零后 weak 仍需观察元数据。最终释放位置由最后 owner 决定；强环让彼此无法归零。lock 临时取得 strong owner；引用计数安全不保护 pointee 的可变数据。误判是“用了 shared_ptr 就不需要锁”。
 - **Architecture 1～7：**value member 少一层独立生命周期，非所有场景最优。多个用户可以只借用；pool 管存储，lease 管临时使用权。缩小共享区域便于定位最终释放者。shutdown 要先停生产者、终止并等待工作、再撤销依赖，具体顺序由依赖图决定。异步跨越调用作用域，必须重选拥有或借用协议；shared_ptr 不能替代停止、唤醒和 join。
 
-</details>
-
-**完成标准：**解释两项实验全部判据，并为一个异步 callback 写出 owner、borrow 和停机顺序；进阶题答不出时返回对应 Part，而不是扩大本次必读范围。
+**完成标准：**解释两项实验全部判据，并为一个异步 callback 写出 owner、borrow 和停机顺序；进阶题答不出时返回对应主题，而不是扩大本次必读范围。
 
 <a id="g2-part-33"></a>
 
-## Part 33 · 如果几个月后只记住十五条
+<a id="g2-section-15"></a>
+
+## 15. 工程原则回查
+
+### 15.1 如果几个月后只记住十五条
 
 1. **Resource 不等于 memory；file、socket、lock、GPU buffer 都有 lifetime protocol。**
 
@@ -2552,19 +2384,15 @@ Will its owner keep it alive?
 
 15. **语言可以帮助执行 ownership contract，但“谁应该拥有谁”始终是 architecture decision。**
 
----
+<a id="g2-section-16"></a>
 
-## G2 → G3
+## 16. G2 → G3
 
 本章的关键实验已纳入定向检查；进阶片段不因此变成全面验证的工程基线。
 
-我们已经回答：
+我们已经回答：**谁拥有 object/resource，它如何安全地活着和死去？**
 
-> **谁拥有 object/resource，它如何安全地活着和死去？**
-
-G3 将开始回答另一组问题：
-
-> **如果一个 object 被复制、移动、返回、传参、放进 container，到底发生什么成本？**
+G3 将开始回答另一组问题：**如果一个 object 被复制、移动、返回、传参、放进 container，到底发生什么成本？**
 
 主线将进入：
 
@@ -2592,10 +2420,6 @@ Cache Locality
 Performance-aware API Design
 ```
 
-也就是从：
+也就是从：**Ownership Correctness**
 
-> **Ownership Correctness**
-
-正式进入：
-
-> **Value Semantics + Performance Cost Model。**
+正式进入：**Value Semantics + Performance Cost Model。**
