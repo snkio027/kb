@@ -1,0 +1,14 @@
+test_declared_warning_preserves_exact_label_and_code (__main__.FailureModelTests.test_declared_warning_preserves_exact_label_and_code) ... ok
+test_exact_payload_and_anchor_positions (__main__.FailureModelTests.test_exact_payload_and_anchor_positions) ... ok
+test_existing_products_composition_unchanged (__main__.FailureModelTests.test_existing_products_composition_unchanged) ... ok
+test_lua_links_directly_to_block_not_previous_section (__main__.FailureModelTests.test_lua_links_directly_to_block_not_previous_section) ... ok
+test_real_pdf_annotation_points_at_block_and_rejects_old_link (__main__.FailureModelTests.test_real_pdf_annotation_points_at_block_and_rejects_old_link) ... ok
+test_unicode_numeric_duplicate_targets_are_block_local (__main__.FailureModelTests.test_unicode_numeric_duplicate_targets_are_block_local) ... ok
+test_unknown_html_and_unconsumed_marker_rejected (__main__.FailureModelTests.test_unknown_html_and_unconsumed_marker_rejected) ... ok
+test_gfm_parser_is_bound_to_input_identity (__main__.ParserPreparationTests.test_gfm_parser_is_bound_to_input_identity) ... ok
+test_unknown_parser_rejected (__main__.ParserPreparationTests.test_unknown_parser_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 20.040s
+
+OK

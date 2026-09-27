@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "id": "cpp-failure-model",
+  "repository": "https://github.com/snkio027/kb",
+  "source_format": "gfm",
+  "artifact_channel": "PUBLICATION",
+  "navigation": {"preface_title": "阅读与版本说明", "preface_id": "generated-preface"},
+  "reading": {
+    "density": "balanced",
+    "heading_roles": {"2": "section", "3": "subsection"},
+    "source_snapshot_note": true,
+    "local_navigation_titles": ["本章目录"],
+    "min_head_lines": 4, "min_tail_lines": 6, "short_table_lines": 12
+  },
+  "sources": [
+    {"id":"FM-GUIDE","path":"c++/failure-model/series-guide.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-0","path":"c++/failure-model/fm0-failure-model.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-1","path":"c++/failure-model/fm1-contracts-assertions-ub.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-2","path":"c++/failure-model/fm2-value-based-failure.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-3","path":"c++/failure-model/fm3-exception-semantics.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-4","path":"c++/failure-model/fm4-raii-exception-safety.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-5","path":"c++/failure-model/fm5-noexcept-move-copy.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-6","path":"c++/failure-model/fm6-construction-destruction-allocation.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-7","path":"c++/failure-model/fm7-error-code-system-error.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-8","path":"c++/failure-model/fm8-failure-boundaries.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"},
+    {"id":"FM-9","path":"c++/failure-model/fm9-project-failure-profile.md","revision":"45b305eace0f057420587d685cb3f962f3f0552c","version":"45b305e"}
+  ],
+  "views": [{
+    "id":"CPP-FAILURE-MODEL",
+    "documents":["FM-GUIDE","FM-0","FM-1","FM-2","FM-3","FM-4","FM-5","FM-6","FM-7","FM-8","FM-9"],
+    "title":"C++23 失败语义工程手册",
+    "subtitle":"Modern C++ Failure Semantics Handbook",
+    "version":"1.0.0", "status":"PUBLICATION EDITION",
+    "filename":"Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf"
+  }],
+  "toc_depth":1, "combined_toc_depth":1,
+  "required_headings":[], "new_page_heading_patterns":[], "index":null
+}

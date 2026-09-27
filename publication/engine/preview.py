@@ -227,9 +227,12 @@ def bind_code_roles(blocks):
     for block in blocks:
         if block['t'] == 'CodeBlock' and output and output[-1]['t'] == 'Para':
             label = text(output[-1])
-            if re.fullmatch(r'\[(反例(?:片段)?|完整实验|机制片段|命令) · [^\n]+\]', label):
+            declared = dict(block['c'][0][2]).get('reading-bind-label')
+            if declared is not None and declared != label:
+                raise RuntimeError('declared code label is not the adjacent source paragraph')
+            if declared is not None or re.fullmatch(r'\[(反例(?:片段)?|完整实验|机制片段|命令) · [^\n]+\]', label):
                 block['c'][0][2].extend([['reading-source-label', label],
-                                         ['reading-role', label[1:].split(' · ')[0]]])
+                                         ['reading-role', label if declared else label[1:].split(' · ')[0]]])
                 output.pop()
         output.append(block)
     return output
@@ -246,6 +249,9 @@ def code_labels(attrs):
 def compose(documents, selected, view, profile, resolver, policies=()):
     blocks, ledger = [], []
     combined = len(selected) > 1
+    block_targets = {d['anchors'][n['c'][0][0]] for d in selected
+                     for n in walk(d['ast']['blocks'])
+                     if n.get('t') == 'Span' and 'source-target' in n['c'][0][1]}
     for doc in selected:
         meta, doc_id = doc["meta"], doc["id"]
         # Clear the preceding page before updating its running identity.
@@ -259,6 +265,10 @@ def compose(documents, selected, view, profile, resolver, policies=()):
             if tag == "Header":
                 original = item["c"][1][0]
                 item["c"][1][0] = doc["anchors"][original]
+                targets = [n for n in item['c'][2] if n.get('t') == 'Span' and 'source-target' in n['c'][0][1]]
+                if targets:
+                    item['c'][1][2].append(['preview-targets', ','.join(doc['anchors'][n['c'][0][0]] for n in targets)])
+                    item['c'][2] = [n for n in item['c'][2] if n not in targets]
                 alias_ids = [key for key, heading in doc["aliases"].items() if heading == original]
                 if alias_ids:
                     item["c"][1][2].append(["preview-aliases", ",".join(alias_ids)])
@@ -275,9 +285,13 @@ def compose(documents, selected, view, profile, resolver, policies=()):
                     item['c'][1][2].append(['reading-source-note', str(doc['source']['commit'])[:7]])
                 if text(item) in reading.get('local_navigation_titles', []):
                     item['c'][1][2].append(['reading-local-navigation', 'true'])
+            elif tag == 'Span' and 'source-target' in item['c'][0][1]:
+                item['c'][0][0] = doc['anchors'][item['c'][0][0]]
             elif tag == "Link":
                 target = item["c"][2][0]
                 item["c"][2][0] = resolver.resolve(target, doc)
+                if item['c'][2][0].startswith('#') and item['c'][2][0][1:] in block_targets:
+                    item['c'][0][2].append(['preview-direct-target', 'true'])
             elif tag == "CodeBlock":
                 code_number += 1
                 code = item["c"][1]
@@ -516,13 +530,17 @@ def worker(run, origin):
     documents = []
     for definition in model["sources"]:
         source = inputs / definition["snapshot_path"]
-        ast = json.loads(command([tools["pandoc"], source, "-f", "markdown-smart", "-t", "json"], work))
+        ast = json.loads(command([tools["pandoc"], source, "-f", profile.get('source_format', 'markdown-smart'), "-t", "json"], work))
         original_blocks = [n["c"][1] for n in walk(ast["blocks"]) if n.get("t") == "CodeBlock"]
         meta, aliases, semantic = adapter.adapt(ast, definition, text)
         if [n["c"][1] for n in walk(ast["blocks"]) if n.get("t") == "CodeBlock"] != original_blocks:
             raise RuntimeError("source adapter changed code bytes")
         headers = [node for node in walk(ast["blocks"]) if node.get("t") == "Header"]
         ids = [h["c"][1][0] for h in headers]
+        # Explicit block-local targets are not headings/bookmarks. Keep their
+        # source positions and namespace them just like heading destinations.
+        ids += [n['c'][0][0] for n in walk(ast['blocks'])
+                if n.get('t') == 'Span' and 'source-target' in n['c'][0][1]]
         if len(ids) != len(set(ids)) or not ids:
             raise RuntimeError("duplicate/absent source heading")
         for pattern in profile.get("required_headings", []):

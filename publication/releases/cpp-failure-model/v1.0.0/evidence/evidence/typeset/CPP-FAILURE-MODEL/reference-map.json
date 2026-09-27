@@ -1,0 +1,1214 @@
+[
+  {
+    "from": "FM-GUIDE",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#2-failure-不等于-exception",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-b2d022327921354b"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#5-domain-outcome",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-0eddf8991d527109"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#3-fault--error--failure",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-156584dc1d68bd28"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm2-value-based-failure.md#6-error-type-设计",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-e93f1053a51313a6"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm7-error-code-system-error.md#3-stderror_code",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-6599914004d45daf"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm3-exception-semantics.md#1-exception-是非局部控制流",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-b654b8490f3886f1"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm1-contracts-assertions-ub.md#6-runtime-failure-与-contract-violation",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-1b3dc24d2edce795"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm1-contracts-assertions-ub.md#33-stdterminate",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-c7dfc3655fc9285c"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm4-raii-exception-safety.md#1-raii-的真正含义",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-9dc233009b8d74e0"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm4-raii-exception-safety.md#10-rollback-不是免费操作",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0da2687ab868d9da"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#16-recovery",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-f8aac9a5b8dd71de"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm4-raii-exception-safety.md#15-failure-与-partial-side-effects",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-ae9beb419912e69b"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm8-failure-boundaries.md#18-idempotency",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-cf0fc5600bbbb544"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#17-recovery-boundary",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-c8a6be41047557f0"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm8-failure-boundaries.md#1-boundary-的本质",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-8369bbdb7b1ea2fd"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm0-failure-model.md#20-failure-domain",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-58cccafa1d84c5aa"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.spec",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.spec"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm4-raii-exception-safety.md#7-commit-point",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-1f1854d656197f68"
+  },
+  {
+    "from": "FM-GUIDE",
+    "source": "fm9-project-failure-profile.md#26-public-api-failure-documentation-template",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-bba1510f5aef46fb"
+  },
+  {
+    "from": "FM-0",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm1-contracts-assertions-ub.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-50e1b7f8a9ad65c5"
+  },
+  {
+    "from": "FM-0",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-29a7a3805e61ad55"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-91e205740b2776f6"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-846b337a158cf2e7"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-94c7b5bd74e8510a"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-19ff2ebd32bae932"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-6",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-614bf6a6581956c3"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-7",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-16718f487e380599"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-8",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-fe34f20661f7010d"
+  },
+  {
+    "from": "FM-0",
+    "source": "#fm0-part-9",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-d04659c9fcce12f6"
+  },
+  {
+    "from": "FM-0",
+    "source": "series-guide.md#21-原因状态表示与传播",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1493dc3e5ff9c6d5"
+  },
+  {
+    "from": "FM-0",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm8-failure-boundaries.md#2-stdthread",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-2169406173f52acb"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm2-value-based-failure.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-f3173a19241ec424"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm3-exception-semantics.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-070f4cee1bd6f9cc"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-e14e7baebaceb104"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm5-noexcept-move-copy.md#11-move-only--throwing-move",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-67b04c2dd9b83e9a"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-0",
+    "source": "https://man7.org/linux/man-pages/man2/open.2.html",
+    "kind": "EXTERNAL_URI",
+    "target": "https://man7.org/linux/man-pages/man2/open.2.html"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm7-error-code-system-error.md#1-errno",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-51daede53ecc3457"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm9-project-failure-profile.md#26-public-api-failure-documentation-template",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-bba1510f5aef46fb"
+  },
+  {
+    "from": "FM-0",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-0",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm8-failure-boundaries.md#22-logging-boundary",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-a3f50be9e117c55a"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm9-project-failure-profile.md#18-logging-policy",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-34d96b85627a442b"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm8-failure-boundaries.md#17-ambiguous-remote-completion",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-f4062544de43bbb0"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm4-raii-exception-safety.md#7-commit-point",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-1f1854d656197f68"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm8-failure-boundaries.md#17-ambiguous-remote-completion",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-f4062544de43bbb0"
+  },
+  {
+    "from": "FM-0",
+    "source": "fm9-project-failure-profile.md#26-public-api-failure-documentation-template",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-bba1510f5aef46fb"
+  },
+  {
+    "from": "FM-0",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-1",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-1",
+    "source": "fm0-failure-model.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-0-b9b182f4f9b71dbc"
+  },
+  {
+    "from": "FM-1",
+    "source": "fm2-value-based-failure.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-f3173a19241ec424"
+  },
+  {
+    "from": "FM-1",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-895d0b1a87af484e"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-c2f8e354c55ea640"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-308e339ea2e23b24"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-27767c95f2e1c296"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-0385afbd8a14aa9b"
+  },
+  {
+    "from": "FM-1",
+    "source": "#fm1-part-6",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-fef9b53e8d6d29e9"
+  },
+  {
+    "from": "FM-1",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/diagnostics#out.of.range",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/diagnostics#out.of.range"
+  },
+  {
+    "from": "FM-1",
+    "source": "review/fm-verification-samples.md#t01",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t01"
+  },
+  {
+    "from": "FM-1",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/utility#utility.unreachable",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/utility#utility.unreachable"
+  },
+  {
+    "from": "FM-1",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/expr.static.cast#10",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/expr.static.cast#10"
+  },
+  {
+    "from": "FM-1",
+    "source": "review/fm-verification-samples.md#t04",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t04"
+  },
+  {
+    "from": "FM-1",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-2",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-2",
+    "source": "fm1-contracts-assertions-ub.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-50e1b7f8a9ad65c5"
+  },
+  {
+    "from": "FM-2",
+    "source": "fm3-exception-semantics.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-070f4cee1bd6f9cc"
+  },
+  {
+    "from": "FM-2",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-2",
+    "source": "#fm2-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-ef575f552c0123aa"
+  },
+  {
+    "from": "FM-2",
+    "source": "#fm2-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-8ff45f638c69ceb5"
+  },
+  {
+    "from": "FM-2",
+    "source": "#fm2-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-fc260a2100f6829c"
+  },
+  {
+    "from": "FM-2",
+    "source": "#fm2-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-371f69446d06903e"
+  },
+  {
+    "from": "FM-2",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/expected.object.monadic",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/expected.object.monadic"
+  },
+  {
+    "from": "FM-2",
+    "source": "review/fm-verification-samples.md#t08",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t08"
+  },
+  {
+    "from": "FM-2",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/expected.object.obs",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/expected.object.obs"
+  },
+  {
+    "from": "FM-2",
+    "source": "https://cplusplus.github.io/LWG/issue3843",
+    "kind": "EXTERNAL_URI",
+    "target": "https://cplusplus.github.io/LWG/issue3843"
+  },
+  {
+    "from": "FM-2",
+    "source": "review/fm-verification-samples.md#t06",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t06"
+  },
+  {
+    "from": "FM-2",
+    "source": "review/fm-verification-samples.md#t16",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t16"
+  },
+  {
+    "from": "FM-2",
+    "source": "review/fm-review-7869082.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-review-7869082.md"
+  },
+  {
+    "from": "FM-2",
+    "source": "#12-value-与-operator",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-3b76e2dec27c8455"
+  },
+  {
+    "from": "FM-2",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-3",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-3",
+    "source": "fm2-value-based-failure.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-2-f3173a19241ec424"
+  },
+  {
+    "from": "FM-3",
+    "source": "fm4-raii-exception-safety.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-40e5e2acef077155"
+  },
+  {
+    "from": "FM-3",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-3",
+    "source": "#fm3-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-7c18e8976429e28e"
+  },
+  {
+    "from": "FM-3",
+    "source": "#fm3-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-b6eae42411944a01"
+  },
+  {
+    "from": "FM-3",
+    "source": "#fm3-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-09e276fa602830f6"
+  },
+  {
+    "from": "FM-3",
+    "source": "#fm3-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-c65b4f6bd88dbeb0"
+  },
+  {
+    "from": "FM-3",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate#2",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate#2"
+  },
+  {
+    "from": "FM-3",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.ctor#4",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.ctor#4"
+  },
+  {
+    "from": "FM-3",
+    "source": "fm6-construction-destruction-allocation.md#3-partial-construction",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-8a78a3736013ecb7"
+  },
+  {
+    "from": "FM-3",
+    "source": "review/fm-verification-samples.md#t13",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t13"
+  },
+  {
+    "from": "FM-3",
+    "source": "fm8-failure-boundaries.md#2-stdthread",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-2169406173f52acb"
+  },
+  {
+    "from": "FM-3",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-4",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm3-exception-semantics.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-070f4cee1bd6f9cc"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm5-noexcept-move-copy.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-720e3be9a9c0f17e"
+  },
+  {
+    "from": "FM-4",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-4",
+    "source": "#fm4-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-37730da3485d2998"
+  },
+  {
+    "from": "FM-4",
+    "source": "#fm4-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-5d57a246e60d2605"
+  },
+  {
+    "from": "FM-4",
+    "source": "#fm4-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-a6bcf3fb3792ca4a"
+  },
+  {
+    "from": "FM-4",
+    "source": "#fm4-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-2da492c67f7cfc1e"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-4",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/support.start.term",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/support.start.term"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm5-noexcept-move-copy.md#11-move-only--throwing-move",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-67b04c2dd9b83e9a"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-4",
+    "source": "fm6-construction-destruction-allocation.md#3-partial-construction",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-8a78a3736013ecb7"
+  },
+  {
+    "from": "FM-4",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-4",
+    "source": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-raii",
+    "kind": "EXTERNAL_URI",
+    "target": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-raii"
+  },
+  {
+    "from": "FM-4",
+    "source": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr",
+    "kind": "EXTERNAL_URI",
+    "target": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr"
+  },
+  {
+    "from": "FM-5",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-5",
+    "source": "fm4-raii-exception-safety.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-40e5e2acef077155"
+  },
+  {
+    "from": "FM-5",
+    "source": "fm6-construction-destruction-allocation.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-f61a0468378bb4ad"
+  },
+  {
+    "from": "FM-5",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-5",
+    "source": "#fm5-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-1146d759c5c31808"
+  },
+  {
+    "from": "FM-5",
+    "source": "#fm5-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-f1828e5d5790d9bd"
+  },
+  {
+    "from": "FM-5",
+    "source": "#fm5-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-670d207f1b9e50cb"
+  },
+  {
+    "from": "FM-5",
+    "source": "#fm5-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-855decb91ae08ede"
+  },
+  {
+    "from": "FM-5",
+    "source": "#fm5-part-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-d7b132305921a551"
+  },
+  {
+    "from": "FM-5",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/expr.unary.noexcept",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/expr.unary.noexcept"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/utility#forward",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/utility#forward"
+  },
+  {
+    "from": "FM-5",
+    "source": "review/fm-verification-samples.md#t03",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t03"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/algorithms#alg.equal",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/algorithms#alg.equal"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/utility#forward",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/utility#forward"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/vector.capacity#4",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/vector.capacity#4"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/vector.modifiers#2",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/vector.modifiers#2"
+  },
+  {
+    "from": "FM-5",
+    "source": "review/fm-verification-samples.md#t03",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t03"
+  },
+  {
+    "from": "FM-5",
+    "source": "fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-e14e7baebaceb104"
+  },
+  {
+    "from": "FM-5",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.spec",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.spec"
+  },
+  {
+    "from": "FM-5",
+    "source": "fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-e14e7baebaceb104"
+  },
+  {
+    "from": "FM-5",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-6",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-6",
+    "source": "fm5-noexcept-move-copy.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-720e3be9a9c0f17e"
+  },
+  {
+    "from": "FM-6",
+    "source": "fm7-error-code-system-error.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-b53af8da284ebb07"
+  },
+  {
+    "from": "FM-6",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-6",
+    "source": "#fm6-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-842ba9c417c53603"
+  },
+  {
+    "from": "FM-6",
+    "source": "#fm6-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-c01ba2363d9ab2d6"
+  },
+  {
+    "from": "FM-6",
+    "source": "#fm6-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-70c9674cb28cbcb2"
+  },
+  {
+    "from": "FM-6",
+    "source": "#fm6-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-1cae8943e65e77ab"
+  },
+  {
+    "from": "FM-6",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.ctor",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.ctor"
+  },
+  {
+    "from": "FM-6",
+    "source": "review/fm-verification-samples.md#t13",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t13"
+  },
+  {
+    "from": "FM-6",
+    "source": "fm3-exception-semantics.md#5-stack-unwinding",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-3-2f3e71fed55f71e2"
+  },
+  {
+    "from": "FM-6",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/expr.new",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/expr.new"
+  },
+  {
+    "from": "FM-6",
+    "source": "fm5-noexcept-move-copy.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-5-720e3be9a9c0f17e"
+  },
+  {
+    "from": "FM-6",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-7",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-7",
+    "source": "fm6-construction-destruction-allocation.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-6-f61a0468378bb4ad"
+  },
+  {
+    "from": "FM-7",
+    "source": "fm8-failure-boundaries.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-e1b0dea873c46d58"
+  },
+  {
+    "from": "FM-7",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-7",
+    "source": "#fm7-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-8a58c02a7020724f"
+  },
+  {
+    "from": "FM-7",
+    "source": "#fm7-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-7360c5874fa771fe"
+  },
+  {
+    "from": "FM-7",
+    "source": "#fm7-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-e176445861619b41"
+  },
+  {
+    "from": "FM-7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/fs.err.report",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/fs.err.report"
+  },
+  {
+    "from": "FM-7",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/fs.op.current.path",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/fs.op.current.path"
+  },
+  {
+    "from": "FM-7",
+    "source": "review/fm-verification-samples.md#t15",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t15"
+  },
+  {
+    "from": "FM-7",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-8",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-8",
+    "source": "fm7-error-code-system-error.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-7-b53af8da284ebb07"
+  },
+  {
+    "from": "FM-8",
+    "source": "fm9-project-failure-profile.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-465c129043639cb8"
+  },
+  {
+    "from": "FM-8",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-8",
+    "source": "#fm8-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-82d38f8db67647fa"
+  },
+  {
+    "from": "FM-8",
+    "source": "#fm8-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-3a012f3e4b0f9257"
+  },
+  {
+    "from": "FM-8",
+    "source": "#fm8-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-0cd09f756ba126c0"
+  },
+  {
+    "from": "FM-8",
+    "source": "#fm8-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-83fadb47dca5c838"
+  },
+  {
+    "from": "FM-8",
+    "source": "#fm8-part-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-eda718fdd7ca3ae2"
+  },
+  {
+    "from": "FM-8",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/except.terminate"
+  },
+  {
+    "from": "FM-8",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/propagation",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/propagation"
+  },
+  {
+    "from": "FM-8",
+    "source": "review/fm-verification-samples.md#t11",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/review/fm-verification-samples.md#t11"
+  },
+  {
+    "from": "FM-8",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/thread.jthread.cons#5",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/thread.jthread.cons#5"
+  },
+  {
+    "from": "FM-8",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/futures.promise",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/futures.promise"
+  },
+  {
+    "from": "FM-8",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/dcl.fct.def.coroutine",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/dcl.fct.def.coroutine"
+  },
+  {
+    "from": "FM-8",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-9",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-9",
+    "source": "fm8-failure-boundaries.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-8-e1b0dea873c46d58"
+  },
+  {
+    "from": "FM-9",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-1",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-46ae96f177a06bd7"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-2",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-e476f9fbe067605c"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-3",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-08ab26a9134a9567"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-4",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-7b2d11cf10ae8bb1"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-5",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-561a18c9ee05568b"
+  },
+  {
+    "from": "FM-9",
+    "source": "#fm9-part-6",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-d8e00e2e11407a0d"
+  },
+  {
+    "from": "FM-9",
+    "source": "#modern-c-failure-model--最终总图",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-9-be3feae412e68135"
+  },
+  {
+    "from": "FM-9",
+    "source": "fm4-raii-exception-safety.md#4-exception-safety-guarantees",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-4-0c5be6cfd50b2fe2"
+  },
+  {
+    "from": "FM-9",
+    "source": "fm1-contracts-assertions-ub.md#13-ndebug",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-1-a5f4ceda42091c6b"
+  },
+  {
+    "from": "FM-9",
+    "source": "https://timsong-cpp.github.io/cppwp/n4950/dcl.attr.nodiscard",
+    "kind": "EXTERNAL_URI",
+    "target": "https://timsong-cpp.github.io/cppwp/n4950/dcl.attr.nodiscard"
+  },
+  {
+    "from": "FM-9",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-9",
+    "source": "series-guide.md#review-contract",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-1f6f8462da64b658"
+  },
+  {
+    "from": "FM-9",
+    "source": "README.md",
+    "kind": "EXTERNAL_SOURCE",
+    "target": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/README.md"
+  },
+  {
+    "from": "FM-9",
+    "source": "series-guide.md",
+    "kind": "SAME_VIEW_INTERNAL",
+    "target": "#FM-GUIDE-b7872f4229a1673f"
+  }
+]

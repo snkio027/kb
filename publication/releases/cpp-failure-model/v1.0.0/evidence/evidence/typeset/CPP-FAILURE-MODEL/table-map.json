@@ -1,0 +1,326 @@
+[
+  {
+    "table": "FM-GUIDE-T01",
+    "section": "FM-GUIDE-1493dc3e5ff9c6d5",
+    "section_title": "2.1 原因、状态、表示与传播",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "本系列含义",
+      "主讲位置"
+    ],
+    "row_text": [
+      "失败（failure）操作未达到其正常成功后置条件；可能仍正确履行“报告失败”的接口合同FM-0 §2",
+      "领域结果（domain outcome）合同允许的普通分支；例如 lookup miss，不必归为组件失败FM-0 §5",
+      "故障原因（fault）导致偏差的原因；不自动等于已观察到的对外失败FM-0 §3",
+      "错误状态（error state）系统状态偏离所要求的正确状态；可能被纠正而未向外失效同上",
+      "错误表示（error representation／error object）错误码、错误对象等机器可处理信息；对象本身可以完全有效FM-2 §6、FM-7 §3",
+      "异常（exception）C++ 异常对象及其非局部传播机制，不是失败原因分类FM-3 §1–2",
+      "契约违反（contract violation）调用方或实现破坏约定；具体后果须看接口与语言规则，不能一概等同 UBFM-1 §6",
+      "终止（termination）不再沿普通调用返回继续执行的处置；不是携带给调用者的错误值FM-1 §33"
+    ]
+  },
+  {
+    "table": "FM-GUIDE-T02",
+    "section": "FM-GUIDE-7d7e2d2fb1b8a29d",
+    "section_title": "2.2 清理、回滚与恢复",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "术语",
+      "要回答的不同问题",
+      "主讲位置"
+    ],
+    "row_text": [
+      "清理（cleanup）谁释放／结束已取得资源的责任？清理是否会失败？FM-4 §1–3",
+      "回滚（rollback）能否恢复到合同指定的先前状态？逆操作自己失败怎么办？FM-4 §10",
+      "恢复（recovery）是否重新进入能继续承担职责的定义良好状态？FM-0 §16",
+      "补偿（compensation）已发生的不可撤销效果如何用后续动作补救？不等于原操作从未发生FM-4 §15",
+      "重试（retry）再执行是否安全、仍有预算且被策略允许？FM-8 §18–19",
+      "恢复边界（recovery boundary）哪一层有足够状态、上下文和权限决定下一步？FM-0 §17",
+      "传播边界（failure boundary）当前错误形式不能或不应越过哪里？FM-8 §1",
+      "失败域（failure domain）哪些任务、资源或组件会受到影响？FM-0 §20"
+    ]
+  },
+  {
+    "table": "FM-GUIDE-T03",
+    "section": "FM-GUIDE-3c1db2f586f6078f",
+    "section_title": "2.3 保证不是一条从失败到终止的等级线",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "分析轴",
+      "可用表述",
+      "不能推出什么"
+    ],
+    "row_text": [
+      "失败后状态strong：约定状态不变；basic：不变量／资源管理成立、值可变；明确部分进度；缺少可依赖保证basic 不意味着下一次操作一定成功；部分进度可以是有效状态",
+      "异常传播no-throw；noexcept 规格；某个完整表达式的查询结果不保证 no-fail、无错误返回、正常完成或完整清理",
+      "处置与可恢复性拒绝、恢复、补偿、升级、重启、终止“不可恢复”不是 strong/basic 旁边的状态保证等级"
+    ]
+  },
+  {
+    "table": "FM-GUIDE-T04",
+    "section": "FM-GUIDE-8dd36dff304a1a30",
+    "section_title": "4. 公共审查合同与章节增量",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "项",
+      "必须写清的内容",
+      "证据应对准的命题"
+    ],
+    "row_text": [
+      "C1 输入与成功合法前提、正常领域结果、成功后置条件输入与结果判断不是同一个模糊 bool",
+      "C2 失败集与通道来源、检测点、值／异常／终止、错误转换所有声明通道及转换失败都有归属",
+      "C3 状态与提交观察范围、每个阶段、不变量、失败后置条件、提交认知失败发生后还能依赖什么，而不只是 catch 到了什么",
+      "C4 所有权与清理取得、转移、失败返还／销毁、析构及显式完成无泄漏不等于回滚，cleanup 不等于业务成功",
+      "C5 组合前提参数、临时对象、T/E、allocator、回调、返回及报告no-throw 与 no-fail 分别成立于哪些条件",
+      "C6 恢复与影响范围谁决定恢复／补偿／终止，失败域与并发观察点处理失败的代码自身仍满足合同",
+      "C7 重试与控制状态幂等／去重、截止期、预算、取消、完成不确定性请求停止不等于已经停止，超时不证明未提交",
+      "C8 验证与限制标准／工程建议／观测、oracle、反例、环境、SKIP、未测项测试能区分承诺与错误实现，结果不被扩大"
+    ]
+  },
+  {
+    "table": "FM-0-T01",
+    "section": "FM-0-8a59d140a1820eea",
+    "section_title": "29. 第三维：State Guarantee",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "分析维度",
+      "应回答的问题"
+    ],
+    "row_text": [
+      "失败后状态strong（可观察状态不变）、basic（不变量成立但值可变）、明确的部分进度，还是没有可依赖的状态保证？",
+      "异常传播是否允许异常越过 API 边界？noexcept 只约束这一项。",
+      "终局处置是否拒绝当前操作、升级处理、重启或终止进程？"
+    ]
+  },
+  {
+    "table": "FM-0-T02",
+    "section": "FM-0-b36ef148e78b9fa0",
+    "section_title": "48. Decision Baseline",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "场景",
+      "默认考虑"
+    ],
+    "row_text": [
+      "正常 absencestd::optional<T>",
+      "可预期且需要原因的失败std::expected<T, E>",
+      "OS / system API 错误std::error_code 或封装后的领域错误",
+      "稀有、需要跨多层传播的失败exception",
+      "外部不可信输入validate + structured failure",
+      "调用者违反前置条件contract/assert/fail-fast",
+      "内部不变量损坏fail-fast / terminate",
+      "高频普通分支value-based result",
+      "ABI / thread / process 边界捕获、转换、隔离",
+      "无法确定程序状态不应假装恢复"
+    ]
+  },
+  {
+    "table": "FM-1-T01",
+    "section": "FM-1-a924c86632f2518e",
+    "section_title": "36. 三种机制对比",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "机制",
+      "条件违反时"
+    ],
+    "row_text": [
+      "assert(false)assert enabled 时终止；可能被禁用",
+      "std::terminate()明确定义为程序终止",
+      "std::unreachable()执行到即 UB"
+    ]
+  },
+  {
+    "table": "FM-2-T01",
+    "section": "FM-2-a8eafe624a0489f9",
+    "section_title": "11. Monadic Composition",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "操作",
+      "用途",
+      "不应忽略的条件"
+    ],
+    "row_text": [
+      "transform转换成功值错误传播及结果类型必须可构造",
+      "and_then下一步也返回 expected保持 error_type",
+      "transform_error显式转换错误域转换后的错误类型及成功值传播必须有效",
+      "or_else失败分支返回另一个 expected保持 value_type；是否恢复成功仍由策略决定"
+    ]
+  },
+  {
+    "table": "FM-2-T02",
+    "section": "FM-2-3b76e2dec27c8455",
+    "section_title": "12. .value() 与 operator*",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "访问",
+      "条件与失败行为"
+    ],
+    "row_text": [
+      "value() & / value() const &Mandates 要求 E 可复制构造；无值时构造并抛出 bad_expected_access<E>",
+      "value() && / value() const &&同样要求 E 可复制，另须能从该重载的 std::move(error()) 构造 E",
+      "operator* / operator->使用前须已确立 has_value() == true；不是带运行时错误报告的检查访问",
+      "error()使用前须已确立 has_value() == false"
+    ]
+  },
+  {
+    "table": "FM-4-T01",
+    "section": "FM-4-1f1854d656197f68",
+    "section_title": "7. Commit Point",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "阶段",
+      "状态与责任",
+      "失败时可以声称什么"
+    ],
+    "row_text": [
+      "S0：进入state 满足不变量，明确受保护的观察范围前置条件不成立的调用不在此证明内",
+      "S1：build_statenext 独立构造；state 尚未被改动只有构造及清理满足条件，才可丢弃临时状态并保持旧 state",
+      "S2：swap 提交满足 swap 前提，且它确实完成、不半途报错成功后新 state 生效；noexcept 一项不足以证明 no-fail",
+      "S3：返回／清理旧状态由 next 管理，调用者接收完成结果若仍能报告失败，就不能同时许诺该失败意味着旧状态不变"
+    ]
+  },
+  {
+    "table": "FM-5-T01",
+    "section": "FM-5-8d837cbca6323413",
+    "section_title": "10. std::move_if_noexcept",
+    "layout": "records",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型条件",
+      "返回类型"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "类型条件",
+        "value": "!std::is_nothrow_move_constructible_v<T> && std::is_copy_constructible_v<T>"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "返回类型",
+        "value": "const T&"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "类型条件",
+        "value": "其他情况"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "返回类型",
+        "value": "T&&"
+      }
+    ],
+    "row_text": [
+      "表 1 · 记录 1类型条件!std::is_nothrow_move_constructible_v<T> && std::is_copy_constructible_v<T>返回类型const T&",
+      "表 1 · 记录 2 · 其他情况类型条件其他情况返回类型T&&"
+    ],
+    "record_titles": [
+      "表 1 · 记录 1",
+      "表 1 · 记录 2 · 其他情况"
+    ]
+  },
+  {
+    "table": "FM-5-T02",
+    "section": "FM-5-67b04c2dd9b83e9a",
+    "section_title": "11. Move-Only + Throwing Move",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "操作与条件",
+      "N4950 中可依赖的范围"
+    ],
+    "row_text": [
+      "vector::reserve通常异常时无效果；非 Cpp17CopyInsertable 类型的移动构造抛异常，是该无效果保证的明确例外",
+      "vector 末尾插入单个元素，T 为 Cpp17CopyInsertable 或可不抛异常地从 T&& 构造异常时无效果",
+      "插入条款的其他情形中，非 Cpp17CopyInsertable T 的移动构造抛异常effects unspecified，不能自行改写为 basic guarantee"
+    ]
+  },
+  {
+    "table": "FM-8-T01",
+    "section": "FM-8-659a80c73a7359a4",
+    "section_title": "10. Timeout ≠ Cancellation ≠ Failure",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "概念",
+      "当前能知道什么",
+      "不能据此推断什么"
+    ],
+    "row_text": [
+      "Timeout在约定截止期内没有观察到所需完成结果操作没有执行、没有提交或之后不会完成",
+      "Cancellation request请求停止／撤回后续工作对方已停止、清理已完成或副作用已撤销",
+      "Failure没有达到所要求的成功结果，或观察到具体失败不变量必然已坏，或一定可以原样重试"
+    ]
+  },
+  {
+    "table": "FM-9-T01",
+    "section": "FM-9-7d0e555b357a100e",
+    "section_title": "3. 推荐 Layer Policy",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Layer",
+      "默认 Failure Style"
+    ],
+    "row_text": [
+      "Parser / Validationstd::expected<T, E>",
+      "Domain lookupstd::optional<T> / expected",
+      "Core trusted algorithmsPreconditions + assertions",
+      "Resource wrappersRAII + constructor/factory",
+      "OS abstractionerror_code / expected",
+      "Application orchestrationexpected 或 exception，根据项目统一政策",
+      "Thread entryCatch/contain unexpected exception",
+      "C/plugin ABIExplicit status/error object",
+      "RPC boundarySerialized structured errors",
+      "Fatal invariant boundaryFail-fast"
+    ]
+  },
+  {
+    "table": "FM-9-T02",
+    "section": "FM-9-c5d6e97e4949db87",
+    "section_title": "9. State Guarantee Policy",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "合同内容"
+    ],
+    "row_text": [
+      "失败后状态strong、basic、明确部分进度或其他具体语义",
+      "异常传播是否允许异常越界；是否具有 noexcept 规格",
+      "资源与所有权失败后资源属于谁，哪些清理动作有保证",
+      "终局策略无法继续时升级、重启或终止的范围"
+    ]
+  }
+]

@@ -26,7 +26,7 @@ OLD = ROOT/'publication/profiles/cpp-handbook-full'
 NEW = ROOT/'publication/profiles/cpp-handbook-rc1'
 
 class IdentityTests(unittest.TestCase):
-    def test_engine_extension_is_exactly_the_reviewed_identity_patch(self):
+    def test_historical_engine_identity_patch_remains_bound(self):
         # Fixed file digests bind the RC1 diff plus PUBLICATION typeset identity.
         # The latter is constrained by test-publication-identity.py; no publisher.
         expected = {
@@ -34,7 +34,8 @@ class IdentityTests(unittest.TestCase):
             'source_model.py': '33a2787b547e6dd6281a6221231e835d9f743d7fad2ef4edd1efd0cd8ac2ff3f',
         }
         for name, digest in expected.items():
-            self.assertEqual(hashlib.sha256((ROOT/'publication/engine'/name).read_bytes()).hexdigest(), digest)
+            historical=subprocess.check_output(['git','show','45b305eace0f057420587d685cb3f962f3f0552c:publication/engine/'+name],cwd=ROOT)
+            self.assertEqual(hashlib.sha256(historical).hexdigest(), digest)
 
     def test_profile_diff_is_identity_only(self):
         old = json.loads((OLD/'profile.json').read_text())

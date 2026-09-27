@@ -1,0 +1,13 @@
+test_declared_warning_preserves_exact_label_and_code (__main__.FailureModelTests.test_declared_warning_preserves_exact_label_and_code) ... ok
+test_exact_payload_and_anchor_positions (__main__.FailureModelTests.test_exact_payload_and_anchor_positions) ... ok
+test_existing_products_composition_unchanged (__main__.FailureModelTests.test_existing_products_composition_unchanged) ... ok
+test_lua_produces_clickable_label_not_only_destination (__main__.FailureModelTests.test_lua_produces_clickable_label_not_only_destination) ... ok
+test_unicode_numeric_duplicate_targets_are_block_local (__main__.FailureModelTests.test_unicode_numeric_duplicate_targets_are_block_local) ... ok
+test_unknown_html_and_unconsumed_marker_rejected (__main__.FailureModelTests.test_unknown_html_and_unconsumed_marker_rejected) ... ok
+test_gfm_parser_is_bound_to_input_identity (__main__.ParserPreparationTests.test_gfm_parser_is_bound_to_input_identity) ... ok
+test_unknown_parser_rejected (__main__.ParserPreparationTests.test_unknown_parser_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.622s
+
+OK

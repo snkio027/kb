@@ -54,6 +54,8 @@ def snapshot(root_fd, profile, views, pub):
         raise pub.PreparationError('unsupported profile identity/schema')
     if not config.get('sources') or not config.get('views'):
         raise pub.PreparationError('profile requires sources and views')
+    if config.get('source_format', 'markdown-smart') not in ('markdown-smart', 'gfm'):
+        raise pub.PreparationError('unsupported source parser')
     # PUBLICATION is a typeset identity, not a publish operation or approval.
     if config.get('artifact_channel', 'PREVIEW') not in ('PREVIEW', 'RELEASE_CANDIDATE', 'PUBLICATION'):
         raise pub.PreparationError('unsupported artifact channel; formal publication stays closed')

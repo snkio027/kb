@@ -1,0 +1,54 @@
+[
+  {
+    "attempt": "publication/build/preview/0df0160da0254cd9874b33bedcd0d29a842e3c8fb3ce35e012a555f94d41a248/7fdcd61296a14248ad762bc514699128",
+    "preparation_id": "0df0160da0254cd9874b33bedcd0d29a842e3c8fb3ce35e012a555f94d41a248",
+    "result": {
+      "artifacts": {
+        "output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "22df287fbf8ec715d9416cc779ca1541d761e41247b899c08a8e808c045786f7"
+      },
+      "audit_sha256": "f56d4bf796d5ae022654d595e9d6eda17948da8aa4bb94450252891a279b05ef",
+      "checks": "See work/preview-audit.json",
+      "commit_protocol": "file-fsync-then-no-replace-link-v1",
+      "execution_id": "1da4c4c3cc53bc282270532c3615e0311e2be025b69630ea7a50d8e50f53f6b6",
+      "meaning": "Draft reading artifacts; not formal publication or visual approval",
+      "schema_version": 1,
+      "status": "PREVIEW_READY"
+    },
+    "selected": false
+  },
+  {
+    "attempt": "publication/build/preview/1287f253086f373837f5303663549f802a99b57fb97be09169f89633e155b3a9/1352cb20fe0b41c7bfbab6ebbba57c37",
+    "preparation_id": "1287f253086f373837f5303663549f802a99b57fb97be09169f89633e155b3a9",
+    "result": {
+      "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/1287f253086f373837f5303663549f802a99b57fb97be09169f89633e155b3a9/1352cb20fe0b41c7bfbab6ebbba57c37/work/worker.log",
+      "status": "FAILED"
+    },
+    "selected": false
+  },
+  {
+    "attempt": "publication/build/preview/885cfe4d1f093f709f894087ed2453f47ad45caed94d670ff19d8879f4ac49e8/9573dbbe21c34a1ca5a910060c724d1e",
+    "preparation_id": "885cfe4d1f093f709f894087ed2453f47ad45caed94d670ff19d8879f4ac49e8",
+    "result": {
+      "diagnostic": "preview worker exited 1; see /Users/nekoreb/Workspace/03_Projects/kb/publication/build/preview/885cfe4d1f093f709f894087ed2453f47ad45caed94d670ff19d8879f4ac49e8/9573dbbe21c34a1ca5a910060c724d1e/work/worker.log",
+      "status": "FAILED"
+    },
+    "selected": false
+  },
+  {
+    "attempt": "publication/build/preview/c79dfba6f1c447c96adac7d46389bf631412a6ebaa54dd469e47d3b05ae15bb1/01f60e4dd90347dd8632b5aafb8c7022",
+    "preparation_id": "c79dfba6f1c447c96adac7d46389bf631412a6ebaa54dd469e47d3b05ae15bb1",
+    "result": {
+      "artifacts": {
+        "output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c"
+      },
+      "audit_sha256": "0ab673a5282f1bdb99f3a896f65851894c948220818d930f72739944f7cc7223",
+      "checks": "See work/preview-audit.json",
+      "commit_protocol": "file-fsync-then-no-replace-link-v1",
+      "execution_id": "3ae7f19a40eb79cc773ff3a7da97d539d4606a2f790507f11e5326f066928921",
+      "meaning": "Draft reading artifacts; not formal publication or visual approval",
+      "schema_version": 1,
+      "status": "PREVIEW_READY"
+    },
+    "selected": true
+  }
+]

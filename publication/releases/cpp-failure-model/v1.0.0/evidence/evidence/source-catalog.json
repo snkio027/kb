@@ -1,0 +1,2127 @@
+[
+  {
+    "source": {
+      "bytes": 11169,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-GUIDE",
+      "matches_commit": true,
+      "path": "c++/failure-model/series-guide.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "93c63386c5bd733abbda857eba68d4a67d59ff712d94680ddca6209290c4fb8c",
+      "snapshot_path": "sources/c++/failure-model/series-guide.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-GUIDE",
+      "title": "FM 系列阅读约定：术语、状态与证据",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-系列阅读约定术语状态与证据": "FM-GUIDE-b7872f4229a1673f",
+      "1-一次操作而不是一个语言特性": "FM-GUIDE-aa2ce3b61e6b6a62",
+      "2-统一词义与主讲位置": "FM-GUIDE-d11ace2645d1d849",
+      "21-原因状态表示与传播": "FM-GUIDE-1493dc3e5ff9c6d5",
+      "22-清理回滚与恢复": "FM-GUIDE-7d7e2d2fb1b8a29d",
+      "23-保证不是一条从失败到终止的等级线": "FM-GUIDE-3c1db2f586f6078f",
+      "3-沿状态转换审查而不是只标注可能-throw": "FM-GUIDE-ee83f285c6a88929",
+      "4-公共审查合同与章节增量": "FM-GUIDE-8dd36dff304a1a30",
+      "5-技术论述与证据的阅读规则": "FM-GUIDE-c9567a6c9e37d76e",
+      "review-contract": "FM-GUIDE-1f6f8462da64b658"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "review-contract",
+        "target_type": "Para",
+        "target_text": "全系列共用以下八项问题。各章末尾的 checklist 只承担主题增量；不必让十篇分别复制完整表。"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/series-guide.md"
+  },
+  {
+    "source": {
+      "bytes": 42265,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-0",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "snapshot_path": "sources/c++/failure-model/fm0-failure-model.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-0",
+      "title": "FM-0 · 统一失败模型",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-0--统一失败模型": "FM-0-b9b182f4f9b71dbc",
+      "阅读入口": "FM-0-3ed1813ed946a77f",
+      "本章目录": "FM-0-c4ed38ba960e2ea1",
+      "一操作与基本词义": "FM-0-48a0dd58267db73f",
+      "0-文档定位": "FM-0-877e769d9f0e706d",
+      "1-核心原则": "FM-0-21d699376fdcb97d",
+      "2-failure-不等于-exception": "FM-0-b2d022327921354b",
+      "3-fault--error--failure": "FM-0-156584dc1d68bd28",
+      "二责任分类": "FM-0-c8dbf27aa6e8dcd3",
+      "4-第一维失败责任分类": "FM-0-07b4a750d8a2e127",
+      "5-domain-outcome": "FM-0-0eddf8991d527109",
+      "6-environmental-failure": "FM-0-1860f629dce239ea",
+      "7-programmer-error": "FM-0-7a0b22600a227253",
+      "8-表面相同的错误可能属于不同类别": "FM-0-3269b68a37bf4520",
+      "三检测传播与恢复": "FM-0-bca49bc97e00ff8e",
+      "9-detection--representation--translation--propagation": "FM-0-dcf5cf6834c42cbc",
+      "10-detection": "FM-0-74b2dfd3819bfc9e",
+      "11-representation": "FM-0-b2575519468be6d9",
+      "12-error-translation": "FM-0-2f232ea1c2c000ce",
+      "13-propagation": "FM-0-1937b628470d4248",
+      "14-handling-不等于-recovery": "FM-0-64b5c5df8b5b4e99",
+      "15-handling": "FM-0-f13b402738bd9ba7",
+      "16-recovery": "FM-0-f8aac9a5b8dd71de",
+      "17-recovery-boundary": "FM-0-c8a6be41047557f0",
+      "18-recovery-boundary-原则": "FM-0-2e5fe2d6263bbfd2",
+      "19-不要让底层擅自决定-retry": "FM-0-f1d10c78eb026736",
+      "四边界与影响范围": "FM-0-dfaa6f17b87c5f39",
+      "20-failure-domain": "FM-0-58cccafa1d84c5aa",
+      "21-request-level-failure-domain": "FM-0-dc32c8532b631802",
+      "22-task-level-failure-domain": "FM-0-cd3df9d43b8619d3",
+      "23-subsystem-level-failure-domain": "FM-0-a5ba40d1755630dc",
+      "24-process-level-failure-domain": "FM-0-1559a82721f0f6fc",
+      "25-recovery-boundary-与-failure-boundary": "FM-0-66e87a27d6249327",
+      "26-c-abi-boundary": "FM-0-64d2bc9c2161be07",
+      "27-thread-boundary": "FM-0-7efbf11520eb75ae",
+      "五相互独立的分析维度": "FM-0-5814415b853bb804",
+      "28-第二维failure-representation": "FM-0-227448d3afe01c07",
+      "29-第三维state-guarantee": "FM-0-8a59d140a1820eea",
+      "30-strong-guarantee": "FM-0-2489628c6fd35b68",
+      "31-basic-guarantee": "FM-0-dd2dcd2c8f72bc33",
+      "32-no-useful-guarantee": "FM-0-83ffd0d02b453009",
+      "33-state-guarantee-与-error-transport-正交": "FM-0-0c83328825445417",
+      "34-第四维failure-frequency": "FM-0-75d8322c5a5201bc",
+      "35-common-outcome": "FM-0-4423c8587364bc00",
+      "36-rare-failure": "FM-0-874ae5be8d5b74d9",
+      "37-catastrophic-failure": "FM-0-487926dfcc493746",
+      "38-第五维resource-guarantee": "FM-0-07092d94f14cded9",
+      "39-raii-的-failure-model-含义": "FM-0-5b10119cb18a64fd",
+      "六把模型用于实际场景": "FM-0-c31687613a86bf86",
+      "40-complete-failure-pipeline": "FM-0-2e7b63d54012d208",
+      "41-示例文件读取": "FM-0-9fe0f881e67ed602",
+      "42-示例binary-parser": "FM-0-dc60ea134e430266",
+      "43-示例内部-decode-table": "FM-0-5fd30de57fcbdfc5",
+      "44-示例数据处理-pipeline": "FM-0-5ca0d84fb5092d8c",
+      "45-failure-model-的二维底图": "FM-0-f2771c2cbc5f155e",
+      "七接口合同与反例": "FM-0-370d0d2a525bedc8",
+      "46-api-failure-contract": "FM-0-277e343a4920c91a",
+      "47-api-review-template": "FM-0-fc6c0aabcb18da82",
+      "48-decision-baseline": "FM-0-b36ef148e78b9fa0",
+      "49-anti-patterns": "FM-0-6a613a2ad5f17725",
+      "八系统状态与副作用": "FM-0-461cc59440e669de",
+      "50-failure-model-与-logging": "FM-0-c67dade1d37b6dc2",
+      "51-failure-model-与-observability": "FM-0-bef06879b1277132",
+      "52-failure-model-与-context": "FM-0-7f24418a2271ea25",
+      "53-failure-model-与-shutdown": "FM-0-1110ff27ae7b13e5",
+      "54-failure-model-与-cancellation": "FM-0-c82f4e15786777e3",
+      "55-failure-model-与-idempotency": "FM-0-35fb5df9250d424c",
+      "56-failure-model-与-partial-commit": "FM-0-fa53a619443729bd",
+      "57-failure-model-与-ownership": "FM-0-3c71460c32c3792f",
+      "58-failure-model-与-move": "FM-0-9cb26d1dcd3e081b",
+      "九项目交接与回查": "FM-0-34a4f94ee43e75bc",
+      "59-设计层次": "FM-0-28e11f5ca75465ca",
+      "60-项目级-failure-profile": "FM-0-d50622a4f9e75a31",
+      "61-failure-model-的核心不变量": "FM-0-eedfd9dd8d01cbf3",
+      "62-最终心智模型": "FM-0-7dc63c396b0781d3",
+      "63-fm-0-review-checklist": "FM-0-1c2302095170071c",
+      "64-fm-0-压缩版": "FM-0-f663034ded6524e6",
+      "65-后续学习位置": "FM-0-39b67202b74153e5",
+      "fm-0--modern-c-failure-model": "FM-0-9573521108fe5252",
+      "fm0-part-1": "FM-0-29a7a3805e61ad55",
+      "21-failure": "FM-0-78185b01a64f451e",
+      "22-exception": "FM-0-5205ce827305f879",
+      "31-fault": "FM-0-e6df79cb0c39a9a1",
+      "32-error": "FM-0-1ea7bd25874f6b65",
+      "33-failure": "FM-0-23a1613c2f655518",
+      "fm0-part-2": "FM-0-91e205740b2776f6",
+      "51-optional-的语义": "FM-0-57293042a4fc756d",
+      "外部输入": "FM-0-35a0a0e967241816",
+      "内部索引": "FM-0-a076c16590ada3bc",
+      "原则": "FM-0-e6384697762471e1",
+      "fm0-part-3": "FM-0-846b337a158cf2e7",
+      "121-translation-原则": "FM-0-e5e0edcde8e86d01",
+      "161-recovery-必须知道状态": "FM-0-611c71cec0b11bc7",
+      "filereader": "FM-0-c70cb45d37065558",
+      "configrepository": "FM-0-a7dde463e1d2b57b",
+      "application": "FM-0-1fe289205936c3fd",
+      "fm0-part-4": "FM-0-94c7b5bd74e8510a",
+      "recovery-boundary": "FM-0-9c9d05cc3872afe8",
+      "failure-boundary": "FM-0-80ffdd55e8e66c19",
+      "fm0-part-5": "FM-0-19ff2ebd32bae932",
+      "fm0-part-6": "FM-0-614bf6a6581956c3",
+      "detection": "FM-0-dad9a79bf7094d4e",
+      "low-level-representation": "FM-0-d49afc99d2064bdb",
+      "translation": "FM-0-839cd11692e82b35",
+      "propagation": "FM-0-4cab3438b86b8f98",
+      "recovery-boundary-1": "FM-0-89f49585dc9a1b44",
+      "failure-domain": "FM-0-e8c9c5c148481002",
+      "fm0-part-7": "FM-0-16718f487e380599",
+      "preconditions": "FM-0-22384b88664c39ad",
+      "success-postconditions": "FM-0-62d4f16f5359331c",
+      "failure-set": "FM-0-43ce9a31d2e57afb",
+      "representation": "FM-0-a8ad1f5f2bb3f4c7",
+      "state-guarantee": "FM-0-dcdf0717c4e80279",
+      "resource-guarantee": "FM-0-6c900a41545c39a0",
+      "recovery-responsibility": "FM-0-dd92bfbf7cca3426",
+      "1-success": "FM-0-3a81b28791a3ee3c",
+      "2-preconditions": "FM-0-3bb2569fd209d1ad",
+      "3-domain-outcomes": "FM-0-7e33cf5080ec9d08",
+      "4-environmental-failures": "FM-0-d8d538cd1eb8aa76",
+      "5-programmer-errors": "FM-0-13c805574a19f0d4",
+      "6-detection": "FM-0-db1fb7c3bf9ea1dd",
+      "7-representation": "FM-0-8f90a981cd6e67d6",
+      "8-translation": "FM-0-869250681624ea8d",
+      "9-propagation": "FM-0-d2bd881670fae81a",
+      "10-recovery-boundary": "FM-0-6a2429c717d8ebe6",
+      "11-recovery-policy": "FM-0-9d064046ba2ca215",
+      "12-state-guarantee": "FM-0-a490b000060465f2",
+      "13-resource-guarantee": "FM-0-9e0cbdcf537bb437",
+      "14-failure-domain": "FM-0-a134365d889303a3",
+      "15-frequency": "FM-0-79741e5dcf080eda",
+      "16-terminal-behavior": "FM-0-799f6dfcaa43a09e",
+      "491-catch-and-continue": "FM-0-968aa8ff868777f6",
+      "492-catch-all-too-low": "FM-0-f4f57373288ffd12",
+      "493-assert-external-input": "FM-0-3430ee7e8daacadf",
+      "494-expected-for-impossible-internal-state": "FM-0-ea36d51ae19e3815",
+      "495-low-level-retry-without-context": "FM-0-d01f35adfb9a8523",
+      "496-translate-every-layer": "FM-0-5df030e3f8f83b77",
+      "497-error-string-as-error-model": "FM-0-bcbc4f413f387471",
+      "fm0-part-8": "FM-0-fe34f20661f7010d",
+      "fm0-part-9": "FM-0-d04659c9fcce12f6",
+      "layer-1--local-api-contract": "FM-0-ad086aaed5990242",
+      "layer-2--subsystem-failure-policy": "FM-0-320e8c31a527c6d8",
+      "layer-3--application-failure-policy": "FM-0-37f9f86f973f691a",
+      "fm-i1": "FM-0-2f9d5bb6dbef93d4",
+      "fm-i2": "FM-0-729929ab65a4d48d",
+      "fm-i3": "FM-0-b04ea9e242129269",
+      "fm-i4": "FM-0-59760205d62bcba9",
+      "fm-i5": "FM-0-a065bda533b24421",
+      "fm-i6": "FM-0-381bb3a08214af14",
+      "fm-i7": "FM-0-c40898df7bd9a5b7",
+      "fm-i8": "FM-0-e3ad5bb71f03f167",
+      "fm-i9": "FM-0-5866c3cfa33d6999",
+      "fm-i10": "FM-0-21a3a831e03b469b",
+      "fm-i11": "FM-0-7ed043ae409bea48",
+      "fm-i12": "FM-0-f0ac54889c4fe3d2",
+      "fm-i13": "FM-0-0da2f86035656a18",
+      "fm-i14": "FM-0-006c799ac256d04e",
+      "fm-i15": "FM-0-822dc18ab87299bf"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-0--modern-c-failure-model",
+        "target_type": "Header",
+        "target_text": "FM-0 · 统一失败模型"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-1",
+        "target_type": "Header",
+        "target_text": "一、操作与基本词义"
+      },
+      {
+        "kind": "source-target",
+        "id": "21-failure",
+        "target_type": "Para",
+        "target_text": "2.1 Failure"
+      },
+      {
+        "kind": "source-target",
+        "id": "22-exception",
+        "target_type": "Para",
+        "target_text": "2.2 Exception"
+      },
+      {
+        "kind": "source-target",
+        "id": "31-fault",
+        "target_type": "Para",
+        "target_text": "3.1 Fault"
+      },
+      {
+        "kind": "source-target",
+        "id": "32-error",
+        "target_type": "Para",
+        "target_text": "3.2 Error"
+      },
+      {
+        "kind": "source-target",
+        "id": "33-failure",
+        "target_type": "Para",
+        "target_text": "3.3 Failure"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-2",
+        "target_type": "Header",
+        "target_text": "二、责任分类"
+      },
+      {
+        "kind": "source-target",
+        "id": "51-optional-的语义",
+        "target_type": "Para",
+        "target_text": "5.1 optional 的语义"
+      },
+      {
+        "kind": "source-target",
+        "id": "外部输入",
+        "target_type": "Para",
+        "target_text": "外部输入"
+      },
+      {
+        "kind": "source-target",
+        "id": "内部索引",
+        "target_type": "Para",
+        "target_text": "内部索引"
+      },
+      {
+        "kind": "source-target",
+        "id": "原则",
+        "target_type": "Para",
+        "target_text": "原则"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-3",
+        "target_type": "Header",
+        "target_text": "三、检测、传播与恢复"
+      },
+      {
+        "kind": "source-target",
+        "id": "121-translation-原则",
+        "target_type": "Para",
+        "target_text": "12.1 Translation 原则"
+      },
+      {
+        "kind": "source-target",
+        "id": "161-recovery-必须知道状态",
+        "target_type": "Para",
+        "target_text": "16.1 Recovery 必须知道状态"
+      },
+      {
+        "kind": "source-target",
+        "id": "filereader",
+        "target_type": "Para",
+        "target_text": "FileReader"
+      },
+      {
+        "kind": "source-target",
+        "id": "configrepository",
+        "target_type": "Para",
+        "target_text": "ConfigRepository"
+      },
+      {
+        "kind": "source-target",
+        "id": "application",
+        "target_type": "Para",
+        "target_text": "Application"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-4",
+        "target_type": "Header",
+        "target_text": "四、边界与影响范围"
+      },
+      {
+        "kind": "source-target",
+        "id": "recovery-boundary",
+        "target_type": "Para",
+        "target_text": "Recovery Boundary"
+      },
+      {
+        "kind": "source-target",
+        "id": "failure-boundary",
+        "target_type": "Para",
+        "target_text": "Failure Boundary"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-5",
+        "target_type": "Header",
+        "target_text": "五、相互独立的分析维度"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-6",
+        "target_type": "Header",
+        "target_text": "六、把模型用于实际场景"
+      },
+      {
+        "kind": "source-target",
+        "id": "detection",
+        "target_type": "Para",
+        "target_text": "Detection"
+      },
+      {
+        "kind": "source-target",
+        "id": "low-level-representation",
+        "target_type": "Para",
+        "target_text": "Low-level representation"
+      },
+      {
+        "kind": "source-target",
+        "id": "translation",
+        "target_type": "Para",
+        "target_text": "Translation"
+      },
+      {
+        "kind": "source-target",
+        "id": "propagation",
+        "target_type": "Para",
+        "target_text": "Propagation"
+      },
+      {
+        "kind": "source-target",
+        "id": "recovery-boundary-1",
+        "target_type": "Para",
+        "target_text": "Recovery boundary"
+      },
+      {
+        "kind": "source-target",
+        "id": "failure-domain",
+        "target_type": "Para",
+        "target_text": "Failure domain"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-7",
+        "target_type": "Header",
+        "target_text": "七、接口合同与反例"
+      },
+      {
+        "kind": "source-target",
+        "id": "preconditions",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "success-postconditions",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "failure-set",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "representation",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "state-guarantee",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "resource-guarantee",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "recovery-responsibility",
+        "target_type": "Para",
+        "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+      },
+      {
+        "kind": "source-target",
+        "id": "1-success",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "2-preconditions",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "3-domain-outcomes",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "4-environmental-failures",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "5-programmer-errors",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "6-detection",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "7-representation",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "8-translation",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "9-propagation",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "10-recovery-boundary",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "11-recovery-policy",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "12-state-guarantee",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "13-resource-guarantee",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "14-failure-domain",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "15-frequency",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "16-terminal-behavior",
+        "target_type": "Para",
+        "target_text": "对接口："
+      },
+      {
+        "kind": "source-target",
+        "id": "491-catch-and-continue",
+        "target_type": "Para",
+        "target_text": "49.1 Catch and Continue"
+      },
+      {
+        "kind": "source-target",
+        "id": "492-catch-all-too-low",
+        "target_type": "Para",
+        "target_text": "49.2 Catch All Too Low"
+      },
+      {
+        "kind": "source-target",
+        "id": "493-assert-external-input",
+        "target_type": "Para",
+        "target_text": "49.3 Assert External Input"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 91,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "494-expected-for-impossible-internal-state",
+        "target_type": "Para",
+        "target_text": "49.4 Expected for Impossible Internal State"
+      },
+      {
+        "kind": "source-target",
+        "id": "495-low-level-retry-without-context",
+        "target_type": "Para",
+        "target_text": "49.5 Low-Level Retry Without Context"
+      },
+      {
+        "kind": "source-target",
+        "id": "496-translate-every-layer",
+        "target_type": "Para",
+        "target_text": "49.6 Translate Every Layer"
+      },
+      {
+        "kind": "source-target",
+        "id": "497-error-string-as-error-model",
+        "target_type": "Para",
+        "target_text": "49.7 Error String as Error Model"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-8",
+        "target_type": "Header",
+        "target_text": "八、系统状态与副作用"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm0-part-9",
+        "target_type": "Header",
+        "target_text": "九、项目交接与回查"
+      },
+      {
+        "kind": "source-target",
+        "id": "layer-1--local-api-contract",
+        "target_type": "Para",
+        "target_text": "Layer 1 — Local API Contract"
+      },
+      {
+        "kind": "source-target",
+        "id": "layer-2--subsystem-failure-policy",
+        "target_type": "Para",
+        "target_text": "Layer 2 — Subsystem Failure Policy"
+      },
+      {
+        "kind": "source-target",
+        "id": "layer-3--application-failure-policy",
+        "target_type": "Para",
+        "target_text": "Layer 3 — Application Failure Policy"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i1",
+        "target_type": "Para",
+        "target_text": "FM-I1"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i2",
+        "target_type": "Para",
+        "target_text": "FM-I2"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i3",
+        "target_type": "Para",
+        "target_text": "FM-I3"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i4",
+        "target_type": "Para",
+        "target_text": "FM-I4"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i5",
+        "target_type": "Para",
+        "target_text": "FM-I5"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i6",
+        "target_type": "Para",
+        "target_text": "FM-I6"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i7",
+        "target_type": "Para",
+        "target_text": "FM-I7"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i8",
+        "target_type": "Para",
+        "target_text": "FM-I8"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i9",
+        "target_type": "Para",
+        "target_text": "FM-I9"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i10",
+        "target_type": "Para",
+        "target_text": "FM-I10"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i11",
+        "target_type": "Para",
+        "target_text": "FM-I11"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i12",
+        "target_type": "Para",
+        "target_text": "FM-I12"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i13",
+        "target_type": "Para",
+        "target_text": "FM-I13"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i14",
+        "target_type": "Para",
+        "target_text": "FM-I14"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm-i15",
+        "target_type": "Para",
+        "target_text": "FM-I15"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm0-failure-model.md"
+  },
+  {
+    "source": {
+      "bytes": 28861,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-1",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "snapshot_path": "sources/c++/failure-model/fm1-contracts-assertions-ub.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-1",
+      "title": "FM-1 · 契约与可信边界",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-1--契约与可信边界": "FM-1-50e1b7f8a9ad65c5",
+      "阅读入口": "FM-1-3ed1813ed946a77f",
+      "本章目录": "FM-1-c4ed38ba960e2ea1",
+      "一合同与责任": "FM-1-3a4096bce8b14a62",
+      "0-文档定位": "FM-1-877e769d9f0e706d",
+      "1-contract-是什么": "FM-1-7cd56137d1aeab7c",
+      "2-preconditions": "FM-1-3bb2569fd209d1ad",
+      "3-postconditions": "FM-1-6c1b8cf011a3fac1",
+      "4-invariants": "FM-1-fd3bac9d9e1ebc94",
+      "5-contract-的责任方向": "FM-1-5c081acb8902dec0",
+      "6-runtime-failure-与-contract-violation": "FM-1-1b3dc24d2edce795",
+      "7-判断标准": "FM-1-3a585723ff8ac83b",
+      "8-核心问题": "FM-1-b6805a948ea98f92",
+      "二验证边界与断言": "FM-1-ecd1a3ab4648f645",
+      "9-validation": "FM-1-5ce042e8272d9e69",
+      "10-assertion": "FM-1-9eaf3586dced0572",
+      "11-validation-与-assertion-的工程区分": "FM-1-df6f99ee4b01205b",
+      "12-assert": "FM-1-606c4b64c2a830d1",
+      "13-ndebug": "FM-1-a5f4ceda42091c6b",
+      "14-assertion-不得承载必要副作用": "FM-1-3cc4906752a25bb6",
+      "15-assert-不适合处理外部输入": "FM-1-2d0c8aa0e54cfa5c",
+      "16-validation-boundary": "FM-1-6ced61bc83fc6c7a",
+      "17-validate-oncetrust-afterwards": "FM-1-5a32e186c85a59a0",
+      "18-checked-boundary--trusted-core": "FM-1-b3d1b428412ee826",
+      "三检查访问与未定义行为": "FM-1-ab0887b961569e25",
+      "19-operator-与-at": "FM-1-b1e58f25f1c2fc97",
+      "20-checked-与-unchecked-api-都有合理用途": "FM-1-8dbb012be6919e2b",
+      "21-undefined-behavior": "FM-1-54a3aecaf21ffe08",
+      "22-ub-可能产生什么结果": "FM-1-a4156f4c0887d0c7",
+      "23-ub-与-runtime-error-的根本区别": "FM-1-0c066a06e7d6cfcd",
+      "24-ub-会影响优化推理": "FM-1-a22fae19c14e2338",
+      "25-assert-与-ub": "FM-1-8180f2acb3f4a60c",
+      "26-assertion-不会改变-api-contract": "FM-1-f910478f629bf8fa",
+      "27-常见-ub-来源": "FM-1-1c935aef55b34cd3",
+      "28-为什么-c-允许-contract-based-unchecked-operations": "FM-1-8962328549423b73",
+      "四终止与不可达承诺": "FM-1-4152045163d1c689",
+      "29-fail-fast": "FM-1-13b5c187b29fc607",
+      "30-fail-fast-不等于-ub": "FM-1-96650c3560bd0f7a",
+      "31-debug-assertion-与-production-check": "FM-1-824ad16df4083a46",
+      "32-assertion-与-production-invariant-check": "FM-1-4aa8b6abf9f4afb4",
+      "33-stdterminate": "FM-1-c7dfc3655fc9285c",
+      "34-stdunreachable--c23": "FM-1-613d4ea224f23605",
+      "35-stdunreachable-不是-fail-fast": "FM-1-95409f80519df98f",
+      "36-三种机制对比": "FM-1-a924c86632f2518e",
+      "37-stdunreachable-的使用原则": "FM-1-e3f149063b6b2a29",
+      "五可信表示与类型设计": "FM-1-87db7f9cfc440394",
+      "38-internal-不等于-trusted": "FM-1-70ea05066679e953",
+      "39-信任应该建立在-boundary-上": "FM-1-0d2afb2eb2abe24d",
+      "40-type-as-invariant": "FM-1-c56e4a7d6a5cceee",
+      "41-invalid-states-should-be-hard-to-represent": "FM-1-b707680a773fdc30",
+      "42-优先级": "FM-1-5bacf83f1d76004f",
+      "43-engineering-decision-model": "FM-1-4df34009bf7f98fd",
+      "44-api-design-pattern": "FM-1-644a3a7fe653b9af",
+      "六反例与回查": "FM-1-c0f77332ae99fb3e",
+      "45-anti-patterns": "FM-1-53bc062f1c3cdac8",
+      "46-review-checklist": "FM-1-823070783e652c80",
+      "47-fm-1-核心不变量": "FM-1-12e9b555eaf506d1",
+      "48-最终心智模型": "FM-1-9cfe04c645cf729b",
+      "49-fm-1-最终压缩": "FM-1-10c244b3ab37579e",
+      "fm-1--contracts--preconditions--assertions--undefined-behavior": "FM-1-d5304b3201edc99b",
+      "fm1-part-1": "FM-1-895d0b1a87af484e",
+      "runtime-failure": "FM-1-f0873fc64222c2dc",
+      "contract-violation": "FM-1-e0948bbe0cf0eba8",
+      "外部输入": "FM-1-35a0a0e967241816",
+      "内部已验证状态": "FM-1-098ba48168b66258",
+      "fm1-part-2": "FM-1-c2f8e354c55ea640",
+      "fm1-part-3": "FM-1-308e339ea2e23b24",
+      "operator": "FM-1-06e55b633481f7bb",
+      "at": "FM-1-b1d6b91b67c2afa5",
+      "memory": "FM-1-c064fbca9d9de8dd",
+      "lifetime": "FM-1-6f6a6d94fb43a926",
+      "arithmetic": "FM-1-ca75eaf4e00caa4b",
+      "object-model": "FM-1-43868c34851dcfeb",
+      "concurrency": "FM-1-d1b92de2d2079261",
+      "fm1-part-4": "FM-1-27767c95f2e1c296",
+      "fm1-part-5": "FM-1-0385afbd8a14aa9b",
+      "case-a--外部世界可能不满足": "FM-1-bedadd3711ca95b1",
+      "case-b--api-明确允许任意输入": "FM-1-c7a00bc12b20f7d5",
+      "case-c--调用者必须保证": "FM-1-06343d6a17c4bb86",
+      "case-d--内部逻辑保证成立": "FM-1-8ceeaadef7c08ad3",
+      "case-e--无法恢复且状态可信度已经丢失": "FM-1-8c3ff117884aaf43",
+      "fm1-part-6": "FM-1-fef9b53e8d6d29e9",
+      "451-assert-untrusted-input": "FM-1-1c1e5d9148b455af",
+      "452-depend-on-assert-side-effects": "FM-1-53c8fe6d8a93c1d5",
+      "453-convert-every-programmer-bug-to-expected": "FM-1-23bc47ff44fd0a53",
+      "454-treat-ub-as-fast-error-handling": "FM-1-cb616d9c2f36ce9b",
+      "455-revalidate-everywhere": "FM-1-aa22295944c8d361",
+      "456-blind-stdunreachable": "FM-1-8eb5e24cde58c26a",
+      "fm1-i1": "FM-1-8dc6dd9cc8440e4d",
+      "fm1-i2": "FM-1-6eda9dd13b9a7528",
+      "fm1-i3": "FM-1-e30b2c4a02ec9f00",
+      "fm1-i4": "FM-1-3ee6c47590039b73",
+      "fm1-i5": "FM-1-52e01dbb406de272",
+      "fm1-i6": "FM-1-e3a10042b5bbe289",
+      "fm1-i7": "FM-1-a3274dec7a2e9f82",
+      "fm1-i8": "FM-1-7edc025ccd8f1b2f",
+      "fm1-i9": "FM-1-0957ba3c5f8f1b07",
+      "fm1-i10": "FM-1-608235f7123c17b8",
+      "fm1-i11": "FM-1-7fe2cd63484f83bc",
+      "fm1-i12": "FM-1-45b0fa9e24eada84"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-1--contracts--preconditions--assertions--undefined-behavior",
+        "target_type": "Header",
+        "target_text": "FM-1 · 契约与可信边界"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-1",
+        "target_type": "Header",
+        "target_text": "一、合同与责任"
+      },
+      {
+        "kind": "source-target",
+        "id": "runtime-failure",
+        "target_type": "Para",
+        "target_text": "Runtime Failure"
+      },
+      {
+        "kind": "source-target",
+        "id": "contract-violation",
+        "target_type": "Para",
+        "target_text": "Contract Violation"
+      },
+      {
+        "kind": "source-target",
+        "id": "外部输入",
+        "target_type": "Para",
+        "target_text": "外部输入"
+      },
+      {
+        "kind": "source-target",
+        "id": "内部已验证状态",
+        "target_type": "Para",
+        "target_text": "内部已验证状态"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-2",
+        "target_type": "Header",
+        "target_text": "二、验证边界与断言"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 32,
+        "label": "错误："
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 34,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-3",
+        "target_type": "Header",
+        "target_text": "三、检查访问与未定义行为"
+      },
+      {
+        "kind": "source-target",
+        "id": "operator",
+        "target_type": "Para",
+        "target_text": "operator[]"
+      },
+      {
+        "kind": "source-target",
+        "id": "at",
+        "target_type": "Para",
+        "target_text": "at()"
+      },
+      {
+        "kind": "source-target",
+        "id": "memory",
+        "target_type": "Para",
+        "target_text": "Memory"
+      },
+      {
+        "kind": "source-target",
+        "id": "lifetime",
+        "target_type": "Para",
+        "target_text": "Lifetime"
+      },
+      {
+        "kind": "source-target",
+        "id": "arithmetic",
+        "target_type": "Para",
+        "target_text": "Arithmetic"
+      },
+      {
+        "kind": "source-target",
+        "id": "object-model",
+        "target_type": "Para",
+        "target_text": "Object Model"
+      },
+      {
+        "kind": "source-target",
+        "id": "concurrency",
+        "target_type": "Para",
+        "target_text": "Concurrency"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-4",
+        "target_type": "Header",
+        "target_text": "四、终止与不可达承诺"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-5",
+        "target_type": "Header",
+        "target_text": "五、可信表示与类型设计"
+      },
+      {
+        "kind": "source-target",
+        "id": "case-a--外部世界可能不满足",
+        "target_type": "Para",
+        "target_text": "Case A — 外部世界可能不满足"
+      },
+      {
+        "kind": "source-target",
+        "id": "case-b--api-明确允许任意输入",
+        "target_type": "Para",
+        "target_text": "Case B — API 明确允许任意输入"
+      },
+      {
+        "kind": "source-target",
+        "id": "case-c--调用者必须保证",
+        "target_type": "Para",
+        "target_text": "Case C — 调用者必须保证"
+      },
+      {
+        "kind": "source-target",
+        "id": "case-d--内部逻辑保证成立",
+        "target_type": "Para",
+        "target_text": "Case D — 内部逻辑保证成立"
+      },
+      {
+        "kind": "source-target",
+        "id": "case-e--无法恢复且状态可信度已经丢失",
+        "target_type": "Para",
+        "target_text": "Case E — 无法恢复且状态可信度已经丢失"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-part-6",
+        "target_type": "Header",
+        "target_text": "六、反例与回查"
+      },
+      {
+        "kind": "source-target",
+        "id": "451-assert-untrusted-input",
+        "target_type": "Para",
+        "target_text": "45.1 Assert Untrusted Input"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 103,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "452-depend-on-assert-side-effects",
+        "target_type": "Para",
+        "target_text": "45.2 Depend on Assert Side Effects"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 104,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "453-convert-every-programmer-bug-to-expected",
+        "target_type": "Para",
+        "target_text": "45.3 Convert Every Programmer Bug to expected"
+      },
+      {
+        "kind": "source-target",
+        "id": "454-treat-ub-as-fast-error-handling",
+        "target_type": "Para",
+        "target_text": "45.4 Treat UB as Fast Error Handling"
+      },
+      {
+        "kind": "source-target",
+        "id": "455-revalidate-everywhere",
+        "target_type": "Para",
+        "target_text": "45.5 Revalidate Everywhere"
+      },
+      {
+        "kind": "source-target",
+        "id": "456-blind-stdunreachable",
+        "target_type": "Para",
+        "target_text": "45.6 Blind std::unreachable"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i1",
+        "target_type": "Para",
+        "target_text": "FM1-I1"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i2",
+        "target_type": "Para",
+        "target_text": "FM1-I2"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i3",
+        "target_type": "Para",
+        "target_text": "FM1-I3"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i4",
+        "target_type": "Para",
+        "target_text": "FM1-I4"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i5",
+        "target_type": "Para",
+        "target_text": "FM1-I5"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i6",
+        "target_type": "Para",
+        "target_text": "FM1-I6"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i7",
+        "target_type": "Para",
+        "target_text": "FM1-I7"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i8",
+        "target_type": "Para",
+        "target_text": "FM1-I8"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i9",
+        "target_type": "Para",
+        "target_text": "FM1-I9"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i10",
+        "target_type": "Para",
+        "target_text": "FM1-I10"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i11",
+        "target_type": "Para",
+        "target_text": "FM1-I11"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm1-i12",
+        "target_type": "Para",
+        "target_text": "FM1-I12"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm1-contracts-assertions-ub.md"
+  },
+  {
+    "source": {
+      "bytes": 17013,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-2",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "snapshot_path": "sources/c++/failure-model/fm2-value-based-failure.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-2",
+      "title": "FM-2 · 值通道与错误类型",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-2--值通道与错误类型": "FM-2-f3173a19241ec424",
+      "阅读入口": "FM-2-3ed1813ed946a77f",
+      "本章目录": "FM-2-c4ed38ba960e2ea1",
+      "一结果空间与表示": "FM-2-92ec14721c32c704",
+      "0-文档定位": "FM-2-877e769d9f0e706d",
+      "1-bool": "FM-2-9ae3a34cfecf9d36",
+      "2-sentinel": "FM-2-773e1e262c0a9860",
+      "3-stdoptionalt": "FM-2-22b21d3ccce99c51",
+      "4-stdexpectedt-e": "FM-2-61c39ed7368dad19",
+      "5-stdexpectedvoid-e": "FM-2-1d9cee14a22e8bb9",
+      "二错误类型与传播": "FM-2-aa5ebd8f4e73effa",
+      "6-error-type-设计": "FM-2-e93f1053a51313a6",
+      "7-error-identity-与-diagnostics-分离": "FM-2-e07cf6f5b95a1513",
+      "8-error-type-应位于正确抽象层": "FM-2-d026d57e163a5ad3",
+      "9-返回-stdunexpected": "FM-2-5645b7de9474759d",
+      "10-手动传播": "FM-2-b3817ce32f735cac",
+      "三组合条件与状态责任": "FM-2-40ce924428090cc9",
+      "11-monadic-composition": "FM-2-a8eafe624a0489f9",
+      "12-value-与-operator": "FM-2-3b76e2dec27c8455",
+      "13-expected-不是引用容器": "FM-2-9e1037400a45f11b",
+      "14-expected-不自动意味着-noexcept": "FM-2-a0a950c1b6a2ba3a",
+      "15-expected-不自动提供-strong-guarantee": "FM-2-dd022a1c0aca61eb",
+      "16-ownership-必须随失败语义明确": "FM-2-829fd943ef813efe",
+      "四成本反例与回查": "FM-2-ec5d317aed8a820d",
+      "17-value-based-failure-的成本模型": "FM-2-2cbfdd8445d0bb6c",
+      "18-value-based-failure-的适用区域": "FM-2-9a178c4c103a3f8a",
+      "19-anti-patterns": "FM-2-14ab5d89ad9f2e49",
+      "20-fm-2-review-checklist": "FM-2-4eeedf717175ea06",
+      "21-fm-2-核心不变量": "FM-2-66a5cb080bf05783",
+      "fm-2--value-based-failure": "FM-2-6784a44e5eda9eb5",
+      "fm2-part-1": "FM-2-ef575f552c0123aa",
+      "bool-不适合": "FM-2-bc102668c354f9dc",
+      "核心规则": "FM-2-aff334e1eec9a8e4",
+      "fm2-part-2": "FM-2-8ff45f638c69ceb5",
+      "61-带结构化-context": "FM-2-ae5eeb0c906e6515",
+      "fm2-part-3": "FM-2-fc260a2100f6829c",
+      "fm2-part-4": "FM-2-371f69446d06903e",
+      "所有东西都返回-expected": "FM-2-3eeadff03a3f2f56",
+      "optional-吞掉错误原因": "FM-2-452064c99ca1857a",
+      "string-作为错误身份": "FM-2-2623be0ef07fc70f",
+      "error-type-绑定底层实现": "FM-2-b726a2cd2eba4754",
+      "value-到处使用": "FM-2-bc5430d790897da7"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-2--value-based-failure",
+        "target_type": "Header",
+        "target_text": "FM-2 · 值通道与错误类型"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm2-part-1",
+        "target_type": "Header",
+        "target_text": "一、结果空间与表示"
+      },
+      {
+        "kind": "source-target",
+        "id": "bool-不适合",
+        "target_type": "Para",
+        "target_text": "接口片段："
+      },
+      {
+        "kind": "source-target",
+        "id": "核心规则",
+        "target_type": "Para",
+        "target_text": "核心规则"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm2-part-2",
+        "target_type": "Header",
+        "target_text": "二、错误类型与传播"
+      },
+      {
+        "kind": "source-target",
+        "id": "61-带结构化-context",
+        "target_type": "Para",
+        "target_text": "6.1 带结构化 Context"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 34,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm2-part-3",
+        "target_type": "Header",
+        "target_text": "三、组合条件与状态责任"
+      },
+      {
+        "kind": "test",
+        "payload": {
+          "id": "T18",
+          "mode": "run",
+          "feature": "expected-monadic"
+        },
+        "code": 36,
+        "filename": "sample.cpp",
+        "filename_origin": "publication-generated, single source block"
+      },
+      {
+        "kind": "test",
+        "payload": {
+          "id": "T19",
+          "mode": "run",
+          "feature": "expected"
+        },
+        "code": 45,
+        "filename": "sample.cpp",
+        "filename_origin": "publication-generated, single source block"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm2-part-4",
+        "target_type": "Header",
+        "target_text": "四、成本、反例与回查"
+      },
+      {
+        "kind": "source-target",
+        "id": "所有东西都返回-expected",
+        "target_type": "Para",
+        "target_text": "所有东西都返回 expected"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 47,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "optional-吞掉错误原因",
+        "target_type": "Para",
+        "target_text": "optional 吞掉错误原因"
+      },
+      {
+        "kind": "source-target",
+        "id": "string-作为错误身份",
+        "target_type": "Para",
+        "target_text": "string 作为错误身份"
+      },
+      {
+        "kind": "source-target",
+        "id": "error-type-绑定底层实现",
+        "target_type": "Para",
+        "target_text": "Error Type 绑定底层实现"
+      },
+      {
+        "kind": "source-target",
+        "id": "value-到处使用",
+        "target_type": "Para",
+        "target_text": ".value() 到处使用"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm2-value-based-failure.md"
+  },
+  {
+    "source": {
+      "bytes": 11937,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-3",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "snapshot_path": "sources/c++/failure-model/fm3-exception-semantics.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-3",
+      "title": "FM-3 · 异常传播语义",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-3--异常传播语义": "FM-3-070f4cee1bd6f9cc",
+      "阅读入口": "FM-3-3ed1813ed946a77f",
+      "本章目录": "FM-3-c4ed38ba960e2ea1",
+      "一抛出对象与匹配": "FM-3-206b83c3a5fafd3f",
+      "0-文档定位": "FM-3-877e769d9f0e706d",
+      "1-exception-是非局部控制流": "FM-3-b654b8490f3886f1",
+      "2-exception-object": "FM-3-05e46133378df010",
+      "3-catch-by-reference": "FM-3-bbd9e441c249a5b9",
+      "4-handler-顺序": "FM-3-4074ccabeae0b71f",
+      "二展开重抛与中间层": "FM-3-c56d571251146418",
+      "5-stack-unwinding": "FM-3-2f3e71fed55f71e2",
+      "6-未完成构造的对象": "FM-3-a51a6d50fde9c8d2",
+      "7-rethrow": "FM-3-cc158a9550ca5be4",
+      "8-exception-translation": "FM-3-ad6c64dc67c5cf3d",
+      "9-exception-neutrality": "FM-3-26423bdcdda62849",
+      "三捕获与边界": "FM-3-3f00822e8e201f22",
+      "10-catch-": "FM-3-4da96b893def2842",
+      "11-stdexception_ptr": "FM-3-e2d1e0173f3b3cc6",
+      "12-exception-与-constructor": "FM-3-ba540ebc81a96fe5",
+      "13-exception-与-destructor": "FM-3-9e3431e7a069cdff",
+      "14-exception-specification-与-noexcept": "FM-3-09f1b829bfdd610d",
+      "15-exception-boundary": "FM-3-472870dfc990c58c",
+      "四选型成本与回查": "FM-3-ebb38c1a446e7afd",
+      "16-exception-适合什么失败": "FM-3-2c099c0dd9fa6fce",
+      "17-exception-不适合什么": "FM-3-af5841a274d958fe",
+      "18-exception-成本模型": "FM-3-178fecece6353a15",
+      "19-exception-hierarchy": "FM-3-9fc25cb04144569e",
+      "20-anti-patterns": "FM-3-4fc991679ceb58b5",
+      "21-fm-3-review-checklist": "FM-3-ed2c05289a9ae01b",
+      "22-fm-3-核心不变量": "FM-3-4b1dfddec92bbab0",
+      "fm-3--c-exception-semantics": "FM-3-b51dab3e69b93fa4",
+      "fm3-part-1": "FM-3-7c18e8976429e28e",
+      "fm3-part-2": "FM-3-b6eae42411944a01",
+      "fm3-part-3": "FM-3-09e276fa602830f6",
+      "fm3-part-4": "FM-3-c65b4f6bd88dbeb0",
+      "catch-and-ignore": "FM-3-a5d20250291b1a7c",
+      "catch-too-low": "FM-3-57a3c315c4c9a760",
+      "exception-作为普通循环分支": "FM-3-e4371fd58dee0206",
+      "throw-raw-primitives": "FM-3-648be76c063381ff",
+      "destructor-传播异常": "FM-3-7417d39179fc62fb",
+      "每层重新包装-exception": "FM-3-6ba9f2ca271773ed"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-3--c-exception-semantics",
+        "target_type": "Header",
+        "target_text": "FM-3 · 异常传播语义"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm3-part-1",
+        "target_type": "Header",
+        "target_text": "一、抛出对象与匹配"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm3-part-2",
+        "target_type": "Header",
+        "target_text": "二、展开、重抛与中间层"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm3-part-3",
+        "target_type": "Header",
+        "target_text": "三、捕获与边界"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm3-part-4",
+        "target_type": "Header",
+        "target_text": "四、选型、成本与回查"
+      },
+      {
+        "kind": "source-target",
+        "id": "catch-and-ignore",
+        "target_type": "Para",
+        "target_text": "Catch and ignore"
+      },
+      {
+        "kind": "source-target",
+        "id": "catch-too-low",
+        "target_type": "Para",
+        "target_text": "Catch too low"
+      },
+      {
+        "kind": "source-target",
+        "id": "exception-作为普通循环分支",
+        "target_type": "Para",
+        "target_text": "Exception 作为普通循环分支"
+      },
+      {
+        "kind": "source-target",
+        "id": "throw-raw-primitives",
+        "target_type": "Para",
+        "target_text": "Throw raw primitives"
+      },
+      {
+        "kind": "source-target",
+        "id": "destructor-传播异常",
+        "target_type": "Para",
+        "target_text": "Destructor 传播异常"
+      },
+      {
+        "kind": "source-target",
+        "id": "每层重新包装-exception",
+        "target_type": "Para",
+        "target_text": "每层重新包装 exception"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm3-exception-semantics.md"
+  },
+  {
+    "source": {
+      "bytes": 13276,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-4",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "snapshot_path": "sources/c++/failure-model/fm4-raii-exception-safety.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-4",
+      "title": "FM-4 · 资源清理与状态保证",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-4--资源清理与状态保证": "FM-4-40e5e2acef077155",
+      "阅读入口": "FM-4-3ed1813ed946a77f",
+      "本章目录": "FM-4-c4ed38ba960e2ea1",
+      "一所有权与保证语言": "FM-4-48d2646ddcda43de",
+      "0-文档定位": "FM-4-877e769d9f0e706d",
+      "1-raii-的真正含义": "FM-4-9dc233009b8d74e0",
+      "2-owner-object": "FM-4-2e4cef0ab330ba88",
+      "3-raii-与-control-flow-解耦": "FM-4-280bd0bb51d6f993",
+      "4-exception-safety-guarantees": "FM-4-0c5be6cfd50b2fe2",
+      "二事务式状态转换": "FM-4-2248842cf3ed2e69",
+      "5-strong-guarantee-的核心模式": "FM-4-e14e7baebaceb104",
+      "6-transactional-thinking": "FM-4-dbabafd941ecfc12",
+      "7-commit-point": "FM-4-1f1854d656197f68",
+      "8-partial-construction": "FM-4-217a7fff3f7abf52",
+      "9-two-phase-initialization": "FM-4-a39b01b871c9878d",
+      "10-rollback-不是免费操作": "FM-4-0da2687ab868d9da",
+      "11-copy-and-swap": "FM-4-da67cb8bec50236f",
+      "三清理与外部副作用": "FM-4-73ab38c4795491fc",
+      "12-resource-acquisition-顺序": "FM-4-085ac736fe9e501d",
+      "13-destruction-是-cleanup-infrastructure": "FM-4-82b6bb05a7620a85",
+      "14-state-guarantee-必须组合分析": "FM-4-30d83e992923fc56",
+      "15-failure-与-partial-side-effects": "FM-4-ae9beb419912e69b",
+      "16-ambiguous-completion": "FM-4-81dd16af845fec65",
+      "17-raii-不等于-transaction": "FM-4-052d1e290958b76e",
+      "四审查与回查": "FM-4-e919449cf825250c",
+      "18-fm-4-review-checklist": "FM-4-a7ded492a5cdce9f",
+      "19-fm-4-核心不变量": "FM-4-ed6d4c289f1577c7",
+      "fm-4--raii--exception-safety": "FM-4-e72724742466174d",
+      "fm4-part-1": "FM-4-37730da3485d2998",
+      "no-throw-guarantee": "FM-4-861e037718817868",
+      "strong-guarantee": "FM-4-54a25b43b5091065",
+      "basic-guarantee": "FM-4-55735f983dbcfd2a",
+      "no-useful-guarantee": "FM-4-7d90996d8de8f181",
+      "fm4-part-2": "FM-4-5d57a246e60d2605",
+      "fm4-part-3": "FM-4-a6bcf3fb3792ca4a",
+      "fm4-part-4": "FM-4-2da492c67f7cfc1e"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-4--raii--exception-safety",
+        "target_type": "Header",
+        "target_text": "FM-4 · 资源清理与状态保证"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm4-part-1",
+        "target_type": "Header",
+        "target_text": "一、所有权与保证语言"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 3,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "no-throw-guarantee",
+        "target_type": "Para",
+        "target_text": "No-throw Guarantee"
+      },
+      {
+        "kind": "source-target",
+        "id": "strong-guarantee",
+        "target_type": "Para",
+        "target_text": "Strong Guarantee"
+      },
+      {
+        "kind": "source-target",
+        "id": "basic-guarantee",
+        "target_type": "Para",
+        "target_text": "Basic Guarantee"
+      },
+      {
+        "kind": "source-target",
+        "id": "no-useful-guarantee",
+        "target_type": "Para",
+        "target_text": "No Useful Guarantee"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm4-part-2",
+        "target_type": "Header",
+        "target_text": "二、事务式状态转换"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm4-part-3",
+        "target_type": "Header",
+        "target_text": "三、清理与外部副作用"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 21,
+        "label": "不要："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm4-part-4",
+        "target_type": "Header",
+        "target_text": "四、审查与回查"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm4-raii-exception-safety.md"
+  },
+  {
+    "source": {
+      "bytes": 14294,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-5",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "snapshot_path": "sources/c++/failure-model/fm5-noexcept-move-copy.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-5",
+      "title": "FM-5 · 异常边界与泛型保证",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-5--异常边界与泛型保证": "FM-5-720e3be9a9c0f17e",
+      "阅读入口": "FM-5-3ed1813ed946a77f",
+      "本章目录": "FM-5-c4ed38ba960e2ea1",
+      "一传播边界与表达式": "FM-5-8a236f0dd5c785d0",
+      "0-文档定位": "FM-5-877e769d9f0e706d",
+      "1-noexcept-的精确含义": "FM-5-721c6a31089b59a6",
+      "2-违反-noexcept": "FM-5-f610fd1b8c823fe7",
+      "3-noexceptexpr": "FM-5-92ecc7f05ea19224",
+      "4-conditional-noexcept": "FM-5-c906fcaadd320bcf",
+      "二移动与值复制": "FM-5-55425feb68e90ef2",
+      "5-stdmove-不执行移动": "FM-5-61928ed17bda116e",
+      "6-move-为什么特别适合-noexcept": "FM-5-5b5dcd92524d9cd9",
+      "7-copy-与-failure": "FM-5-4bc569f79d532256",
+      "三容器策略与类型条件": "FM-5-c1e539913798f080",
+      "8-container-relocation": "FM-5-9820bd7551cf23f2",
+      "9-throwing-move-的困难": "FM-5-e9929716073ecd16",
+      "10-stdmove_if_noexcept": "FM-5-8d837cbca6323413",
+      "11-move-only--throwing-move": "FM-5-67b04c2dd9b83e9a",
+      "12-traits": "FM-5-b41ad36190d618ca",
+      "四提交与组合保证": "FM-5-a9a1b9049e932e43",
+      "13-swap": "FM-5-d434d01c892ff3ba",
+      "14-defaulted-move": "FM-5-2dd985b3b8d66e27",
+      "15-不要对-noexcept-撒谎": "FM-5-5f98dae42e87a85b",
+      "16-destructor-与-noexcept": "FM-5-28de44b56cd5859d",
+      "17-generic-guarantee-composition": "FM-5-338933c4058e632a",
+      "五审查与回查": "FM-5-1c8578bf21571a98",
+      "18-fm-5-review-checklist": "FM-5-16a35f9835189d51",
+      "19-fm-5-核心不变量": "FM-5-7b0f15354b811451",
+      "fm-5--noexcept-move-copy--generic-guarantees": "FM-5-0c3d83c9e2f77d5b",
+      "fm5-part-1": "FM-5-1146d759c5c31808",
+      "fm5-part-2": "FM-5-f1828e5d5790d9bd",
+      "fm5-part-3": "FM-5-670d207f1b9e50cb",
+      "fm5-part-4": "FM-5-855decb91ae08ede",
+      "fm5-part-5": "FM-5-d7b132305921a551"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-5--noexcept-move-copy--generic-guarantees",
+        "target_type": "Header",
+        "target_text": "FM-5 · 异常边界与泛型保证"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm5-part-1",
+        "target_type": "Header",
+        "target_text": "一、传播边界与表达式"
+      },
+      {
+        "kind": "test",
+        "payload": {
+          "id": "T14",
+          "mode": "compile"
+        },
+        "code": 5,
+        "filename": "sample.cpp",
+        "filename_origin": "publication-generated, single source block"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm5-part-2",
+        "target_type": "Header",
+        "target_text": "二、移动与值复制"
+      },
+      {
+        "kind": "test",
+        "payload": {
+          "id": "T17",
+          "mode": "run"
+        },
+        "code": 11,
+        "filename": "sample.cpp",
+        "filename_origin": "publication-generated, single source block"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm5-part-3",
+        "target_type": "Header",
+        "target_text": "三、容器策略与类型条件"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm5-part-4",
+        "target_type": "Header",
+        "target_text": "四、提交与组合保证"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 20,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm5-part-5",
+        "target_type": "Header",
+        "target_text": "五、审查与回查"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm5-noexcept-move-copy.md"
+  },
+  {
+    "source": {
+      "bytes": 9448,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-6",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "snapshot_path": "sources/c++/failure-model/fm6-construction-destruction-allocation.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-6",
+      "title": "FM-6 · 生命周期与资源失败",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-6--生命周期与资源失败": "FM-6-f61a0468378bb4ad",
+      "阅读入口": "FM-6-3ed1813ed946a77f",
+      "本章目录": "FM-6-c4ed38ba960e2ea1",
+      "一构造与对象有效性": "FM-6-8ab031e910f99bd2",
+      "0-文档定位": "FM-6-877e769d9f0e706d",
+      "1-constructor-是-invariant-boundary": "FM-6-9e0d2fb41bbc5310",
+      "2-constructor-throw": "FM-6-665fd2b9355d2a50",
+      "3-partial-construction": "FM-6-8a78a3736013ecb7",
+      "4-factory--expected": "FM-6-30172240f0856c2b",
+      "5-throwing-constructor-vs-factory": "FM-6-194c9c517ea6f91d",
+      "6-two-phase-initialization-应谨慎": "FM-6-3f2534bee446ea99",
+      "二分配与资源压力": "FM-6-174dedaa9c39d2f1",
+      "7-operator-new": "FM-6-7c1a202ce5e29fed",
+      "8-nothrow-allocation": "FM-6-c775741e1c2f838b",
+      "9-stdbad_alloc": "FM-6-f45d20fbb25c3625",
+      "10-memory-failure-policy": "FM-6-95e3365d224a826e",
+      "11-allocation-与-api-guarantee": "FM-6-0d57040c5518bb9d",
+      "三显式完成和清理": "FM-6-f7821038b30d8bc9",
+      "12-destructor-的职责": "FM-6-1a5db29593ce5985",
+      "13-explicit-close-pattern": "FM-6-a6b274831c62e02a",
+      "14-resource-owner-优先使用-rule-of-zero": "FM-6-3a18104d6f4340f5",
+      "15-rule-of-five-适用于真正-ownership-primitive": "FM-6-85011528f52863bb",
+      "四审查与回查": "FM-6-e919449cf825250c",
+      "16-fm-6-review-checklist": "FM-6-4a862085ba833441",
+      "17-fm-6-核心不变量": "FM-6-27c41326d2926a73",
+      "fm-6--construction-destruction--allocation-failure": "FM-6-36e808901570586d",
+      "fm6-part-1": "FM-6-842ba9c417c53603",
+      "fm6-part-2": "FM-6-c01ba2363d9ab2d6",
+      "fm6-part-3": "FM-6-70c9674cb28cbcb2",
+      "fm6-part-4": "FM-6-1cae8943e65e77ab"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-6--construction-destruction--allocation-failure",
+        "target_type": "Header",
+        "target_text": "FM-6 · 生命周期与资源失败"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm6-part-1",
+        "target_type": "Header",
+        "target_text": "一、构造与对象有效性"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm6-part-2",
+        "target_type": "Header",
+        "target_text": "二、分配与资源压力"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm6-part-3",
+        "target_type": "Header",
+        "target_text": "三、显式完成和清理"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm6-part-4",
+        "target_type": "Header",
+        "target_text": "四、审查与回查"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm6-construction-destruction-allocation.md"
+  },
+  {
+    "source": {
+      "bytes": 7468,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-7",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "snapshot_path": "sources/c++/failure-model/fm7-error-code-system-error.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-7",
+      "title": "FM-7 · 系统错误与领域转换",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-7--系统错误与领域转换": "FM-7-b53af8da284ebb07",
+      "阅读入口": "FM-7-3ed1813ed946a77f",
+      "本章目录": "FM-7-c4ed38ba960e2ea1",
+      "一原生错误身份": "FM-7-59cd9f30013f9d52",
+      "0-文档定位": "FM-7-877e769d9f0e706d",
+      "1-errno": "FM-7-51daede53ecc3457",
+      "2-不要把-errno-当全局-error-object": "FM-7-99afac0b58b08d5c",
+      "3-stderror_code": "FM-7-6599914004d45daf",
+      "4-error_code-的价值": "FM-7-b28cb55ec2b0699f",
+      "5-stderrc": "FM-7-197454e10b048437",
+      "6-error_code-vs-error_condition": "FM-7-335c8285aa423576",
+      "二通道领域与上下文": "FM-7-811f01341f0a0d8a",
+      "7-stdsystem_error": "FM-7-3850418ad8ae6070",
+      "8-value-based-系统-api": "FM-7-7c03fb4815e622f2",
+      "9-error-domain": "FM-7-04efdebf143604fd",
+      "10-底层错误不能直接决定业务策略": "FM-7-5715506ed8f6e55c",
+      "11-error-translation-示例": "FM-7-b2963f95c44b6c5a",
+      "12-preserve-cause": "FM-7-ee7d7c54b53efbcb",
+      "13-error-context": "FM-7-503e318025f722c4",
+      "14-api-双版本模式": "FM-7-3003d56606342f7e",
+      "三审查与回查": "FM-7-a992cd5eebbdaa31",
+      "15-fm-7-review-checklist": "FM-7-beeab038af065920",
+      "16-fm-7-核心不变量": "FM-7-ba124d9a4cc89a4a",
+      "fm-7--error_code-system_error--os-failure": "FM-7-cb637e35bd946cc3",
+      "fm7-part-1": "FM-7-8a58c02a7020724f",
+      "fm7-part-2": "FM-7-7360c5874fa771fe",
+      "fm7-part-3": "FM-7-e176445861619b41"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-7--error_code-system_error--os-failure",
+        "target_type": "Header",
+        "target_text": "FM-7 · 系统错误与领域转换"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm7-part-1",
+        "target_type": "Header",
+        "target_text": "一、原生错误身份"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 4,
+        "label": "错误："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm7-part-2",
+        "target_type": "Header",
+        "target_text": "二、通道、领域与上下文"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm7-part-3",
+        "target_type": "Header",
+        "target_text": "三、审查与回查"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm7-error-code-system-error.md"
+  },
+  {
+    "source": {
+      "bytes": 13467,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-8",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "snapshot_path": "sources/c++/failure-model/fm8-failure-boundaries.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-8",
+      "title": "FM-8 · 执行边界与恢复协议",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-8--执行边界与恢复协议": "FM-8-e1b0dea873c46d58",
+      "阅读入口": "FM-8-3ed1813ed946a77f",
+      "本章目录": "FM-8-c4ed38ba960e2ea1",
+      "一线程与异步观察": "FM-8-013f8acbc463579f",
+      "0-文档定位": "FM-8-877e769d9f0e706d",
+      "1-boundary-的本质": "FM-8-8369bbdb7b1ea2fd",
+      "2-stdthread": "FM-8-2169406173f52acb",
+      "3-stdjthread": "FM-8-87938a809fb5e1f7",
+      "4-stdpromise--stdfuture": "FM-8-288aa63bf4deb90b",
+      "5-stdasync": "FM-8-d5852f8bbd85866f",
+      "6-stdexception_ptr": "FM-8-6c32a2fbd5d2803d",
+      "7-coroutine-failure": "FM-8-1cffcc03e8863b31",
+      "8-coroutine-不是自动-result-type": "FM-8-0b555354ac3b96b0",
+      "二取消超时与关闭": "FM-8-f9c43f8a56d519bd",
+      "9-cancellation--failure": "FM-8-4b5980b3fc881c6c",
+      "10-timeout--cancellation--failure": "FM-8-659a80c73a7359a4",
+      "11-shutdown-不是-error-storm": "FM-8-270b0a18420f0d73",
+      "三集成和远端边界": "FM-8-e36b5e10f41929fc",
+      "12-callback-boundary": "FM-8-cc40c5d8ab36b35a",
+      "13-c-abi": "FM-8-bee89792abc1bd09",
+      "14-plugin-abi": "FM-8-352c60a14eab7a5c",
+      "15-process-boundary": "FM-8-62b065dd958f2643",
+      "16-rpc-error-model": "FM-8-62bc6b8565779bc8",
+      "四恢复协议与影响范围": "FM-8-596961fc3a804865",
+      "17-ambiguous-remote-completion": "FM-8-f4062544de43bbb0",
+      "18-idempotency": "FM-8-cf0fc5600bbbb544",
+      "19-retry-budget": "FM-8-5dd7e08f8eb2318f",
+      "20-supervisor": "FM-8-48551c710699b1fd",
+      "21-failure-domain-hierarchy": "FM-8-ecf4d8586defa6fe",
+      "22-logging-boundary": "FM-8-a3f50be9e117c55a",
+      "五审查与回查": "FM-8-1c8578bf21571a98",
+      "23-fm-8-review-checklist": "FM-8-ee88e46615cecd2d",
+      "24-fm-8-核心不变量": "FM-8-0b5df7ba1793441d",
+      "fm-8--thread-coroutine-abi--distributed-failure-boundaries": "FM-8-1c8f05803aed71a2",
+      "fm8-part-1": "FM-8-82d38f8db67647fa",
+      "fm8-part-2": "FM-8-3a012f3e4b0f9257",
+      "fm8-part-3": "FM-8-0cd09f756ba126c0",
+      "fm8-part-4": "FM-8-83fadb47dca5c838",
+      "fm8-part-5": "FM-8-eda718fdd7ca3ae2"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-8--thread-coroutine-abi--distributed-failure-boundaries",
+        "target_type": "Header",
+        "target_text": "FM-8 · 执行边界与恢复协议"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm8-part-1",
+        "target_type": "Header",
+        "target_text": "一、线程与异步观察"
+      },
+      {
+        "kind": "test",
+        "payload": {
+          "id": "T12",
+          "mode": "run"
+        },
+        "code": 4,
+        "filename": "sample.cpp",
+        "filename_origin": "publication-generated, single source block"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm8-part-2",
+        "target_type": "Header",
+        "target_text": "二、取消、超时与关闭"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm8-part-3",
+        "target_type": "Header",
+        "target_text": "三、集成和远端边界"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm8-part-4",
+        "target_type": "Header",
+        "target_text": "四、恢复协议与影响范围"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm8-part-5",
+        "target_type": "Header",
+        "target_text": "五、审查与回查"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm8-failure-boundaries.md"
+  },
+  {
+    "source": {
+      "bytes": 19332,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-9",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "snapshot_path": "sources/c++/failure-model/fm9-project-failure-profile.md",
+      "version": "45b305e"
+    },
+    "metadata": {
+      "document_id": "FM-9",
+      "title": "FM-9 · 项目失败契约与验证",
+      "version": "45b305e",
+      "status": "ACCEPTED CONTENT",
+      "owner": "",
+      "subtitle": "Frozen source @ 45b305e"
+    },
+    "anchors": {
+      "fm-9--项目失败契约与验证": "FM-9-465c129043639cb8",
+      "阅读入口": "FM-9-3ed1813ed946a77f",
+      "本章目录": "FM-9-c4ed38ba960e2ea1",
+      "一项目选择与责任": "FM-9-9a8c254b29a6148a",
+      "0-文档定位": "FM-9-877e769d9f0e706d",
+      "1-failure-profile-应解决什么": "FM-9-5c98e0b92749e5c7",
+      "2-推荐项目分类": "FM-9-521d7b3c520e9de3",
+      "3-推荐-layer-policy": "FM-9-7d0e555b357a100e",
+      "二通道与错误域政策": "FM-9-081fe3c39b4eae96",
+      "4-exception-policy": "FM-9-d3388d6deb1c3bc3",
+      "5-expected-policy": "FM-9-0b4045a6ac8a52d3",
+      "6-error-type-policy": "FM-9-0148947402b45dee",
+      "7-error-namespace": "FM-9-e2f59987a88dfa32",
+      "8-error-translation-policy": "FM-9-259d60ea0abdb868",
+      "三状态所有权与边界政策": "FM-9-50cca6dfbfa823df",
+      "9-state-guarantee-policy": "FM-9-c5d6e97e4949db87",
+      "10-ownership-failure-policy": "FM-9-29d24d94640af529",
+      "11-noexcept-policy": "FM-9-6b514ea0cb85bd66",
+      "12-assertion-policy": "FM-9-4464b1948778b678",
+      "13-ub-policy": "FM-9-33e23735418e540e",
+      "14-boundary-policy": "FM-9-064e8926fecbbdf0",
+      "四恢复与可观测性政策": "FM-9-b1ef97e3380d6ff9",
+      "15-retry-policy": "FM-9-5697aad968e8fd7d",
+      "16-timeout-policy": "FM-9-5f0acb86a1742a1d",
+      "17-cancellation-policy": "FM-9-9069a062fee4f1b5",
+      "18-logging-policy": "FM-9-34d96b85627a442b",
+      "19-metrics-policy": "FM-9-0a178b87f3deaddd",
+      "20-diagnostics-policy": "FM-9-3fb06bd3368c4cf6",
+      "五验证工具与证据": "FM-9-cd449d37d1de00bf",
+      "21-testing-failure-paths": "FM-9-58c58d05bb388a64",
+      "22-fault-injection": "FM-9-e250c88a746b65a6",
+      "23-sanitizers": "FM-9-8c1e7e3fad9b5625",
+      "24-static-analysis": "FM-9-dbff1ef81bebe343",
+      "25-nodiscard": "FM-9-0d492d64cedaaa39",
+      "六可裁剪模板与回查": "FM-9-aa10e9df331b1cb6",
+      "26-public-api-failure-documentation-template": "FM-9-bba1510f5aef46fb",
+      "27-subsystem-failure-profile-template": "FM-9-e72507f35dbc4747",
+      "28-project-wide-baseline": "FM-9-feb26c4e89ff81be",
+      "29-project-anti-patterns": "FM-9-65cccb348b6202d5",
+      "30-project-review-checklist": "FM-9-71147fcdf003d455",
+      "31-fm-9-核心不变量": "FM-9-cae686430f369288",
+      "modern-c-failure-model--最终总图": "FM-9-be3feae412e68135",
+      "fm-9--project-level-failure-profile": "FM-9-29bddb96ad243f17",
+      "fm9-part-1": "FM-9-46ae96f177a06bd7",
+      "d--domain-outcome": "FM-9-b5715257e7059daf",
+      "r--recoverable-failure": "FM-9-508ce8806d91a0a4",
+      "p--programmer-error": "FM-9-5d0f171384f13595",
+      "f--fatal-failure": "FM-9-dafde2cb6436362e",
+      "fm9-part-2": "FM-9-e476f9fbe067605c",
+      "fm9-part-3": "FM-9-08ab26a9134a9567",
+      "development-assertion": "FM-9-9ff500ea215b294c",
+      "production-fatal-check": "FM-9-7b233a4825cba487",
+      "fm9-part-4": "FM-9-7b2d11cf10ae8bb1",
+      "fm9-part-5": "FM-9-561a18c9ee05568b",
+      "fm9-part-6": "FM-9-d8e00e2e11407a0d"
+    },
+    "aliases": {},
+    "semantic": [
+      {
+        "kind": "source-target",
+        "id": "fm-9--project-level-failure-profile",
+        "target_type": "Header",
+        "target_text": "FM-9 · 项目失败契约与验证"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-1",
+        "target_type": "Header",
+        "target_text": "一、项目选择与责任"
+      },
+      {
+        "kind": "source-target",
+        "id": "d--domain-outcome",
+        "target_type": "Para",
+        "target_text": "D — Domain Outcome"
+      },
+      {
+        "kind": "source-target",
+        "id": "r--recoverable-failure",
+        "target_type": "Para",
+        "target_text": "R — Recoverable Failure"
+      },
+      {
+        "kind": "source-target",
+        "id": "p--programmer-error",
+        "target_type": "Para",
+        "target_text": "P — Programmer Error"
+      },
+      {
+        "kind": "source-target",
+        "id": "f--fatal-failure",
+        "target_type": "Para",
+        "target_text": "F — Fatal Failure"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-2",
+        "target_type": "Header",
+        "target_text": "二、通道与错误域政策"
+      },
+      {
+        "kind": "explicit-code-role",
+        "code": 21,
+        "label": "不要："
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-3",
+        "target_type": "Header",
+        "target_text": "三、状态、所有权与边界政策"
+      },
+      {
+        "kind": "source-target",
+        "id": "development-assertion",
+        "target_type": "Para",
+        "target_text": "Development Assertion"
+      },
+      {
+        "kind": "source-target",
+        "id": "production-fatal-check",
+        "target_type": "Para",
+        "target_text": "Production Fatal Check"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-4",
+        "target_type": "Header",
+        "target_text": "四、恢复与可观测性政策"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-5",
+        "target_type": "Header",
+        "target_text": "五、验证工具与证据"
+      },
+      {
+        "kind": "source-target",
+        "id": "fm9-part-6",
+        "target_type": "Header",
+        "target_text": "六、可裁剪模板与回查"
+      },
+      {
+        "kind": "literal-template",
+        "code": 49,
+        "title": "26. Public API Failure Documentation Template"
+      },
+      {
+        "kind": "literal-template",
+        "code": 50,
+        "title": "27. Subsystem Failure Profile Template"
+      }
+    ],
+    "source_href": "https://github.com/snkio027/kb/blob/45b305eace0f057420587d685cb3f962f3f0552c/c%2B%2B/failure-model/fm9-project-failure-profile.md"
+  }
+]

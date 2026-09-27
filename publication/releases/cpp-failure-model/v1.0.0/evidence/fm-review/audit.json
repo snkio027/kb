@@ -1,0 +1,2186 @@
+{
+  "status": "STRUCTURAL_PASS",
+  "visual_status": "NOT_REVIEWED",
+  "pdf": "output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+  "pdf_sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+  "pages": 158,
+  "source_checks": [
+    {
+      "id": "FM-GUIDE",
+      "path": "c++/failure-model/series-guide.md",
+      "bytes": 11169,
+      "sha256": "93c63386c5bd733abbda857eba68d4a67d59ff712d94680ddca6209290c4fb8c",
+      "fenced_blocks": 1,
+      "explicit_anchors": 1,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-0",
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "bytes": 42265,
+      "sha256": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "fenced_blocks": 115,
+      "explicit_anchors": 80,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-1",
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "bytes": 28861,
+      "sha256": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "fenced_blocks": 111,
+      "explicit_anchors": 41,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-2",
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "bytes": 17013,
+      "sha256": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "fenced_blocks": 52,
+      "explicit_anchors": 13,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-3",
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "bytes": 11937,
+      "sha256": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "fenced_blocks": 56,
+      "explicit_anchors": 11,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-4",
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "bytes": 13276,
+      "sha256": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "fenced_blocks": 27,
+      "explicit_anchors": 9,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-5",
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "bytes": 14294,
+      "sha256": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "fenced_blocks": 24,
+      "explicit_anchors": 6,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-6",
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "bytes": 9448,
+      "sha256": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "fenced_blocks": 32,
+      "explicit_anchors": 5,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-7",
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "bytes": 7468,
+      "sha256": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "fenced_blocks": 21,
+      "explicit_anchors": 4,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-8",
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "bytes": 13467,
+      "sha256": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "fenced_blocks": 34,
+      "explicit_anchors": 6,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-9",
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "bytes": 19332,
+      "sha256": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "fenced_blocks": 54,
+      "explicit_anchors": 13,
+      "byte_exact": true
+    }
+  ],
+  "source_target_checks": [
+    {
+      "document": "FM-GUIDE",
+      "source_id": "review-contract",
+      "pdf_target": "FM-GUIDE-1f6f8462da64b658",
+      "page": 9,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-0--modern-c-failure-model",
+      "pdf_target": "FM-0-9573521108fe5252",
+      "page": 11,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-1",
+      "pdf_target": "FM-0-29a7a3805e61ad55",
+      "page": 12,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "21-failure",
+      "pdf_target": "FM-0-78185b01a64f451e",
+      "page": 13,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "22-exception",
+      "pdf_target": "FM-0-5205ce827305f879",
+      "page": 13,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "31-fault",
+      "pdf_target": "FM-0-e6df79cb0c39a9a1",
+      "page": 14,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "32-error",
+      "pdf_target": "FM-0-1ea7bd25874f6b65",
+      "page": 14,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "33-failure",
+      "pdf_target": "FM-0-23a1613c2f655518",
+      "page": 15,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-2",
+      "pdf_target": "FM-0-91e205740b2776f6",
+      "page": 15,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "51-optional-的语义",
+      "pdf_target": "FM-0-57293042a4fc756d",
+      "page": 16,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "外部输入",
+      "pdf_target": "FM-0-35a0a0e967241816",
+      "page": 18,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "内部索引",
+      "pdf_target": "FM-0-a076c16590ada3bc",
+      "page": 18,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "原则",
+      "pdf_target": "FM-0-e6384697762471e1",
+      "page": 18,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-3",
+      "pdf_target": "FM-0-846b337a158cf2e7",
+      "page": 19,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "121-translation-原则",
+      "pdf_target": "FM-0-e5e0edcde8e86d01",
+      "page": 21,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "161-recovery-必须知道状态",
+      "pdf_target": "FM-0-611c71cec0b11bc7",
+      "page": 23,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "filereader",
+      "pdf_target": "FM-0-c70cb45d37065558",
+      "page": 23,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "configrepository",
+      "pdf_target": "FM-0-a7dde463e1d2b57b",
+      "page": 23,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "application",
+      "pdf_target": "FM-0-1fe289205936c3fd",
+      "page": 24,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-4",
+      "pdf_target": "FM-0-94c7b5bd74e8510a",
+      "page": 25,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "recovery-boundary",
+      "pdf_target": "FM-0-9c9d05cc3872afe8",
+      "page": 26,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "failure-boundary",
+      "pdf_target": "FM-0-80ffdd55e8e66c19",
+      "page": 26,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-5",
+      "pdf_target": "FM-0-19ff2ebd32bae932",
+      "page": 28,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-6",
+      "pdf_target": "FM-0-614bf6a6581956c3",
+      "page": 31,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "detection",
+      "pdf_target": "FM-0-dad9a79bf7094d4e",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "low-level-representation",
+      "pdf_target": "FM-0-d49afc99d2064bdb",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "translation",
+      "pdf_target": "FM-0-839cd11692e82b35",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "propagation",
+      "pdf_target": "FM-0-4cab3438b86b8f98",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "recovery-boundary-1",
+      "pdf_target": "FM-0-89f49585dc9a1b44",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "failure-domain",
+      "pdf_target": "FM-0-e8c9c5c148481002",
+      "page": 34,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-7",
+      "pdf_target": "FM-0-16718f487e380599",
+      "page": 35,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "preconditions",
+      "pdf_target": "FM-0-22384b88664c39ad",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "success-postconditions",
+      "pdf_target": "FM-0-62d4f16f5359331c",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "failure-set",
+      "pdf_target": "FM-0-43ce9a31d2e57afb",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "representation",
+      "pdf_target": "FM-0-a8ad1f5f2bb3f4c7",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "state-guarantee",
+      "pdf_target": "FM-0-dcdf0717c4e80279",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "resource-guarantee",
+      "pdf_target": "FM-0-6c900a41545c39a0",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "recovery-responsibility",
+      "pdf_target": "FM-0-dd92bfbf7cca3426",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "1-success",
+      "pdf_target": "FM-0-3a81b28791a3ee3c",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "2-preconditions",
+      "pdf_target": "FM-0-3bb2569fd209d1ad",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "3-domain-outcomes",
+      "pdf_target": "FM-0-7e33cf5080ec9d08",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "4-environmental-failures",
+      "pdf_target": "FM-0-d8d538cd1eb8aa76",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "5-programmer-errors",
+      "pdf_target": "FM-0-13c805574a19f0d4",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "6-detection",
+      "pdf_target": "FM-0-db1fb7c3bf9ea1dd",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "7-representation",
+      "pdf_target": "FM-0-8f90a981cd6e67d6",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "8-translation",
+      "pdf_target": "FM-0-869250681624ea8d",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "9-propagation",
+      "pdf_target": "FM-0-d2bd881670fae81a",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "10-recovery-boundary",
+      "pdf_target": "FM-0-6a2429c717d8ebe6",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "11-recovery-policy",
+      "pdf_target": "FM-0-9d064046ba2ca215",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "12-state-guarantee",
+      "pdf_target": "FM-0-a490b000060465f2",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "13-resource-guarantee",
+      "pdf_target": "FM-0-9e0cbdcf537bb437",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "14-failure-domain",
+      "pdf_target": "FM-0-a134365d889303a3",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "15-frequency",
+      "pdf_target": "FM-0-79741e5dcf080eda",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "16-terminal-behavior",
+      "pdf_target": "FM-0-799f6dfcaa43a09e",
+      "page": 35,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "491-catch-and-continue",
+      "pdf_target": "FM-0-968aa8ff868777f6",
+      "page": 36,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "492-catch-all-too-low",
+      "pdf_target": "FM-0-f4f57373288ffd12",
+      "page": 36,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "493-assert-external-input",
+      "pdf_target": "FM-0-3430ee7e8daacadf",
+      "page": 36,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "494-expected-for-impossible-internal-state",
+      "pdf_target": "FM-0-ea36d51ae19e3815",
+      "page": 37,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "495-low-level-retry-without-context",
+      "pdf_target": "FM-0-d01f35adfb9a8523",
+      "page": 37,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "496-translate-every-layer",
+      "pdf_target": "FM-0-5df030e3f8f83b77",
+      "page": 37,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "497-error-string-as-error-model",
+      "pdf_target": "FM-0-bcbc4f413f387471",
+      "page": 37,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-8",
+      "pdf_target": "FM-0-fe34f20661f7010d",
+      "page": 38,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm0-part-9",
+      "pdf_target": "FM-0-d04659c9fcce12f6",
+      "page": 40,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "layer-1--local-api-contract",
+      "pdf_target": "FM-0-ad086aaed5990242",
+      "page": 40,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "layer-2--subsystem-failure-policy",
+      "pdf_target": "FM-0-320e8c31a527c6d8",
+      "page": 40,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "layer-3--application-failure-policy",
+      "pdf_target": "FM-0-37f9f86f973f691a",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i1",
+      "pdf_target": "FM-0-2f9d5bb6dbef93d4",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i2",
+      "pdf_target": "FM-0-729929ab65a4d48d",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i3",
+      "pdf_target": "FM-0-b04ea9e242129269",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i4",
+      "pdf_target": "FM-0-59760205d62bcba9",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i5",
+      "pdf_target": "FM-0-a065bda533b24421",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i6",
+      "pdf_target": "FM-0-381bb3a08214af14",
+      "page": 41,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i7",
+      "pdf_target": "FM-0-c40898df7bd9a5b7",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i8",
+      "pdf_target": "FM-0-e3ad5bb71f03f167",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i9",
+      "pdf_target": "FM-0-5866c3cfa33d6999",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i10",
+      "pdf_target": "FM-0-21a3a831e03b469b",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i11",
+      "pdf_target": "FM-0-7ed043ae409bea48",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i12",
+      "pdf_target": "FM-0-f0ac54889c4fe3d2",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i13",
+      "pdf_target": "FM-0-0da2f86035656a18",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i14",
+      "pdf_target": "FM-0-006c799ac256d04e",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-0",
+      "source_id": "fm-i15",
+      "pdf_target": "FM-0-822dc18ab87299bf",
+      "page": 42,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm-1--contracts--preconditions--assertions--undefined-behavior",
+      "pdf_target": "FM-1-d5304b3201edc99b",
+      "page": 46,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-1",
+      "pdf_target": "FM-1-895d0b1a87af484e",
+      "page": 46,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "runtime-failure",
+      "pdf_target": "FM-1-f0873fc64222c2dc",
+      "page": 50,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "contract-violation",
+      "pdf_target": "FM-1-e0948bbe0cf0eba8",
+      "page": 50,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "外部输入",
+      "pdf_target": "FM-1-35a0a0e967241816",
+      "page": 50,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "内部已验证状态",
+      "pdf_target": "FM-1-098ba48168b66258",
+      "page": 51,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-2",
+      "pdf_target": "FM-1-c2f8e354c55ea640",
+      "page": 51,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-3",
+      "pdf_target": "FM-1-308e339ea2e23b24",
+      "page": 56,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "operator",
+      "pdf_target": "FM-1-06e55b633481f7bb",
+      "page": 56,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "at",
+      "pdf_target": "FM-1-b1d6b91b67c2afa5",
+      "page": 56,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "memory",
+      "pdf_target": "FM-1-c064fbca9d9de8dd",
+      "page": 59,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "lifetime",
+      "pdf_target": "FM-1-6f6a6d94fb43a926",
+      "page": 59,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "arithmetic",
+      "pdf_target": "FM-1-ca75eaf4e00caa4b",
+      "page": 59,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "object-model",
+      "pdf_target": "FM-1-43868c34851dcfeb",
+      "page": 59,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "concurrency",
+      "pdf_target": "FM-1-d1b92de2d2079261",
+      "page": 59,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-4",
+      "pdf_target": "FM-1-27767c95f2e1c296",
+      "page": 60,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-5",
+      "pdf_target": "FM-1-0385afbd8a14aa9b",
+      "page": 64,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "case-a--外部世界可能不满足",
+      "pdf_target": "FM-1-bedadd3711ca95b1",
+      "page": 66,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "case-b--api-明确允许任意输入",
+      "pdf_target": "FM-1-c7a00bc12b20f7d5",
+      "page": 66,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "case-c--调用者必须保证",
+      "pdf_target": "FM-1-06343d6a17c4bb86",
+      "page": 66,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "case-d--内部逻辑保证成立",
+      "pdf_target": "FM-1-8ceeaadef7c08ad3",
+      "page": 66,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "case-e--无法恢复且状态可信度已经丢失",
+      "pdf_target": "FM-1-8c3ff117884aaf43",
+      "page": 66,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-part-6",
+      "pdf_target": "FM-1-fef9b53e8d6d29e9",
+      "page": 67,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "451-assert-untrusted-input",
+      "pdf_target": "FM-1-1c1e5d9148b455af",
+      "page": 67,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "452-depend-on-assert-side-effects",
+      "pdf_target": "FM-1-53c8fe6d8a93c1d5",
+      "page": 67,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "453-convert-every-programmer-bug-to-expected",
+      "pdf_target": "FM-1-23bc47ff44fd0a53",
+      "page": 67,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "454-treat-ub-as-fast-error-handling",
+      "pdf_target": "FM-1-cb616d9c2f36ce9b",
+      "page": 67,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "455-revalidate-everywhere",
+      "pdf_target": "FM-1-aa22295944c8d361",
+      "page": 67,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "456-blind-stdunreachable",
+      "pdf_target": "FM-1-8eb5e24cde58c26a",
+      "page": 68,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i1",
+      "pdf_target": "FM-1-8dc6dd9cc8440e4d",
+      "page": 68,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i2",
+      "pdf_target": "FM-1-6eda9dd13b9a7528",
+      "page": 68,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i3",
+      "pdf_target": "FM-1-e30b2c4a02ec9f00",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i4",
+      "pdf_target": "FM-1-3ee6c47590039b73",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i5",
+      "pdf_target": "FM-1-52e01dbb406de272",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i6",
+      "pdf_target": "FM-1-e3a10042b5bbe289",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i7",
+      "pdf_target": "FM-1-a3274dec7a2e9f82",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i8",
+      "pdf_target": "FM-1-7edc025ccd8f1b2f",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i9",
+      "pdf_target": "FM-1-0957ba3c5f8f1b07",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i10",
+      "pdf_target": "FM-1-608235f7123c17b8",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i11",
+      "pdf_target": "FM-1-7fe2cd63484f83bc",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-1",
+      "source_id": "fm1-i12",
+      "pdf_target": "FM-1-45b0fa9e24eada84",
+      "page": 69,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "fm-2--value-based-failure",
+      "pdf_target": "FM-2-6784a44e5eda9eb5",
+      "page": 71,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "fm2-part-1",
+      "pdf_target": "FM-2-ef575f552c0123aa",
+      "page": 71,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "bool-不适合",
+      "pdf_target": "FM-2-bc102668c354f9dc",
+      "page": 72,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "核心规则",
+      "pdf_target": "FM-2-aff334e1eec9a8e4",
+      "page": 73,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "fm2-part-2",
+      "pdf_target": "FM-2-8ff45f638c69ceb5",
+      "page": 74,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "61-带结构化-context",
+      "pdf_target": "FM-2-ae5eeb0c906e6515",
+      "page": 75,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "fm2-part-3",
+      "pdf_target": "FM-2-fc260a2100f6829c",
+      "page": 77,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "fm2-part-4",
+      "pdf_target": "FM-2-371f69446d06903e",
+      "page": 81,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "所有东西都返回-expected",
+      "pdf_target": "FM-2-3eeadff03a3f2f56",
+      "page": 82,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "optional-吞掉错误原因",
+      "pdf_target": "FM-2-452064c99ca1857a",
+      "page": 82,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "string-作为错误身份",
+      "pdf_target": "FM-2-2623be0ef07fc70f",
+      "page": 82,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "error-type-绑定底层实现",
+      "pdf_target": "FM-2-b726a2cd2eba4754",
+      "page": 82,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-2",
+      "source_id": "value-到处使用",
+      "pdf_target": "FM-2-bc5430d790897da7",
+      "page": 82,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "fm-3--c-exception-semantics",
+      "pdf_target": "FM-3-b51dab3e69b93fa4",
+      "page": 84,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "fm3-part-1",
+      "pdf_target": "FM-3-7c18e8976429e28e",
+      "page": 84,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "fm3-part-2",
+      "pdf_target": "FM-3-b6eae42411944a01",
+      "page": 86,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "fm3-part-3",
+      "pdf_target": "FM-3-09e276fa602830f6",
+      "page": 89,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "fm3-part-4",
+      "pdf_target": "FM-3-c65b4f6bd88dbeb0",
+      "page": 92,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "catch-and-ignore",
+      "pdf_target": "FM-3-a5d20250291b1a7c",
+      "page": 93,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "catch-too-low",
+      "pdf_target": "FM-3-57a3c315c4c9a760",
+      "page": 93,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "exception-作为普通循环分支",
+      "pdf_target": "FM-3-e4371fd58dee0206",
+      "page": 93,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "throw-raw-primitives",
+      "pdf_target": "FM-3-648be76c063381ff",
+      "page": 94,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "destructor-传播异常",
+      "pdf_target": "FM-3-7417d39179fc62fb",
+      "page": 94,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-3",
+      "source_id": "每层重新包装-exception",
+      "pdf_target": "FM-3-6ba9f2ca271773ed",
+      "page": 94,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "fm-4--raii--exception-safety",
+      "pdf_target": "FM-4-e72724742466174d",
+      "page": 96,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "fm4-part-1",
+      "pdf_target": "FM-4-37730da3485d2998",
+      "page": 96,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "no-throw-guarantee",
+      "pdf_target": "FM-4-861e037718817868",
+      "page": 98,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "strong-guarantee",
+      "pdf_target": "FM-4-54a25b43b5091065",
+      "page": 98,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "basic-guarantee",
+      "pdf_target": "FM-4-55735f983dbcfd2a",
+      "page": 98,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "no-useful-guarantee",
+      "pdf_target": "FM-4-7d90996d8de8f181",
+      "page": 98,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "fm4-part-2",
+      "pdf_target": "FM-4-5d57a246e60d2605",
+      "page": 98,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "fm4-part-3",
+      "pdf_target": "FM-4-a6bcf3fb3792ca4a",
+      "page": 102,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-4",
+      "source_id": "fm4-part-4",
+      "pdf_target": "FM-4-2da492c67f7cfc1e",
+      "page": 104,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm-5--noexcept-move-copy--generic-guarantees",
+      "pdf_target": "FM-5-0c3d83c9e2f77d5b",
+      "page": 105,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm5-part-1",
+      "pdf_target": "FM-5-1146d759c5c31808",
+      "page": 105,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm5-part-2",
+      "pdf_target": "FM-5-f1828e5d5790d9bd",
+      "page": 107,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm5-part-3",
+      "pdf_target": "FM-5-670d207f1b9e50cb",
+      "page": 109,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm5-part-4",
+      "pdf_target": "FM-5-855decb91ae08ede",
+      "page": 111,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-5",
+      "source_id": "fm5-part-5",
+      "pdf_target": "FM-5-d7b132305921a551",
+      "page": 113,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-6",
+      "source_id": "fm-6--construction-destruction--allocation-failure",
+      "pdf_target": "FM-6-36e808901570586d",
+      "page": 115,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-6",
+      "source_id": "fm6-part-1",
+      "pdf_target": "FM-6-842ba9c417c53603",
+      "page": 115,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-6",
+      "source_id": "fm6-part-2",
+      "pdf_target": "FM-6-c01ba2363d9ab2d6",
+      "page": 118,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-6",
+      "source_id": "fm6-part-3",
+      "pdf_target": "FM-6-70c9674cb28cbcb2",
+      "page": 120,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-6",
+      "source_id": "fm6-part-4",
+      "pdf_target": "FM-6-1cae8943e65e77ab",
+      "page": 122,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-7",
+      "source_id": "fm-7--error_code-system_error--os-failure",
+      "pdf_target": "FM-7-cb637e35bd946cc3",
+      "page": 123,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-7",
+      "source_id": "fm7-part-1",
+      "pdf_target": "FM-7-8a58c02a7020724f",
+      "page": 123,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-7",
+      "source_id": "fm7-part-2",
+      "pdf_target": "FM-7-7360c5874fa771fe",
+      "page": 126,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-7",
+      "source_id": "fm7-part-3",
+      "pdf_target": "FM-7-e176445861619b41",
+      "page": 128,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm-8--thread-coroutine-abi--distributed-failure-boundaries",
+      "pdf_target": "FM-8-1c8f05803aed71a2",
+      "page": 130,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm8-part-1",
+      "pdf_target": "FM-8-82d38f8db67647fa",
+      "page": 130,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm8-part-2",
+      "pdf_target": "FM-8-3a012f3e4b0f9257",
+      "page": 134,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm8-part-3",
+      "pdf_target": "FM-8-0cd09f756ba126c0",
+      "page": 136,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm8-part-4",
+      "pdf_target": "FM-8-83fadb47dca5c838",
+      "page": 137,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-8",
+      "source_id": "fm8-part-5",
+      "pdf_target": "FM-8-eda718fdd7ca3ae2",
+      "page": 140,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm-9--project-level-failure-profile",
+      "pdf_target": "FM-9-29bddb96ad243f17",
+      "page": 141,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-1",
+      "pdf_target": "FM-9-46ae96f177a06bd7",
+      "page": 142,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "d--domain-outcome",
+      "pdf_target": "FM-9-b5715257e7059daf",
+      "page": 143,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "r--recoverable-failure",
+      "pdf_target": "FM-9-508ce8806d91a0a4",
+      "page": 143,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "p--programmer-error",
+      "pdf_target": "FM-9-5d0f171384f13595",
+      "page": 143,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "f--fatal-failure",
+      "pdf_target": "FM-9-dafde2cb6436362e",
+      "page": 143,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-2",
+      "pdf_target": "FM-9-e476f9fbe067605c",
+      "page": 144,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-3",
+      "pdf_target": "FM-9-08ab26a9134a9567",
+      "page": 147,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "development-assertion",
+      "pdf_target": "FM-9-9ff500ea215b294c",
+      "page": 148,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "production-fatal-check",
+      "pdf_target": "FM-9-7b233a4825cba487",
+      "page": 148,
+      "kind": "Para",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-4",
+      "pdf_target": "FM-9-7b2d11cf10ae8bb1",
+      "page": 149,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-5",
+      "pdf_target": "FM-9-561a18c9ee05568b",
+      "page": 152,
+      "kind": "Header",
+      "starts_with_source_block": true
+    },
+    {
+      "document": "FM-9",
+      "source_id": "fm9-part-6",
+      "pdf_target": "FM-9-d8e00e2e11407a0d",
+      "page": 153,
+      "kind": "Header",
+      "starts_with_source_block": true
+    }
+  ],
+  "body_link_occurrences_checked": 146,
+  "cross_chapter_references_checked": 94,
+  "body_link_policy": "Owning chapter + target + multiplicity; TOC excluded, not click-by-click UI testing.",
+  "source_sections_checked": 383,
+  "fenced_blocks": 527,
+  "cpp_blocks": 215,
+  "explicit_targets": 189,
+  "fixtures": [
+    {
+      "id": "FM-GUIDE-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-GUIDE-b7872f4229a1673f"
+      ],
+      "pages": [
+        6
+      ]
+    },
+    {
+      "id": "failure-contract",
+      "purpose": "contract-field-relations",
+      "targets": [
+        "FM-GUIDE-1f6f8462da64b658"
+      ],
+      "pages": [
+        9
+      ]
+    },
+    {
+      "id": "FM-0-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-0-b9b182f4f9b71dbc"
+      ],
+      "pages": [
+        11
+      ]
+    },
+    {
+      "id": "FM-1-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-1-50e1b7f8a9ad65c5"
+      ],
+      "pages": [
+        46
+      ]
+    },
+    {
+      "id": "FM-2-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-2-f3173a19241ec424"
+      ],
+      "pages": [
+        71
+      ]
+    },
+    {
+      "id": "FM-3-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-3-070f4cee1bd6f9cc"
+      ],
+      "pages": [
+        84
+      ]
+    },
+    {
+      "id": "FM-4-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-4-40e5e2acef077155"
+      ],
+      "pages": [
+        96
+      ]
+    },
+    {
+      "id": "FM-5-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-5-720e3be9a9c0f17e"
+      ],
+      "pages": [
+        105
+      ]
+    },
+    {
+      "id": "FM-6-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-6-f61a0468378bb4ad"
+      ],
+      "pages": [
+        115
+      ]
+    },
+    {
+      "id": "FM-7-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-7-b53af8da284ebb07"
+      ],
+      "pages": [
+        123
+      ]
+    },
+    {
+      "id": "FM-8-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-8-e1b0dea873c46d58"
+      ],
+      "pages": [
+        130
+      ]
+    },
+    {
+      "id": "FM-9-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-9-465c129043639cb8"
+      ],
+      "pages": [
+        141
+      ]
+    },
+    {
+      "id": "FM-0-C91-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-0-C91-role",
+        "FM-0-C91-L1"
+      ],
+      "pages": [
+        36
+      ]
+    },
+    {
+      "id": "FM-1-C32-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C32-role",
+        "FM-1-C32-L1"
+      ],
+      "pages": [
+        53
+      ]
+    },
+    {
+      "id": "FM-1-C34-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C34-role",
+        "FM-1-C34-L1"
+      ],
+      "pages": [
+        53
+      ]
+    },
+    {
+      "id": "FM-1-C103-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C103-role",
+        "FM-1-C103-L1"
+      ],
+      "pages": [
+        67
+      ]
+    },
+    {
+      "id": "FM-1-C104-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C104-role",
+        "FM-1-C104-L1"
+      ],
+      "pages": [
+        67
+      ]
+    },
+    {
+      "id": "FM-2-C34-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-2-C34-role",
+        "FM-2-C34-L1"
+      ],
+      "pages": [
+        77
+      ]
+    },
+    {
+      "id": "FM-2-C36-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-2-C36-L1",
+        "FM-2-C36-L38"
+      ],
+      "pages": [
+        78
+      ]
+    },
+    {
+      "id": "FM-2-C45-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-2-C45-L1",
+        "FM-2-C45-L23"
+      ],
+      "pages": [
+        80,
+        81
+      ]
+    },
+    {
+      "id": "FM-2-C47-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-2-C47-role",
+        "FM-2-C47-L1"
+      ],
+      "pages": [
+        82
+      ]
+    },
+    {
+      "id": "FM-4-C03-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-4-C03-role",
+        "FM-4-C03-L1"
+      ],
+      "pages": [
+        97
+      ]
+    },
+    {
+      "id": "FM-4-C21-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-4-C21-role",
+        "FM-4-C21-L1"
+      ],
+      "pages": [
+        102
+      ]
+    },
+    {
+      "id": "FM-5-C05-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-5-C05-L1",
+        "FM-5-C05-L4"
+      ],
+      "pages": [
+        107
+      ]
+    },
+    {
+      "id": "FM-5-C11-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-5-C11-L1",
+        "FM-5-C11-L55"
+      ],
+      "pages": [
+        108,
+        109
+      ]
+    },
+    {
+      "id": "FM-5-C20-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-5-C20-role",
+        "FM-5-C20-L1"
+      ],
+      "pages": [
+        112
+      ]
+    },
+    {
+      "id": "FM-7-C04-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-7-C04-role",
+        "FM-7-C04-L1"
+      ],
+      "pages": [
+        124
+      ]
+    },
+    {
+      "id": "FM-8-C04-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-8-C04-L1",
+        "FM-8-C04-L14"
+      ],
+      "pages": [
+        132
+      ]
+    },
+    {
+      "id": "FM-9-C21-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-9-C21-role",
+        "FM-9-C21-L1"
+      ],
+      "pages": [
+        147
+      ]
+    },
+    {
+      "id": "FM-9-C49-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C49-L1",
+        "FM-9-C49-L36"
+      ],
+      "pages": [
+        153,
+        154
+      ]
+    },
+    {
+      "id": "FM-9-C50-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C50-L1",
+        "FM-9-C50-L37"
+      ],
+      "pages": [
+        154,
+        155
+      ]
+    },
+    {
+      "id": "FM-9-C51-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C51-L1",
+        "FM-9-C51-L33"
+      ],
+      "pages": [
+        155,
+        156
+      ]
+    },
+    {
+      "id": "front-and-exit",
+      "purpose": "cover-control-toc-last",
+      "targets": [],
+      "pages": [
+        1,
+        2,
+        3,
+        5,
+        158
+      ]
+    }
+  ],
+  "images": [
+    {
+      "page": 1,
+      "path": "fm-review/page-001.png",
+      "sha256": "3b50b1911f8f4b24fe2c7eb7f32600663f1ae9042561caf870c78892da67bc71"
+    },
+    {
+      "page": 2,
+      "path": "fm-review/page-002.png",
+      "sha256": "d2ad6a7cea3816506d96f7f3290ae685aff5fa5ac1b4ad416064b04554121f8e"
+    },
+    {
+      "page": 3,
+      "path": "fm-review/page-003.png",
+      "sha256": "3e57fc1f3032f399286e0bf7977ab849307b3db8ada18e4f99c911892cec494a"
+    },
+    {
+      "page": 5,
+      "path": "fm-review/page-005.png",
+      "sha256": "d2de28f3e4ebeac13256d7f7d464f1b7e925731076f9eaf44a5dcbf918601926"
+    },
+    {
+      "page": 6,
+      "path": "fm-review/page-006.png",
+      "sha256": "dc5676075b9e02ef0505ec474d5b7cde5e907721ce8a62dbee0619b5fda4f85e"
+    },
+    {
+      "page": 9,
+      "path": "fm-review/page-009.png",
+      "sha256": "96abad96d087f5ea42fee6b72d0a2f17ad124923ea3ccfc856dfa0ca8e598c5c"
+    },
+    {
+      "page": 11,
+      "path": "fm-review/page-011.png",
+      "sha256": "0b72ac5337563c4cfaf29ad8f57a2e79091750584beb96f27f57d9c0bf1119d8"
+    },
+    {
+      "page": 36,
+      "path": "fm-review/page-036.png",
+      "sha256": "d2fe14feef5b1079ac88130147c933f85f3557c42d2f9e34ca998b245944dd31"
+    },
+    {
+      "page": 46,
+      "path": "fm-review/page-046.png",
+      "sha256": "2c31e1ce2d9b3b4c4a669cbabe491268cea00650b39374b6b25bf3d3ffaf5e6c"
+    },
+    {
+      "page": 53,
+      "path": "fm-review/page-053.png",
+      "sha256": "03fcd7b1432665857609f11592a36137337836e7e97b681551d8f6b4ec77e434"
+    },
+    {
+      "page": 67,
+      "path": "fm-review/page-067.png",
+      "sha256": "30c256f7316933651f1194ed69a14618865bc05f3b981c03d27d0570b3bd5c06"
+    },
+    {
+      "page": 71,
+      "path": "fm-review/page-071.png",
+      "sha256": "a19ad04cc0d9cebb744a2c2f26c5a675ae3973199e79376130d5d9c4a3608558"
+    },
+    {
+      "page": 77,
+      "path": "fm-review/page-077.png",
+      "sha256": "2dc3527af70c2216a48129790d36f60613c245f41d8f869979e2112d2a9ace4e"
+    },
+    {
+      "page": 78,
+      "path": "fm-review/page-078.png",
+      "sha256": "55e8c79e8315076870ab7e3cd3e555998af3b64b886db1378c4dbb30541a4055"
+    },
+    {
+      "page": 80,
+      "path": "fm-review/page-080.png",
+      "sha256": "41148495b2e99ae2e0835c99dc18ecbe76e6bc352222530f328bbf90022108cf"
+    },
+    {
+      "page": 81,
+      "path": "fm-review/page-081.png",
+      "sha256": "5ff802ca98fa7600ea254cf32d2e74ed274ed9599ecf99d8a54bdde121040a52"
+    },
+    {
+      "page": 82,
+      "path": "fm-review/page-082.png",
+      "sha256": "a74e76bfd27fd81bf78163277db1866b12886306632a07c9a81f5777ae6981d3"
+    },
+    {
+      "page": 84,
+      "path": "fm-review/page-084.png",
+      "sha256": "d430e2094299be7924b681c2a6112a7f74f8b3ab0c3902f17e4d59e571e7113a"
+    },
+    {
+      "page": 96,
+      "path": "fm-review/page-096.png",
+      "sha256": "d30f609f6da9feb842cc5d8bf61bb74934314fda939a16b44eecac200bcda5e9"
+    },
+    {
+      "page": 97,
+      "path": "fm-review/page-097.png",
+      "sha256": "aff176bba56538a427db8cdc78f6d3d37b7e6f2d588fa719142234216903a352"
+    },
+    {
+      "page": 102,
+      "path": "fm-review/page-102.png",
+      "sha256": "9786679c09d7343bcf0932f3f9c65b7c6f5586aa3949107779ee106ac1d905ca"
+    },
+    {
+      "page": 105,
+      "path": "fm-review/page-105.png",
+      "sha256": "4afdc74992c16d494041693da2f5d803029069d6b27745a408c4d87c6f4afe73"
+    },
+    {
+      "page": 107,
+      "path": "fm-review/page-107.png",
+      "sha256": "77be5f44baea60757db07058447016ca368a53dcc90dfc8d88b4bc8e90661026"
+    },
+    {
+      "page": 108,
+      "path": "fm-review/page-108.png",
+      "sha256": "e205df7ad3ff98e45dd9a705d17c2b99736c410258435ad3bd347a615dde5890"
+    },
+    {
+      "page": 109,
+      "path": "fm-review/page-109.png",
+      "sha256": "f1e6a4ab49f1737ad08eb088bfeafca4bbe9e13f1fc8a45bb69fc84bb5c4b44f"
+    },
+    {
+      "page": 112,
+      "path": "fm-review/page-112.png",
+      "sha256": "1eb83d41f526223f0711161724d3275feb22008415d528945812575535fb8461"
+    },
+    {
+      "page": 115,
+      "path": "fm-review/page-115.png",
+      "sha256": "5be9997290bcd696b46d81b9c3e94e4420edd37172ceceda07827bf6b1be57ee"
+    },
+    {
+      "page": 123,
+      "path": "fm-review/page-123.png",
+      "sha256": "5d404579b9fbb8542e679c381a130cc1c40065efd194c683cd50e04610194a8d"
+    },
+    {
+      "page": 124,
+      "path": "fm-review/page-124.png",
+      "sha256": "f4cbdb76887a60bdd285b29e626683f38c3b57b1b449042851e61741efe476a2"
+    },
+    {
+      "page": 130,
+      "path": "fm-review/page-130.png",
+      "sha256": "e47fb31d60f2661ce49aee776bf1df705b6642c724edac608db9b7ecdd2b708f"
+    },
+    {
+      "page": 132,
+      "path": "fm-review/page-132.png",
+      "sha256": "f75d59736135a423e214a3c8a39e6756f1d2469a2468b94f5d7bbb63e11e8bf7"
+    },
+    {
+      "page": 141,
+      "path": "fm-review/page-141.png",
+      "sha256": "809eb4e6afbb1e26c8eecdd0008ce9eff2f9963d9c1b4a81d9fa3801ffe0192f"
+    },
+    {
+      "page": 147,
+      "path": "fm-review/page-147.png",
+      "sha256": "9664c3a59a9c27fdcda6550c79e1d5551305f359ead5797aa9c1911cf4d9732b"
+    },
+    {
+      "page": 153,
+      "path": "fm-review/page-153.png",
+      "sha256": "7b505820cceec0a243d81eaa4e8ccc4b3014d4e973fc4882bd4f81ece4bb6e9f"
+    },
+    {
+      "page": 154,
+      "path": "fm-review/page-154.png",
+      "sha256": "387e644ebba613d3e4b85b2463707a464569a533f9a170fdcd7305373b6dabf7"
+    },
+    {
+      "page": 155,
+      "path": "fm-review/page-155.png",
+      "sha256": "e3646118379c674f9ce15b271bc0a5c2ee2bd9f15f17717e2edd2ee3a6214da1"
+    },
+    {
+      "page": 156,
+      "path": "fm-review/page-156.png",
+      "sha256": "314e56ab41027eca82257ae837df964cc3effd270204901e3d4a41a946bbc3ee"
+    },
+    {
+      "page": 158,
+      "path": "fm-review/page-158.png",
+      "sha256": "69a89f271d4c069614bf8f1c97b76bd21fff5d90c9d52a50cb0d08bf3c2457e5"
+    }
+  ],
+  "issues": [],
+  "limitations": [
+    "No C++/performance/TSan rerun.",
+    "Dynamic PDF reader smoke is separate.",
+    "Text normalization is not a proof of code indentation or visual meaning."
+  ]
+}

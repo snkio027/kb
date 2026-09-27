@@ -1,0 +1,2181 @@
+{
+  "view": "CPP-FAILURE-MODEL",
+  "pages": 158,
+  "pdf": "output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+  "sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+  "links": 307,
+  "named_destinations": 3239,
+  "metadata": {
+    "id": "CPP-FAILURE-MODEL",
+    "title": "C++23 失败语义工程手册",
+    "subtitle": "Modern C++ Failure Semantics Handbook",
+    "version": "1.0.0",
+    "status": "PUBLICATION EDITION",
+    "filename": "Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+    "document_id": "CPP-FAILURE-MODEL",
+    "source_commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+    "build_short": "c79dfba6f1c447c96adac7d4",
+    "toc_depth": "1",
+    "density": "balanced",
+    "short_table_lines": "12",
+    "owner": "",
+    "subject": "CPP-FAILURE-MODEL | v1.0.0 | PUBLICATION EDITION | PUBLICATION",
+    "keywords": "FM-GUIDE 45b305e ACCEPTED CONTENT, FM-0 45b305e ACCEPTED CONTENT, FM-1 45b305e ACCEPTED CONTENT, FM-2 45b305e ACCEPTED CONTENT, FM-3 45b305e ACCEPTED CONTENT, FM-4 45b305e ACCEPTED CONTENT, FM-5 45b305e ACCEPTED CONTENT, FM-6 45b305e ACCEPTED CONTENT, FM-7 45b305e ACCEPTED CONTENT, FM-8 45b305e ACCEPTED CONTENT, FM-9 45b305e ACCEPTED CONTENT"
+  },
+  "missing_text_blocks": [],
+  "identity_pages_checked": 158,
+  "missing_table_row_relations": [],
+  "table_rows_checked": 77,
+  "extraction_policy": {
+    "body_band_pt": [
+      52,
+      782
+    ],
+    "normalization": "NFKC + whitespace + soft hyphen removal; unchecked ballot/square equivalence",
+    "ignored_generated_labels": [
+      "FM-GUIDE · 1. 一次操作，而不是一个语言特性 · continued",
+      "FM-0 · 0. 文档定位 · continued",
+      "FM-0 · 0. 文档定位 · continued",
+      "FM-0 · 1. 核心原则 · continued",
+      "FM-0 · 1. 核心原则 · continued",
+      "FM-0 · 1. 核心原则 · continued",
+      "FM-0 · 2. Failure 不等于 Exception · continued",
+      "FM-0 · 2. Failure 不等于 Exception · continued",
+      "FM-0 · 2. Failure 不等于 Exception · continued",
+      "FM-0 · 2. Failure 不等于 Exception · continued",
+      "FM-0 · 2. Failure 不等于 Exception · continued",
+      "FM-0 · 3. Fault / Error / Failure · continued",
+      "FM-0 · 3. Fault / Error / Failure · continued",
+      "FM-0 · 3. Fault / Error / Failure · continued",
+      "FM-0 · 4. 第一维：失败责任分类 · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 5. Domain Outcome · continued",
+      "FM-0 · 6. Environmental Failure · continued",
+      "FM-0 · 6. Environmental Failure · continued",
+      "FM-0 · 6. Environmental Failure · continued",
+      "FM-0 · 6. Environmental Failure · continued",
+      "FM-0 · 7. Programmer Error · continued",
+      "FM-0 · 7. Programmer Error · continued",
+      "FM-0 · 8. 表面相同的错误可能属于不同类别 · continued",
+      "FM-0 · 8. 表面相同的错误可能属于不同类别 · continued",
+      "FM-0 · 8. 表面相同的错误可能属于不同类别 · continued",
+      "FM-0 · 8. 表面相同的错误可能属于不同类别 · continued",
+      "FM-0 · 9. Detection / Representation / Translation / Propagation · continued",
+      "FM-0 · 10. Detection · continued",
+      "FM-0 · 10. Detection · continued",
+      "FM-0 · 11. Representation · continued",
+      "FM-0 · 11. Representation · continued",
+      "FM-0 · 11. Representation · continued",
+      "FM-0 · 12. Error Translation · continued",
+      "FM-0 · 12. Error Translation · continued",
+      "FM-0 · 13. Propagation · continued",
+      "FM-0 · 13. Propagation · continued",
+      "FM-0 · 13. Propagation · continued",
+      "FM-0 · 14. Handling 不等于 Recovery · continued",
+      "FM-0 · 14. Handling 不等于 Recovery · continued",
+      "FM-0 · 15. Handling · continued",
+      "FM-0 · 16. Recovery · continued",
+      "FM-0 · 16. Recovery · continued",
+      "FM-0 · 16. Recovery · continued",
+      "FM-0 · 17. Recovery Boundary · continued",
+      "FM-0 · 17. Recovery Boundary · continued",
+      "FM-0 · 18. Recovery Boundary 原则 · continued",
+      "FM-0 · 19. 不要让底层擅自决定 Retry · continued",
+      "FM-0 · 19. 不要让底层擅自决定 Retry · continued",
+      "FM-0 · 20. Failure Domain · continued",
+      "FM-0 · 21. Request-Level Failure Domain · continued",
+      "FM-0 · 22. Task-Level Failure Domain · continued",
+      "FM-0 · 24. Process-Level Failure Domain · continued",
+      "FM-0 · 24. Process-Level Failure Domain · continued",
+      "FM-0 · 25. Recovery Boundary 与 Failure Boundary · continued",
+      "FM-0 · 26. C ABI Boundary · continued",
+      "FM-0 · 26. C ABI Boundary · continued",
+      "FM-0 · 27. Thread Boundary · continued",
+      "FM-0 · 28. 第二维：Failure Representation · continued",
+      "FM-0 · 33. State Guarantee 与 Error Transport 正交 · continued",
+      "FM-0 · 33. State Guarantee 与 Error Transport 正交 · continued",
+      "FM-0 · 33. State Guarantee 与 Error Transport 正交 · continued",
+      "FM-0 · 33. State Guarantee 与 Error Transport 正交 · continued",
+      "FM-0 · 35. Common Outcome · continued",
+      "FM-0 · 35. Common Outcome · continued",
+      "FM-0 · 35. Common Outcome · continued",
+      "FM-0 · 36. Rare Failure · continued",
+      "FM-0 · 38. 第五维：Resource Guarantee · continued",
+      "FM-0 · 38. 第五维：Resource Guarantee · continued",
+      "FM-0 · 39. RAII 的 Failure Model 含义 · continued",
+      "FM-0 · 40. Complete Failure Pipeline · continued",
+      "FM-0 · 41. 示例：文件读取 · continued",
+      "FM-0 · 41. 示例：文件读取 · continued",
+      "FM-0 · 41. 示例：文件读取 · continued",
+      "FM-0 · 42. 示例：Binary Parser · continued",
+      "FM-0 · 42. 示例：Binary Parser · continued",
+      "FM-0 · 42. 示例：Binary Parser · continued",
+      "FM-0 · 43. 示例：内部 Decode Table · continued",
+      "FM-0 · 43. 示例：内部 Decode Table · continued",
+      "FM-0 · 44. 示例：数据处理 Pipeline · continued",
+      "FM-0 · 44. 示例：数据处理 Pipeline · continued",
+      "FM-0 · 45. Failure Model 的二维底图 · continued",
+      "FM-0 · 45. Failure Model 的二维底图 · continued",
+      "FM-0 · 47. API Review Template · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "错误： · FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 49. Anti-Patterns · continued",
+      "FM-0 · 51. Failure Model 与 Observability · continued",
+      "FM-0 · 51. Failure Model 与 Observability · continued",
+      "FM-0 · 52. Failure Model 与 Context · continued",
+      "FM-0 · 53. Failure Model 与 Shutdown · continued",
+      "FM-0 · 54. Failure Model 与 Cancellation · continued",
+      "FM-0 · 57. Failure Model 与 Ownership · continued",
+      "FM-0 · 57. Failure Model 与 Ownership · continued",
+      "FM-0 · 58. Failure Model 与 Move · continued",
+      "FM-0 · 58. Failure Model 与 Move · continued",
+      "FM-0 · 59. 设计层次 · continued",
+      "FM-0 · 59. 设计层次 · continued",
+      "FM-0 · 59. 设计层次 · continued",
+      "FM-0 · 62. 最终心智模型 · continued",
+      "FM-0 · 62. 最终心智模型 · continued",
+      "FM-0 · 62. 最终心智模型 · continued",
+      "FM-0 · 62. 最终心智模型 · continued",
+      "FM-0 · 64. FM-0 压缩版 · continued",
+      "FM-0 · 65. 后续学习位置 · continued",
+      "FM-1 · 0. 文档定位 · continued",
+      "FM-1 · 0. 文档定位 · continued",
+      "FM-1 · 1. Contract 是什么 · continued",
+      "FM-1 · 1. Contract 是什么 · continued",
+      "FM-1 · 2. Preconditions · continued",
+      "FM-1 · 3. Postconditions · continued",
+      "FM-1 · 3. Postconditions · continued",
+      "FM-1 · 4. Invariants · continued",
+      "FM-1 · 4. Invariants · continued",
+      "FM-1 · 4. Invariants · continued",
+      "FM-1 · 4. Invariants · continued",
+      "FM-1 · 4. Invariants · continued",
+      "FM-1 · 5. Contract 的责任方向 · continued",
+      "FM-1 · 5. Contract 的责任方向 · continued",
+      "FM-1 · 5. Contract 的责任方向 · continued",
+      "FM-1 · 6. Runtime Failure 与 Contract Violation · continued",
+      "FM-1 · 6. Runtime Failure 与 Contract Violation · continued",
+      "FM-1 · 6. Runtime Failure 与 Contract Violation · continued",
+      "FM-1 · 7. 判断标准 · continued",
+      "FM-1 · 7. 判断标准 · continued",
+      "FM-1 · 9. Validation · continued",
+      "FM-1 · 9. Validation · continued",
+      "FM-1 · 9. Validation · continued",
+      "FM-1 · 10. Assertion · continued",
+      "FM-1 · 10. Assertion · continued",
+      "FM-1 · 11. Validation 与 Assertion 的工程区分 · continued",
+      "FM-1 · 12. assert · continued",
+      "FM-1 · 12. assert · continued",
+      "FM-1 · 13. NDEBUG · continued",
+      "FM-1 · 13. NDEBUG · continued",
+      "FM-1 · 13. NDEBUG · continued",
+      "错误： · FM-1 · 14. Assertion 不得承载必要副作用 · continued",
+      "FM-1 · 14. Assertion 不得承载必要副作用 · continued",
+      "错误： · FM-1 · 15. assert 不适合处理外部输入 · continued",
+      "FM-1 · 15. assert 不适合处理外部输入 · continued",
+      "FM-1 · 16. Validation Boundary · continued",
+      "FM-1 · 16. Validation Boundary · continued",
+      "FM-1 · 16. Validation Boundary · continued",
+      "FM-1 · 16. Validation Boundary · continued",
+      "FM-1 · 17. Validate Once，Trust Afterwards · continued",
+      "FM-1 · 17. Validate Once，Trust Afterwards · continued",
+      "FM-1 · 17. Validate Once，Trust Afterwards · continued",
+      "FM-1 · 17. Validate Once，Trust Afterwards · continued",
+      "FM-1 · 18. Checked Boundary + Trusted Core · continued",
+      "FM-1 · 18. Checked Boundary + Trusted Core · continued",
+      "FM-1 · 18. Checked Boundary + Trusted Core · continued",
+      "FM-1 · 18. Checked Boundary + Trusted Core · continued",
+      "FM-1 · 18. Checked Boundary + Trusted Core · continued",
+      "FM-1 · 19. operator[] 与 at() · continued",
+      "FM-1 · 19. operator[] 与 at() · continued",
+      "FM-1 · 19. operator[] 与 at() · continued",
+      "FM-1 · 19. operator[] 与 at() · continued",
+      "FM-1 · 19. operator[] 与 at() · continued",
+      "FM-1 · 20. Checked 与 Unchecked API 都有合理用途 · continued",
+      "FM-1 · 20. Checked 与 Unchecked API 都有合理用途 · continued",
+      "FM-1 · 20. Checked 与 Unchecked API 都有合理用途 · continued",
+      "FM-1 · 21. Undefined Behavior · continued",
+      "FM-1 · 22. UB 可能产生什么结果 · continued",
+      "FM-1 · 23. UB 与 Runtime Error 的根本区别 · continued",
+      "FM-1 · 24. UB 会影响优化推理 · continued",
+      "FM-1 · 24. UB 会影响优化推理 · continued",
+      "FM-1 · 25. assert 与 UB · continued",
+      "FM-1 · 25. assert 与 UB · continued",
+      "FM-1 · 26. Assertion 不会改变 API Contract · continued",
+      "FM-1 · 26. Assertion 不会改变 API Contract · continued",
+      "FM-1 · 27. 常见 UB 来源 · continued",
+      "FM-1 · 27. 常见 UB 来源 · continued",
+      "FM-1 · 27. 常见 UB 来源 · continued",
+      "FM-1 · 27. 常见 UB 来源 · continued",
+      "FM-1 · 28. 为什么 C++ 允许 Contract-Based Unchecked Operations · continued",
+      "FM-1 · 28. 为什么 C++ 允许 Contract-Based Unchecked Operations · continued",
+      "FM-1 · 29. Fail-Fast · continued",
+      "FM-1 · 29. Fail-Fast · continued",
+      "FM-1 · 30. Fail-Fast 不等于 UB · continued",
+      "FM-1 · 31. Debug Assertion 与 Production Check · continued",
+      "FM-1 · 31. Debug Assertion 与 Production Check · continued",
+      "FM-1 · 31. Debug Assertion 与 Production Check · continued",
+      "FM-1 · 31. Debug Assertion 与 Production Check · continued",
+      "FM-1 · 32. Assertion 与 Production Invariant Check · continued",
+      "FM-1 · 33. std::terminate · continued",
+      "FM-1 · 34. std::unreachable — C++23 · continued",
+      "FM-1 · 35. std::unreachable 不是 Fail-Fast · continued",
+      "FM-1 · 35. std::unreachable 不是 Fail-Fast · continued",
+      "FM-1 · 37. std::unreachable 的使用原则 · continued",
+      "FM-1 · 37. std::unreachable 的使用原则 · continued",
+      "FM-1 · 38. Internal 不等于 Trusted · continued",
+      "FM-1 · 39. 信任应该建立在 Boundary 上 · continued",
+      "FM-1 · 40. Type as Invariant · continued",
+      "FM-1 · 40. Type as Invariant · continued",
+      "FM-1 · 40. Type as Invariant · continued",
+      "FM-1 · 40. Type as Invariant · continued",
+      "FM-1 · 41. Invalid States Should Be Hard to Represent · continued",
+      "FM-1 · 42. 优先级 · continued",
+      "FM-1 · 43. Engineering Decision Model · continued",
+      "FM-1 · 43. Engineering Decision Model · continued",
+      "FM-1 · 43. Engineering Decision Model · continued",
+      "FM-1 · 43. Engineering Decision Model · continued",
+      "FM-1 · 43. Engineering Decision Model · continued",
+      "FM-1 · 44. API Design Pattern · continued",
+      "FM-1 · 44. API Design Pattern · continued",
+      "FM-1 · 44. API Design Pattern · continued",
+      "FM-1 · 44. API Design Pattern · continued",
+      "错误： · FM-1 · 45. Anti-Patterns · continued",
+      "错误： · FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 45. Anti-Patterns · continued",
+      "FM-1 · 46. Review Checklist · continued",
+      "FM-1 · 48. 最终心智模型 · continued",
+      "FM-2 · 0. 文档定位 · continued",
+      "FM-2 · 1. bool · continued",
+      "FM-2 · 1. bool · continued",
+      "FM-2 · 1. bool · continued",
+      "FM-2 · 2. Sentinel · continued",
+      "FM-2 · 2. Sentinel · continued",
+      "FM-2 · 2. Sentinel · continued",
+      "FM-2 · 2. Sentinel · continued",
+      "FM-2 · 2. Sentinel · continued",
+      "FM-2 · 3. std::optional<T> · continued",
+      "FM-2 · 3. std::optional<T> · continued",
+      "FM-2 · 3. std::optional<T> · continued",
+      "FM-2 · 3. std::optional<T> · continued",
+      "FM-2 · 3. std::optional<T> · continued",
+      "FM-2 · 4. std::expected<T, E> · continued",
+      "FM-2 · 4. std::expected<T, E> · continued",
+      "FM-2 · 4. std::expected<T, E> · continued",
+      "FM-2 · 4. std::expected<T, E> · continued",
+      "FM-2 · 5. std::expected<void, E> · continued",
+      "FM-2 · 5. std::expected<void, E> · continued",
+      "FM-2 · 5. std::expected<void, E> · continued",
+      "FM-2 · 6. Error Type 设计 · continued",
+      "FM-2 · 6. Error Type 设计 · continued",
+      "FM-2 · 6. Error Type 设计 · continued",
+      "FM-2 · 6. Error Type 设计 · continued",
+      "FM-2 · 7. Error Identity 与 Diagnostics 分离 · continued",
+      "FM-2 · 7. Error Identity 与 Diagnostics 分离 · continued",
+      "FM-2 · 7. Error Identity 与 Diagnostics 分离 · continued",
+      "FM-2 · 7. Error Identity 与 Diagnostics 分离 · continued",
+      "FM-2 · 7. Error Identity 与 Diagnostics 分离 · continued",
+      "FM-2 · 8. Error Type 应位于正确抽象层 · continued",
+      "FM-2 · 9. 返回 std::unexpected · continued",
+      "FM-2 · 9. 返回 std::unexpected · continued",
+      "错误： · FM-2 · 9. 返回 std::unexpected · continued",
+      "FM-2 · 10. 手动传播 · continued",
+      "完整实验 · T18 · sample.cpp · continued",
+      "完整实验 · T18 · sample.cpp",
+      "FM-2 · 13. expected 不是引用容器 · continued",
+      "FM-2 · 13. expected 不是引用容器 · continued",
+      "FM-2 · 13. expected 不是引用容器 · continued",
+      "FM-2 · 13. expected 不是引用容器 · continued",
+      "FM-2 · 14. expected 不自动意味着 noexcept · continued",
+      "FM-2 · 14. expected 不自动意味着 noexcept · continued",
+      "FM-2 · 15. expected 不自动提供 Strong Guarantee · continued",
+      "FM-2 · 15. expected 不自动提供 Strong Guarantee · continued",
+      "完整实验 · T19 · sample.cpp · continued",
+      "完整实验 · T19 · sample.cpp",
+      "FM-2 · 18. Value-Based Failure 的适用区域 · continued",
+      "错误： · FM-2 · 19. Anti-Patterns · continued",
+      "FM-2 · 19. Anti-Patterns · continued",
+      "FM-2 · 19. Anti-Patterns · continued",
+      "FM-2 · 19. Anti-Patterns · continued",
+      "FM-2 · 19. Anti-Patterns · continued",
+      "FM-2 · 20. FM-2 Review Checklist · continued",
+      "FM-3 · 0. 文档定位 · continued",
+      "FM-3 · 1. Exception 是非局部控制流 · continued",
+      "FM-3 · 1. Exception 是非局部控制流 · continued",
+      "FM-3 · 1. Exception 是非局部控制流 · continued",
+      "FM-3 · 2. Exception Object · continued",
+      "FM-3 · 2. Exception Object · continued",
+      "FM-3 · 3. Catch by Reference · continued",
+      "FM-3 · 3. Catch by Reference · continued",
+      "FM-3 · 3. Catch by Reference · continued",
+      "FM-3 · 4. Handler 顺序 · continued",
+      "FM-3 · 4. Handler 顺序 · continued",
+      "FM-3 · 5. Stack Unwinding · continued",
+      "FM-3 · 5. Stack Unwinding · continued",
+      "FM-3 · 6. 未完成构造的对象 · continued",
+      "FM-3 · 6. 未完成构造的对象 · continued",
+      "FM-3 · 6. 未完成构造的对象 · continued",
+      "FM-3 · 6. 未完成构造的对象 · continued",
+      "FM-3 · 7. Rethrow · continued",
+      "FM-3 · 7. Rethrow · continued",
+      "FM-3 · 7. Rethrow · continued",
+      "FM-3 · 7. Rethrow · continued",
+      "FM-3 · 8. Exception Translation · continued",
+      "FM-3 · 8. Exception Translation · continued",
+      "FM-3 · 9. Exception Neutrality · continued",
+      "FM-3 · 9. Exception Neutrality · continued",
+      "FM-3 · 9. Exception Neutrality · continued",
+      "FM-3 · 9. Exception Neutrality · continued",
+      "FM-3 · 9. Exception Neutrality · continued",
+      "FM-3 · 10. catch (...) · continued",
+      "FM-3 · 10. catch (...) · continued",
+      "FM-3 · 10. catch (...) · continued",
+      "FM-3 · 11. std::exception_ptr · continued",
+      "FM-3 · 11. std::exception_ptr · continued",
+      "FM-3 · 11. std::exception_ptr · continued",
+      "FM-3 · 11. std::exception_ptr · continued",
+      "FM-3 · 12. Exception 与 Constructor · continued",
+      "FM-3 · 12. Exception 与 Constructor · continued",
+      "FM-3 · 12. Exception 与 Constructor · continued",
+      "FM-3 · 12. Exception 与 Constructor · continued",
+      "FM-3 · 13. Exception 与 Destructor · continued",
+      "FM-3 · 13. Exception 与 Destructor · continued",
+      "FM-3 · 13. Exception 与 Destructor · continued",
+      "FM-3 · 14. Exception Specification 与 noexcept · continued",
+      "FM-3 · 14. Exception Specification 与 noexcept · continued",
+      "FM-3 · 15. Exception Boundary · continued",
+      "FM-3 · 15. Exception Boundary · continued",
+      "FM-3 · 16. Exception 适合什么失败 · continued",
+      "FM-3 · 17. Exception 不适合什么 · continued",
+      "FM-3 · 18. Exception 成本模型 · continued",
+      "FM-3 · 18. Exception 成本模型 · continued",
+      "FM-3 · 19. Exception Hierarchy · continued",
+      "FM-3 · 20. Anti-Patterns · continued",
+      "FM-3 · 20. Anti-Patterns · continued",
+      "FM-3 · 20. Anti-Patterns · continued",
+      "FM-3 · 20. Anti-Patterns · continued",
+      "FM-3 · 21. FM-3 Review Checklist · continued",
+      "FM-4 · 0. 文档定位 · continued",
+      "FM-4 · 2. Owner Object · continued",
+      "错误： · FM-4 · 3. RAII 与 Control Flow 解耦 · continued",
+      "FM-4 · 3. RAII 与 Control Flow 解耦 · continued",
+      "FM-4 · 5. Strong Guarantee 的核心模式 · continued",
+      "FM-4 · 5. Strong Guarantee 的核心模式 · continued",
+      "FM-4 · 6. Transactional Thinking · continued",
+      "FM-4 · 6. Transactional Thinking · continued",
+      "FM-4 · 8. Partial Construction · continued",
+      "FM-4 · 8. Partial Construction · continued",
+      "FM-4 · 9. Two-Phase Initialization · continued",
+      "FM-4 · 9. Two-Phase Initialization · continued",
+      "FM-4 · 9. Two-Phase Initialization · continued",
+      "FM-4 · 10. Rollback 不是免费操作 · continued",
+      "FM-4 · 10. Rollback 不是免费操作 · continued",
+      "FM-4 · 11. Copy-and-Swap · continued",
+      "FM-4 · 11. Copy-and-Swap · continued",
+      "FM-4 · 11. Copy-and-Swap · continued",
+      "FM-4 · 12. Resource Acquisition 顺序 · continued",
+      "FM-4 · 12. Resource Acquisition 顺序 · continued",
+      "不要： · FM-4 · 12. Resource Acquisition 顺序 · continued",
+      "FM-4 · 13. Destruction 是 Cleanup Infrastructure · continued",
+      "FM-4 · 13. Destruction 是 Cleanup Infrastructure · continued",
+      "FM-4 · 14. State Guarantee 必须组合分析 · continued",
+      "FM-4 · 16. Ambiguous Completion · continued",
+      "FM-4 · 16. Ambiguous Completion · continued",
+      "FM-4 · 18. FM-4 Review Checklist · continued",
+      "FM-5 · 0. 文档定位 · continued",
+      "FM-5 · 1. noexcept 的精确含义 · continued",
+      "FM-5 · 1. noexcept 的精确含义 · continued",
+      "FM-5 · 2. 违反 noexcept · continued",
+      "完整实验 · T14 · sample.cpp · continued",
+      "完整实验 · T14 · sample.cpp",
+      "FM-5 · 4. Conditional noexcept · continued",
+      "FM-5 · 5. std::move 不执行移动 · continued",
+      "FM-5 · 6. Move 为什么特别适合 noexcept · continued",
+      "FM-5 · 6. Move 为什么特别适合 noexcept · continued",
+      "FM-5 · 6. Move 为什么特别适合 noexcept · continued",
+      "完整实验 · T17 · sample.cpp · continued",
+      "完整实验 · T17 · sample.cpp",
+      "FM-5 · 8. Container Relocation · continued",
+      "FM-5 · 8. Container Relocation · continued",
+      "FM-5 · 9. Throwing Move 的困难 · continued",
+      "FM-5 · 12. Traits · continued",
+      "FM-5 · 13. swap · continued",
+      "FM-5 · 13. swap · continued",
+      "FM-5 · 14. Defaulted Move · continued",
+      "FM-5 · 14. Defaulted Move · continued",
+      "错误： · FM-5 · 15. 不要对 noexcept 撒谎 · continued",
+      "FM-5 · 16. Destructor 与 noexcept · continued",
+      "FM-5 · 17. Generic Guarantee Composition · continued",
+      "FM-5 · 17. Generic Guarantee Composition · continued",
+      "FM-5 · 18. FM-5 Review Checklist · continued",
+      "FM-6 · 0. 文档定位 · continued",
+      "FM-6 · 1. Constructor 是 Invariant Boundary · continued",
+      "FM-6 · 2. Constructor Throw · continued",
+      "FM-6 · 3. Partial Construction · continued",
+      "FM-6 · 4. Factory + expected · continued",
+      "FM-6 · 4. Factory + expected · continued",
+      "FM-6 · 5. Throwing Constructor vs Factory · continued",
+      "FM-6 · 5. Throwing Constructor vs Factory · continued",
+      "FM-6 · 5. Throwing Constructor vs Factory · continued",
+      "FM-6 · 6. Two-Phase Initialization 应谨慎 · continued",
+      "FM-6 · 6. Two-Phase Initialization 应谨慎 · continued",
+      "FM-6 · 6. Two-Phase Initialization 应谨慎 · continued",
+      "FM-6 · 7. operator new · continued",
+      "FM-6 · 8. Nothrow Allocation · continued",
+      "FM-6 · 8. Nothrow Allocation · continued",
+      "FM-6 · 9. std::bad_alloc · continued",
+      "FM-6 · 9. std::bad_alloc · continued",
+      "FM-6 · 10. Memory Failure Policy · continued",
+      "FM-6 · 11. Allocation 与 API Guarantee · continued",
+      "FM-6 · 11. Allocation 与 API Guarantee · continued",
+      "FM-6 · 12. Destructor 的职责 · continued",
+      "FM-6 · 12. Destructor 的职责 · continued",
+      "FM-6 · 12. Destructor 的职责 · continued",
+      "FM-6 · 12. Destructor 的职责 · continued",
+      "FM-6 · 13. Explicit Close Pattern · continued",
+      "FM-6 · 13. Explicit Close Pattern · continued",
+      "FM-6 · 14. Resource Owner 优先使用 Rule of Zero · continued",
+      "FM-6 · 14. Resource Owner 优先使用 Rule of Zero · continued",
+      "FM-6 · 15. Rule of Five 适用于真正 Ownership Primitive · continued",
+      "FM-6 · 15. Rule of Five 适用于真正 Ownership Primitive · continued",
+      "FM-6 · 15. Rule of Five 适用于真正 Ownership Primitive · continued",
+      "FM-6 · 16. FM-6 Review Checklist · continued",
+      "FM-7 · 0. 文档定位 · continued",
+      "FM-7 · 1. errno · continued",
+      "FM-7 · 1. errno · continued",
+      "错误： · FM-7 · 2. 不要把 errno 当全局 Error Object · continued",
+      "FM-7 · 2. 不要把 errno 当全局 Error Object · continued",
+      "FM-7 · 3. std::error_code · continued",
+      "FM-7 · 4. error_code 的价值 · continued",
+      "FM-7 · 5. std::errc · continued",
+      "FM-7 · 7. std::system_error · continued",
+      "FM-7 · 7. std::system_error · continued",
+      "FM-7 · 8. Value-Based 系统 API · continued",
+      "FM-7 · 8. Value-Based 系统 API · continued",
+      "FM-7 · 9. Error Domain · continued",
+      "FM-7 · 9. Error Domain · continued",
+      "FM-7 · 10. 底层错误不能直接决定业务策略 · continued",
+      "FM-7 · 11. Error Translation 示例 · continued",
+      "FM-7 · 12. Preserve Cause · continued",
+      "FM-7 · 12. Preserve Cause · continued",
+      "FM-7 · 13. Error Context · continued",
+      "FM-7 · 13. Error Context · continued",
+      "FM-7 · 15. FM-7 Review Checklist · continued",
+      "FM-8 · 0. 文档定位 · continued",
+      "FM-8 · 1. Boundary 的本质 · continued",
+      "FM-8 · 1. Boundary 的本质 · continued",
+      "完整实验 · T12 · sample.cpp · continued",
+      "完整实验 · T12 · sample.cpp",
+      "FM-8 · 3. std::jthread · continued",
+      "FM-8 · 4. std::promise / std::future · continued",
+      "FM-8 · 4. std::promise / std::future · continued",
+      "FM-8 · 5. std::async · continued",
+      "FM-8 · 6. std::exception_ptr · continued",
+      "FM-8 · 6. std::exception_ptr · continued",
+      "FM-8 · 7. Coroutine Failure · continued",
+      "FM-8 · 8. Coroutine 不是自动 Result Type · continued",
+      "FM-8 · 9. Cancellation ≠ Failure · continued",
+      "FM-8 · 9. Cancellation ≠ Failure · continued",
+      "FM-8 · 9. Cancellation ≠ Failure · continued",
+      "FM-8 · 11. Shutdown 不是 Error Storm · continued",
+      "FM-8 · 11. Shutdown 不是 Error Storm · continued",
+      "FM-8 · 12. Callback Boundary · continued",
+      "FM-8 · 12. Callback Boundary · continued",
+      "FM-8 · 12. Callback Boundary · continued",
+      "FM-8 · 13. C ABI · continued",
+      "FM-8 · 13. C ABI · continued",
+      "FM-8 · 14. Plugin ABI · continued",
+      "FM-8 · 15. Process Boundary · continued",
+      "FM-8 · 16. RPC Error Model · continued",
+      "FM-8 · 17. Ambiguous Remote Completion · continued",
+      "FM-8 · 19. Retry Budget · continued",
+      "FM-8 · 19. Retry Budget · continued",
+      "FM-8 · 20. Supervisor · continued",
+      "FM-8 · 21. Failure Domain Hierarchy · continued",
+      "FM-8 · 21. Failure Domain Hierarchy · continued",
+      "FM-8 · 22. Logging Boundary · continued",
+      "FM-8 · 22. Logging Boundary · continued",
+      "FM-8 · 23. FM-8 Review Checklist · continued",
+      "FM-9 · 0. 文档定位 · continued",
+      "FM-9 · 1. Failure Profile 应解决什么 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 2. 推荐项目分类 · continued",
+      "FM-9 · 4. Exception Policy · continued",
+      "FM-9 · 4. Exception Policy · continued",
+      "FM-9 · 5. expected Policy · continued",
+      "FM-9 · 6. Error Type Policy · continued",
+      "FM-9 · 6. Error Type Policy · continued",
+      "FM-9 · 7. Error Namespace · continued",
+      "FM-9 · 7. Error Namespace · continued",
+      "FM-9 · 7. Error Namespace · continued",
+      "FM-9 · 8. Error Translation Policy · continued",
+      "不要： · FM-9 · 8. Error Translation Policy · continued",
+      "FM-9 · 10. Ownership Failure Policy · continued",
+      "FM-9 · 11. noexcept Policy · continued",
+      "FM-9 · 12. Assertion Policy · continued",
+      "FM-9 · 12. Assertion Policy · continued",
+      "FM-9 · 12. Assertion Policy · continued",
+      "FM-9 · 12. Assertion Policy · continued",
+      "FM-9 · 13. UB Policy · continued",
+      "FM-9 · 14. Boundary Policy · continued",
+      "FM-9 · 14. Boundary Policy · continued",
+      "FM-9 · 15. Retry Policy · continued",
+      "FM-9 · 16. Timeout Policy · continued",
+      "FM-9 · 17. Cancellation Policy · continued",
+      "FM-9 · 17. Cancellation Policy · continued",
+      "FM-9 · 18. Logging Policy · continued",
+      "FM-9 · 18. Logging Policy · continued",
+      "FM-9 · 19. Metrics Policy · continued",
+      "FM-9 · 20. Diagnostics Policy · continued",
+      "FM-9 · 20. Diagnostics Policy · continued",
+      "FM-9 · 21. Testing Failure Paths · continued",
+      "FM-9 · 22. Fault Injection · continued",
+      "FM-9 · 22. Fault Injection · continued",
+      "FM-9 · 23. Sanitizers · continued",
+      "FM-9 · 23. Sanitizers · continued",
+      "FM-9 · 24. Static Analysis · continued",
+      "FM-9 · 24. Static Analysis · continued",
+      "FM-9 · 25. [[nodiscard]] · continued",
+      "FM-9 · 25. [[nodiscard]] · continued",
+      "FM-9 · 26. Public API Failure Documentation Template · continued",
+      "FM-9 · 27. Subsystem Failure Profile Template · continued",
+      "FM-9 · 28. Project-Wide Baseline · continued",
+      "FM-9 · 29. Project Anti-Patterns · continued",
+      "FM-9 · 30. Project Review Checklist · continued",
+      "FM-9 · Modern C++ Failure Model — 最终总图 · continued",
+      "表 1 · 记录 1 · 续",
+      "表 1 · 记录 2 · 其他情况 · 续"
+    ]
+  },
+  "overfull_hbox_pt": [],
+  "rendered_pages": 158,
+  "visual_review": "REQUIRED; automated checks are not visual approval",
+  "source_identity": [
+    {
+      "bytes": 11169,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-GUIDE",
+      "matches_commit": true,
+      "path": "c++/failure-model/series-guide.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "93c63386c5bd733abbda857eba68d4a67d59ff712d94680ddca6209290c4fb8c",
+      "snapshot_path": "sources/c++/failure-model/series-guide.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 42265,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-0",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "snapshot_path": "sources/c++/failure-model/fm0-failure-model.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 28861,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-1",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "snapshot_path": "sources/c++/failure-model/fm1-contracts-assertions-ub.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 17013,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-2",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "snapshot_path": "sources/c++/failure-model/fm2-value-based-failure.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 11937,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-3",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "snapshot_path": "sources/c++/failure-model/fm3-exception-semantics.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 13276,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-4",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "snapshot_path": "sources/c++/failure-model/fm4-raii-exception-safety.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 14294,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-5",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "snapshot_path": "sources/c++/failure-model/fm5-noexcept-move-copy.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 9448,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-6",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "snapshot_path": "sources/c++/failure-model/fm6-construction-destruction-allocation.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 7468,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-7",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "snapshot_path": "sources/c++/failure-model/fm7-error-code-system-error.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 13467,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-8",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "snapshot_path": "sources/c++/failure-model/fm8-failure-boundaries.md",
+      "version": "45b305e"
+    },
+    {
+      "bytes": 19332,
+      "commit": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "id": "FM-9",
+      "matches_commit": true,
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "revision": "45b305eace0f057420587d685cb3f962f3f0552c",
+      "sha256": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "snapshot_path": "sources/c++/failure-model/fm9-project-failure-profile.md",
+      "version": "45b305e"
+    }
+  ],
+  "profile": "cpp-failure-model",
+  "reference_classes": {
+    "EXTERNAL_URI": 32,
+    "EXTERNAL_SOURCE": 24,
+    "SAME_VIEW_INTERNAL": 146
+  },
+  "semantic_objects": [
+    {
+      "document": "FM-GUIDE",
+      "kind": "source-target",
+      "id": "review-contract",
+      "target_type": "Para",
+      "target_text": "全系列共用以下八项问题。各章末尾的 checklist 只承担主题增量；不必让十篇分别复制完整表。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-0--modern-c-failure-model",
+      "target_type": "Header",
+      "target_text": "FM-0 · 统一失败模型"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-1",
+      "target_type": "Header",
+      "target_text": "一、操作与基本词义"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "21-failure",
+      "target_type": "Para",
+      "target_text": "2.1 Failure"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "22-exception",
+      "target_type": "Para",
+      "target_text": "2.2 Exception"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "31-fault",
+      "target_type": "Para",
+      "target_text": "3.1 Fault"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "32-error",
+      "target_type": "Para",
+      "target_text": "3.2 Error"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "33-failure",
+      "target_type": "Para",
+      "target_text": "3.3 Failure"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-2",
+      "target_type": "Header",
+      "target_text": "二、责任分类"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "51-optional-的语义",
+      "target_type": "Para",
+      "target_text": "5.1 optional 的语义"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "外部输入",
+      "target_type": "Para",
+      "target_text": "外部输入"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "内部索引",
+      "target_type": "Para",
+      "target_text": "内部索引"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "原则",
+      "target_type": "Para",
+      "target_text": "原则"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-3",
+      "target_type": "Header",
+      "target_text": "三、检测、传播与恢复"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "121-translation-原则",
+      "target_type": "Para",
+      "target_text": "12.1 Translation 原则"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "161-recovery-必须知道状态",
+      "target_type": "Para",
+      "target_text": "16.1 Recovery 必须知道状态"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "filereader",
+      "target_type": "Para",
+      "target_text": "FileReader"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "configrepository",
+      "target_type": "Para",
+      "target_text": "ConfigRepository"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "application",
+      "target_type": "Para",
+      "target_text": "Application"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-4",
+      "target_type": "Header",
+      "target_text": "四、边界与影响范围"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "recovery-boundary",
+      "target_type": "Para",
+      "target_text": "Recovery Boundary"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "failure-boundary",
+      "target_type": "Para",
+      "target_text": "Failure Boundary"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-5",
+      "target_type": "Header",
+      "target_text": "五、相互独立的分析维度"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-6",
+      "target_type": "Header",
+      "target_text": "六、把模型用于实际场景"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "detection",
+      "target_type": "Para",
+      "target_text": "Detection"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "low-level-representation",
+      "target_type": "Para",
+      "target_text": "Low-level representation"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "translation",
+      "target_type": "Para",
+      "target_text": "Translation"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "propagation",
+      "target_type": "Para",
+      "target_text": "Propagation"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "recovery-boundary-1",
+      "target_type": "Para",
+      "target_text": "Recovery boundary"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "failure-domain",
+      "target_type": "Para",
+      "target_text": "Failure domain"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-7",
+      "target_type": "Header",
+      "target_text": "七、接口合同与反例"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "preconditions",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "success-postconditions",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "failure-set",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "representation",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "state-guarantee",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "resource-guarantee",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "recovery-responsibility",
+      "target_type": "Para",
+      "target_text": "一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "1-success",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "2-preconditions",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "3-domain-outcomes",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "4-environmental-failures",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "5-programmer-errors",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "6-detection",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "7-representation",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "8-translation",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "9-propagation",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "10-recovery-boundary",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "11-recovery-policy",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "12-state-guarantee",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "13-resource-guarantee",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "14-failure-domain",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "15-frequency",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "16-terminal-behavior",
+      "target_type": "Para",
+      "target_text": "对接口："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "491-catch-and-continue",
+      "target_type": "Para",
+      "target_text": "49.1 Catch and Continue"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "492-catch-all-too-low",
+      "target_type": "Para",
+      "target_text": "49.2 Catch All Too Low"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "493-assert-external-input",
+      "target_type": "Para",
+      "target_text": "49.3 Assert External Input"
+    },
+    {
+      "document": "FM-0",
+      "kind": "explicit-code-role",
+      "code": 91,
+      "label": "错误："
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "494-expected-for-impossible-internal-state",
+      "target_type": "Para",
+      "target_text": "49.4 Expected for Impossible Internal State"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "495-low-level-retry-without-context",
+      "target_type": "Para",
+      "target_text": "49.5 Low-Level Retry Without Context"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "496-translate-every-layer",
+      "target_type": "Para",
+      "target_text": "49.6 Translate Every Layer"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "497-error-string-as-error-model",
+      "target_type": "Para",
+      "target_text": "49.7 Error String as Error Model"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-8",
+      "target_type": "Header",
+      "target_text": "八、系统状态与副作用"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm0-part-9",
+      "target_type": "Header",
+      "target_text": "九、项目交接与回查"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "layer-1--local-api-contract",
+      "target_type": "Para",
+      "target_text": "Layer 1 — Local API Contract"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "layer-2--subsystem-failure-policy",
+      "target_type": "Para",
+      "target_text": "Layer 2 — Subsystem Failure Policy"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "layer-3--application-failure-policy",
+      "target_type": "Para",
+      "target_text": "Layer 3 — Application Failure Policy"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i1",
+      "target_type": "Para",
+      "target_text": "FM-I1"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i2",
+      "target_type": "Para",
+      "target_text": "FM-I2"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i3",
+      "target_type": "Para",
+      "target_text": "FM-I3"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i4",
+      "target_type": "Para",
+      "target_text": "FM-I4"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i5",
+      "target_type": "Para",
+      "target_text": "FM-I5"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i6",
+      "target_type": "Para",
+      "target_text": "FM-I6"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i7",
+      "target_type": "Para",
+      "target_text": "FM-I7"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i8",
+      "target_type": "Para",
+      "target_text": "FM-I8"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i9",
+      "target_type": "Para",
+      "target_text": "FM-I9"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i10",
+      "target_type": "Para",
+      "target_text": "FM-I10"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i11",
+      "target_type": "Para",
+      "target_text": "FM-I11"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i12",
+      "target_type": "Para",
+      "target_text": "FM-I12"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i13",
+      "target_type": "Para",
+      "target_text": "FM-I13"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i14",
+      "target_type": "Para",
+      "target_text": "FM-I14"
+    },
+    {
+      "document": "FM-0",
+      "kind": "source-target",
+      "id": "fm-i15",
+      "target_type": "Para",
+      "target_text": "FM-I15"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm-1--contracts--preconditions--assertions--undefined-behavior",
+      "target_type": "Header",
+      "target_text": "FM-1 · 契约与可信边界"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-1",
+      "target_type": "Header",
+      "target_text": "一、合同与责任"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "runtime-failure",
+      "target_type": "Para",
+      "target_text": "Runtime Failure"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "contract-violation",
+      "target_type": "Para",
+      "target_text": "Contract Violation"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "外部输入",
+      "target_type": "Para",
+      "target_text": "外部输入"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "内部已验证状态",
+      "target_type": "Para",
+      "target_text": "内部已验证状态"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-2",
+      "target_type": "Header",
+      "target_text": "二、验证边界与断言"
+    },
+    {
+      "document": "FM-1",
+      "kind": "explicit-code-role",
+      "code": 32,
+      "label": "错误："
+    },
+    {
+      "document": "FM-1",
+      "kind": "explicit-code-role",
+      "code": 34,
+      "label": "错误："
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-3",
+      "target_type": "Header",
+      "target_text": "三、检查访问与未定义行为"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "operator",
+      "target_type": "Para",
+      "target_text": "operator[]"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "at",
+      "target_type": "Para",
+      "target_text": "at()"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "memory",
+      "target_type": "Para",
+      "target_text": "Memory"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "lifetime",
+      "target_type": "Para",
+      "target_text": "Lifetime"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "arithmetic",
+      "target_type": "Para",
+      "target_text": "Arithmetic"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "object-model",
+      "target_type": "Para",
+      "target_text": "Object Model"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "concurrency",
+      "target_type": "Para",
+      "target_text": "Concurrency"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-4",
+      "target_type": "Header",
+      "target_text": "四、终止与不可达承诺"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-5",
+      "target_type": "Header",
+      "target_text": "五、可信表示与类型设计"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "case-a--外部世界可能不满足",
+      "target_type": "Para",
+      "target_text": "Case A — 外部世界可能不满足"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "case-b--api-明确允许任意输入",
+      "target_type": "Para",
+      "target_text": "Case B — API 明确允许任意输入"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "case-c--调用者必须保证",
+      "target_type": "Para",
+      "target_text": "Case C — 调用者必须保证"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "case-d--内部逻辑保证成立",
+      "target_type": "Para",
+      "target_text": "Case D — 内部逻辑保证成立"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "case-e--无法恢复且状态可信度已经丢失",
+      "target_type": "Para",
+      "target_text": "Case E — 无法恢复且状态可信度已经丢失"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-part-6",
+      "target_type": "Header",
+      "target_text": "六、反例与回查"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "451-assert-untrusted-input",
+      "target_type": "Para",
+      "target_text": "45.1 Assert Untrusted Input"
+    },
+    {
+      "document": "FM-1",
+      "kind": "explicit-code-role",
+      "code": 103,
+      "label": "错误："
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "452-depend-on-assert-side-effects",
+      "target_type": "Para",
+      "target_text": "45.2 Depend on Assert Side Effects"
+    },
+    {
+      "document": "FM-1",
+      "kind": "explicit-code-role",
+      "code": 104,
+      "label": "错误："
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "453-convert-every-programmer-bug-to-expected",
+      "target_type": "Para",
+      "target_text": "45.3 Convert Every Programmer Bug to expected"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "454-treat-ub-as-fast-error-handling",
+      "target_type": "Para",
+      "target_text": "45.4 Treat UB as Fast Error Handling"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "455-revalidate-everywhere",
+      "target_type": "Para",
+      "target_text": "45.5 Revalidate Everywhere"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "456-blind-stdunreachable",
+      "target_type": "Para",
+      "target_text": "45.6 Blind std::unreachable"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i1",
+      "target_type": "Para",
+      "target_text": "FM1-I1"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i2",
+      "target_type": "Para",
+      "target_text": "FM1-I2"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i3",
+      "target_type": "Para",
+      "target_text": "FM1-I3"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i4",
+      "target_type": "Para",
+      "target_text": "FM1-I4"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i5",
+      "target_type": "Para",
+      "target_text": "FM1-I5"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i6",
+      "target_type": "Para",
+      "target_text": "FM1-I6"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i7",
+      "target_type": "Para",
+      "target_text": "FM1-I7"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i8",
+      "target_type": "Para",
+      "target_text": "FM1-I8"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i9",
+      "target_type": "Para",
+      "target_text": "FM1-I9"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i10",
+      "target_type": "Para",
+      "target_text": "FM1-I10"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i11",
+      "target_type": "Para",
+      "target_text": "FM1-I11"
+    },
+    {
+      "document": "FM-1",
+      "kind": "source-target",
+      "id": "fm1-i12",
+      "target_type": "Para",
+      "target_text": "FM1-I12"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "fm-2--value-based-failure",
+      "target_type": "Header",
+      "target_text": "FM-2 · 值通道与错误类型"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "fm2-part-1",
+      "target_type": "Header",
+      "target_text": "一、结果空间与表示"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "bool-不适合",
+      "target_type": "Para",
+      "target_text": "接口片段："
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "核心规则",
+      "target_type": "Para",
+      "target_text": "核心规则"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "fm2-part-2",
+      "target_type": "Header",
+      "target_text": "二、错误类型与传播"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "61-带结构化-context",
+      "target_type": "Para",
+      "target_text": "6.1 带结构化 Context"
+    },
+    {
+      "document": "FM-2",
+      "kind": "explicit-code-role",
+      "code": 34,
+      "label": "错误："
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "fm2-part-3",
+      "target_type": "Header",
+      "target_text": "三、组合条件与状态责任"
+    },
+    {
+      "document": "FM-2",
+      "kind": "test",
+      "payload": {
+        "id": "T18",
+        "mode": "run",
+        "feature": "expected-monadic"
+      },
+      "code": 36,
+      "filename": "sample.cpp",
+      "filename_origin": "publication-generated, single source block"
+    },
+    {
+      "document": "FM-2",
+      "kind": "test",
+      "payload": {
+        "id": "T19",
+        "mode": "run",
+        "feature": "expected"
+      },
+      "code": 45,
+      "filename": "sample.cpp",
+      "filename_origin": "publication-generated, single source block"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "fm2-part-4",
+      "target_type": "Header",
+      "target_text": "四、成本、反例与回查"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "所有东西都返回-expected",
+      "target_type": "Para",
+      "target_text": "所有东西都返回 expected"
+    },
+    {
+      "document": "FM-2",
+      "kind": "explicit-code-role",
+      "code": 47,
+      "label": "错误："
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "optional-吞掉错误原因",
+      "target_type": "Para",
+      "target_text": "optional 吞掉错误原因"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "string-作为错误身份",
+      "target_type": "Para",
+      "target_text": "string 作为错误身份"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "error-type-绑定底层实现",
+      "target_type": "Para",
+      "target_text": "Error Type 绑定底层实现"
+    },
+    {
+      "document": "FM-2",
+      "kind": "source-target",
+      "id": "value-到处使用",
+      "target_type": "Para",
+      "target_text": ".value() 到处使用"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "fm-3--c-exception-semantics",
+      "target_type": "Header",
+      "target_text": "FM-3 · 异常传播语义"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "fm3-part-1",
+      "target_type": "Header",
+      "target_text": "一、抛出对象与匹配"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "fm3-part-2",
+      "target_type": "Header",
+      "target_text": "二、展开、重抛与中间层"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "fm3-part-3",
+      "target_type": "Header",
+      "target_text": "三、捕获与边界"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "fm3-part-4",
+      "target_type": "Header",
+      "target_text": "四、选型、成本与回查"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "catch-and-ignore",
+      "target_type": "Para",
+      "target_text": "Catch and ignore"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "catch-too-low",
+      "target_type": "Para",
+      "target_text": "Catch too low"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "exception-作为普通循环分支",
+      "target_type": "Para",
+      "target_text": "Exception 作为普通循环分支"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "throw-raw-primitives",
+      "target_type": "Para",
+      "target_text": "Throw raw primitives"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "destructor-传播异常",
+      "target_type": "Para",
+      "target_text": "Destructor 传播异常"
+    },
+    {
+      "document": "FM-3",
+      "kind": "source-target",
+      "id": "每层重新包装-exception",
+      "target_type": "Para",
+      "target_text": "每层重新包装 exception"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "fm-4--raii--exception-safety",
+      "target_type": "Header",
+      "target_text": "FM-4 · 资源清理与状态保证"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "fm4-part-1",
+      "target_type": "Header",
+      "target_text": "一、所有权与保证语言"
+    },
+    {
+      "document": "FM-4",
+      "kind": "explicit-code-role",
+      "code": 3,
+      "label": "错误："
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "no-throw-guarantee",
+      "target_type": "Para",
+      "target_text": "No-throw Guarantee"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "strong-guarantee",
+      "target_type": "Para",
+      "target_text": "Strong Guarantee"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "basic-guarantee",
+      "target_type": "Para",
+      "target_text": "Basic Guarantee"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "no-useful-guarantee",
+      "target_type": "Para",
+      "target_text": "No Useful Guarantee"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "fm4-part-2",
+      "target_type": "Header",
+      "target_text": "二、事务式状态转换"
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "fm4-part-3",
+      "target_type": "Header",
+      "target_text": "三、清理与外部副作用"
+    },
+    {
+      "document": "FM-4",
+      "kind": "explicit-code-role",
+      "code": 21,
+      "label": "不要："
+    },
+    {
+      "document": "FM-4",
+      "kind": "source-target",
+      "id": "fm4-part-4",
+      "target_type": "Header",
+      "target_text": "四、审查与回查"
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm-5--noexcept-move-copy--generic-guarantees",
+      "target_type": "Header",
+      "target_text": "FM-5 · 异常边界与泛型保证"
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm5-part-1",
+      "target_type": "Header",
+      "target_text": "一、传播边界与表达式"
+    },
+    {
+      "document": "FM-5",
+      "kind": "test",
+      "payload": {
+        "id": "T14",
+        "mode": "compile"
+      },
+      "code": 5,
+      "filename": "sample.cpp",
+      "filename_origin": "publication-generated, single source block"
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm5-part-2",
+      "target_type": "Header",
+      "target_text": "二、移动与值复制"
+    },
+    {
+      "document": "FM-5",
+      "kind": "test",
+      "payload": {
+        "id": "T17",
+        "mode": "run"
+      },
+      "code": 11,
+      "filename": "sample.cpp",
+      "filename_origin": "publication-generated, single source block"
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm5-part-3",
+      "target_type": "Header",
+      "target_text": "三、容器策略与类型条件"
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm5-part-4",
+      "target_type": "Header",
+      "target_text": "四、提交与组合保证"
+    },
+    {
+      "document": "FM-5",
+      "kind": "explicit-code-role",
+      "code": 20,
+      "label": "错误："
+    },
+    {
+      "document": "FM-5",
+      "kind": "source-target",
+      "id": "fm5-part-5",
+      "target_type": "Header",
+      "target_text": "五、审查与回查"
+    },
+    {
+      "document": "FM-6",
+      "kind": "source-target",
+      "id": "fm-6--construction-destruction--allocation-failure",
+      "target_type": "Header",
+      "target_text": "FM-6 · 生命周期与资源失败"
+    },
+    {
+      "document": "FM-6",
+      "kind": "source-target",
+      "id": "fm6-part-1",
+      "target_type": "Header",
+      "target_text": "一、构造与对象有效性"
+    },
+    {
+      "document": "FM-6",
+      "kind": "source-target",
+      "id": "fm6-part-2",
+      "target_type": "Header",
+      "target_text": "二、分配与资源压力"
+    },
+    {
+      "document": "FM-6",
+      "kind": "source-target",
+      "id": "fm6-part-3",
+      "target_type": "Header",
+      "target_text": "三、显式完成和清理"
+    },
+    {
+      "document": "FM-6",
+      "kind": "source-target",
+      "id": "fm6-part-4",
+      "target_type": "Header",
+      "target_text": "四、审查与回查"
+    },
+    {
+      "document": "FM-7",
+      "kind": "source-target",
+      "id": "fm-7--error_code-system_error--os-failure",
+      "target_type": "Header",
+      "target_text": "FM-7 · 系统错误与领域转换"
+    },
+    {
+      "document": "FM-7",
+      "kind": "source-target",
+      "id": "fm7-part-1",
+      "target_type": "Header",
+      "target_text": "一、原生错误身份"
+    },
+    {
+      "document": "FM-7",
+      "kind": "explicit-code-role",
+      "code": 4,
+      "label": "错误："
+    },
+    {
+      "document": "FM-7",
+      "kind": "source-target",
+      "id": "fm7-part-2",
+      "target_type": "Header",
+      "target_text": "二、通道、领域与上下文"
+    },
+    {
+      "document": "FM-7",
+      "kind": "source-target",
+      "id": "fm7-part-3",
+      "target_type": "Header",
+      "target_text": "三、审查与回查"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm-8--thread-coroutine-abi--distributed-failure-boundaries",
+      "target_type": "Header",
+      "target_text": "FM-8 · 执行边界与恢复协议"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm8-part-1",
+      "target_type": "Header",
+      "target_text": "一、线程与异步观察"
+    },
+    {
+      "document": "FM-8",
+      "kind": "test",
+      "payload": {
+        "id": "T12",
+        "mode": "run"
+      },
+      "code": 4,
+      "filename": "sample.cpp",
+      "filename_origin": "publication-generated, single source block"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm8-part-2",
+      "target_type": "Header",
+      "target_text": "二、取消、超时与关闭"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm8-part-3",
+      "target_type": "Header",
+      "target_text": "三、集成和远端边界"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm8-part-4",
+      "target_type": "Header",
+      "target_text": "四、恢复协议与影响范围"
+    },
+    {
+      "document": "FM-8",
+      "kind": "source-target",
+      "id": "fm8-part-5",
+      "target_type": "Header",
+      "target_text": "五、审查与回查"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm-9--project-level-failure-profile",
+      "target_type": "Header",
+      "target_text": "FM-9 · 项目失败契约与验证"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-1",
+      "target_type": "Header",
+      "target_text": "一、项目选择与责任"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "d--domain-outcome",
+      "target_type": "Para",
+      "target_text": "D — Domain Outcome"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "r--recoverable-failure",
+      "target_type": "Para",
+      "target_text": "R — Recoverable Failure"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "p--programmer-error",
+      "target_type": "Para",
+      "target_text": "P — Programmer Error"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "f--fatal-failure",
+      "target_type": "Para",
+      "target_text": "F — Fatal Failure"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-2",
+      "target_type": "Header",
+      "target_text": "二、通道与错误域政策"
+    },
+    {
+      "document": "FM-9",
+      "kind": "explicit-code-role",
+      "code": 21,
+      "label": "不要："
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-3",
+      "target_type": "Header",
+      "target_text": "三、状态、所有权与边界政策"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "development-assertion",
+      "target_type": "Para",
+      "target_text": "Development Assertion"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "production-fatal-check",
+      "target_type": "Para",
+      "target_text": "Production Fatal Check"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-4",
+      "target_type": "Header",
+      "target_text": "四、恢复与可观测性政策"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-5",
+      "target_type": "Header",
+      "target_text": "五、验证工具与证据"
+    },
+    {
+      "document": "FM-9",
+      "kind": "source-target",
+      "id": "fm9-part-6",
+      "target_type": "Header",
+      "target_text": "六、可裁剪模板与回查"
+    },
+    {
+      "document": "FM-9",
+      "kind": "literal-template",
+      "code": 49,
+      "title": "26. Public API Failure Documentation Template"
+    },
+    {
+      "document": "FM-9",
+      "kind": "literal-template",
+      "code": 50,
+      "title": "27. Subsystem Failure Profile Template"
+    }
+  ],
+  "explicit_anchors_checked": 0,
+  "section_errors": [],
+  "inline_literal_errors": [],
+  "orphan_headings": [],
+  "navigation_errors": [],
+  "preface_page": 2,
+  "index_entries_checked": 0,
+  "top_level_bookmarks": 12,
+  "source_sections_checked": 383,
+  "ordered_units_checked": 2628,
+  "inline_literals_checked": 560
+}

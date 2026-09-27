@@ -161,7 +161,8 @@ def section_audit(reader, documents, ledger, ignored, profile, combined):
     outline_walk(reader.outline)
     for doc in documents:
         first = at(doc['anchors'][next(iter(doc['anchors']))])
-        for identifier in doc['anchors'].values():
+        for header in (n for n in walk(doc['ast']['blocks']) if n.get('t') == 'Header'):
+            identifier = doc['anchors'][header['c'][1][0]]
             position = at(identifier)
             found = outline_targets.get(position)
             if found is None or (position != first and (not found[0] or found[0][0] != first)):

@@ -1,0 +1,632 @@
+{
+  "status": "VISUAL_REVIEWED",
+  "reviewer": "Assistant self-review; not independent acceptance",
+  "attempt": "publication/build/preview/c79dfba6f1c447c96adac7d46389bf631412a6ebaa54dd469e47d3b05ae15bb1/01f60e4dd90347dd8632b5aafb8c7022",
+  "pdf_sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+  "date": "2026-09-27",
+  "approach": "38 representative rendered pages inspected in ten contact sheets; eight semantic key pages additionally viewed individually at 110 dpi. All 158 pages rendered, not all individually visually inspected.",
+  "contact_sheet_pages": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    9,
+    11,
+    36,
+    46,
+    53,
+    67,
+    71,
+    77,
+    78,
+    80,
+    81,
+    82,
+    84,
+    96,
+    97,
+    102,
+    105,
+    107,
+    108,
+    109,
+    112,
+    115,
+    123,
+    124,
+    130,
+    132,
+    141,
+    147,
+    153,
+    154,
+    155,
+    156,
+    158
+  ],
+  "detailed_pages": [
+    9,
+    53,
+    108,
+    109,
+    132,
+    153,
+    154,
+    155
+  ],
+  "images": [
+    {
+      "page": 1,
+      "path": "fm-review/page-001.png",
+      "sha256": "3b50b1911f8f4b24fe2c7eb7f32600663f1ae9042561caf870c78892da67bc71"
+    },
+    {
+      "page": 2,
+      "path": "fm-review/page-002.png",
+      "sha256": "d2ad6a7cea3816506d96f7f3290ae685aff5fa5ac1b4ad416064b04554121f8e"
+    },
+    {
+      "page": 3,
+      "path": "fm-review/page-003.png",
+      "sha256": "3e57fc1f3032f399286e0bf7977ab849307b3db8ada18e4f99c911892cec494a"
+    },
+    {
+      "page": 5,
+      "path": "fm-review/page-005.png",
+      "sha256": "d2de28f3e4ebeac13256d7f7d464f1b7e925731076f9eaf44a5dcbf918601926"
+    },
+    {
+      "page": 6,
+      "path": "fm-review/page-006.png",
+      "sha256": "dc5676075b9e02ef0505ec474d5b7cde5e907721ce8a62dbee0619b5fda4f85e"
+    },
+    {
+      "page": 9,
+      "path": "fm-review/page-009.png",
+      "sha256": "96abad96d087f5ea42fee6b72d0a2f17ad124923ea3ccfc856dfa0ca8e598c5c"
+    },
+    {
+      "page": 11,
+      "path": "fm-review/page-011.png",
+      "sha256": "0b72ac5337563c4cfaf29ad8f57a2e79091750584beb96f27f57d9c0bf1119d8"
+    },
+    {
+      "page": 36,
+      "path": "fm-review/page-036.png",
+      "sha256": "d2fe14feef5b1079ac88130147c933f85f3557c42d2f9e34ca998b245944dd31"
+    },
+    {
+      "page": 46,
+      "path": "fm-review/page-046.png",
+      "sha256": "2c31e1ce2d9b3b4c4a669cbabe491268cea00650b39374b6b25bf3d3ffaf5e6c"
+    },
+    {
+      "page": 53,
+      "path": "fm-review/page-053.png",
+      "sha256": "03fcd7b1432665857609f11592a36137337836e7e97b681551d8f6b4ec77e434"
+    },
+    {
+      "page": 67,
+      "path": "fm-review/page-067.png",
+      "sha256": "30c256f7316933651f1194ed69a14618865bc05f3b981c03d27d0570b3bd5c06"
+    },
+    {
+      "page": 71,
+      "path": "fm-review/page-071.png",
+      "sha256": "a19ad04cc0d9cebb744a2c2f26c5a675ae3973199e79376130d5d9c4a3608558"
+    },
+    {
+      "page": 77,
+      "path": "fm-review/page-077.png",
+      "sha256": "2dc3527af70c2216a48129790d36f60613c245f41d8f869979e2112d2a9ace4e"
+    },
+    {
+      "page": 78,
+      "path": "fm-review/page-078.png",
+      "sha256": "55e8c79e8315076870ab7e3cd3e555998af3b64b886db1378c4dbb30541a4055"
+    },
+    {
+      "page": 80,
+      "path": "fm-review/page-080.png",
+      "sha256": "41148495b2e99ae2e0835c99dc18ecbe76e6bc352222530f328bbf90022108cf"
+    },
+    {
+      "page": 81,
+      "path": "fm-review/page-081.png",
+      "sha256": "5ff802ca98fa7600ea254cf32d2e74ed274ed9599ecf99d8a54bdde121040a52"
+    },
+    {
+      "page": 82,
+      "path": "fm-review/page-082.png",
+      "sha256": "a74e76bfd27fd81bf78163277db1866b12886306632a07c9a81f5777ae6981d3"
+    },
+    {
+      "page": 84,
+      "path": "fm-review/page-084.png",
+      "sha256": "d430e2094299be7924b681c2a6112a7f74f8b3ab0c3902f17e4d59e571e7113a"
+    },
+    {
+      "page": 96,
+      "path": "fm-review/page-096.png",
+      "sha256": "d30f609f6da9feb842cc5d8bf61bb74934314fda939a16b44eecac200bcda5e9"
+    },
+    {
+      "page": 97,
+      "path": "fm-review/page-097.png",
+      "sha256": "aff176bba56538a427db8cdc78f6d3d37b7e6f2d588fa719142234216903a352"
+    },
+    {
+      "page": 102,
+      "path": "fm-review/page-102.png",
+      "sha256": "9786679c09d7343bcf0932f3f9c65b7c6f5586aa3949107779ee106ac1d905ca"
+    },
+    {
+      "page": 105,
+      "path": "fm-review/page-105.png",
+      "sha256": "4afdc74992c16d494041693da2f5d803029069d6b27745a408c4d87c6f4afe73"
+    },
+    {
+      "page": 107,
+      "path": "fm-review/page-107.png",
+      "sha256": "77be5f44baea60757db07058447016ca368a53dcc90dfc8d88b4bc8e90661026"
+    },
+    {
+      "page": 108,
+      "path": "fm-review/page-108.png",
+      "sha256": "e205df7ad3ff98e45dd9a705d17c2b99736c410258435ad3bd347a615dde5890"
+    },
+    {
+      "page": 109,
+      "path": "fm-review/page-109.png",
+      "sha256": "f1e6a4ab49f1737ad08eb088bfeafca4bbe9e13f1fc8a45bb69fc84bb5c4b44f"
+    },
+    {
+      "page": 112,
+      "path": "fm-review/page-112.png",
+      "sha256": "1eb83d41f526223f0711161724d3275feb22008415d528945812575535fb8461"
+    },
+    {
+      "page": 115,
+      "path": "fm-review/page-115.png",
+      "sha256": "5be9997290bcd696b46d81b9c3e94e4420edd37172ceceda07827bf6b1be57ee"
+    },
+    {
+      "page": 123,
+      "path": "fm-review/page-123.png",
+      "sha256": "5d404579b9fbb8542e679c381a130cc1c40065efd194c683cd50e04610194a8d"
+    },
+    {
+      "page": 124,
+      "path": "fm-review/page-124.png",
+      "sha256": "f4cbdb76887a60bdd285b29e626683f38c3b57b1b449042851e61741efe476a2"
+    },
+    {
+      "page": 130,
+      "path": "fm-review/page-130.png",
+      "sha256": "e47fb31d60f2661ce49aee776bf1df705b6642c724edac608db9b7ecdd2b708f"
+    },
+    {
+      "page": 132,
+      "path": "fm-review/page-132.png",
+      "sha256": "f75d59736135a423e214a3c8a39e6756f1d2469a2468b94f5d7bbb63e11e8bf7"
+    },
+    {
+      "page": 141,
+      "path": "fm-review/page-141.png",
+      "sha256": "809eb4e6afbb1e26c8eecdd0008ce9eff2f9963d9c1b4a81d9fa3801ffe0192f"
+    },
+    {
+      "page": 147,
+      "path": "fm-review/page-147.png",
+      "sha256": "9664c3a59a9c27fdcda6550c79e1d5551305f359ead5797aa9c1911cf4d9732b"
+    },
+    {
+      "page": 153,
+      "path": "fm-review/page-153.png",
+      "sha256": "7b505820cceec0a243d81eaa4e8ccc4b3014d4e973fc4882bd4f81ece4bb6e9f"
+    },
+    {
+      "page": 154,
+      "path": "fm-review/page-154.png",
+      "sha256": "387e644ebba613d3e4b85b2463707a464569a533f9a170fdcd7305373b6dabf7"
+    },
+    {
+      "page": 155,
+      "path": "fm-review/page-155.png",
+      "sha256": "e3646118379c674f9ce15b271bc0a5c2ee2bd9f15f17717e2edd2ee3a6214da1"
+    },
+    {
+      "page": 156,
+      "path": "fm-review/page-156.png",
+      "sha256": "314e56ab41027eca82257ae837df964cc3effd270204901e3d4a41a946bbc3ee"
+    },
+    {
+      "page": 158,
+      "path": "fm-review/page-158.png",
+      "sha256": "69a89f271d4c069614bf8f1c97b76bd21fff5d90c9d52a50cb0d08bf3c2457e5"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "FM-GUIDE-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-GUIDE-b7872f4229a1673f"
+      ],
+      "pages": [
+        6
+      ]
+    },
+    {
+      "id": "failure-contract",
+      "purpose": "contract-field-relations",
+      "targets": [
+        "FM-GUIDE-1f6f8462da64b658"
+      ],
+      "pages": [
+        9
+      ]
+    },
+    {
+      "id": "FM-0-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-0-b9b182f4f9b71dbc"
+      ],
+      "pages": [
+        11
+      ]
+    },
+    {
+      "id": "FM-1-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-1-50e1b7f8a9ad65c5"
+      ],
+      "pages": [
+        46
+      ]
+    },
+    {
+      "id": "FM-2-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-2-f3173a19241ec424"
+      ],
+      "pages": [
+        71
+      ]
+    },
+    {
+      "id": "FM-3-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-3-070f4cee1bd6f9cc"
+      ],
+      "pages": [
+        84
+      ]
+    },
+    {
+      "id": "FM-4-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-4-40e5e2acef077155"
+      ],
+      "pages": [
+        96
+      ]
+    },
+    {
+      "id": "FM-5-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-5-720e3be9a9c0f17e"
+      ],
+      "pages": [
+        105
+      ]
+    },
+    {
+      "id": "FM-6-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-6-f61a0468378bb4ad"
+      ],
+      "pages": [
+        115
+      ]
+    },
+    {
+      "id": "FM-7-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-7-b53af8da284ebb07"
+      ],
+      "pages": [
+        123
+      ]
+    },
+    {
+      "id": "FM-8-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-8-e1b0dea873c46d58"
+      ],
+      "pages": [
+        130
+      ]
+    },
+    {
+      "id": "FM-9-opening",
+      "purpose": "chapter-navigation",
+      "targets": [
+        "FM-9-465c129043639cb8"
+      ],
+      "pages": [
+        141
+      ]
+    },
+    {
+      "id": "FM-0-C91-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-0-C91-role",
+        "FM-0-C91-L1"
+      ],
+      "pages": [
+        36
+      ]
+    },
+    {
+      "id": "FM-1-C32-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C32-role",
+        "FM-1-C32-L1"
+      ],
+      "pages": [
+        53
+      ]
+    },
+    {
+      "id": "FM-1-C34-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C34-role",
+        "FM-1-C34-L1"
+      ],
+      "pages": [
+        53
+      ]
+    },
+    {
+      "id": "FM-1-C103-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C103-role",
+        "FM-1-C103-L1"
+      ],
+      "pages": [
+        67
+      ]
+    },
+    {
+      "id": "FM-1-C104-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-1-C104-role",
+        "FM-1-C104-L1"
+      ],
+      "pages": [
+        67
+      ]
+    },
+    {
+      "id": "FM-2-C34-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-2-C34-role",
+        "FM-2-C34-L1"
+      ],
+      "pages": [
+        77
+      ]
+    },
+    {
+      "id": "FM-2-C36-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-2-C36-L1",
+        "FM-2-C36-L38"
+      ],
+      "pages": [
+        78
+      ]
+    },
+    {
+      "id": "FM-2-C45-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-2-C45-L1",
+        "FM-2-C45-L23"
+      ],
+      "pages": [
+        80,
+        81
+      ]
+    },
+    {
+      "id": "FM-2-C47-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-2-C47-role",
+        "FM-2-C47-L1"
+      ],
+      "pages": [
+        82
+      ]
+    },
+    {
+      "id": "FM-4-C03-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-4-C03-role",
+        "FM-4-C03-L1"
+      ],
+      "pages": [
+        97
+      ]
+    },
+    {
+      "id": "FM-4-C21-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-4-C21-role",
+        "FM-4-C21-L1"
+      ],
+      "pages": [
+        102
+      ]
+    },
+    {
+      "id": "FM-5-C05-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-5-C05-L1",
+        "FM-5-C05-L4"
+      ],
+      "pages": [
+        107
+      ]
+    },
+    {
+      "id": "FM-5-C11-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-5-C11-L1",
+        "FM-5-C11-L55"
+      ],
+      "pages": [
+        108,
+        109
+      ]
+    },
+    {
+      "id": "FM-5-C20-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-5-C20-role",
+        "FM-5-C20-L1"
+      ],
+      "pages": [
+        112
+      ]
+    },
+    {
+      "id": "FM-7-C04-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-7-C04-role",
+        "FM-7-C04-L1"
+      ],
+      "pages": [
+        124
+      ]
+    },
+    {
+      "id": "FM-8-C04-experiment",
+      "purpose": "experiment-continuation",
+      "targets": [
+        "FM-8-C04-L1",
+        "FM-8-C04-L14"
+      ],
+      "pages": [
+        132
+      ]
+    },
+    {
+      "id": "FM-9-C21-role",
+      "purpose": "explicit-negative-example-binding",
+      "targets": [
+        "FM-9-C21-role",
+        "FM-9-C21-L1"
+      ],
+      "pages": [
+        147
+      ]
+    },
+    {
+      "id": "FM-9-C49-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C49-L1",
+        "FM-9-C49-L36"
+      ],
+      "pages": [
+        153,
+        154
+      ]
+    },
+    {
+      "id": "FM-9-C50-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C50-L1",
+        "FM-9-C50-L37"
+      ],
+      "pages": [
+        154,
+        155
+      ]
+    },
+    {
+      "id": "FM-9-C51-template",
+      "purpose": "literal-template-identity-and-continuation",
+      "targets": [
+        "FM-9-C51-L1",
+        "FM-9-C51-L33"
+      ],
+      "pages": [
+        155,
+        156
+      ]
+    },
+    {
+      "id": "front-and-exit",
+      "purpose": "cover-control-toc-last",
+      "targets": [],
+      "pages": [
+        1,
+        2,
+        3,
+        5,
+        158
+      ]
+    }
+  ],
+  "observations": [
+    "Cover, control page and running publication identity agree with version 1.0.0. Frozen historical source status is explicitly contextualized.",
+    "C1–C8 table remains an intact comparison matrix on page 9. Labels and evidence boundaries remain associated.",
+    "Explicit negative-example labels remain with first code on inspected pages 36, 53, 67, 77, 82, 97, 102, 112, 124 and 147.",
+    "T17 at pages 108–109 keeps test ID and generated filename on continuation; copy/move code and R01 range comparison remain readable. Wrap indicators are visibly distinct from source line breaks.",
+    "FM-8 page 132 preserves the jthread terminate condition and current_exception reporting limitation; no technical experiment was rerun.",
+    "FM-9 markdown templates are literal fenced source, not empty tables. Pages 153–155 retain ordered fields, blank placeholder meaning and named continuation. No fictional rows or data added.",
+    "No blocker-level clipping, overlap or identity loss observed in representative pages."
+  ],
+  "blockers": [],
+  "known_nonblocking_visual_limitations": [
+    "Page 158 is a short closing page; accepted frozen-policy class, not a typography redesign trigger.",
+    "Templates start late on pages 153 and 154 and continue with names; grouping is legible, not optimized to a single page.",
+    "Some introductory labels can precede a following-page block; the explicit dangerous/negative labels audited here stay bound.",
+    "Long code uses the existing hanging soft-wrap rules; minor whitespace and chapter-opening density differences remain."
+  ],
+  "not_claimed": [
+    "All-page visual proof",
+    "PDF/UA or accessibility certification",
+    "C++ technical revalidation",
+    "Independent editorial acceptance",
+    "Formal release"
+  ]
+}

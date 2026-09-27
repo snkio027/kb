@@ -1,0 +1,189 @@
+{
+  "publication_id": "CPP-FAILURE-MODEL",
+  "publication_version": "1.0.0",
+  "title": "C++23 失败语义工程手册",
+  "english_title": "Modern C++ Failure Semantics Handbook",
+  "status": "PUBLICATION_CANDIDATE",
+  "formal_release": false,
+  "publish_authorized": false,
+  "content_baseline": "45b305eace0f057420587d685cb3f962f3f0552c",
+  "content_role": "ACCEPTED / FM SERIES REVIEW CLOSED",
+  "visual_profile": "v1.0 / 1c11c5940c05fe29c46c4500935d5efb673d46a7",
+  "visual_acceptance": "ea2e613b97ddd8a146c7899e7ffde7e80c238e57",
+  "pdf": {
+    "filename": "Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+    "sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+    "bytes": 1406227,
+    "pages": 158
+  },
+  "sources": [
+    {
+      "id": "FM-GUIDE",
+      "path": "c++/failure-model/series-guide.md",
+      "bytes": 11169,
+      "sha256": "93c63386c5bd733abbda857eba68d4a67d59ff712d94680ddca6209290c4fb8c",
+      "fenced_blocks": 1,
+      "explicit_anchors": 1,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-0",
+      "path": "c++/failure-model/fm0-failure-model.md",
+      "bytes": 42265,
+      "sha256": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "fenced_blocks": 115,
+      "explicit_anchors": 80,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-1",
+      "path": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "bytes": 28861,
+      "sha256": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "fenced_blocks": 111,
+      "explicit_anchors": 41,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-2",
+      "path": "c++/failure-model/fm2-value-based-failure.md",
+      "bytes": 17013,
+      "sha256": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "fenced_blocks": 52,
+      "explicit_anchors": 13,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-3",
+      "path": "c++/failure-model/fm3-exception-semantics.md",
+      "bytes": 11937,
+      "sha256": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "fenced_blocks": 56,
+      "explicit_anchors": 11,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-4",
+      "path": "c++/failure-model/fm4-raii-exception-safety.md",
+      "bytes": 13276,
+      "sha256": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "fenced_blocks": 27,
+      "explicit_anchors": 9,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-5",
+      "path": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "bytes": 14294,
+      "sha256": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "fenced_blocks": 24,
+      "explicit_anchors": 6,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-6",
+      "path": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "bytes": 9448,
+      "sha256": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "fenced_blocks": 32,
+      "explicit_anchors": 5,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-7",
+      "path": "c++/failure-model/fm7-error-code-system-error.md",
+      "bytes": 7468,
+      "sha256": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "fenced_blocks": 21,
+      "explicit_anchors": 4,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-8",
+      "path": "c++/failure-model/fm8-failure-boundaries.md",
+      "bytes": 13467,
+      "sha256": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "fenced_blocks": 34,
+      "explicit_anchors": 6,
+      "byte_exact": true
+    },
+    {
+      "id": "FM-9",
+      "path": "c++/failure-model/fm9-project-failure-profile.md",
+      "bytes": 19332,
+      "sha256": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "fenced_blocks": 54,
+      "explicit_anchors": 13,
+      "byte_exact": true
+    }
+  ],
+  "preparation_id": "c79dfba6f1c447c96adac7d46389bf631412a6ebaa54dd469e47d3b05ae15bb1",
+  "execution_id": "3ae7f19a40eb79cc773ff3a7da97d539d4606a2f790507f11e5326f066928921",
+  "candidate_id": "d4ef80eb65a20e3048c9814b40b733bbb9c509c38303d19438ed9d422636d83d",
+  "build_binding": "Actual captured source, profile, engine, tools and fonts; not HEAD alone. No cross-machine deterministic-build claim.",
+  "candidate_manifest_sha256": "38eb401be6eb3ef6230cc22ae7ea4ac65acbce3ef78bb782e5469fee42353cc2",
+  "preview_audit_sha256": "0ab673a5282f1bdb99f3a896f65851894c948220818d930f72739944f7cc7223",
+  "structural_audit_sha256": "be2df8d265d7b48569c96abaef53ddc5cc44be1fa90a36524c73ca9d86145417",
+  "visual_inspection_sha256": "2efbb176e61c354aa4e54d3238352b189d1219249a14a76a2212e6d92c90aa8d",
+  "reader_evidence": {
+    "pdf_sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+    "date": "2026-09-27",
+    "status": "BOUNDED_OBSERVATIONS_NOT_CROSS_PLATFORM_CERTIFICATION",
+    "preview": {
+      "reader": "Preview 11.0",
+      "os": "macOS 26.7 (25G229)",
+      "evidence": "Agent-controlled native UI, current candidate path visibly confirmed",
+      "observed": [
+        "Opened exact candidate, 158 pages",
+        "Chinese cover and English title visible",
+        "Outline displays guide plus FM-0 through FM-9"
+      ],
+      "not_observed": [
+        "Bookmark click result",
+        "Same/cross-chapter click result",
+        "Search and clipboard roundtrip"
+      ],
+      "limitation": "After opening, the app target changed and subsequent state queries timed out (-10005). No successful interaction is inferred from attempted clicks.",
+      "result": "PARTIAL_SMOKE_NO_BLOCKER_OBSERVED"
+    },
+    "chromium": {
+      "reader": "Chrome requested in the smoke card",
+      "reader_version": null,
+      "os_version": null,
+      "evidence": "User reply to exact-path, exact-SHA Chrome smoke card",
+      "reply_verbatim": "通过",
+      "requested_checks": [
+        "Open",
+        "TOC/bookmarks",
+        "Same/cross-chapter links",
+        "Chinese and identifier search/copy",
+        "Long code pages 108–109",
+        "FM-9 templates pages 153–156"
+      ],
+      "result": "USER_REPORTED_PASS",
+      "limitation": "No per-item observations or reader/OS versions supplied. Not an automated PDFium result. Browser tooling refused file://; no workaround attempted."
+    },
+    "other_readers": "NOT TESTED",
+    "release_gate": "Candidate review and final publish authorization pending; retain partial Preview coverage and unspecified Chrome version in the release decision."
+  },
+  "local_checks": {
+    "path": "publication/reviews/failure-model/checks-final/checks.json",
+    "sha256": "ec77bfff84f19af850915323f31f383f4965abe63b78b319ff9269a3b4dcb8c0"
+  },
+  "technical_evidence": "Historical only; no C++ compilation, performance or concurrency rerun",
+  "proposed_distribution": {
+    "repository": "snkio027/kb",
+    "tag": "cpp-failure-model-v1.0.0",
+    "tag_created": false,
+    "github_release_created": false
+  },
+  "remaining_gate": "Centralized candidate review and explicit final publish authorization; retain reader qualification limits.",
+  "known_limitations": [
+    "Page 158 is a short closing page; accepted frozen-policy class, not a typography redesign trigger.",
+    "Templates start late on pages 153 and 154 and continue with names; grouping is legible, not optimized to a single page.",
+    "Some introductory labels can precede a following-page block; the explicit dangerous/negative labels audited here stay bound.",
+    "Long code uses the existing hanging soft-wrap rules; minor whitespace and chapter-opening density differences remain.",
+    "Preview partial; Chrome user-reported pass without version detail.",
+    "No PDF/UA, CI or cross-platform certification."
+  ]
+}

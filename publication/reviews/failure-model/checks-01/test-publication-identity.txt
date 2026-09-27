@@ -1,0 +1,10 @@
+test_publication_identity_does_not_publish (__main__.PreparationOnlyTests.test_publication_identity_does_not_publish) ... ok
+test_all_13_adapted_sources_identical (__main__.PublicationIdentityTests.test_all_13_adapted_sources_identical) ... ok
+test_historical_engine_patch_is_one_identity_channel_only (__main__.PublicationIdentityTests.test_historical_engine_patch_is_one_identity_channel_only) ... ok
+test_profile_is_identity_only (__main__.PublicationIdentityTests.test_profile_is_identity_only) ... ok
+test_template_and_theme_only_replace_identity_text (__main__.PublicationIdentityTests.test_template_and_theme_only_replace_identity_text) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.548s
+
+OK

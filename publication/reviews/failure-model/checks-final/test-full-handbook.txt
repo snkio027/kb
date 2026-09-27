@@ -1,0 +1,11 @@
+test_alias_links_use_real_heading_labels (__main__.FullHandbookTests.test_alias_links_use_real_heading_labels) ... ok
+test_destination_cache_preserves_coordinates (__main__.FullHandbookTests.test_destination_cache_preserves_coordinates) ... ok
+test_full_source_identity_and_experiment_payload (__main__.FullHandbookTests.test_full_source_identity_and_experiment_payload) ... ok
+test_unconsumed_or_wrong_namespace_rejected (__main__.FullHandbookTests.test_unconsumed_or_wrong_namespace_rejected) ... ok
+test_unknown_namespace_rejected (__main__.FullHandbookTests.test_unknown_namespace_rejected) ... ok
+test_visual_mechanics_frozen (__main__.FullHandbookTests.test_visual_mechanics_frozen) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.315s
+
+OK

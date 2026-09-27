@@ -10,6 +10,8 @@
 
 方法与经验见[技术手册出版工程复盘](lessons-learned.md)：结合源稿编辑、隔离反例、语义排版、全书导航及实际发布，整理可复用做法与证据边界；不替代下文操作说明或各批次原始记录。
 
+**C++23 失败语义工程手册 v1.0.0 已形成正式身份候选，尚未发布**：[批次审核](reviews/failure-model/README.md) · [158 页候选载荷](releases/cpp-failure-model/v1.0.0/README.md)。内容固定于 `45b305e` 的 series guide＋FM-0～FM-9；共享视觉规则不变。结构、全页渲染和代表页自查通过，阅读器证据保持所声明的部分覆盖；等待集中审核与最终 publish 授权。
+
 ## 分层与权威
 
 | 层 | 责任 | 不承担的责任 |
@@ -36,6 +38,7 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-full
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-rc1
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-v1
+python3 -B publication/engine/pub.py preview --profile cpp-failure-model
 
 # 仅选择一个逻辑视图；省略 --view 时构建该 profile 的全部视图。
 python3 -B publication/engine/pub.py preview --profile cpp-handbook --view G6
@@ -52,6 +55,8 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook --prepare-on
 `cpp-handbook-rc1` 使用同一冻结源与视觉规则，只生成身份一致的 `Modern-Cpp-Engineering-Handbook-v1.0.0.pdf`。内部预览／候选终态不是正式发布状态；RC1 封面、页脚与元数据明确“尚未发布”。既有 profile 的默认命名与 PREVIEW 身份不变。
 
 `cpp-handbook-v1` 生成中性 `PUBLICATION EDITION` 正式版身份，通用构建终态仍不表示发布。下载正式版请使用 Release 的已固定字节；重新构建不保证同一摘要，也不得覆盖已发布资产。
+
+`cpp-failure-model` 以同一冻结视觉规则构建一份正式身份全书，不另做 Pilot。它显式选用 `source_format: gfm`；省略时仍用旧 `markdown-smart`。FM 的非打印锚点转换为文档命名空间内的块级目标，保留中文／数字 ID 与原块位置，正文点击直接指向目标，不以父标题或目录链接代替。实验注释与显式反例标签的产品识别只存在于 adapter。
 
 输出路径固定为 `publication/build/preview/<preparation-id>/<attempt-id>/`。`inputs/sources/<repository-path>` 保留嵌套源身份；`work/output/pdf/` 是 PDF，`work/output/source/` 为同路径原始源码，`work/renders/<view>/` 为所有页面 PNG。本次尝试入口为 `work/output/README.md`。
 

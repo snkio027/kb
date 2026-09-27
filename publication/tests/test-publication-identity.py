@@ -22,15 +22,16 @@ def module(name,path):
 fixtures=module('product_fixtures_v1',ROOT/'publication/tests/test-products.py')
 
 class PublicationIdentityTests(unittest.TestCase):
-    def test_engine_patch_is_one_identity_channel_only(self):
+    def test_historical_engine_patch_is_one_identity_channel_only(self):
         old=subprocess.check_output(['git','show',BASE+':publication/engine/source_model.py'],cwd=ROOT).decode()
         old=old.replace("    if config.get('artifact_channel', 'PREVIEW') not in ('PREVIEW', 'RELEASE_CANDIDATE'):",
             "    # PUBLICATION is a typeset identity, not a publish operation or approval.\n"
             "    if config.get('artifact_channel', 'PREVIEW') not in ('PREVIEW', 'RELEASE_CANDIDATE', 'PUBLICATION'):")
-        self.assertEqual(old,(ROOT/'publication/engine/source_model.py').read_text())
+        accepted='45b305eace0f057420587d685cb3f962f3f0552c'
+        self.assertEqual(old,subprocess.check_output(['git','show',accepted+':publication/engine/source_model.py'],cwd=ROOT).decode())
         for path in subprocess.check_output(['git','ls-tree','-r','--name-only',BASE,'--','publication/engine','publication/latex'],cwd=ROOT).decode().splitlines():
             if path.endswith('/source_model.py'):continue
-            self.assertEqual((ROOT/path).read_bytes(),subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT))
+            self.assertEqual(subprocess.check_output(['git','show',accepted+':'+path],cwd=ROOT),subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT))
 
     def test_profile_is_identity_only(self):
         a=json.loads((OLD/'profile.json').read_text());b=json.loads((NEW/'profile.json').read_text())

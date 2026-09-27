@@ -1,0 +1,26 @@
+{
+  "pdf_sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+  "date": "2026-09-27",
+  "status": "BOUNDED_OBSERVATIONS_NOT_CROSS_PLATFORM_CERTIFICATION",
+  "preview": {
+    "reader": "Preview 11.0",
+    "os": "macOS 26.7 (25G229)",
+    "evidence": "Agent-controlled native UI, current candidate path visibly confirmed",
+    "observed": ["Opened exact candidate, 158 pages", "Chinese cover and English title visible", "Outline displays guide plus FM-0 through FM-9"],
+    "not_observed": ["Bookmark click result", "Same/cross-chapter click result", "Search and clipboard roundtrip"],
+    "limitation": "After opening, the app target changed and subsequent state queries timed out (-10005). No successful interaction is inferred from attempted clicks.",
+    "result": "PARTIAL_SMOKE_NO_BLOCKER_OBSERVED"
+  },
+  "chromium": {
+    "reader": "Chrome requested in the smoke card",
+    "reader_version": null,
+    "os_version": null,
+    "evidence": "User reply to exact-path, exact-SHA Chrome smoke card",
+    "reply_verbatim": "通过",
+    "requested_checks": ["Open", "TOC/bookmarks", "Same/cross-chapter links", "Chinese and identifier search/copy", "Long code pages 108–109", "FM-9 templates pages 153–156"],
+    "result": "USER_REPORTED_PASS",
+    "limitation": "No per-item observations or reader/OS versions supplied. Not an automated PDFium result. Browser tooling refused file://; no workaround attempted."
+  },
+  "other_readers": "NOT TESTED",
+  "release_gate": "Candidate review and final publish authorization pending; retain partial Preview coverage and unspecified Chrome version in the release decision."
+}

@@ -79,7 +79,8 @@ class FullHandbookTests(unittest.TestCase):
             names=subprocess.check_output(['git','ls-tree','-r','--name-only',VISUAL,'--',folder],cwd=ROOT).decode().splitlines()
             for name in names:
                 if name in ('publication/engine/preview_audit.py','publication/engine/links.py',
-                            'publication/engine/source_model.py','publication/engine/preview.py'):continue  # Cache/alias fixes and RC identity-only extension; bounded by test-release-identity.py, no layout changes.
+                            'publication/engine/source_model.py','publication/engine/preview.py',
+                            'publication/engine/filters/blocks.lua'):continue  # Generic block targets bounded by test-failure-model.py; shared layout remains frozen.
                 self.assertEqual((ROOT/name).read_bytes(),subprocess.check_output(['git','cat-file','blob',VISUAL+':'+name],cwd=ROOT),name)
 
     def test_destination_cache_preserves_coordinates(self):

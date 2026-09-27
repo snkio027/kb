@@ -1,0 +1,13 @@
+test_all_source_asts_aliases_and_semantics_unchanged (__main__.IdentityTests.test_all_source_asts_aliases_and_semantics_unchanged) ... ok
+test_historical_engine_identity_patch_remains_bound (__main__.IdentityTests.test_historical_engine_identity_patch_remains_bound) ... ok
+test_profile_diff_is_identity_only (__main__.IdentityTests.test_profile_diff_is_identity_only) ... ok
+test_template_and_theme_preserve_dimensions_and_mechanics (__main__.IdentityTests.test_template_and_theme_preserve_dimensions_and_mechanics) ... ok
+test_candidate_identity_is_preparable_not_published (__main__.SafeIdentityTests.test_candidate_identity_is_preparable_not_published) ... ok
+test_casefold_collision_rejected (__main__.SafeIdentityTests.test_casefold_collision_rejected) ... ok
+test_release_channel_cannot_be_declared (__main__.SafeIdentityTests.test_release_channel_cannot_be_declared) ... ok
+test_unsafe_or_non_pdf_names_rejected (__main__.SafeIdentityTests.test_unsafe_or_non_pdf_names_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.905s
+
+OK

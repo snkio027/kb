@@ -32,6 +32,25 @@ local function textext(value)
   return pandoc.write(pandoc.Pandoc({pandoc.Plain({pandoc.Str(value)})}), 'latex'):gsub('\n$', '')
 end
 local components = {}
+-- Explicit source targets can belong to paragraphs, not only headings.
+-- Use direct hyperlinks: a label inside hypertarget would inherit the previous
+-- section's currentHref and silently send readers to the wrong destination.
+function Span(el)
+  if el.classes:includes('source-target') then
+    if not el.identifier:match('^[A-Za-z0-9-]+$') or #el.content~=0 then
+      error('unsafe or nonempty source target')
+    end
+    return pandoc.RawInline('latex', '\\hypertarget{'..el.identifier..'}{}')
+  end
+end
+function Link(el)
+  if el.attributes['preview-direct-target']=='true' then
+    local target=el.target:match('^#([A-Za-z0-9-]+)$')
+    if not target then error('unsafe direct destination') end
+    local label=pandoc.write(pandoc.Pandoc({pandoc.Plain(el.content)}),'latex'):gsub('\n$','')
+    return pandoc.RawInline('latex','\\hyperlink{'..target..'}{'..label..'}')
+  end
+end
 local short_table_lines = 12
 function CodeBlock(el)
   local env = el.attributes['preview-flow'] == 'true' and 'PreviewFlow' or 'PreviewCode'
@@ -137,6 +156,12 @@ function Header(el)
     end
   end
   local role=el.attributes['reading-role'] or levels[el.level]
+  if el.attributes['preview-targets'] then
+    for target in el.attributes['preview-targets']:gmatch('[^,]+') do
+      if not target:match('^[A-Za-z0-9-]+$') then error('unsafe generated target') end
+      out=out..'\\hypertarget{'..target..'}{}'
+    end
+  end
   out=out .. '\\PreviewHeading{' .. role .. '}{' .. nav .. '}{' .. el.identifier .. '}{' .. title .. '}'
   if el.attributes['reading-source-note'] then
     out=out..'\n\\PreviewSourceNote{'..el.attributes['reading-source-note']..'}'
@@ -213,5 +238,5 @@ local function save_components(doc)
 end
 
 -- Apply the chain annotation before Header converts the nodes to RawBlock.
-return {{Pandoc = Pandoc}, {Str = Str, Code = Code, CodeBlock = CodeBlock, BlockQuote = BlockQuote,
+return {{Pandoc = Pandoc}, {Str = Str, Span = Span, Link = Link, Code = Code, CodeBlock = CodeBlock, BlockQuote = BlockQuote,
   Table = Table, HorizontalRule = HorizontalRule, Header = Header}, {Pandoc=save_components}}
