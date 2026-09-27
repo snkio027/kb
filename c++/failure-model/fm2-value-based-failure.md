@@ -1,7 +1,7 @@
 <a id="fm-2--value-based-failure"></a>
 # FM-2 · 值通道与错误类型
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-1](fm1-contracts-assertions-ub.md) · [下一章：FM-3](fm3-exception-semantics.md) · [术语与审查约定](series-guide.md)
 

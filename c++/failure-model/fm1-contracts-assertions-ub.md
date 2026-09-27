@@ -1,7 +1,7 @@
 <a id="fm-1--contracts--preconditions--assertions--undefined-behavior"></a>
 # FM-1 · 契约与可信边界
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-0](fm0-failure-model.md) · [下一章：FM-2](fm2-value-based-failure.md) · [术语与审查约定](series-guide.md)
 

@@ -1,7 +1,7 @@
 <a id="fm-5--noexcept-move-copy--generic-guarantees"></a>
 # FM-5 · 异常边界与泛型保证
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-4](fm4-raii-exception-safety.md) · [下一章：FM-6](fm6-construction-destruction-allocation.md) · [术语与审查约定](series-guide.md)
 

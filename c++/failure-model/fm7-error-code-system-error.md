@@ -1,7 +1,7 @@
 <a id="fm-7--error_code-system_error--os-failure"></a>
 # FM-7 · 系统错误与领域转换
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-6](fm6-construction-destruction-allocation.md) · [下一章：FM-8](fm8-failure-boundaries.md) · [术语与审查约定](series-guide.md)
 

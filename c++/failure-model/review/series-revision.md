@@ -1,6 +1,8 @@
 # FM 系列整理：结构、语义与证据记录
 
-状态：**SERIES REVISION — READY FOR REVIEW**。日期：2026-09-27。返回 [FM 总导航](../README.md)。
+状态：**ACCEPTED — FM Series Review @ `9c48ce0`**；两项非阻断精度修正已补齐并提交核对。日期：2026-09-27。返回 [FM 总导航](../README.md)。
+
+下列 §1–5 保留原交付时的记录口径，所述“本批”“当前输入”均绑定 `9c48ce0`，不改写为本次重新执行；最新接受与修正见 [§6](#6-系列接受与精度修正收口)。
 
 本批把现有 FM-0～FM-9 整理为 C++23 失败语义工程手册，不新增主题卷，不等同全系列技术验收完成。修改前基线为 `3c6dce94144213e77be98508cceb9c2631113ad6`；新正文由承载本记录的提交保存，本文件不回写自己的最终摘要。
 
@@ -110,3 +112,65 @@ R01 继续关闭：T17 的完整区间相等、存储独立及修改隔离检查
 保留现有 FM 机制深度、C++23 资料身份、历史实现差异与未验证边界。不增加 ABI 展开内部实现、新标准研究、跨语言专题或治理章节。长篇中的必要回顾未被压成纯速查笔记。
 
 本批只改变 FM 当前维护文档及新增审计／执行记录：G0–G12、出版系统、历史 `dist/`、PDF、历史 FM 审核资料均未改动。提交并推送后进入集中复审；不自行把候选升级为 ACCEPTED，不启动 PDF、正式发布或下一轮扩写。
+
+## 6. 系列接受与精度修正收口
+
+用户已对 `3c6dce9 → 9c48ce0c8db2e0f66fd20d43df5f5a1099fb573f` 完成提交级复审，结论为系列级审核通过、零阻断项、两项非阻断精度建议。审核意见确认范围完整性、证据边界、技术抽查与系列架构；**不等于全部正文技术证明**。本节登记该接受意见，并说明随后补齐的差异，不能倒称用户已独立复核本次新字节。
+
+本次修正只有两项语义主题：
+
+- FM-8 §3：明确新线程 invoke expression 因异常退出会调用 `std::terminate()`，需要隔离时仍须显式捕获／保存或转换失败；保持 §2 的报告失败边界。依据仍是 N4950 `[thread.jthread.cons]/5`，没有切换到更新草案。
+- FM-4 §19：把“所有资源都由对象拥有”收紧为当前组件承担释放责任的资源，并明确借用保持 non-owning；§18 checklist 同步避免暗示只能独占所有权。FM-9 §28 的 `Resources → RAII` 改为 `Owned resources (release responsibility) → RAII`。Core Guidelines R.1/R.3 是工程建议，不冒充语言规则。
+
+十篇页首移除过时的“系列整理候选”标识，状态集中在 README 和本记录维护；除此之外，FM-0/1/2/3/5/6/7 仅改这一行标识。没有重新组织章节，没有新增示例或改动 C++／测试判据。
+
+本次文档核对使用 Python 3.12.14、Pandoc 3.11，与 §4 相同绝对路径；从仓库根目录执行以下只读载荷／范围比较，以及 `python3 c++/learning/check_docs.py`、`git diff --check`：
+
+```sh
+python3 -B - <<'PY'
+import hashlib, json, subprocess, sys
+from pathlib import Path
+sys.path.insert(0, 'c++/failure-model/review')
+from audit_series import parse, payload
+base = '9c48ce0c8db2e0f66fd20d43df5f5a1099fb573f'
+root = Path('c++/failure-model')
+def before(path):
+    return subprocess.check_output(['git', 'show', f'{base}:{path}'])
+chapters = sorted(root.glob('fm[0-9]-*.md'))
+cpp = cases = targets = 0
+for path in chapters + [root / 'review/fm-verification-samples.md']:
+    old, new = before(path).decode(), path.read_text()
+    assert payload(old) == payload(new), path
+    cases += len(payload(new)[1])
+    if path in chapters:
+        cpp += len(payload(new)[0])
+        old_h, old_ids, _ = parse(old)
+        new_h, new_ids, _ = parse(new)
+        assert old_h == new_h and old_ids == new_ids, path
+        targets += len(set(old_ids))
+assert (len(chapters), cpp, cases) == (10, 215, 20)
+record = root / 'review/series-verification-results.json'
+assert record.read_bytes() == before(record)
+for name, digest in json.loads(record.read_text())['source_files_sha256'].items():
+    assert hashlib.sha256(before(root / name)).hexdigest() == digest
+allowed = {str(p) for p in chapters} | {
+    str(root / 'README.md'), str(root / 'review/series-revision.md')}
+changed = subprocess.check_output(
+    ['git', 'diff', '--name-only', base, '--'], text=True).splitlines()
+assert set(changed) <= allowed, changed
+assert not subprocess.check_output(
+    ['git', 'ls-files', '--others', '--exclude-standard'], text=True).strip()
+print(json.dumps(dict(status='PASS', chapters=10, cpp_blocks=cpp,
+    cases=cases, baseline_targets=targets,
+    historical_verification_binding='MATCH @ 9c48ce0',
+    outside_scope_changes=[])))
+PY
+```
+
+本次结果：载荷、标题／目标、历史执行输入绑定与范围检查通过；40 份 Markdown 的 822 处本地链接／fragment 零错误，`git diff --check` 退出 0。`9c48ce0` 的 562 个定位目标保持不变，其中包含原 442 个旧目标。仅改变说明文字、审查问题与 `text` 政策标签，未改变 C++ 源码。
+
+`series-audit.json`、`series-verification-results.json`、执行器及更早证据全部保持原字节。`audit_series.py` 的完整命令属于 §4 的原批次检查，其整文件绑定应在 `9c48ce0` 快照重现；不能对本次已变化正文继续宣称原 `verification_binding: MATCH`。这里检查的是**旧结果仍准确绑定旧快照，且当前提取源码／判据未变**，没有追写历史摘要，也没有为获得新的全绿状态改动审计器。
+
+本次 C++ 编译／负例重跑、R01 mutation、性能观察、TSan／并发动态检测均为 **NOT RUN**；FM PDF 为 **NOT BUILT / NOT VALIDATED**。此前的本地 40 项最终执行结果继续保持历史身份，不成为 CI 或本次重跑结论。
+
+系列审核已接受，精度修正已补齐，FM-0～FM-9 进入长期内容维护；补丁随本次提交供核对。本轮到此收口，不启动真实项目验证、结构性重写、FM-10 或 PDF 出版。

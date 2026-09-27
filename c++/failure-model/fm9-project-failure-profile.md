@@ -1,7 +1,7 @@
 <a id="fm-9--project-level-failure-profile"></a>
 # FM-9 · 项目失败契约与验证
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-8](fm8-failure-boundaries.md) · [术语与审查约定](series-guide.md)
 
@@ -828,7 +828,7 @@ Programmer error
 Unrecoverable invariant loss
     → fail-fast
 
-Resources
+Owned resources (release responsibility)
     → RAII
 
 Mutating operations

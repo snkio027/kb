@@ -1,7 +1,7 @@
 <a id="fm-6--construction-destruction--allocation-failure"></a>
 # FM-6 · 生命周期与资源失败
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-5](fm5-noexcept-move-copy.md) · [下一章：FM-7](fm7-error-code-system-error.md) · [术语与审查约定](series-guide.md)
 

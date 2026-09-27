@@ -1,7 +1,7 @@
 <a id="fm-8--thread-coroutine-abi--distributed-failure-boundaries"></a>
 # FM-8 · 执行边界与恢复协议
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-7](fm7-error-code-system-error.md) · [下一章：FM-9](fm9-project-failure-profile.md) · [术语与审查约定](series-guide.md)
 
@@ -117,11 +117,7 @@ join
 cooperative stop
 ```
 
-但并不会自动把 thread exception 转回 caller。
-
-thread function 中异常逃出：`同样不能依赖自动传播到创建者`
-
-应显式 containment。
+`std::jthread` 不会把 worker exception 自动传播给创建线程。如果新线程中的 invoke expression 经异常退出，标准要求调用 `std::terminate()`；因此需要隔离 worker failure 时，仍必须在线程入口显式捕获并转换／保存失败。报告动作自身的失败也须按 §2 处理。[N4950：thread.jthread.cons/5](https://timsong-cpp.github.io/cppwp/n4950/thread.jthread.cons#5)
 
 ### 4. `std::promise` / `std::future`
 

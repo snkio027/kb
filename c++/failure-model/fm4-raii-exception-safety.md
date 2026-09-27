@@ -1,7 +1,7 @@
 <a id="fm-4--raii--exception-safety"></a>
 # FM-4 · 资源清理与状态保证
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [上一章：FM-3](fm3-exception-semantics.md) · [下一章：FM-5](fm5-noexcept-move-copy.md) · [术语与审查约定](series-guide.md)
 
@@ -458,7 +458,7 @@ RAII 可以保证：`resource cleanup`
 先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
-[ ] 每个 resource 是否立即进入 owner？
+[ ] 当前组件负责释放的 resource 是否立即进入明确的 owner，借用是否保持 non-owning？
 [ ] raw ownership window 是否最小？
 [ ] 对象是否存在 partially initialized state？
 [ ] 异常传播、失败后状态和终局处置是否分别声明？
@@ -469,12 +469,14 @@ RAII 可以保证：`resource cleanup`
 [ ] rollback 本身是否可能失败？
 [ ] destructor 是否承担可失败业务逻辑？
 [ ] external side effect 是否存在 ambiguous completion？
-[ ] failure 后 resource ownership 是否仍然唯一明确？
+[ ] failure 后 ownership／release responsibility 是否仍然明确（包括共享所有权）？
 ```
 
 ### 19. FM-4 核心不变量
 
-> 所有资源都应该由对象生命周期拥有。
+> 当前组件负责释放的资源，应由明确的 owner / resource handle 将释放责任绑定到对象生命周期；借用资源必须明确保持 non-owning。
+
+这是资源责任的工程建议，不要求当前组件拥有所有访问到的资源；参见 [C++ Core Guidelines R.1](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-raii) 与 [R.3](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr)。
 
 > Strong guarantee 的首选模型是 prepare-then-commit，而不是复杂 rollback。
 

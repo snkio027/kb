@@ -1,7 +1,7 @@
 <a id="fm-0--modern-c-failure-model"></a>
 # FM-0 · 统一失败模型
 
-> C++23 失败语义工程手册 · 系列整理候选
+> C++23 失败语义工程手册
 
 [返回 FM 导航](README.md) · [下一章：FM-1](fm1-contracts-assertions-ub.md) · [术语与审查约定](series-guide.md)
 
