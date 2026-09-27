@@ -8,6 +8,8 @@
 
 历史链条保留：[Full Handbook](reviews/full-handbook/README.md) → [f288051 发布准备](reviews/release-qualification/README.md) → [v1.0.0 RC1](reviews/rc1/README.md)。正式版只修正生成身份与来源状态提示，正文和视觉规则不变。最终字节另获用户“通过”反馈，但阅读器名称未注明；不把旧 RC1 的 Preview／Chrome 记录改写成新字节自动化结果。112 项回归为本地出版证据，不是 C++ 重跑或 CI。
 
+方法与经验见[技术手册出版工程复盘](lessons-learned.md)：结合源稿编辑、隔离反例、语义排版、全书导航及实际发布，整理可复用做法与证据边界；不替代下文操作说明或各批次原始记录。
+
 ## 分层与权威
 
 | 层 | 责任 | 不承担的责任 |
