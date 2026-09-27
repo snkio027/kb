@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "RELEASED",
+  "observed_at_utc": "2026-09-27T11:58:24Z",
+  "publication_id": "CPP-FAILURE-MODEL",
+  "publication_version": "1.0.0",
+  "repository": "snkio027/kb",
+  "repository_visibility": "PUBLIC",
+  "release": {
+    "database_id": 397630939,
+    "url": "https://github.com/snkio027/kb/releases/tag/cpp-failure-model-v1.0.0",
+    "is_draft": false,
+    "is_prerelease": false,
+    "is_immutable": false,
+    "published_at": "2026-09-27T11:57:56Z",
+    "target_commitish": "d5629f05d00fd902c0462de181b3e359c4270cc1",
+    "latest_option": false
+  },
+  "tag": {
+    "name": "cpp-failure-model-v1.0.0",
+    "object": "d190273cbd26d0aed13eb1bb1816bf40ddeeb73d",
+    "peeled_commit": "d5629f05d00fd902c0462de181b3e359c4270cc1",
+    "local_verification": "git tag -v: Good SSH/ED25519 signature",
+    "remote_identity_verified": true,
+    "moved": false
+  },
+  "candidate_commit": "4f8fe84a17429bc0a3b731461bfac5f0e1402cda",
+  "content_baseline": "45b305eace0f057420587d685cb3f962f3f0552c",
+  "release_payload_commit": "d5629f05d00fd902c0462de181b3e359c4270cc1",
+  "authorization": "User explicitly replied 批准发布 after exact-candidate delivery and disclosed reader/evidence limitations; full record in authorization.json.",
+  "assets": [
+    {
+      "name": "Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+      "api_id": 592832091,
+      "node_id": "RA_kwDOT4Roos4jVeZb",
+      "bytes": 1406227,
+      "pages": 158,
+      "sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+      "url": "https://github.com/snkio027/kb/releases/download/cpp-failure-model-v1.0.0/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf"
+    },
+    {
+      "name": "release-manifest.json",
+      "api_id": 592832092,
+      "node_id": "RA_kwDOT4Roos4jVeZc",
+      "bytes": 2661,
+      "sha256": "53ea1022d04318289dd5e46d101108fe75945e6ae5ae516d7610bca94834d562",
+      "url": "https://github.com/snkio027/kb/releases/download/cpp-failure-model-v1.0.0/release-manifest.json"
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "api_id": 592832086,
+      "node_id": "RA_kwDOT4Roos4jVeZW",
+      "bytes": 2394,
+      "sha256": "b6e164ffedec3c42e5f940260081a6cc71ae2237a25b81b61b5b3e38f466c334",
+      "url": "https://github.com/snkio027/kb/releases/download/cpp-failure-model-v1.0.0/RELEASE-NOTES.md"
+    },
+    {
+      "name": "SHA256SUMS",
+      "api_id": 592832089,
+      "node_id": "RA_kwDOT4Roos4jVeZZ",
+      "bytes": 286,
+      "sha256": "1ad2b98d679471a2f110d1525a1e73c876ec4fe61eb37a08471816160a91dbd5",
+      "url": "https://github.com/snkio027/kb/releases/download/cpp-failure-model-v1.0.0/SHA256SUMS"
+    }
+  ],
+  "download_verification": {
+    "method": "Authenticated gh release download into two fresh directories; complete asset set and SHA-256 compared with committed source files, plus shasum -a 256 -c SHA256SUMS.",
+    "draft_directory": "/private/tmp/kb-fm-v1-draft.TjUt0A",
+    "published_directory": "/private/tmp/kb-fm-v1-published.OGAJee",
+    "draft_result": "PACKAGE_AND_SCOPE_PASS; all four exact; checksum entries OK",
+    "published_result": "PACKAGE_AND_SCOPE_PASS; all four exact; checksum entries OK",
+    "github_asset_digests_match": true,
+    "verifier": "publication/releases/cpp-failure-model/v1.0.0/verify-release.py",
+    "anonymous_download_test": "NOT RUN"
+  },
+  "protection": {
+    "protected_existing_files_vs_candidate": 1118,
+    "permitted_existing_file_changes": [
+      "publication/README.md",
+      "publication/releases/cpp-failure-model/v1.0.0/README.md"
+    ],
+    "frozen_source_pdf_candidate_evidence_unchanged": true,
+    "design_dist_complete_file_set_unchanged": true,
+    "cpp_handbook_release_before_after": "All four API asset IDs, sizes, digests and updatedAt values unchanged; old release remains published.",
+    "assets_replaced_or_deleted": false
+  },
+  "checks_this_release": [
+    "verify-delivery.py rechecked immutable candidate hashes and historical evidence/log binding; its NOT RELEASED field describes the historical candidate package, not the live Release.",
+    "verify-release.py passed for local sources, draft downloads and published downloads.",
+    "shasum -a 256 -c SHA256SUMS passed in both download directories.",
+    "git diff --check, remote refs, GitHub release state and asset metadata verified."
+  ],
+  "historical_checks_not_rerun": "121 publication regressions, 158-page render and 38-page visual self-review remain candidate-stage evidence; no new C++/performance/concurrency execution or CI claim.",
+  "reader_limits": "Chrome user-reported pass with versions/per-item details unspecified; Preview partial observation; other readers untested. Authorization does not upgrade these observations.",
+  "visual_limits": "Previously disclosed short tail, template continuations and some soft wraps remain.",
+  "distribution_workflow": "Commit metadata; sign and atomically push main/tag; create draft and upload four exact assets; download/verify; publish draft; download/verify again; commit receipt without moving tag. GitHub upload/publish is not a cross-system atomic transaction.",
+  "immutability_policy": "No asset replacement or tag movement. GitHub isImmutable=false, so this is project policy, not server-enforced protection.",
+  "generic_engine_publish_command": "REMAINS_DISABLED; this release uses explicitly authorized GitHub CLI distribution."
+}

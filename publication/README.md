@@ -10,7 +10,7 @@
 
 方法与经验见[技术手册出版工程复盘](lessons-learned.md)：结合源稿编辑、隔离反例、语义排版、全书导航及实际发布，整理可复用做法与证据边界；不替代下文操作说明或各批次原始记录。
 
-**C++23 失败语义工程手册 v1.0.0 已获发布授权，分发待完成**：[批次审核](reviews/failure-model/README.md) · [158 页发布记录](releases/cpp-failure-model/v1.0.0/README.md)。用户对 `4f8fe84` 候选明确批准发布；内容固定于 `45b305e` 的 series guide＋FM-0～FM-9，共享视觉规则及 PDF 字节不变。候选证据原样保留，授权分发元数据单独存储；阅读器部分覆盖与其他未验证边界不升级为全矩阵通过。
+**C++23 失败语义工程手册 v1.0.0 已正式发布**：[GitHub Release](https://github.com/snkio027/kb/releases/tag/cpp-failure-model-v1.0.0) · [158 页发布记录](releases/cpp-failure-model/v1.0.0/README.md) · [下载回验与回执](releases/cpp-failure-model/v1.0.0/publication-receipt.json)。签名标签固定于 `d5629f05d00fd902c0462de181b3e359c4270cc1`；四个资产在公开前后均完整下载核验。PDF SHA-256 为 `2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c`，与 `4f8fe84` 候选完全一致。内容仍为 `45b305e` 的 series guide＋FM-0～FM-9；正文、共享视觉规则和候选证据不改，授权分发元数据单独保存。[候选批次审核](reviews/failure-model/README.md)保留历史状态；阅读器部分覆盖与其他未验证边界不升级为全矩阵通过。
 
 ## 分层与权威
 

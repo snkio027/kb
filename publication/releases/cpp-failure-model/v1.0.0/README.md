@@ -1,10 +1,10 @@
 # C++23 失败语义工程手册 · v1.0.0 发布记录
 
-**PUBLISH AUTHORIZED — DISTRIBUTION PENDING**。用户于 2026-09-27 对 `4f8fe84` 候选明确回复“批准发布”，见[授权记录](authorization.json)。本次只分发既有字节，不重新编译；发布事实以 GitHub 公开状态与随后提交的回执为准。
+**RELEASED — 2026-09-27**。[GitHub Release](https://github.com/snkio027/kb/releases/tag/cpp-failure-model-v1.0.0) 已公开，四个资产在公开前后均完整下载回验，见[发布回执](publication-receipt.json)。用户对 `4f8fe84` 候选明确回复“批准发布”，见[授权记录](authorization.json)。本次只分发既有字节，没有重新编译。
 
 源稿 `45b305e` 已接受；本次 PDF 是独立出版证据，不升级 FM 技术验证范围。`output/pdf/`、`evidence/` 和原候选说明继续保持 `4f8fe84` 的历史字节，内部 `PUBLICATION_CANDIDATE / NOT RELEASED` 字段不会被追写为发布事实。
 
-- [正式身份候选 PDF](output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf) — 158 页。
+- [正式 PDF 的仓库原字节](output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf) — 158 页，与候选完全相同。
 - [发布 SHA256SUMS](distribution/SHA256SUMS) — 校验下载后的 PDF、manifest 与 release notes。
 - [发布 manifest](distribution/release-manifest.json) — 来源、候选绑定、授权与支持范围；不是上传回执。
 - [发布 notes](distribution/RELEASE-NOTES.md) — 内容范围与保留限制。
@@ -24,7 +24,9 @@ PDF SHA-256：
 shasum -a 256 -c SHA256SUMS
 ```
 
-目标 tag：`cpp-failure-model-v1.0.0`。先提交授权分发清单并创建签名 tag，再创建 draft，上传四个精确资产；完整下载回验后转为公开，再次下载回验并另行提交回执，不移动 tag。不覆盖同名历史字节。通用 `publish` 命令仍关闭；本次经明确授权使用 GitHub CLI 分发。
+签名 tag：`cpp-failure-model-v1.0.0`，固定于载荷提交 `d5629f05d00fd902c0462de181b3e359c4270cc1`。已完成草稿上传、下载回验、公开发布及第二次下载回验；回执另行提交，不移动 tag、不覆盖同名历史字节。通用 `publish` 命令仍关闭；本次经明确授权使用 GitHub CLI 分发。
+
+发布阶段重新核对了 1,118 个受保护既有文件、完整历史 `design/dist/` 集合和旧 G 手册 Release 的四个资产身份，均未变。GitHub `isImmutable=false`；不替换资产／不移动 tag 是项目政策，不声称服务端强制不可变。下载回验使用已认证 CLI，不冒充匿名会话测试。
 
 四个资产的仓库来源：PDF 保留于 `output/pdf/`，其余三个同名发布文件取自 `distribution/`。不从两个目录使用混合通配符上传，避免误用历史候选元数据。`distribution/` 不重复存储 PDF。本地及下载目录可分别核验：
 
