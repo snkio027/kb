@@ -1,0 +1,67 @@
+{
+  "recorded_at_utc": "2026-09-27T08:14:15.738845+00:00",
+  "base": "eb7f5672d1128607d4f34fa34217aefa9ba99b33",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "result": "MACHINE_CHECK_PASS",
+  "candidate_sha256": "80aabc252ef41eccb04a67504af1401e3f89211a43a1a89d761980143b225b26",
+  "checksum_command": "shasum -a 256 -c publication/reviews/release-qualification/SHA256SUMS",
+  "checksum_output": "publication/reviews/full-handbook/cpp-handbook-full/output/pdf/CPP-HANDBOOK-draft.pdf: OK",
+  "historical_delivery_command": [
+    "/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-B",
+    "publication/reviews/full-handbook/verify-delivery.py"
+  ],
+  "historical_delivery_result": {
+    "pdfs": 1,
+    "pages": 407,
+    "sources": 13,
+    "hash_bindings": "MATCH",
+    "protected_files_unchanged": 678,
+    "inspected_images": 54,
+    "internal_references_checked": 335,
+    "cross_chapter_references_checked": 79,
+    "local_file_links_checked": 17,
+    "formal_release": false
+  },
+  "protected_baseline_files_unchanged": 863,
+  "protected_pdfs_unchanged": 43,
+  "dist_file_set_unchanged": true,
+  "allowed_existing_changes": [
+    "publication/README.md"
+  ],
+  "markdown_files": 4,
+  "local_links_checked": 19,
+  "diff_check": "PASS",
+  "checked_inputs": [
+    {
+      "path": "publication/README.md",
+      "sha256": "a534f465df942d37495a82d4d341239b302ac8a9b66d54168096639e4d28e849"
+    },
+    {
+      "path": "publication/reviews/release-qualification/README.md",
+      "sha256": "82ad2186c1410d50ab7640d6146eff4a154d804d4421772ba85981aff492f5ea"
+    },
+    {
+      "path": "publication/reviews/release-qualification/reader-smoke.md",
+      "sha256": "2c805e3685be9043a6e5a42b80e692b0788640527725ce0e82ea28d84d9e3187"
+    },
+    {
+      "path": "publication/reviews/release-qualification/release-contract.md",
+      "sha256": "0d505ee237c11b1c9fe76f5a4a80e9dbf6462995caf22788c2c83db4c0bdd6ec"
+    },
+    {
+      "path": "publication/reviews/release-qualification/SHA256SUMS",
+      "sha256": "bace70dececac738f64c84dbacefcdd88621f05e5316e9f26af4c466584106c7"
+    },
+    {
+      "path": "publication/reviews/release-qualification/verify.py",
+      "sha256": "cf27da098281b4ed8563ea0a8a79c65580ee61b86950811b79cc3d89b9168195"
+    }
+  ],
+  "reader_compatibility": "PARTIAL_NOT_QUALIFIED_SEE_READER_SMOKE",
+  "pdf_build": "NOT_RUN",
+  "publication_regressions": "NOT_RUN",
+  "cpp_compile_performance_concurrency": "NOT_RUN",
+  "formal_release": false
+}

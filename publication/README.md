@@ -4,7 +4,7 @@
 
 已接受的 12 份制品、八组组件 A/B、语义样页、接受记录与已知非阻塞限制见[阅读版定稿化审核入口](reviews/reading-finalization/README.md)。[上一轮阅读版](reviews/reading-edition/README.md)与 [v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。它们均不是 release 或可维护的正文源。
 
-G0–G12 全书接入与合订候选见[Full Handbook 审核入口](reviews/full-handbook/README.md)。全书使用冻结视觉规则，不重开设计；候选仍待独立集中审核，不随既有 Visual Profile 接受而自动获批。
+G0–G12 全书接入与合订候选见[Full Handbook 审核入口](reviews/full-handbook/README.md)。用户已接受 `eb7f567` 为 **Full Handbook Publication Candidate / ACCEPTED FOR RELEASE PREPARATION**；接受意见、阅读器实测与发布合同另记于[发布准备记录](reviews/release-qualification/README.md)，不回写原候选。当前只有 Preview 抽样实测，阅读器矩阵未完成；正式发布未授权。全书继续使用冻结视觉规则，不重开设计。
 
 ## 分层与权威
 
