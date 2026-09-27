@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "status": "RELEASED",
+  "observed_at_utc": "2026-09-27 09:30:07 UTC",
+  "publication_id": "CPP-HANDBOOK",
+  "publication_version": "1.0.0",
+  "repository": "snkio027/kb",
+  "visibility": "PUBLIC",
+  "release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/snkio027/kb/releases/assets/592584449",
+        "contentType": "application/pdf",
+        "createdAt": "2026-09-27T09:27:13Z",
+        "digest": "sha256:ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+        "downloadCount": 0,
+        "id": "RA_kwDOT4Roos4jUh8B",
+        "label": "",
+        "name": "Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+        "size": 2735594,
+        "state": "uploaded",
+        "updatedAt": "2026-09-27T09:27:14Z",
+        "url": "https://github.com/snkio027/kb/releases/download/cpp-handbook-v1.0.0/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/snkio027/kb/releases/assets/592584448",
+        "contentType": "application/json",
+        "createdAt": "2026-09-27T09:27:13Z",
+        "digest": "sha256:3ee22af9ac492db54c35f5a068f72c2a8a87dcc377bb4608ab6099bc36e65075",
+        "downloadCount": 0,
+        "id": "RA_kwDOT4Roos4jUh8A",
+        "label": "",
+        "name": "release-manifest.json",
+        "size": 3737,
+        "state": "uploaded",
+        "updatedAt": "2026-09-27T09:27:13Z",
+        "url": "https://github.com/snkio027/kb/releases/download/cpp-handbook-v1.0.0/release-manifest.json"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/snkio027/kb/releases/assets/592584450",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-09-27T09:27:13Z",
+        "digest": "sha256:bae59996969d9000686efaeaacbc37063e69342dd3f202bef0af208303dd1dcc",
+        "downloadCount": 0,
+        "id": "RA_kwDOT4Roos4jUh8C",
+        "label": "",
+        "name": "RELEASE-NOTES.md",
+        "size": 2416,
+        "state": "uploaded",
+        "updatedAt": "2026-09-27T09:27:13Z",
+        "url": "https://github.com/snkio027/kb/releases/download/cpp-handbook-v1.0.0/RELEASE-NOTES.md"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/snkio027/kb/releases/assets/592584447",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-09-27T09:27:13Z",
+        "digest": "sha256:b936f56e9fe2eaa39eb343fa32b22bc51149e417c22a57f68e11322cd8da223a",
+        "downloadCount": 0,
+        "id": "RA_kwDOT4Roos4jUh7_",
+        "label": "",
+        "name": "SHA256SUMS",
+        "size": 280,
+        "state": "uploaded",
+        "updatedAt": "2026-09-27T09:27:13Z",
+        "url": "https://github.com/snkio027/kb/releases/download/cpp-handbook-v1.0.0/SHA256SUMS"
+      }
+    ],
+    "databaseId": 397584603,
+    "isDraft": false,
+    "isImmutable": false,
+    "isPrerelease": false,
+    "publishedAt": "2026-09-27T09:28:03Z",
+    "tagName": "cpp-handbook-v1.0.0",
+    "targetCommitish": "54f193f46a3af12266acc898829e23f4ab27dbde",
+    "url": "https://github.com/snkio027/kb/releases/tag/cpp-handbook-v1.0.0"
+  },
+  "release_payload_commit": "54f193f46a3af12266acc898829e23f4ab27dbde",
+  "tag": {
+    "name": "cpp-handbook-v1.0.0",
+    "object": "8571b08ac95a30aadbc80f79cf46a1b060955b8d",
+    "peeled_commit": "54f193f46a3af12266acc898829e23f4ab27dbde",
+    "local_signature_verification": "git tag -v: Good SSH/ED25519 signature",
+    "moved": false
+  },
+  "download_verification": {
+    "asset_count": 4,
+    "draft_download": "/private/tmp/kb-v1-draft-download.id80MV",
+    "published_download": "/private/tmp/kb-v1-published-download.gA95Bb",
+    "draft_result": "PACKAGE_AND_SCOPE_PASS; all four downloaded files exactly match repository assets",
+    "published_result": "PACKAGE_AND_SCOPE_PASS; all four downloaded files exactly match repository assets",
+    "checksum_result": "PDF, release-manifest.json, RELEASE-NOTES.md: OK",
+    "verifier": "publication/releases/cpp-handbook/v1.0.0/verify.py",
+    "method": "gh release download; local SHA-256 and complete file-set comparison",
+    "invocation_note": "An initial shasum command used repository root and exited 2 (SHA256SUMS not found); rerun from the downloaded directory passed before publishing. No payload changed.",
+    "published_pdf_sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+  },
+  "authorization": "User explicitly approved identity-only correction, new-byte checks and direct GitHub Release; final-file manual smoke response was 通过, reader unspecified.",
+  "checks": {
+    "publication_regressions": 112,
+    "protected_files": 934,
+    "markdown_source_unchanged": true,
+    "visual_rules_unchanged": true,
+    "historical_dist_and_pdfs_unchanged": true,
+    "cpp_experiments_rerun": false,
+    "ci_claim": false
+  },
+  "limits": [
+    "GitHub isImmutable=false; no server-enforced immutability claim. Project policy forbids asset replacement or tag movement.",
+    "Final-file reader observation is user-reported pass with reader/version unspecified; not an automated two-engine smoke pass.",
+    "Known non-blocking typography/pagination limitations retained; no technical correctness or platform certification.",
+    "Downloaded via authenticated GitHub CLI after publication; no anonymous-reader session claimed."
+  ],
+  "distribution_workflow": "Commit payload, sign and atomically push tag/main, create draft and upload four exact assets, download/verify, publish draft, download/verify again, record receipt without moving tag.",
+  "asset_mutation_after_publication": false,
+  "preview_engine_publish_command": "REMAINS_DISABLED; release distribution performed using explicitly authorized GitHub CLI."
+}

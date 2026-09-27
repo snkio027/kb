@@ -1,10 +1,12 @@
 # KB Publication System v2
 
-状态：**STABLE / READING EDITION ACCEPTED / VISUAL_PROFILE_FROZEN v1.0**。用户于 2026-09-27 确认冻结最新视觉实现 `1c11c5940c05fe29c46c4500935d5efb673d46a7`；ESD 与 C++ Handbook Visual Profile 同步冻结，语义视觉回归 corpus 成为基线。正式 `publish` 关闭。
+状态：**STABLE / READING EDITION ACCEPTED / VISUAL_PROFILE_FROZEN v1.0**。用户于 2026-09-27 确认冻结最新视觉实现 `1c11c5940c05fe29c46c4500935d5efb673d46a7`；ESD 与 C++ Handbook Visual Profile 同步冻结，语义视觉回归 corpus 成为基线。通用 `publish` 命令保持关闭；已明确授权的 C++ v1.0.0 通过 GitHub Releases 发布，见下文。
 
 已接受的 12 份制品、八组组件 A/B、语义样页、接受记录与已知非阻塞限制见[阅读版定稿化审核入口](reviews/reading-finalization/README.md)。[上一轮阅读版](reviews/reading-edition/README.md)与 [v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。它们均不是 release 或可维护的正文源。
 
-G0–G12 全书接入与已接受预览见[Full Handbook 审核入口](reviews/full-handbook/README.md)。用户已接受 `eb7f567` 为 **Full Handbook Publication Candidate / ACCEPTED FOR RELEASE PREPARATION**，并接受 [f288051 发布准备记录](reviews/release-qualification/README.md)。本轮按已批准的 D1–D3 生成 [v1.0.0 RC1](reviews/rc1/README.md)：**READY_FOR_RELEASE_DECISION / NOT RELEASED**。Preview 新字节抽样与 Chromium 用户“正常”反馈分别登记，不回写旧候选／旧证据，不宣称浏览器自动化通过。全书继续使用冻结视觉规则；正式发布未授权。
+**Modern C++ 工程学习手册 v1.0.0 已正式发布**：[GitHub Release](https://github.com/snkio027/kb/releases/tag/cpp-handbook-v1.0.0) · [发布记录](releases/cpp-handbook/v1.0.0/README.md) · [公开状态与下载回验](releases/cpp-handbook/v1.0.0/publication-receipt.json)。407 页；最终 PDF SHA-256 为 `ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510`。签名标签固定到 `54f193f46a3af12266acc898829e23f4ab27dbde`；四个资产在公开前后均完整下载回验，未替换旧候选或历史制品。
+
+历史链条保留：[Full Handbook](reviews/full-handbook/README.md) → [f288051 发布准备](reviews/release-qualification/README.md) → [v1.0.0 RC1](reviews/rc1/README.md)。正式版只修正生成身份与来源状态提示，正文和视觉规则不变。最终字节另获用户“通过”反馈，但阅读器名称未注明；不把旧 RC1 的 Preview／Chrome 记录改写成新字节自动化结果。112 项回归为本地出版证据，不是 C++ 重跑或 CI。
 
 ## 分层与权威
 
@@ -31,6 +33,7 @@ python3 -B publication/engine/pub.py preview --profile esd
 python3 -B publication/engine/pub.py preview --profile cpp-handbook
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-full
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-rc1
+python3 -B publication/engine/pub.py preview --profile cpp-handbook-v1
 
 # 仅选择一个逻辑视图；省略 --view 时构建该 profile 的全部视图。
 python3 -B publication/engine/pub.py preview --profile cpp-handbook --view G6
@@ -45,6 +48,8 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook --prepare-on
 新增 `cpp-handbook-full` 只生成一份 Balanced 全书 `CPP-HANDBOOK`，不重建旧 12 份，不增加全书 Compact 比较或十三份独立版。
 
 `cpp-handbook-rc1` 使用同一冻结源与视觉规则，只生成身份一致的 `Modern-Cpp-Engineering-Handbook-v1.0.0.pdf`。内部预览／候选终态不是正式发布状态；RC1 封面、页脚与元数据明确“尚未发布”。既有 profile 的默认命名与 PREVIEW 身份不变。
+
+`cpp-handbook-v1` 生成中性 `PUBLICATION EDITION` 正式版身份，通用构建终态仍不表示发布。下载正式版请使用 Release 的已固定字节；重新构建不保证同一摘要，也不得覆盖已发布资产。
 
 输出路径固定为 `publication/build/preview/<preparation-id>/<attempt-id>/`。`inputs/sources/<repository-path>` 保留嵌套源身份；`work/output/pdf/` 是 PDF，`work/output/source/` 为同路径原始源码，`work/renders/<view>/` 为所有页面 PNG。本次尝试入口为 `work/output/README.md`。
 
@@ -73,7 +78,7 @@ python3 -B publication/engine/pub.py candidate --profile cpp-handbook \
 
 ## 迁移与验证
 
-原 `design/scripts/pub.py preview` 只转发至 v2 的 ESD profile；旧内部 worker 不再运行。旧六个危险写入入口继续拒绝，正式发布关闭。原 `design/build/` 预览和候选不移动、不重写；v1 记录不自动升级为 v2 合格记录，新候选入口只接收 v2 路径。历史工具可在精确 Git 版本中查阅，不保留第二套可漂移的活动构建器。
+原 `design/scripts/pub.py preview` 只转发至 v2 的 ESD profile；旧内部 worker 不再运行。旧六个危险写入入口继续拒绝，通用发布入口仍关闭。原 `design/build/` 预览和候选不移动、不重写；v1 记录不自动升级为 v2 合格记录，新候选入口只接收 v2 路径。历史工具可在精确 Git 版本中查阅，不保留第二套可漂移的活动构建器。
 
 ```sh
 python3 -B publication/tests/test-publication-isolation.py
@@ -83,6 +88,7 @@ python3 -B publication/tests/test-preview.py
 python3 -B publication/tests/test-reading.py
 python3 -B publication/tests/test-full-handbook.py
 python3 -B publication/tests/test-release-identity.py
+python3 -B publication/tests/test-publication-identity.py
 ```
 
 前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号，同时检查长模板／危险代码续页和软折行断点反例；第五组检查阅读组件、代码头尾、角色绑定、字段基线、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。
