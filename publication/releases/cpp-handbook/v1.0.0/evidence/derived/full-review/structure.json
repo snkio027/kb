@@ -1,0 +1,829 @@
+{
+  "status": "STRUCTURAL_PASS",
+  "visual_status": "NOT_REVIEWED",
+  "pdf": "output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+  "pdf_sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+  "pages": 407,
+  "chapters": [
+    {
+      "id": "G0",
+      "title": "G0 · 原生工具链与机器边界",
+      "first_page": 12,
+      "last_page": 19,
+      "sections": 19,
+      "version": "1.2.1"
+    },
+    {
+      "id": "G1",
+      "title": "G1 · 对象模型与生命周期",
+      "first_page": 20,
+      "last_page": 27,
+      "sections": 18,
+      "version": "1.2.1"
+    },
+    {
+      "id": "G2",
+      "title": "G2 · RAII、资源与所有权",
+      "first_page": 28,
+      "last_page": 67,
+      "sections": 53,
+      "version": "1.2.1"
+    },
+    {
+      "id": "G3",
+      "title": "G3 · 值语义、移动与成本模型",
+      "first_page": 68,
+      "last_page": 112,
+      "sections": 69,
+      "version": "1.2.1"
+    },
+    {
+      "id": "G4",
+      "title": "G4 · STL、Ranges 与数据抽象",
+      "first_page": 113,
+      "last_page": 169,
+      "sections": 56,
+      "version": "1.2.1"
+    },
+    {
+      "id": "G5",
+      "title": "G5 · 泛型、类型推导与编译期抽象",
+      "first_page": 170,
+      "last_page": 200,
+      "sections": 102,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G6",
+      "title": "G6 · 内存布局、机器成本与性能测量",
+      "first_page": 201,
+      "last_page": 245,
+      "sections": 134,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G7",
+      "title": "G7 · 并发协议与 C++ 内存模型",
+      "first_page": 246,
+      "last_page": 286,
+      "sections": 139,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G8",
+      "title": "G8 · ABI、原生库与 C 互操作",
+      "first_page": 287,
+      "last_page": 311,
+      "sections": 90,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G9",
+      "title": "G9 · 构建、打包与原生生态",
+      "first_page": 312,
+      "last_page": 336,
+      "sections": 89,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G10",
+      "title": "G10 · 系统运行时工程",
+      "first_page": 337,
+      "last_page": 368,
+      "sections": 83,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G11",
+      "title": "G11 · 机器人系统工程",
+      "first_page": 369,
+      "last_page": 390,
+      "sections": 76,
+      "version": "1.1.1"
+    },
+    {
+      "id": "G12",
+      "title": "G12 · 统一系统模型与工程审查",
+      "first_page": 391,
+      "last_page": 407,
+      "sections": 86,
+      "version": "1.1.1"
+    }
+  ],
+  "explicit_aliases": 1714,
+  "code_blocks": 953,
+  "experiment_labs": 30,
+  "experiment_files": 68,
+  "internal_references_checked": 335,
+  "cross_chapter_references_checked": 79,
+  "source_sections_checked": 1014,
+  "body_internal_link_occurrences_checked": 335,
+  "body_link_policy": "Per owning chapter + canonical destination + multiplicity; generated front-matter excluded. Not a click-by-click visual proof.",
+  "top_level_bookmarks": 14,
+  "fixtures": [
+    {
+      "id": "G0-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G0-2150fb8636dabb29"
+      ],
+      "pages": [
+        12
+      ]
+    },
+    {
+      "id": "G0-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G0-C04-L1",
+        "G0-C04-L4",
+        "G0-C04-L8"
+      ],
+      "pages": [
+        14
+      ]
+    },
+    {
+      "id": "G0-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G0-333ce6248bc62c04"
+      ],
+      "pages": [
+        18
+      ]
+    },
+    {
+      "id": "G1-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G1-17eb2e09d4e9e9fc"
+      ],
+      "pages": [
+        20
+      ]
+    },
+    {
+      "id": "G1-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G1-C05-L1",
+        "G1-C05-L16",
+        "G1-C05-L32"
+      ],
+      "pages": [
+        23
+      ]
+    },
+    {
+      "id": "G2-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G2-152d7ec817e29778"
+      ],
+      "pages": [
+        28
+      ]
+    },
+    {
+      "id": "G2-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G2-C82-L1",
+        "G2-C82-L20",
+        "G2-C82-L41"
+      ],
+      "pages": [
+        44,
+        45
+      ]
+    },
+    {
+      "id": "G2-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G2-333ce6248bc62c04"
+      ],
+      "pages": [
+        64
+      ]
+    },
+    {
+      "id": "G3-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G3-d164ecdf02e9a9a8"
+      ],
+      "pages": [
+        68
+      ]
+    },
+    {
+      "id": "G3-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G3-C04-L1",
+        "G3-C04-L14",
+        "G3-C04-L28"
+      ],
+      "pages": [
+        71,
+        72
+      ]
+    },
+    {
+      "id": "G3-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G3-333ce6248bc62c04"
+      ],
+      "pages": [
+        109
+      ]
+    },
+    {
+      "id": "G4-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G4-1a9f8f57218a7d93"
+      ],
+      "pages": [
+        113
+      ]
+    },
+    {
+      "id": "G4-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G4-C171-L1",
+        "G4-C171-L42",
+        "G4-C171-L85"
+      ],
+      "pages": [
+        142,
+        143,
+        144
+      ]
+    },
+    {
+      "id": "G4-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G4-333ce6248bc62c04"
+      ],
+      "pages": [
+        165
+      ]
+    },
+    {
+      "id": "G5-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G5-05ffe4c451d1a40b"
+      ],
+      "pages": [
+        170
+      ]
+    },
+    {
+      "id": "G5-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G5-C61-L1",
+        "G5-C61-L16",
+        "G5-C61-L32"
+      ],
+      "pages": [
+        194,
+        195
+      ]
+    },
+    {
+      "id": "G6-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G6-85932c58b5fe3c59"
+      ],
+      "pages": [
+        201
+      ]
+    },
+    {
+      "id": "G6-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G6-C71-L1",
+        "G6-C71-L24",
+        "G6-C71-L49"
+      ],
+      "pages": [
+        235,
+        236
+      ]
+    },
+    {
+      "id": "G7-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G7-9d570d1a6a8c7f59"
+      ],
+      "pages": [
+        246
+      ]
+    },
+    {
+      "id": "G7-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G7-C67-L1",
+        "G7-C67-L47",
+        "G7-C67-L94"
+      ],
+      "pages": [
+        277,
+        278,
+        279
+      ]
+    },
+    {
+      "id": "G8-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G8-daad8b62f964eae4"
+      ],
+      "pages": [
+        287
+      ]
+    },
+    {
+      "id": "G8-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G8-C22-L1",
+        "G8-C22-L19",
+        "G8-C22-L38"
+      ],
+      "pages": [
+        303,
+        304
+      ]
+    },
+    {
+      "id": "G9-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G9-001f5b0a68f24c34"
+      ],
+      "pages": [
+        312
+      ]
+    },
+    {
+      "id": "G9-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G9-C11-L1",
+        "G9-C11-L17",
+        "G9-C11-L35"
+      ],
+      "pages": [
+        325
+      ]
+    },
+    {
+      "id": "G9-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G9-333ce6248bc62c04"
+      ],
+      "pages": [
+        331
+      ]
+    },
+    {
+      "id": "G10-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G10-e5c5bccedf86e63d"
+      ],
+      "pages": [
+        337
+      ]
+    },
+    {
+      "id": "G10-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G10-C07-L1",
+        "G10-C07-L87",
+        "G10-C07-L174"
+      ],
+      "pages": [
+        351,
+        353,
+        355
+      ]
+    },
+    {
+      "id": "G11-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G11-e948d5d7fff297ff"
+      ],
+      "pages": [
+        369
+      ]
+    },
+    {
+      "id": "G11-long-experiment",
+      "purpose": "experiment-continuation",
+      "anchors": [
+        "G11-C05-L1",
+        "G11-C05-L49",
+        "G11-C05-L98"
+      ],
+      "pages": [
+        381,
+        382,
+        383
+      ]
+    },
+    {
+      "id": "G12-opening",
+      "purpose": "chapter-navigation",
+      "anchors": [
+        "G12-19d298684bdb6318"
+      ],
+      "pages": [
+        391
+      ]
+    },
+    {
+      "id": "G12-review-protocol",
+      "purpose": "source-section",
+      "anchors": [
+        "G12-33e7348c55602aa0"
+      ],
+      "pages": [
+        399
+      ]
+    },
+    {
+      "id": "G12-gate",
+      "purpose": "final-gate",
+      "anchors": [
+        "G12-333ce6248bc62c04"
+      ],
+      "pages": [
+        403
+      ]
+    },
+    {
+      "id": "G7-danger",
+      "purpose": "danger-role-binding",
+      "anchors": [
+        "G7-C68-role",
+        "G7-C68-L1"
+      ],
+      "pages": [
+        279
+      ]
+    },
+    {
+      "id": "G1-danger",
+      "purpose": "danger-role-binding",
+      "anchors": [
+        "G1-C06-role",
+        "G1-C06-L1"
+      ],
+      "pages": [
+        24
+      ]
+    },
+    {
+      "id": "G8-integration-boundary",
+      "purpose": "literal-or-heading-integration",
+      "anchors": [
+        "G8-4b478958cf2d4a06"
+      ],
+      "pages": [
+        294
+      ]
+    },
+    {
+      "id": "G9-integration-boundary",
+      "purpose": "literal-or-heading-integration",
+      "anchors": [
+        "G9-765da921c06e29ea"
+      ],
+      "pages": [
+        316
+      ]
+    },
+    {
+      "id": "G12-integration-boundary",
+      "purpose": "literal-or-heading-integration",
+      "anchors": [
+        "G12-8b203a62a485d573"
+      ],
+      "pages": [
+        396
+      ]
+    },
+    {
+      "id": "front-matter",
+      "purpose": "cover-control-toc",
+      "anchors": [
+        "generated-preface",
+        "generated-toc"
+      ],
+      "pages": [
+        1,
+        2,
+        3,
+        11
+      ]
+    },
+    {
+      "id": "book-exit",
+      "purpose": "final-reference",
+      "anchors": [],
+      "pages": [
+        407
+      ]
+    }
+  ],
+  "renders": [
+    {
+      "page": 1,
+      "path": "page-001.png",
+      "sha256": "75448bc6e6dda5d90ac89d3a92a945d9286c231df644f0adfdd6b29b7167e268"
+    },
+    {
+      "page": 2,
+      "path": "page-002.png",
+      "sha256": "eed43b643caca63eea7ae6c7064517428c0eed0ce4c19c822a1bebe4213e95bc"
+    },
+    {
+      "page": 3,
+      "path": "page-003.png",
+      "sha256": "7ab32dae2a356ae6d010ca13ced3f4d80f95393ca3e4fcaf5506d71db35c2284"
+    },
+    {
+      "page": 11,
+      "path": "page-011.png",
+      "sha256": "1567c5780da686b43d883ecd0deda81d8810928e8bb80adf371ab317e644468c"
+    },
+    {
+      "page": 12,
+      "path": "page-012.png",
+      "sha256": "63d2f5466989a939bd64da0815ae54da1362cf562d35168b02b0a687a8640b5f"
+    },
+    {
+      "page": 14,
+      "path": "page-014.png",
+      "sha256": "32e46006da339ab934bec5f9f61a2d55a7b745ddc72eccfd95e4cce1b5f28103"
+    },
+    {
+      "page": 18,
+      "path": "page-018.png",
+      "sha256": "5ecd1caea17b3c56576b6a820b747dc440daffa1ccd5ec6bff9f83b43420e82f"
+    },
+    {
+      "page": 20,
+      "path": "page-020.png",
+      "sha256": "fe9dc68d8132c2ed8d2d31db6d4dfd801c58a621fcc77a4946e7df9d53622a35"
+    },
+    {
+      "page": 23,
+      "path": "page-023.png",
+      "sha256": "6f4e21e596a568ca08990561c70c2d842311b4855fff25a665645e33328c2197"
+    },
+    {
+      "page": 24,
+      "path": "page-024.png",
+      "sha256": "07c0604e28a0089f2da3df5aeba78352220577fd97012897018e7c0ace2c2c15"
+    },
+    {
+      "page": 28,
+      "path": "page-028.png",
+      "sha256": "f1074f9f4ba771229ab14d1b5a429e9faa5fb287181559bf18bc4fded2b393b5"
+    },
+    {
+      "page": 44,
+      "path": "page-044.png",
+      "sha256": "289324a18bcf9a6466b32544b5de4ff7c78de96bfcf4ec6edc6de0fb00c5a27c"
+    },
+    {
+      "page": 45,
+      "path": "page-045.png",
+      "sha256": "92522971e9ccf15d2ff013bd47edf32091e93c5a7432cc888a27daf694faf04b"
+    },
+    {
+      "page": 64,
+      "path": "page-064.png",
+      "sha256": "ca12533470bf46fac7a77248352e841c48001b95b464c9358af36260207d0604"
+    },
+    {
+      "page": 68,
+      "path": "page-068.png",
+      "sha256": "ca615eeade6e57ae5b0fe28897ebe80a01ee0c5d4e85009a73d00ec82fda360c"
+    },
+    {
+      "page": 71,
+      "path": "page-071.png",
+      "sha256": "7205d04bd239049b722bc38b3c66f42c6b307f4f77eedcf965c8b808fec34153"
+    },
+    {
+      "page": 72,
+      "path": "page-072.png",
+      "sha256": "9fef628957732b688de05e9d7c537b94ca79b36708656a3135523a435fe9f869"
+    },
+    {
+      "page": 109,
+      "path": "page-109.png",
+      "sha256": "eefbdca0aaec2fb0f679e685c258f5ea5abd05f0e9e60489fdb5d81084321b1f"
+    },
+    {
+      "page": 113,
+      "path": "page-113.png",
+      "sha256": "4f34b2631d36b5c40f70d0736a014920784662580da0ea582019fd02e911d586"
+    },
+    {
+      "page": 142,
+      "path": "page-142.png",
+      "sha256": "ece50782d5e1757c69b647ce9218b9fac8c6e0c1f2714fb27d641f7f8be80c51"
+    },
+    {
+      "page": 143,
+      "path": "page-143.png",
+      "sha256": "26807a4f1247b2ed771261f4f339cc3a9c97e314eee9b41785e51a9438031520"
+    },
+    {
+      "page": 144,
+      "path": "page-144.png",
+      "sha256": "02d04bbf4a07a800efcf4c4001fedc39470dc3a95600758e48a129fa47553286"
+    },
+    {
+      "page": 165,
+      "path": "page-165.png",
+      "sha256": "f675518679b0b5434913438b7ab067d1bcc6278f30c827fc6f1407598a4113cd"
+    },
+    {
+      "page": 170,
+      "path": "page-170.png",
+      "sha256": "8c5efe3f2708bf5f1408c50feb94e1ab78e9c338acca95da6cd89695ff6663a3"
+    },
+    {
+      "page": 194,
+      "path": "page-194.png",
+      "sha256": "2ae095ae1135be06b69bbb50096b75c46ca0abbb8886b8ef1a272b29122a62c4"
+    },
+    {
+      "page": 195,
+      "path": "page-195.png",
+      "sha256": "7757173ce14330e06ec65c331b045110e244ed8aa9cd041011b17030c4d32102"
+    },
+    {
+      "page": 201,
+      "path": "page-201.png",
+      "sha256": "3e56502c01cf4087c472e21c149fefd786fa54eb0994ba72e5865b206f378a9b"
+    },
+    {
+      "page": 235,
+      "path": "page-235.png",
+      "sha256": "455d38254e0803080920bb4ddf899fcab8d92a0b72581472a60cfa62c0df15e7"
+    },
+    {
+      "page": 236,
+      "path": "page-236.png",
+      "sha256": "a0d16ba941c1706f7dbc934d6f32d4c4754f7b216c49fbe2aac4def1e8ed30d7"
+    },
+    {
+      "page": 246,
+      "path": "page-246.png",
+      "sha256": "ccb97cc407cf646c5f985216e9bcc53796f9861568cea9e22c65d9297a9bfea6"
+    },
+    {
+      "page": 277,
+      "path": "page-277.png",
+      "sha256": "8a927d0647e845e8ccefcefa28a28b8f98abbb10b968b56fa2496d9d7d3560f3"
+    },
+    {
+      "page": 278,
+      "path": "page-278.png",
+      "sha256": "8606fd713033bcbeb6d08b41c844b9f41bc439055f94d4fa94487f403cdce33b"
+    },
+    {
+      "page": 279,
+      "path": "page-279.png",
+      "sha256": "cfbf63839d5904b6d9f31789425dba98a78dd397405326b505067c161bba96a8"
+    },
+    {
+      "page": 287,
+      "path": "page-287.png",
+      "sha256": "567c3f96b56a90e26e110171a29a2315b15ed6bc4cece2df287545a6f7973d0d"
+    },
+    {
+      "page": 294,
+      "path": "page-294.png",
+      "sha256": "dec615707fc14222ea82354912667cd3fd25657b7a30e41682d739cd94d7be88"
+    },
+    {
+      "page": 303,
+      "path": "page-303.png",
+      "sha256": "8a959d593dfe46fdbf09001542562beb5589c82ee8c263b7161e3d6d76efd7f5"
+    },
+    {
+      "page": 304,
+      "path": "page-304.png",
+      "sha256": "0f975f97f180f0f711a4607af3550fc9470525cb641a7ac14a401166399d91bf"
+    },
+    {
+      "page": 312,
+      "path": "page-312.png",
+      "sha256": "0c1b33e9f1d641f35253049dba8603b571864af4f15d507f9f017729628bbe53"
+    },
+    {
+      "page": 316,
+      "path": "page-316.png",
+      "sha256": "95ebd4c42bb52e12b7e9dc98d41c6199d77ae75e908b89b655b07fabfed3199e"
+    },
+    {
+      "page": 325,
+      "path": "page-325.png",
+      "sha256": "d8bf55b1a90dae3f082f3cc93f3d954f9fb8aae5393ffc02ac00154dc7938922"
+    },
+    {
+      "page": 331,
+      "path": "page-331.png",
+      "sha256": "1b646b8c9807d25ed4f158605c7f2a02ae59b6b4a467dde458bb8741f2e24293"
+    },
+    {
+      "page": 337,
+      "path": "page-337.png",
+      "sha256": "ff1c6495bd1370eee48427e802624c46f737b3f76b1b50d336b42b8bec44f3a1"
+    },
+    {
+      "page": 351,
+      "path": "page-351.png",
+      "sha256": "5cb47b36e3dd91a6cf1204e894803a6116ea385b197d74ee2956e33ba8f0679e"
+    },
+    {
+      "page": 353,
+      "path": "page-353.png",
+      "sha256": "1f94f35a2a170c1af468623486c548a2b00af6404648ea913e6c254b0a9763bd"
+    },
+    {
+      "page": 355,
+      "path": "page-355.png",
+      "sha256": "dad8ed1afd3f2934cfb9ff787510338ad85a498b0c0863b07f44eb526986b029"
+    },
+    {
+      "page": 369,
+      "path": "page-369.png",
+      "sha256": "f3ec4010e7c34ad87a348a4dc4de71ecf038e4e76dffd2618f21bead1875eab7"
+    },
+    {
+      "page": 381,
+      "path": "page-381.png",
+      "sha256": "746d16d0d86c86092823b290c488c956a0d97c50cb6c2fcd6e58d44256b9f5a0"
+    },
+    {
+      "page": 382,
+      "path": "page-382.png",
+      "sha256": "62ed24088f5d1c4d2e0da623bda5a2b91921b2c5ecc214f7e2c103cb9ecc396b"
+    },
+    {
+      "page": 383,
+      "path": "page-383.png",
+      "sha256": "ee194066ee7b0b551c0d48ec4a52ec40c7a42af132fcfcd9b688d4e359c66697"
+    },
+    {
+      "page": 391,
+      "path": "page-391.png",
+      "sha256": "8ac7f8a4a1bf6b3c38707a0811927ddd500cc987dca63e045991ec4e3c732b03"
+    },
+    {
+      "page": 396,
+      "path": "page-396.png",
+      "sha256": "890d84aa6672285a4f81319ebae6df8a6e5532512a0345c121c2d877c2562ee4"
+    },
+    {
+      "page": 399,
+      "path": "page-399.png",
+      "sha256": "14b91933debb7ba6c75a8126a6f72394dacfa1417f657e4e55c0a1a17b872b5c"
+    },
+    {
+      "page": 403,
+      "path": "page-403.png",
+      "sha256": "46bc9330d75f193c30fbf42e0f255a34eb4f079333018c8648e4a0c3cd7e9182"
+    },
+    {
+      "page": 407,
+      "path": "page-407.png",
+      "sha256": "cb135b6f43a7e21bbc882c08f3af9e04e74bade0921f9ed0b211e56524a2b282"
+    }
+  ],
+  "policy": "Frozen visual mechanics; full-book integration and actual destination checks. External web reachability and C++ execution not tested."
+}

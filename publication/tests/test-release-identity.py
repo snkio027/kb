@@ -27,11 +27,11 @@ NEW = ROOT/'publication/profiles/cpp-handbook-rc1'
 
 class IdentityTests(unittest.TestCase):
     def test_engine_extension_is_exactly_the_reviewed_identity_patch(self):
-        # Fixed file digests bind the small diff against f288051. Any later
-        # modification must deliberately re-review this bounded exception.
+        # Fixed file digests bind the RC1 diff plus PUBLICATION typeset identity.
+        # The latter is constrained by test-publication-identity.py; no publisher.
         expected = {
             'preview.py': '2bea5d17da01e5e9694a15aa3d55a3d8c175e67547891c37c0394185a0895b0b',
-            'source_model.py': '96531e5aca91ba1823b331cd99b9040934000739ab5095028579f301b532e6df',
+            'source_model.py': '33a2787b547e6dd6281a6221231e835d9f743d7fad2ef4edd1efd0cd8ac2ff3f',
         }
         for name, digest in expected.items():
             self.assertEqual(hashlib.sha256((ROOT/'publication/engine'/name).read_bytes()).hexdigest(), digest)

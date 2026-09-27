@@ -1,0 +1,1050 @@
+[
+  {
+    "table": "G0-T01",
+    "section": "G0-ce658bff1fe6ee14",
+    "section_title": "1.3 编译器驱动器在调度什么？",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "命令选项",
+      "到哪一步",
+      "你可以检查什么"
+    ],
+    "row_text": [
+      "-E预处理头文件是否找到、宏展开",
+      "-S生成汇编目标指令与调用约定",
+      "-c生成目标文件定义/未定义符号、重定位",
+      "不指定上述停止选项通常继续链接是否把需要的目标文件和库交给链接器",
+      "执行生成文件加载并运行动态库依赖、运行时行为"
+    ]
+  },
+  {
+    "table": "G0-T02",
+    "section": "G0-310a7363b9a621ef",
+    "section_title": "3. 五层诊断：先找失败的阶段",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "现象",
+      "阶段",
+      "首先检查"
+    ],
+    "row_text": [
+      "找不到 math.hpp预处理文件位置、include 路径、大小写",
+      "参数类型不匹配编译当前 TU 看见的声明与表达式",
+      "Undefined / Duplicate symbol链接缺失定义、重复定义、参与链接的工件",
+      "Library not loaded: @rpath/…加载动态库位置、依赖记录、运行路径",
+      "错误结果、异常、越界运行输入、状态、生命周期和工具报告"
+    ]
+  },
+  {
+    "table": "G0-T03",
+    "section": "G0-2a1f0f7d3b3f2c31",
+    "section_title": "4.3 静态库和动态库的差异",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "工件",
+      "内容与通常行为",
+      "最容易误判的点"
+    ],
+    "row_text": [
+      ".a 静态库一组目标文件归档，通常按未解析符号需要抽取成员不是把所有成员机械复制；整包加载等选项会改变抽取策略",
+      ".dylib / .so独立镜像，可执行文件记录动态依赖，加载器映射和绑定构建时找到库，不代表部署时还能找到",
+      "可执行文件连接后的程序镜像及相关依赖信息磁盘文件还不是正在运行的进程"
+    ]
+  },
+  {
+    "table": "G0-T04",
+    "section": "G0-9e47b5a6eb0917c1",
+    "section_title": "6.2 ARM64 回查卡",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "名称",
+      "作用",
+      "不要推出的结论"
+    ],
+    "row_text": [
+      "SP栈指针；使用时须遵守 ABI 对齐约束栈上每个源码变量都有独立槽",
+      "x30 / LRBL 写入返回地址；RET 常用它返回所有函数都用同样序言保存 LR",
+      "x29 / FP帧指针约定，辅助栈回溯所有优化后函数都保留完整链",
+      "x19～x28通用被调用者保存寄存器任意调用都不会改变其他寄存器",
+      "x0～x7、x9～x15参数/临时寄存器中的常用部分这是完整的 ARM64 寄存器分配合同"
+    ]
+  },
+  {
+    "table": "G1-T01",
+    "section": "G1-a7cf17651765a596",
+    "section_title": "1.1 问题与例子",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "概念",
+      "用 int a = 42; 解释",
+      "常见混淆"
+    ],
+    "row_text": [
+      "类型 typeint 规定可用操作与表示约束类型不是地址",
+      "名称 namea 是源码标识符没有名字也可以有对象",
+      "对象 object本次初始化形成的 int 实体object 不只指 class 实例",
+      "值 value当前为 42相等的值可属于不同对象",
+      "存储 storage对象表示占用的字节空间字节仍在不证明对象存活",
+      "生命周期 lifetime对象存在的运行时区间不等于名字可见的文本范围"
+    ]
+  },
+  {
+    "table": "G1-T02",
+    "section": "G1-cfabd0b765afa0cb",
+    "section_title": "2. 指针、引用与别名",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "声明",
+      "可以重定向 p",
+      "可以通过 p 修改目标"
+    ],
+    "row_text": [
+      "T* p是是",
+      "T* const p否是",
+      "const T* p是否",
+      "const T* const p否否"
+    ]
+  },
+  {
+    "table": "G1-T03",
+    "section": "G1-7c6f15fed0209ab2",
+    "section_title": "5. 表达式值类别：先看表达式，不给对象贴标签",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "基本类别",
+      "含义与常见例子"
+    ],
+    "row_text": [
+      "lvalueglvalue 中非 xvalue 的类别；普通表达式 x、*p",
+      "xvalue标识可被复用资源的对象；对象表达式 std::move(x)",
+      "prvalue初始化结果对象或计算操作数的值；42、返回 T 的普通调用"
+    ]
+  },
+  {
+    "table": "G2-T01",
+    "section": "G2-49a5b98cd298b3d3",
+    "section_title": "2.2 std::unique_ptr<T>",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Operation",
+      "Ownership Meaning"
+    ],
+    "row_text": [
+      "make_unique建立 unique ownership",
+      "destructor销毁 owned resource",
+      "operator*, ->borrow pointee",
+      "get()暴露 borrowed raw pointer",
+      "release()放弃 ownership，不销毁 resource",
+      "reset()结束当前 ownership / adopt 新 pointer",
+      "move constructortransfer ownership",
+      "move assignmentreplace current ownership via transfer",
+      "copyforbidden"
+    ]
+  },
+  {
+    "table": "G2-T02",
+    "section": "G2-4553b7f771cbd0c9",
+    "section_title": "3.1 Ownership Taxonomy",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Semantic Relationship",
+      "C++ 常见表达"
+    ],
+    "row_text": [
+      "Value ownershipT",
+      "Unique dynamic ownershipstd::unique_ptr<T>",
+      "Required mutable borrowT&",
+      "Required read-only borrowconst T&",
+      "Optional borrow/observerT*, const T*",
+      "Sequence borrowstd::span<T>",
+      "Shared ownershipstd::shared_ptr<T>",
+      "Shared-domain weak observerstd::weak_ptr<T>",
+      "Pool-backed temporary rightdedicated move-only Lease",
+      "Raw OS resource ownerdedicated RAII type"
+    ]
+  },
+  {
+    "table": "G2-T03",
+    "section": "G2-07cb7365ddb44e23",
+    "section_title": "10.2 C++ vs Zig Ownership Architecture",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "C++",
+      "Zig"
+    ],
+    "row_text": [
+      "Resource cleanupdestructor / RAIIdefer / deinit",
+      "Unique owner type可强编码多依赖 API discipline",
+      "禁止 copy owner= delete / member semantics无直接等价语言机制",
+      "Ownership transfermove semanticsexplicit data-flow convention",
+      "Value ownership强强",
+      "Allocation policy常由 owner abstraction 封装allocator 通常显式",
+      "BorrowT&, T*, span*T, slice",
+      "Borrow lifetime proof弱弱",
+      "Shared ownershipshared_ptr需要具体 abstraction",
+      "Weak observerweak_ptr需要具体 abstraction",
+      "Failure rollbackRAII / unwindingdefer / errdefer",
+      "Pool/Leasededicated RAII typeexplicit lease + defer"
+    ]
+  },
+  {
+    "table": "G2-T04",
+    "section": "G2-70a19d676340a06d",
+    "section_title": "12.1 核心术语表",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "English",
+      "核心含义"
+    ],
+    "row_text": [
+      "Resource必须遵守 acquire/release protocol 的实体",
+      "Handle对 resource 的标识/访问表示",
+      "Ownership最终 lifetime/cleanup responsibility",
+      "Borrow不拥有 resource 的临时访问关系",
+      "Unique Ownership单一最终 owner",
+      "Shared Ownership多 owner 共同延长 lifetime",
+      "Observer非拥有访问角色",
+      "Weak Observer不延长 shared lifetime 的 observer",
+      "RAIIresource lifetime → object lifetime",
+      "Move-only Typecopy 非法、move 转移状态/ownership",
+      "Rule of Fiveraw-resource 类型的 special-member 全面审查",
+      "Rule of Zero通过 RAII members 组合，外层无需手写 special members",
+      "Basic Guaranteefailure 后仍合法，无 leak，state 可改变",
+      "Strong Guaranteecommit-or-rollback",
+      "No-throw Guaranteeexception 不逃出 operation",
+      "Control Blockshared ownership bookkeeping",
+      "Lease对 resource temporary usage right 的 owner",
+      "Ownership Graph决定 resource destruction topology 的关系图",
+      "Invalidation某操作使 borrow/view 不再合法",
+      "Shutdown Orderresource dependency 的反向 teardown 顺序"
+    ]
+  },
+  {
+    "table": "G3-T01",
+    "section": "G3-30771414f724526d",
+    "section_title": "1.2 Logical Value 与 Representation",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "类型",
+      "逻辑值/责任",
+      "常见表示模型，非 ABI 保证"
+    ],
+    "row_text": [
+      "vector<int>拥有一串 int外部元素存储，加指针/长度/容量等状态",
+      "span<int>借用一段连续 int指针与范围；静态 extent 可编码在类型中",
+      "unique_ptr<T>独占资源或为空指针及 deleter 状态",
+      "shared_ptr<T>共享拥有关系及保存的指针对象指针与控制信息关联",
+      "array<int, N>内嵌 N 个 int元素作为对象组成部分"
+    ]
+  },
+  {
+    "table": "G3-T02",
+    "section": "G3-5026c0724fef4c39",
+    "section_title": "10.8 Parameter Decision Model",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "语义",
+      "C++ 首选起点"
+    ],
+    "row_text": [
+      "small independent valueT",
+      "callee needs own valueT",
+      "large read-only borrowconst T&",
+      "required mutable borrowT&",
+      "optional observerT*",
+      "contiguous sequence borrowstd::span<T>",
+      "text borrowstd::string_view",
+      "unique owner transferstd::unique_ptr<T>",
+      "shared lifetime acquisitionstd::shared_ptr<T>",
+      "move-only lease/value transferT",
+      "explicit consume-only existing valuesometimes T&&"
+    ]
+  },
+  {
+    "table": "G3-T03",
+    "section": "G3-9bda8fd9598fe999",
+    "section_title": "13.1 Core Terminology",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "English",
+      "中文核心含义"
+    ],
+    "row_text": [
+      "Logical Value类型对外表示的语义值",
+      "Representationobject在机器中的内部表示",
+      "Value Semanticsobject copy/move所定义的逻辑值关系",
+      "Copy Construction从已有对象创建新对象值",
+      "Copy Assignment用已有值替换已存在对象状态",
+      "Move Construction从可消费source建立新对象",
+      "Move Assignment用可消费source替换已有target状态",
+      "Moved-from Statemove后source仍存活的合法状态",
+      "Copy Elision不建立/不转移某些中间对象",
+      "RVOReturn Value Optimization",
+      "NRVONamed Return Value Optimization",
+      "Result Object函数调用返回值最终对应的对象",
+      "Inline Representationpayload直接存在object内部",
+      "Indirect Representationobject通过handle/pointer管理外部payload",
+      "Hybrid Representationruntime按状态在inline/indirect之间切换",
+      "SSOSmall String Optimization",
+      "SBOSmall Buffer/Object Optimization",
+      "Relocation将值从一处storage迁移到另一处并结束旧object lifetime",
+      "Invalidation之前合法的access path变为非法",
+      "Amortized Complexity多次操作平均后的复杂度保证",
+      "Zero-copy避免主要payload duplication",
+      "Stable ID与物理storage address解耦的logical identity"
+    ]
+  },
+  {
+    "table": "G4-T01",
+    "section": "G4-af2b98d4b728284b",
+    "section_title": "1.1 STL 的正确 Mental Model",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "角色",
+      "问题",
+      "例子"
+    ],
+    "row_text": [
+      "Owner谁管理元素与资源清理？vector、string、map",
+      "View / 借用接口暴露哪种访问能力，依赖谁存活？span、string_view、默认 accessor 的 mdspan",
+      "Algorithm对范围要求什么能力与前置条件？sort、find、lower_bound、transform"
+    ]
+  },
+  {
+    "table": "G4-T02",
+    "section": "G4-ad88f99ead996884",
+    "section_title": "2.2 Iterator / Pointer / Reference Invalidation",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "容器",
+      "首先检查的稳定性边界"
+    ],
+    "row_text": [
+      "vector重分配全部失效；无重分配的插入/删除另有位置相关规则",
+      "array无结构性增长；对象寿命与元素赋值的语义仍需区分",
+      "deque分段随机访问；端点/中间操作对 iterator 与 reference 的影响不同",
+      "list通常保持未删除节点，splice 须满足 allocator 等前提",
+      "map / set插入不使已有迭代器/引用失效；擦除使被删元素失效",
+      "unordered_maprehash 使 iterator 失效，但不使元素 pointer/reference 失效",
+      "flat_map默认平面序列；插入/擦除及底层容器决定移动与失效"
+    ]
+  },
+  {
+    "table": "G4-T03",
+    "section": "G4-153a7b1215ec8e1c",
+    "section_title": "5.4 Container Selection",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Requirement",
+      "默认候选"
+    ],
+    "row_text": [
+      "动态拥有连续 valuesvector",
+      "固定编译期数量array",
+      "两端高频增长deque",
+      "需要稳定 node / splicelist",
+      "ordered associativemap",
+      "average hash lookupunordered_map",
+      "read-heavy sorted associativeflat_map / sorted vector",
+      "dense integer IDarray / vector",
+      "borrowed contiguous inputspan",
+      "borrowed string inputstring_view",
+      "multidimensional borrowed datamdspan"
+    ]
+  },
+  {
+    "table": "G5-T01",
+    "section": "G5-552c2020ae9bae34",
+    "section_title": "2.4 三种最重要 Pattern",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "形参模式",
+      "int 左值的 T",
+      "const int 左值的 T",
+      "接口侧含义"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "形参模式",
+        "value": "T"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "int 左值的 T",
+        "value": "int"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "const int 左值的 T",
+        "value": "int"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "接口侧含义",
+        "value": "建立独立参数对象"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "形参模式",
+        "value": "T&"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "int 左值的 T",
+        "value": "int"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "const int 左值的 T",
+        "value": "const int"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "接口侧含义",
+        "value": "保留引用绑定所需限定"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "形参模式",
+        "value": "const T&"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "int 左值的 T",
+        "value": "int"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "const int 左值的 T",
+        "value": "int"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "接口侧含义",
+        "value": "形参模式提供只读访问"
+      }
+    ],
+    "row_text": [
+      "表 1 · 记录 1 · T形参模式Tint 左值的 Tintconst int 左值的 Tint接口侧含义建立独立参数对象",
+      "表 1 · 记录 2 · T&形参模式T&int 左值的 Tintconst int 左值的 Tconst int接口侧含义保留引用绑定所需限定",
+      "表 1 · 记录 3 · const T&形参模式const T&int 左值的 Tintconst int 左值的 Tint接口侧含义形参模式提供只读访问"
+    ],
+    "record_titles": [
+      "表 1 · 记录 1 · T",
+      "表 1 · 记录 2 · T&",
+      "表 1 · 记录 3 · const T&"
+    ]
+  },
+  {
+    "table": "G5-T02",
+    "section": "G5-6be04d87b0aeda70",
+    "section_title": "3.3 Forwarding Reference Deduction",
+    "layout": "records",
+    "task": "record",
+    "selection": "default",
+    "headers": [
+      "调用实参",
+      "推导的 T",
+      "最终形参类型",
+      "std::forward<T>(value)"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "调用实参",
+        "value": "int 左值"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "推导的 T",
+        "value": "int&"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "label": "最终形参类型",
+        "value": "int&"
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "label": "std::forward<T>(value)",
+        "value": "lvalue"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "调用实参",
+        "value": "const int 左值"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "推导的 T",
+        "value": "const int&"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "label": "最终形参类型",
+        "value": "const int&"
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "label": "std::forward<T>(value)",
+        "value": "const lvalue"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "调用实参",
+        "value": "int 右值"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "推导的 T",
+        "value": "int"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "label": "最终形参类型",
+        "value": "int&&"
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "label": "std::forward<T>(value)",
+        "value": "xvalue"
+      }
+    ],
+    "row_text": [
+      "表 2 · 记录 1 · int 左值调用实参int 左值推导的 Tint&最终形参类型int&std::forward<T>(value)lvalue",
+      "表 2 · 记录 2 · const int 左值调用实参const int 左值推导的 Tconst int&最终形参类型const int&std::forward<T>(value)const lvalue",
+      "表 2 · 记录 3 · int 右值调用实参int 右值推导的 Tint最终形参类型int&&std::forward<T>(value)xvalue"
+    ],
+    "record_titles": [
+      "表 2 · 记录 1 · int 左值",
+      "表 2 · 记录 2 · const int 左值",
+      "表 2 · 记录 3 · int 右值"
+    ]
+  },
+  {
+    "table": "G5-T03",
+    "section": "G5-c4792c939db122fd",
+    "section_title": "3.4 Reference Collapsing",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "组合",
+      "结果"
+    ],
+    "row_text": [
+      "T& 与 &T&",
+      "T& 与 &&T&",
+      "T&& 与 &T&",
+      "T&& 与 &&T&&"
+    ]
+  },
+  {
+    "table": "G5-T04",
+    "section": "G5-954beb9cc2f5da40",
+    "section_title": "12.2 最终术语表",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Term",
+      "核心含义"
+    ],
+    "row_text": [
+      "Template编译期参数化的源码抽象",
+      "Template Parameter模板声明中的参数，如 T / N",
+      "Template Argument使用模板时给出的具体参数，如 int / 16",
+      "Instantiation根据模板和 arguments 形成具体模板实体的过程",
+      "Specialization针对具体 arguments 的模板实体",
+      "Type Parameter类型模板参数，如 typename T",
+      "Non-type Template Parameter编译期值模板参数，如 std::size_t N",
+      "Template Argument Deduction从函数调用推导 template arguments",
+      "Reference Collapsing& / && 组合后的引用折叠规则",
+      "Forwarding Reference推导上下文中的特殊 T&&",
+      "Perfect Forwarding保留 cv/ref 约束及左值/右值绑定选择的转发",
+      "std::move无条件将表达式转换为可消费的 xvalue",
+      "std::forward按推导参数保留左值/右值绑定选择（右值转为 xvalue）",
+      "Concept对 template arguments 的命名 compile-time constraint",
+      "constexpr可参与 constant evaluation 的语言机制",
+      "consteval要求 immediate compile-time evaluation",
+      "if constexprcompile-time structural branching",
+      "Explicit Instantiation显式要求生成特定 specialization",
+      "Header-only模板实现对 consumer TU 可见的常见组织方式",
+      "Code Bloat多 specializations 导致的代码体积增长",
+      "Static Polymorphismcompile-time 根据 concrete type 生成/选择行为"
+    ]
+  },
+  {
+    "table": "G6-T01",
+    "section": "G6-8816869833d64c21",
+    "section_title": "12.1 G6 核心术语表",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Term",
+      "核心含义"
+    ],
+    "row_text": [
+      "Object Representation一个 object 在内存中的 byte-level representation",
+      "Alignmentobject address 必须满足的边界要求",
+      "Padding为 alignment / layout 插入的非成员 value bytes",
+      "Tail Paddingobject 末尾用于保证相邻 array element 正确对齐的 padding",
+      "Cache Linecache hierarchy 中的重要数据传输/coherence 粒度",
+      "Spatial Locality短时间访问相邻地址",
+      "Temporal Locality短时间重复访问同一数据",
+      "Working Set一段时间内活跃访问的数据集合",
+      "Cache Density单个 cache line 能容纳多少 useful data/object",
+      "Pointer Chasing通过一个 pointer load 的结果决定下一次 memory address",
+      "Memory-Level Parallelism同时存在多个独立 memory requests 的能力",
+      "Bandwidth-bound性能主要由 bytes/sec 限制",
+      "Latency-bound性能主要由单次 memory wait 限制",
+      "Arithmetic IntensityUseful computation / bytes moved",
+      "AoSArray of Structures",
+      "SoAStructure of Arrays",
+      "AoSoAArray of Structures of Arrays",
+      "Hot/Cold Split将高频和低频访问数据分离",
+      "Arenagroup-lifetime / region allocator",
+      "Pool固定或少数 slot size 的 reusable allocator",
+      "Fragmentationallocation 布局导致的内部/外部空间浪费",
+      "PMRPolymorphic Memory Resource",
+      "Virtual Addressprocess 看到的虚拟地址",
+      "Pagevirtual-memory mapping 粒度",
+      "TLBvirtual→physical translation cache",
+      "TLB Missaddress translation cache miss",
+      "Page Fault当前 memory access 需要 kernel/VM 处理",
+      "First Touch首次真正访问某 virtual page",
+      "Branch PredictionCPU 预测 branch control flow",
+      "Mispredictionbranch outcome预测错误",
+      "Speculative Execution按预测路径提前执行",
+      "Indirect Calltarget address 在 runtime 决定的 call",
+      "Cache Coherence多核 caches 对 shared memory 保持一致的机制",
+      "False Sharing不同 logical data 因同 cache line 上的写而互相干扰",
+      "True Sharing多线程真正读写同一个 logical state",
+      "Benchmark测量“多快”",
+      "Profiling定位“时间花在哪”",
+      "Tracing描述“事件什么时候发生”",
+      "Hardware CounterCPU 暴露的微架构事件计数",
+      "Tail Latency延迟分布高 percentile 部分",
+      "Amdahl's Law局部优化受未优化部分比例限制的总体收益规律"
+    ]
+  },
+  {
+    "table": "G7-T01",
+    "section": "G7-3cb4459e0dcc08c1",
+    "section_title": "8.1 Queue 首先按 Topology 分类",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Queue",
+      "Producer",
+      "Consumer"
+    ],
+    "row_text": [
+      "SPSC11",
+      "MPSCN1",
+      "SPMC1N",
+      "MPMCNN"
+    ]
+  },
+  {
+    "table": "G8-T01",
+    "section": "G8-ab050d590779961f",
+    "section_title": "21. 边界复核协议",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "审查层次",
+      "核心问题",
+      "证据入口"
+    ],
+    "row_text": [
+      "边界 / API / ABI独立升级还是一起重编译？支持配置与消费者身份",
+      "符号 / 调用名称、类型、参数约定是否一致？目标文件、诊断、平台 ABI",
+      "布局 / 版本大小、偏移、范围如何协商？布局观察与版本矩阵",
+      "所有权 / 分配谁创建，谁释放，在哪个域？成对入口与失败路径",
+      "错误 / 生命周期失败输出是什么，借用到何时？状态测试与文字合同",
+      "并发 / 回调可否重入，谁等待在途工作？同步/销毁协议",
+      "跨语言表示及语义由哪一层恢复？真正的异语言消费者"
+    ]
+  },
+  {
+    "table": "G9-T01",
+    "section": "G9-0357a4d86cace0bd",
+    "section_title": "19. 构建复核协议",
+    "layout": "records",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "Layer",
+      "关键问题"
+    ],
+    "cells": [
+      {
+        "row": 1,
+        "column": 1,
+        "label": "Layer",
+        "value": "Target Graph"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "label": "关键问题",
+        "value": "实际 artifacts 是什么？"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "label": "Layer",
+        "value": "Dependencies"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "label": "关键问题",
+        "value": "每条 edge 为什么存在？"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "label": "Layer",
+        "value": "Usage Requirements"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "label": "关键问题",
+        "value": "PUBLIC / PRIVATE / INTERFACE 是否与 C++ API 一致？"
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "label": "Layer",
+        "value": "Toolchain"
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "label": "关键问题",
+        "value": "compiler / target platform 从哪里定义？"
+      },
+      {
+        "row": 5,
+        "column": 1,
+        "label": "Layer",
+        "value": "Profiles"
+      },
+      {
+        "row": 5,
+        "column": 2,
+        "label": "关键问题",
+        "value": "dev/san/release 是否清晰分开？"
+      },
+      {
+        "row": 6,
+        "column": 1,
+        "label": "Layer",
+        "value": "Dependency Resolution"
+      },
+      {
+        "row": 6,
+        "column": 2,
+        "label": "关键问题",
+        "value": "package 来源是否明确？"
+      },
+      {
+        "row": 7,
+        "column": 1,
+        "label": "Layer",
+        "value": "Reproducibility"
+      },
+      {
+        "row": 7,
+        "column": 2,
+        "label": "关键问题",
+        "value": "versions/toolchains 是否可追踪？"
+      },
+      {
+        "row": 8,
+        "column": 1,
+        "label": "Layer",
+        "value": "Generated Code"
+      },
+      {
+        "row": 8,
+        "column": 2,
+        "label": "关键问题",
+        "value": "inputs/outputs/dependencies 是否进入 graph？"
+      },
+      {
+        "row": 9,
+        "column": 1,
+        "label": "Layer",
+        "value": "Tests"
+      },
+      {
+        "row": 9,
+        "column": 2,
+        "label": "关键问题",
+        "value": "是否测试真实 targets 与 install tree？"
+      },
+      {
+        "row": 10,
+        "column": 1,
+        "label": "Layer",
+        "value": "Install"
+      },
+      {
+        "row": 10,
+        "column": 2,
+        "label": "关键问题",
+        "value": "artifact/header layout 是否正确？"
+      },
+      {
+        "row": 11,
+        "column": 1,
+        "label": "Layer",
+        "value": "Export"
+      },
+      {
+        "row": 11,
+        "column": 2,
+        "label": "关键问题",
+        "value": "external consumer 能否只通过 namespaced target 使用？"
+      },
+      {
+        "row": 12,
+        "column": 1,
+        "label": "Layer",
+        "value": "ABI"
+      },
+      {
+        "row": 12,
+        "column": 2,
+        "label": "关键问题",
+        "value": "symbol visibility/shared/static policy 是否与 G8 一致？"
+      },
+      {
+        "row": 13,
+        "column": 1,
+        "label": "Layer",
+        "value": "Cross Compile"
+      },
+      {
+        "row": 13,
+        "column": 2,
+        "label": "关键问题",
+        "value": "host/target artifacts 是否分离？"
+      },
+      {
+        "row": 14,
+        "column": 1,
+        "label": "Layer",
+        "value": "DX"
+      },
+      {
+        "row": 14,
+        "column": 2,
+        "label": "关键问题",
+        "value": "clangd/compile database/incremental build 是否健康？"
+      },
+      {
+        "row": 15,
+        "column": 1,
+        "label": "Layer",
+        "value": "Performance"
+      },
+      {
+        "row": 15,
+        "column": 2,
+        "label": "关键问题",
+        "value": "build optimizations是否基于真实数据？"
+      }
+    ],
+    "row_text": [
+      "表 1 · 记录 1 · Target GraphLayerTarget Graph关键问题实际 artifacts 是什么？",
+      "表 1 · 记录 2 · DependenciesLayerDependencies关键问题每条 edge 为什么存在？",
+      "表 1 · 记录 3 · Usage RequirementsLayerUsage Requirements关键问题PUBLIC / PRIVATE / INTERFACE 是否与 C++ API 一致？",
+      "表 1 · 记录 4 · ToolchainLayerToolchain关键问题compiler / target platform 从哪里定义？",
+      "表 1 · 记录 5 · ProfilesLayerProfiles关键问题dev/san/release 是否清晰分开？",
+      "表 1 · 记录 6 · Dependency ResolutionLayerDependency Resolution关键问题package 来源是否明确？",
+      "表 1 · 记录 7 · ReproducibilityLayerReproducibility关键问题versions/toolchains 是否可追踪？",
+      "表 1 · 记录 8 · Generated CodeLayerGenerated Code关键问题inputs/outputs/dependencies 是否进入 graph？",
+      "表 1 · 记录 9 · TestsLayerTests关键问题是否测试真实 targets 与 install tree？",
+      "表 1 · 记录 10 · InstallLayerInstall关键问题artifact/header layout 是否正确？",
+      "表 1 · 记录 11 · ExportLayerExport关键问题external consumer 能否只通过 namespaced target 使用？",
+      "表 1 · 记录 12 · ABILayerABI关键问题symbol visibility/shared/static policy 是否与 G8 一致？",
+      "表 1 · 记录 13 · Cross CompileLayerCross Compile关键问题host/target artifacts 是否分离？",
+      "表 1 · 记录 14 · DXLayerDX关键问题clangd/compile database/incremental build 是否健康？",
+      "表 1 · 记录 15 · PerformanceLayerPerformance关键问题build optimizations是否基于真实数据？"
+    ],
+    "record_titles": [
+      "表 1 · 记录 1 · Target Graph",
+      "表 1 · 记录 2 · Dependencies",
+      "表 1 · 记录 3 · Usage Requirements",
+      "表 1 · 记录 4 · Toolchain",
+      "表 1 · 记录 5 · Profiles",
+      "表 1 · 记录 6 · Dependency Resolution",
+      "表 1 · 记录 7 · Reproducibility",
+      "表 1 · 记录 8 · Generated Code",
+      "表 1 · 记录 9 · Tests",
+      "表 1 · 记录 10 · Install",
+      "表 1 · 记录 11 · Export",
+      "表 1 · 记录 12 · ABI",
+      "表 1 · 记录 13 · Cross Compile",
+      "表 1 · 记录 14 · DX",
+      "表 1 · 记录 15 · Performance"
+    ]
+  },
+  {
+    "table": "G10-T01",
+    "section": "G10-e9446e72804a79f7",
+    "section_title": "19.1 将代码与论证逐项连接",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "命题",
+      "本章机制",
+      "反例或检查"
+    ],
+    "row_text": [
+      "Accepted 有终态锁内提交 ledger，join 后核对提前关输出变体",
+      "输入/输出有界固定槽位环peak 不超过 capacity",
+      "取消能解除等待两队列 abort 加唤醒full input/output 与 empty input",
+      "依赖先于线程存活完成启动后运行，显式 join析构兜底、部分启动失败",
+      "处理异常不逃线程worker catch、fatal、abortinjected fault 后终态",
+      "安装接口可消费导出目标、安装头文件隐藏生产树后的 C/C++ 消费者"
+    ]
+  },
+  {
+    "table": "G11-T01",
+    "section": "G11-dff55bb8e9c4e310",
+    "section_title": "17.1 十六个审查维度",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "维度",
+      "应留下的回答"
+    ],
+    "row_text": [
+      "Physical / units / frame物理量、规范单位、坐标变换方向",
+      "Time / freshness时钟域、测量时刻、age 与失效界限",
+      "Ownership / writerbuffer owner、借用期限、状态修改者",
+      "Execution / blocking关键域、等待点、平台假设",
+      "Memory / bounds分配面、容量、循环上界",
+      "Numerics / safetyfinite、稳定性条件、fault 与安全动作",
+      "Shutdown / middleware停止后硬件状态、传输与回收合同",
+      "Measurement采样条件、时间分布和未覆盖路径"
+    ]
+  },
+  {
+    "table": "G12-T01",
+    "section": "G12-8f71bb7aebb171de",
+    "section_title": "12.1 用可回答的问题建立记录",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "审查层",
+      "必须回答",
+      "需要的产物"
+    ],
+    "row_text": [
+      "State / lifetime什么状态，何时失效对象与生命周期图",
+      "Owner / borrow谁释放，谁临时访问拥有/借用期限",
+      "Mutation / alias谁可写，路径是否重叠writer 与别名合同",
+      "Storage / allocation大小、频率、上界、回收资源预算与观测",
+      "Failure / commit失败前后谁已负责状态机与提交点",
+      "Concurrency / overload顺序、等待、容量、唤醒同步和关闭论证",
+      "ABI / build什么跨独立制品边界接口与消费实验",
+      "Timing / evidence期限和已知证据范围条件化观察及缺口"
+    ]
+  },
+  {
+    "table": "G12-T02",
+    "section": "G12-67a6840516df4e0d",
+    "section_title": "19.1 十三章是一条责任链",
+    "layout": "matrix",
+    "task": "simple",
+    "selection": "default",
+    "headers": [
+      "章节",
+      "应能回答的系统问题"
+    ],
+    "row_text": [
+      "G0 / G1机器制品如何形成，对象何时合法存在",
+      "G2 / G3谁管理资源，值怎样传递及付出什么成本",
+      "G4 / G5数据如何访问，哪些变化在编译期表达",
+      "G6 / G7机器成本与跨执行者共享如何分析",
+      "G8 / G9二进制合同与可消费构建如何成立",
+      "G10 / G11组件怎样组合，时间和物理约束怎样加入",
+      "G12哪些义务由语言承担，哪些仍留给系统"
+    ]
+  }
+]

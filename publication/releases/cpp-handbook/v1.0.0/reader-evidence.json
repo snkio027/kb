@@ -1,0 +1,13 @@
+{
+  "final_pdf_sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+  "final_byte_interactive_smoke": "USER_REPORTED_PASS_READER_UNSPECIFIED",
+  "user_response": "通过",
+  "response_binding": "Reply to final ce4f6d5f... file path, full SHA-256 and smoke items; reader name/version and per-item details not supplied",
+  "preview": "CONTROL_CONNECTION_TIMEOUT; no final-file interaction claimed",
+  "chromium": "NOT_AUTOMATED; user's final-file pass does not identify which reader was used",
+  "historical_rc1_sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+  "historical_rc1_evidence": "Preview observed; Chromium user-reported normal; not reclassified as final-byte testing",
+  "final_byte_checks": "Poppler 407-page render, 10 inspected PNGs, pypdf identity/navigation/text checks",
+  "other_readers": "Acrobat, Safari, mobile NOT TESTED",
+  "release_scope": "User approved identity-only correction, new-byte checks and direct release; no claim of renewed cross-engine certification"
+}

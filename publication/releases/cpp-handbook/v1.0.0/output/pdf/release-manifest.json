@@ -1,0 +1,56 @@
+{
+  "publication_id": "CPP-HANDBOOK",
+  "publication_version": "1.0.0",
+  "title": "Modern C++ 工程学习手册",
+  "english_title": "Modern C++ Engineering Handbook",
+  "pdf": {
+    "filename": "Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+    "sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+    "bytes": 2735594,
+    "pages": 407
+  },
+  "content_baseline": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+  "visual_profile": "1c11c5940c05fe29c46c4500935d5efb673d46a7",
+  "visual_acceptance": "ea2e613b97ddd8a146c7899e7ffde7e80c238e57",
+  "accepted_rc1_commit": "2f4caf671bc42e6e3b03a8eda8255e1a392e5798",
+  "rc1_pdf_sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+  "build_base_commit": "2f4caf671bc42e6e3b03a8eda8255e1a392e5798",
+  "build_identity": "Exact working inputs and tools bound by run.json and preview-audit.json; not the base commit alone.",
+  "preparation_id": "8bbde993ed7cb74ad676ce2e34cc6ad1d7750491e8c0d7d9f9687307f6994fd4",
+  "execution_id": "071ac54a9294f7c1db1dcb9be67021cca271029d2aec8e7a3a9fa531a8571492",
+  "frozen_payload_id": "62131a67526a999c03acba6a00d0abfa5e0eb2348763f862c10542cd27331e44",
+  "candidate_manifest_sha256": "246b2c09a0b658634d67faf47c007e7b6f82697aa3a329ef0768dbd546cad407",
+  "preview_audit_sha256": "af7272f4071839cab48bf0d34eac8fbd2c3ac54d048e3a3640bad684c55a5bfb",
+  "evidence_export_sha256": "e1f3e5440351ffc4daef95216e0f9ff2b7a1a213c72ff97780b9d1d214faa99c",
+  "qualification_report_sha256": "d8b15f110628f77433606b19867de4b0e0cb3f9706cbe5dc2e3437537dc7a2d2",
+  "visual_inspection_sha256": "ef41c2baae662d64810b6ceac6755fb373028a9ebd2e1589abe6e615ddda8e04",
+  "reader_record_sha256": "a7914b768f613081e9cf3aedda106fb463f0ad8ff24d41bd5f89b7fe81d81c64",
+  "authorization": {
+    "source": "User approval in this conversation on 2026-09-27",
+    "scope": "Identity-only correction, new-byte checks, direct GitHub Release under cpp-handbook-v1.0.0 without further step approvals; content/layout/history unchanged."
+  },
+  "destination": {
+    "repository": "snkio027/kb",
+    "tag": "cpp-handbook-v1.0.0",
+    "release_url": "https://github.com/snkio027/kb/releases/tag/cpp-handbook-v1.0.0"
+  },
+  "distribution_status": "See GitHub published state and repository publication-receipt.json; packaging is not proof of upload.",
+  "reader_evidence": {
+    "final_pdf_sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+    "final_byte_interactive_smoke": "USER_REPORTED_PASS_READER_UNSPECIFIED",
+    "user_response": "通过",
+    "response_binding": "Reply to final ce4f6d5f... file path, full SHA-256 and smoke items; reader name/version and per-item details not supplied",
+    "preview": "CONTROL_CONNECTION_TIMEOUT; no final-file interaction claimed",
+    "chromium": "NOT_AUTOMATED; user's final-file pass does not identify which reader was used",
+    "historical_rc1_sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+    "historical_rc1_evidence": "Preview observed; Chromium user-reported normal; not reclassified as final-byte testing",
+    "final_byte_checks": "Poppler 407-page render, 10 inspected PNGs, pypdf identity/navigation/text checks",
+    "other_readers": "Acrobat, Safari, mobile NOT TESTED",
+    "release_scope": "User approved identity-only correction, new-byte checks and direct release; no claim of renewed cross-engine certification"
+  },
+  "known_limitations": [
+    "Accepted TOC/Gate whitespace, occasional label positions, long-code wraps and chapter-ending rhythm remain.",
+    "Source historical status text preserved; publication identity is separate.",
+    "No C++/performance/concurrency rerun, no CI, PDF/UA or cross-platform certification."
+  ]
+}

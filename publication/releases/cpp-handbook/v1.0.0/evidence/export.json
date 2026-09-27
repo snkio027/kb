@@ -1,0 +1,215 @@
+{
+  "role": "SELECTED_EVIDENCE_EXPORT_NOT_COMPLETE_BUILD",
+  "candidate_path": "publication/build/candidate/62131a67526a999c03acba6a00d0abfa5e0eb2348763f862c10542cd27331e44/6bc16caae1cc4dea9e5ae0f1082bbdf4",
+  "candidate_id": "62131a67526a999c03acba6a00d0abfa5e0eb2348763f862c10542cd27331e44",
+  "all_local_candidate_file_hashes_verified": true,
+  "exported": [
+    {
+      "path": "candidate-manifest.json",
+      "sha256": "246b2c09a0b658634d67faf47c007e7b6f82697aa3a329ef0768dbd546cad407",
+      "bytes": 18080
+    },
+    {
+      "path": "candidate-result.json",
+      "sha256": "749facf57eab8ef5b8c253f0f205f573d48fa3ea0a1af7c1574976c07794fe9c",
+      "bytes": 463
+    },
+    {
+      "path": "evidence/source-catalog.json",
+      "sha256": "bb1469a725bfb3aa5886e0ceaf888060759cb49add31a36d753565ecfa2e4243",
+      "bytes": 493089
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/audit.json",
+      "sha256": "b821f831ebb720df6d66b7a84f956f01f25b1b5d9950ceb7299695ec01dd18a5",
+      "bytes": 403999
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/reading-components.json",
+      "sha256": "45aa02dd5938b09c0c5e098dbda411e63aceec73f2eba012032c83d3bd92d807",
+      "bytes": 416467
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/reference-map.json",
+      "sha256": "fa43615e7c70c7cfa2d90ee112ad1726c00a24625d1c8d47cd6ab18fb10e31c4",
+      "bytes": 80558
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/section-audit.json",
+      "sha256": "2d090132d9ea8860c10dea71feb385481041fef0c3f169f5f5ae8b689da0af72",
+      "bytes": 373017
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/table-map.json",
+      "sha256": "e97d5a363fb8561b070c68ac15cfd0eff453822a5529b8fda5d5eaff7b901a01",
+      "bytes": 35013
+    },
+    {
+      "path": "preview-audit.json",
+      "sha256": "af7272f4071839cab48bf0d34eac8fbd2c3ac54d048e3a3640bad684c55a5bfb",
+      "bytes": 508701
+    },
+    {
+      "path": "preview-result.json",
+      "sha256": "a4a455979afa5e3e62db370085efdc8a25047fa9c59bb9ae13b922f9a1a3be56",
+      "bytes": 520
+    },
+    {
+      "path": "reading-review.json",
+      "sha256": "fed73054ad3e296a53a80d2d53512c950480dbc834e916d55d4d5ce6b099e039",
+      "bytes": 3065
+    },
+    {
+      "path": "result.json",
+      "sha256": "4d0eef11ab06a147b1956521c3fe2f1c13d8aa3a72340d483ff6cd744def1069",
+      "bytes": 310
+    },
+    {
+      "path": "run.json",
+      "sha256": "4c7b5f06ecb78778d16ec1fbb7359d5a638a024732bceabda5f9b6ab898af00c",
+      "bytes": 10126
+    },
+    {
+      "path": "derived/full-review/page-001.png",
+      "sha256": "75448bc6e6dda5d90ac89d3a92a945d9286c231df644f0adfdd6b29b7167e268",
+      "bytes": 49652
+    },
+    {
+      "path": "derived/full-review/page-002.png",
+      "sha256": "eed43b643caca63eea7ae6c7064517428c0eed0ce4c19c822a1bebe4213e95bc",
+      "bytes": 214241
+    },
+    {
+      "path": "derived/full-review/page-003.png",
+      "sha256": "7ab32dae2a356ae6d010ca13ced3f4d80f95393ca3e4fcaf5506d71db35c2284",
+      "bytes": 173949
+    },
+    {
+      "path": "derived/full-review/page-012.png",
+      "sha256": "63d2f5466989a939bd64da0815ae54da1362cf562d35168b02b0a687a8640b5f",
+      "bytes": 279671
+    },
+    {
+      "path": "derived/full-review/page-235.png",
+      "sha256": "455d38254e0803080920bb4ddf899fcab8d92a0b72581472a60cfa62c0df15e7",
+      "bytes": 215527
+    },
+    {
+      "path": "derived/full-review/page-279.png",
+      "sha256": "cfbf63839d5904b6d9f31789425dba98a78dd397405326b505067c161bba96a8",
+      "bytes": 233627
+    },
+    {
+      "path": "derived/full-review/page-294.png",
+      "sha256": "dec615707fc14222ea82354912667cd3fd25657b7a30e41682d739cd94d7be88",
+      "bytes": 278832
+    },
+    {
+      "path": "derived/full-review/page-316.png",
+      "sha256": "95ebd4c42bb52e12b7e9dc98d41c6199d77ae75e908b89b655b07fabfed3199e",
+      "bytes": 372374
+    },
+    {
+      "path": "derived/full-review/page-403.png",
+      "sha256": "46bc9330d75f193c30fbf42e0f255a34eb4f079333018c8648e4a0c3cd7e9182",
+      "bytes": 238374
+    },
+    {
+      "path": "derived/full-review/page-407.png",
+      "sha256": "cb135b6f43a7e21bbc882c08f3af9e04e74bade0921f9ed0b211e56524a2b282",
+      "bytes": 205635
+    },
+    {
+      "path": "derived/full-review/structure.json",
+      "sha256": "22871a20d98605a7216658c1c8198b041335a4fca13c081d3c7ba28ca46e600f",
+      "bytes": 18611
+    },
+    {
+      "path": "derived/publication-identity-audit.json",
+      "sha256": "2e14457cede5590c6b067432fc69da9cc334afa2d122903d98aeab686d62602b",
+      "bytes": 1617
+    },
+    {
+      "path": "derived/reading-regression/page-map.json",
+      "sha256": "95ebc4039a337c70a69a49f498ba5021e0622c4e35ec908fd31d5276b5079826",
+      "bytes": 109280
+    }
+  ],
+  "omitted_candidate_files": [
+    "evidence/source-ast/G0.json",
+    "evidence/source-ast/G1.json",
+    "evidence/source-ast/G10.json",
+    "evidence/source-ast/G11.json",
+    "evidence/source-ast/G12.json",
+    "evidence/source-ast/G2.json",
+    "evidence/source-ast/G3.json",
+    "evidence/source-ast/G4.json",
+    "evidence/source-ast/G5.json",
+    "evidence/source-ast/G6.json",
+    "evidence/source-ast/G7.json",
+    "evidence/source-ast/G8.json",
+    "evidence/source-ast/G9.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-0.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-0.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-1.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-1.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-2.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-2.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/composed.json",
+    "evidence/typeset/CPP-HANDBOOK/document.aux",
+    "evidence/typeset/CPP-HANDBOOK/document.fls",
+    "evidence/typeset/CPP-HANDBOOK/document.log",
+    "evidence/typeset/CPP-HANDBOOK/document.tex",
+    "evidence/typeset/CPP-HANDBOOK/document.toc",
+    "evidence/typeset/CPP-HANDBOOK/extracted.txt",
+    "evidence/typeset/CPP-HANDBOOK/pandoc.log",
+    "evidence/typeset/CPP-HANDBOOK/pandoc.log.command.json",
+    "evidence/typeset/CPP-HANDBOOK/render.log",
+    "evidence/typeset/CPP-HANDBOOK/render.log.command.json",
+    "evidence/worker.log",
+    "inputs/publication/engine/candidate.py",
+    "inputs/publication/engine/filters/blocks.lua",
+    "inputs/publication/engine/links.py",
+    "inputs/publication/engine/preview.py",
+    "inputs/publication/engine/preview_audit.py",
+    "inputs/publication/engine/pub.py",
+    "inputs/publication/engine/source_model.py",
+    "inputs/publication/latex/kb-base.sty",
+    "inputs/publication/latex/kbbook.cls",
+    "inputs/publication/profiles/cpp-handbook-full/adapter.py",
+    "inputs/publication/profiles/cpp-handbook-v1/adapter.py",
+    "inputs/publication/profiles/cpp-handbook-v1/profile.json",
+    "inputs/publication/profiles/cpp-handbook-v1/table-layouts.json",
+    "inputs/publication/profiles/cpp-handbook-v1/template.tex",
+    "inputs/publication/profiles/cpp-handbook-v1/theme.sty",
+    "inputs/publication/profiles/cpp-handbook/adapter.py",
+    "inputs/source-set.json",
+    "inputs/sources/c++/g00-native-toolchain.md",
+    "inputs/sources/c++/g01-object-model.md",
+    "inputs/sources/c++/g02-raii-and-ownership.md",
+    "inputs/sources/c++/g03-value-semantics-and-performance.md",
+    "inputs/sources/c++/g04-stl-and-ranges.md",
+    "inputs/sources/c++/g05-generics-and-compile-time.md",
+    "inputs/sources/c++/g06-memory-and-performance.md",
+    "inputs/sources/c++/g07-concurrency-and-memory-model.md",
+    "inputs/sources/c++/g08-abi-and-c-interop.md",
+    "inputs/sources/c++/g09-build-and-native-ecosystem.md",
+    "inputs/sources/c++/g10-systems-runtime-project.md",
+    "inputs/sources/c++/g11-robotics.md",
+    "inputs/sources/c++/g12-cpp-zig-rust.md",
+    "output/README.md",
+    "output/source/c++/g00-native-toolchain.md",
+    "output/source/c++/g01-object-model.md",
+    "output/source/c++/g02-raii-and-ownership.md",
+    "output/source/c++/g03-value-semantics-and-performance.md",
+    "output/source/c++/g04-stl-and-ranges.md",
+    "output/source/c++/g05-generics-and-compile-time.md",
+    "output/source/c++/g06-memory-and-performance.md",
+    "output/source/c++/g07-concurrency-and-memory-model.md",
+    "output/source/c++/g08-abi-and-c-interop.md",
+    "output/source/c++/g09-build-and-native-ecosystem.md",
+    "output/source/c++/g10-systems-runtime-project.md",
+    "output/source/c++/g11-robotics.md",
+    "output/source/c++/g12-cpp-zig-rust.md"
+  ]
+}

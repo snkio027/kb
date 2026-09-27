@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+  },
+  "audit_sha256": "af7272f4071839cab48bf0d34eac8fbd2c3ac54d048e3a3640bad684c55a5bfb",
+  "status": "VISUAL_REVIEWED_SELF_REVIEW",
+  "inspection": {
+    "status": "VISUAL_REVIEWED",
+    "date": "2026-09-27",
+    "attempt": "publication/build/preview/8bbde993ed7cb74ad676ce2e34cc6ad1d7750491e8c0d7d9f9687307f6994fd4/c47b061ebbb54dc39bf08c90230b627d",
+    "pdf_sha256": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510",
+    "images": [
+      {
+        "path": "full-review/page-001.png",
+        "sha256": "75448bc6e6dda5d90ac89d3a92a945d9286c231df644f0adfdd6b29b7167e268"
+      },
+      {
+        "path": "full-review/page-002.png",
+        "sha256": "eed43b643caca63eea7ae6c7064517428c0eed0ce4c19c822a1bebe4213e95bc"
+      },
+      {
+        "path": "full-review/page-003.png",
+        "sha256": "7ab32dae2a356ae6d010ca13ced3f4d80f95393ca3e4fcaf5506d71db35c2284"
+      },
+      {
+        "path": "full-review/page-012.png",
+        "sha256": "63d2f5466989a939bd64da0815ae54da1362cf562d35168b02b0a687a8640b5f"
+      },
+      {
+        "path": "full-review/page-235.png",
+        "sha256": "455d38254e0803080920bb4ddf899fcab8d92a0b72581472a60cfa62c0df15e7"
+      },
+      {
+        "path": "full-review/page-279.png",
+        "sha256": "cfbf63839d5904b6d9f31789425dba98a78dd397405326b505067c161bba96a8"
+      },
+      {
+        "path": "full-review/page-294.png",
+        "sha256": "dec615707fc14222ea82354912667cd3fd25657b7a30e41682d739cd94d7be88"
+      },
+      {
+        "path": "full-review/page-316.png",
+        "sha256": "95ebd4c42bb52e12b7e9dc98d41c6199d77ae75e908b89b655b07fabfed3199e"
+      },
+      {
+        "path": "full-review/page-403.png",
+        "sha256": "46bc9330d75f193c30fbf42e0f255a34eb4f079333018c8648e4a0c3cd7e9182"
+      },
+      {
+        "path": "full-review/page-407.png",
+        "sha256": "cb135b6f43a7e21bbc882c08f3af9e04e74bade0921f9ed0b211e56524a2b282"
+      }
+    ],
+    "reports": {
+      "full-review/structure.json": "22871a20d98605a7216658c1c8198b041335a4fca13c081d3c7ba28ca46e600f",
+      "reading-regression/page-map.json": "95ebc4039a337c70a69a49f498ba5021e0622c4e35ec908fd31d5276b5079826",
+      "publication-identity-audit.json": "2e14457cede5590c6b067432fc69da9cc334afa2d122903d98aeab686d62602b"
+    },
+    "observations": [
+      "Final cover/control/footer identity is consistent; source snapshot note is historical, not current status.",
+      "Sampled code, danger example, identifiers, Gate and last page show no missing glyph, severe clipping or overlap."
+    ],
+    "blockers": [],
+    "known_non_blocking_limitations": [
+      "Previously accepted whitespace, wraps, label positioning and chapter-ending rhythm remain."
+    ],
+    "limits": [
+      "10 final Poppler PNGs inspected, not all 407 pages; 54 representative images generated does not imply all inspected.",
+      "Not a native-reader, C++ or accessibility certification."
+    ]
+  }
+}

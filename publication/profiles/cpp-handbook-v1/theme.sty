@@ -1,0 +1,15 @@
+\ProvidesPackage{theme}[2026/09/27 C++ handbook publication identity]
+\definecolor{PreviewNavy}{HTML}{243447}
+\definecolor{PreviewTeal}{HTML}{265D78}
+\usepackage{newunicodechar}
+\newunicodechar{↕}{\ensuremath{\updownarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+% Full-book glyph coverage: same math-arrow fallback as the frozen Pilot.
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+
+% Source status is historical; publication status lives in the release record.
+\renewcommand{\PreviewSourceNote}[1]{\begin{PreviewQuote}\sffamily\fontsize{9}{12}\selectfont SOURCE SNAPSHOT CONTENT · #1\par 以下状态文字保留冻结 Markdown 当时的历史陈述，不是当前出版状态。正式版出版身份及批准范围以随附发布记录为准。\end{PreviewQuote}}
+
+% Identity override only; all dimensions, typography and pagination unchanged.
+\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\color{PreviewMuted}PUBLICATION · v1.0.0 · 正式阅读版}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\PreviewID\quad v\PreviewVersion}\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont PUBLICATION}\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\PreviewStatus}\fancyfoot[R]{\sffamily\small\thepage}}
