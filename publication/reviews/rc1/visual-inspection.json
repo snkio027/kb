@@ -1,0 +1,68 @@
+{
+  "status": "VISUAL_REVIEWED_SELF_REVIEW_NOT_APPROVAL",
+  "date": "2026-09-27",
+  "preview_attempt": "publication/build/preview/d04e7b31cc325aa3fd8e8ef3081256ca5cc9aa0bed12ad03b000fccb279d2191/ce1afd089e084955a8b126f8c46ed270",
+  "pdf_sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+  "inspected_images": [
+    {
+      "path": "full-review/page-001.png",
+      "sha256": "1a53a9500581a5c360b850abff691d0d6d140eea15a043aef9dfa6d0f720073c"
+    },
+    {
+      "path": "full-review/page-002.png",
+      "sha256": "8f69fc2db7bbbee252d49daf8b55bccba9f38e1715bfa485fb6422ec380b7689"
+    },
+    {
+      "path": "full-review/page-003.png",
+      "sha256": "95cfb75aa4b4d4b97ce5444057772d7c844bb3ecd617a656c34d05646b6b4ab7"
+    },
+    {
+      "path": "full-review/page-012.png",
+      "sha256": "f05c212903a0cebf30485dd72ab65503da67702a669745284309db7960b5f2d2"
+    },
+    {
+      "path": "full-review/page-235.png",
+      "sha256": "d554f4fb13293d99fe4bb8c262322f93290e50253d3afaa5f826d30994e29252"
+    },
+    {
+      "path": "full-review/page-279.png",
+      "sha256": "3f097aaa4d477cd235dfc3bb8da1eeaf7643cb4e754f930d48f05d8e98c85ac1"
+    },
+    {
+      "path": "full-review/page-294.png",
+      "sha256": "0198ae086b42833788870d3fbf1dd38fed33edb929775e86dca00c535bd9ef49"
+    },
+    {
+      "path": "full-review/page-316.png",
+      "sha256": "6f3f0b96e04da678db09ab217aa0eb7b34522da24e7d2e550b3e32ce910265fc"
+    },
+    {
+      "path": "full-review/page-403.png",
+      "sha256": "0fb057279b9806764b361843bb1bd9eb5c750e3751c862312149c36e9a5387b4"
+    },
+    {
+      "path": "full-review/page-407.png",
+      "sha256": "a12ed3f53711fc72c1c8d0abef7483b313b883c3515762cfc7b06007a033056c"
+    }
+  ],
+  "report_hashes": {
+    "full-review/structure.json": "5d0be77e754761da2960b2158656b2c7c1a7ffec04f85c634e89a786bcf81648",
+    "reading-regression/page-map.json": "b177f9d78c3aacf7f093ea1ff50a8ece192fd7e7d58f86df79e892ae65e6d3ca",
+    "identity-audit.json": "9b981bf3ba870683a76eb67f030f9efb5fa4b1c5af89e484bb4ab40ee1705d01"
+  },
+  "observations": [
+    "New cover/control/footer carry 1.0.0 and RC1; no missing glyph, severe clipping or overlap observed.",
+    "Long code and danger-role identity remain legible on sampled pages.",
+    "Body pagination and navigation coordinates unchanged; no visual redesign."
+  ],
+  "known_non_blocking_limitations": [
+    "Frozen TOC/Gate whitespace, occasional label positioning, code wrap and chapter-ending rhythm remain accepted, not claimed repaired."
+  ],
+  "blockers": [],
+  "limits": [
+    "10 Poppler representative PNGs inspected, not all 407 pages manually read.",
+    "Preview application observations and user Chromium report are separately in reader-smoke.md.",
+    "Generated 54 full-review images is not a claim that all were viewed.",
+    "No new C++/performance/concurrency execution; no publication approval."
+  ]
+}

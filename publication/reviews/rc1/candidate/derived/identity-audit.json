@@ -1,0 +1,23 @@
+{
+  "status": "IDENTITY_AND_BODY_NAVIGATION_PASS",
+  "pdf_sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+  "pages": 407,
+  "metadata": {
+    "/Author": "",
+    "/Title": "Modern C++ 工程学习手册",
+    "/Subject": "CPP-HANDBOOK | v1.0.0 | RELEASE CANDIDATE RC1 | RELEASE_CANDIDATE",
+    "/Creator": "LaTeX with hyperref",
+    "/Keywords": "G0 1.2.1 ACCEPTED CONTENT, G1 1.2.1 ACCEPTED CONTENT, G2 1.2.1 ACCEPTED CONTENT, G3 1.2.1 ACCEPTED CONTENT, G4 1.2.1 ACCEPTED CONTENT, G5 1.1.1 ACCEPTED CONTENT, G6 1.1.1 ACCEPTED CONTENT, G7 1.1.1 ACCEPTED CONTENT, G8 1.1.1 ACCEPTED CONTENT, G9 1.1.1 ACCEPTED CONTENT, G10 1.1.1 ACCEPTED CONTENT, G11 1.1.1 ACCEPTED CONTENT, G12 1.1.1 ACCEPTED CONTENT",
+    "/Producer": "LuaTeX-1.24.0",
+    "/CreationDate": "D:20260927162806+08'00'",
+    "/ModDate": "D:20260927162806+08'00'",
+    "/Trapped": "/False",
+    "/PTEX.FullBanner": "This is LuaHBTeX, Version 1.24.0 (TeX Live 2026)"
+  },
+  "named_destinations": 9457,
+  "destination_set_equal": true,
+  "body_destination_coordinates_equal": true,
+  "generated_front_matter_coordinate_changes": [],
+  "old_pdf_sha256": "80aabc252ef41eccb04a67504af1401e3f89211a43a1a89d761980143b225b26",
+  "limits": "No pixel-equivalence claim; source AST equality is separately tested. Per-page RC identity checked by engine. No C++ rerun."
+}

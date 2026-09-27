@@ -4,7 +4,7 @@
 
 已接受的 12 份制品、八组组件 A/B、语义样页、接受记录与已知非阻塞限制见[阅读版定稿化审核入口](reviews/reading-finalization/README.md)。[上一轮阅读版](reviews/reading-edition/README.md)与 [v2 架构交付记录](reviews/v2-pilot/README.md)作为历史证据保持原字节。它们均不是 release 或可维护的正文源。
 
-G0–G12 全书接入与合订候选见[Full Handbook 审核入口](reviews/full-handbook/README.md)。用户已接受 `eb7f567` 为 **Full Handbook Publication Candidate / ACCEPTED FOR RELEASE PREPARATION**；接受意见、阅读器实测与发布合同另记于[发布准备记录](reviews/release-qualification/README.md)，不回写原候选。当前只有 Preview 抽样实测，阅读器矩阵未完成；正式发布未授权。全书继续使用冻结视觉规则，不重开设计。
+G0–G12 全书接入与已接受预览见[Full Handbook 审核入口](reviews/full-handbook/README.md)。用户已接受 `eb7f567` 为 **Full Handbook Publication Candidate / ACCEPTED FOR RELEASE PREPARATION**，并接受 [f288051 发布准备记录](reviews/release-qualification/README.md)。本轮按已批准的 D1–D3 生成 [v1.0.0 RC1](reviews/rc1/README.md)：**READY_FOR_RELEASE_DECISION / NOT RELEASED**。Preview 新字节抽样与 Chromium 用户“正常”反馈分别登记，不回写旧候选／旧证据，不宣称浏览器自动化通过。全书继续使用冻结视觉规则；正式发布未授权。
 
 ## 分层与权威
 
@@ -30,6 +30,7 @@ G0–G12 全书接入与合订候选见[Full Handbook 审核入口](reviews/full
 python3 -B publication/engine/pub.py preview --profile esd
 python3 -B publication/engine/pub.py preview --profile cpp-handbook
 python3 -B publication/engine/pub.py preview --profile cpp-handbook-full
+python3 -B publication/engine/pub.py preview --profile cpp-handbook-rc1
 
 # 仅选择一个逻辑视图；省略 --view 时构建该 profile 的全部视图。
 python3 -B publication/engine/pub.py preview --profile cpp-handbook --view G6
@@ -42,6 +43,8 @@ python3 -B publication/engine/pub.py preview --profile cpp-handbook --prepare-on
 主制品为 ESD 六份独立版与一份合订版，以及 C++ G6、G7 与 G6+G7 三份 PDF。默认构建还包含两份 Compact 对照样张：`ESD-REFERENCE-001-COMPACT` 和 `CPP-PILOT-G6-G7-COMPACT`；两个 profile 合计 12 份。Compact 只改变留白、目录和表格行距，不缩小正文或代码字号。合订版由多源 AST 组成一个逻辑视图后编译，不拼接独立 PDF。
 
 新增 `cpp-handbook-full` 只生成一份 Balanced 全书 `CPP-HANDBOOK`，不重建旧 12 份，不增加全书 Compact 比较或十三份独立版。
+
+`cpp-handbook-rc1` 使用同一冻结源与视觉规则，只生成身份一致的 `Modern-Cpp-Engineering-Handbook-v1.0.0.pdf`。内部预览／候选终态不是正式发布状态；RC1 封面、页脚与元数据明确“尚未发布”。既有 profile 的默认命名与 PREVIEW 身份不变。
 
 输出路径固定为 `publication/build/preview/<preparation-id>/<attempt-id>/`。`inputs/sources/<repository-path>` 保留嵌套源身份；`work/output/pdf/` 是 PDF，`work/output/source/` 为同路径原始源码，`work/renders/<view>/` 为所有页面 PNG。本次尝试入口为 `work/output/README.md`。
 
@@ -79,6 +82,7 @@ python3 -B publication/tests/test-products.py
 python3 -B publication/tests/test-preview.py
 python3 -B publication/tests/test-reading.py
 python3 -B publication/tests/test-full-handbook.py
+python3 -B publication/tests/test-release-identity.py
 ```
 
 前三组在一次性仓库检查隔离、终态、候选、revision/profile/adapter 契约；第四组真实编译并注入失败、错位、字面量丢失和信号，同时检查长模板／危险代码续页和软折行断点反例；第五组检查阅读组件、代码头尾、角色绑定、字段基线、Gate 分组和密度比较。旧测试命令转发至迁移后的套件。实际全量产品输出、检查命令与限制见本轮交付记录；测试夹具通过不替代真实 ESD/C++ 构建。

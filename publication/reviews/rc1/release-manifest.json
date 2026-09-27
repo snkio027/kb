@@ -1,0 +1,30 @@
+{
+  "publication_id": "CPP-HANDBOOK",
+  "publication_version": "1.0.0",
+  "candidate_label": "RC1",
+  "title": "Modern C++ 工程学习手册",
+  "english_title": "Modern C++ Engineering Handbook",
+  "state": "READY_FOR_RELEASE_DECISION",
+  "formal_release": false,
+  "publish_authorized": false,
+  "content_baseline": "8f479deaf660533b2ad82e1f721eb41a363112b6",
+  "visual_profile": "1c11c5940c05fe29c46c4500935d5efb673d46a7",
+  "visual_acceptance": "ea2e613b97ddd8a146c7899e7ffde7e80c238e57",
+  "accepted_preview": "eb7f5672d1128607d4f34fa34217aefa9ba99b33",
+  "implementation_base": "f2880516ea8d71abb6e83f0d463308974e2ae7ca",
+  "implementation_identity": "candidate/run.json contains exact dirty input hashes; the review commit is external, not a self hash",
+  "candidate_id": "437a5be22378ce3ed4b375312a6982f71126411486a547dad88f29d0fee3b572",
+  "pdf": "candidate/output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+  "filename": "Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+  "bytes": 2741616,
+  "pages": 407,
+  "sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+  "required_readers": [
+    "Preview / PDFKit",
+    "Chromium / PDFium"
+  ],
+  "reader_evidence": "reader-smoke.md: Preview observed + Chromium user-reported normal; no claim of automated Chromium validation",
+  "reserved_release_record": "publication/releases/cpp-handbook/v1.0.0/",
+  "reserved_tag": "cpp-handbook-v1.0.0",
+  "limitations": "Frozen visual non-blockers retained; no C++ rerun, CI, PDF/UA, cross-platform or final release claim"
+}

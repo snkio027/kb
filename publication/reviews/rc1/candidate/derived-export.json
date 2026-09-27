@@ -1,0 +1,70 @@
+{
+  "role": "DERIVED_REVIEW_NOT_CANDIDATE_PAYLOAD",
+  "files": [
+    {
+      "path": "derived/full-review/page-001.png",
+      "sha256": "1a53a9500581a5c360b850abff691d0d6d140eea15a043aef9dfa6d0f720073c",
+      "bytes": 46294
+    },
+    {
+      "path": "derived/full-review/page-002.png",
+      "sha256": "8f69fc2db7bbbee252d49daf8b55bccba9f38e1715bfa485fb6422ec380b7689",
+      "bytes": 217361
+    },
+    {
+      "path": "derived/full-review/page-003.png",
+      "sha256": "95cfb75aa4b4d4b97ce5444057772d7c844bb3ecd617a656c34d05646b6b4ab7",
+      "bytes": 174129
+    },
+    {
+      "path": "derived/full-review/page-012.png",
+      "sha256": "f05c212903a0cebf30485dd72ab65503da67702a669745284309db7960b5f2d2",
+      "bytes": 281835
+    },
+    {
+      "path": "derived/full-review/page-235.png",
+      "sha256": "d554f4fb13293d99fe4bb8c262322f93290e50253d3afaa5f826d30994e29252",
+      "bytes": 215681
+    },
+    {
+      "path": "derived/full-review/page-279.png",
+      "sha256": "3f097aaa4d477cd235dfc3bb8da1eeaf7643cb4e754f930d48f05d8e98c85ac1",
+      "bytes": 233804
+    },
+    {
+      "path": "derived/full-review/page-294.png",
+      "sha256": "0198ae086b42833788870d3fbf1dd38fed33edb929775e86dca00c535bd9ef49",
+      "bytes": 279062
+    },
+    {
+      "path": "derived/full-review/page-316.png",
+      "sha256": "6f3f0b96e04da678db09ab217aa0eb7b34522da24e7d2e550b3e32ce910265fc",
+      "bytes": 372545
+    },
+    {
+      "path": "derived/full-review/page-403.png",
+      "sha256": "0fb057279b9806764b361843bb1bd9eb5c750e3751c862312149c36e9a5387b4",
+      "bytes": 238510
+    },
+    {
+      "path": "derived/full-review/page-407.png",
+      "sha256": "a12ed3f53711fc72c1c8d0abef7483b313b883c3515762cfc7b06007a033056c",
+      "bytes": 205830
+    },
+    {
+      "path": "derived/full-review/structure.json",
+      "sha256": "5d0be77e754761da2960b2158656b2c7c1a7ffec04f85c634e89a786bcf81648",
+      "bytes": 18611
+    },
+    {
+      "path": "derived/identity-audit.json",
+      "sha256": "9b981bf3ba870683a76eb67f030f9efb5fa4b1c5af89e484bb4ab40ee1705d01",
+      "bytes": 1349
+    },
+    {
+      "path": "derived/reading-regression/page-map.json",
+      "sha256": "b177f9d78c3aacf7f093ea1ff50a8ece192fd7e7d58f86df79e892ae65e6d3ca",
+      "bytes": 109280
+    }
+  ]
+}

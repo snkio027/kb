@@ -54,6 +54,12 @@ def snapshot(root_fd, profile, views, pub):
         raise pub.PreparationError('unsupported profile identity/schema')
     if not config.get('sources') or not config.get('views'):
         raise pub.PreparationError('profile requires sources and views')
+    if config.get('artifact_channel', 'PREVIEW') not in ('PREVIEW', 'RELEASE_CANDIDATE'):
+        raise pub.PreparationError('unsupported artifact channel; formal publication stays closed')
+    filenames = [v.get('filename', v['id'] + '-draft.pdf') for v in config['views']]
+    if (any(not isinstance(name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*\.pdf', name) for name in filenames)
+            or len({name.casefold() for name in filenames}) != len(filenames)):
+        raise pub.PreparationError('unsafe or duplicate artifact filename')
     selected = views or [v['id'] for v in config['views']]
     known_views = [v['id'] for v in config['views']]
     if len(set(known_views)) != len(known_views) or len(set(selected)) != len(selected) or not set(selected) <= set(known_views):

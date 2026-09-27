@@ -1,0 +1,211 @@
+{
+  "role": "REVIEW_EXPORT_NOT_RELEASE_NOT_COMPLETE_CANDIDATE",
+  "candidate": "publication/build/candidate/437a5be22378ce3ed4b375312a6982f71126411486a547dad88f29d0fee3b572/03aef30fcaa54123b09de9c38c71612a",
+  "candidate_id": "437a5be22378ce3ed4b375312a6982f71126411486a547dad88f29d0fee3b572",
+  "all_candidate_file_hashes_verified": true,
+  "exported": [
+    {
+      "path": "candidate-manifest.json",
+      "sha256": "219ec852a6081e013d608bfd90d81f2e0376603d1637a24e3595b66b8db5a5f9",
+      "bytes": 18086
+    },
+    {
+      "path": "candidate-result.json",
+      "sha256": "5890b38f1df1604402b61f1b6cdc037ea311cf7b74dfeecb65b35d990745fedd",
+      "bytes": 463
+    },
+    {
+      "path": "evidence/source-catalog.json",
+      "sha256": "bb1469a725bfb3aa5886e0ceaf888060759cb49add31a36d753565ecfa2e4243",
+      "bytes": 493089
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/audit.json",
+      "sha256": "9e3338da056da2179a3881c363d9778d402e04641787e028c478eb17b43d5585",
+      "bytes": 404010
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/reading-components.json",
+      "sha256": "45aa02dd5938b09c0c5e098dbda411e63aceec73f2eba012032c83d3bd92d807",
+      "bytes": 416467
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/reference-map.json",
+      "sha256": "fa43615e7c70c7cfa2d90ee112ad1726c00a24625d1c8d47cd6ab18fb10e31c4",
+      "bytes": 80558
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/section-audit.json",
+      "sha256": "2d090132d9ea8860c10dea71feb385481041fef0c3f169f5f5ae8b689da0af72",
+      "bytes": 373017
+    },
+    {
+      "path": "evidence/typeset/CPP-HANDBOOK/table-map.json",
+      "sha256": "e97d5a363fb8561b070c68ac15cfd0eff453822a5529b8fda5d5eaff7b901a01",
+      "bytes": 35013
+    },
+    {
+      "path": "output/README.md",
+      "sha256": "5495950afd463415fa661e5c6b03d8087aeb2aa40be82c12a7da585885044f72",
+      "bytes": 606
+    },
+    {
+      "path": "output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf",
+      "sha256": "c011cc4ecddcb20892b0753539356af42c8b2eb636dd2b40b9934bab5af98d0c",
+      "bytes": 2741616
+    },
+    {
+      "path": "output/source/c++/g00-native-toolchain.md",
+      "sha256": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "bytes": 15601
+    },
+    {
+      "path": "output/source/c++/g01-object-model.md",
+      "sha256": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "bytes": 16193
+    },
+    {
+      "path": "output/source/c++/g02-raii-and-ownership.md",
+      "sha256": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "bytes": 54062
+    },
+    {
+      "path": "output/source/c++/g03-value-semantics-and-performance.md",
+      "sha256": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "bytes": 53239
+    },
+    {
+      "path": "output/source/c++/g04-stl-and-ranges.md",
+      "sha256": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "bytes": 70042
+    },
+    {
+      "path": "output/source/c++/g05-generics-and-compile-time.md",
+      "sha256": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "bytes": 53687
+    },
+    {
+      "path": "output/source/c++/g06-memory-and-performance.md",
+      "sha256": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "bytes": 67250
+    },
+    {
+      "path": "output/source/c++/g07-concurrency-and-memory-model.md",
+      "sha256": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "bytes": 61629
+    },
+    {
+      "path": "output/source/c++/g08-abi-and-c-interop.md",
+      "sha256": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "bytes": 58113
+    },
+    {
+      "path": "output/source/c++/g09-build-and-native-ecosystem.md",
+      "sha256": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "bytes": 58639
+    },
+    {
+      "path": "output/source/c++/g10-systems-runtime-project.md",
+      "sha256": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "bytes": 69233
+    },
+    {
+      "path": "output/source/c++/g11-robotics.md",
+      "sha256": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "bytes": 52049
+    },
+    {
+      "path": "output/source/c++/g12-cpp-zig-rust.md",
+      "sha256": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "bytes": 46273
+    },
+    {
+      "path": "preview-audit.json",
+      "sha256": "c9dc5e9d903c235661f6cd05da5eb61ff56dad1a774b78032e6016ccad549351",
+      "bytes": 508712
+    },
+    {
+      "path": "preview-result.json",
+      "sha256": "5de5d11cfeeba5b281b0f6b87b9aa3b3eef366cb2e5a1134b121bc13183994a7",
+      "bytes": 520
+    },
+    {
+      "path": "reading-review.json",
+      "sha256": "d9c3d469cd2e8bfa1d9981516265f596e6c0dac91a71dbec8deb74ff9b2d1cb7",
+      "bytes": 3348
+    },
+    {
+      "path": "result.json",
+      "sha256": "53d0e8b74b268f7b0ab68d3e7f859316542ec95db7968e89a87f71eeb9d66e78",
+      "bytes": 310
+    },
+    {
+      "path": "run.json",
+      "sha256": "b0635fb900ec3176ed16bc99386c7548b83dd1a0c4d1466ff39ffbe69ea17634",
+      "bytes": 10132
+    }
+  ],
+  "omitted": [
+    "evidence/source-ast/G0.json",
+    "evidence/source-ast/G1.json",
+    "evidence/source-ast/G10.json",
+    "evidence/source-ast/G11.json",
+    "evidence/source-ast/G12.json",
+    "evidence/source-ast/G2.json",
+    "evidence/source-ast/G3.json",
+    "evidence/source-ast/G4.json",
+    "evidence/source-ast/G5.json",
+    "evidence/source-ast/G6.json",
+    "evidence/source-ast/G7.json",
+    "evidence/source-ast/G8.json",
+    "evidence/source-ast/G9.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-0.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-0.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-1.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-1.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/compile-2.txt",
+    "evidence/typeset/CPP-HANDBOOK/compile-2.txt.command.json",
+    "evidence/typeset/CPP-HANDBOOK/composed.json",
+    "evidence/typeset/CPP-HANDBOOK/document.aux",
+    "evidence/typeset/CPP-HANDBOOK/document.fls",
+    "evidence/typeset/CPP-HANDBOOK/document.log",
+    "evidence/typeset/CPP-HANDBOOK/document.tex",
+    "evidence/typeset/CPP-HANDBOOK/document.toc",
+    "evidence/typeset/CPP-HANDBOOK/extracted.txt",
+    "evidence/typeset/CPP-HANDBOOK/pandoc.log",
+    "evidence/typeset/CPP-HANDBOOK/pandoc.log.command.json",
+    "evidence/typeset/CPP-HANDBOOK/render.log",
+    "evidence/typeset/CPP-HANDBOOK/render.log.command.json",
+    "evidence/worker.log",
+    "inputs/publication/engine/candidate.py",
+    "inputs/publication/engine/filters/blocks.lua",
+    "inputs/publication/engine/links.py",
+    "inputs/publication/engine/preview.py",
+    "inputs/publication/engine/preview_audit.py",
+    "inputs/publication/engine/pub.py",
+    "inputs/publication/engine/source_model.py",
+    "inputs/publication/latex/kb-base.sty",
+    "inputs/publication/latex/kbbook.cls",
+    "inputs/publication/profiles/cpp-handbook-full/adapter.py",
+    "inputs/publication/profiles/cpp-handbook-rc1/adapter.py",
+    "inputs/publication/profiles/cpp-handbook-rc1/profile.json",
+    "inputs/publication/profiles/cpp-handbook-rc1/table-layouts.json",
+    "inputs/publication/profiles/cpp-handbook-rc1/template.tex",
+    "inputs/publication/profiles/cpp-handbook-rc1/theme.sty",
+    "inputs/publication/profiles/cpp-handbook/adapter.py",
+    "inputs/source-set.json",
+    "inputs/sources/c++/g00-native-toolchain.md",
+    "inputs/sources/c++/g01-object-model.md",
+    "inputs/sources/c++/g02-raii-and-ownership.md",
+    "inputs/sources/c++/g03-value-semantics-and-performance.md",
+    "inputs/sources/c++/g04-stl-and-ranges.md",
+    "inputs/sources/c++/g05-generics-and-compile-time.md",
+    "inputs/sources/c++/g06-memory-and-performance.md",
+    "inputs/sources/c++/g07-concurrency-and-memory-model.md",
+    "inputs/sources/c++/g08-abi-and-c-interop.md",
+    "inputs/sources/c++/g09-build-and-native-ecosystem.md",
+    "inputs/sources/c++/g10-systems-runtime-project.md",
+    "inputs/sources/c++/g11-robotics.md",
+    "inputs/sources/c++/g12-cpp-zig-rust.md"
+  ]
+}

@@ -1,0 +1,12 @@
+\ProvidesPackage{theme}[2026/09/27 C++ handbook pilot, not frozen]
+\definecolor{PreviewNavy}{HTML}{243447}
+\definecolor{PreviewTeal}{HTML}{265D78}
+\usepackage{newunicodechar}
+\newunicodechar{↕}{\ensuremath{\updownarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+% Full-book glyph coverage: same math-arrow fallback as the frozen Pilot.
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+
+% Identity override only; all dimensions, typography and pagination unchanged.
+\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\color{PreviewMuted}RELEASE CANDIDATE RC1 · v1.0.0 · 尚未发布}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\sffamily\fontsize{8}{10}\selectfont\PreviewID\quad v\PreviewVersion}\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont RELEASE CANDIDATE RC1}\fancyfoot[L]{\sffamily\fontsize{7.5}{9}\selectfont\PreviewStatus}\fancyfoot[R]{\sffamily\small\thepage}}

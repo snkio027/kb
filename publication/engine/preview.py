@@ -336,7 +336,8 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     meta.setdefault("subtitle", "完整内容阅读预览")
     meta.setdefault("owner", "")
     title = meta["title"]
-    meta["subject"] = f'{view} | v{meta["version"]} | {meta["status"]} | PREVIEW'
+    channel = profile.get('artifact_channel', 'PREVIEW')
+    meta["subject"] = f'{view} | v{meta["version"]} | {meta["status"]} | {channel}'
     meta["keywords"] = ", ".join(d["id"] + " " + d["meta"]["version"] + " " + d["meta"]["status"] for d in selected)
     profile_path = inputs / record["identity"]["publication"]["profile_path"]
     policy_path = profile_path / "table-layouts.json"
@@ -358,7 +359,7 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
     fatal = [line for line in log.splitlines() if re.search(r"Missing character|destination with the same identifier|Undefined control sequence|LaTeX Error", line)]
     if fatal:
         raise RuntimeError(view + " typesetting diagnostics: " + "\n".join(fatal[:12]))
-    pdf = work / "output/pdf" / (view + "-draft.pdf")
+    pdf = work / "output/pdf" / view_config.get('filename', view + '-draft.pdf')
     shutil.copyfile(folder / "document.pdf", pdf)
     from pypdf import PdfReader
     reader = PdfReader(pdf)
@@ -435,7 +436,7 @@ def build_view(view_config, documents, work, inputs, tools, record, profile, ori
         # Full version/status identity remains on cover/control/source opening.
         # Running navigation deliberately prioritizes current document + section.
         keys = ('document_id', 'version', 'status') if number == 0 else ('document_id',)
-        if any(normalize(expected[k]) not in page_text for k in keys) or (number > 0 and 'PREVIEW' not in page_text):
+        if any(normalize(expected[k]) not in page_text for k in keys) or (number > 0 and normalize(channel.replace('_', ' ')) not in page_text):
             raise RuntimeError(f"{view} page {number+1}: running identity mismatch")
     links = 0
     for page in reader.pages:
