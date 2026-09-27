@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "PUBLISH_AUTHORIZED",
+  "date": "2026-09-27",
+  "source": "User message in the current conversation after candidate delivery",
+  "user_message_verbatim": "批准发布",
+  "publication_id": "CPP-FAILURE-MODEL",
+  "publication_version": "1.0.0",
+  "candidate_commit": "4f8fe84a17429bc0a3b731461bfac5f0e1402cda",
+  "candidate_id": "d4ef80eb65a20e3048c9814b40b733bbb9c509c38303d19438ed9d422636d83d",
+  "pdf_sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+  "destination": "snkio027/kb GitHub Releases",
+  "tag": "cpp-failure-model-v1.0.0",
+  "scope": "Distribute the already checked PDF bytes with release metadata, signed tag, download verification and receipt; do not rebuild or change source, layout, historical assets or the existing CPP-HANDBOOK release.",
+  "evidence_limits_retained": [
+    "Chrome exact-candidate smoke: user-reported pass; reader/OS versions and per-item details not supplied.",
+    "Preview 11.0/macOS 26.7: partial observed coverage only; no inferred successful interactions.",
+    "Other readers not tested; no cross-platform, PDF/UA or CI certification.",
+    "No new C++ compilation, performance or concurrency dynamic execution; known non-blocking visual limitations remain."
+  ],
+  "interpretation": "Approval authorizes distribution with the previously disclosed evidence boundaries; it does not turn partial checks into PASS or establish a new independent technical review.",
+  "distribution_fact": "Authorization alone is not proof of publication. See publication-receipt.json and GitHub published state."
+}

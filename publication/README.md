@@ -10,7 +10,7 @@
 
 方法与经验见[技术手册出版工程复盘](lessons-learned.md)：结合源稿编辑、隔离反例、语义排版、全书导航及实际发布，整理可复用做法与证据边界；不替代下文操作说明或各批次原始记录。
 
-**C++23 失败语义工程手册 v1.0.0 已形成正式身份候选，尚未发布**：[批次审核](reviews/failure-model/README.md) · [158 页候选载荷](releases/cpp-failure-model/v1.0.0/README.md)。内容固定于 `45b305e` 的 series guide＋FM-0～FM-9；共享视觉规则不变。结构、全页渲染和代表页自查通过，阅读器证据保持所声明的部分覆盖；等待集中审核与最终 publish 授权。
+**C++23 失败语义工程手册 v1.0.0 已获发布授权，分发待完成**：[批次审核](reviews/failure-model/README.md) · [158 页发布记录](releases/cpp-failure-model/v1.0.0/README.md)。用户对 `4f8fe84` 候选明确批准发布；内容固定于 `45b305e` 的 series guide＋FM-0～FM-9，共享视觉规则及 PDF 字节不变。候选证据原样保留，授权分发元数据单独存储；阅读器部分覆盖与其他未验证边界不升级为全矩阵通过。
 
 ## 分层与权威
 

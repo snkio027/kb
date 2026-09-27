@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "publication_id": "CPP-FAILURE-MODEL",
+  "publication_version": "1.0.0",
+  "title": "C++23 失败语义工程手册",
+  "english_title": "Modern C++ Failure Semantics Handbook",
+  "payload_status": "AUTHORIZED_FOR_DISTRIBUTION",
+  "publication_fact": "See GitHub published state and repository publication-receipt.json; this immutable pre-upload manifest is not an upload receipt.",
+  "pdf": {
+    "filename": "Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf",
+    "sha256": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+    "bytes": 1406227,
+    "pages": 158
+  },
+  "content_baseline": "45b305eace0f057420587d685cb3f962f3f0552c",
+  "candidate_commit": "4f8fe84a17429bc0a3b731461bfac5f0e1402cda",
+  "candidate_id": "d4ef80eb65a20e3048c9814b40b733bbb9c509c38303d19438ed9d422636d83d",
+  "visual_profile": "v1.0 / 1c11c5940c05fe29c46c4500935d5efb673d46a7",
+  "visual_acceptance": "ea2e613b97ddd8a146c7899e7ffde7e80c238e57",
+  "preparation_id": "c79dfba6f1c447c96adac7d46389bf631412a6ebaa54dd469e47d3b05ae15bb1",
+  "execution_id": "3ae7f19a40eb79cc773ff3a7da97d539d4606a2f790507f11e5326f066928921",
+  "candidate_release_manifest_sha256": "c5cd266b80df0ea03129eca20beb14b1d8e89de10c10360ae142db22c99da791",
+  "evidence_export_sha256": "61b327a407120031ed9c71bd5f9aabe05cebe5d9a6aca80b71144d7bb33aa0d6",
+  "reader_evidence_sha256": "d4269596f9a2e5b37354620b3e808018dd9b03bb95b1b56b7a7efed0be5d581c",
+  "authorization": {
+    "date": "2026-09-27",
+    "user_message_verbatim": "批准发布",
+    "repository_record": "publication/releases/cpp-failure-model/v1.0.0/authorization.json",
+    "scope": "Exact candidate bytes and declared evidence limitations; no rebuild, source/layout changes or historical asset replacement."
+  },
+  "destination": {
+    "repository": "snkio027/kb",
+    "tag": "cpp-failure-model-v1.0.0",
+    "release_url": "https://github.com/snkio027/kb/releases/tag/cpp-failure-model-v1.0.0"
+  },
+  "reader_scope": "Chrome USER_REPORTED_PASS without version/per-item details; Preview partial native observation; other readers NOT TESTED.",
+  "technical_evidence": "Historical only. No new C++/performance/concurrency run, CI, PDF/UA, cross-platform or deterministic-build claim.",
+  "known_visual_limitations": "Short closing page, long-template continuation and some soft wraps remain; no new typography pass.",
+  "immutability": "Project policy forbids asset replacement and tag movement; server-enforced immutability is not assumed.",
+  "verification": "SHA256SUMS binds the PDF, this manifest and release notes. The receipt separately records all four downloaded asset digests; no self-hash."
+}
