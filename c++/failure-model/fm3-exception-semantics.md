@@ -1,68 +1,44 @@
-# FM-3 — C++ Exception Semantics
+<a id="fm-3--c-exception-semantics"></a>
+# FM-3 · 异常传播语义
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-2](fm2-value-based-failure.md) · [下一章：FM-4](fm4-raii-exception-safety.md)
+[返回 FM 导航](README.md) · [上一章：FM-2](fm2-value-based-failure.md) · [下一章：FM-4](fm4-raii-exception-safety.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+主讲异常对象、捕获、重抛与实际展开。资源和业务状态是否安全，分别由 FM-4/FM-6 的合同补足。
+
+**主阅读线。** §1–9 → §13–15 → §20–22；对象构造失败细节回查 FM-6。
+
+**失败契约。** 传播路径要标出可匹配 handler、非抛出边界和清理动作；错误翻译与日志本身可能产生新失败。没有 handler 的路径不承诺完整析构。
+
+**证据边界。** 这里主要是语言条款与路径推理；T13 的构造计数及 T11 的受控终止只有各自声明的覆盖。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. Exception 是非局部控制流](#1-exception-是非局部控制流)
-- [2. Exception Object](#2-exception-object)
-- [3. Catch by Reference](#3-catch-by-reference)
-- [4. Handler 顺序](#4-handler-顺序)
-- [5. Stack Unwinding](#5-stack-unwinding)
-- [6. 未完成构造的对象](#6-未完成构造的对象)
-- [7. Rethrow](#7-rethrow)
-- [8. Exception Translation](#8-exception-translation)
-- [9. Exception Neutrality](#9-exception-neutrality)
-- [10. catch (...)](#10-catch-)
-- [11. std::exception_ptr](#11-stdexception_ptr)
-- [12. Exception 与 Constructor](#12-exception-与-constructor)
-- [13. Exception 与 Destructor](#13-exception-与-destructor)
-- [14. Exception Specification 与 noexcept](#14-exception-specification-与-noexcept)
-- [15. Exception Boundary](#15-exception-boundary)
-- [16. Exception 适合什么失败](#16-exception-适合什么失败)
-- [17. Exception 不适合什么](#17-exception-不适合什么)
-- [18. Exception 成本模型](#18-exception-成本模型)
-- [19. Exception Hierarchy](#19-exception-hierarchy)
-- [20. Anti-Patterns](#20-anti-patterns)
-- [21. FM-3 Review Checklist](#21-fm-3-review-checklist)
-- [22. FM-3 核心不变量](#22-fm-3-核心不变量)
+- [一、抛出对象与匹配](#fm3-part-1)
+- [二、展开、重抛与中间层](#fm3-part-2)
+- [三、捕获与边界](#fm3-part-3)
+- [四、选型、成本与回查](#fm3-part-4)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm3-part-1"></a>
 
-FM-3 讨论 exception 作为 C++ 语言级失败传播机制的精确语义。
+## 一、抛出对象与匹配
 
-核心模型：
+### 0. 文档定位
+
+本章主讲 C++ 异常的非局部传播，而不重新定义失败原因或状态保证。沿一条能到达匹配 handler、且展开过程未再失败的路径，可用下图理解：
 
 ```text
-throw
-  ↓
-construct exception object
-  ↓
-search handler
-  ↓
-stack unwinding
-  ↓
-catch
+throw → 初始化异常对象 → 寻找 handler → 展开相应作用域 → catch
 ```
 
-Exception 最重要的能力不是：
+中间层可以不改写返回类型，由实际展开执行已构造对象的析构。但没有 handler、触及非抛出边界或展开中再失败时，不能套用这条正常清理路径；具体限制在 §5。清理与业务回滚也不是同一件事。
 
-```text
-表示错误
-```
-
-而是：
-
-> **将失败跨越多个调用层传播，同时自动展开作用域并执行 RAII cleanup。**
-
----
-
-## 1. Exception 是非局部控制流
+### 1. Exception 是非局部控制流
 
 例如：
 
@@ -101,9 +77,7 @@ handler
 
 这是 exception 与 value-based failure 最明显的控制流差异。
 
----
-
-## 2. Exception Object
+### 2. Exception Object
 
 执行：
 
@@ -113,11 +87,7 @@ throw Error{...};
 
 C++ 会建立一个 exception object。
 
-它独立于：
-
-```text
-throw expression 中局部对象的普通 lifetime
-```
+它独立于：`throw expression 中局部对象的普通 lifetime`
 
 并在匹配 handler 处理期间保持存在。
 
@@ -129,9 +99,7 @@ catch (const Error& error)
 
 是正确方式。
 
----
-
-## 3. Catch by Reference
+### 3. Catch by Reference
 
 推荐：
 
@@ -159,9 +127,7 @@ object slicing
 
 丢失动态异常类型信息。
 
----
-
-## 4. Handler 顺序
+### 4. Handler 顺序
 
 更具体类型必须放在前面：
 
@@ -183,23 +149,17 @@ catch (const std::exception&)
 
 后面的派生类 handler 可能永远无法匹配。
 
----
+<a id="fm3-part-2"></a>
 
-## 5. Stack Unwinding
+## 二、展开、重抛与中间层
 
-Exception 被抛出后：
+### 5. Stack Unwinding
 
-```text
-当前正常控制流终止
-```
+Exception 被抛出后：`当前正常控制流终止`
 
 下面讨论控制流转向匹配 handler 且发生栈展开的路径；不包括所有终止情形。
 
-每个已经完成构造的 automatic object：
-
-```text
-按正常作用域逆序析构
-```
+每个已经完成构造的 automatic object：`按正常作用域逆序析构`
 
 例如：
 
@@ -225,9 +185,7 @@ void process() {
 
 无匹配 handler 时，是否在终止前展开栈由实现定义；搜索 handler 触及非抛出异常规格函数的最外层时，完整、部分或不展开也由实现定义。不能依靠这些终止路径执行所有自动对象析构，更不能将 terminate 当作安全关机协议。[N4950：except.terminate/2](https://timsong-cpp.github.io/cppwp/n4950/except.terminate#2)
 
----
-
-## 6. 未完成构造的对象
+### 6. 未完成构造的对象
 
 例如：
 
@@ -254,11 +212,7 @@ socket_ destroyed
 file_ destroyed
 ```
 
-但：
-
-```text
-Session 本身没有完成构造
-```
+但：`Session 本身没有完成构造`
 
 因此不会执行：
 
@@ -270,9 +224,7 @@ Session::~Session()
 
 详见 [FM-6 §3](fm6-construction-destruction-allocation.md#3-partial-construction) 与 [T13](review/fm-verification-samples.md#t13)。
 
----
-
-## 7. Rethrow
+### 7. Rethrow
 
 当前 handler 中：
 
@@ -283,13 +235,9 @@ catch (const Error&) {
 }
 ```
 
-表示：
+表示：`重新抛出当前 exception object`
 
-```text
-重新抛出当前 exception object
-```
-
-保留原异常动态类型。
+保留原异常动态类型。该片段还依赖 `record_context()` 不以新异常中断处理；若它抛出，原异常并不会按计划执行到 `throw;`。报告失败政策应与 [FM-8 §2](fm8-failure-boundaries.md#2-stdthread) 一起审查。
 
 不要无意义写：
 
@@ -314,9 +262,7 @@ throw;
 
 才是标准模式。
 
----
-
-## 8. Exception Translation
+### 8. Exception Translation
 
 有时需要：
 
@@ -335,11 +281,7 @@ try {
 }
 ```
 
-只应在：
-
-```text
-abstraction semantics changes
-```
+只应在：`abstraction semantics changes`
 
 时进行。
 
@@ -347,9 +289,7 @@ abstraction semantics changes
 
 > 不理解这个错误的层不要捕获它。
 
----
-
-## 9. Exception Neutrality
+### 9. Exception Neutrality
 
 一个高质量中间组件可以：
 
@@ -390,9 +330,11 @@ catch (...)
 
 后不知道如何处理更好。
 
----
+<a id="fm3-part-3"></a>
 
-## 10. `catch (...)`
+## 三、捕获与边界
+
+### 10. `catch (...)`
 
 `catch (...)` 的典型合理位置是：
 
@@ -421,9 +363,7 @@ catch all
 silently continue
 ```
 
----
-
-## 11. `std::exception_ptr`
+### 11. `std::exception_ptr`
 
 当 exception 需要跨越：
 
@@ -455,17 +395,11 @@ std::rethrow_exception(error);
 
 可以重新进入 exception propagation。
 
-这比尝试：
-
-```text
-复制未知动态异常对象
-```
+这比尝试：`复制未知动态异常对象`
 
 可靠得多。
 
----
-
-## 12. Exception 与 Constructor
+### 12. Exception 与 Constructor
 
 构造函数无法通过普通返回类型表达：
 
@@ -505,9 +439,7 @@ API composition
 exception policy
 ```
 
----
-
-## 13. Exception 与 Destructor
+### 13. Exception 与 Destructor
 
 Destructor 属于 cleanup infrastructure。
 
@@ -539,15 +471,9 @@ commit()
 
 显式 API。
 
-析构只做：
+析构只做：`best-effort non-throwing cleanup`
 
-```text
-best-effort non-throwing cleanup
-```
-
----
-
-## 14. Exception Specification 与 `noexcept`
+### 14. Exception Specification 与 `noexcept`
 
 exception 可能从函数逃出与：
 
@@ -561,29 +487,15 @@ noexcept
 void f() noexcept;
 ```
 
-不是说：
+不是说：`内部绝不会 throw`
 
-```text
-内部绝不会 throw
-```
+而是承诺：`exception cannot escape f()`
 
-而是承诺：
-
-```text
-exception cannot escape f()
-```
-
-若违反：
-
-```text
-std::terminate()
-```
+若违反：`std::terminate()`
 
 详细模型在 FM-5。
 
----
-
-## 15. Exception Boundary
+### 15. Exception Boundary
 
 Exception 不应无设计地穿过：
 
@@ -604,9 +516,11 @@ catch
 → report
 ```
 
----
+<a id="fm3-part-4"></a>
 
-## 16. Exception 适合什么失败
+## 四、选型、成本与回查
+
+### 16. Exception 适合什么失败
 
 通常更适合：
 
@@ -618,9 +532,7 @@ operations where intermediate layers cannot recover
 failure path where manual plumbing adds substantial noise
 ```
 
----
-
-## 17. Exception 不适合什么
+### 17. Exception 不适合什么
 
 不推荐用于：
 
@@ -633,27 +545,13 @@ try_lock failed
 hot-path expected branch
 ```
 
-因为这些本质是：
+因为这些本质是：`ordinary domain control flow`
 
-```text
-ordinary domain control flow
-```
+### 18. Exception 成本模型
 
----
+不能简单说：`exception 有成本`
 
-## 18. Exception 成本模型
-
-不能简单说：
-
-```text
-exception 有成本
-```
-
-或者：
-
-```text
-exception zero-cost
-```
+或者：`exception zero-cost`
 
 准确模型取决于：
 
@@ -680,9 +578,7 @@ throw path expensive
 
 而不是根据口号决定。
 
----
-
-## 19. Exception Hierarchy
+### 19. Exception Hierarchy
 
 不要设计几十层 inheritance hierarchy。
 
@@ -696,25 +592,17 @@ class ApplicationError : public std::runtime_error {
 
 再细分少量真正有语义差异的类型即可。
 
-如果恢复策略实际上依赖：
+如果恢复策略实际上依赖：`code`
 
-```text
-code
-```
-
-那么：
-
-```text
-single exception type + structured error code
-```
+那么：`single exception type + structured error code`
 
 有时比复杂继承树更合理。
 
----
+### 20. Anti-Patterns
 
-## 20. Anti-Patterns
+<a id="catch-and-ignore"></a>
 
-### Catch and ignore
+**Catch and ignore**
 
 ```cpp
 try {
@@ -723,11 +611,15 @@ try {
 }
 ```
 
-### Catch too low
+<a id="catch-too-low"></a>
+
+**Catch too low**
 
 底层没有 recovery context 却捕获所有异常。
 
-### Exception 作为普通循环分支
+<a id="exception-作为普通循环分支"></a>
+
+**Exception 作为普通循环分支**
 
 ```cpp
 for (...) {
@@ -738,7 +630,9 @@ for (...) {
 }
 ```
 
-### Throw raw primitives
+<a id="throw-raw-primitives"></a>
+
+**Throw raw primitives**
 
 ```cpp
 throw 42;
@@ -747,11 +641,15 @@ throw "error";
 
 破坏统一 error vocabulary。
 
-### Destructor 传播异常
+<a id="destructor-传播异常"></a>
+
+**Destructor 传播异常**
 
 容易破坏 unwinding。
 
-### 每层重新包装 exception
+<a id="每层重新包装-exception"></a>
+
+**每层重新包装 exception**
 
 产生：
 
@@ -763,9 +661,9 @@ ExceptionA
 
 却没有新的抽象意义。
 
----
+### 21. FM-3 Review Checklist
 
-## 21. FM-3 Review Checklist
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] failure 是否真正适合 exceptional propagation？
@@ -781,9 +679,7 @@ ExceptionA
 [ ] failure frequency 是否适合 exception？
 ```
 
----
-
-## 22. FM-3 核心不变量
+### 22. FM-3 核心不变量
 
 > Exception 是传播机制，不是 failure taxonomy。
 
@@ -794,7 +690,3 @@ ExceptionA
 > 不知道如何恢复的中间层通常应该保持 exception-neutral。
 
 > Exception 必须在明确 boundary 内被 containment。
-
----
-
----

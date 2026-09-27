@@ -1,81 +1,39 @@
-# FM-0 — Modern C++ Failure Model
+<a id="fm-0--modern-c-failure-model"></a>
+# FM-0 · 统一失败模型
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [下一章：FM-1](fm1-contracts-assertions-ub.md)
+[返回 FM 导航](README.md) · [下一章：FM-1](fm1-contracts-assertions-ub.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+建立操作、结果、状态、恢复权限与失败域的共同模型。值通道、异常规格及生命周期规则交给各自主讲章，不在总论重复定义。
+
+**主阅读线。** §0–8 → §14–20 → §28–33 → §40–47；其余为系统场景回查。
+
+**失败契约。** 先给成功条件，再分别登记故障来源、错误表示、状态后置条件与处置。一个 ParseError 可以完全有效；一个 catch 也可以没有完成恢复。
+
+**证据边界。** 本章采用合同推理；POSIX open 的定向 T20 在样例附录，不是配置加载事务的完整测试。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. 核心原则](#1-核心原则)
-- [2. Failure 不等于 Exception](#2-failure-不等于-exception)
-- [3. Fault / Error / Failure](#3-fault--error--failure)
-- [4. 第一维：失败责任分类](#4-第一维失败责任分类)
-- [5. Domain Outcome](#5-domain-outcome)
-- [6. Environmental Failure](#6-environmental-failure)
-- [7. Programmer Error](#7-programmer-error)
-- [8. 表面相同的错误可能属于不同类别](#8-表面相同的错误可能属于不同类别)
-- [9. Detection / Representation / Translation / Propagation](#9-detection--representation--translation--propagation)
-- [10. Detection](#10-detection)
-- [11. Representation](#11-representation)
-- [12. Error Translation](#12-error-translation)
-- [13. Propagation](#13-propagation)
-- [14. Handling 不等于 Recovery](#14-handling-不等于-recovery)
-- [15. Handling](#15-handling)
-- [16. Recovery](#16-recovery)
-- [17. Recovery Boundary](#17-recovery-boundary)
-- [18. Recovery Boundary 原则](#18-recovery-boundary-原则)
-- [19. 不要让底层擅自决定 Retry](#19-不要让底层擅自决定-retry)
-- [20. Failure Domain](#20-failure-domain)
-- [21. Request-Level Failure Domain](#21-request-level-failure-domain)
-- [22. Task-Level Failure Domain](#22-task-level-failure-domain)
-- [23. Subsystem-Level Failure Domain](#23-subsystem-level-failure-domain)
-- [24. Process-Level Failure Domain](#24-process-level-failure-domain)
-- [25. Recovery Boundary 与 Failure Boundary](#25-recovery-boundary-与-failure-boundary)
-- [26. C ABI Boundary](#26-c-abi-boundary)
-- [27. Thread Boundary](#27-thread-boundary)
-- [28. 第二维：Failure Representation](#28-第二维failure-representation)
-- [29. 第三维：State Guarantee](#29-第三维state-guarantee)
-- [30. Strong Guarantee](#30-strong-guarantee)
-- [31. Basic Guarantee](#31-basic-guarantee)
-- [32. No Useful Guarantee](#32-no-useful-guarantee)
-- [33. State Guarantee 与 Error Transport 正交](#33-state-guarantee-与-error-transport-正交)
-- [34. 第四维：Failure Frequency](#34-第四维failure-frequency)
-- [35. Common Outcome](#35-common-outcome)
-- [36. Rare Failure](#36-rare-failure)
-- [37. Catastrophic Failure](#37-catastrophic-failure)
-- [38. 第五维：Resource Guarantee](#38-第五维resource-guarantee)
-- [39. RAII 的 Failure Model 含义](#39-raii-的-failure-model-含义)
-- [40. Complete Failure Pipeline](#40-complete-failure-pipeline)
-- [41. 示例：文件读取](#41-示例文件读取)
-- [42. 示例：Binary Parser](#42-示例binary-parser)
-- [43. 示例：内部 Decode Table](#43-示例内部-decode-table)
-- [44. 示例：数据处理 Pipeline](#44-示例数据处理-pipeline)
-- [45. Failure Model 的二维底图](#45-failure-model-的二维底图)
-- [46. API Failure Contract](#46-api-failure-contract)
-- [47. API Review Template](#47-api-review-template)
-- [48. Decision Baseline](#48-decision-baseline)
-- [49. Anti-Patterns](#49-anti-patterns)
-- [50. Failure Model 与 Logging](#50-failure-model-与-logging)
-- [51. Failure Model 与 Observability](#51-failure-model-与-observability)
-- [52. Failure Model 与 Context](#52-failure-model-与-context)
-- [53. Failure Model 与 Shutdown](#53-failure-model-与-shutdown)
-- [54. Failure Model 与 Cancellation](#54-failure-model-与-cancellation)
-- [55. Failure Model 与 Idempotency](#55-failure-model-与-idempotency)
-- [56. Failure Model 与 Partial Commit](#56-failure-model-与-partial-commit)
-- [57. Failure Model 与 Ownership](#57-failure-model-与-ownership)
-- [58. Failure Model 与 Move](#58-failure-model-与-move)
-- [59. 设计层次](#59-设计层次)
-- [60. 项目级 Failure Profile](#60-项目级-failure-profile)
-- [61. Failure Model 的核心不变量](#61-failure-model-的核心不变量)
-- [62. 最终心智模型](#62-最终心智模型)
-- [63. FM-0 Review Checklist](#63-fm-0-review-checklist)
-- [64. FM-0 压缩版](#64-fm-0-压缩版)
-- [65. 后续学习位置](#65-后续学习位置)
+- [一、操作与基本词义](#fm0-part-1)
+- [二、责任分类](#fm0-part-2)
+- [三、检测、传播与恢复](#fm0-part-3)
+- [四、边界与影响范围](#fm0-part-4)
+- [五、相互独立的分析维度](#fm0-part-5)
+- [六、把模型用于实际场景](#fm0-part-6)
+- [七、接口合同与反例](#fm0-part-7)
+- [八、系统状态与副作用](#fm0-part-8)
+- [九、项目交接与回查](#fm0-part-9)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm0-part-1"></a>
+
+## 一、操作与基本词义
+
+### 0. 文档定位
 
 本文建立一套适用于现代 C++ 系统工程的统一失败模型，用于回答：
 
@@ -123,9 +81,7 @@ std::terminate
 
 都只是更大 Failure Model 中的不同工具。
 
----
-
-## 1. 核心原则
+### 1. 核心原则
 
 现代 C++ 不存在单一错误处理机制。
 
@@ -166,17 +122,19 @@ input contract
 + resource contract
 ```
 
----
-
-## 2. Failure 不等于 Exception
+### 2. Failure 不等于 Exception
 
 这是整个模型最重要的概念分离之一。
 
-### 2.1 Failure
+<a id="21-failure"></a>
+
+**2.1 Failure**
 
 failure 描述：
 
-> 一个组件无法履行其当前抽象层承诺的行为。
+> 操作未达到当前抽象层约定的正常成功后置条件。
+
+接口若明确允许报告失败，返回错误值仍可正确履行接口合同，不代表被调实现违约。正常领域结果是否算失败也由合同决定，不能仅由“没有值”判断。
 
 例如：
 
@@ -184,23 +142,15 @@ failure 描述：
 parse_frame(bytes)
 ```
 
-如果输入格式非法而无法产生 `Frame`：
-
-```text
-parse failure
-```
+如果输入格式非法而无法产生 `Frame`：`parse failure`
 
 这是 failure。
 
----
+<a id="22-exception"></a>
 
-### 2.2 Exception
+**2.2 Exception**
 
-exception 是 C++ 的一种：
-
-```text
-control-flow + failure propagation mechanism
-```
+exception 是 C++ 的一种：`control-flow + failure propagation mechanism`
 
 例如：
 
@@ -208,11 +158,7 @@ control-flow + failure propagation mechanism
 throw ParseError{};
 ```
 
-其中：
-
-```text
-ParseError
-```
+其中：`ParseError`
 
 描述失败，
 
@@ -224,11 +170,7 @@ throw
 
 描述失败如何传播。
 
-因此：
-
-```text
-failure ≠ exception
-```
+因此：`failure ≠ exception`
 
 同一个 failure 可以表示成：
 
@@ -241,19 +183,19 @@ std::error_code
 exception
 ```
 
-甚至最终：
+若策略不能继续恢复，还可能进入终局处置（不是另一种返回值表示）：
 
 ```cpp
 std::terminate()
 ```
 
----
-
-## 3. Fault / Error / Failure
+### 3. Fault / Error / Failure
 
 在工程讨论中建议区分三个层次。
 
-### 3.1 Fault
+<a id="31-fault"></a>
+
+**3.1 Fault**
 
 导致错误的原因。
 
@@ -266,29 +208,23 @@ std::terminate()
 网络链路中断
 ```
 
----
+<a id="32-error"></a>
 
-### 3.2 Error
+**3.2 Error**
+
+这里的 error 指**错误状态（error state）**；API 中的错误码／错误对象则称**错误表示（error representation）**。一个完全有效的 `ParseError` 对象可以报告外部输入拒绝，并不说明解析器自身处于损坏状态。两种语境统一见[系列术语](series-guide.md#21-原因状态表示与传播)。
 
 系统内部状态已经偏离正确状态。
 
-例如设计要求：
+例如设计要求：`0 <= index < 16`
 
-```text
-0 <= index < 16
-```
-
-但内部产生：
-
-```text
-index = 27
-```
+但内部产生：`index = 27`
 
 这是错误状态。
 
----
+<a id="33-failure"></a>
 
-### 3.3 Failure
+**3.3 Failure**
 
 错误最终影响到组件对外承诺。
 
@@ -314,9 +250,11 @@ failure
 
 错误可能被内部纠正而永远不会发展为 failure。
 
----
+<a id="fm0-part-2"></a>
 
-## 4. 第一维：失败责任分类
+## 二、责任分类
+
+### 4. 第一维：失败责任分类
 
 在选择错误机制之前，首先判断：
 
@@ -333,9 +271,7 @@ failure
                      failure            error
 ```
 
----
-
-## 5. Domain Outcome
+### 5. Domain Outcome
 
 有些“没有得到值”的情况并不是错误。
 
@@ -378,9 +314,9 @@ try_lock failed
 
 > 不要把正常领域状态强行建模成异常。
 
----
+<a id="51-optional-的语义"></a>
 
-### 5.1 `optional` 的语义
+**5.1 `optional` 的语义**
 
 一个良好的第一近似是：
 
@@ -412,23 +348,13 @@ std::optional<User> find_user(UserId id);
 数据损坏
 ```
 
-否则：
+否则：`absence`
 
-```text
-absence
-```
-
-和：
-
-```text
-failure
-```
+和：`failure`
 
 会被压缩为同一个状态。
 
----
-
-## 6. Environmental Failure
+### 6. Environmental Failure
 
 环境失败是程序本身逻辑正确，但外部世界无法满足操作要求。
 
@@ -446,17 +372,9 @@ broker unavailable
 remote service rejected request
 ```
 
-这些属于：
+这些属于：`runtime operational failure`
 
-```text
-runtime operational failure
-```
-
-而不是：
-
-```text
-program bug
-```
+而不是：`program bug`
 
 例如：
 
@@ -487,9 +405,7 @@ report
 shutdown
 ```
 
----
-
-## 7. Programmer Error
+### 7. Programmer Error
 
 第三类完全不同。
 
@@ -502,17 +418,9 @@ Message& message_at(std::size_t index) {
 }
 ```
 
-如果系统设计已经保证：
+如果系统设计已经保证：`index 必须来自合法 message table`
 
-```text
-index 必须来自合法 message table
-```
-
-那么越界意味着：
-
-```text
-internal invariant violation
-```
+那么越界意味着：`internal invariant violation`
 
 而不是普通运行时失败。
 
@@ -531,37 +439,25 @@ double free
 
 这类问题一般不应该被包装成普通业务错误然后继续运行。
 
----
+### 8. 表面相同的错误可能属于不同类别
 
-## 8. 表面相同的错误可能属于不同类别
-
-例如：
-
-```text
-index out of range
-```
+例如：`index out of range`
 
 本身无法决定应该如何处理。
 
-### 外部输入
+<a id="外部输入"></a>
+
+**外部输入**
 
 ```cpp
 parse_packet(untrusted_bytes);
 ```
 
-packet 内声明：
-
-```text
-index = 1000
-```
+packet 内声明：`index = 1000`
 
 但 packet 实际只有 10 个元素。
 
-这是：
-
-```text
-invalid external input
-```
+这是：`invalid external input`
 
 应该：
 
@@ -570,9 +466,9 @@ validate
 → report failure
 ```
 
----
+<a id="内部索引"></a>
 
-### 内部索引
+**内部索引**
 
 ```cpp
 auto index = generated_table[id];
@@ -580,21 +476,13 @@ auto index = generated_table[id];
 assert(index < messages.size());
 ```
 
-如果生成表保证 index 合法，那么失败说明：
+如果生成表保证 index 合法，那么失败说明：`program invariant broken`
 
-```text
-program invariant broken
-```
+因此可能：`assert / fail-fast`
 
-因此可能：
+<a id="原则"></a>
 
-```text
-assert / fail-fast
-```
-
----
-
-### 原则
+**原则**
 
 不要问：
 
@@ -614,9 +502,11 @@ contract violation
 
 的重要标准。
 
----
+<a id="fm0-part-3"></a>
 
-## 9. Detection / Representation / Translation / Propagation
+## 三、检测、传播与恢复
+
+### 9. Detection / Representation / Translation / Propagation
 
 失败处理不是一个动作，而是一条生命周期。
 
@@ -636,9 +526,7 @@ handle
 recover
 ```
 
----
-
-## 10. Detection
+### 10. Detection
 
 Detection 回答：
 
@@ -666,23 +554,13 @@ invariant check
 
 打开不存在的文件。
 
-最早发现问题的是：
+最早发现问题的是：`OS / system-call layer`
 
-```text
-OS / system-call layer
-```
-
----
-
-## 11. Representation
+### 11. Representation
 
 失败被某种值或机制表示。
 
-例如 POSIX：
-
-```text
-ENOENT
-```
+例如 POSIX：`ENOENT`
 
 进入 C++ 层以后可能成为：
 
@@ -710,9 +588,7 @@ std::errc::no_such_file_or_directory
 ConfigError::missing
 ```
 
----
-
-## 12. Error Translation
+### 12. Error Translation
 
 translation 是：
 
@@ -728,23 +604,15 @@ DatabaseError::connection_lost
 RepositoryError::unavailable
 ```
 
-业务逻辑通常不应该依赖：
+业务逻辑通常不应该依赖：`ECONNRESET`
 
-```text
-ECONNRESET
-```
-
-因为：
-
-```text
-TCP
-```
+因为：`TCP`
 
 可能只是 repository 当前实现细节。
 
----
+<a id="121-translation-原则"></a>
 
-### 12.1 Translation 原则
+**12.1 Translation 原则**
 
 只有当：
 
@@ -768,9 +636,7 @@ ErrorE
 
 否则错误模型本身会成为新的复杂系统。
 
----
-
-## 13. Propagation
+### 13. Propagation
 
 发现失败的层不一定知道如何处理。
 
@@ -781,11 +647,7 @@ std::expected<std::string, FileError>
 read_file(std::string_view path);
 ```
 
-底层知道：
-
-```text
-file missing
-```
+底层知道：`file missing`
 
 但不知道：
 
@@ -796,11 +658,7 @@ file missing
 这是 production 还是 development？
 ```
 
-因此它的职责可能只是：
-
-```text
-propagate failure
-```
+因此它的职责可能只是：`propagate failure`
 
 即：
 
@@ -809,9 +667,7 @@ propagate failure
 但不替上一层决定策略。
 ```
 
----
-
-## 14. Handling 不等于 Recovery
+### 14. Handling 不等于 Recovery
 
 这是大型系统中非常重要的区别。
 
@@ -827,17 +683,9 @@ try {
 continue_processing();
 ```
 
-这里只能确定：
+这里只能确定：`exception was observed`
 
-```text
-exception was observed
-```
-
-不能确定：
-
-```text
-system recovered
-```
+不能确定：`system recovered`
 
 因为 `update_state()` 可能已经：
 
@@ -847,15 +695,9 @@ update B
 fail while updating C
 ```
 
-形成：
+形成：`partial state`
 
-```text
-partial state
-```
-
----
-
-## 15. Handling
+### 15. Handling
 
 Handling 表示：
 
@@ -876,9 +718,7 @@ if (!result) {
 
 但它没有恢复。
 
----
-
-## 16. Recovery
+### 16. Recovery
 
 Recovery 的标准更高：
 
@@ -908,9 +748,9 @@ normal execution
 
 这才是真正恢复。
 
----
+<a id="161-recovery-必须知道状态"></a>
 
-### 16.1 Recovery 必须知道状态
+**16.1 Recovery 必须知道状态**
 
 一个层如果不知道：
 
@@ -924,9 +764,7 @@ normal execution
 
 它通常没有资格声称自己已经恢复。
 
----
-
-## 17. Recovery Boundary
+### 17. Recovery Boundary
 
 这是 Failure Model 最重要的工程概念之一。
 
@@ -941,47 +779,27 @@ main
                  └─ OS
 ```
 
-最底层得到：
+最底层得到：`ENOENT`
 
-```text
-ENOENT
-```
+<a id="filereader"></a>
 
----
+**FileReader**
 
-### FileReader
+知道：`file does not exist`
 
-知道：
+不知道：`这个文件是否必须存在`
 
-```text
-file does not exist
-```
+<a id="configrepository"></a>
 
-不知道：
+**ConfigRepository**
 
-```text
-这个文件是否必须存在
-```
+知道：`这是 configuration`
 
----
+但可能仍不知道：`production 和 development 是否策略不同`
 
-### ConfigRepository
+<a id="application"></a>
 
-知道：
-
-```text
-这是 configuration
-```
-
-但可能仍不知道：
-
-```text
-production 和 development 是否策略不同
-```
-
----
-
-### Application
+**Application**
 
 可能知道：
 
@@ -993,21 +811,11 @@ development:
     missing config → generate default
 ```
 
-因此：
+因此：`Application`
 
-```text
-Application
-```
+才是真正的：`recovery boundary`
 
-才是真正的：
-
-```text
-recovery boundary
-```
-
----
-
-## 18. Recovery Boundary 原则
+### 18. Recovery Boundary 原则
 
 一个极其重要的工程原则：
 
@@ -1025,9 +833,7 @@ who detects
 who decides
 ```
 
----
-
-## 19. 不要让底层擅自决定 Retry
+### 19. 不要让底层擅自决定 Retry
 
 例如：
 
@@ -1035,11 +841,7 @@ who decides
 fetch_from_server();
 ```
 
-底层发生：
-
-```text
-timeout
-```
+底层发生：`timeout`
 
 网络层可能不知道：
 
@@ -1052,25 +854,19 @@ timeout
 业务是否允许 fallback
 ```
 
-因此：
-
-```text
-retry
-```
+因此：`retry`
 
 不是单纯错误处理。
 
-它是：
-
-```text
-recovery policy
-```
+它是：`recovery policy`
 
 应该由拥有足够上下文的一层决定。
 
----
+<a id="fm0-part-4"></a>
 
-## 20. Failure Domain
+## 四、边界与影响范围
+
+### 20. Failure Domain
 
 Recovery Boundary 回答：
 
@@ -1092,21 +888,11 @@ process
 
 发生一个错误，不一定意味着整个进程都应该失败。
 
----
+### 21. Request-Level Failure Domain
 
-## 21. Request-Level Failure Domain
+例如：`malformed HTTP request`
 
-例如：
-
-```text
-malformed HTTP request
-```
-
-合理影响范围可能只是：
-
-```text
-one request
-```
+合理影响范围可能只是：`one request`
 
 因此：
 
@@ -1115,9 +901,7 @@ request fails
 service continues
 ```
 
----
-
-## 22. Task-Level Failure Domain
+### 22. Task-Level Failure Domain
 
 线程池：
 
@@ -1128,39 +912,19 @@ worker
  └─ task C
 ```
 
-task B 失败：
+task B 失败：`task B failed`
 
-```text
-task B failed
-```
+如果任务彼此隔离，则：`worker continues`
 
-如果任务彼此隔离，则：
+### 23. Subsystem-Level Failure Domain
 
-```text
-worker continues
-```
+例如：`telemetry subsystem`
 
----
-
-## 23. Subsystem-Level Failure Domain
-
-例如：
-
-```text
-telemetry subsystem
-```
-
-可能允许：
-
-```text
-subsystem restart
-```
+可能允许：`subsystem restart`
 
 而核心服务继续运行。
 
----
-
-## 24. Process-Level Failure Domain
+### 24. Process-Level Failure Domain
 
 如果发生：
 
@@ -1173,11 +937,7 @@ impossible global state
 
 继续执行可能已经没有可靠语义。
 
-此时：
-
-```text
-process termination
-```
+此时：`process termination`
 
 可能比：
 
@@ -1188,29 +948,21 @@ continue
 
 更正确。
 
----
-
-## 25. Recovery Boundary 与 Failure Boundary
+### 25. Recovery Boundary 与 Failure Boundary
 
 这两个概念不要混淆。
 
-### Recovery Boundary
+<a id="recovery-boundary"></a>
 
-回答：
+**Recovery Boundary**
 
-```text
-谁有足够上下文选择恢复策略？
-```
+回答：`谁有足够上下文选择恢复策略？`
 
----
+<a id="failure-boundary"></a>
 
-### Failure Boundary
+**Failure Boundary**
 
-回答：
-
-```text
-失败传播不能以当前形式越过哪里？
-```
+回答：`失败传播不能以当前形式越过哪里？`
 
 典型 failure boundary：
 
@@ -1224,9 +976,7 @@ service
 IPC
 ```
 
----
-
-## 26. C ABI Boundary
+### 26. C ABI Boundary
 
 例如：
 
@@ -1253,9 +1003,7 @@ C-compatible error representation
 
 因为另一侧没有 C++ exception model。
 
----
-
-## 27. Thread Boundary
+### 27. Thread Boundary
 
 异常逃出线程初始函数会调用 `std::terminate()`。若工程目标是把 worker 失败限制在线程任务内，边界必须覆盖工作路径和错误报告路径；仅有 `catch (...)` 还不够。[N4950：except.terminate](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)
 
@@ -1277,28 +1025,13 @@ worker.join(); // 正常返回后，协调者才能读取 failure。
 
 完整样例、异常捕获可能分配的限制和报告失败后备策略，见 [FM-8 §2](fm8-failure-boundaries.md#2-stdthread)。
 
----
+<a id="fm0-part-5"></a>
 
-## 28. 第二维：Failure Representation
+## 五、相互独立的分析维度
 
-常见 failure transport 包括：
+### 28. 第二维：Failure Representation
 
-```text
-bool
-sentinel
-enum
-std::optional<T>
-std::expected<T, E>
-std::error_code
-exception
-termination
-```
-
-重要的是：
-
-> failure representation 只说明错误如何被携带。
-
-它不自动说明失败后的状态。
+错误表示与传播通道要分开看：`bool`、sentinel、enum、`optional`、`expected` 和 `error_code` 可以携带普通返回分支；exception 通过异常控制流传播对象；termination 是终局处置，不是返回给调用者的 transport。
 
 例如：
 
@@ -1306,15 +1039,9 @@ termination
 std::expected<void, Error> update();
 ```
 
-不能自动推出：
+返回类型不能推出“失败时状态不变”。表示方式主讲见 [FM-2](fm2-value-based-failure.md)，异常传播见 [FM-3](fm3-exception-semantics.md)，状态保证统一见 [FM-4 §4](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
-```text
-failure → state unchanged
-```
-
----
-
-## 29. 第三维：State Guarantee
+### 29. 第三维：State Guarantee
 
 失败后的状态应与异常传播、终止策略分别说明：
 
@@ -1326,74 +1053,21 @@ failure → state unchanged
 
 这些不是一条从弱到强的等级序列。一个返回错误码的 `noexcept` 操作仍可能失败；终止也不等于“成功完成清理”。术语和提交条件统一见 [FM-4 §4～§5](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
----
+### 30. Strong Guarantee
 
-## 30. Strong Guarantee
+Strong guarantee 针对合同规定的失败通道和可观察状态：失败时该状态与调用前一致。成功后提交新状态；常见实现先准备隔离的新状态，再执行真正可完成的提交，并检查后续返回与清理。
 
-失败以后：
+这不是对整个外部世界的自动原子性承诺。完整条件、反例和提交状态表统一见 [FM-4 §5–7](fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式)，本章不再另设一版定义。
 
-```text
-externally observable state
-=
-state before operation
-```
+### 31. Basic Guarantee
 
-即：
+Basic guarantee 表示失败后不变量和资源管理仍成立，但值可以改变；哪些后续操作仍合法由具体合同决定。不能从“对象仍能析构”单独推出整个组件仍可正常服务。主说明见 [FM-4 §4](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
-```text
-success → commit
-failure → as if operation never happened
-```
+### 32. No Useful Guarantee
 
-常见模型：
+No useful guarantee 表示关注的失败路径缺少可依赖的状态承诺，不能自行补成 basic。它既不是一种错误表示，也不把所有此类路径自动判为 UB；具体语言／库条款仍须分别检查，见 [FM-4 §4](fm4-raii-exception-safety.md#4-exception-safety-guarantees)和 [FM-5 §11](fm5-noexcept-move-copy.md#11-move-only--throwing-move)。
 
-```text
-prepare
-   ↓
-may fail
-   ↓
-commit
-   ↓
-must not fail
-```
-
----
-
-## 31. Basic Guarantee
-
-失败以后：
-
-```text
-state may have changed
-```
-
-但是：
-
-```text
-invariants still hold
-resources are owned correctly
-objects remain destructible
-program may continue according to contract
-```
-
----
-
-## 32. No Useful Guarantee
-
-失败以后：
-
-```text
-state unknown
-invariants may be broken
-```
-
-此时继续使用对象可能已经没有可靠语义。
-
-高质量基础组件应尽量避免这种设计。
-
----
-
-## 33. State Guarantee 与 Error Transport 正交
+### 33. State Guarantee 与 Error Transport 正交
 
 例如：
 
@@ -1401,23 +1075,11 @@ invariants may be broken
 std::expected<void, Error> update();
 ```
 
-可能提供：
+可能提供：`strong guarantee`
 
-```text
-strong guarantee
-```
+也可能只提供：`basic guarantee`
 
-也可能只提供：
-
-```text
-basic guarantee
-```
-
-甚至可能糟糕到：
-
-```text
-partial invalid state
-```
+甚至可能糟糕到：`partial invalid state`
 
 同样：
 
@@ -1425,11 +1087,7 @@ partial invalid state
 void update();
 ```
 
-虽然通过 exception 失败，也可以提供：
-
-```text
-strong guarantee
-```
+虽然通过 exception 失败，也可以提供：`strong guarantee`
 
 因此不要建立错误对应：
 
@@ -1446,17 +1104,13 @@ transport mechanism
 state guarantee
 ```
 
----
-
-## 34. 第四维：Failure Frequency
+### 34. 第四维：Failure Frequency
 
 常见、少见等发生频率会影响机制成本，但应根据实际工作负载判断，不能由错误名称推断。
 
 频率与严重性独立：高频失败也可能严重，罕见结果也可能只是普通拒绝。§35～§36 讨论频率；§37 的 catastrophic 是严重性与处置问题，不是第三档发生频率。
 
----
-
-## 35. Common Outcome
+### 35. Common Outcome
 
 例如：
 
@@ -1485,9 +1139,7 @@ optional
 expected
 ```
 
----
-
-## 36. Rare Failure
+### 36. Rare Failure
 
 例如：
 
@@ -1497,19 +1149,13 @@ rare I/O failure
 deep initialization failure
 ```
 
-如果失败确实稀有，并且需要跨多层传播：
-
-```text
-exception
-```
+如果失败确实稀有，并且需要跨多层传播：`exception`
 
 可能成为合理设计。
 
 但频率只是决策输入之一，不是唯一标准。
 
----
-
-## 37. Catastrophic Failure
+### 37. Catastrophic Failure
 
 这里切换到严重性与终局处置维度，不继续给发生频率分档。
 
@@ -1517,9 +1163,7 @@ exception
 
 这是工程处置建议，不是说所有严重错误都由同一种语言机制报告，也不是说 `terminate` 会执行完整资源清理。
 
----
-
-## 38. 第五维：Resource Guarantee
+### 38. 第五维：Resource Guarantee
 
 状态正确不只是业务字段正确。
 
@@ -1550,9 +1194,7 @@ Failure contract 应明确：
 temporary resource 是否清理？
 ```
 
----
-
-## 39. RAII 的 Failure Model 含义
+### 39. RAII 的 Failure Model 含义
 
 RAII 将资源所有权绑定到对象生命周期，使正常作用域退出与**确实发生的栈展开**共用析构清理。
 
@@ -1564,9 +1206,11 @@ acquire → owner → work → normal exit / unwinding → destructor
 
 工程上还要审查析构的可失败操作；RAII 不自动提供持久化提交、业务回滚或“资源关闭一定成功”的保证。
 
----
+<a id="fm0-part-6"></a>
 
-## 40. Complete Failure Pipeline
+## 六、把模型用于实际场景
+
+### 40. Complete Failure Pipeline
 
 综合起来，一个 failure 可以经历：
 
@@ -1592,9 +1236,7 @@ failure domain containment
 
 任何复杂系统错误处理设计，都应该能够映射回这条链。
 
----
-
-## 41. 示例：文件读取
+### 41. 示例：文件读取
 
 契约片段：
 
@@ -1633,9 +1275,7 @@ State guarantee       existing configuration remains unchanged
 
 最后一项依赖先完整读取、解析和验证，再提交新配置，不能仅由返回 `expected` 推出。相关错误转换见 [FM-7 §1](fm7-error-code-system-error.md#1-errno)。
 
----
-
-## 42. 示例：Binary Parser
+### 42. 示例：Binary Parser
 
 ```cpp
 std::expected<Frame, ParseError>
@@ -1686,9 +1326,7 @@ State guarantee
 
 这是非常适合 value-based error handling 的类型。
 
----
-
-## 43. 示例：内部 Decode Table
+### 43. 示例：内部 Decode Table
 
 ```cpp
 const DecodePlan& plan_for(std::size_t index) {
@@ -1721,9 +1359,7 @@ Reason
     continuing would hide a programming defect
 ```
 
----
-
-## 44. 示例：数据处理 Pipeline
+### 44. 示例：数据处理 Pipeline
 
 ```text
 Kafka
@@ -1741,31 +1377,33 @@ produce
 
 假设 gzip 数据损坏。
 
-### Detection
+<a id="detection"></a>
 
-```text
-decompression library
-```
+**Detection**
 
-### Low-level representation
+`decompression library`
 
-```text
-DecompressError::invalid_stream
-```
+<a id="low-level-representation"></a>
 
-### Translation
+**Low-level representation**
 
-```text
-ProcessError::corrupted_capture
-```
+`DecompressError::invalid_stream`
 
-### Propagation
+<a id="translation"></a>
 
-```text
-worker processing result
-```
+**Translation**
 
-### Recovery boundary
+`ProcessError::corrupted_capture`
+
+<a id="propagation"></a>
+
+**Propagation**
+
+`worker processing result`
+
+<a id="recovery-boundary-1"></a>
+
+**Recovery boundary**
 
 worker / job coordinator 知道：
 
@@ -1776,25 +1414,17 @@ worker / job coordinator 知道：
 是否 ACK
 ```
 
-### Failure domain
+<a id="failure-domain"></a>
 
-通常：
+**Failure domain**
 
-```text
-one input object
-```
+通常：`one input object`
 
-而不是：
-
-```text
-entire process
-```
+而不是：`entire process`
 
 这就是 error containment。
 
----
-
-## 45. Failure Model 的二维底图
+### 45. Failure Model 的二维底图
 
 至少先建立：
 
@@ -1816,216 +1446,58 @@ Recovery Boundary
 Failure Domain
 ```
 
-因此它不是简单的一维：
-
-```text
-expected vs exception
-```
+因此它不是简单的一维：`expected vs exception`
 
 问题。
 
----
+<a id="fm0-part-7"></a>
 
-## 46. API Failure Contract
+## 七、接口合同与反例
 
-一个高质量 API 应能够回答以下内容。
+### 46. API Failure Contract
 
-### Preconditions
+<a id="preconditions"></a>
+<a id="success-postconditions"></a>
+<a id="failure-set"></a>
+<a id="representation"></a>
+<a id="state-guarantee"></a>
+<a id="resource-guarantee"></a>
+<a id="recovery-responsibility"></a>
 
-调用者必须保证：
+一个 API 的失败合同先回答输入和成功，再分别描述失败分支、状态与资源、恢复权限。相同合同不应在 FM-0、FM-4 和 FM-9 各维护一份模板。
 
-```text
-什么条件成立？
-```
+统一填写入口为 [FM-9 §26](fm9-project-failure-profile.md#26-public-api-failure-documentation-template)；八项公共审查问题见[系列阅读约定](series-guide.md#review-contract)。以下旧细项定位保留为该合同的历史入口。
 
----
+### 47. API Review Template
 
-### Success Postconditions
+<a id="1-success"></a>
+<a id="2-preconditions"></a>
+<a id="3-domain-outcomes"></a>
+<a id="4-environmental-failures"></a>
+<a id="5-programmer-errors"></a>
+<a id="6-detection"></a>
+<a id="7-representation"></a>
+<a id="8-translation"></a>
+<a id="9-propagation"></a>
+<a id="10-recovery-boundary"></a>
+<a id="11-recovery-policy"></a>
+<a id="12-state-guarantee"></a>
+<a id="13-resource-guarantee"></a>
+<a id="14-failure-domain"></a>
+<a id="15-frequency"></a>
+<a id="16-terminal-behavior"></a>
 
-成功以后：
-
-```text
-什么一定成立？
-```
-
----
-
-### Failure Set
-
-可能有哪些 failure？
-
-```text
-absence
-invalid input
-resource exhaustion
-external service unavailable
-invariant violation
-...
-```
-
----
-
-### Representation
-
-每种 failure：
-
-```text
-如何表示？
-```
-
----
-
-### State Guarantee
-
-失败后：
-
-```text
-哪些状态保持不变？
-哪些允许改变？
-对象是否仍然有效？
-```
-
----
-
-### Resource Guarantee
-
-失败后：
-
-```text
-是否存在泄漏？
-锁是否释放？
-temporary resource 是否回收？
-```
-
----
-
-### Recovery Responsibility
-
-当前层：
-
-```text
-负责恢复
-还是
-只负责传播？
-```
-
----
-
-## 47. API Review Template
-
-以后评审任何：
+对接口：
 
 ```cpp
 R operation(A input);
 ```
 
-建议逐项回答：
+先完成[公共 C1–C8](series-guide.md#review-contract)：输入与成功、失败集与通道、状态与提交、所有权与清理、组合前提、恢复与影响范围、重试与控制状态、验证与限制。
 
-### 1. Success
+本章的作用是把这些问题连成模型，不重复 FM-9 的填写模板。尤其不要把发生频率和严重性混在一起，也不要把终止写成 strong/basic 之后的保证等级。旧审查细项锚点仍定位到本节，语义由统一合同承接。
 
-```text
-什么叫成功？
-```
-
-### 2. Preconditions
-
-```text
-调用者必须保证什么？
-```
-
-### 3. Domain Outcomes
-
-```text
-哪些“没有结果”属于正常业务状态？
-```
-
-### 4. Environmental Failures
-
-```text
-哪些外部条件可能阻止操作完成？
-```
-
-### 5. Programmer Errors
-
-```text
-哪些情况代表 contract / invariant 被破坏？
-```
-
-### 6. Detection
-
-```text
-谁最先发现？
-```
-
-### 7. Representation
-
-```text
-如何表示？
-```
-
-### 8. Translation
-
-```text
-是否需要改变错误抽象？
-```
-
-### 9. Propagation
-
-```text
-传播到哪里？
-```
-
-### 10. Recovery Boundary
-
-```text
-哪一层真正知道怎么办？
-```
-
-### 11. Recovery Policy
-
-```text
-retry / fallback / skip / rollback / shutdown？
-```
-
-### 12. State Guarantee
-
-```text
-失败后 state 是什么？
-```
-
-### 13. Resource Guarantee
-
-```text
-资源是否全部处于明确 ownership 下？
-```
-
-### 14. Failure Domain
-
-```text
-一个 object？
-一个 request？
-一个 task？
-一个 thread？
-一个 subsystem？
-一个 process？
-```
-
-### 15. Frequency
-
-```text
-common / uncommon？（依据具体工作负载）
-严重性与终局处置另行记录，不混入频率。
-```
-
-### 16. Terminal Behavior
-
-```text
-最终无人恢复时怎么办？
-```
-
----
-
-## 48. Decision Baseline
+### 48. Decision Baseline
 
 以下不是绝对规则，而是工程默认值。
 
@@ -2042,11 +1514,11 @@ common / uncommon？（依据具体工作负载）
 | ABI / thread / process 边界 | 捕获、转换、隔离 |
 | 无法确定程序状态 | 不应假装恢复 |
 
----
+### 49. Anti-Patterns
 
-## 49. Anti-Patterns
+<a id="491-catch-and-continue"></a>
 
-### 49.1 Catch and Continue
+**49.1 Catch and Continue**
 
 ```cpp
 try {
@@ -2058,17 +1530,13 @@ try {
 continue_running();
 ```
 
-如果不知道：
-
-```text
-state after failure
-```
+如果不知道：`state after failure`
 
 这不是 recovery。
 
----
+<a id="492-catch-all-too-low"></a>
 
-### 49.2 Catch All Too Low
+**49.2 Catch All Too Low**
 
 ```cpp
 std::string read_file(...) {
@@ -2080,25 +1548,17 @@ std::string read_file(...) {
 }
 ```
 
-这把：
+这把：`empty file`
 
-```text
-empty file
-```
-
-和：
-
-```text
-file read failed
-```
+和：`file read failed`
 
 混在一起。
 
 同时丢失恢复上下文。
 
----
+<a id="493-assert-external-input"></a>
 
-### 49.3 Assert External Input
+**49.3 Assert External Input**
 
 错误：
 
@@ -2106,23 +1566,15 @@ file read failed
 assert(packet.size() >= header_size);
 ```
 
-如果 packet 来自网络，这是：
-
-```text
-untrusted runtime input
-```
+如果 packet 来自网络，这是：`untrusted runtime input`
 
 应该验证并报告 failure。
 
----
+<a id="494-expected-for-impossible-internal-state"></a>
 
-### 49.4 Expected for Impossible Internal State
+**49.4 Expected for Impossible Internal State**
 
-如果某件事根据程序 invariant：
-
-```text
-must never happen
-```
+如果某件事根据程序 invariant：`must never happen`
 
 把它变成：
 
@@ -2132,15 +1584,11 @@ std::expected<T, ImpossibleError>
 
 然后一路传播，可能只是在隐藏 bug。
 
----
+<a id="495-low-level-retry-without-context"></a>
 
-### 49.5 Low-Level Retry Without Context
+**49.5 Low-Level Retry Without Context**
 
-底层擅自：
-
-```text
-retry forever
-```
+底层擅自：`retry forever`
 
 可能破坏：
 
@@ -2152,9 +1600,9 @@ backpressure
 retry budget
 ```
 
----
+<a id="496-translate-every-layer"></a>
 
-### 49.6 Translate Every Layer
+**49.6 Translate Every Layer**
 
 不要构造：
 
@@ -2169,9 +1617,9 @@ SocketError
 
 除非每次 translation 都真的产生新的抽象语义。
 
----
+<a id="497-error-string-as-error-model"></a>
 
-### 49.7 Error String as Error Model
+**49.7 Error String as Error Model**
 
 不要把：
 
@@ -2197,39 +1645,17 @@ policy
 recovery
 ```
 
----
+<a id="fm0-part-8"></a>
 
-## 50. Failure Model 与 Logging
+## 八、系统状态与副作用
 
-Logging 不是 failure transport。
+### 50. Failure Model 与 Logging
 
-不要设计成：
+日志（logging）服务诊断，不是错误返回通道。下层保存／补充上下文，由真正决定恢复或终止的边界记录最终诊断，可避免一个失败沿五层传播就变成五条 ERROR。
 
-```text
-底层 log error
-上层 log error
-再上层 log error
-```
+这是一种可裁剪的工程策略，不是禁止各层产生有区分的 trace；报告自身的分配、格式化和 I/O 失败也需要后备路径。具体边界见 [FM-8 §22](fm8-failure-boundaries.md#22-logging-boundary)，项目政策见 [FM-9 §18–20](fm9-project-failure-profile.md#18-logging-policy)。
 
-导致同一个 failure 被记录五次。
-
-一个良好原则：
-
-```text
-lower layers:
-    enrich / propagate
-
-recovery or terminal boundary:
-    log
-```
-
-即：
-
-> 通常在真正决定错误命运的层记录最终诊断。
-
----
-
-## 51. Failure Model 与 Observability
+### 51. Failure Model 与 Observability
 
 一个失败可能需要同时产生：
 
@@ -2258,15 +1684,9 @@ log
 
 不要让 logging string 取代结构化错误。
 
----
+### 52. Failure Model 与 Context
 
-## 52. Failure Model 与 Context
-
-错误向上传播时可能需要增加 context：
-
-```text
-ENOENT
-```
+错误向上传播时可能需要增加 context：`ENOENT`
 
 单独看价值有限。
 
@@ -2278,37 +1698,19 @@ path=/etc/app/project.toml
 cause=no such file or directory
 ```
 
-但应区分：
+但应区分：`machine-readable category`
 
-```text
-machine-readable category
-```
-
-和：
-
-```text
-human-readable context
-```
+和：`human-readable context`
 
 理想错误模型通常保留两者。
 
----
-
-## 53. Failure Model 与 Shutdown
+### 53. Failure Model 与 Shutdown
 
 shutdown 本身应该视为一种特殊控制状态。
 
-例如：
+例如：`network read interrupted because system is shutting down`
 
-```text
-network read interrupted because system is shutting down
-```
-
-不一定应该被统计为：
-
-```text
-network failure
-```
+不一定应该被统计为：`network failure`
 
 因此成熟系统通常需要区分：
 
@@ -2321,9 +1723,7 @@ system shutting down
 
 否则 observability 会产生错误信号。
 
----
-
-## 54. Failure Model 与 Cancellation
+### 54. Failure Model 与 Cancellation
 
 Cancellation 不应该自动等同于 error。
 
@@ -2336,111 +1736,27 @@ shutdown requested
 superseded operation
 ```
 
-这些可能属于：
+这些可能属于：`control outcome`
 
-```text
-control outcome
-```
-
-而不是：
-
-```text
-component defect
-```
+而不是：`component defect`
 
 因此 cancellation 应在 Failure Model 中拥有明确语义。
 
----
+### 55. Failure Model 与 Idempotency
 
-## 55. Failure Model 与 Idempotency
+重试前先确认操作是否幂等、是否明确未提交，或是否由接收方提供了可依赖的去重／查询协议；再检查截止期、预算、关闭状态与恢复权限。只看 `GET`、错误名称或“有 request ID”都不足以证明再次执行安全。
 
-恢复策略尤其是 retry 之前，必须回答：
+例如付款在响应丢失时可能已经提交，再发一次可能重复扣款。恢复协议及其边界统一见 [FM-8 §17–19](fm8-failure-boundaries.md#17-ambiguous-remote-completion)。
 
-```text
-operation 是否幂等？
-```
+### 56. Failure Model 与 Partial Commit
 
-例如：
+提交事实与调用方观察必须分开：写文件、发布消息或远端请求可能已经生效，返回／确认却失败。调用方此时只能报告完成状态未知，不能把“我没看到成功”改写为“没有副作用”。
 
-```text
-GET resource
-```
+本地状态转换的推理主讲在 [FM-4 §7](fm4-raii-exception-safety.md#7-commit-point)，远端完成不确定性在 [FM-8 §17](fm8-failure-boundaries.md#17-ambiguous-remote-completion)。两者都要求明示观察范围，不把内存提交、持久化和分布式确认视为同一保证。
 
-通常可以安全 retry。
+### 57. Failure Model 与 Ownership
 
-而：
-
-```text
-charge_credit_card()
-```
-
-如果没有 idempotency key：
-
-```text
-retry
-```
-
-可能产生重复副作用。
-
-因此：
-
-```text
-retry policy
-```
-
-不能脱离 operation semantics 设计。
-
----
-
-## 56. Failure Model 与 Partial Commit
-
-对状态修改操作必须明确：
-
-```text
-失败可能发生在 commit 前还是 commit 后？
-```
-
-例如：
-
-```text
-write file
-publish message
-update database
-send network request
-```
-
-可能出现：
-
-```text
-operation actually succeeded
-but acknowledgment was lost
-```
-
-此时调用者观察到：
-
-```text
-failure
-```
-
-但现实世界可能已经发生副作用。
-
-这是：
-
-```text
-ambiguous completion
-```
-
-分布式和 I/O API 必须特别注意。
-
----
-
-## 57. Failure Model 与 Ownership
-
-一个 operation 失败时必须知道：
-
-```text
-谁还拥有资源？
-```
+一个 operation 失败时必须知道：`谁还拥有资源？`
 
 例如：
 
@@ -2459,9 +1775,7 @@ or retained by caller?
 
 这也是为什么现代 C++ 的 ownership 类型对 Failure Model 很重要。
 
----
-
-## 58. Failure Model 与 Move
+### 58. Failure Model 与 Move
 
 移动操作尤其需要明确：
 
@@ -2481,23 +1795,23 @@ container relocation
 
 后续在 FM-5 专门展开。
 
----
+<a id="fm0-part-9"></a>
 
-## 59. 设计层次
+## 九、项目交接与回查
+
+### 59. 设计层次
 
 推荐将大型系统 failure strategy 分成三层。
 
-### Layer 1 — Local API Contract
+<a id="layer-1--local-api-contract"></a>
 
-每个函数描述：
+**Layer 1 — Local API Contract**
 
-```text
-local failure semantics
-```
+每个函数描述：`local failure semantics`
 
----
+<a id="layer-2--subsystem-failure-policy"></a>
 
-### Layer 2 — Subsystem Failure Policy
+**Layer 2 — Subsystem Failure Policy**
 
 例如：
 
@@ -2517,9 +1831,9 @@ fallback
 failure boundary
 ```
 
----
+<a id="layer-3--application-failure-policy"></a>
 
-### Layer 3 — Application Failure Policy
+**Layer 3 — Application Failure Policy**
 
 统一决定：
 
@@ -2534,125 +1848,107 @@ operator alerts
 
 这样避免每个函数各自发明策略。
 
----
+### 60. 项目级 Failure Profile
 
-## 60. 项目级 Failure Profile
+项目 Failure Profile 用于选择本项目允许的通道、保证、边界和恢复政策，不是新的 C++ 语言规则。它应汇总 API 的合同，而不是替代每个 API 的状态分析。
 
-成熟 C++ 项目应该最终形成自己的 Failure Profile。
+唯一填写入口放在 [FM-9 的 API 与子系统模板](fm9-project-failure-profile.md#26-public-api-failure-documentation-template)。本系列的完成或接受，不代表任何具体项目已经采纳该模板。
 
-至少定义：
-
-```text
-哪些 API 使用 expected
-哪些 API 可以抛 exception
-哪些层禁止 exception 越界
-哪些情况属于 programmer error
-哪些 invariant violation 必须 fail-fast
-哪些组件允许 retry
-retry budget 如何管理
-哪些 operation 保证 strong/basic guarantee
-哪些 thread entry 必须捕获所有 exception
-哪些 ABI boundary 必须进行 error translation
-顶层 fatal handler 如何工作
-```
-
----
-
-## 61. Failure Model 的核心不变量
+### 61. Failure Model 的核心不变量
 
 以下原则建议作为长期工程基线。
 
-### FM-I1
+<a id="fm-i1"></a>
+
+**FM-I1**
 
 > Failure 与 exception 必须分离讨论。
 
----
+<a id="fm-i2"></a>
 
-### FM-I2
+**FM-I2**
 
 > Normal absence 不应伪装成 exceptional failure。
 
----
+<a id="fm-i3"></a>
 
-### FM-I3
+**FM-I3**
 
 > External invalid input 不应使用 assertion 代替 validation。
 
----
+<a id="fm-i4"></a>
 
-### FM-I4
+**FM-I4**
 
 > Programmer error 不应轻易降级成普通业务错误继续运行。
 
----
+<a id="fm-i5"></a>
 
-### FM-I5
+**FM-I5**
 
 > Detection point 不等于 recovery point。
 
----
+<a id="fm-i6"></a>
 
-### FM-I6
+**FM-I6**
 
 > Recovery policy 必须由拥有足够上下文的层决定。
 
----
+<a id="fm-i7"></a>
 
-### FM-I7
+**FM-I7**
 
 > Handling 不等于 recovery。
 
----
+<a id="fm-i8"></a>
 
-### FM-I8
+**FM-I8**
 
 > Error representation 与 state guarantee 是两个独立维度。
 
----
+<a id="fm-i9"></a>
 
-### FM-I9
+**FM-I9**
 
 > 一个错误机制的好坏必须结合 failure frequency 判断。
 
----
+<a id="fm-i10"></a>
 
-### FM-I10
+**FM-I10**
 
 > Failure 必须被限制在明确的 failure domain。
 
----
+<a id="fm-i11"></a>
 
-### FM-I11
+**FM-I11**
 
 > 跨 thread / ABI / process boundary 时必须明确 error conversion。
 
----
+<a id="fm-i12"></a>
 
-### FM-I12
+**FM-I12**
 
 > 如果无法证明系统已经恢复到定义良好的状态，就不要假装 recovery 已经完成。
 
----
+<a id="fm-i13"></a>
 
-### FM-I13
+**FM-I13**
 
 > Retry 是业务恢复策略，不是底层错误处理默认动作。
 
----
+<a id="fm-i14"></a>
 
-### FM-I14
+**FM-I14**
 
 > Error translation 只应发生在抽象语义真正变化的地方。
 
----
+<a id="fm-i15"></a>
 
-### FM-I15
+**FM-I15**
 
 > Resource ownership 必须在所有 failure path 上保持明确。
 
----
-
-## 62. 最终心智模型
+### 62. 最终心智模型
 
 分析任何 operation 时，不要先想：
 
@@ -2726,38 +2022,17 @@ assert
 terminate
 ```
 
----
+### 63. FM-0 Review Checklist
 
-## 63. FM-0 Review Checklist
+先完成[公共 C1–C8](series-guide.md#review-contract)，本章另外检查：
 
-设计或 Code Review 一个 API 时，可以直接使用以下清单：
+- 是否把领域结果、故障原因、错误表示和对外失败分开？
+- detection、recovery boundary 与 failure domain 是否各有职责，而非都写“上层处理”？
+- 同一个错误能否沿表示／传播链回到它影响的状态？
+- “已恢复”是否有定义良好的后置条件，而不只是 catch 或日志记录？
+- 模型中的未知、部分提交和终止是否仍显式保留？
 
-```text
-[ ] 成功语义是否明确？
-[ ] Preconditions 是否明确？
-[ ] 正常 absence 与 failure 是否区分？
-[ ] 外部错误与 programmer error 是否区分？
-[ ] Detection point 是否合理？
-[ ] Error representation 是否结构化？
-[ ] 是否存在不必要的 error translation？
-[ ] Propagation 是否保留足够上下文？
-[ ] Recovery boundary 是否位于拥有策略上下文的层？
-[ ] Recovery 是否真正恢复了 valid state？
-[ ] Failure domain 是否明确？
-[ ] State guarantee 是否明确？
-[ ] Resource guarantee 是否明确？
-[ ] Ownership 在失败路径上是否明确？
-[ ] Retry 是否考虑 idempotency、deadline 与 shutdown？
-[ ] Cancellation 是否与 failure 正确区分？
-[ ] Thread / ABI / process boundary 是否正确转换失败？
-[ ] Fatal programmer error 是否会被错误地吞掉？
-[ ] Logging 是否发生在正确的决策边界？
-[ ] API 是否让调用者能够做出正确恢复决策？
-```
-
----
-
-## 64. FM-0 压缩版
+### 64. FM-0 压缩版
 
 最终可以把整个 FM-0 压成六个问题：
 
@@ -2778,14 +2053,12 @@ terminate
    failure domain 到哪里？
 
 6. How should it travel?
-   最后才选择 expected / exception / error_code / terminate。
+   最后选择 expected / exception / error_code；终止作为独立处置说明。
 ```
 
 如果这六个问题能够准确回答，一个 C++ Failure Model 通常已经具备正确的骨架。
 
----
-
-## 65. 后续学习位置
+### 65. 后续学习位置
 
 FM-0 只建立统一模型。
 

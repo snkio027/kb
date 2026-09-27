@@ -1,48 +1,37 @@
-# FM-9 — Project-Level Failure Profile
+<a id="fm-9--project-level-failure-profile"></a>
+# FM-9 · 项目失败契约与验证
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-8](fm8-failure-boundaries.md)
+[返回 FM 导航](README.md) · [上一章：FM-8](fm8-failure-boundaries.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+把 FM-0～FM-8 的机制压缩为项目可以选择、填写和验证的合同。这里的 must/default 是待采纳政策，不是 C++ 的统一语言要求。
+
+**主阅读线。** §1–3 → §9–17 → §21–30；需要时回查各机制政策及最后总图。
+
+**失败契约。** 项目逐项采纳错误通道、状态、所有权和恢复权限；模板要包含提交前后及完成未知，并给每个重要主张配对应判据和未测项。
+
+**证据边界。** 故障注入清单是待项目执行的验证设计；FM 样例通过不等于某项目已验证，也不表示已部署 CI 或获得正式基线批准。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. Failure Profile 应解决什么](#1-failure-profile-应解决什么)
-- [2. 推荐项目分类](#2-推荐项目分类)
-- [3. 推荐 Layer Policy](#3-推荐-layer-policy)
-- [4. Exception Policy](#4-exception-policy)
-- [5. expected Policy](#5-expected-policy)
-- [6. Error Type Policy](#6-error-type-policy)
-- [7. Error Namespace](#7-error-namespace)
-- [8. Error Translation Policy](#8-error-translation-policy)
-- [9. State Guarantee Policy](#9-state-guarantee-policy)
-- [10. Ownership Failure Policy](#10-ownership-failure-policy)
-- [11. noexcept Policy](#11-noexcept-policy)
-- [12. Assertion Policy](#12-assertion-policy)
-- [13. UB Policy](#13-ub-policy)
-- [14. Boundary Policy](#14-boundary-policy)
-- [15. Retry Policy](#15-retry-policy)
-- [16. Timeout Policy](#16-timeout-policy)
-- [17. Cancellation Policy](#17-cancellation-policy)
-- [18. Logging Policy](#18-logging-policy)
-- [19. Metrics Policy](#19-metrics-policy)
-- [20. Diagnostics Policy](#20-diagnostics-policy)
-- [21. Testing Failure Paths](#21-testing-failure-paths)
-- [22. Fault Injection](#22-fault-injection)
-- [23. Sanitizers](#23-sanitizers)
-- [24. Static Analysis](#24-static-analysis)
-- [25. \[\[nodiscard\]\]](#25-nodiscard)
-- [26. Public API Failure Documentation Template](#26-public-api-failure-documentation-template)
-- [27. Subsystem Failure Profile Template](#27-subsystem-failure-profile-template)
-- [28. Project-Wide Baseline](#28-project-wide-baseline)
-- [29. Project Anti-Patterns](#29-project-anti-patterns)
-- [30. Project Review Checklist](#30-project-review-checklist)
-- [31. FM-9 核心不变量](#31-fm-9-核心不变量)
-- [Modern C++ Failure Model — 最终总图](#modern-c-failure-model--最终总图)
+- [一、项目选择与责任](#fm9-part-1)
+- [二、通道与错误域政策](#fm9-part-2)
+- [三、状态、所有权与边界政策](#fm9-part-3)
+- [四、恢复与可观测性政策](#fm9-part-4)
+- [五、验证工具与证据](#fm9-part-5)
+- [六、可裁剪模板与回查](#fm9-part-6)
+- [最终总图](#modern-c-failure-model--最终总图)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm9-part-1"></a>
+
+## 一、项目选择与责任
+
+### 0. 文档定位
 
 FM-0 ～ FM-8 描述语言与系统机制。
 
@@ -67,9 +56,7 @@ FM-9 的目标是：
 
 组合后却没有一致系统语义。
 
----
-
-## 1. Failure Profile 应解决什么
+### 1. Failure Profile 应解决什么
 
 项目必须统一回答：
 
@@ -86,9 +73,7 @@ FM-9 的目标是：
 何时 terminate？
 ```
 
----
-
-## 2. 推荐项目分类
+### 2. 推荐项目分类
 
 以下是项目的处置标签，不是互斥且完整的原因分类。P 描述责任，F 描述严重性／终局处置；同一事件可能同时是 P 与 F。选定恢复／终止策略时应保留来源、频率和状态等独立信息。
 
@@ -99,9 +84,9 @@ P — Programmer / Contract Failure
 F — Fatal System Failure
 ```
 
----
+<a id="d--domain-outcome"></a>
 
-### D — Domain Outcome
+**D — Domain Outcome**
 
 例如：
 
@@ -120,9 +105,9 @@ bool
 enum
 ```
 
----
+<a id="r--recoverable-failure"></a>
 
-### R — Recoverable Failure
+**R — Recoverable Failure**
 
 例如：
 
@@ -142,9 +127,9 @@ error_code
 exception where project policy allows
 ```
 
----
+<a id="p--programmer-error"></a>
 
-### P — Programmer Error
+**P — Programmer Error**
 
 例如：
 
@@ -162,15 +147,11 @@ assert
 production fatal check where necessary
 ```
 
-不应默认：
+不应默认：`expected<..., Bug>`
 
-```text
-expected<..., Bug>
-```
+<a id="f--fatal-failure"></a>
 
----
-
-### F — Fatal Failure
+**F — Fatal Failure**
 
 例如：
 
@@ -189,9 +170,7 @@ abort
 process-level fail-fast policy
 ```
 
----
-
-## 3. 推荐 Layer Policy
+### 3. 推荐 Layer Policy
 
 可以定义：
 
@@ -208,9 +187,11 @@ process-level fail-fast policy
 | RPC boundary | Serialized structured errors |
 | Fatal invariant boundary | Fail-fast |
 
----
+<a id="fm9-part-2"></a>
 
-## 4. Exception Policy
+## 二、通道与错误域政策
+
+### 4. Exception Policy
 
 项目必须明确选择。
 
@@ -253,9 +234,7 @@ Third-party exceptions:
 
 > policy 必须一致。
 
----
-
-## 5. `expected` Policy
+### 5. `expected` Policy
 
 推荐规定：
 
@@ -266,23 +245,13 @@ Use expected when:
     failure belongs to API result domain
 ```
 
-避免：
+避免：`every function returns expected`
 
-```text
-every function returns expected
-```
-
-特别是：
-
-```text
-private helper whose preconditions are already established
-```
+特别是：`private helper whose preconditions are already established`
 
 不需要重新包装 internal impossible state。
 
----
-
-## 6. Error Type Policy
+### 6. Error Type Policy
 
 推荐：
 
@@ -305,9 +274,7 @@ std::expected<T, std::string>
 
 成为跨大型系统统一协议。
 
----
-
-## 7. Error Namespace
+### 7. Error Namespace
 
 可以：
 
@@ -343,9 +310,7 @@ enum class GlobalError {
 };
 ```
 
----
-
-## 8. Error Translation Policy
+### 8. Error Translation Policy
 
 规定：
 
@@ -369,9 +334,11 @@ repository unavailable
 创建新 Error wrapper
 ```
 
----
+<a id="fm9-part-3"></a>
 
-## 9. State Guarantee Policy
+## 三、状态、所有权与边界政策
+
+### 9. State Guarantee Policy
 
 本节是待项目采纳的 profile 建议，不是所有 C++ API 的语言要求。建议每个重要的 mutating API 分别声明：
 
@@ -386,9 +353,7 @@ repository unavailable
 
 精确定义及 commit 条件见 [FM-4 §4～§5](fm4-raii-exception-safety.md#4-exception-safety-guarantees)。
 
----
-
-## 10. Ownership Failure Policy
+### 10. Ownership Failure Policy
 
 任何 transferring API 都必须说明：
 
@@ -398,23 +363,13 @@ ownership after success
 ownership after failure
 ```
 
-例如：
+例如：`enqueue(Job job)`
 
-```text
-enqueue(Job job)
-```
-
-和：
-
-```text
-try_enqueue(Job& job)
-```
+和：`try_enqueue(Job& job)`
 
 具有完全不同的 failure ownership semantics。
 
----
-
-## 11. `noexcept` Policy
+### 11. `noexcept` Policy
 
 推荐：
 
@@ -438,16 +393,16 @@ Do not:
     add noexcept merely for performance
 ```
 
----
+### 12. Assertion Policy
 
-## 12. Assertion Policy
+项目可以定义两种检查；这里的 development/production 是部署政策，不是语言按构建名称自动切换的行为。标准 `assert` 是否启用取决于包含头文件时的 `NDEBUG`，见 [FM-1 §13](fm1-contracts-assertions-ub.md#13-ndebug)。
 
-定义两种检查。
+<a id="development-assertion"></a>
 
-### Development Assertion
+**Development Assertion**
 
 ```text
-debug-only
+enabled in the project's chosen development configuration
 internal reasoning
 cheap diagnostics
 ```
@@ -458,9 +413,9 @@ cheap diagnostics
 assert(index < size);
 ```
 
----
+<a id="production-fatal-check"></a>
 
-### Production Fatal Check
+**Production Fatal Check**
 
 用于：
 
@@ -481,15 +436,9 @@ FATAL_IF
 
 具体名字不是重点。
 
----
+### 13. UB Policy
 
-## 13. UB Policy
-
-项目原则：
-
-```text
-UB is never a failure-handling strategy.
-```
+项目原则：`UB is never a failure-handling strategy.`
 
 应该：
 
@@ -501,21 +450,11 @@ use static analysis
 use ownership/lifetime discipline
 ```
 
-目标是：
+目标是：`prevent UB`
 
-```text
-prevent UB
-```
+而不是：`recover from UB`
 
-而不是：
-
-```text
-recover from UB
-```
-
----
-
-## 14. Boundary Policy
+### 14. Boundary Policy
 
 必须列出所有重要边界：
 
@@ -540,15 +479,13 @@ logging responsibility
 failure domain
 ```
 
----
+<a id="fm9-part-4"></a>
 
-## 15. Retry Policy
+## 四、恢复与可观测性政策
 
-项目统一规定：
+### 15. Retry Policy
 
-```text
-retry only when category is retryable
-```
+项目统一规定：`retry only when category is retryable`
 
 同时检查：
 
@@ -562,33 +499,15 @@ shutdown
 system load
 ```
 
-禁止基础库：
+禁止基础库：`while (!success) retry();`
 
-```text
-while (!success) retry();
-```
+### 16. Timeout Policy
 
----
+Timeout 应明确：`deadline expired`
 
-## 16. Timeout Policy
+但不能自动断言：`remote operation failed before commit`
 
-Timeout 应明确：
-
-```text
-deadline expired
-```
-
-但不能自动断言：
-
-```text
-remote operation failed before commit
-```
-
-对于有外部副作用的操作：
-
-```text
-timeout semantics
-```
+对于有外部副作用的操作：`timeout semantics`
 
 必须说明：
 
@@ -598,17 +517,11 @@ possibly committed
 definitely committed
 ```
 
-如果无法知道：
-
-```text
-ambiguous
-```
+如果无法知道：`ambiguous`
 
 应直接建模。
 
----
-
-## 17. Cancellation Policy
+### 17. Cancellation Policy
 
 推荐作为独立 outcome：
 
@@ -629,9 +542,7 @@ RPC
 
 避免把正常 shutdown 变成错误风暴。
 
----
-
-## 18. Logging Policy
+### 18. Logging Policy
 
 基本原则：
 
@@ -653,9 +564,7 @@ recovery/terminal boundary:
     log
 ```
 
----
-
-## 19. Metrics Policy
+### 19. Metrics Policy
 
 Metrics 应按：
 
@@ -668,23 +577,13 @@ recovery action
 
 聚合。
 
-避免使用：
-
-```text
-raw error message
-```
+避免使用：`raw error message`
 
 作为 metric label，
 
-否则容易产生：
+否则容易产生：`unbounded cardinality`
 
-```text
-unbounded cardinality
-```
-
----
-
-## 20. Diagnostics Policy
+### 20. Diagnostics Policy
 
 最终 diagnostics 可以组合：
 
@@ -706,15 +605,13 @@ PII policy
 size limits
 ```
 
----
+<a id="fm9-part-5"></a>
 
-## 21. Testing Failure Paths
+## 五、验证工具与证据
 
-Failure path 必须是：
+### 21. Testing Failure Paths
 
-```text
-first-class test target
-```
+Failure path 必须是：`first-class test target`
 
 而不是只测试 success path。
 
@@ -732,9 +629,7 @@ thread exception
 shutdown race
 ```
 
----
-
-## 22. Fault Injection
+### 22. Fault Injection
 
 高质量组件应允许测试：
 
@@ -755,9 +650,7 @@ retry
 failure domain
 ```
 
----
-
-## 23. Sanitizers
+### 23. Sanitizers
 
 Failure Model 无法替代：
 
@@ -775,17 +668,11 @@ UB
 data race
 ```
 
-它们属于：
-
-```text
-defect detection infrastructure
-```
+它们属于：`defect detection infrastructure`
 
 而不是 runtime recovery system。
 
----
-
-## 24. Static Analysis
+### 24. Static Analysis
 
 推荐结合：
 
@@ -808,81 +695,71 @@ ownership bug
 
 提前到开发阶段。
 
----
+### 25. `[[nodiscard]]`
 
-## 25. `[[nodiscard]]`
-
-对 failure-carrying result：
+对必须观察的结果可使用 `[[nodiscard]]`：
 
 ```cpp
 [[nodiscard]]
 std::expected<void, Error> save();
 ```
 
-通常非常有价值。
-
-因为：
+若写成：
 
 ```cpp
 save();
 ```
 
-无意丢弃结果会产生编译器诊断。
+C++23 的规定是建议实现对这类被丢弃的结果发出警告，不是必须拒绝编译，也不是结果一定会被处理的静态证明。显式转换为 void 又属于不同情况。项目可通过告警选项和评审加强执行，但必须另外说明，不能归到语言强制保证。[N4950：dcl.attr.nodiscard](https://timsong-cpp.github.io/cppwp/n4950/dcl.attr.nodiscard)
 
-对于：
+<a id="fm9-part-6"></a>
 
-```text
-must-observe outcome
-```
+## 六、可裁剪模板与回查
 
-建议采用。
+### 26. Public API Failure Documentation Template
 
----
-
-## 26. Public API Failure Documentation Template
-
-每个关键 API 可以统一：
+本模板是[公共 C1–C8](series-guide.md#review-contract)的唯一可填写版本；按 API 风险裁剪，不机械要求所有局部函数都有 RPC 或重试字段。
 
 ```markdown
 ### Failure Contract
 
-Preconditions:
-- ...
+Operation / observation scope:
+- API、版本、受保护状态及外部副作用范围。
 
-Success:
-- ...
+C1 — Inputs and success:
+- 前置条件及建立者；合法领域结果；成功后置条件。
 
-Recoverable failures:
-- ...
+C2 — Failure set and channels:
+- 每个失败来源、检测点、返回错误／异常／终止。
+- 错误转换及诊断路径自身能否失败。
 
-Programmer errors:
-- ...
+C3 — State transitions and failure postconditions:
+- 准备阶段、提交点、返回／清理阶段。
+- 每个失败分支的状态、不变量、部分进度。
+- 明确未提交／已提交／完成未知；调用者如何得知。
 
-Failure representation:
-- ...
+C4 — Ownership and cleanup:
+- 调用前、成功、失败、取消之后资源各属谁。
+- 析构后备与需要显式观察的 finish/close/commit。
 
-State guarantee:
-- strong/basic/...
+C5 — Composition:
+- T/E、allocator、参数、回调、临时对象、返回与清理的前提。
+- 异常传播保证与 no-fail/状态保证分别声明。
 
-Ownership after failure:
-- ...
+C6 — Recovery and containment:
+- 恢复／补偿／升级／终止权限、failure domain。
+- 线程安全、同步与错误观察点、报告失败后备。
 
-Thread safety:
-- ...
+C7 — Retry and control outcomes:
+- 幂等／去重／确认依据、截止期、预算、关闭状态。
+- 取消请求与确认、超时、完成未知的处置。
 
-Cancellation:
-- ...
-
-Retry semantics:
-- ...
-
-Failure domain:
-- ...
+C8 — Verification:
+- 命题、判据、注入点、错误变体、预期与实际结果。
+- 工具链、平台、SKIP、不适用项、未覆盖边界。
 ```
 
----
-
-## 27. Subsystem Failure Profile Template
+### 27. Subsystem Failure Profile Template
 
 ```markdown
 ## Failure Profile
@@ -924,9 +801,7 @@ Failure domain:
 - ...
 ```
 
----
-
-## 28. Project-Wide Baseline
+### 28. Project-Wide Baseline
 
 推荐默认：
 
@@ -966,27 +841,13 @@ Threads/ABI/RPC
     → explicit failure boundaries
 ```
 
----
+### 29. Project Anti-Patterns
 
-## 29. Project Anti-Patterns
+禁止形成：`exceptions everywhere`
 
-禁止形成：
+或者：`expected everywhere`
 
-```text
-exceptions everywhere
-```
-
-或者：
-
-```text
-expected everywhere
-```
-
-或者：
-
-```text
-no exceptions at all costs
-```
+或者：`no exceptions at all costs`
 
 这些都是机制驱动设计。
 
@@ -1006,9 +867,9 @@ frequency
 transport mechanism
 ```
 
----
+### 30. Project Review Checklist
 
-## 30. Project Review Checklist
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] 项目是否有统一 failure taxonomy？
@@ -1032,84 +893,38 @@ transport mechanism
 [ ] sanitizer/static analysis 是否进入 CI？
 ```
 
----
+### 31. FM-9 核心不变量
 
-## 31. FM-9 核心不变量
+项目采纳 profile 时，应固定错误通道、状态保证、所有权、恢复权限和验证责任。选择机制在理解失败语义之后，不能从 `expected` 或 `noexcept` 倒推保证。
 
-> 项目必须有统一 Failure Profile，而不是每个模块自行发明错误模型。
-
-> Mechanism selection 必须发生在 failure semantics 之后。
-
-> Recoverable failure、programmer error 与 fatal failure 必须严格分离。
-
-> State guarantee 和 ownership guarantee 是 public API contract 的组成部分。
-
-> Thread、ABI、RPC 和 process 都必须具有明确 failure boundary。
-
-> Retry、timeout、cancellation 和 shutdown 都是系统级语义，不能留给底层库随意决定。
-
----
+责任、可恢复性和终局处置分别记录：程序缺陷可能同时需要致命处置，运行时失败也未必可恢复。它们不是互斥的三个错误类别。线程、ABI、RPC 的转换以及 retry、timeout、cancellation、shutdown 均要按系统合同分析，而不是留给底层自行猜测。
 
 ## Modern C++ Failure Model — 最终总图
 
-FM-0 ～ FM-9 可以最终压缩为：
+把一次操作沿同一条链审查；状态、传播和处置分轴记录，不把不可恢复放进 strong/basic 的等级中：
 
 ```text
-                           Operation
-                               │
-                       What can happen?
-                               │
-        ┌──────────────────────┼──────────────────────┐
-        │                      │                      │
- Domain Outcome       Operational Failure      Programmer Error
-        │                      │                      │
- optional/bool             expected              contract
-                           error_code             assert
-                           exception              fatal check
-        │                      │                      │
-        └──────────────────────┼──────────────────────┘
-                               │
-                        State Guarantee
-                               │
-              ┌────────────────┼─────────────────┐
-              │                │                 │
-            strong           basic          unrecoverable
-              │                │                 │
-              └────────────────┼─────────────────┘
-                               │
-                         RAII / Ownership
-                               │
-                       Recovery Boundary
-                               │
-                     Recovery Policy
-             retry / fallback / rollback / reject
-                               │
-                         Failure Domain
-                               │
-       operation → task → worker → subsystem → process
-                               │
-                        Boundary Crossing
-                thread / ABI / RPC / process
-                               │
-                      translate / contain
+Operation + Preconditions + Success Postcondition
+                 ↓
+Possible outcomes / detection
+                 ↓
+Representation → translation → propagation
+                 ↓
+State transition audit
+    ├─ protected state: unchanged / valid-but-changed / partial / unspecified
+    ├─ resources: ownership / cleanup / outstanding obligation
+    ├─ commit: before / after / observer cannot determine
+    └─ exception channel: allowed / non-propagating boundary
+                 ↓
+Recovery authority + failure domain
+    ├─ reject / recover / compensate / retry under protocol
+    └─ escalate / terminate if continued execution is not trustworthy
+                 ↓
+Observable evidence + limits
 ```
 
-而贯穿所有章节的最终原则是：
+责任、发生频率、严重性和恢复权限分别作为决策输入。错误传播只是把事实带到决策点；资源清理不代替回滚，捕获不代替恢复，终止不代替 no-fail 提交。
 
-```text
-1. Prevent impossible states where possible.
+全系列最终回查顺序是：FM-0 定义模型，FM-1 建立输入前提，FM-2/FM-3 选择值或异常通道，FM-4 分析状态，FM-5/FM-6 核查泛型与生命周期，FM-7 转换错误域，FM-8 限定传播与恢复，最后在本章记录项目选择和证据。具体问题入口见 [FM 总导航](README.md)，共同词义见[系列阅读约定](series-guide.md)。
 
-2. Validate uncertainty at boundaries.
-
-3. Represent expected failures explicitly.
-
-4. Preserve invariants and ownership on every exit path.
-
-5. Recover only where enough context exists.
-
-6. Contain failure within the intended failure domain.
-
-7. Terminate explicitly when trustworthy execution can no longer continue.
-```
-
-这就是现代 C++ Failure Model 的工程基线。
+这是待项目选择和验证的工程框架，不是对全部代码的技术认证，也不因本轮系列整理而成为已批准项目规范。

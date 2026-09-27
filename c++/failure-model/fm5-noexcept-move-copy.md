@@ -1,35 +1,35 @@
-# FM-5 — `noexcept`, Move, Copy & Generic Guarantees
+<a id="fm-5--noexcept-move-copy--generic-guarantees"></a>
+# FM-5 · 异常边界与泛型保证
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-4](fm4-raii-exception-safety.md) · [下一章：FM-6](fm6-construction-destruction-allocation.md)
+[返回 FM 导航](README.md) · [上一章：FM-4](fm4-raii-exception-safety.md) · [下一章：FM-6](fm6-construction-destruction-allocation.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+核对 noexcept、移动／复制、traits、swap 与具体容器操作能承诺什么。状态保证的定义仍以 FM-4 为准。
+
+**主阅读线。** §1–5 → §7–13 → §16–19；不要从函数名或 trait 名称跳过完整表达式。
+
+**失败契约。** 调用前的参数构造、函数体、返回与临时对象清理分别可能失败。noexcept 禁止异常越界，不证明正常完成；复制／移动后的源与目标状态另行说明。
+
+**证据边界。** T14 查完整表达式，T17 保留 R01 完整值／独立存储判据；T03 为复制回退。容器 throwing-move 注入矩阵仍未覆盖。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. noexcept 的精确含义](#1-noexcept-的精确含义)
-- [2. 违反 noexcept](#2-违反-noexcept)
-- [3. noexcept(expr)](#3-noexceptexpr)
-- [4. Conditional noexcept](#4-conditional-noexcept)
-- [5. std::move 不执行移动](#5-stdmove-不执行移动)
-- [6. Move 为什么特别适合 noexcept](#6-move-为什么特别适合-noexcept)
-- [7. Copy 与 Failure](#7-copy-与-failure)
-- [8. Container Relocation](#8-container-relocation)
-- [9. Throwing Move 的困难](#9-throwing-move-的困难)
-- [10. std::move_if_noexcept](#10-stdmove_if_noexcept)
-- [11. Move-Only + Throwing Move](#11-move-only--throwing-move)
-- [12. Traits](#12-traits)
-- [13. swap](#13-swap)
-- [14. Defaulted Move](#14-defaulted-move)
-- [15. 不要对 noexcept 撒谎](#15-不要对-noexcept-撒谎)
-- [16. Destructor 与 noexcept](#16-destructor-与-noexcept)
-- [17. Generic Guarantee Composition](#17-generic-guarantee-composition)
-- [18. FM-5 Review Checklist](#18-fm-5-review-checklist)
-- [19. FM-5 核心不变量](#19-fm-5-核心不变量)
+- [一、传播边界与表达式](#fm5-part-1)
+- [二、移动与值复制](#fm5-part-2)
+- [三、容器策略与类型条件](#fm5-part-3)
+- [四、提交与组合保证](#fm5-part-4)
+- [五、审查与回查](#fm5-part-5)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm5-part-1"></a>
+
+## 一、传播边界与表达式
+
+### 0. 文档定位
 
 FM-5 解决：
 
@@ -46,9 +46,7 @@ type traits
 container relocation
 ```
 
----
-
-## 1. `noexcept` 的精确含义
+### 1. `noexcept` 的精确含义
 
 ```cpp
 void f() noexcept;
@@ -58,11 +56,7 @@ void f() noexcept;
 
 > exception 不允许逃出 `f()`。
 
-不是：
-
-```text
-f 内部绝对没有 throw
-```
+不是：`f 内部绝对没有 throw`
 
 例如：
 
@@ -78,9 +72,7 @@ void f() noexcept {
 
 这是契约片段：`may_throw` 和 `recover` 未给出实现。内部抛出再捕获合法，但若 `recover()` 又抛出并越界，仍会终止；此例不证明恢复动作不会失败。
 
----
-
-## 2. 违反 `noexcept`
+### 2. 违反 `noexcept`
 
 如果异常试图逃出：
 
@@ -90,23 +82,13 @@ void f() noexcept {
 }
 ```
 
-则：
+则：`std::terminate()`
 
-```text
-std::terminate()
-```
-
-因此：
-
-```text
-noexcept
-```
+因此：`noexcept`
 
 是一项非常强的 runtime contract；它不保证正常完成或完整清理。终止与栈展开的边界见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
----
-
-## 3. `noexcept(expr)`
+### 3. `noexcept(expr)`
 
 `noexcept(expression)` 是不求值的编译期查询，判断**整个表达式**是否 potentially-throwing，不只是查看最外层被调函数有没有 `noexcept`。实参求值和临时对象等也参与判断。[N4950：expr.unary.noexcept](https://timsong-cpp.github.io/cppwp/n4950/expr.unary.noexcept)
 
@@ -122,9 +104,7 @@ static_assert(!noexcept(operation()));
 
 两次调用的函数相同，默认实参的求值却改变了结果。此例只需语法检查，不需要为未调用的函数补定义或链接入口。
 
----
-
-## 4. Conditional `noexcept`
+### 4. Conditional `noexcept`
 
 泛型代码：
 
@@ -137,15 +117,13 @@ void exchange(T& a, T& b)
 }
 ```
 
-这让高层 operation 的 exception specification：
+这让高层 operation 的 exception specification：`由底层 operation 推导`
 
-```text
-由底层 operation 推导
-```
+<a id="fm5-part-2"></a>
 
----
+## 二、移动与值复制
 
-## 5. `std::move` 不执行移动
+### 5. `std::move` 不执行移动
 
 `std::move(x)` 执行表达式转换，保留相应 cv 限定，不负责转移资源。对于初始化片段：
 
@@ -157,9 +135,7 @@ T y{std::move(x)};
 
 [完整正例 T03](review/fm-verification-samples.md#t03) 对照了没有移动构造的复制回退，以及 `std::move(const_object)` 选择复制。**未声明移动构造**与**显式声明 deleted 移动构造**不同；后者可能在重载决议中胜出后使初始化失败。
 
----
-
-## 6. Move 为什么特别适合 `noexcept`
+### 6. Move 为什么特别适合 `noexcept`
 
 典型 ownership type：
 
@@ -186,9 +162,7 @@ I/O
 
 因此 move 是非常适合 no-throw guarantee 的操作。
 
----
-
-## 7. Copy 与 Failure
+### 7. Copy 与 Failure
 
 复制拥有型缓冲区通常需要分配独立资源并复制内容。只写 `new std::byte[n]` 而不复制数据，不能实现这里约定的值复制。
 
@@ -255,9 +229,11 @@ int main() {
 
 分配仍可能抛出 `std::bad_alloc`；本例的字节复制本身不抛异常，已取得的资源由成员管理。T17 对复制构造和复制赋值检查完整长度与内容、存储独立及修改副本不影响源对象，另检查空对象和移出状态；不声称已经注入内存分配失败。这里使用比较两个完整区间的 `std::ranges::equal`，避免三迭代器版本只比较第一区间对应前缀而漏掉空值或截断复制。[N4950：alg.equal](https://timsong-cpp.github.io/cppwp/n4950/algorithms#alg.equal)
 
----
+<a id="fm5-part-3"></a>
 
-## 8. Container Relocation
+## 三、容器策略与类型条件
+
+### 8. Container Relocation
 
 假设：
 
@@ -267,11 +243,7 @@ old vector
 [A][B][C]
 ```
 
-扩容：
-
-```text
-new storage
-```
+扩容：`new storage`
 
 需要迁移元素。
 
@@ -283,25 +255,15 @@ copy B
 copy C throws
 ```
 
-旧：
-
-```text
-[A][B][C]
-```
+旧：`[A][B][C]`
 
 通常仍未改变。
 
 新 storage 可以销毁。
 
-这很有利于：
+这很有利于：`strong guarantee`
 
-```text
-strong guarantee
-```
-
----
-
-## 9. Throwing Move 的困难
+### 9. Throwing Move 的困难
 
 如果：
 
@@ -311,29 +273,15 @@ move B
 move C throws
 ```
 
-旧 storage 可能已经：
+旧 storage 可能已经：`[A_moved][B_moved][C]`
 
-```text
-[A_moved][B_moved][C]
-```
-
-此时：
-
-```text
-rollback
-```
+此时：`rollback`
 
 并不简单。
 
-因为把对象 move 回去：
+因为把对象 move 回去：`可能再次 throw`
 
-```text
-可能再次 throw
-```
-
----
-
-## 10. `std::move_if_noexcept`
+### 10. `std::move_if_noexcept`
 
 `std::move_if_noexcept(value)` 同样只产生引用，不执行构造或资源转移：
 
@@ -344,9 +292,7 @@ rollback
 
 后续初始化再通过重载决议选择操作；返回 `T&&` 也不证明存在或调用了移动构造。该工具有利于泛型算法选择复制回退，但不独自证明算法的异常保证。[N4950：forward](https://timsong-cpp.github.io/cppwp/n4950/utility#forward)
 
----
-
-## 11. Move-Only + Throwing Move
+### 11. Move-Only + Throwing Move
 
 删除复制而允许移动构造抛异常的类型没有复制回退。但“较弱保证”不能代替具体操作契约：
 
@@ -360,9 +306,7 @@ Cpp17CopyInsertable 是针对容器及其 allocator 的要求，不能只用“�
 
 本项是条款核对；定向测试没有穷尽容器异常注入或所有实现的失败后状态。
 
----
-
-## 12. Traits
+### 12. Traits
 
 常见：
 
@@ -377,21 +321,17 @@ std::is_nothrow_copy_assignable_v<T>
 
 它们不是纯 metaprogramming trivia。
 
-它们描述：
+它们描述：`generic algorithm 可以依赖哪些 failure properties`
 
-```text
-generic algorithm 可以依赖哪些 failure properties
-```
+<a id="fm5-part-4"></a>
 
----
+## 四、提交与组合保证
 
-## 13. `swap`
+### 13. `swap`
 
 `swap` 经常作为：
 
-```text
-commit primitive
-```
+`commit primitive`
 
 因此：
 
@@ -408,11 +348,11 @@ prepare
 → swap commit
 ```
 
-那么 swap 可抛异常会破坏整个模型。
+那么必须审查选中的 swap 的前置条件、异常与其他失败通道，以及 prepare 和收尾。
 
----
+可抛 swap 不能直接作为这种无失败提交原语；反过来，声明 `noexcept` 也不是 no-fail 的证明。完整状态论证只在 [FM-4 §5–7](fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式)维护，不能在本章缩成“一个 noexcept swap 就足够”。
 
-## 14. Defaulted Move
+### 14. Defaulted Move
 
 如果类型主要由标准 RAII members 组成：
 
@@ -437,9 +377,7 @@ Record(Record&&) noexcept = default;
 
 除非成员语义确实支持这一承诺。
 
----
-
-## 15. 不要对 `noexcept` 撒谎
+### 15. 不要对 `noexcept` 撒谎
 
 错误：
 
@@ -449,37 +387,21 @@ Object(Object&& other) noexcept {
 }
 ```
 
-如果 allocation 抛异常：
+如果 allocation 抛异常：`terminate`
 
-```text
-terminate
-```
-
-不是：
-
-```text
-move returned an error
-```
+不是：`move returned an error`
 
 因此：
 
 > `noexcept` 是 correctness contract，不是 performance annotation。
 
----
+### 16. Destructor 与 `noexcept`
 
-## 16. Destructor 与 `noexcept`
+没有显式异常规格的析构函数，其隐式规格依赖潜在构造子对象等规则，不能一概说“所有析构默认不抛”。这是语言性质；工程上仍应设计可靠的非传播清理边界。[N4950：except.spec](https://timsong-cpp.github.io/cppwp/n4950/except.spec)
 
-Destructor 应被设计为：
+Destructor 应被设计为：`non-throwing cleanup boundary`
 
-```text
-non-throwing cleanup boundary
-```
-
-不要通过：
-
-```text
-destructor exception
-```
+不要通过：`destructor exception`
 
 报告：
 
@@ -491,9 +413,7 @@ close handshake failed
 
 这些应在显式操作里报告。
 
----
-
-## 17. Generic Guarantee Composition
+### 17. Generic Guarantee Composition
 
 可以形成：
 
@@ -519,9 +439,13 @@ non-failing commit
 
 第二个式子还要求 prepare 不改变受保护状态，以及提交后的返回和清理不违背保证；具体条件见 [FM-4 §5](fm4-raii-exception-safety.md#5-strong-guarantee-的核心模式)。这两个式子是工程证明提纲，不是仅凭 noexcept 或 traits 就能完成的证明。
 
----
+<a id="fm5-part-5"></a>
 
-## 18. FM-5 Review Checklist
+## 五、审查与回查
+
+### 18. FM-5 Review Checklist
+
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] noexcept 是否是真实语义承诺？
@@ -536,9 +460,7 @@ non-failing commit
 [ ] 是否为了优化错误地扩大 noexcept？
 ```
 
----
-
-## 19. FM-5 核心不变量
+### 19. FM-5 核心不变量
 
 > `noexcept` 表示 exception 不会逃出函数。
 
@@ -549,7 +471,3 @@ non-failing commit
 > Throwing move 会限制 generic code 能提供的 strong guarantee。
 
 > `noexcept` 必须源于真实语义，而不是性能愿望。
-
----
-
----

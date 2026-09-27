@@ -1,35 +1,34 @@
-# FM-4 — RAII & Exception Safety
+<a id="fm-4--raii--exception-safety"></a>
+# FM-4 · 资源清理与状态保证
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-3](fm3-exception-semantics.md) · [下一章：FM-5](fm5-noexcept-move-copy.md)
+[返回 FM 导航](README.md) · [上一章：FM-3](fm3-exception-semantics.md) · [下一章：FM-5](fm5-noexcept-move-copy.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+唯一主讲 strong/basic/no-throw/no-fail 的区别、prepare–commit–cleanup 和可观察状态。其他章节引用本章，不另设保证等级。
+
+**主阅读线。** §1–7 → §10–17 → §18–19；用 §7 的状态表检查每个 mutation。
+
+**失败契约。** 先限定受保护状态，再枚举准备、提交、返回、清理各阶段。RAII 管理责任，不能代替业务回滚、远端确认或持久化协议。
+
+**证据边界。** 状态表与 swap 片段是条件化论证，不是已执行的全部失败注入；T17 只验证所列 Buffer 值语义，未注入分配失败。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. RAII 的真正含义](#1-raii-的真正含义)
-- [2. Owner Object](#2-owner-object)
-- [3. RAII 与 Control Flow 解耦](#3-raii-与-control-flow-解耦)
-- [4. Exception Safety Guarantees](#4-exception-safety-guarantees)
-- [5. Strong Guarantee 的核心模式](#5-strong-guarantee-的核心模式)
-- [6. Transactional Thinking](#6-transactional-thinking)
-- [7. Commit Point](#7-commit-point)
-- [8. Partial Construction](#8-partial-construction)
-- [9. Two-Phase Initialization](#9-two-phase-initialization)
-- [10. Rollback 不是免费操作](#10-rollback-不是免费操作)
-- [11. Copy-and-Swap](#11-copy-and-swap)
-- [12. Resource Acquisition 顺序](#12-resource-acquisition-顺序)
-- [13. Destruction 是 Cleanup Infrastructure](#13-destruction-是-cleanup-infrastructure)
-- [14. State Guarantee 必须组合分析](#14-state-guarantee-必须组合分析)
-- [15. Failure 与 Partial Side Effects](#15-failure-与-partial-side-effects)
-- [16. Ambiguous Completion](#16-ambiguous-completion)
-- [17. RAII 不等于 Transaction](#17-raii-不等于-transaction)
-- [18. FM-4 Review Checklist](#18-fm-4-review-checklist)
-- [19. FM-4 核心不变量](#19-fm-4-核心不变量)
+- [一、所有权与保证语言](#fm4-part-1)
+- [二、事务式状态转换](#fm4-part-2)
+- [三、清理与外部副作用](#fm4-part-3)
+- [四、审查与回查](#fm4-part-4)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm4-part-1"></a>
+
+## 一、所有权与保证语言
+
+### 0. 文档定位
 
 FM-4 解决：
 
@@ -49,71 +48,23 @@ transactional update
 
 共同构成 C++ failure safety。
 
----
+### 1. RAII 的真正含义
 
-## 1. RAII 的真正含义
+资源获取即初始化（Resource Acquisition Is Initialization，RAII）将清理／释放责任绑定到对象生命周期。Owner 可以管理内存、文件描述符、socket、锁、映射、GPU 资源或订阅，而不只是一种智能指针写法。
 
-RAII 不是：
+它统一正常返回、提前返回和实际展开中的资源清理；清理动作的成功条件、对象是否已完成构造，以及终止路径仍须分别分析。RAII 不自动恢复业务状态，也不保证关闭、flush 或持久化提交成功。
 
-```text
-智能指针
-```
+### 2. Owner Object
 
-也不只是：
+资源进入已构造的 owner 后，生命周期负责在应执行析构的退出路径调用清理：
 
 ```text
-自动释放内存
+获取资源 → 已构造 owner → 使用 → 正常退出／实际展开 → 析构清理
 ```
 
-而是：
+获取后尚未进入 owner 的窗口需要单独保护。进程终止、`std::exit` 等路径不能泛化成“所有自动对象都析构”；尤其本系列的终止与展开限制见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)及 [N4950 终止设施](https://timsong-cpp.github.io/cppwp/n4950/support.start.term)。
 
-> 将资源的所有权和有效期绑定到对象生命周期。
-
-资源可以是：
-
-```text
-memory
-file descriptor
-socket
-mutex
-transaction
-temporary file
-GPU buffer
-mapped memory
-subscription
-```
-
----
-
-## 2. Owner Object
-
-理想结构：
-
-```text
-acquire resource
-      ↓
-owner object constructed
-      ↓
-resource lifetime
-      ↓
-owner destructor
-      ↓
-release
-```
-
-因此：
-
-```text
-normal return
-early return
-exception
-```
-
-都经过相同 cleanup path。
-
----
-
-## 3. RAII 与 Control Flow 解耦
+### 3. RAII 与 Control Flow 解耦
 
 错误：
 
@@ -126,11 +77,7 @@ step_b();  // may throw
 release(resource);
 ```
 
-如果：
-
-```text
-step_b throws
-```
+如果：`step_b throws`
 
 release 被绕过。
 
@@ -143,49 +90,49 @@ step_a();
 step_b();
 ```
 
-cleanup 成为：
+cleanup 成为：`lifetime semantics`
 
-```text
-lifetime semantics
-```
-
-而不是：
-
-```text
-control-flow bookkeeping
-```
+而不是：`control-flow bookkeeping`
 
 这里以正常作用域退出或实际进行的栈展开为前提，不是所有终止路径的清理承诺；详见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
----
-
-## 4. Exception Safety Guarantees
+### 4. Exception Safety Guarantees
 
 以下是工程保证的术语，不应混成一个包含“终止”的线性等级。声明保证时应明确所覆盖的可观察状态、失败通道与前置条件。
 
-### No-throw Guarantee
+<a id="no-throw-guarantee"></a>
+
+**No-throw Guarantee**
 
 本系列用 no-throw 描述**不向调用者传播异常**的保证；它不等于 no-fail。`noexcept` 也不证明操作成功、正常返回或完成清理。
 
 若一个 commit 要求 no-fail，必须额外证明：合法前置条件下可正常完成，没有未处理的错误返回、异常或部分提交，后续返回与清理不会推翻声明的事务结果。终止进程不算完成这样的 commit。
 
-### Strong Guarantee
+<a id="strong-guarantee"></a>
+
+**Strong Guarantee**
 
 所约定的失败发生时，可观察状态与操作前一致。典型实现先准备临时状态再提交；外部副作用不因内存中的 swap 自动回滚。
 
-### Basic Guarantee
+<a id="basic-guarantee"></a>
+
+**Basic Guarantee**
 
 失败后不变量和资源管理仍成立，但值可能已改变。具体可继续执行哪些操作仍须由契约说明。
 
-### No Useful Guarantee
+<a id="no-useful-guarantee"></a>
+
+**No Useful Guarantee**
 
 对于关注的失败路径，缺少可依赖的状态保证，不能自行升级成 basic。某条标准写 effects unspecified 也不能简单改称 UB，见 [FM-5 §11](fm5-noexcept-move-copy.md#11-move-only--throwing-move)。
 
 终止是另一维度的处置策略；其清理限制见 [FM-3 §5](fm3-exception-semantics.md#5-stack-unwinding)。
 
----
+<a id="fm4-part-2"></a>
 
-## 5. Strong Guarantee 的核心模式
+## 二、事务式状态转换
+
+### 5. Strong Guarantee 的核心模式
 
 ```text
 prepare (may fail, original observable state unchanged)
@@ -212,9 +159,7 @@ void update(State& state, const Input& input) {
 
 因此 `noexcept swap` 是有用线索，不是独立的事务证明。
 
----
-
-## 6. Transactional Thinking
+### 6. Transactional Thinking
 
 状态修改操作应思考：
 
@@ -236,50 +181,28 @@ Cleanup
 
 后者极难提供 strong guarantee。
 
----
+### 7. Commit Point
 
-## 7. Commit Point
+提交点（commit point）是合同把准备结果接受为新状态的边界。它不是异常处理机制，也不自动证明原子性、持久化或跨线程可见性。
 
-每一个重要状态变更最好能够回答：
+以 §5 的隔离准备＋swap 为例，下表是**条件化推理**，不是已执行的故障注入记录：
 
-> commit point 在哪里？
+| 阶段 | 状态与责任 | 失败时可以声称什么 |
+| --- | --- | --- |
+| S0：进入 | state 满足不变量，明确受保护的观察范围 | 前置条件不成立的调用不在此证明内 |
+| S1：build_state | next 独立构造；state 尚未被改动 | 只有构造及清理满足条件，才可丢弃临时状态并保持旧 state |
+| S2：swap 提交 | 满足 swap 前提，且它确实完成、不半途报错 | 成功后新 state 生效；`noexcept` 一项不足以证明 no-fail |
+| S3：返回／清理 | 旧状态由 next 管理，调用者接收完成结果 | 若仍能报告失败，就不能同时许诺该失败意味着旧状态不变 |
 
-在 commit point 之前：
+因此，提交前“旧状态保持”必须由隔离准备证明；提交后“新状态有效”必须由提交与收尾证明。函数若在提交后返回错误，应明示已提交或完成未知，而不是复用“明确未提交”的错误。
 
-```text
-failure → discard temporary state
-```
+文件写入、消息发布和数据库操作也需找边界，但各自的持久化、部分副作用及确认协议不同。它们只是分析对象，不是用来证明内存 swap 合同的类比。
 
-之后：
+### 8. Partial Construction
 
-```text
-operation considered committed
-```
+RAII 的强大之处在于：`subobjects constructed one by one`
 
-尤其重要于：
-
-```text
-persistent storage
-message publish
-database mutation
-network protocol
-```
-
----
-
-## 8. Partial Construction
-
-RAII 的强大之处在于：
-
-```text
-subobjects constructed one by one
-```
-
-某一步失败后：
-
-```text
-already-constructed objects unwind automatically
-```
+某一步失败后：`already-constructed objects unwind automatically`
 
 委托构造体失败与普通成员构造失败的区别见 [FM-6 §3](fm6-construction-destruction-allocation.md#3-partial-construction)。
 
@@ -304,15 +227,9 @@ class Session {
 };
 ```
 
-后者创造大量：
+后者创造大量：`partially initialized states`
 
-```text
-partially initialized states
-```
-
----
-
-## 9. Two-Phase Initialization
+### 9. Two-Phase Initialization
 
 反模式：
 
@@ -345,9 +262,7 @@ auto widget = Widget::create(...);
 
 > 一个普通对象一旦存在，就满足其 invariant。
 
----
-
-## 10. Rollback 不是免费操作
+### 10. Rollback 不是免费操作
 
 不要简单设计：
 
@@ -362,11 +277,7 @@ undo B
 undo A
 ```
 
-因为：
-
-```text
-undo B 也可能失败
-```
+因为：`undo B 也可能失败`
 
 高质量 strong guarantee 更偏向：
 
@@ -378,9 +289,7 @@ non-failing commit
 
 而不是依赖复杂 rollback。
 
----
-
-## 11. Copy-and-Swap
+### 11. Copy-and-Swap
 
 经典形式：
 
@@ -417,9 +326,11 @@ performance tradeoff
 
 需要实际评估。
 
----
+<a id="fm4-part-3"></a>
 
-## 12. Resource Acquisition 顺序
+## 三、清理与外部副作用
+
+### 12. Resource Acquisition 顺序
 
 多个资源：
 
@@ -431,11 +342,7 @@ Buffer buffer = allocate_buffer();
 
 每一步成功后立刻进入 owner。
 
-那么：
-
-```text
-buffer acquisition fails
-```
+那么：`buffer acquisition fails`
 
 之前的：
 
@@ -455,15 +362,9 @@ file
 
 这样会扩大 failure window。
 
----
+### 13. Destruction 是 Cleanup Infrastructure
 
-## 13. Destruction 是 Cleanup Infrastructure
-
-Destructor 应：
-
-```text
-restore resource ownership balance
-```
+Destructor 应：`restore resource ownership balance`
 
 而不是承担复杂可能失败的业务事务。
 
@@ -482,21 +383,11 @@ database commit
 std::expected<void, CloseError> close();
 ```
 
-析构函数只做：
+析构函数只做：`non-throwing fallback cleanup`
 
-```text
-non-throwing fallback cleanup
-```
+### 14. State Guarantee 必须组合分析
 
----
-
-## 14. State Guarantee 必须组合分析
-
-高层操作的保证依赖：
-
-```text
-sub-operation guarantees
-```
+高层操作的保证依赖：`sub-operation guarantees`
 
 例如：
 
@@ -514,53 +405,13 @@ commit operation guarantee
 
 因此 generic code 不能脱离 `T` 的 semantics 宣称 guarantee。
 
----
+### 15. Failure 与 Partial Side Effects
 
-## 15. Failure 与 Partial Side Effects
+内存临时状态可以在未发布时丢弃；邮件已发送、付款已提交或消息已被确认，却可能没有恢复原状的逆操作。因此必须先限定 strong guarantee 所覆盖的状态，再描述外部效果。
 
-例如：
+回滚（rollback）恢复约定旧状态；补偿（compensation）用新动作补救已发生的效果，不保证历史被抹去，补偿自身也可能失败。无法保证全有或全无时，应明确部分进度、已提交范围及可重试条件，而不是把资源清理写成业务回滚。
 
-```text
-modify memory
-write disk
-send packet
-```
-
-其可回滚性质不同。
-
-内存临时对象通常：
-
-```text
-easy to discard
-```
-
-而外部副作用：
-
-```text
-email sent
-payment submitted
-Kafka message acknowledged
-```
-
-可能不可撤销。
-
-因此 strong guarantee 对：
-
-```text
-external world
-```
-
-并不总能实现。
-
-此时必须定义：
-
-```text
-partial commit semantics
-```
-
----
-
-## 16. Ambiguous Completion
+### 16. Ambiguous Completion
 
 典型：
 
@@ -570,17 +421,9 @@ server committed
 response lost
 ```
 
-调用者看到：
+调用者看到：`timeout`
 
-```text
-timeout
-```
-
-但实际：
-
-```text
-operation may already have succeeded
-```
+但实际：`operation may already have succeeded`
 
 这不是普通 strong/basic guarantee 能完全表达的。
 
@@ -594,39 +437,25 @@ query-after-failure
 transaction protocol
 ```
 
----
+### 17. RAII 不等于 Transaction
 
-## 17. RAII 不等于 Transaction
+RAII 可以保证：`resource cleanup`
 
-RAII 可以保证：
+但不能自动保证：`business state rollback`
 
-```text
-resource cleanup
-```
+例如：`File handle successfully closed`
 
-但不能自动保证：
-
-```text
-business state rollback
-```
-
-例如：
-
-```text
-File handle successfully closed
-```
-
-并不能回滚：
-
-```text
-已经写入磁盘的数据
-```
+并不能回滚：`已经写入磁盘的数据`
 
 两者必须分开。
 
----
+<a id="fm4-part-4"></a>
 
-## 18. FM-4 Review Checklist
+## 四、审查与回查
+
+### 18. FM-4 Review Checklist
+
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] 每个 resource 是否立即进入 owner？
@@ -643,9 +472,7 @@ File handle successfully closed
 [ ] failure 后 resource ownership 是否仍然唯一明确？
 ```
 
----
-
-## 19. FM-4 核心不变量
+### 19. FM-4 核心不变量
 
 > 所有资源都应该由对象生命周期拥有。
 
@@ -653,10 +480,6 @@ File handle successfully closed
 
 > Basic guarantee 至少要求 invariant 与 ownership 仍然正确。
 
-> RAII 保证资源安全，不自动保证业务事务原子性。
+> RAII 在适用生命周期路径履行资源清理责任；清理动作及其成功条件仍需审查，不自动保证业务事务原子性。
 
 > External side effect 必须单独定义 commit semantics。
-
----
-
----

@@ -1,40 +1,35 @@
-# FM-8 — Thread, Coroutine, ABI & Distributed Failure Boundaries
+<a id="fm-8--thread-coroutine-abi--distributed-failure-boundaries"></a>
+# FM-8 · 执行边界与恢复协议
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-7](fm7-error-code-system-error.md) · [下一章：FM-9](fm9-project-failure-profile.md)
+[返回 FM 导航](README.md) · [上一章：FM-7](fm7-error-code-system-error.md) · [下一章：FM-9](fm9-project-failure-profile.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+把局部失败放回线程、协程、回调、ABI、进程与远端操作中，明确观察点、报告后备、完成认知和恢复权限。
+
+**主阅读线。** §1–8 → §9–11 → §17–22；按实际集成边界回查 §12–16。
+
+**失败契约。** 异常被捕获或存入 future 不代表业务已恢复。超时、取消请求、实际停止与提交是不同事实；确认丢失时不能假定未提交后盲重试。
+
+**证据边界。** T12 是 join 后观察的最小例，T11 是报告再失败的受控终止；未做 TSan、完整协程、ABI 兼容或分布式故障实验。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. Boundary 的本质](#1-boundary-的本质)
-- [2. std::thread](#2-stdthread)
-- [3. std::jthread](#3-stdjthread)
-- [4. std::promise / std::future](#4-stdpromise--stdfuture)
-- [5. std::async](#5-stdasync)
-- [6. std::exception_ptr](#6-stdexception_ptr)
-- [7. Coroutine Failure](#7-coroutine-failure)
-- [8. Coroutine 不是自动 Result Type](#8-coroutine-不是自动-result-type)
-- [9. Cancellation ≠ Failure](#9-cancellation--failure)
-- [10. Timeout ≠ Cancellation ≠ Failure](#10-timeout--cancellation--failure)
-- [11. Shutdown 不是 Error Storm](#11-shutdown-不是-error-storm)
-- [12. Callback Boundary](#12-callback-boundary)
-- [13. C ABI](#13-c-abi)
-- [14. Plugin ABI](#14-plugin-abi)
-- [15. Process Boundary](#15-process-boundary)
-- [16. RPC Error Model](#16-rpc-error-model)
-- [17. Ambiguous Remote Completion](#17-ambiguous-remote-completion)
-- [18. Idempotency](#18-idempotency)
-- [19. Retry Budget](#19-retry-budget)
-- [20. Supervisor](#20-supervisor)
-- [21. Failure Domain Hierarchy](#21-failure-domain-hierarchy)
-- [22. Logging Boundary](#22-logging-boundary)
-- [23. FM-8 Review Checklist](#23-fm-8-review-checklist)
-- [24. FM-8 核心不变量](#24-fm-8-核心不变量)
+- [一、线程与异步观察](#fm8-part-1)
+- [二、取消、超时与关闭](#fm8-part-2)
+- [三、集成和远端边界](#fm8-part-3)
+- [四、恢复协议与影响范围](#fm8-part-4)
+- [五、审查与回查](#fm8-part-5)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm8-part-1"></a>
+
+## 一、线程与异步观察
+
+### 0. 文档定位
 
 FM-8 研究 failure 跨越执行边界时会发生什么：
 
@@ -51,17 +46,11 @@ RPC
 distributed side effect
 ```
 
-这些位置必须建立：
-
-```text
-failure containment
-```
+这些位置必须建立：`failure containment`
 
 而不是让失败无控制扩散。
 
----
-
-## 1. Boundary 的本质
+### 1. Boundary 的本质
 
 Boundary 表示：
 
@@ -87,9 +76,7 @@ RPC
 serialized protocol error
 ```
 
----
-
-## 2. `std::thread`
+### 2. `std::thread`
 
 异常逃出线程初始函数会终止进程；线程入口的 catch 内若再次抛出，同样可能越界。因此隔离必须包括报告路径。[N4950：except.terminate](https://timsong-cpp.github.io/cppwp/n4950/except.terminate)
 
@@ -121,9 +108,7 @@ int main() {
 
 [T11](review/fm-verification-samples.md#t11) 用人为编写的抛异常报告函数作受控终止反例，不是仓库生产实现的 bug 复现。
 
----
-
-## 3. `std::jthread`
+### 3. `std::jthread`
 
 `std::jthread` 改善：
 
@@ -134,27 +119,15 @@ cooperative stop
 
 但并不会自动把 thread exception 转回 caller。
 
-thread function 中异常逃出：
-
-```text
-同样不能依赖自动传播到创建者
-```
+thread function 中异常逃出：`同样不能依赖自动传播到创建者`
 
 应显式 containment。
 
----
+### 4. `std::promise` / `std::future`
 
-## 4. `std::promise` / `std::future`
+Future channel 保存值或异常；下面只说明通道使用方式，**不是完整的线程入口隔离实现**。
 
-Future channel 能够保存：
-
-```text
-value
-or
-exception
-```
-
-producer：
+生产端片段：
 
 ```cpp
 try {
@@ -164,25 +137,17 @@ try {
 }
 ```
 
-consumer：
+前提是 promise 有有效共享状态，且结果只被完成一次。catch 中的 `set_exception` 也可能因状态已就绪而抛出 `future_error`；它不是无条件可靠的报告后备。若工作在独立线程中执行，还须按 §2 把报告失败纳入边界。参见 [N4950：futures.promise](https://timsong-cpp.github.io/cppwp/n4950/futures.promise)。
+
+消费端：
 
 ```cpp
 auto value = future.get();
 ```
 
-`get()` 会重新观察 producer failure。
+`get()` 观察共享状态并可能重新抛出已保存异常；其使用也要满足 future 自身的有效性前提。把异常存进通道不等于恢复了工作对象，更不免除共享状态和所有权的生命周期管理。
 
-这是标准：
-
-```text
-cross-thread exception transport
-```
-
-模型。
-
----
-
-## 5. `std::async`
+### 5. `std::async`
 
 如果 asynchronous operation 通过 exception 失败，其 associated future 可以保存该异常，并在：
 
@@ -192,23 +157,13 @@ future.get()
 
 时重新抛出。
 
-因此：
+因此：`execution boundary`
 
-```text
-execution boundary
-```
-
-和：
-
-```text
-observation boundary
-```
+和：`observation boundary`
 
 可能不在同一线程。
 
----
-
-## 6. `std::exception_ptr`
+### 6. `std::exception_ptr`
 
 通用模型：
 
@@ -230,38 +185,23 @@ callback → event loop
 background operation → observer
 ```
 
----
+### 7. Coroutine Failure
 
-## 7. Coroutine Failure
-
-C++ coroutine 中，coroutine body 内未被用户代码捕获的 exception 会进入 coroutine promise 的：
+协程函数体内逃出用户 handler 的异常，由协程变换中的对应处理路径调用：
 
 ```cpp
 promise_type::unhandled_exception()
 ```
 
-因此：
+task 的 promise 可选择保存异常、转换结果或终止，因此 task 类型本身必须声明传播与观察政策。
 
-> coroutine type 的 `promise_type` 本身定义了重要 failure policy。
+这不覆盖协程建立过程的一切失败：帧分配、参数副本或 promise 构造等不能统称为“都交给 unhandled_exception”。初始 await 的异常也有单独规则；是否采用 allocation-failure hook 要看 promise 定义。主张仅限定函数体路径，依据 [N4950：dcl.fct.def.coroutine](https://timsong-cpp.github.io/cppwp/n4950/dcl.fct.def.coroutine)。本章不增加 task runtime 实现，也不声称已验证这些路径的执行矩阵。
 
-一个 task abstraction 可以选择：
-
-```text
-store exception_ptr
-store expected-like result
-terminate
-translate error
-```
-
----
-
-## 8. Coroutine 不是自动 Result Type
+### 8. Coroutine 不是自动 Result Type
 
 `co_await` / `co_return`：
 
-```text
-不自动规定 failure semantics
-```
+`不自动规定 failure semantics`
 
 failure 行为由：
 
@@ -274,23 +214,17 @@ scheduler
 
 共同决定。
 
-因此不能说：
+因此不能说：`coroutine 使用 exception`
 
-```text
-coroutine 使用 exception
-```
-
-或者：
-
-```text
-coroutine 使用 expected
-```
+或者：`coroutine 使用 expected`
 
 它取决于 coroutine abstraction。
 
----
+<a id="fm8-part-2"></a>
 
-## 9. Cancellation ≠ Failure
+## 二、取消、超时与关闭
+
+### 9. Cancellation ≠ Failure
 
 例如：
 
@@ -301,17 +235,9 @@ deadline cancelled
 task superseded
 ```
 
-可能不是：
+可能不是：`component error`
 
-```text
-component error
-```
-
-而是：
-
-```text
-control outcome
-```
+而是：`control outcome`
 
 因此应尽量区分：
 
@@ -330,32 +256,19 @@ error
 
 两状态模型覆盖所有情况。
 
----
+### 10. Timeout ≠ Cancellation ≠ Failure
 
-## 10. Timeout ≠ Cancellation ≠ Failure
+三个概念描述不同观察，不是天然互斥的错误码：
 
-这三个概念也应区分：
+| 概念 | 当前能知道什么 | 不能据此推断什么 |
+| --- | --- | --- |
+| Timeout | 在约定截止期内没有观察到所需完成结果 | 操作没有执行、没有提交或之后不会完成 |
+| Cancellation request | 请求停止／撤回后续工作 | 对方已停止、清理已完成或副作用已撤销 |
+| Failure | 没有达到所要求的成功结果，或观察到具体失败 | 不变量必然已坏，或一定可以原样重试 |
 
-```text
-timeout:
-    operation did not complete before deadline
+取消确认、工作终态和外部提交应另外建模。一个远端操作可能先提交、再丢失响应，调用者超时后又请求取消；这些事实可以同时成立。恢复权限与完成不确定性继续见 §17–19。
 
-cancellation:
-    caller requested stop
-
-failure:
-    operation cannot fulfill contract
-```
-
-timeout 后尤其可能出现：
-
-```text
-ambiguous completion
-```
-
----
-
-## 11. Shutdown 不是 Error Storm
+### 11. Shutdown 不是 Error Storm
 
 关闭过程中：
 
@@ -365,17 +278,9 @@ queue rejected
 operation cancelled
 ```
 
-很多都可能是：
+很多都可能是：`expected shutdown outcomes`
 
-```text
-expected shutdown outcomes
-```
-
-如果全部记录成 ERROR：
-
-```text
-observability signal distorted
-```
+如果全部记录成 ERROR：`observability signal distorted`
 
 成熟系统应区分：
 
@@ -385,9 +290,11 @@ vs
 expected shutdown cancellation
 ```
 
----
+<a id="fm8-part-3"></a>
 
-## 12. Callback Boundary
+## 三、集成和远端边界
+
+### 12. Callback Boundary
 
 框架调用：
 
@@ -416,9 +323,7 @@ framework catches?
 
 不能留成隐式假设。
 
----
-
-## 13. C ABI
+### 13. C ABI
 
 对外：
 
@@ -444,9 +349,7 @@ error struct
 opaque error handle
 ```
 
----
-
-## 14. Plugin ABI
+### 14. Plugin ABI
 
 插件环境还存在：
 
@@ -458,25 +361,15 @@ allocator mismatch
 exception ABI mismatch
 ```
 
-因此稳定 plugin ABI 通常应该拥有：
-
-```text
-explicit C-compatible boundary
-```
+因此稳定 plugin ABI 通常应该拥有：`explicit C-compatible boundary`
 
 或者严格控制整个 toolchain/runtime。
 
----
-
-## 15. Process Boundary
+### 15. Process Boundary
 
 Exception 无法跨 process 直接传播。
 
-必须：
-
-```text
-serialize failure
-```
+必须：`serialize failure`
 
 因此错误协议需要：
 
@@ -487,17 +380,11 @@ context
 retry semantics
 ```
 
-这就是为什么：
-
-```text
-internal C++ type hierarchy
-```
+这就是为什么：`internal C++ type hierarchy`
 
 不能直接成为 RPC error protocol。
 
----
-
-## 16. RPC Error Model
+### 16. RPC Error Model
 
 远程调用至少可能产生：
 
@@ -511,17 +398,15 @@ remote internal failure
 protocol incompatibility
 ```
 
-不要压成：
-
-```text
-RPC failed
-```
+不要压成：`RPC failed`
 
 否则上层无法制定 recovery policy。
 
----
+<a id="fm8-part-4"></a>
 
-## 17. Ambiguous Remote Completion
+## 四、恢复协议与影响范围
+
+### 17. Ambiguous Remote Completion
 
 最重要的分布式错误之一：
 
@@ -532,50 +417,21 @@ response lost
 caller times out
 ```
 
-现在：
+现在：`caller sees failure`
 
-```text
-caller sees failure
-```
+但：`side effect may have happened`
 
-但：
-
-```text
-side effect may have happened
-```
-
-因此：
-
-```text
-retry
-```
+因此：`retry`
 
 可能产生重复副作用。
 
----
+### 18. Idempotency
 
-## 18. Idempotency
+自动重试要先证明“重复执行不会产生不允许的额外效果”，或有可靠证据证明前次未提交。否则需要协议层去重、状态查询或补偿，不能只凭 timeout 再发一次。
 
-任何自动 retry 之前必须回答：
+Idempotency key、request ID 和 transaction token 只是协议材料：接收方如何绑定请求与副作用、保留记录多久、如何处理并发重复及确认丢失，才决定它们能保证什么。即使操作幂等，仍须检查 §19 的截止期、预算和关闭状态。
 
-```text
-operation idempotent?
-```
-
-如果不是：
-
-```text
-idempotency key
-request ID
-deduplication
-transaction token
-```
-
-通常是必要协议组成部分。
-
----
-
-## 19. Retry Budget
+### 19. Retry Budget
 
 Retry 不能无限：
 
@@ -599,29 +455,15 @@ retryable categories
 shutdown awareness
 ```
 
-这些都属于：
-
-```text
-recovery policy
-```
+这些都属于：`recovery policy`
 
 而不是底层 transport 自动行为。
 
----
+### 20. Supervisor
 
-## 20. Supervisor
+并发系统中：`worker`
 
-并发系统中：
-
-```text
-worker
-```
-
-应尽量只：
-
-```text
-detect/report local failure
-```
+应尽量只：`detect/report local failure`
 
 更高层 supervisor：
 
@@ -634,9 +476,7 @@ stop process?
 
 这样 recovery authority 清晰。
 
----
-
-## 21. Failure Domain Hierarchy
+### 21. Failure Domain Hierarchy
 
 一个服务可以定义：
 
@@ -654,11 +494,7 @@ process
 service
 ```
 
-每种 error 必须知道：
-
-```text
-maximum blast radius
-```
+每种 error 必须知道：`maximum blast radius`
 
 例如：
 
@@ -673,15 +509,9 @@ central invariant corruption
     → process
 ```
 
----
+### 22. Logging Boundary
 
-## 22. Logging Boundary
-
-一个 failure 如果沿五层传播：
-
-```text
-不要每层都 ERROR log
-```
+一个 failure 如果沿五层传播：`不要每层都 ERROR log`
 
 否则：
 
@@ -699,9 +529,13 @@ decision boundary:
     emit final log/metric
 ```
 
----
+<a id="fm8-part-5"></a>
 
-## 23. FM-8 Review Checklist
+## 五、审查与回查
+
+### 23. FM-8 Review Checklist
+
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] exception 是否可能逃出 thread entry？
@@ -721,9 +555,7 @@ decision boundary:
 [ ] log 是否集中在 decision boundary？
 ```
 
----
-
-## 24. FM-8 核心不变量
+### 24. FM-8 核心不变量
 
 > Thread、ABI、process、RPC 都是 failure boundaries。
 
@@ -734,7 +566,3 @@ decision boundary:
 > Remote timeout 不能证明 remote operation 没有执行。
 
 > 并发系统应明确 supervisor 和 failure domain。
-
----
-
----

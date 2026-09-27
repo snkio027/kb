@@ -1,132 +1,73 @@
-# FM-2 — Value-Based Failure
+<a id="fm-2--value-based-failure"></a>
+# FM-2 · 值通道与错误类型
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-1](fm1-contracts-assertions-ub.md) · [下一章：FM-3](fm3-exception-semantics.md)
+[返回 FM 导航](README.md) · [上一章：FM-1](fm1-contracts-assertions-ub.md) · [下一章：FM-3](fm3-exception-semantics.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+主讲合法 absence、失败值、错误对象和组合条件。是否恢复由策略决定；是否 strong 或 no-throw 要回到状态与完整表达式。
+
+**主阅读线。** §1–8 → §10–16 → §19–21；先理解调用者要做什么决策，再选类型。
+
+**失败契约。** 错误返回同样是正常返回分支；记录 T/E 构造能否抛出、错误时受保护状态是否变化，以及按值资源能否返还。
+
+**证据边界。** 正文 T18/T19 分别检查纯内存管道与所有权返还；T06–T10/T16 在附录。它们不验证真实 I/O 或所有 monadic 重载。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. bool](#1-bool)
-- [2. Sentinel](#2-sentinel)
-- [3. std::optional<T>](#3-stdoptionalt)
-- [4. std::expected<T, E>](#4-stdexpectedt-e)
-- [5. std::expected<void, E>](#5-stdexpectedvoid-e)
-- [6. Error Type 设计](#6-error-type-设计)
-- [7. Error Identity 与 Diagnostics 分离](#7-error-identity-与-diagnostics-分离)
-- [8. Error Type 应位于正确抽象层](#8-error-type-应位于正确抽象层)
-- [9. 返回 std::unexpected](#9-返回-stdunexpected)
-- [10. 手动传播](#10-手动传播)
-- [11. Monadic Composition](#11-monadic-composition)
-- [12. .value() 与 operator*](#12-value-与-operator)
-- [13. expected 不是引用容器](#13-expected-不是引用容器)
-- [14. expected 不自动意味着 noexcept](#14-expected-不自动意味着-noexcept)
-- [15. expected 不自动提供 Strong Guarantee](#15-expected-不自动提供-strong-guarantee)
-- [16. Ownership 必须随失败语义明确](#16-ownership-必须随失败语义明确)
-- [17. Value-Based Failure 的成本模型](#17-value-based-failure-的成本模型)
-- [18. Value-Based Failure 的适用区域](#18-value-based-failure-的适用区域)
-- [19. Anti-Patterns](#19-anti-patterns)
-- [20. FM-2 Review Checklist](#20-fm-2-review-checklist)
-- [21. FM-2 核心不变量](#21-fm-2-核心不变量)
+- [一、结果空间与表示](#fm2-part-1)
+- [二、错误类型与传播](#fm2-part-2)
+- [三、组合条件与状态责任](#fm2-part-3)
+- [四、成本、反例与回查](#fm2-part-4)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm2-part-1"></a>
 
-FM-2 解决：
+## 一、结果空间与表示
 
-> 当失败属于正常、可恢复的运行时结果时，如何把它设计成一个高质量的 C++ 值？
+### 0. 文档定位
 
-Value-based failure 的基本形式：
+本章主讲如何把操作结果设计成值：成功值、合法 absence 和结构化错误分别携带调用者需要的信息。值通道并不要求每种失败都能就地恢复；它也可以把事实交给更高层决定拒绝或终止。
 
-```text
-Result
-=
-SuccessValue | FailureValue
-```
-
-其特点是：
-
-```text
-失败沿普通 return path 传播
-```
-
-而不是通过异常控制流传播。
-
-主要工具：
-
-```text
-bool
-sentinel
-enum/status
-std::optional<T>
-std::expected<T, E>
-std::error_code
-```
-
-其中 C++23 的核心抽象是：
+核心形式是 `SuccessValue | FailureValue`，主要通过普通 return path 传播。C++23 的主要工具之一是：
 
 ```cpp
 std::expected<T, E>
 ```
 
----
+`bool`、sentinel、enum/status、`optional` 与 `error_code` 仍有各自用途。选型依据是结果语义、调用者决策与边界，不是“越新的类型越好”。
 
-## 1. `bool`
+### 1. `bool`
 
-最简单的失败接口：
+<a id="bool-不适合"></a>
+
+接口片段：
 
 ```cpp
 bool try_push(Item item);
 ```
 
-表达：
-
-```text
-true  → success
-false → failure
-```
-
-当失败原因对调用者没有决策价值时，`bool` 可以是非常优秀的设计。
-
-例如：
+只有该接口明确约定时，true／false 才分别表示入队成功／拒绝；失败后的 item 所有权还要单独说明。下列两个 bool 接口表达的又是不同结果：
 
 ```cpp
 bool try_lock() noexcept;
 bool contains(Key key) const;
 ```
 
-不要形成：
+`contains` 的 false 通常是合法的否定答案，不是一次查询失败；`try_lock` 未取得锁也可以是正常竞争结果。返回类型本身不定义 failure taxonomy。
 
-```text
-现代 C++ = 所有错误都必须 expected
-```
-
-这种机械规则。
-
-### `bool` 不适合
-
-如果调用者需要区分：
-
-```text
-not_found
-permission_denied
-timeout
-invalid_data
-resource_exhausted
-```
-
-那么：
+当调用者只需要二分决策时，bool 足够；如果还需要区分不存在、权限、超时或资源耗尽，则：
 
 ```cpp
 bool open();
 ```
 
-已经丢失必要语义。
+会丢掉必要语义，应选择能携带原因的接口。
 
----
-
-## 2. Sentinel
+### 2. Sentinel
 
 传统接口经常：
 
@@ -151,11 +92,7 @@ failure domain
 共享同一个值空间
 ```
 
-调用者必须额外知道：
-
-```text
-哪些值不是普通值
-```
+调用者必须额外知道：`哪些值不是普通值`
 
 现代 API 如果能够表达为：
 
@@ -173,15 +110,11 @@ std::string::npos
 
 仍然是完全合法并广泛使用的设计。
 
----
-
-## 3. `std::optional<T>`
+### 3. `std::optional<T>`
 
 `std::optional<T>` 表达：
 
-```text
-T | absence
-```
+`T | absence`
 
 例如：
 
@@ -207,7 +140,9 @@ search result
 cache miss
 ```
 
-### 核心规则
+<a id="核心规则"></a>
+
+**核心规则**
 
 > `optional` 应表达 absence，而不是把多个 failure reason 压缩成“没有值”。
 
@@ -228,9 +163,7 @@ I/O failure
 
 那么信息模型通常过弱。
 
----
-
-## 4. `std::expected<T, E>`
+### 4. `std::expected<T, E>`
 
 C++23：
 
@@ -238,11 +171,7 @@ C++23：
 std::expected<T, E>
 ```
 
-直接表示：
-
-```text
-T | E
-```
+直接表示：`T | E`
 
 即：
 
@@ -275,9 +204,7 @@ or
 ParseError
 ```
 
----
-
-## 5. `std::expected<void, E>`
+### 5. `std::expected<void, E>`
 
 并非所有成功操作都有返回值。
 
@@ -304,15 +231,15 @@ bool save(...);
 
 提供更丰富的失败语义。
 
----
+<a id="fm2-part-2"></a>
 
-## 6. Error Type 设计
+## 二、错误类型与传播
+
+### 6. Error Type 设计
 
 `expected` 的质量主要取决于：
 
-```text
-E 的设计
-```
+`E 的设计`
 
 而不是 `expected` 本身。
 
@@ -334,9 +261,9 @@ enum class ParseError {
 错误对象需要非常轻量
 ```
 
----
+<a id="61-带结构化-context"></a>
 
-### 6.1 带结构化 Context
+**6.1 带结构化 Context**
 
 如果 recovery 或 diagnostics 需要更多信息：
 
@@ -361,9 +288,7 @@ std::string error;
 
 更适合机器决策。
 
----
-
-## 7. Error Identity 与 Diagnostics 分离
+### 7. Error Identity 与 Diagnostics 分离
 
 推荐：
 
@@ -382,11 +307,7 @@ struct FileError {
 };
 ```
 
-其中：
-
-```text
-code
-```
+其中：`code`
 
 用于：
 
@@ -396,11 +317,7 @@ recovery
 metrics
 ```
 
-而：
-
-```text
-path / message
-```
+而：`path / message`
 
 用于：
 
@@ -417,21 +334,11 @@ if (error.message == "file not found")
 
 成为程序控制流。
 
----
+### 8. Error Type 应位于正确抽象层
 
-## 8. Error Type 应位于正确抽象层
+底层可能产生：`ECONNRESET`
 
-底层可能产生：
-
-```text
-ECONNRESET
-```
-
-业务层真正关心：
-
-```text
-RepositoryError::unavailable
-```
+业务层真正关心：`RepositoryError::unavailable`
 
 因此：
 
@@ -451,9 +358,7 @@ repository error
 
 不要每一层机械包装一次错误。
 
----
-
-## 9. 返回 `std::unexpected`
+### 9. 返回 `std::unexpected`
 
 典型模式：
 
@@ -481,9 +386,7 @@ return std::unexpected(error);
 
 让两个通道在类型上明确区分。
 
----
-
-## 10. 手动传播
+### 10. 手动传播
 
 C++23 没有 Rust `?` 一样的语言级传播操作符。
 
@@ -505,9 +408,11 @@ return decode(*header);
 
 如果错误类型相同，直接传播即可。
 
----
+<a id="fm2-part-3"></a>
 
-## 11. Monadic Composition
+## 三、组合条件与状态责任
+
+### 11. Monadic Composition
 
 `and_then` 的回调返回 `expected`，而且其 `error_type` 必须与当前对象相同；`or_else` 则须保留 `value_type`。还要根据对象的 cv/ref 类别检查回调参数以及成功值、错误值的构造要求。它们不是任意类型或错误域的自动连接器。[N4950：expected.object.monadic](https://timsong-cpp.github.io/cppwp/n4950/expected.object.monadic)
 
@@ -564,9 +469,7 @@ int main() {
 
 若用 `or_else` 选择备用配置，当前层必须有资格决定 fallback，并检查备用操作本身的失败。不同 E 直接串联的编译失败反例与最小转换正例见 [T08 / T09](review/fm-verification-samples.md#t08)。
 
----
-
-## 12. `.value()` 与 `operator*`
+### 12. `.value()` 与 `operator*`
 
 本节按 C++23 最终草案 N4950 的 `expected<T, E>`（非 void）重载说明：
 
@@ -583,9 +486,7 @@ int main() {
 
 附件报告观察到 libstdc++ 14 接受 T16；这是相对于所选 N4950 基线的实现差异，不是可移植许可。本机结果另记在[修订与验证记录](review/fm-review-7869082.md)，不覆盖历史观测。
 
----
-
-## 13. `expected` 不是引用容器
+### 13. `expected` 不是引用容器
 
 C++23 不允许：
 
@@ -595,11 +496,7 @@ std::expected<T&, E>
 
 实例化 `expected` 的 value type 不能是引用类型。
 
-如果需要表达：
-
-```text
-reference or error
-```
+如果需要表达：`reference or error`
 
 可以考虑：
 
@@ -621,9 +518,7 @@ lifetime
 ownership
 ```
 
----
-
-## 14. `expected` 不自动意味着 `noexcept`
+### 14. `expected` 不自动意味着 `noexcept`
 
 例如：
 
@@ -644,39 +539,21 @@ error construction
 
 甚至 `expected` 自己的某些操作也依赖 `T` 和 `E` 的构造/移动属性。
 
-因此：
+因此：`value-based failure`
 
-```text
-value-based failure
-```
-
-和：
-
-```text
-exception-free implementation
-```
+和：`exception-free implementation`
 
 不是同义词。
 
----
-
-## 15. `expected` 不自动提供 Strong Guarantee
+### 15. `expected` 不自动提供 Strong Guarantee
 
 ```cpp
 std::expected<void, Error> update(State& state);
 ```
 
-只说明：
+只说明：`failure transport = expected`
 
-```text
-failure transport = expected
-```
-
-并没有说明：
-
-```text
-state after failure
-```
+并没有说明：`state after failure`
 
 可能是：
 
@@ -688,9 +565,7 @@ partial commit
 
 必须单独写入 API contract。
 
----
-
-## 16. Ownership 必须随失败语义明确
+### 16. Ownership 必须随失败语义明确
 
 按值接收 `std::unique_ptr<Job>` 意味着调用时所有权进入参数。失败后是销毁、保留在队列，还是返还调用者，必须属于 API 契约。
 
@@ -725,43 +600,17 @@ int main() {
 
 错误对象因此是 move-only。继续组合时也必须检查所选重载能否移动／复制错误；`value()` 的特殊要求见 [§12](#12-value-与-operator)。这里的所有权保证来自具体实现，不是 `expected` 自动提供的。
 
----
+<a id="fm2-part-4"></a>
 
-## 17. Value-Based Failure 的成本模型
+## 四、成本、反例与回查
 
-通常：
+### 17. Value-Based Failure 的成本模型
 
-```text
-success/error discriminator
-+
-max(sizeof(T), sizeof(E))
-```
+值通道的对象成本可以用“分支判别信息＋T/E 的内部存储”理解，但不是标准布局公式：大小还受对齐、填充、空类型及实现策略影响，不能直接用 `tag + max(sizeof(T), sizeof(E))` 推算 ABI。
 
-构成主要对象存储模型。
+`expected` 在自身对象中保存值或错误；T/E 的构造、复制和诊断字段仍可能分配或抛出。热路径可考虑小 enum/code 与 offset/id，在边界附加详细上下文。这里是成本分析方法，没有 benchmark 结果，也不以值通道必然快于异常作为结论。
 
-`std::expected` 自身将 value/error 存储在对象内部；但 `T` 和 `E` 自己当然仍可能动态分配。
-
-因此热路径 error type 应避免无理由携带：
-
-```text
-large strings
-large containers
-heavy diagnostic objects
-```
-
-更常见：
-
-```text
-small enum/code
-+
-offset/id
-```
-
-详细 context 可以在边界层附加。
-
----
-
-## 18. Value-Based Failure 的适用区域
+### 18. Value-Based Failure 的适用区域
 
 优先考虑：
 
@@ -779,11 +628,11 @@ explicit business failures
 
 > 调用者自然需要立即根据失败类别分支。
 
----
+### 19. Anti-Patterns
 
-## 19. Anti-Patterns
+<a id="所有东西都返回-expected"></a>
 
-### 所有东西都返回 `expected`
+**所有东西都返回 `expected`**
 
 错误：
 
@@ -794,7 +643,9 @@ programmer invariant violation
 
 这可能隐藏 bug。
 
-### `optional` 吞掉错误原因
+<a id="optional-吞掉错误原因"></a>
+
+**`optional` 吞掉错误原因**
 
 ```text
 network timeout
@@ -803,7 +654,9 @@ network timeout
 
 丢失重要语义。
 
-### `string` 作为错误身份
+<a id="string-作为错误身份"></a>
+
+**`string` 作为错误身份**
 
 ```cpp
 std::expected<T, std::string>
@@ -811,7 +664,9 @@ std::expected<T, std::string>
 
 可以用于小型应用，但不应默认成为大型系统错误协议。
 
-### Error Type 绑定底层实现
+<a id="error-type-绑定底层实现"></a>
+
+**Error Type 绑定底层实现**
 
 业务 API：
 
@@ -821,7 +676,9 @@ std::expected<User, int /* errno */>
 
 泄漏系统实现。
 
-### `.value()` 到处使用
+<a id="value-到处使用"></a>
+
+**`.value()` 到处使用**
 
 如果逻辑已经围绕 `expected` 设计，应正常分支或组合，而不是：
 
@@ -831,9 +688,9 @@ auto x = result.value();
 
 把 value-based failure 再偷偷转换成 exception。
 
----
+### 20. FM-2 Review Checklist
 
-## 20. FM-2 Review Checklist
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 ```text
 [ ] absence 与 failure 是否区分？
@@ -852,9 +709,7 @@ auto x = result.value();
 [ ] monadic chain 是否保持了清晰的 recovery boundary？
 ```
 
----
-
-## 21. FM-2 核心不变量
+### 21. FM-2 核心不变量
 
 > `optional` 表达 absence，`expected` 表达 success-or-failure。
 
@@ -865,7 +720,3 @@ auto x = result.value();
 > Failure type 必须与 abstraction boundary 对齐。
 
 > Error transport 与 ownership 必须一起设计。
-
----
-
----

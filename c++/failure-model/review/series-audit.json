@@ -1,0 +1,665 @@
+{
+  "base": "3c6dce94144213e77be98508cceb9c2631113ad6",
+  "status": "PASS",
+  "scope": "FM editorial structure / exact C++ payload / legacy targets",
+  "script_sha256": "2e8e852e20714dd9f4ec89a9523f951464c7a7dc129c07c62333e9d7e310c5d4",
+  "chapters": [
+    {
+      "file": "c++/failure-model/fm0-failure-model.md",
+      "before_sha256": "eb2a2eb53d18244c9fb875ad8ab224641acbc779ee2c6c96bd37f1d1c6f3b0aa",
+      "after_sha256": "bc0f0f17b13fe4111a91cbbbf9791d557e3d30d9f23de11e0cd2f67ae194f243",
+      "before_lines": 2831,
+      "after_lines": 2104,
+      "before_h2": 67,
+      "after_h2": 11,
+      "legacy_anchor_count": 138,
+      "cpp_blocks": 37,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "8734b763f890cc01d432d81fb2f0bba69726e2856da63890ed71162d38443f03",
+        "98677fd29bc552fe5b51f706c6200fe3b8800b6128df41e277af304e701d37d3",
+        "e91a8dce281d406de9c38f6667bee9d53b40b6f3fbcdb1efb61446e5106d93ad",
+        "8f05256d87c7a6ae19f7935c76cc1af4def31a676239c407920ae4246d55bd89",
+        "44f5877c87d750f7b377fe1916d40668cb3802a0e16a8be7b3468d17cbd83299",
+        "d70045b093f16532e6e108c41aefdcf346b0f46b92e16a933044e94cb5a87a53",
+        "c8bec887e79001fc5c2575a7636ef917a5fc0b547160b770df3c180a9ccaf8c7",
+        "be5c331efbc6a7ca8538805d7bace68dcb89780366284238562cf3d47bd31a43",
+        "be5c331efbc6a7ca8538805d7bace68dcb89780366284238562cf3d47bd31a43",
+        "e695c4b6c4477d83bf29ff875a1b8de01bea57889f27101a9b376dda37777c52",
+        "ba1a0d10c4d008de4d6476c2f7e127d8f2a43152f242b19c77f98a9a979025e5",
+        "3d6d63b126f14bdb6e36c4d36c6fbe7d560da30608331d08ed47846b01bd3736",
+        "56129c99241911c91b9e63e476b9391fc211bbc98750dbceb782594ce18b12fe",
+        "8389ff0bd889e905772451d57c98b1223fd98daa77aab140c2fba7ebe0f8cf0d",
+        "e570ff09456fc34e6f105f99a7536126b806e26ae7fa538c74f1590ad64441a8",
+        "1f3a5b3a9e22afd994dc5612cabbb4c4d4ffebec1f08eb5acbba9680959ebe0d",
+        "7a14af6df3c7b4b5fc78fc44af50d7b191750c686ed67c884738e434e82cb73f",
+        "bed54b8fa86f68e5d608eddb61edfbac499169b357aadd2dd3f1c0c5dafd368b",
+        "72145bf724e90a24c7597f84d00887f1c53e45f4f7f6b91b3100dfd079daae8f",
+        "0a3cac09e9edb3807e0c0b8286a5afeb9026896d0204f9437ab57a04a2ed8a15",
+        "5ff64c660b99df98c1ced1addc0bf4abec70efa87bfcbebe0dcaacaabd57b2d5",
+        "f6366c939ec2b35c85d28cb921b0418e9533b46e675623e0b8d37857e15b253e",
+        "3335a495363baf9950dca9f6bb3cba5ca628397f5e88ee50455075b41da4531d",
+        "0fb92f6fd70045e835aec53d4d0630e1cbdddd4f817bf329a978edc7c46012ab",
+        "f14b25e7e10616dd9021c1bb53107e54078a2d0c646630a4b45374421536677e",
+        "f14b25e7e10616dd9021c1bb53107e54078a2d0c646630a4b45374421536677e",
+        "83172da875d85c8265eaf606b8864105762b20eabce1ab0092c2d84791ea97f4",
+        "a0330c0cd3ac783d5367cf7d8b160d4d59ba50499d49eddf30d9695add5f98b8",
+        "3f4f37e89011689daaba3816df0643c1b7b14ecd9f301f897d90b31a5c206f77",
+        "33dce13b34167498bdd17c3ca7885b5a150a0cf48a1110c9ba23b93086ab7900",
+        "de15b1a102f0339a75753c1fdd8f3cad8faa36e1f4a2b95f5bd39e4afda3c698",
+        "5a663ed2725cda0ccb918d43878796fae1eb18e62980286382171b9ad26e7f3b",
+        "bf0308ea31ac8e50c4e351dee501fe0e14d5f7bf9cc8a02a23762a497db62328",
+        "f15ec5c8696d5cdba569a2da0fe23ef0342c9bb2525d209c92e0647e8d0c572f",
+        "be027e2af76f07af7c46880398f76cd7af9e854d5353bf9db5b629638ded7cdb",
+        "7fa1f18cd5b071987a997a1c3f14b1b1657aa476a56c8c91c4f776e37cb9e802",
+        "b7cacbb71715689fc717b077befaffc958fa35203d434000e1cc212c8dedfdbc"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm1-contracts-assertions-ub.md",
+      "before_sha256": "12d7315ffea5530391520c11b63f9a13b88cc6f8096399a8888bed98a167766c",
+      "after_sha256": "703c20bf9f58a91eb87eec0b9d62529a026a0d335d6640463ad8df996e776453",
+      "before_lines": 2023,
+      "after_lines": 1572,
+      "before_h2": 51,
+      "after_h2": 8,
+      "legacy_anchor_count": 86,
+      "cpp_blocks": 58,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "0b871aa03e0992ff1ff5014b99bb8d746b0bd1dfffaa79f2fc62315fc0b8d693",
+        "7177df8c4a69bb3dba3658166982241a7d6ddc3e4b2427da206cdb67bd14701a",
+        "7e00a31fbeaf24669e1765b5afdd80b61884307ce6052761d8d758d0cb145b26",
+        "906d77fd1370212e47026972b4a7950309c537431c78fc94e78088cad65ab13b",
+        "0f2130d5972015cb377fe2995b8c5a433a93091f15b131d756584b40137a5bdb",
+        "97577270245fba20d0dfd4997b02ddeedaba2fd5fc9642b25674bc8848f23612",
+        "0b871aa03e0992ff1ff5014b99bb8d746b0bd1dfffaa79f2fc62315fc0b8d693",
+        "817ec939086b7e7dd71a56e6bd0b18df419ca2ebca9df4a341755d89e22a932f",
+        "b972c9ed749139882a4a7437dd8ec4fc2aa2805a7defb6da5c6b8403f3cef069",
+        "ff6980211159fcb0b785aa2f1cc8f372a70483920a0366f4bbb7dcb970f45cad",
+        "d9ce8e9f4d816a1525c6db6d8231921340560ba176bca8b4e0494ddcfef5ff98",
+        "3d371493bbc6972c0816a2be7144b7a8859ea395e3e4acaa12b5ed5486077d1c",
+        "eb0815772468174c6f3946e11207161fa9de63740dacc7ec8236d25aef755612",
+        "b02f184c158d6c9b2b811555c65a025c1df266cb6eb198f6669c3e11a4b4021a",
+        "a6be7197f4dd8e7626bcff561dbe60d5858f5336904d507b0a5b094790b0e171",
+        "2600fcbc39ac51e4470e576f4299b119999ba1081c8b16de0f3b3d295620a07b",
+        "a9757947c8a0b5123bc50ddb247c20cff7778cf4820b830168f6a34f961cd999",
+        "e3b5044399a096b703032015e71b95af49bd47889f5667e1d042ed3db53be582",
+        "399f49b9e9c93f6ce756da22001086c012edd22af5f544b170fea10fe10fcc9d",
+        "40b25d1e8ca84c781ac4284b9884beff64cbcb1e3dba7fb3110be160f9116d62",
+        "7bf50e425eb790015b33af1703a62dd3769075334f2b13af0cdcf812f37088b5",
+        "ace61f0aea480a5c57910ab59d3c33c69f19fb94bb21cace3036312d1423b978",
+        "4d3d453a9e0ede3ba7b1aa3195e50192831c862c8886f0f506d4e46f5aab9ab3",
+        "519cd9aee94a76f334c53f31f501548da1158cf94b4b912ad80c1aa1b5bf6fa4",
+        "146ad6a3f7d75b2d2716e1531a2d7f1e1020d7bda78ace339bcedbcf30b77656",
+        "a0ec75f4567b22b545b1cd2a7cd10a14df8ae647302cc8133ddfa8eaf2dd09c4",
+        "c42d752c18b595f6441ed61e769e0da9d61412a7a1665b4895c3010cb4001ef8",
+        "901551cf333a390ebe5a35a7e6cf3db236d8ace2612153ea8d177dc86aea56a3",
+        "036ac90fbbb1103b6aac0c55c65486566fef117462e6ea30c5994c1149d8a088",
+        "4ae3558456e07eb1d8e690dd83a3ff162ab365054870aeedefece3a603bfaba0",
+        "ffe83490a8039b19228d2b32b81b4f50db437e4c607998716a3305c0b134a67a",
+        "ebd88a646af8ccba29d4713edcd7bc95b71c44cf3cd2919f8ec5118b3151d80e",
+        "3b6534b2b3833fff90f1ccf9da6bc73e301c2deca861644f02b6b3267a27b5f3",
+        "f5bca1df2397c24220a9078efb296c231d17a771031e1b020b042f4c9c6d9a5e",
+        "86ba719a73eea30af34ef549343de6101d2b19921eddab9767b68b22f245a612",
+        "20e3818eccf1b61540a2d5491733ccf67e3693629a0c9d9569f360f905a5c44f",
+        "a30a6a981a1b30e020dd1ba785d2ca32eb66889c677bfe515026619c004c4178",
+        "0aa82210401d07d3800960c21e0a4254ebb908ec881329ad18a9dd0f0793d729",
+        "0a2bb40acd19d0848fa6653f39a177181b1a6affa9915c59cce27ee0967319d2",
+        "4ebf54e301ea54b32809290bb8fc42800699ab13a36182d8e6449c325125204e",
+        "c42d752c18b595f6441ed61e769e0da9d61412a7a1665b4895c3010cb4001ef8",
+        "9ea16f32c0a01b70cb92ea668bf46e786b25ca9d126be675368bc6d9868e81bf",
+        "234da95961e991a773e9d89647685c205c7f159ca8b46cef8e7ba4d06f98aecb",
+        "8304736390451f381f6f36e5f84d591f188cc86a9644a7bae18c03ed63b3c45a",
+        "9e3c543f26614752fa1b558512c949ac2f804bc1682af0d9fd5e38874ad932ec",
+        "4f823270fcf446e05e9269b33cdc3bb517ab677bd004e4d7f8df02e52c15428a",
+        "42fb151f6fab029b0f747c01928e2a56cdceee0a61c0bd0e22766d19d46c5eba",
+        "de174bf5c40637773baddd3afd65480ce2e5494b782754a97cf404583aac6043",
+        "e2d8541cd1f4760416ca4a49649dc3fee955d859bff3eddda286572075952aa4",
+        "12a1194e1bba71f000a74f9ae00585d36ec7f61dac8addff32d858adc36d1e80",
+        "96e760c227236046fb8162027d2a1b701cc2e5a1e6c1e5bcd4206889b2e4cc96",
+        "519cd9aee94a76f334c53f31f501548da1158cf94b4b912ad80c1aa1b5bf6fa4",
+        "ad3a7cf99e16dcb8761e37657188ca9874eb1db2e1a2f0b89bb75ee27e76c9c7",
+        "0dc46f3c6577eeb8ab0c203f5f0c120b7e37a8683ed93cdbb33db0bdd82ae31e",
+        "929ede2d2d2bb95bd776ef38d229bae70fffe883035537e771ded8c6261c1741",
+        "4cc80aefe96831479b0617072e1ea014f7202908082ae6b5a416dd446414ff2b",
+        "8ec0375a2d9cad55bee10553a14a449f6a738ab2fa7310136f6d596de02ef31a",
+        "42fb151f6fab029b0f747c01928e2a56cdceee0a61c0bd0e22766d19d46c5eba"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm2-value-based-failure.md",
+      "before_sha256": "a973fe1ce7d55e85c1fab699bc7766d8567dfeeba654da7f71a3a71dd8ca38fb",
+      "after_sha256": "f11c3b4b2546f357af56353ce2232c1b60112c2524b6b78073ebb741542d4673",
+      "before_lines": 871,
+      "after_lines": 722,
+      "before_h2": 23,
+      "after_h2": 6,
+      "legacy_anchor_count": 32,
+      "cpp_blocks": 32,
+      "marked_cases": [
+        "T18",
+        "T19"
+      ],
+      "cpp_sha256": [
+        "d5d21886ebcf8bbc5245bceace80c23f3e23e735bc002bd820090bf133f6057d",
+        "26f16f5bf76d418dda5de9de181e268398479cb25abb54037bdea59c7b5e52b6",
+        "67195126de8ceb0deb4886a450bb6a8f5f2767cd4a9b9b9427b30cb29e1ca7a7",
+        "1ab21c7afbb75adb885dac3ffec73368cdb4002a1ecb8789cf524222c03d04ac",
+        "1a15554c3760287f2ab01f2af52f56bb3b35156fb39a3d5ed0dad67ebeeaafca",
+        "8539a84ccd821b19f692ced0752454e69be4028035ca44c41ae9bf9edfa0e30d",
+        "9abf1b7e55cde04322cbaf77a903012bbd4871f9a507f083592b6e52b235a254",
+        "be5c331efbc6a7ca8538805d7bace68dcb89780366284238562cf3d47bd31a43",
+        "0449921a01338373f07511a0dd7150092c0ef63e4c7bc62994e156ffd7a2bd35",
+        "d5d21886ebcf8bbc5245bceace80c23f3e23e735bc002bd820090bf133f6057d",
+        "1a05efa38b3cada6135580042d2dbc585420508e05b8750ee2d27e33633f211b",
+        "2db401c9806e44672010b8835e78db4c4215c7fa77264344548b8a3d9fcb18eb",
+        "28aef6ddd94e7954243ef43cd768514dce125161289b269b911fb47b14cd7fe9",
+        "ce5609aeba5c7fb7e93e1f8a8128eedb94bcec769d07a22c63e32518c60e3e36",
+        "2fb3a69f919bd8893a0ae82a26ccce06f03fbe541412ec26af03d81e0833fe69",
+        "7fa1f18cd5b071987a997a1c3f14b1b1657aa476a56c8c91c4f776e37cb9e802",
+        "93b5ccafb8c108c7aa91e89f13b1ccf8cd3fc317f7a0123b947709d969b6bbb0",
+        "a3393b1e478bd0d75a7041051280ea83981c712ef220d7e92c7de0d2069a8f04",
+        "5351e4b62211136ac9e0d5aa0d8c9dc3753ac707fd0eab2fd7af2356b971ddb1",
+        "b8f72dff2c6f55ad02c98a0baf8ebcb8c3df10c5582c77bf13005ec32f45af7e",
+        "c401618e32fcd2a14a4d967b68873200d1ec207825998ee1ff1caa1da7264958",
+        "973b5986f88a15d2f4bba7c40cb665ebd232f0e16a269158c8d4b716a73c7fb1",
+        "19b0cc1b1b88e0a17a66ee40783334f96b002f60c0cce19a8bca99100035dc76",
+        "eba316b15b044a0d4f759aa741069e597f7354760753a347c9ebb4c08b24fe05",
+        "c05acb9aed9f2065619806a69c3774e6f2dd2a965ebd6a9e953574aa055b3be6",
+        "cd8af0329663d47a1607836012c274ebe6f237829a1e7035b3b8198b0878197b",
+        "13d0de83834597efd0f7fbc0c8bb704bd2547b0b3e0125a0f22b8fdf3daa8dc6",
+        "da3efe570b23b37a48b5f77ba780b084e63c39f4681fe4e2320d801235d4b2a8",
+        "64f06bf468bc1f59b6323162b3a88ec6784e1808252def93e6094b0e377763ef",
+        "1f78b7bdccff0dc546ec38796289ffa1f25f8fbc89d1015b87bc405396e60696",
+        "087f8cf211cfcff25903129c9fcef668463e65f78c39144ca4453f23fd69394d",
+        "e104eec36b6010e7c58c4acfc68748e376c2280cba03cc126e92e2068bff0507"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm3-exception-semantics.md",
+      "before_sha256": "714e85bfd40d6f41333ae59faa6ccca197ab1f763dc4c0d43c68438e99277b68",
+      "after_sha256": "5e63eb3058b65b2fd8bc75c27ba7fe5131c2024dc8d5cf30b501b6e306e0c712",
+      "before_lines": 800,
+      "after_lines": 692,
+      "before_h2": 24,
+      "after_h2": 6,
+      "legacy_anchor_count": 31,
+      "cpp_blocks": 31,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "3bab9cc4ea8d64217884fcf7102e26439ca120f9aa34b5839465006c56d357f9",
+        "edc002b501aa92973747fd82a5fc79bb748489d83e28769501eefad3e6cecd7f",
+        "62189176976da1d9c22ee016cacf2680a6162c22f69f1400f7d3ca4a6969ef7b",
+        "386a249f5299b171f441e02d7b745b4038b2de0ad37c947aebf8771e1a059196",
+        "24c28a647f43af4b700bba35719f511c2a72bf68c46ba90f4c77cccf8348cae8",
+        "1b925a15bbe8f4d0b7c6b1052f9c40228cd69c63cd282b1a9fd7bc1f7ebc9d3d",
+        "6d16c5ea89acb5d92814b1795a85df31c14b0fa97b3043dd33221f8a53c16845",
+        "8b9e2cf29489fa918307690d2556e9f82a8366cf7add21a6cdd306abce137d1e",
+        "2d05fd984a54c9e3d5fbbc9980cf5d181d1054e532bbb0c088020d01ba2e14c9",
+        "9307854deba93339a912fcf6b3984bbe7c63a887477355aee182a0322ac8dfa3",
+        "e6c33fe3a3e886052ecd3914a43f4be084a5a37266b459a90111a6f8867b2c9d",
+        "eb3a3f4e09e133ee14560804fac239dd67a1c15ed2aef0cf0c3ff464f3e625b4",
+        "f7d4cb4ee696a5d8d09ce05e08f50c1a93e72514c6fb3d88e2882ca437f3e2ab",
+        "deed71c66841ca184ed963b4a6e4badaac1d08630e023166ef44ca45a1edfa9b",
+        "69d61cd3967b6977896d78af885b90bc36adb54c752b3597bfe67c9a0e991ee3",
+        "3fcfeb8121b5de9ae14af566896df89d56e054a377f4acab258d932526878c20",
+        "527a95762b8c21550f821c524e5d6cd4aff58959bd7177f8e3da0ecc13c2fbeb",
+        "d19cd9b6e8478c04c724ba764fed39853afb2472de67fb2f7379431603c6aba3",
+        "5fd5aa1e41dd345cc05c2c52738444bf780ae8fee57996706c39c9032313dcc7",
+        "5558a8245422ae9caed1a2a0dc66be3685407f3f7035d1a725a731d9fb4c3e8a",
+        "d128c6090ff0fe3c271916082bf9aac030d6f9269f14235fb24bbfd258a263ad",
+        "574f475ab3401f274e32a68356e616020c52411ab48b9e37c31d1c14d74af289",
+        "3f97e37d2fc245c212270596d4ca691418d12bcb0f6af1969ff565a9a2625520",
+        "d70045b093f16532e6e108c41aefdcf346b0f46b92e16a933044e94cb5a87a53",
+        "b50a498aae30e02f79df21d2d9c130f5e882fa812fe23a3c980e3ec4a4e9d331",
+        "13ce8097da1655468b70d7810540357c394944ba0e8dcd901e81e93f9e778eff",
+        "52549e4970071dedb940b079146f069983f41f3e91bffbe1bd8e86122ee5f50f",
+        "9598c7204b0ea7065678a27b41b6723a47a8189ec3a0ed9c3b2262afe80e5b70",
+        "f0d581a5f13b9301e209317c8d1f741d8c25f258b4f9ee980f0e656cc46a8e3d",
+        "d024b2544644d549b4fad4319c42634b5ccd3c6c41992a6a66e37cff98ca44ab",
+        "f35c3b2be9b21076c25dea8cd2ef77c3abca0b1ac694ba6ca58c5a4213be7e71"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm4-raii-exception-safety.md",
+      "before_sha256": "8538a91de4586af73dc44dfb7277e8e725adaecb54b477c1457bdd3a213635c6",
+      "after_sha256": "143efc50e61deb16670c5444a66c5291ff5776659f6b17f8ff11a36b0814e177",
+      "before_lines": 662,
+      "after_lines": 485,
+      "before_h2": 21,
+      "after_h2": 6,
+      "legacy_anchor_count": 26,
+      "cpp_blocks": 10,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "dbc5336a7513d958d9418e138fcee0195f9bc8f85058ef789b81a9f3ed1a9718",
+        "cc66032c75c5fb8b5e82aa14e06e031871e2f936c6259604c4a06b61456dfa88",
+        "6126694f9fb59b335e948500df423cfda7e39f669a3baeecadef63a9ee791433",
+        "2d05fd984a54c9e3d5fbbc9980cf5d181d1054e532bbb0c088020d01ba2e14c9",
+        "4297059a6036c57c905b52f4e48c84f0cb3e63bba5c28499ef66860cc46dac94",
+        "383518102245591371715c86eec38c250a9f39d8e55cb3a3e11b486ba75c42ac",
+        "ba4598c03f69d4321dbf55e163ebb0bf574f991eca617bf2e6b401d586881592",
+        "0fa30492fb7e8c9e9f8007e71e45ceca11e979d70911fecbd5da7634ed14d4a0",
+        "6bc37ce09eca5e4f0a21bce7e24f3939933bb6222f86096f2f1eb0eef8740812",
+        "ff2b4b8b850a2d0abed7ac465273f57c91b0d7ced834cee69d9d94a7094ca776"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "before_sha256": "1c8bb419b301b2c60de53a0cc7608f17c9a6e07bf3625881c4e041c4e7c16a65",
+      "after_sha256": "050fdf1b38a2179c2f2cd4d985f18e59835386d99e5a857a41b1f39a6fc2a821",
+      "before_lines": 555,
+      "after_lines": 473,
+      "before_h2": 21,
+      "after_h2": 7,
+      "legacy_anchor_count": 22,
+      "cpp_blocks": 13,
+      "marked_cases": [
+        "T14",
+        "T17"
+      ],
+      "cpp_sha256": [
+        "52549e4970071dedb940b079146f069983f41f3e91bffbe1bd8e86122ee5f50f",
+        "b4d1ae70bfb78086a217cd1329c13b3abfc953a324a43f9fc5cd74fa3284811c",
+        "edbee141506e656524a3c505175c8f7e32085e4f7ef77051b6a4e211093c5c85",
+        "5ed8916e269b20c16370612fd6971570e05f1296fd776fa9932b73f8365c5edb",
+        "5233423e90f60b37e2467430c89eb68adaa293734865f96fb6f4e7d1ff6d2f7d",
+        "61cbb32c906b55a39f440066b89fa1ff839f1647ce9a2fbe35b2cabb11d4a8e6",
+        "95d90b70de26d6a138ddd24100405ffab1817ef5cdd2a9dcec193be1d821b918",
+        "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42",
+        "d6c8836098a32a54a155786a7f2847b15ec4d8b49e8dd8f4bd1e483ea6f83690",
+        "84ef65bd342f5f6ad3db71f5839c44a01bf8053b3e6b49fdf3819c616336a8c3",
+        "94414f96d987fdafa25e8153113c85d07cff98e52d693ec10093fcd77dd4df9b",
+        "fb8325f5d1be5b4f1ae679097c9f1454f838ca513d2701bb448a07c636255d6d",
+        "97c854a48c1c974fdcd307701d3aa001f74794fe31388e467c82982d59b92ad0"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm6-construction-destruction-allocation.md",
+      "before_sha256": "90bfcb29906760b523d5d2ff6d18fa6e22fe962fd67422bd05e5fb4c7a64bbb3",
+      "after_sha256": "5d3c2a9e076ce5778c4315c9f6a300358b2751002801469c523d2067d731c851",
+      "before_lines": 503,
+      "after_lines": 444,
+      "before_h2": 19,
+      "after_h2": 6,
+      "legacy_anchor_count": 20,
+      "cpp_blocks": 13,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "e4524b10166eb3c9b8a83510b1fa03a1c4e527b02e876e14b75624765327b706",
+        "5f7b5e1dacb1acc2d725d88bd48c79c16895c0bd07a519592aa3e0e7390270c6",
+        "929650ed519924a0f50baa4e0feeed88f0b3407dd1c4ee327e25db8459a1011d",
+        "6e782ff41459e93adb965c626f03a6bf42d066b2d57b45f633c8c770db56fe06",
+        "b597b8016eb53df0ef26efadba6ee1b2d45f1f359ac5c8d8f052561a5ef549aa",
+        "7c4cf231019bde47ea9a2d17048e520fc5ee09d6fed3361bd1c8c4cbb3277d67",
+        "838f7c95de227b87fe1fabf70ce25987b82460b4ed23e29bc27d4e90ff0fd79d",
+        "9275e7bcda6cbbcf540b28021a9682225a1d97c3f8db1a54623de623ae652f1b",
+        "8f05256d87c7a6ae19f7935c76cc1af4def31a676239c407920ae4246d55bd89",
+        "e3ce4c24123a55735fdab1b6c1565f5e0e24f38f156ae9992128e3b494461c60",
+        "8e3d92f3d811064ca0a20d7022df073f575094ceef6d36bff9d48f59a7532c68",
+        "976ed39aca968b0753262b38df16ab023397ddbb16066ba582001346c1bf793d",
+        "87949adc3156e0a5fb1e1313a742546585267e7a9c6a7c700176f79ed54d69fd"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm7-error-code-system-error.md",
+      "before_sha256": "4cf42da04c8cd2eb4c749ec8a196a8e5d561758ad3b1cf72022750c9ed90e700",
+      "after_sha256": "d6d182b47120e126699a10c1a99b79aa0d258a99f23611807bfb1bd3099da6e9",
+      "before_lines": 444,
+      "after_lines": 343,
+      "before_h2": 18,
+      "after_h2": 5,
+      "legacy_anchor_count": 19,
+      "cpp_blocks": 8,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "71b592e9c6d56c2d07652c7680b367d33ffa40893d6a2c76dad1aaec218147c7",
+        "50519d265775c94641dec653a461ef213fc4da2418af98ce4a591efc1ceb63dd",
+        "da7067b89bb685c67f3cf53e24465fb011596aa9bc80e419e963c61ded08db4a",
+        "d13b1528a7ddff91ea59852cfa88b79d10491cb017d3bd604d7a8f4f031e2b62",
+        "f91e83cb51233e7d8c101ef41f711fb5e149071d1269ed8d5486b8e6a27f4bba",
+        "ceb224c3f73ab7aad4606f9c15d0632335a4b414776ec25859321b18d21ba061",
+        "c674ec673547d13d06c44c5e51b9ac38f68312c5367f4c4874e2652ea2a8c560",
+        "421c1622ca72054ad4cdefbf93d6925348aeb9136f89e88e8dc7471dce6eab90"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm8-failure-boundaries.md",
+      "before_sha256": "e0bf9819fe9da87a63fa00a7f6d0ca46817287c7d176993628bc40d0c8191bd6",
+      "after_sha256": "772f25491ad98471076e96bf230b07e5aaddd0f49d0034d7c00c0c8c0357d0b8",
+      "before_lines": 740,
+      "after_lines": 568,
+      "before_h2": 26,
+      "after_h2": 7,
+      "legacy_anchor_count": 27,
+      "cpp_blocks": 7,
+      "marked_cases": [
+        "T12"
+      ],
+      "cpp_sha256": [
+        "8970123f57cb56716e7f88334f6a4dfbf67802435f4b889be3781b2ffbb6afb9",
+        "502060789fa4b49a6205052c06d275ea8438f4f2b065b4813bbb648921dfb8a8",
+        "ff3cbdb4c816e8bccb5aa28fdc74dcab50e63b2056de2b1f3a622467da62a4b3",
+        "c7a44947b06232010b75bf701ef321bd4169bedcd22149c1eb208259b56eebdf",
+        "1a59df37324280031bbcf0bc09aee9567f9ff7373c4a4029fcf2b9e5c4de7658",
+        "9b8dab6720da5fe76dd0c83aca5907370be0c6f2f32bc8f3199c830ed97ffdbc",
+        "40f5354bd21dfdbdd36ae620235fdf0ffd9562840b2f7ee2a965554600d025c2"
+      ]
+    },
+    {
+      "file": "c++/failure-model/fm9-project-failure-profile.md",
+      "before_sha256": "36b156aadb4fbdc66a063c0f7ffb47c3d868f33218b0b4544c16c818856b6647",
+      "after_sha256": "8a5e264f7403fe976739e84c484fa014ae4c46aca2d12942f8c983bfb707dccc",
+      "before_lines": 1115,
+      "after_lines": 930,
+      "before_h2": 34,
+      "after_h2": 9,
+      "legacy_anchor_count": 41,
+      "cpp_blocks": 6,
+      "marked_cases": [],
+      "cpp_sha256": [
+        "1f78b7bdccff0dc546ec38796289ffa1f25f8fbc89d1015b87bc405396e60696",
+        "3bf635a95ca2621dfe1747d8cf0464e3e140794c39eb3c9b8d09801350ce9408",
+        "2a6b7bb9f9a7f1ea48d46f537e45b8c6194557ed65c95be6febc8c27e51b6238",
+        "a30a6a981a1b30e020dd1ba785d2ca32eb66889c677bfe515026619c004c4178",
+        "922f154df8576704053811ea8b01245d1f6d84858f2239fb4bf0eb7df7446427",
+        "9ca582e1652f4788cf78f85d46c998cb2a2fa8c7ec2f1b41e1441d2f86eaaba0"
+      ]
+    }
+  ],
+  "cpp_blocks": 215,
+  "legacy_anchors": 442,
+  "experiments": [
+    {
+      "metadata": {
+        "id": "T01",
+        "mode": "compile_fail",
+        "diagnostics": [
+          "out_of_range",
+          "no matching|no viable|requires.*argument"
+        ]
+      },
+      "source_sha256": "ee01c2d9f97b46938d40f8084cba953542100391f0f1cff2129adde8015ad6ad"
+    },
+    {
+      "metadata": {
+        "id": "T02",
+        "mode": "run"
+      },
+      "source_sha256": "370a4566ec4fa58c9884e144c7fd9a855e659f2b9376c62b85f912f8c5664f90"
+    },
+    {
+      "metadata": {
+        "id": "T03",
+        "mode": "run"
+      },
+      "source_sha256": "8ae4e6b7f5f09a691db275faec8bbe387e37538e210ba7824f4c857259a13f30"
+    },
+    {
+      "metadata": {
+        "id": "T04",
+        "mode": "run"
+      },
+      "source_sha256": "9dae9193ea5f9b0e8d2869eedcdbb7c6a26080df34844a3c884b2a106085e5b8"
+    },
+    {
+      "metadata": {
+        "id": "T05",
+        "mode": "sanitizer_negative",
+        "feature": "ubsan",
+        "diagnostics": [
+          "unreachable",
+          "runtime error"
+        ]
+      },
+      "source_sha256": "0885147c097142023de2e10497a311f70450962271f3aed62397d1d2f9508dc3"
+    },
+    {
+      "metadata": {
+        "id": "T06",
+        "mode": "compile_fail",
+        "feature": "expected",
+        "diagnostics": [
+          "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+          "Error"
+        ]
+      },
+      "source_sha256": "1c7ecd08f4ac2e7a3359cc636364af23327f9104cc2c3488a44cbe31d5981ae3"
+    },
+    {
+      "metadata": {
+        "id": "T07",
+        "mode": "run",
+        "feature": "expected"
+      },
+      "source_sha256": "3f26551946ef8afb3a816d89941fde583b60b59aaa0df932e12cbd40ff2885f2"
+    },
+    {
+      "metadata": {
+        "id": "T08",
+        "mode": "compile_fail",
+        "feature": "expected-monadic",
+        "diagnostics": [
+          "same error_type|is_same_v|same_as",
+          "FileError|ParseError"
+        ]
+      },
+      "source_sha256": "56b19bbebef9542f5af79d17f2a6035213806b54fa453731d5c03447cbe9ae07"
+    },
+    {
+      "metadata": {
+        "id": "T09",
+        "mode": "run",
+        "feature": "expected-monadic"
+      },
+      "source_sha256": "260799b28f3a352e0592ab8b47a2a653b85e110c439f7470182928cf08721f83"
+    },
+    {
+      "metadata": {
+        "id": "T10",
+        "mode": "run",
+        "feature": "expected"
+      },
+      "source_sha256": "12670dbc2114ac477fe128d975059efbc150ef9f627b9547c5a633078d1834b2"
+    },
+    {
+      "metadata": {
+        "id": "T11",
+        "mode": "death",
+        "exit_code": 86
+      },
+      "source_sha256": "915114e86d26bea33a93fcef024613608f68a3492a4cd3978f2137e53d402f34"
+    },
+    {
+      "metadata": {
+        "id": "T12",
+        "mode": "run"
+      },
+      "source_sha256": "8970123f57cb56716e7f88334f6a4dfbf67802435f4b889be3781b2ffbb6afb9"
+    },
+    {
+      "metadata": {
+        "id": "T13",
+        "mode": "run"
+      },
+      "source_sha256": "d73d8e67127696df6c12c4e5532cce5313264e3adefdec2985b226c3de6efc50"
+    },
+    {
+      "metadata": {
+        "id": "T14",
+        "mode": "compile"
+      },
+      "source_sha256": "5ed8916e269b20c16370612fd6971570e05f1296fd776fa9932b73f8365c5edb"
+    },
+    {
+      "metadata": {
+        "id": "T15",
+        "mode": "run"
+      },
+      "source_sha256": "01ea76a522f9463f3a0c24e723fb0546ac5e448cb5bb88f93bdc3f3fbeeb9e25"
+    },
+    {
+      "metadata": {
+        "id": "T16",
+        "mode": "compile_fail",
+        "feature": "expected",
+        "diagnostics": [
+          "is_copy_constructible|deleted.*copy|copy.*deleted|deleted function",
+          "Error"
+        ]
+      },
+      "source_sha256": "f6cca42c149623b8c3fc62e1bab9076167b1a148451814300bd5244c2ba51dd3"
+    },
+    {
+      "metadata": {
+        "id": "T17",
+        "mode": "run"
+      },
+      "source_sha256": "fa2aa5114a5e972b4c66787c61273c99b58bfa4c17ccf57c7bc273ec23edbe42"
+    },
+    {
+      "metadata": {
+        "id": "T18",
+        "mode": "run",
+        "feature": "expected-monadic"
+      },
+      "source_sha256": "19b0cc1b1b88e0a17a66ee40783334f96b002f60c0cce19a8bca99100035dc76"
+    },
+    {
+      "metadata": {
+        "id": "T19",
+        "mode": "run",
+        "feature": "expected"
+      },
+      "source_sha256": "64f06bf468bc1f59b6323162b3a88ec6784e1808252def93e6094b0e377763ef"
+    },
+    {
+      "metadata": {
+        "id": "T20",
+        "mode": "run",
+        "feature": "posix"
+      },
+      "source_sha256": "278daee9f7d2b68e4d6202ececb2e09810bb40b338b9d5f54f2233a77c394a5f"
+    }
+  ],
+  "selftests": {
+    "prose_allowed": true,
+    "cpp_rejected": true,
+    "oracle_rejected": true,
+    "anchor_rejected": true,
+    "legacy_h1_alias_allowed": true
+  },
+  "historical_evidence": [
+    {
+      "file": "c++/failure-model/review/verify_fm.py",
+      "sha256": "8c0944763c355eed6066aa49cc06fd391ade3a2e42b7d165754b7e5f18ba5684",
+      "unchanged": true
+    },
+    {
+      "file": "c++/failure-model/review/fm-claims.md",
+      "sha256": "565a9ac66c82eef97be876e5f5a9df662bac83163b24b8903067a60365614466",
+      "unchanged": true
+    },
+    {
+      "file": "c++/failure-model/review/fm-review-7869082.md",
+      "sha256": "92ddaff98d370e53fc23b69090c47e52bb38cd4545975499dcc568544c052e57",
+      "unchanged": true
+    },
+    {
+      "file": "c++/failure-model/review/fm-verification-samples.md",
+      "sha256": "2a8683466fc3a0af924d1ee67553de6eec138323ab7a4f90cb1a9d5aeb644ffa",
+      "unchanged": true
+    },
+    {
+      "file": "c++/failure-model/review/fm-verification-results.json",
+      "sha256": "07088c3698b8c49b5b06266eb146331652a9760a74fcde0e504dacd9512e9461",
+      "unchanged": true
+    }
+  ],
+  "verification_binding": {
+    "status": "MATCH",
+    "result_sha256": "996366d4a42d5a77e90e610e393c14332fb0971c0cc4e86cc7be1893d200274b",
+    "input_documents": 11,
+    "recorded_execution_exit_code": 0
+  },
+  "protected_outside_scope_changes": [],
+  "errors": [],
+  "source_risks": [
+    {
+      "file": "c++/failure-model/fm0-failure-model.md",
+      "line": 1048,
+      "kind": "table_width",
+      "columns": 2,
+      "rows": 5
+    },
+    {
+      "file": "c++/failure-model/fm2-value-based-failure.md",
+      "line": 429,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 38,
+      "display_columns": 77
+    },
+    {
+      "file": "c++/failure-model/fm2-value-based-failure.md",
+      "line": 476,
+      "kind": "table_width",
+      "columns": 2,
+      "rows": 6
+    },
+    {
+      "file": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "line": 172,
+      "kind": "code_or_diagram_pagination",
+      "language": "cpp",
+      "lines": 55,
+      "display_columns": 89
+    },
+    {
+      "file": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "line": 288,
+      "kind": "table_width",
+      "columns": 2,
+      "rows": 4
+    },
+    {
+      "file": "c++/failure-model/fm5-noexcept-move-copy.md",
+      "line": 299,
+      "kind": "table_width",
+      "columns": 2,
+      "rows": 5
+    },
+    {
+      "file": "c++/failure-model/fm9-project-failure-profile.md",
+      "line": 723,
+      "kind": "code_or_diagram_pagination",
+      "language": "markdown",
+      "lines": 36,
+      "display_columns": 58
+    },
+    {
+      "file": "c++/failure-model/fm9-project-failure-profile.md",
+      "line": 764,
+      "kind": "code_or_diagram_pagination",
+      "language": "markdown",
+      "lines": 37,
+      "display_columns": 23
+    },
+    {
+      "file": "c++/failure-model/fm9-project-failure-profile.md",
+      "line": 808,
+      "kind": "code_or_diagram_pagination",
+      "language": "text",
+      "lines": 33,
+      "display_columns": 48
+    }
+  ],
+  "limits": [
+    "Not a proof of prose or C++ semantic correctness.",
+    "Legacy target existence does not automatically prove target meaning.",
+    "Text/Markdown diagrams and templates are deliberately editable.",
+    "C++ execution is separately recorded; no performance or TSan run here.",
+    "No FM PDF built or validated; G/publication artifacts are outside scope."
+  ]
+}

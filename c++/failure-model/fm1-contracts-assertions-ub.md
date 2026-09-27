@@ -1,65 +1,36 @@
-# FM-1 — Contracts / Preconditions / Assertions / Undefined Behavior
+<a id="fm-1--contracts--preconditions--assertions--undefined-behavior"></a>
+# FM-1 · 契约与可信边界
 
-> C++23 · Engineering Guide
+> C++23 失败语义工程手册 · 系列整理候选
 
-[返回 C++ 目录](README.md) · [上一章：FM-0](fm0-failure-model.md) · [下一章：FM-2](fm2-value-based-failure.md)
+[返回 FM 导航](README.md) · [上一章：FM-0](fm0-failure-model.md) · [下一章：FM-2](fm2-value-based-failure.md) · [术语与审查约定](series-guide.md)
+
+## 阅读入口
+
+明确前置条件、成功／失败后置条件、不变量、validation 与 assertion 的责任。UB 和终止不能混成一种错误通道。
+
+**主阅读线。** §1–8 → §12–18 → §19–26 → §33–40；具体反例按需回查。
+
+**失败契约。** 从未经验证输入进入可信表示后，仍须维护生命周期、别名与同步条件。失败可以是合法运行结果；违约的具体后果要逐个接口判断。
+
+**证据边界。** T01/T02、T04/T05 定向检查异常构造、枚举与 unreachable；不证明所有前置条件或 UB 都会被诊断。无 `fm-test` 标记的片段按上下文阅读，不自动视为完整实验。
 
 ## 本章目录
 
-- [0. 文档定位](#0-文档定位)
-- [1. Contract 是什么](#1-contract-是什么)
-- [2. Preconditions](#2-preconditions)
-- [3. Postconditions](#3-postconditions)
-- [4. Invariants](#4-invariants)
-- [5. Contract 的责任方向](#5-contract-的责任方向)
-- [6. Runtime Failure 与 Contract Violation](#6-runtime-failure-与-contract-violation)
-- [7. 判断标准](#7-判断标准)
-- [8. 核心问题](#8-核心问题)
-- [9. Validation](#9-validation)
-- [10. Assertion](#10-assertion)
-- [11. Validation 与 Assertion 的工程区分](#11-validation-与-assertion-的工程区分)
-- [12. assert](#12-assert)
-- [13. NDEBUG](#13-ndebug)
-- [14. Assertion 不得承载必要副作用](#14-assertion-不得承载必要副作用)
-- [15. assert 不适合处理外部输入](#15-assert-不适合处理外部输入)
-- [16. Validation Boundary](#16-validation-boundary)
-- [17. Validate Once，Trust Afterwards](#17-validate-oncetrust-afterwards)
-- [18. Checked Boundary + Trusted Core](#18-checked-boundary--trusted-core)
-- [19. operator\[\] 与 at()](#19-operator-与-at)
-- [20. Checked 与 Unchecked API 都有合理用途](#20-checked-与-unchecked-api-都有合理用途)
-- [21. Undefined Behavior](#21-undefined-behavior)
-- [22. UB 可能产生什么结果](#22-ub-可能产生什么结果)
-- [23. UB 与 Runtime Error 的根本区别](#23-ub-与-runtime-error-的根本区别)
-- [24. UB 会影响优化推理](#24-ub-会影响优化推理)
-- [25. assert 与 UB](#25-assert-与-ub)
-- [26. Assertion 不会改变 API Contract](#26-assertion-不会改变-api-contract)
-- [27. 常见 UB 来源](#27-常见-ub-来源)
-- [28. 为什么 C++ 允许 Contract-Based Unchecked Operations](#28-为什么-c-允许-contract-based-unchecked-operations)
-- [29. Fail-Fast](#29-fail-fast)
-- [30. Fail-Fast 不等于 UB](#30-fail-fast-不等于-ub)
-- [31. Debug Assertion 与 Production Check](#31-debug-assertion-与-production-check)
-- [32. Assertion 与 Production Invariant Check](#32-assertion-与-production-invariant-check)
-- [33. std::terminate](#33-stdterminate)
-- [34. std::unreachable — C++23](#34-stdunreachable--c23)
-- [35. std::unreachable 不是 Fail-Fast](#35-stdunreachable-不是-fail-fast)
-- [36. 三种机制对比](#36-三种机制对比)
-- [37. std::unreachable 的使用原则](#37-stdunreachable-的使用原则)
-- [38. Internal 不等于 Trusted](#38-internal-不等于-trusted)
-- [39. 信任应该建立在 Boundary 上](#39-信任应该建立在-boundary-上)
-- [40. Type as Invariant](#40-type-as-invariant)
-- [41. Invalid States Should Be Hard to Represent](#41-invalid-states-should-be-hard-to-represent)
-- [42. 优先级](#42-优先级)
-- [43. Engineering Decision Model](#43-engineering-decision-model)
-- [44. API Design Pattern](#44-api-design-pattern)
-- [45. Anti-Patterns](#45-anti-patterns)
-- [46. Review Checklist](#46-review-checklist)
-- [47. FM-1 核心不变量](#47-fm-1-核心不变量)
-- [48. 最终心智模型](#48-最终心智模型)
-- [49. FM-1 最终压缩](#49-fm-1-最终压缩)
+- [一、合同与责任](#fm1-part-1)
+- [二、验证边界与断言](#fm1-part-2)
+- [三、检查访问与未定义行为](#fm1-part-3)
+- [四、终止与不可达承诺](#fm1-part-4)
+- [五、可信表示与类型设计](#fm1-part-5)
+- [六、反例与回查](#fm1-part-6)
 
----
+原 § 编号用于稳定回查；组标题只组织阅读，不新增机制范围。
 
-## 0. 文档定位
+<a id="fm1-part-1"></a>
+
+## 一、合同与责任
+
+### 0. 文档定位
 
 本文解决现代 C++ Failure Model 中一个基础问题：
 
@@ -95,9 +66,7 @@ undefined behavior
 fail-fast
 ```
 
----
-
-## 1. Contract 是什么
+### 1. Contract 是什么
 
 一个函数的完整接口不只是：
 
@@ -114,9 +83,7 @@ invariants
 failure semantics
 ```
 
----
-
-## 2. Preconditions
+### 2. Preconditions
 
 Precondition 表示：
 
@@ -130,45 +97,21 @@ int front(std::span<const int> values) {
 }
 ```
 
-一个关键 precondition 是：
+一个关键 precondition 是：`!values.empty()`
 
-```text
-!values.empty()
-```
+如果调用者违反这个条件，含义不是：`front() 正常尝试工作但失败`
 
-如果调用者违反这个条件，含义不是：
+而是：`调用本身违反 API contract`
 
-```text
-front() 正常尝试工作但失败
-```
+因此：`recoverable runtime failure`
 
-而是：
-
-```text
-调用本身违反 API contract
-```
-
-因此：
-
-```text
-recoverable runtime failure
-```
-
-和：
-
-```text
-precondition violation
-```
+和：`precondition violation`
 
 必须严格区分。
 
----
+### 3. Postconditions
 
-## 3. Postconditions
-
-Postcondition 表示：
-
-> 函数正常完成以后，函数必须保证成立的条件。
+后置条件（postcondition）描述指定完成分支之后应成立的条件。**正常返回不一定表示业务成功**：返回错误值也是正常返回，必须区分成功后置条件与失败后置条件。
 
 例如：
 
@@ -176,35 +119,15 @@ Postcondition 表示：
 void sort_values(std::span<int> values);
 ```
 
-正常返回以后：
-
-```text
-values satisfies required ordering
-```
-
-又例如：
+成功返回后，`values` 应满足约定排序。又例如：
 
 ```cpp
 File open_file(...);
 ```
 
-正常返回以后：
+若该接口约定“正常返回即成功”，返回的 File 应拥有有效资源；若采用 `expected`，则成功与错误分支各有自己的后置条件。实现没有满足适用分支的合同才属于被调方缺陷，不能把正常返回的错误值误判为违约。
 
-```text
-returned File owns a valid resource
-```
-
-如果函数正常返回却没有满足 postcondition：
-
-```text
-callee bug
-```
-
-而不是调用者错误。
-
----
-
-## 4. Invariants
+### 4. Invariants
 
 Invariant 表示：
 
@@ -252,17 +175,11 @@ head_ < capacity_
 tail_ < capacity_
 ```
 
-Invariant 是：
-
-```text
-valid object state
-```
+Invariant 是：`valid object state`
 
 的定义。
 
----
-
-## 5. Contract 的责任方向
+### 5. Contract 的责任方向
 
 对于：
 
@@ -300,13 +217,13 @@ Invariant
     → type/component responsibility
 ```
 
----
-
-## 6. Runtime Failure 与 Contract Violation
+### 6. Runtime Failure 与 Contract Violation
 
 这是 FM-1 最重要的分界。
 
-### Runtime Failure
+<a id="runtime-failure"></a>
+
+**Runtime Failure**
 
 环境本来就可能不满足要求。
 
@@ -331,15 +248,11 @@ validate
 → propagate / recover
 ```
 
----
+<a id="contract-violation"></a>
 
-### Contract Violation
+**Contract Violation**
 
-根据 API 或程序设计：
-
-```text
-这个条件本来必须成立
-```
+根据 API 或程序设计：`这个条件本来必须成立`
 
 但调用者或内部实现破坏了它。
 
@@ -353,51 +266,35 @@ double ownership
 impossible enum/state combination
 ```
 
-这属于：
+这属于：`programmer error`
 
-```text
-programmer error
-```
+而不是普通业务失败。违约后是否 UB、显式终止或定义良好的错误报告，由具体合同与语言规则决定；“契约违反”本身不是一个统一的运行时机制。
 
-而不是普通业务失败。
-
----
-
-## 7. 判断标准
+### 7. 判断标准
 
 不要只看错误表面形式。
 
-例如：
-
-```text
-index out of range
-```
+例如：`index out of range`
 
 可能属于完全不同的失败模型。
 
-### 外部输入
+<a id="外部输入"></a>
+
+**外部输入**
 
 ```cpp
 index = request.index;
 ```
 
-如果来自 HTTP、文件、网络或数据库：
-
-```text
-runtime data
-```
+如果来自 HTTP、文件、网络或数据库：`runtime data`
 
 必须先判断其可信度。
 
-如果可能非法：
+如果可能非法：`validation`
 
-```text
-validation
-```
+<a id="内部已验证状态"></a>
 
----
-
-### 内部已验证状态
+**内部已验证状态**
 
 如果：
 
@@ -405,47 +302,27 @@ validation
 index = validated_table[id];
 ```
 
-并且程序 invariant 已保证：
+并且程序 invariant 已保证：`index < size`
 
-```text
-index < size
-```
+那么越界说明：`program bug`
 
-那么越界说明：
-
-```text
-program bug
-```
-
----
-
-## 8. 核心问题
+### 8. 核心问题
 
 判断一个条件属于 precondition 还是 runtime validation 时，优先问：
 
 > 谁有责任保证这个条件成立？
 
-如果调用者根据 API contract 必须保证：
+如果调用者根据 API contract 必须保证：`precondition`
 
-```text
-precondition
-```
+如果外部环境天然可能违反：`runtime validation`
 
-如果外部环境天然可能违反：
+<a id="fm1-part-2"></a>
 
-```text
-runtime validation
-```
+## 二、验证边界与断言
 
----
+### 9. Validation
 
-## 9. Validation
-
-Validation 用于处理：
-
-```text
-untrusted or runtime-controlled data
-```
+Validation 用于处理：`untrusted or runtime-controlled data`
 
 包括：
 
@@ -470,11 +347,7 @@ validation
 valid internal representation
 ```
 
-失败应该产生：
-
-```text
-structured recoverable failure
-```
+失败应该产生：`structured recoverable failure`
 
 例如：
 
@@ -483,9 +356,7 @@ std::expected<Frame, ParseError>
 parse_frame(std::span<const std::byte> bytes);
 ```
 
----
-
-## 10. Assertion
+### 10. Assertion
 
 Assertion 的用途不同：
 
@@ -506,15 +377,9 @@ return messages[index];
 说明程序内部推理或 invariant 被破坏。
 ```
 
-不是：
+不是：`用户给了坏数据，请优雅处理。`
 
-```text
-用户给了坏数据，请优雅处理。
-```
-
----
-
-## 11. Validation 与 Assertion 的工程区分
+### 11. Validation 与 Assertion 的工程区分
 
 可以压缩为：
 
@@ -528,9 +393,7 @@ assertion
 
 这是本节最重要的工程规则之一。
 
----
-
-## 12. `assert`
+### 12. `assert`
 
 C++：
 
@@ -551,43 +414,29 @@ diagnostic
 
 具体输出形式由实现决定。
 
----
+### 13. `NDEBUG`
 
-## 13. `NDEBUG`
-
-如果在包含 `<cassert>` 前定义：
+是否启用标准断言取决于包含 `<cassert>` 时的 `NDEBUG`，而不是语言认识某个 Debug／Release 构建名称：
 
 ```cpp
 #define NDEBUG
 ```
 
-那么：
+在禁用断言的配置下：
 
 ```cpp
 assert(expr);
 ```
 
-将被禁用。
-
-因此：
+其表达式不会求值。因此下例不能承担必要输入验证：
 
 ```cpp
 assert(validate_input());
 ```
 
-是错误设计。
+Release 常定义 NDEBUG，但这是构建配置约定；Debug 也可能禁用断言。需要一直执行的验证必须写在断言之外。
 
-因为 release 构建中：
-
-```text
-validate_input()
-```
-
-可能根本不会执行。
-
----
-
-## 14. Assertion 不得承载必要副作用
+### 14. Assertion 不得承载必要副作用
 
 错误：
 
@@ -595,17 +444,9 @@ validate_input()
 assert(++index < size);
 ```
 
-debug：
+debug：`index incremented`
 
-```text
-index incremented
-```
-
-release：
-
-```text
-index unchanged
-```
+release：`index unchanged`
 
 导致程序语义依赖 build mode。
 
@@ -621,9 +462,7 @@ assert(initialize_resource());
 
 > `assert` 中的表达式应当主要用于观察和验证，而不是承担程序正确运行所依赖的副作用。
 
----
-
-## 15. `assert` 不适合处理外部输入
+### 15. `assert` 不适合处理外部输入
 
 错误：
 
@@ -635,23 +474,11 @@ void decode_packet(std::span<const std::byte> packet) {
 }
 ```
 
-如果 packet 来自网络：
+如果 packet 来自网络：`packet too short`
 
-```text
-packet too short
-```
+属于：`runtime input failure`
 
-属于：
-
-```text
-runtime input failure
-```
-
-而不是：
-
-```text
-programmer bug
-```
+而不是：`programmer bug`
 
 正确模型：
 
@@ -666,9 +493,7 @@ decode_packet(std::span<const std::byte> packet) {
 }
 ```
 
----
-
-## 16. Validation Boundary
+### 16. Validation Boundary
 
 成熟系统应该明确：
 
@@ -708,9 +533,7 @@ checksum validated
 required ranges valid
 ```
 
----
-
-## 17. Validate Once，Trust Afterwards
+### 17. Validate Once，Trust Afterwards
 
 一种高质量设计模式：
 
@@ -751,17 +574,11 @@ private:
 };
 ```
 
-成功构造 `Frame` 本身就表达：
-
-```text
-Frame invariant holds
-```
+成功构造 `Frame` 本身就表达：`Frame invariant holds`
 
 该工程模式的前提是校验结果在整个使用期内持续有效。若 Frame 借用外部内存，必须保证生命周期、别名修改和线程同步不会使已验证条件失效；包装成 validated 类型本身不能替代这些责任。发生相关变更后应重新建立不变量或重新验证。
 
----
-
-## 18. Checked Boundary + Trusted Core
+### 18. Checked Boundary + Trusted Core
 
 高性能系统中非常常见：
 
@@ -797,11 +614,7 @@ header validation
 decode(const Message& message);
 ```
 
-直接依赖：
-
-```text
-Message invariant
-```
+直接依赖：`Message invariant`
 
 这可以同时获得：
 
@@ -811,9 +624,11 @@ performance
 clear ownership of validation
 ```
 
----
+<a id="fm1-part-3"></a>
 
-## 19. `operator[]` 与 `at()`
+## 三、检查访问与未定义行为
+
+### 19. `operator[]` 与 `at()`
 
 这是 contract-based API 与 checked API 的经典对比。
 
@@ -821,41 +636,29 @@ clear ownership of validation
 std::vector<int> values{1, 2, 3};
 ```
 
----
+<a id="operator"></a>
 
-### `operator[]`
+**`operator[]`**
 
 ```cpp
 values[index];
 ```
 
-调用者负责保证：
+调用者负责保证：`index < values.size()`
 
-```text
-index < values.size()
-```
-
-在 C++23 语义基线下，如果越界：
-
-```text
-undefined behavior
-```
+在 C++23 语义基线下，如果越界：`undefined behavior`
 
 它不是一个正常错误返回通道。
 
----
+<a id="at"></a>
 
-### `at()`
+**`at()`**
 
 ```cpp
 values.at(index);
 ```
 
-由容器主动检查：
-
-```text
-index < size()
-```
+由容器主动检查：`index < size()`
 
 越界：
 
@@ -873,9 +676,7 @@ at()
     callee validates index
 ```
 
----
-
-## 20. Checked 与 Unchecked API 都有合理用途
+### 20. Checked 与 Unchecked API 都有合理用途
 
 如果：
 
@@ -905,21 +706,11 @@ return values[request.index];
 
 而 index 直接来自外部，则不合理。
 
-因此问题不是：
+因此问题不是：`at() 永远比 [] 好`
 
-```text
-at() 永远比 [] 好
-```
+而是：`check 在哪个 boundary 完成？`
 
-而是：
-
-```text
-check 在哪个 boundary 完成？
-```
-
----
-
-## 21. Undefined Behavior
+### 21. Undefined Behavior
 
 UB 不是错误处理机制。
 
@@ -935,21 +726,11 @@ std::vector<int> values{1, 2, 3};
 int x = values[100];
 ```
 
-这里不是：
+这里不是：`C++ 返回一个随机值`
 
-```text
-C++ 返回一个随机值
-```
+而是：`language guarantees have ended`
 
-而是：
-
-```text
-language guarantees have ended
-```
-
----
-
-## 22. UB 可能产生什么结果
+### 22. UB 可能产生什么结果
 
 UB 以后可能：
 
@@ -964,9 +745,7 @@ crash
 
 不能依赖其中任何一种。
 
----
-
-## 23. UB 与 Runtime Error 的根本区别
+### 23. UB 与 Runtime Error 的根本区别
 
 定义良好的失败报告仍处于 C++ 语义规则之内。例如下面是抛出语句片段，需要 `<stdexcept>` 和外围函数：
 
@@ -980,9 +759,7 @@ throw std::out_of_range{"index out of range"};
 
 完整正例和原式的预期编译失败反例见 [T01 / T02](review/fm-verification-samples.md#t01)。
 
----
-
-## 24. UB 会影响优化推理
+### 24. UB 会影响优化推理
 
 例如：
 
@@ -1000,15 +777,9 @@ int f(int* p) {
 
 `*p` 已经要求：
 
-```text
-p != nullptr
-```
+`p != nullptr`
 
-所以在任何定义良好的执行中：
-
-```text
-p cannot be null
-```
+所以在任何定义良好的执行中：`p cannot be null`
 
 编译器可以据此优化后面的：
 
@@ -1020,43 +791,23 @@ if (p == nullptr)
 
 > UB 不只是“运行时出了问题”，它还改变了编译器对程序合法路径的推理。
 
----
+### 25. `assert` 与 UB
 
-## 25. `assert` 与 UB
-
-两者完全不同。
+在断言启用且条件求值本身有定义时：
 
 ```cpp
 assert(index < size);
 ```
 
-失败：
-
-```text
-defined termination behavior
-```
-
-而：
+假条件走诊断与终止路径。若断言被禁用，条件不求值，也没有这道保护；随后执行：
 
 ```cpp
 array[index]
 ```
 
-非法索引：
+仍须满足实际访问的前置条件。断言能辅助在 UB 前发现某些违约，但不使非法访问变成错误值，也不保证所有缺陷都被检查。
 
-```text
-undefined behavior
-```
-
-因此 assertion 常被用来：
-
-```text
-detect violation before UB occurs
-```
-
----
-
-## 26. Assertion 不会改变 API Contract
+### 26. Assertion 不会改变 API Contract
 
 例如：
 
@@ -1076,23 +827,17 @@ Precondition:
 
 `assert` 只是：
 
-```text
-debug-time checking of that contract
-```
+`debug-time checking of that contract`
 
-它不是：
-
-```text
-runtime validation API
-```
+它不是：`runtime validation API`
 
 因为 release 构建可能没有这个检查。
 
----
+### 27. 常见 UB 来源
 
-## 27. 常见 UB 来源
+<a id="memory"></a>
 
-### Memory
+**Memory**
 
 ```text
 out-of-bounds access
@@ -1102,9 +847,9 @@ invalid pointer arithmetic
 misaligned access
 ```
 
----
+<a id="lifetime"></a>
 
-### Lifetime
+**Lifetime**
 
 ```text
 use outside object lifetime
@@ -1112,9 +857,9 @@ use destroyed object
 incorrect manual lifetime management
 ```
 
----
+<a id="arithmetic"></a>
 
-### Arithmetic
+**Arithmetic**
 
 例如：
 
@@ -1123,23 +868,15 @@ int x = INT_MAX;
 ++x;
 ```
 
-signed integer overflow：
+signed integer overflow：`UB`
 
-```text
-UB
-```
-
-而无符号整数：
-
-```text
-modulo arithmetic
-```
+而无符号整数：`modulo arithmetic`
 
 不是 UB。
 
----
+<a id="object-model"></a>
 
-### Object Model
+**Object Model**
 
 可能包括：
 
@@ -1149,70 +886,37 @@ alignment violations
 incorrect object representation assumptions
 ```
 
----
+<a id="concurrency"></a>
 
-### Concurrency
+**Concurrency**
 
-未同步的数据竞争：
+未同步的数据竞争：`data race`
 
-```text
-data race
-```
+通常就是：`UB`
 
-通常就是：
+不能把它理解为：`偶尔读取旧数据`
 
-```text
-UB
-```
+### 28. 为什么 C++ 允许 Contract-Based Unchecked Operations
 
-不能把它理解为：
-
-```text
-偶尔读取旧数据
-```
-
----
-
-## 28. 为什么 C++ 允许 Contract-Based Unchecked Operations
-
-C++ 的重要目标之一：
-
-```text
-zero-overhead abstractions
-```
-
-如果：
+Unchecked 操作允许调用者建立前提后由被调方依赖它。例如：
 
 ```cpp
 values[index];
 ```
 
-每次都进行：
+不规定必须执行如下检查：
 
 ```cpp
 if (index >= values.size())
 ```
 
-即使调用者刚刚已经证明 index 合法，也会导致重复检查。
+这给实现和调用者控制成本的空间，但不证明 checked API 必然更慢；优化器可能消除冗余检查，性能仍须测量。本章关注的是证明与验证责任，不能以“零开销”口号允许未经验证的数据进入前置条件接口。
 
-因此允许：
+<a id="fm1-part-4"></a>
 
-```text
-caller proves
-callee assumes
-```
+## 四、终止与不可达承诺
 
-这本身不是错误设计。
-
-问题在于：
-
-```text
-是否把 untrusted data 直接带入这种 API
-```
-
----
-
-## 29. Fail-Fast
+### 29. Fail-Fast
 
 当内部 invariant 被破坏时，继续运行有时比终止更危险。
 
@@ -1233,27 +937,13 @@ detect
 → terminate affected failure domain
 ```
 
-这叫：
+这叫：`fail-fast`
 
-```text
-fail-fast
-```
+### 30. Fail-Fast 不等于 UB
 
----
+应优先区分：`explicit termination`
 
-## 30. Fail-Fast 不等于 UB
-
-应优先区分：
-
-```text
-explicit termination
-```
-
-和：
-
-```text
-undefined behavior
-```
+和：`undefined behavior`
 
 一个系统发现 impossible state 后：
 
@@ -1263,9 +953,7 @@ std::terminate();
 
 比故意继续执行直到 UB 更有定义、更容易诊断。
 
----
-
-## 31. Debug Assertion 与 Production Check
+### 31. Debug Assertion 与 Production Check
 
 标准：
 
@@ -1275,11 +963,7 @@ assert(condition);
 
 可能在 release 消失。
 
-但有些 invariant：
-
-```text
-即使 production 也必须验证
-```
+但有些 invariant：`即使 production 也必须验证`
 
 例如继续运行可能造成：
 
@@ -1289,11 +973,7 @@ security violation
 irreversible external side effect
 ```
 
-那么项目通常需要：
-
-```text
-always-on fatal check
-```
+那么项目通常需要：`always-on fatal check`
 
 概念上：
 
@@ -1316,9 +996,7 @@ failure:
 
 `CHECK` 不是标准 C++ API，通常属于项目基础设施。
 
----
-
-## 32. Assertion 与 Production Invariant Check
+### 32. Assertion 与 Production Invariant Check
 
 推荐区分：
 
@@ -1330,29 +1008,17 @@ always-on fatal check
     production invariant enforcement
 ```
 
-不要因为：
+不要因为：`这是内部 invariant`
 
-```text
-这是内部 invariant
-```
-
-就自动认为：
-
-```text
-release 可以不检查
-```
+就自动认为：`release 可以不检查`
 
 是否需要 always-on 检查取决于 violation 的后果。
 
----
-
-## 33. `std::terminate`
+### 33. `std::terminate`
 
 `std::terminate()` 表示：
 
-```text
-program cannot continue through normal C++ execution
-```
+`program cannot continue through normal C++ execution`
 
 它具有定义明确的终止语义。
 
@@ -1364,17 +1030,11 @@ uncaught exception escapes std::thread entry
 explicit fail-fast decision
 ```
 
-它属于：
-
-```text
-terminal behavior
-```
+它属于：`terminal behavior`
 
 而不是普通错误 transport。
 
----
-
-## 34. `std::unreachable` — C++23
+### 34. `std::unreachable` — C++23
 
 `std::unreachable()` 承诺合法执行不会到达此处；到达它是 UB，不是受控拒绝。[N4950：utility.unreachable](https://timsong-cpp.github.io/cppwp/n4950/utility#utility.unreachable)
 
@@ -1399,9 +1059,7 @@ int value(State state) {
 
 [T04 / T05](review/fm-verification-samples.md#t04) 分别检查未命名值与隔离的 UBSan 反例；sanitizer 的一次诊断不构成 UB 的可移植行为保证。
 
----
-
-## 35. `std::unreachable` 不是 Fail-Fast
+### 35. `std::unreachable` 不是 Fail-Fast
 
 它不是：
 
@@ -1412,11 +1070,7 @@ panic
 throw
 ```
 
-它是在向编译器声明：
-
-```text
-this control-flow path is impossible
-```
+它是在向编译器声明：`this control-flow path is impossible`
 
 如果真实执行到：
 
@@ -1424,19 +1078,13 @@ this control-flow path is impossible
 std::unreachable();
 ```
 
-行为是：
-
-```text
-undefined behavior
-```
+行为是：`undefined behavior`
 
 因此：
 
 > `std::unreachable` 是语义/优化承诺，不是运行时保护机制。
 
----
-
-## 36. 三种机制对比
+### 36. 三种机制对比
 
 | 机制 | 条件违反时 |
 |---|---|
@@ -1446,15 +1094,9 @@ undefined behavior
 
 不要互相替代。
 
----
+### 37. `std::unreachable` 的使用原则
 
-## 37. `std::unreachable` 的使用原则
-
-只有当你可以证明：
-
-```text
-合法程序状态下绝不可能到达
-```
+只有当你可以证明：`合法程序状态下绝不可能到达`
 
 才考虑使用。
 
@@ -1476,17 +1118,15 @@ external input may participate
 
 时更要谨慎。
 
-在很多高可靠系统中：
-
-```text
-diagnostic fail-fast
-```
+在很多高可靠系统中：`diagnostic fail-fast`
 
 比极小的潜在优化价值更重要。
 
----
+<a id="fm1-part-5"></a>
 
-## 38. Internal 不等于 Trusted
+## 五、可信表示与类型设计
+
+### 38. Internal 不等于 Trusted
 
 这一点非常重要。
 
@@ -1504,31 +1144,17 @@ another service
 
 即使这些组件属于“自己的系统”，数据也未必可信。
 
-例如：
+例如：`数据库字段由旧版本写入`
 
-```text
-数据库字段由旧版本写入
-```
+当前程序仍然应该把它视作：`runtime externalized state`
 
-当前程序仍然应该把它视作：
-
-```text
-runtime externalized state
-```
-
-而不是：
-
-```text
-guaranteed internal invariant
-```
+而不是：`guaranteed internal invariant`
 
 因此：
 
 > “来自内部系统”不等于“满足当前进程 invariant”。
 
----
-
-## 39. 信任应该建立在 Boundary 上
+### 39. 信任应该建立在 Boundary 上
 
 推荐：
 
@@ -1542,17 +1168,11 @@ current-version validated representation
 trusted core
 ```
 
-而不是根据：
-
-```text
-数据是不是我们自己写的
-```
+而不是根据：`数据是不是我们自己写的`
 
 决定是否信任。
 
----
-
-## 40. Type as Invariant
+### 40. Type as Invariant
 
 最好的 invariant 往往不是：
 
@@ -1560,11 +1180,7 @@ trusted core
 assert(valid());
 ```
 
-而是：
-
-```text
-非法状态根本无法通过类型表达
-```
+而是：`非法状态根本无法通过类型表达`
 
 例如不要设计：
 
@@ -1593,15 +1209,9 @@ ConnectedConnection
 
 让状态转换通过类型发生。
 
----
+### 41. Invalid States Should Be Hard to Represent
 
-## 41. Invalid States Should Be Hard to Represent
-
-现代 C++ 类型设计应尽量：
-
-```text
-encode invariants into construction and type structure
-```
+现代 C++ 类型设计应尽量：`encode invariants into construction and type structure`
 
 利用：
 
@@ -1616,47 +1226,21 @@ ownership types
 validated domain types
 ```
 
-将错误从：
+将错误从：`runtime checking problem`
 
-```text
-runtime checking problem
-```
+提升为：`construction/type-system problem`
 
-提升为：
+### 42. 优先级
 
-```text
-construction/type-system problem
-```
-
----
-
-## 42. 优先级
-
-如果一个非法状态能够：
-
-```text
-编译期消除
-```
+如果一个非法状态能够：`编译期消除`
 
 优先编译期。
 
-否则：
+否则：`构造阶段消除`
 
-```text
-构造阶段消除
-```
+再否则：`validation boundary 消除`
 
-再否则：
-
-```text
-validation boundary 消除
-```
-
-最后才是：
-
-```text
-trusted core assertion
-```
+最后才是：`trusted core assertion`
 
 可以理解成：
 
@@ -1672,9 +1256,7 @@ internal invariant check
 
 越早消除越好。
 
----
-
-## 43. Engineering Decision Model
+### 43. Engineering Decision Model
 
 面对：
 
@@ -1686,51 +1268,49 @@ if (!condition) {
 
 首先判断 condition 为什么可能失败。
 
-### Case A — 外部世界可能不满足
+<a id="case-a--外部世界可能不满足"></a>
+
+**Case A — 外部世界可能不满足**
 
 ```text
 validation
 → recoverable failure
 ```
 
----
+<a id="case-b--api-明确允许任意输入"></a>
 
-### Case B — API 明确允许任意输入
+**Case B — API 明确允许任意输入**
 
 ```text
 checked API
 → recoverable failure
 ```
 
----
+<a id="case-c--调用者必须保证"></a>
 
-### Case C — 调用者必须保证
+**Case C — 调用者必须保证**
 
 ```text
 precondition
 → contract
 ```
 
----
+<a id="case-d--内部逻辑保证成立"></a>
 
-### Case D — 内部逻辑保证成立
+**Case D — 内部逻辑保证成立**
 
 ```text
 invariant
 → assertion / fatal check
 ```
 
----
+<a id="case-e--无法恢复且状态可信度已经丢失"></a>
 
-### Case E — 无法恢复且状态可信度已经丢失
+**Case E — 无法恢复且状态可信度已经丢失**
 
-```text
-fail-fast
-```
+`fail-fast`
 
----
-
-## 44. API Design Pattern
+### 44. API Design Pattern
 
 推荐形成两层 API：
 
@@ -1763,11 +1343,15 @@ void decode(std::span<const std::byte> bytes);
 
 并在所有深层函数里重复检查原始字节。
 
----
+<a id="fm1-part-6"></a>
 
-## 45. Anti-Patterns
+## 六、反例与回查
 
-### 45.1 Assert Untrusted Input
+### 45. Anti-Patterns
+
+<a id="451-assert-untrusted-input"></a>
+
+**45.1 Assert Untrusted Input**
 
 错误：
 
@@ -1777,9 +1361,9 @@ assert(packet.size() >= 32);
 
 如果 packet 来自外部。
 
----
+<a id="452-depend-on-assert-side-effects"></a>
 
-### 45.2 Depend on Assert Side Effects
+**45.2 Depend on Assert Side Effects**
 
 错误：
 
@@ -1787,9 +1371,9 @@ assert(packet.size() >= 32);
 assert(initialize());
 ```
 
----
+<a id="453-convert-every-programmer-bug-to-expected"></a>
 
-### 45.3 Convert Every Programmer Bug to `expected`
+**45.3 Convert Every Programmer Bug to `expected`**
 
 错误倾向：
 
@@ -1799,21 +1383,13 @@ std::expected<T, InternalImpossibleState>
 
 如果这个状态按设计根本不应该发生。
 
-结果可能只是：
+结果可能只是：`bug 被隐藏并传播`
 
-```text
-bug 被隐藏并传播
-```
+<a id="454-treat-ub-as-fast-error-handling"></a>
 
----
+**45.4 Treat UB as Fast Error Handling**
 
-### 45.4 Treat UB as Fast Error Handling
-
-错误思维：
-
-```text
-我们不检查，错了反正 UB，这样最快。
-```
+错误思维：`我们不检查，错了反正 UB，这样最快。`
 
 UB 不是 failure policy。
 
@@ -1825,21 +1401,13 @@ validated boundary
 trusted precondition
 ```
 
-而不是：
+而不是：`unchecked untrusted input`
 
-```text
-unchecked untrusted input
-```
+<a id="455-revalidate-everywhere"></a>
 
----
+**45.5 Revalidate Everywhere**
 
-### 45.5 Revalidate Everywhere
-
-如果：
-
-```text
-ValidFrame
-```
+如果：`ValidFrame`
 
 已经保证 invariant，
 
@@ -1860,9 +1428,9 @@ version valid?
 削弱类型语义
 ```
 
----
+<a id="456-blind-stdunreachable"></a>
 
-### 45.6 Blind `std::unreachable`
+**45.6 Blind `std::unreachable`**
 
 不要用：
 
@@ -1870,15 +1438,11 @@ version valid?
 std::unreachable();
 ```
 
-掩盖：
+掩盖：`其实没有证明 impossible`
 
-```text
-其实没有证明 impossible
-```
+### 46. Review Checklist
 
----
-
-## 46. Review Checklist
+先用[公共 C1–C8 合同](series-guide.md#review-contract)检查完整操作，再用以下问题回查本章机制。
 
 设计或 Review API 时：
 
@@ -1901,114 +1465,99 @@ std::unreachable();
 [ ] contract violation 是否被错误地当作业务失败传播？
 ```
 
----
+### 47. FM-1 核心不变量
 
-## 47. FM-1 核心不变量
+<a id="fm1-i1"></a>
 
-### FM1-I1
+**FM1-I1**
 
 > External uncertainty 必须通过 validation 进入系统。
 
-### FM1-I2
+<a id="fm1-i2"></a>
+
+**FM1-I2**
 
 > Assertion 用来检查内部推理，而不是验证不可信输入。
 
-### FM1-I3
+<a id="fm1-i3"></a>
+
+**FM1-I3**
 
 > Precondition violation 与普通 runtime failure 是不同类别。
 
-### FM1-I4
+<a id="fm1-i4"></a>
 
-> `assert` 是 debug contract check，不是可靠 production validation。
+**FM1-I4**
 
-### FM1-I5
+> `assert` 由 NDEBUG 控制，是可禁用的合同检查，不是可靠的常开输入验证。
+
+<a id="fm1-i5"></a>
+
+**FM1-I5**
 
 > 不得让程序正确性依赖 assert 中的副作用。
 
-### FM1-I6
+<a id="fm1-i6"></a>
+
+**FM1-I6**
 
 > UB 不是 error transport，也不存在通用 recovery contract。
 
-### FM1-I7
+<a id="fm1-i7"></a>
+
+**FM1-I7**
 
 > 应在 UB 发生之前检测重要 contract violation。
 
-### FM1-I8
+<a id="fm1-i8"></a>
+
+**FM1-I8**
 
 > `std::unreachable` 是“不可到达”的语义承诺，不是 fail-fast API。
 
-### FM1-I9
+<a id="fm1-i9"></a>
+
+**FM1-I9**
 
 > 数据是否可信由 validation boundary 决定，不由“是不是自己的系统产生”决定。
 
-### FM1-I10
+<a id="fm1-i10"></a>
+
+**FM1-I10**
 
 > Checked boundary 和 trusted core 应明确分层。
 
-### FM1-I11
+<a id="fm1-i11"></a>
+
+**FM1-I11**
 
 > 高价值 invariant 应尽可能编码进类型和构造过程。
 
-### FM1-I12
+<a id="fm1-i12"></a>
+
+**FM1-I12**
 
 > 如果继续运行已经无法保证系统语义，应显式 fail-fast，而不是进入 UB 后期待恢复。
 
----
+### 48. 最终心智模型
 
-## 48. 最终心智模型
-
-```text
-                     Incoming State
-                           │
-                Is it externally trusted?
-                     /             \
-                   no               yes
-                   │                 │
-              validation       contract reasoning
-                   │                 │
-            valid? / \ invalid       │
-                 /     \             │
-              yes       error        │
-               │                     │
-               └──────► Trusted Representation
-                              │
-                         Preconditions
-                              │
-                           Operation
-                              │
-                    ┌─────────┴──────────┐
-                    │                    │
-                 success          invariant violation
-                    │                    │
-             postconditions       programmer error
-                    │                    │
-             invariants hold      assert / fail-fast
-```
-
-UB 不属于这张错误处理流程：
+从输入到操作结果，应始终区分合法运行时失败与契约违反：
 
 ```text
-UB
-=
-contract / language rule 已经被违反，
-程序离开 C++ 抽象机的可靠语义范围。
+输入 → 证据足以建立前提？
+          ├─ 否 → validation → 拒绝／建立可信表示
+          └─ 是 → 依赖且维护已建立的前提
+                           ↓
+                         操作
+          ┌────────────────┼────────────────┐
+        成功          合同内运行时失败      契约违反
+     成功后置条件      失败后置条件／传播    依具体合同处理
+          └────────────────┴→ 仍可依赖哪些不变量？
 ```
 
-因此我们的目标不是：
+UB 不是图中的恢复分支。即使某次系统调用失败、分配失败或抛出异常，也不意味着调用方前提被破坏；反过来，某个前提被破坏后是否 UB、诊断或定义良好的拒绝，取决于具体规则。目标是在非法操作发生前建立必要条件，而不是为 UB 设计通用 catch。
 
-```text
-处理 UB
-```
-
-而是：
-
-```text
-prevent UB
-```
-
----
-
-## 49. FM-1 最终压缩
+### 49. FM-1 最终压缩
 
 FM-1 可以压成四句话：
 
