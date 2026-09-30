@@ -1,0 +1,1591 @@
+{
+  "started_at_utc": "2026-09-30T19:04:33.787873+00:00",
+  "chapter": "g00-native-toolchain.md",
+  "chapter_sha256": "04b93e7db52e811b6813ead272c0085c3cd9e6a9bca781bbebb324551661a8d8",
+  "runner_sha256": "97a4b97899e2791948a1bf03af79f0a2396e4295f5a8bd4b99f4426c70024027",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "machine": "arm64",
+  "macOS": "26.7",
+  "python": "3.12.14",
+  "source_sha256": {
+    "calc.hpp": "314f4c32cb5917534feca670ff846745984b602b17a6cc0b373be75036a199c5",
+    "calc.cpp": "7ab21ad5501f8a21a8c4da3c4fa2e2f82bea11b08fd219001a118e46f4249e1b",
+    "main.cpp": "3328f4c697274a4c0b66d00fcc8d37d81b76aa4820929d7cb310c95f5a986553",
+    "conflicting-return.cpp": "19848084c13fbfe9e34302a298971d7866d90ef322c07f88506a3ac86cbbfce0",
+    "wrong-parameters.cpp": "b0f12400b3f4c6affad4fa0ba5a5ed0a6b0481971de1679f640201c92d1a2f22",
+    "header-definition.hpp": "fc4430243ff900d720b5ab914c29bc03ca5d4260104f26e84f13ddcac53bea83",
+    "aux.cpp": "423b13b55249d46519bc1b087aa3f9358292792836454ca0d6a76c4c3c824443",
+    "single.cpp": "db653a7f072bd22d8febe7e6d8e683e1ec20eb354665cd0b3cec009232e2a901",
+    "unused.cpp": "9d3279157f6c6e3b2ab00a6c22b2168f132ef3c92d10d5c528edfed059a8381a"
+  },
+  "workspace": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj",
+  "tool_paths": {
+    "llvm-nm": "/opt/homebrew/opt/llvm/bin/llvm-nm",
+    "llvm-objdump": "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+    "ar": "/usr/bin/ar",
+    "otool": "/usr/bin/otool"
+  },
+  "runs": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "checks": [
+        {
+          "name": "preprocess-and-semantic-check",
+          "status": "PASS"
+        },
+        {
+          "name": "missing-definition-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "separate-translation-units-run",
+          "status": "PASS"
+        },
+        {
+          "name": "logic-mutation-is-not-a-link-error",
+          "status": "PASS"
+        },
+        {
+          "name": "return-type-conflict-compile-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "wrong-parameters-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "duplicate-header-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "inline-header-run",
+          "status": "PASS"
+        },
+        {
+          "name": "optimized-single-translation-unit-run",
+          "status": "PASS"
+        },
+        {
+          "name": "static-archive-run-before-and-after-rename",
+          "status": "PASS"
+        },
+        {
+          "name": "user-header-dependency-file",
+          "status": "PASS"
+        }
+      ],
+      "observations": {
+        "llvm-nm-version": {
+          "status": "OBSERVED",
+          "text": "llvm-nm, compatible with GNU nm\nHomebrew LLVM version 23.1.2\n  Optimized build.\n"
+        },
+        "llvm-objdump-version": {
+          "status": "OBSERVED",
+          "text": "Homebrew LLVM version 23.1.2\n  Optimized build.\n\n\n  Registered Targets:\n    aarch64     - AArch64 (little endian)\n    aarch64_32  - AArch64 (little endian ILP32)\n    aarch64_be  - AArch64 (big endian)\n    amdgcn      - legacy name for amdgpu\n    amdgpu      - AMDGPU gfx6+\n    arm         - ARM\n    arm64       - ARM64 (little endian)\n    arm64_32    - ARM64 (little endian ILP32)\n    armeb       - ARM (big endian)\n    avr         - Atmel AVR Microcontroller\n    bpf         - BPF (host endian)\n    bpfeb       - BPF (big endian)\n    bpfel       - BPF (little endian)\n    hexagon     - Hexagon\n    lanai       - Lanai\n    loongarch32 - 32-bit LoongArch\n    loongarch64 - 64-bit LoongArch\n    mips        - MIPS (32-bit big endian)\n    mips64      - MIPS (64-bit big endian)\n    mips64el    - MIPS (64-bit little endian)\n    mipsel      - MIPS (32-bit little endian)\n    msp430      - MSP430 [experimental]\n    nvptx       - NVIDIA PTX 32-bit\n    nvptx64     - NVIDIA PTX 64-bit\n    ppc32       - PowerPC 32\n    ppc32le     - PowerPC 32 LE\n    ppc64       - PowerPC 64\n    ppc64le     - PowerPC 64 LE\n    r600        - AMD GPUs HD2XXX-HD6XXX\n    riscv32     - 32-bit RISC-V\n    riscv32be   - 32-bit big endian RISC-V\n    riscv64     - 64-bit RISC-V\n    riscv64be   - 64-bit big endian RISC-V\n    sparc       - Sparc\n    sparcel     - Sparc LE\n    sparcv9     - Sparc V9\n    spirv       - SPIR-V Logical\n    spirv32     - SPIR-V 32-bit\n    spirv64     - SPIR-V 64-bit\n    systemz     - SystemZ\n    thumb       - Thumb\n    thumbeb     - Thumb (big endian)\n    ve          - VE\n    wasm32      - WebAssembly 32-bit\n    wasm64      - WebAssembly 64-bit\n    x86         - 32-bit X86: Pentium-Pro and above\n    x86-64      - 64-bit X86: EM64T and AMD64\n    xcore       - XCore\n"
+        },
+        "preprocessed": {
+          "status": "OBSERVED",
+          "text": "int add(int a, int b);\n\nint main() {\n    const int answer = add(20, 22);\n    return answer == 42 ? 0 : 1;\n}\n"
+        },
+        "driver-plan": {
+          "status": "OBSERVED",
+          "text": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld\" \"-demangle\" \"-lto_library\" \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib\" \"-dynamic\" \"-arch\" \"arm64\" \"-platform_version\" \"macos\" \"26.0.0\" \"27.0\" \"-syslibroot\" \"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk\" \"-mllvm\" \"-enable-linkonceodr-outlining\" \"-o\" \"planned\" \"-L/usr/local/lib\" \"main.o\" \"calc.o\" \"-lc++\" \"-lSystem\" \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a\"\n"
+        },
+        "main.o-symbols-raw": {
+          "status": "OBSERVED",
+          "text": "                 U __Z3addii\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000288 s ltmp1\n"
+        },
+        "main.o-symbols-demangled": {
+          "status": "OBSERVED",
+          "text": "                 U add(int, int)\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000288 s ltmp1\n"
+        },
+        "calc.o-symbols-raw": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T __Z3addii\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n"
+        },
+        "calc.o-symbols-demangled": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(int, int)\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n"
+        },
+        "call-and-relocation": {
+          "status": "OBSERVED",
+          "text": "\nmain.o:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000000000000 <ltmp0>:\n       0: d10083ff     \tsub\tsp, sp, #0x20\n       4: a9017bfd     \tstp\tx29, x30, [sp, #0x10]\n       8: 910043fd     \tadd\tx29, sp, #0x10\n       c: b81fc3bf     \tstur\twzr, [x29, #-0x4]\n      10: 52800280     \tmov\tw0, #0x14               ; =20\n      14: 528002c1     \tmov\tw1, #0x16               ; =22\n      18: 94000000     \tbl\t0x18 <ltmp0+0x18>\n\t\t0000000000000018:  ARM64_RELOC_BRANCH26\t__Z3addii\n      1c: b9000be0     \tstr\tw0, [sp, #0x8]\n      20: b9400be8     \tldr\tw8, [sp, #0x8]\n      24: 7100a908     \tsubs\tw8, w8, #0x2a\n      28: 1a9f07e0     \tcset\tw0, ne\n      2c: a9417bfd     \tldp\tx29, x30, [sp, #0x10]\n      30: 910083ff     \tadd\tsp, sp, #0x20\n      34: d65f03c0     \tret\n"
+        },
+        "linked-demo-disassembly": {
+          "status": "OBSERVED",
+          "text": "\ndemo:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000100000360 <_main>:\n100000360: d10083ff    \tsub\tsp, sp, #0x20\n100000364: a9017bfd    \tstp\tx29, x30, [sp, #0x10]\n100000368: 910043fd    \tadd\tx29, sp, #0x10\n10000036c: b81fc3bf    \tstur\twzr, [x29, #-0x4]\n100000370: 52800280    \tmov\tw0, #0x14               ; =20\n100000374: 528002c1    \tmov\tw1, #0x16               ; =22\n100000378: 94000008    \tbl\t0x100000398 <__Z3addii>\n10000037c: b9000be0    \tstr\tw0, [sp, #0x8]\n100000380: b9400be8    \tldr\tw8, [sp, #0x8]\n100000384: 7100a908    \tsubs\tw8, w8, #0x2a\n100000388: 1a9f07e0    \tcset\tw0, ne\n10000038c: a9417bfd    \tldp\tx29, x30, [sp, #0x10]\n100000390: 910083ff    \tadd\tsp, sp, #0x20\n100000394: d65f03c0    \tret\n\n0000000100000398 <__Z3addii>:\n100000398: d10043ff    \tsub\tsp, sp, #0x10\n10000039c: b9000fe0    \tstr\tw0, [sp, #0xc]\n1000003a0: b9000be1    \tstr\tw1, [sp, #0x8]\n1000003a4: b9400fe8    \tldr\tw8, [sp, #0xc]\n1000003a8: b9400be9    \tldr\tw9, [sp, #0x8]\n1000003ac: 0b090100    \tadd\tw0, w8, w9\n1000003b0: 910043ff    \tadd\tsp, sp, #0x10\n1000003b4: d65f03c0    \tret\n"
+        },
+        "wrong-parameters-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(long, long)\n0000000000000000 t ltmp0\n00000000000002c8 s ltmp1\n"
+        },
+        "main-O0-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 27, 0\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tsub\tsp, sp, #32\n\tstp\tx29, x30, [sp, #16]             ; 16-byte Folded Spill\n\tadd\tx29, sp, #16\n\t.cfi_def_cfa w29, 16\n\t.cfi_offset w30, -8\n\t.cfi_offset w29, -16\n\tstur\twzr, [x29, #-4]\n\tmov\tw0, #20                         ; =0x14\n\tmov\tw1, #22                         ; =0x16\n\tbl\t__Z3addii\n\tstr\tw0, [sp, #8]\n\tldr\tw8, [sp, #8]\n\tsubs\tw8, w8, #42\n\tcset\tw0, ne\n\tldp\tx29, x30, [sp, #16]             ; 16-byte Folded Reload\n\tadd\tsp, sp, #32\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "main-O2-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 27, 0\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tstp\tx29, x30, [sp, #-16]!           ; 16-byte Folded Spill\n\tmov\tx29, sp\n\t.cfi_def_cfa w29, 16\n\t.cfi_offset w30, -8\n\t.cfi_offset w29, -16\n\tmov\tw0, #20                         ; =0x14\n\tmov\tw1, #22                         ; =0x16\n\tbl\t__Z3addii\n\tcmp\tw0, #42\n\tcset\tw0, ne\n\tldp\tx29, x30, [sp], #16             ; 16-byte Folded Reload\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "single-O2-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 27, 0\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t__Z3addii                       ; -- Begin function _Z3addii\n\t.p2align\t2\n__Z3addii:                              ; @_Z3addii\n\t.cfi_startproc\n; %bb.0:\n\tadd\tw0, w1, w0\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tmov\tw0, #0                          ; =0x0\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "single-O2-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(int, int)\n0000000000000008 T _main\n0000000000000000 t ltmp0\n0000000000000010 s ltmp1\n"
+        },
+        "archive-members": {
+          "status": "OBSERVED",
+          "text": "__.SYMDEF SORTED\ncalc.o\nunused.o\n"
+        },
+        "static-demo-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000100000398 T add(int, int)\n0000000100000000 T __mh_execute_header\n0000000100000360 T _main\n"
+        },
+        "static-link-map": {
+          "status": "OBSERVED",
+          "text": "# Path: static-demo\n# Arch: arm64\n# Object files:\n[  0] linker synthesized\n[  1] main.o\n[  2] libcalc.a(calc.o)\n[  3] /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libc++.tbd\n[  4] /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd\n# Sections:\n# Address\tSize    \tSegment\tSection\n0x100000360\t0x00000058\t__TEXT\t__text\n0x1000003B8\t0x00000060\t__TEXT\t__unwind_info\n# Symbols:\n# Address\tSize    \tFile  Name\n0x100000000\t0x00000000\t[  0] __mh_execute_header\n0x100000360\t0x00000038\t[  1] _main\n0x100000398\t0x00000020\t[  2] __Z3addii\n0x1000003B8\t0x00000060\t[  0] compact unwind info\n"
+        },
+        "runtime-dylibs": {
+          "status": "OBSERVED",
+          "text": "static-demo:\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n"
+        },
+        "dependency-file": {
+          "status": "OBSERVED",
+          "text": "dep.o: \\\n  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/SDKSettings.json \\\n  main.cpp calc.hpp\n"
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-dumpmachine"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "arm64-apple-darwin25.6.0\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "llvm-nm, compatible with GNU nm\nHomebrew LLVM version 23.1.2\n  Optimized build.\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "Homebrew LLVM version 23.1.2\n  Optimized build.\n\n\n  Registered Targets:\n    aarch64     - AArch64 (little endian)\n    aarch64_32  - AArch64 (little endian ILP32)\n    aarch64_be  - AArch64 (big endian)\n    amdgcn      - legacy name for amdgpu\n    amdgpu      - AMDGPU gfx6+\n    arm         - ARM\n    arm64       - ARM64 (little endian)\n    arm64_32    - ARM64 (little endian ILP32)\n    armeb       - ARM (big endian)\n    avr         - Atmel AVR Microcontroller\n    bpf         - BPF (host endian)\n    bpfeb       - BPF (big endian)\n    bpfel       - BPF (little endian)\n    hexagon     - Hexagon\n    lanai       - Lanai\n    loongarch32 - 32-bit LoongArch\n    loongarch64 - 64-bit LoongArch\n    mips        - MIPS (32-bit big endian)\n    mips64      - MIPS (64-bit big endian)\n    mips64el    - MIPS (64-bit little endian)\n    mipsel      - MIPS (32-bit little endian)\n    msp430      - MSP430 [experimental]\n    nvptx       - NVIDIA PTX 32-bit\n    nvptx64     - NVIDIA PTX 64-bit\n    ppc32       - PowerPC 32\n    ppc32le     - PowerPC 32 LE\n    ppc64       - PowerPC 64\n    ppc64le     - PowerPC 64 LE\n    r600        - AMD GPUs HD2XXX-HD6XXX\n    riscv32     - 32-bit RISC-V\n    riscv32be   - 32-bit big endian RISC-V\n    riscv64     - 64-bit RISC-V\n    riscv64be   - 64-bit big endian RISC-V\n    sparc       - Sparc\n    sparcel     - Sparc LE\n    sparcv9     - Sparc V9\n    spirv       - SPIR-V Logical\n    spirv32     - SPIR-V 32-bit\n    spirv64     - SPIR-V 64-bit\n    systemz     - SystemZ\n    thumb       - Thumb\n    thumbeb     - Thumb (big endian)\n    ve          - VE\n    wasm32      - WebAssembly 32-bit\n    wasm64      - WebAssembly 64-bit\n    x86         - 32-bit X86: Pentium-Pro and above\n    x86-64      - 64-bit X86: EM64T and AMD64\n    xcore       - XCore\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-E",
+            "-P",
+            "main.cpp",
+            "-o",
+            "main.ii"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-fsyntax-only",
+            "main.cpp"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.o",
+            "-o",
+            "missing-definition"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "calc.cpp",
+            "-o",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.o",
+            "calc.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-###",
+            "main.o",
+            "calc.o",
+            "-o",
+            "planned"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld\" \"-demangle\" \"-lto_library\" \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib\" \"-dynamic\" \"-arch\" \"arm64\" \"-platform_version\" \"macos\" \"26.0.0\" \"27.0\" \"-syslibroot\" \"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk\" \"-mllvm\" \"-enable-linkonceodr-outlining\" \"-o\" \"planned\" \"-L/usr/local/lib\" \"main.o\" \"calc.o\" \"-lc++\" \"-lSystem\" \"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a\"\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "                 U __Z3addii\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000288 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "                 U add(int, int)\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000288 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "0000000000000000 T __Z3addii\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(int, int)\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--disassemble",
+            "--reloc",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "\nmain.o:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000000000000 <ltmp0>:\n       0: d10083ff     \tsub\tsp, sp, #0x20\n       4: a9017bfd     \tstp\tx29, x30, [sp, #0x10]\n       8: 910043fd     \tadd\tx29, sp, #0x10\n       c: b81fc3bf     \tstur\twzr, [x29, #-0x4]\n      10: 52800280     \tmov\tw0, #0x14               ; =20\n      14: 528002c1     \tmov\tw1, #0x16               ; =22\n      18: 94000000     \tbl\t0x18 <ltmp0+0x18>\n\t\t0000000000000018:  ARM64_RELOC_BRANCH26\t__Z3addii\n      1c: b9000be0     \tstr\tw0, [sp, #0x8]\n      20: b9400be8     \tldr\tw8, [sp, #0x8]\n      24: 7100a908     \tsubs\tw8, w8, #0x2a\n      28: 1a9f07e0     \tcset\tw0, ne\n      2c: a9417bfd     \tldp\tx29, x30, [sp, #0x10]\n      30: 910083ff     \tadd\tsp, sp, #0x20\n      34: d65f03c0     \tret\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--disassemble",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "\ndemo:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000100000360 <_main>:\n100000360: d10083ff    \tsub\tsp, sp, #0x20\n100000364: a9017bfd    \tstp\tx29, x30, [sp, #0x10]\n100000368: 910043fd    \tadd\tx29, sp, #0x10\n10000036c: b81fc3bf    \tstur\twzr, [x29, #-0x4]\n100000370: 52800280    \tmov\tw0, #0x14               ; =20\n100000374: 528002c1    \tmov\tw1, #0x16               ; =22\n100000378: 94000008    \tbl\t0x100000398 <__Z3addii>\n10000037c: b9000be0    \tstr\tw0, [sp, #0x8]\n100000380: b9400be8    \tldr\tw8, [sp, #0x8]\n100000384: 7100a908    \tsubs\tw8, w8, #0x2a\n100000388: 1a9f07e0    \tcset\tw0, ne\n10000038c: a9417bfd    \tldp\tx29, x30, [sp, #0x10]\n100000390: 910083ff    \tadd\tsp, sp, #0x20\n100000394: d65f03c0    \tret\n\n0000000100000398 <__Z3addii>:\n100000398: d10043ff    \tsub\tsp, sp, #0x10\n10000039c: b9000fe0    \tstr\tw0, [sp, #0xc]\n1000003a0: b9000be1    \tstr\tw1, [sp, #0x8]\n1000003a4: b9400fe8    \tldr\tw8, [sp, #0xc]\n1000003a8: b9400be9    \tldr\tw9, [sp, #0x8]\n1000003ac: 0b090100    \tadd\tw0, w8, w9\n1000003b0: 910043ff    \tadd\tsp, sp, #0x10\n1000003b4: d65f03c0    \tret\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "subtract.cpp",
+            "-o",
+            "subtract.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.o",
+            "subtract.o",
+            "-o",
+            "wrong-result"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/wrong-result"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "conflicting-return.cpp",
+            "-o",
+            "conflict.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "conflicting-return.cpp:3:6: error: functions that differ only in their return type cannot be overloaded\n    3 | long add(int a, int b) {\n      | ~~~~ ^\n./calc.hpp:4:5: note: previous declaration is here\n    4 | int add(int a, int b);\n      | ~~~ ^\n1 error generated.\n"
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "wrong-parameters.cpp",
+            "-o",
+            "wrong-parameters.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.o",
+            "wrong-parameters.o",
+            "-o",
+            "wrong-signature"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "wrong-parameters.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(long, long)\n0000000000000000 t ltmp0\n00000000000002c8 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/duplicate",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "aux.cpp",
+            "-o",
+            "aux.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/duplicate",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.cpp.o",
+            "aux.cpp.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/duplicate",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "duplicate symbol 'add(int, int)' in:\n    /private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/duplicate/aux.cpp.o\n    /private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/duplicate/main.cpp.o\nld: 1 duplicate symbols\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "aux.cpp",
+            "-o",
+            "aux.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.cpp.o",
+            "aux.cpp.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/inline/demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-S",
+            "main.cpp",
+            "-o",
+            "main-O0.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-S",
+            "main.cpp",
+            "-o",
+            "main-O2.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-S",
+            "single.cpp",
+            "-o",
+            "single-O2.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-c",
+            "single.cpp",
+            "-o",
+            "single-O2.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "single-O2.o",
+            "-o",
+            "single"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/single"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "single-O2.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(int, int)\n0000000000000008 T _main\n0000000000000000 t ltmp0\n0000000000000010 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "unused.cpp",
+            "-o",
+            "unused.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/ar",
+            "rcs",
+            "libcalc.a",
+            "calc.o",
+            "unused.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/ar",
+            "t",
+            "libcalc.a"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "__.SYMDEF SORTED\ncalc.o\nunused.o\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "main.o",
+            "libcalc.a",
+            "-Wl,-map,static-demo.map",
+            "-o",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "0000000100000398 T add(int, int)\n0000000100000000 T __mh_execute_header\n0000000100000360 T _main\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0/static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/otool",
+            "-L",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "static-demo:\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-MMD",
+            "-MF",
+            "main.d",
+            "-c",
+            "main.cpp",
+            "-o",
+            "dep.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/0",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+      "target": "arm64-apple-darwin25.6.0",
+      "mutation_sha256": "09724f2a8b7016f09b252561885b39ad8db723adecdcba3654f6bfd9da3b64d6",
+      "header_variant_sha256": {
+        "duplicate": "fc4430243ff900d720b5ab914c29bc03ca5d4260104f26e84f13ddcac53bea83",
+        "inline": "02f5b3f2aab1058fb2ddb4e1754040e253ac53a1155a0b956ac871161976e677"
+      },
+      "status": "PASS"
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "checks": [
+        {
+          "name": "preprocess-and-semantic-check",
+          "status": "PASS"
+        },
+        {
+          "name": "missing-definition-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "separate-translation-units-run",
+          "status": "PASS"
+        },
+        {
+          "name": "logic-mutation-is-not-a-link-error",
+          "status": "PASS"
+        },
+        {
+          "name": "return-type-conflict-compile-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "wrong-parameters-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "duplicate-header-link-diagnostic",
+          "status": "PASS"
+        },
+        {
+          "name": "inline-header-run",
+          "status": "PASS"
+        },
+        {
+          "name": "optimized-single-translation-unit-run",
+          "status": "PASS"
+        },
+        {
+          "name": "static-archive-run-before-and-after-rename",
+          "status": "PASS"
+        },
+        {
+          "name": "user-header-dependency-file",
+          "status": "PASS"
+        }
+      ],
+      "observations": {
+        "llvm-nm-version": {
+          "status": "OBSERVED",
+          "text": "llvm-nm, compatible with GNU nm\nHomebrew LLVM version 23.1.2\n  Optimized build.\n"
+        },
+        "llvm-objdump-version": {
+          "status": "OBSERVED",
+          "text": "Homebrew LLVM version 23.1.2\n  Optimized build.\n\n\n  Registered Targets:\n    aarch64     - AArch64 (little endian)\n    aarch64_32  - AArch64 (little endian ILP32)\n    aarch64_be  - AArch64 (big endian)\n    amdgcn      - legacy name for amdgpu\n    amdgpu      - AMDGPU gfx6+\n    arm         - ARM\n    arm64       - ARM64 (little endian)\n    arm64_32    - ARM64 (little endian ILP32)\n    armeb       - ARM (big endian)\n    avr         - Atmel AVR Microcontroller\n    bpf         - BPF (host endian)\n    bpfeb       - BPF (big endian)\n    bpfel       - BPF (little endian)\n    hexagon     - Hexagon\n    lanai       - Lanai\n    loongarch32 - 32-bit LoongArch\n    loongarch64 - 64-bit LoongArch\n    mips        - MIPS (32-bit big endian)\n    mips64      - MIPS (64-bit big endian)\n    mips64el    - MIPS (64-bit little endian)\n    mipsel      - MIPS (32-bit little endian)\n    msp430      - MSP430 [experimental]\n    nvptx       - NVIDIA PTX 32-bit\n    nvptx64     - NVIDIA PTX 64-bit\n    ppc32       - PowerPC 32\n    ppc32le     - PowerPC 32 LE\n    ppc64       - PowerPC 64\n    ppc64le     - PowerPC 64 LE\n    r600        - AMD GPUs HD2XXX-HD6XXX\n    riscv32     - 32-bit RISC-V\n    riscv32be   - 32-bit big endian RISC-V\n    riscv64     - 64-bit RISC-V\n    riscv64be   - 64-bit big endian RISC-V\n    sparc       - Sparc\n    sparcel     - Sparc LE\n    sparcv9     - Sparc V9\n    spirv       - SPIR-V Logical\n    spirv32     - SPIR-V 32-bit\n    spirv64     - SPIR-V 64-bit\n    systemz     - SystemZ\n    thumb       - Thumb\n    thumbeb     - Thumb (big endian)\n    ve          - VE\n    wasm32      - WebAssembly 32-bit\n    wasm64      - WebAssembly 64-bit\n    x86         - 32-bit X86: Pentium-Pro and above\n    x86-64      - 64-bit X86: EM64T and AMD64\n    xcore       - XCore\n"
+        },
+        "preprocessed": {
+          "status": "OBSERVED",
+          "text": "int add(int a, int b);\n\nint main() {\n    const int answer = add(20, 22);\n    return answer == 42 ? 0 : 1;\n}\n"
+        },
+        "driver-plan": {
+          "status": "OBSERVED",
+          "text": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n \"/usr/bin/ld\" \"-demangle\" \"-lto_library\" \"/opt/homebrew/Cellar/llvm/23.1.2/lib/libLTO.dylib\" \"-dynamic\" \"-arch\" \"arm64\" \"-platform_version\" \"macos\" \"26.0.0\" \"26.5\" \"-syslibroot\" \"/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk\" \"-mllvm\" \"-enable-linkonceodr-outlining\" \"-o\" \"planned\" \"main.o\" \"calc.o\" \"-lc++\" \"-lSystem\" \"/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.osx.a\"\n"
+        },
+        "main.o-symbols-raw": {
+          "status": "OBSERVED",
+          "text": "                 U __Z3addii\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000250 s ltmp1\n"
+        },
+        "main.o-symbols-demangled": {
+          "status": "OBSERVED",
+          "text": "                 U add(int, int)\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000250 s ltmp1\n"
+        },
+        "calc.o-symbols-raw": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T __Z3addii\n0000000000000000 t ltmp0\n0000000000000258 s ltmp1\n"
+        },
+        "calc.o-symbols-demangled": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(int, int)\n0000000000000000 t ltmp0\n0000000000000258 s ltmp1\n"
+        },
+        "call-and-relocation": {
+          "status": "OBSERVED",
+          "text": "\nmain.o:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000000000000 <ltmp0>:\n       0: d10083ff     \tsub\tsp, sp, #0x20\n       4: a9017bfd     \tstp\tx29, x30, [sp, #0x10]\n       8: 910043fd     \tadd\tx29, sp, #0x10\n       c: b81fc3bf     \tstur\twzr, [x29, #-0x4]\n      10: 52800280     \tmov\tw0, #0x14               ; =20\n      14: 528002c1     \tmov\tw1, #0x16               ; =22\n      18: 94000000     \tbl\t0x18 <ltmp0+0x18>\n\t\t0000000000000018:  ARM64_RELOC_BRANCH26\t__Z3addii\n      1c: b9000be0     \tstr\tw0, [sp, #0x8]\n      20: b9400be8     \tldr\tw8, [sp, #0x8]\n      24: 7100a908     \tsubs\tw8, w8, #0x2a\n      28: 1a9f07e0     \tcset\tw0, ne\n      2c: a9417bfd     \tldp\tx29, x30, [sp, #0x10]\n      30: 910083ff     \tadd\tsp, sp, #0x20\n      34: d65f03c0     \tret\n"
+        },
+        "linked-demo-disassembly": {
+          "status": "OBSERVED",
+          "text": "\ndemo:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000100000360 <_main>:\n100000360: d10083ff    \tsub\tsp, sp, #0x20\n100000364: a9017bfd    \tstp\tx29, x30, [sp, #0x10]\n100000368: 910043fd    \tadd\tx29, sp, #0x10\n10000036c: b81fc3bf    \tstur\twzr, [x29, #-0x4]\n100000370: 52800280    \tmov\tw0, #0x14               ; =20\n100000374: 528002c1    \tmov\tw1, #0x16               ; =22\n100000378: 94000008    \tbl\t0x100000398 <__Z3addii>\n10000037c: b9000be0    \tstr\tw0, [sp, #0x8]\n100000380: b9400be8    \tldr\tw8, [sp, #0x8]\n100000384: 7100a908    \tsubs\tw8, w8, #0x2a\n100000388: 1a9f07e0    \tcset\tw0, ne\n10000038c: a9417bfd    \tldp\tx29, x30, [sp, #0x10]\n100000390: 910083ff    \tadd\tsp, sp, #0x20\n100000394: d65f03c0    \tret\n\n0000000100000398 <__Z3addii>:\n100000398: d10043ff    \tsub\tsp, sp, #0x10\n10000039c: b9000fe0    \tstr\tw0, [sp, #0xc]\n1000003a0: b9000be1    \tstr\tw1, [sp, #0x8]\n1000003a4: b9400fe8    \tldr\tw8, [sp, #0xc]\n1000003a8: b9400be9    \tldr\tw9, [sp, #0x8]\n1000003ac: 0b090100    \tadd\tw0, w8, w9\n1000003b0: 910043ff    \tadd\tsp, sp, #0x10\n1000003b4: d65f03c0    \tret\n"
+        },
+        "wrong-parameters-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(long, long)\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n"
+        },
+        "main-O0-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 26, 5\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tsub\tsp, sp, #32\n\tstp\tx29, x30, [sp, #16]             ; 16-byte Folded Spill\n\tadd\tx29, sp, #16\n\t.cfi_def_cfa w29, 16\n\t.cfi_offset w30, -8\n\t.cfi_offset w29, -16\n\tstur\twzr, [x29, #-4]\n\tmov\tw0, #20                         ; =0x14\n\tmov\tw1, #22                         ; =0x16\n\tbl\t__Z3addii\n\tstr\tw0, [sp, #8]\n\tldr\tw8, [sp, #8]\n\tsubs\tw8, w8, #42\n\tcset\tw0, ne\n\tldp\tx29, x30, [sp, #16]             ; 16-byte Folded Reload\n\tadd\tsp, sp, #32\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "main-O2-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 26, 5\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tstp\tx29, x30, [sp, #-16]!           ; 16-byte Folded Spill\n\tmov\tx29, sp\n\t.cfi_def_cfa w29, 16\n\t.cfi_offset w30, -8\n\t.cfi_offset w29, -16\n\tmov\tw0, #20                         ; =0x14\n\tmov\tw1, #22                         ; =0x16\n\tbl\t__Z3addii\n\tcmp\tw0, #42\n\tcset\tw0, ne\n\tldp\tx29, x30, [sp], #16             ; 16-byte Folded Reload\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "single-O2-assembly": {
+          "status": "OBSERVED",
+          "text": "\t.build_version macos, 26, 0\tsdk_version 26, 5\n\t.section\t__TEXT,__text,regular,pure_instructions\n\t.globl\t__Z3addii                       ; -- Begin function _Z3addii\n\t.p2align\t2\n__Z3addii:                              ; @_Z3addii\n\t.cfi_startproc\n; %bb.0:\n\tadd\tw0, w1, w0\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n\t.globl\t_main                           ; -- Begin function main\n\t.p2align\t2\n_main:                                  ; @main\n\t.cfi_startproc\n; %bb.0:\n\tmov\tw0, #0                          ; =0x0\n\tret\n\t.cfi_endproc\n                                        ; -- End function\n.subsections_via_symbols\n"
+        },
+        "single-O2-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000000000000 T add(int, int)\n0000000000000008 T _main\n0000000000000000 t ltmp0\n0000000000000010 s ltmp1\n"
+        },
+        "archive-members": {
+          "status": "OBSERVED",
+          "text": "__.SYMDEF SORTED\ncalc.o\nunused.o\n"
+        },
+        "static-demo-symbols": {
+          "status": "OBSERVED",
+          "text": "0000000100000398 T add(int, int)\n0000000100000000 T __mh_execute_header\n0000000100000360 T _main\n"
+        },
+        "static-link-map": {
+          "status": "OBSERVED",
+          "text": "# Path: static-demo\n# Arch: arm64\n# Object files:\n[  0] linker synthesized\n[  1] main.o\n[  2] libcalc.a(calc.o)\n[  3] /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/usr/lib/libc++.tbd\n[  4] /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/usr/lib/libSystem.tbd\n# Sections:\n# Address\tSize    \tSegment\tSection\n0x100000360\t0x00000058\t__TEXT\t__text\n0x1000003B8\t0x00000060\t__TEXT\t__unwind_info\n# Symbols:\n# Address\tSize    \tFile  Name\n0x100000000\t0x00000000\t[  0] __mh_execute_header\n0x100000360\t0x00000038\t[  1] _main\n0x100000398\t0x00000020\t[  2] __Z3addii\n0x1000003B8\t0x00000060\t[  0] compact unwind info\n"
+        },
+        "runtime-dylibs": {
+          "status": "OBSERVED",
+          "text": "static-demo:\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2100.43.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n"
+        },
+        "dependency-file": {
+          "status": "OBSERVED",
+          "text": "dep.o: \\\n  /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/SDKSettings.json \\\n  main.cpp calc.hpp\n"
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-dumpmachine"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "arm64-apple-darwin25.6.0\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "llvm-nm, compatible with GNU nm\nHomebrew LLVM version 23.1.2\n  Optimized build.\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--version"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "Homebrew LLVM version 23.1.2\n  Optimized build.\n\n\n  Registered Targets:\n    aarch64     - AArch64 (little endian)\n    aarch64_32  - AArch64 (little endian ILP32)\n    aarch64_be  - AArch64 (big endian)\n    amdgcn      - legacy name for amdgpu\n    amdgpu      - AMDGPU gfx6+\n    arm         - ARM\n    arm64       - ARM64 (little endian)\n    arm64_32    - ARM64 (little endian ILP32)\n    armeb       - ARM (big endian)\n    avr         - Atmel AVR Microcontroller\n    bpf         - BPF (host endian)\n    bpfeb       - BPF (big endian)\n    bpfel       - BPF (little endian)\n    hexagon     - Hexagon\n    lanai       - Lanai\n    loongarch32 - 32-bit LoongArch\n    loongarch64 - 64-bit LoongArch\n    mips        - MIPS (32-bit big endian)\n    mips64      - MIPS (64-bit big endian)\n    mips64el    - MIPS (64-bit little endian)\n    mipsel      - MIPS (32-bit little endian)\n    msp430      - MSP430 [experimental]\n    nvptx       - NVIDIA PTX 32-bit\n    nvptx64     - NVIDIA PTX 64-bit\n    ppc32       - PowerPC 32\n    ppc32le     - PowerPC 32 LE\n    ppc64       - PowerPC 64\n    ppc64le     - PowerPC 64 LE\n    r600        - AMD GPUs HD2XXX-HD6XXX\n    riscv32     - 32-bit RISC-V\n    riscv32be   - 32-bit big endian RISC-V\n    riscv64     - 64-bit RISC-V\n    riscv64be   - 64-bit big endian RISC-V\n    sparc       - Sparc\n    sparcel     - Sparc LE\n    sparcv9     - Sparc V9\n    spirv       - SPIR-V Logical\n    spirv32     - SPIR-V 32-bit\n    spirv64     - SPIR-V 64-bit\n    systemz     - SystemZ\n    thumb       - Thumb\n    thumbeb     - Thumb (big endian)\n    ve          - VE\n    wasm32      - WebAssembly 32-bit\n    wasm64      - WebAssembly 64-bit\n    x86         - 32-bit X86: Pentium-Pro and above\n    x86-64      - 64-bit X86: EM64T and AMD64\n    xcore       - XCore\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-E",
+            "-P",
+            "main.cpp",
+            "-o",
+            "main.ii"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-fsyntax-only",
+            "main.cpp"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.o",
+            "-o",
+            "missing-definition"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "calc.cpp",
+            "-o",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.o",
+            "calc.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-###",
+            "main.o",
+            "calc.o",
+            "-o",
+            "planned"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n \"/usr/bin/ld\" \"-demangle\" \"-lto_library\" \"/opt/homebrew/Cellar/llvm/23.1.2/lib/libLTO.dylib\" \"-dynamic\" \"-arch\" \"arm64\" \"-platform_version\" \"macos\" \"26.0.0\" \"26.5\" \"-syslibroot\" \"/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk\" \"-mllvm\" \"-enable-linkonceodr-outlining\" \"-o\" \"planned\" \"main.o\" \"calc.o\" \"-lc++\" \"-lSystem\" \"/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.osx.a\"\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "                 U __Z3addii\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000250 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "                 U add(int, int)\n0000000000000000 T _main\n0000000000000000 t ltmp0\n0000000000000250 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "0000000000000000 T __Z3addii\n0000000000000000 t ltmp0\n0000000000000258 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "calc.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(int, int)\n0000000000000000 t ltmp0\n0000000000000258 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--disassemble",
+            "--reloc",
+            "main.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "\nmain.o:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000000000000 <ltmp0>:\n       0: d10083ff     \tsub\tsp, sp, #0x20\n       4: a9017bfd     \tstp\tx29, x30, [sp, #0x10]\n       8: 910043fd     \tadd\tx29, sp, #0x10\n       c: b81fc3bf     \tstur\twzr, [x29, #-0x4]\n      10: 52800280     \tmov\tw0, #0x14               ; =20\n      14: 528002c1     \tmov\tw1, #0x16               ; =22\n      18: 94000000     \tbl\t0x18 <ltmp0+0x18>\n\t\t0000000000000018:  ARM64_RELOC_BRANCH26\t__Z3addii\n      1c: b9000be0     \tstr\tw0, [sp, #0x8]\n      20: b9400be8     \tldr\tw8, [sp, #0x8]\n      24: 7100a908     \tsubs\tw8, w8, #0x2a\n      28: 1a9f07e0     \tcset\tw0, ne\n      2c: a9417bfd     \tldp\tx29, x30, [sp, #0x10]\n      30: 910083ff     \tadd\tsp, sp, #0x20\n      34: d65f03c0     \tret\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-objdump",
+            "--disassemble",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "\ndemo:\tfile format mach-o arm64\n\nDisassembly of section __TEXT,__text:\n\n0000000100000360 <_main>:\n100000360: d10083ff    \tsub\tsp, sp, #0x20\n100000364: a9017bfd    \tstp\tx29, x30, [sp, #0x10]\n100000368: 910043fd    \tadd\tx29, sp, #0x10\n10000036c: b81fc3bf    \tstur\twzr, [x29, #-0x4]\n100000370: 52800280    \tmov\tw0, #0x14               ; =20\n100000374: 528002c1    \tmov\tw1, #0x16               ; =22\n100000378: 94000008    \tbl\t0x100000398 <__Z3addii>\n10000037c: b9000be0    \tstr\tw0, [sp, #0x8]\n100000380: b9400be8    \tldr\tw8, [sp, #0x8]\n100000384: 7100a908    \tsubs\tw8, w8, #0x2a\n100000388: 1a9f07e0    \tcset\tw0, ne\n10000038c: a9417bfd    \tldp\tx29, x30, [sp, #0x10]\n100000390: 910083ff    \tadd\tsp, sp, #0x20\n100000394: d65f03c0    \tret\n\n0000000100000398 <__Z3addii>:\n100000398: d10043ff    \tsub\tsp, sp, #0x10\n10000039c: b9000fe0    \tstr\tw0, [sp, #0xc]\n1000003a0: b9000be1    \tstr\tw1, [sp, #0x8]\n1000003a4: b9400fe8    \tldr\tw8, [sp, #0xc]\n1000003a8: b9400be9    \tldr\tw9, [sp, #0x8]\n1000003ac: 0b090100    \tadd\tw0, w8, w9\n1000003b0: 910043ff    \tadd\tsp, sp, #0x10\n1000003b4: d65f03c0    \tret\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "subtract.cpp",
+            "-o",
+            "subtract.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.o",
+            "subtract.o",
+            "-o",
+            "wrong-result"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/wrong-result"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "conflicting-return.cpp",
+            "-o",
+            "conflict.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "conflicting-return.cpp:3:6: error: functions that differ only in their return type cannot be overloaded\n    3 | long add(int a, int b) {\n      | ~~~~ ^\n./calc.hpp:4:5: note: previous declaration is here\n    4 | int add(int a, int b);\n      | ~~~ ^\n1 error generated.\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "wrong-parameters.cpp",
+            "-o",
+            "wrong-parameters.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.o",
+            "wrong-parameters.o",
+            "-o",
+            "wrong-signature"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "Undefined symbols for architecture arm64:\n  \"add(int, int)\", referenced from:\n      _main in main.o\nld: symbol(s) not found for architecture arm64\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "wrong-parameters.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(long, long)\n0000000000000000 t ltmp0\n0000000000000290 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/duplicate",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "aux.cpp",
+            "-o",
+            "aux.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/duplicate",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.cpp.o",
+            "aux.cpp.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/duplicate",
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "duplicate symbol 'add(int, int)' in:\n    /private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/duplicate/aux.cpp.o\n    /private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/duplicate/main.cpp.o\nld: 1 duplicate symbols\nclang++: error: linker command failed with exit code 1 (use -v to see invocation)\n"
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "main.cpp",
+            "-o",
+            "main.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "aux.cpp",
+            "-o",
+            "aux.cpp.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.cpp.o",
+            "aux.cpp.o",
+            "-o",
+            "demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/inline/demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/inline",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-S",
+            "main.cpp",
+            "-o",
+            "main-O0.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-S",
+            "main.cpp",
+            "-o",
+            "main-O2.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-S",
+            "single.cpp",
+            "-o",
+            "single-O2.s"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O2",
+            "-c",
+            "single.cpp",
+            "-o",
+            "single-O2.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "single-O2.o",
+            "-o",
+            "single"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/single"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "single-O2.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "0000000000000000 T add(int, int)\n0000000000000008 T _main\n0000000000000000 t ltmp0\n0000000000000010 s ltmp1\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-O0",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-c",
+            "unused.cpp",
+            "-o",
+            "unused.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/ar",
+            "rcs",
+            "libcalc.a",
+            "calc.o",
+            "unused.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/ar",
+            "t",
+            "libcalc.a"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "__.SYMDEF SORTED\ncalc.o\nunused.o\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "main.o",
+            "libcalc.a",
+            "-Wl,-map,static-demo.map",
+            "-o",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/llvm-nm",
+            "--demangle",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "0000000100000398 T add(int, int)\n0000000100000000 T __mh_execute_header\n0000000100000360 T _main\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1/static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/usr/bin/otool",
+            "-L",
+            "static-demo"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "static-demo:\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2100.43.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-MMD",
+            "-MF",
+            "main.d",
+            "-c",
+            "main.cpp",
+            "-o",
+            "dep.o"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g0-rework-ap91xedj/1",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "version": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+      "target": "arm64-apple-darwin25.6.0",
+      "mutation_sha256": "09724f2a8b7016f09b252561885b39ad8db723adecdcba3654f6bfd9da3b64d6",
+      "header_variant_sha256": {
+        "duplicate": "fc4430243ff900d720b5ab914c29bc03ca5d4260104f26e84f13ddcac53bea83",
+        "inline": "02f5b3f2aab1058fb2ddb4e1754040e253ac53a1155a0b956ac871161976e677"
+      },
+      "status": "PASS"
+    }
+  ],
+  "scope": "Local compiler/linker checks and binary observations only; not performance, cross-platform, or PDF qualification",
+  "status": "PASS",
+  "completed_at_utc": "2026-09-30T19:04:38.577326+00:00"
+}
