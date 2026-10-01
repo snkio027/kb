@@ -274,7 +274,7 @@ clang++ -std=c++23 -O0 -fno-elide-constructors direct-result.cpp -o direct-resul
 ./direct-result
 ```
 
-第一条运行预期得到 `direct_moves=0; named_moves=1; forced_moves=1`；第二个程序仍应编译并得到上一节的正常结果。这个工具选项关闭允许省略的相应构造，不能撤销语言要求的同类型纯右值初始化语义。[Clang 选项入口](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-felide-constructors)是工具资料，不是跨编译器选项合同。
+第一条运行预期得到 `direct_moves=0; named_moves=1; forced_moves=1`；第二个程序仍应编译并得到上一节的正常结果。这个工具选项禁用可选的复制/移动省略，不能撤销语言要求的同类型纯右值初始化语义。[Clang 选项入口](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-felide-constructors)是工具资料，不是跨编译器选项合同。
 
 实验没有计时、profile 或生成汇编审阅。一次构造调用可能只处理几个成员，也可能复制大量数据；返回值优化减少调用，不直接给出应用耗时。应先确保结果合同，再在 G6 的测量框架中研究实际热点，不能由这几个数字推出“按值总比引用快”。
 
@@ -282,7 +282,7 @@ clang++ -std=c++23 -O0 -fno-elide-constructors direct-result.cpp -o direct-resul
 
 值类别（value category）描述表达式，不是给一个对象贴上永久标签。相同的 Batch 对象，通过名字 source 表达时通常是左值，通过 `std::move(source)` 表达时是将亡值；这两个表达式没有因此指向两个不同对象。声明类型为 `Batch&&` 的变量，在普通表达式中被名字引用时仍是左值。
 
-左值（lvalue）和将亡值（xvalue）都属于泛左值（glvalue），都能确定一个对象、位域或函数的身份；将亡值用于表示其资源可以在相应语境中被复用。纯右值（prvalue）用于初始化对象或计算操作数的值，将亡值与纯右值合称右值（rvalue）。这些分类不等于“在赋值号左边或右边”，也不等于“有没有名字”或“是不是马上析构”。[表达式分类](https://timsong-cpp.github.io/cppwp/n4950/basic.lval)
+左值（lvalue）和将亡值（xvalue）都属于泛左值（glvalue）；泛左值用于确定对象或函数的身份。将亡值进一步表示一个对象或位域，其资源可以在相应语境中被复用。纯右值（prvalue）用于初始化对象或计算操作数的值，将亡值与纯右值合称右值（rvalue）。这些分类不等于“在赋值号左边或右边”，也不等于“有没有名字”或“是不是马上析构”。[表达式分类](https://timsong-cpp.github.io/cppwp/n4950/basic.lval)
 
 | 本章表达式 | 类别 | 在这里的意义 |
 | --- | --- | --- |
