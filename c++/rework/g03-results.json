@@ -1,0 +1,3164 @@
+{
+  "started_at_utc": "2026-10-01T12:28:17.630507+00:00",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "macOS": "26.7",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "documents": {
+    "g03-value-copy-and-move.md": "953f3f041897b15170a1df49732d7b7d2aa0abecd1d9018d7b12603a86eec100",
+    "g03-expressions-and-return.md": "25d43620c83859c0ff2056aa37e84ccfd248bee5fb58a5070220834857b6ca73"
+  },
+  "source_sha256": {
+    "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+    "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+    "value-batch.hpp": "a02e0f9add33e619d433bf19a7a33b0540ca0f35ca345f0443f24fd15aec6476",
+    "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+    "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+    "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+    "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+    "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+    "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+    "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+    "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+    "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+    "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+    "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+  },
+  "runner_sha256": "0fd6b55e5384f4f8389a3f73ec3dcf8ca189e3682125beac4e5038e30a39201b",
+  "process_helper": "c++/learning/verify_g.py",
+  "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+  "protected_binding": {
+    "base": "9276e3e6054366cf1dc82367d0892c588aedd579",
+    "status": "UNCHANGED",
+    "files_sha256": {
+      "c++/failure-model/fm0-failure-model.md": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "c++/failure-model/fm1-contracts-assertions-ub.md": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "c++/failure-model/fm2-value-based-failure.md": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "c++/failure-model/fm3-exception-semantics.md": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "c++/failure-model/fm4-raii-exception-safety.md": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "c++/failure-model/fm5-noexcept-move-copy.md": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "c++/failure-model/fm6-construction-destruction-allocation.md": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "c++/failure-model/fm7-error-code-system-error.md": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "c++/failure-model/fm8-failure-boundaries.md": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "c++/failure-model/fm9-project-failure-profile.md": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "c++/g00-native-toolchain.md": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "c++/g01-object-model.md": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "c++/g02-raii-and-ownership.md": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "c++/g03-value-semantics-and-performance.md": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "c++/g04-stl-and-ranges.md": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "c++/g05-generics-and-compile-time.md": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "c++/g06-memory-and-performance.md": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "c++/g07-concurrency-and-memory-model.md": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "c++/g08-abi-and-c-interop.md": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "c++/g09-build-and-native-ecosystem.md": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "c++/g10-systems-runtime-project.md": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "c++/g11-robotics.md": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "c++/g12-cpp-zig-rust.md": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "c++/learning/verify_g.py": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "c++/rework/g00-native-toolchain.md": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+      "c++/rework/g00-results.json": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8",
+      "c++/rework/g00-verification.md": "f4591db5ba6a36edc89e5a5a2d37f617c2268c4d1d544be37f115cb7cc744c61",
+      "c++/rework/g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+      "c++/rework/g01-representation-and-typed-access.md": "7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35",
+      "c++/rework/g01-results.json": "f5f43f6362d363e197b88943a5e708436af619a2b3d3b6fd213cdaa7ca178eab",
+      "c++/rework/g01-review-results.json": "fdd10a605cbe31a3c4d4e04951eb91c01e374d4f8b72c42bcbbc5f2e4aa2e7f5",
+      "c++/rework/g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+      "c++/rework/g01-verification.md": "01d877d09de782ef15cc07aba88ce37226eb05d356d9168b5917ce5865724477",
+      "c++/rework/g02-ownership-and-handoff.md": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88",
+      "c++/rework/g02-resource-lifecycle.md": "ecccff7759cad454bdeb8341ee21a8389c7ef839aec99cc7a1fb9b3e2ab6426b",
+      "c++/rework/g02-results.json": "31499bca59ddb6676f78f93bb15003065004e1bdf203053348504ef346c00f68",
+      "c++/rework/g02-verification.md": "a66572a3d75f810f4534e848207a0253c0535271ed3440e3273b847167eef78e",
+      "c++/rework/verify_g0.py": "97a4b97899e2791948a1bf03af79f0a2396e4295f5a8bd4b99f4426c70024027",
+      "c++/rework/verify_g1.py": "df0b468f9be9d47f5222cf3a076fa32e737c1fbb2265035690ed27e1ad34ba0d",
+      "c++/rework/verify_g2.py": "0d099d40ca5c9a27bbbb3b8360c55cc5ff6b74145de2d67ed95866aa46f6fbcf",
+      "publication/releases/cpp-failure-model/v1.0.0/output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+      "publication/releases/cpp-handbook/v1.0.0/output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+    },
+    "historical_execution_rerun": "NOT RUN"
+  },
+  "oracle_selftests": {
+    "exact_output": true,
+    "wrong_output_rejected": true,
+    "stderr_rejected": true,
+    "timeout_rejected": true,
+    "crash_not_mutation_rejection": true,
+    "wrong_exit_rejected": true,
+    "wrong_diagnostic_rejected": true,
+    "right_diagnostic": true,
+    "normal_nrvo_observation": true,
+    "disabled_nrvo_requires_move": true,
+    "disabled_nrvo_observation": true,
+    "extra_output_rejected": true,
+    "invalid_count_rejected": true
+  },
+  "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/usr/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 220106",
+        "#define __cplusplus 202302L"
+      ]
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/opt/homebrew/opt/llvm/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 230102",
+        "#define __cplusplus 202302L"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    },
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    },
+    {
+      "source": "deleted-move.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "deleted-move.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/deleted-move-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "deleted-move.cpp:11:14: error: call to deleted constructor of 'Copyable'\n   11 |     Copyable target(std::move(source));\n      |              ^      ~~~~~~~~~~~~~~~~~\ndeleted-move.cpp:6:5: note: 'Copyable' has been explicitly marked deleted here\n    6 |     Copyable(Copyable&&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'Copyable'"
+    },
+    {
+      "source": "named-result-invalid.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "named-result-invalid.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/named-result-invalid-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "named-result-invalid.cpp:6:12: error: call to deleted constructor of 'PinnedBatch'\n    6 |     return local;\n      |            ^~~~~\n./pinned-batch.hpp:11:5: note: 'PinnedBatch' has been explicitly marked deleted here\n   11 |     PinnedBatch(PinnedBatch&&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'PinnedBatch'"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "no_elision",
+      "compiler": "/usr/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fno-elide-constructors",
+            "-DEXPECT_NO_ELISION",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=1; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": true,
+      "observed_named_moves": 1
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "no_elision",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fno-elide-constructors",
+            "-DEXPECT_NO_ELISION",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/memberwise-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/copy-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-state-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/parameter-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/move-selection-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/direct-result-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/expression-model-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/return-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    },
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    },
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    },
+    {
+      "source": "deleted-move.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "deleted-move.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/deleted-move-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "deleted-move.cpp:11:14: error: call to deleted constructor of 'Copyable'\n   11 |     Copyable target(std::move(source));\n      |              ^      ~~~~~~~~~~~~~~~~~\ndeleted-move.cpp:6:5: note: 'Copyable' has been explicitly marked deleted here\n    6 |     Copyable(Copyable&&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'Copyable'"
+    },
+    {
+      "source": "named-result-invalid.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "named-result-invalid.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/named-result-invalid-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "named-result-invalid.cpp:6:12: error: call to deleted constructor of 'PinnedBatch'\n    6 |     return local;\n      |            ^~~~~\n./pinned-batch.hpp:11:5: note: 'PinnedBatch' has been explicitly marked deleted here\n   11 |     PinnedBatch(PinnedBatch&&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'PinnedBatch'"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "no_elision",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fno-elide-constructors",
+            "-DEXPECT_NO_ELISION",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=1; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": true,
+      "observed_named_moves": 1
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "no_elision",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fno-elide-constructors",
+            "-DEXPECT_NO_ELISION",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-no_elision"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "memberwise-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "memberwise-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/memberwise-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "member copy owns independent values; shared handle does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "member copy owns independent values; shared handle does not\n"
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "copy preserves complete value and independent storage\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "copy preserves complete value and independent storage\n"
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/copy-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "failed preparation preserves target; later copy succeeds\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "failed preparation preserves target; later copy succeeds\n"
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-state-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers storage; source resets; self move preserves value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers storage; source resets; self move preserves value\n"
+    },
+    {
+      "source": "parameter-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "parameter-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/parameter-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "value parameter copies or takes storage; reference alone does not\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "value parameter copies or takes storage; reference alone does not\n"
+    },
+    {
+      "source": "move-selection.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "move-selection.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/move-selection-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "cast does not transfer; named reference and const can copy\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "cast does not transfer; named reference and const can copy\n"
+    },
+    {
+      "source": "direct-result.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "direct-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/direct-result-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "same-type prvalue constructs result without copy or move\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "same-type prvalue constructs result without copy or move\n"
+    },
+    {
+      "source": "expression-model.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "expression-model.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/expression-model-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "expression category selects references; traits do not prove semantics\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "expression category selects references; traits do not prove semantics\n"
+    },
+    {
+      "source": "return-observation.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "return-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "return-observation.cpp:22:12: warning: moving a local object in a return statement prevents copy elision [-Wpessimizing-move]\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^\nreturn-observation.cpp:22:12: note: remove std::move call here\n   22 |     return std::move(local); // Deliberate pessimization for comparison.\n      |            ^~~~~~~~~~     ~\n1 warning generated.\n"
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/return-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct_moves=0; named_moves=0; forced_moves=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "direct_moves=0; named_moves=([01]); forced_moves=1\\n",
+      "requires_named_move": false,
+      "observed_named_moves": 0
+    }
+  ],
+  "mutations": [
+    {
+      "source": "copy-value.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/truncate-copy/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/truncate-copy",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/truncate-copy/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/truncate-copy",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "name": "truncate-copy",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch(const Batch& other) : Batch(other.sequence_, other.values()) {}",
+        "after": "Batch(const Batch& other) : Batch(other.sequence_, other.values().first(other.size_ == 0 ? 0 : 1)) {}"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "b867f8205361f7e69962032a814ae2980387dc2de13f07faef276909af23a5bf",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/no-op-copy-assignment/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/no-op-copy-assignment",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/no-op-copy-assignment/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/no-op-copy-assignment",
+          "timed_out": false,
+          "returncode": 4,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 4,
+      "expected_stdout": "",
+      "name": "no-op-copy-assignment",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch next(other);\n            swap(next);",
+        "after": "(void)other;"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "f2a8244aa4368af094a3ff1667fd64ee40ed4b103b2c39e7d1d71288404ee6eb",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/commit-before-preparation/copy-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/commit-before-preparation",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/commit-before-preparation/copy-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/commit-before-preparation",
+          "timed_out": false,
+          "returncode": 4,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 4,
+      "expected_stdout": "",
+      "name": "commit-before-preparation",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch next(other);",
+        "after": "sequence_ = other.sequence_;\n            Batch next(other);"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "888eec41a384770a95cd78d3c4088d5a1080820364ab23b63aea28e6d5453150",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/leave-moved-length/move-state-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/leave-moved-length",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/leave-moved-length/move-state-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/leave-moved-length",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "leave-moved-length",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "size_(std::exchange(other.size_, 0))",
+        "after": "size_(other.size_)"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "fde26f9beed46a2b1dd1e03bcea0b6189cc5af28589771fb2b401da1ef76ca49",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/truncate-copy/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/truncate-copy",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/truncate-copy/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/truncate-copy",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "name": "truncate-copy",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch(const Batch& other) : Batch(other.sequence_, other.values()) {}",
+        "after": "Batch(const Batch& other) : Batch(other.sequence_, other.values().first(other.size_ == 0 ? 0 : 1)) {}"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "b867f8205361f7e69962032a814ae2980387dc2de13f07faef276909af23a5bf",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "copy-value.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/no-op-copy-assignment/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/no-op-copy-assignment",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/no-op-copy-assignment/copy-value-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/no-op-copy-assignment",
+          "timed_out": false,
+          "returncode": 4,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 4,
+      "expected_stdout": "",
+      "name": "no-op-copy-assignment",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch next(other);\n            swap(next);",
+        "after": "(void)other;"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "f2a8244aa4368af094a3ff1667fd64ee40ed4b103b2c39e7d1d71288404ee6eb",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "copy-failure.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "copy-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/commit-before-preparation/copy-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/commit-before-preparation",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/commit-before-preparation/copy-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/commit-before-preparation",
+          "timed_out": false,
+          "returncode": 4,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 4,
+      "expected_stdout": "",
+      "name": "commit-before-preparation",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "Batch next(other);",
+        "after": "sequence_ = other.sequence_;\n            Batch next(other);"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "888eec41a384770a95cd78d3c4088d5a1080820364ab23b63aea28e6d5453150",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    },
+    {
+      "source": "move-state.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "move-state.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/leave-moved-length/move-state-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/leave-moved-length",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/leave-moved-length/move-state-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/leave-moved-length",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "leave-moved-length",
+      "replacement": {
+        "path": "value-batch.hpp",
+        "before": "size_(std::exchange(other.size_, 0))",
+        "after": "size_(other.size_)"
+      },
+      "source_sha256": {
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "fde26f9beed46a2b1dd1e03bcea0b6189cc5af28589771fb2b401da1ef76ca49",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109",
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad"
+      }
+    }
+  ],
+  "performance": "NOT RUN",
+  "concurrency": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "allocation_failure": "DETERMINISTIC PRE-ALLOCATION INJECTION, NOT OS EXHAUSTION",
+  "asan_positive_control": "NOT RUN",
+  "leak_sanitizer": "DISABLED",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1:abort_on_error=0:exitcode=86:symbolize=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=0"
+  },
+  "sanitizer_probes": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g3-rework-xmb45ym0/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ],
+  "completed_at_utc": "2026-10-01T12:29:08.494601+00:00",
+  "result_counts": {
+    "O0:PASS": 16,
+    "O0:OBSERVED": 2,
+    "O2:PASS": 16,
+    "O2:OBSERVED": 2,
+    "compile_fail:PASS": 4,
+    "no_elision:OBSERVED": 2,
+    "no_elision:PASS": 2,
+    "sanitized:CLEAN_OBSERVED": 18
+  },
+  "mutation_counts": {
+    "REJECTED_AS_EXPECTED": 8
+  },
+  "status": "COMPLETE"
+}
