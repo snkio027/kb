@@ -195,6 +195,8 @@ int main() {
 
 范围算法若从一个即将结束生命的临时 vector 返回迭代器，调用方在语句结束后就不能使用它。部分 ranges 算法用 `borrowed_iterator_t` 或 `borrowed_subrange_t` 选择返回类型：对不满足相应借用条件的右值范围，返回 `ranges::dangling`，而不是交出那个迭代器。[dangling 的返回类型规则](https://timsong-cpp.github.io/cppwp/n4950/range.dangling)
 
+`borrowed_range` 关注取得的迭代器是否依赖范围变量本身的生命周期。对于 span 这样的包装对象，销毁包装不必使迭代器失效；这项性质不保证底层元素一直存在，也不取消容器修改带来的失效规则。这里讨论的是迭代器有效性，不能把它扩张为任意范围对象及其所有关联状态都可以随时销毁。[borrowed_range 的语义要求](https://timsong-cpp.github.io/cppwp/n4950/range.range#5)
+
 **完整实验 `range-lifetime.cpp`**
 
 ```cpp

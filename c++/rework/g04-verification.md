@@ -1,6 +1,6 @@
 # G4 新稿的实验与验证边界
 
-本记录对应[序列修改与对象身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)。批次起点为 `c5d3b17cf66fd4bb6f6cfef705d0c7cf95e16af7`。G4 为 **待精读审核，尚未冻结**；编译和运行结果不代替中文讲解、技术深度及章节组织的实际阅读接受。
+本记录对应[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)。§1～§6 保留以 `c5d3b17cf66fd4bb6f6cfef705d0c7cf95e16af7` 为起点、提交于 `e44219c65455c726a0de9d4204bc9c1b827c8f23` 的历史验证记录。精读接受及文字收口见 §7；G4 Content v2 为 **ACCEPTED / FROZEN**，不把阅读接受等同于重新执行。
 
 ## 1 输入与复现方式
 
@@ -72,7 +72,7 @@ IndexedBatch 的失败实验通过真实的重复键检查抛出 `invalid_argume
 
 flat_map、mdspan、PMR、代理引用的完整矩阵仍未实验；未执行 Linux/Windows、libstdc++、Zig/Rust。**性能、profile、汇编分析、并发动态检测和 TSan 均为 NOT RUN**。构造计数是实现机制观察，不是性能基准。输入流实验也不是格式错误及 I/O 故障处理验收。
 
-**PDF 为 NOT BUILT / NOT VALIDATED**。旧稿、已发布手册和出版系统不因 G4 新稿而升级状态。当前内容深度与中文质量待精读接受，不以本地结果自动冻结 G4，也不启动 G5。
+**PDF 为 NOT BUILT / NOT VALIDATED**。旧稿、已发布手册和出版系统不因 G4 新稿而升级状态。`e44219c` 提交时，内容深度与中文质量仍待精读接受，没有以本地结果自动冻结 G4；后续接受登记见 §7。该批未启动 G5。
 
 ## 6 文档与保护范围检查
 
@@ -83,3 +83,23 @@ flat_map、mdspan、PMR、代理引用的完整矩阵仍未实验；未执行 Li
 同次检查调用只读 `protected_binding()`，逐字节确认起点登记的 47 个受保护文件不变：v1 的 13 篇 G、10 篇 FM、两份正式 PDF，以及 G0～G3 正文、验证记录、JSON、执行器和进程辅助文件。旧实验没有重跑，旧 JSON 未追写。本批差异限定为三篇 G4 正文、验证说明、执行器、结果 JSON 和两个 README，共八个文件；`git diff --check` 无错误。
 
 另以超过 40 行或超过 100 字符的代码行为新稿分页复核信号，得到 `indexed-batch.hpp` 为 50 行、最长 84 字符；保持整份类型定义完整，续页交给未来出版层。该信号不是已经出现的 PDF 裁切问题。本次未执行 PDF 编译、渲染或视觉验收，G5 未启动。
+
+## 7 精读接受与文字收口
+
+2026-10-01，读者对 `e44219c65455c726a0de9d4204bc9c1b827c8f23` 的三单元正文与验证记录完成精读，接受中文论述、章节组织及证据整合，未发现阻断性技术问题。本次仅完成冻结前的精度校准：第一单元改题为“序列修改与记录身份”，在 §1 区分 C++ 对象身份与业务编号所表达的记录身份；§3 明确不可 CopyInsertable 元素的移动构造抛异常时，reserve 不再提供原无效果保证。采用“失去保证”的表述，不将该情形称为未定义行为，也不声称已动态验证真实 throwing-move 路径。
+
+第二单元 §5 同时采纳可选校准，说明 borrowed_range 所关心的是迭代器有效性与范围变量生命的关系，不把它解释为底层元素永久有效，也不扩张为对任意关联状态的生存保证。原有 `Rows&`、临时 span 与 filter_view 的条件说明保留；第三单元正文未修改。
+
+G4 Content v2 据此登记为 **ACCEPTED / FROZEN**。冻结正文摘要如下；历史 JSON 仍绑定 `e44219c` 的正文，不追写为新字节，也不把本次接受登记称为重新执行。
+
+| 当前冻结正文 | SHA-256 |
+| --- | --- |
+| `g04-sequences-and-identity.md` | `39806b718373c2b9f2ae25b1b4ba74464d3f68f133b591165882d65cdff037ee` |
+| `g04-algorithms-and-views.md` | `57b897c8c438925fd7d1ee99bf9687de59ac8f3acc0b71b89e9b1da873ac0994` |
+| `g04-lookup-and-indexes.md` | `e6c25ada6aaecbffd27ac638f16cddb9a136f3f168681643d1b7050e7e9b7039` |
+
+本次用临时只读 Python 检查调用 `extract()`，重新提取十六份文件，SHA-256 全部匹配历史 JSON；用 `git show e44219c:<path>` 独立核对该 JSON 中的旧正文摘要。三单元的 17 个完整围栏块、六个迁移问题／答案区域逐字节未变；执行器、进程辅助文件、结果 JSON 和第三单元也与该提交逐字节相同。调用只读 `protected_binding()` 确认原先登记的 47 个受保护文件不变，没有调用实验入口或判据自检。
+
+文档检查命令仍为 `/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 c++/learning/check_docs.py`。本次解析 57 份 Markdown、核对 906 处本地链接，错误为 0；原有 16 项 v1 代码／图形分页风险保留。另用临时只读 Python 与 Pandoc GFM AST 核对十七份重编 Markdown 的单一 H1、连续 H1～H3 层级、标题锚点唯一、围栏闭合及无 HTML 折叠依赖。`git diff --check` 无错误，差异限定为两份 G4 正文、本说明与两个 README，共五份 Markdown。
+
+本次 C++ 编译与运行、负例诊断、构造观察、ASan/UBSan、错误变体及判据自检均为 **NOT RUN**；§3 的 44／4／4／24／8 项及 14 项自检仍是 `e44219c` 的历史本地证据，不是本次结果或 CI 结论。性能、并发、跨平台等未验证边界不变。G5 只登记后续方向，未启动；PDF 未构建，出版系统及已发布制品未修改。
