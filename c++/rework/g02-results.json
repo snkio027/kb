@@ -1,0 +1,2429 @@
+{
+  "started_at_utc": "2026-10-01T11:18:17.654559+00:00",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "macOS": "26.7",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "documents": {
+    "g02-resource-lifecycle.md": "39bc6914cf93625166768292b688e14829a7905d467c3e3804b2530ad365c768",
+    "g02-ownership-and-handoff.md": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88"
+  },
+  "source_sha256": {
+    "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+    "temp-file.hpp": "ccf021e7e7182d73c2f634d42f7386e4024d6a160eb22180b2f044f5f4a2142f",
+    "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+    "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+    "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+    "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+    "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f",
+    "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+    "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+    "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+    "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+    "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b"
+  },
+  "runner_sha256": "0d099d40ca5c9a27bbbb3b8360c55cc5ff6b74145de2d67ed95866aa46f6fbcf",
+  "process_helper": "c++/learning/verify_g.py",
+  "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+  "protected_binding": {
+    "base": "d071bf44fe2713034741197fb3ed7e89d4385cab",
+    "status": "UNCHANGED",
+    "files_sha256": {
+      "c++/failure-model/fm0-failure-model.md": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "c++/failure-model/fm1-contracts-assertions-ub.md": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "c++/failure-model/fm2-value-based-failure.md": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "c++/failure-model/fm3-exception-semantics.md": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "c++/failure-model/fm4-raii-exception-safety.md": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "c++/failure-model/fm5-noexcept-move-copy.md": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "c++/failure-model/fm6-construction-destruction-allocation.md": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "c++/failure-model/fm7-error-code-system-error.md": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "c++/failure-model/fm8-failure-boundaries.md": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "c++/failure-model/fm9-project-failure-profile.md": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "c++/g00-native-toolchain.md": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "c++/g01-object-model.md": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "c++/g02-raii-and-ownership.md": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "c++/g03-value-semantics-and-performance.md": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "c++/g04-stl-and-ranges.md": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "c++/g05-generics-and-compile-time.md": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "c++/g06-memory-and-performance.md": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "c++/g07-concurrency-and-memory-model.md": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "c++/g08-abi-and-c-interop.md": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "c++/g09-build-and-native-ecosystem.md": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "c++/g10-systems-runtime-project.md": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "c++/g11-robotics.md": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "c++/g12-cpp-zig-rust.md": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "c++/learning/verify_g.py": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "c++/rework/g00-native-toolchain.md": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+      "c++/rework/g00-results.json": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8",
+      "c++/rework/g00-verification.md": "f4591db5ba6a36edc89e5a5a2d37f617c2268c4d1d544be37f115cb7cc744c61",
+      "c++/rework/g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+      "c++/rework/g01-representation-and-typed-access.md": "7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35",
+      "c++/rework/g01-results.json": "f5f43f6362d363e197b88943a5e708436af619a2b3d3b6fd213cdaa7ca178eab",
+      "c++/rework/g01-review-results.json": "fdd10a605cbe31a3c4d4e04951eb91c01e374d4f8b72c42bcbbc5f2e4aa2e7f5",
+      "c++/rework/g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+      "c++/rework/g01-verification.md": "01d877d09de782ef15cc07aba88ce37226eb05d356d9168b5917ce5865724477",
+      "c++/rework/verify_g1.py": "df0b468f9be9d47f5222cf3a076fa32e737c1fbb2265035690ed27e1ad34ba0d",
+      "publication/releases/cpp-failure-model/v1.0.0/output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+      "publication/releases/cpp-handbook/v1.0.0/output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+    },
+    "historical_execution_rerun": "NOT RUN"
+  },
+  "oracle_selftests": {
+    "expected_output_accepted": true,
+    "wrong_output_rejected": true,
+    "stderr_rejected": true,
+    "timeout_rejected": true,
+    "crash_not_mutation_rejection": true,
+    "wrong_exit_not_mutation_rejection": true,
+    "wrong_compile_diagnostic_rejected": true,
+    "expected_compile_diagnostic_accepted": true
+  },
+  "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/usr/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 220106",
+        "#define __cplusplus 202302L"
+      ]
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/opt/homebrew/opt/llvm/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 230102",
+        "#define __cplusplus 202302L"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    },
+    {
+      "source": "owner-copy.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "owner-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-copy-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "owner-copy.cpp:4:14: error: call to deleted constructor of 'TempFile'\n    4 |     TempFile copied(file); // Expected diagnostic: deleted copy constructor.\n      |              ^      ~~~~\n./temp-file.hpp:18:5: note: 'TempFile' has been explicitly marked deleted here\n   18 |     TempFile(const TempFile&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'TempFile'"
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/cleanup-paths-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/member-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/owner-transfer-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/close-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/unique-handoff-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/shared-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/deferred-work-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/ownership-cycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    },
+    {
+      "source": "owner-copy.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "owner-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-copy-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "owner-copy.cpp:4:14: error: call to deleted constructor of 'TempFile'\n    4 |     TempFile copied(file); // Expected diagnostic: deleted copy constructor.\n      |              ^      ~~~~\n./temp-file.hpp:18:5: note: 'TempFile' has been explicitly marked deleted here\n   18 |     TempFile(const TempFile&) = delete;\n      |     ^\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "call to deleted constructor of 'TempFile'"
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/cleanup-paths-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "normal/return/throw closed; failed acquire owns nothing\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "normal/return/throw closed; failed acquire owns nothing\n"
+    },
+    {
+      "source": "member-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "member-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/member-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "members cleaned; completed Session destructors=1\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "members cleaned; completed Session destructors=1\n"
+    },
+    {
+      "source": "owner-transfer.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "owner-transfer.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/owner-transfer-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "move transfers; assignment closes old; source becomes empty\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "move transfers; assignment closes old; source becomes empty\n"
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/close-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "explicit close reports failure; fallback does not retry\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "explicit close reports failure; fallback does not retry\n"
+    },
+    {
+      "source": "unique-handoff.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "unique-handoff.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/unique-handoff-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrow does not own; transfer consumes even on failure\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrow does not own; transfer consumes even on failure\n"
+    },
+    {
+      "source": "shared-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "shared-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/shared-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "shared object; weak lock retains; member alias retains owner\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "shared object; weak lock retains; member alias retains owner\n"
+    },
+    {
+      "source": "deferred-work.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "deferred-work.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/deferred-work-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "owned task retains; discarded task releases; weak task may skip\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "owned task retains; discarded task releases; weak task may skip\n"
+    },
+    {
+      "source": "ownership-cycle.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "ownership-cycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/ownership-cycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "strong callback cycle observed and broken; weak edge releases\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "strong callback cycle observed and broken; weak edge releases\n"
+    }
+  ],
+  "mutations": [
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/omit-destructor-close/cleanup-paths-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/omit-destructor-close",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/omit-destructor-close/cleanup-paths-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/omit-destructor-close",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "omit-destructor-close",
+      "replacement": {
+        "path": "temp-file.hpp",
+        "before": "~TempFile() noexcept { (void)close(); }",
+        "after": "~TempFile() noexcept {}"
+      },
+      "source_sha256": {
+        "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+        "temp-file.hpp": "01274a050013ebf330afd0414db8a2df0da7d5a8d0ffb1d16243b6141ce9d737",
+        "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+        "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+        "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+        "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+        "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f",
+        "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+        "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+        "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+        "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+        "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b"
+      }
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/swallow-close-error/close-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/swallow-close-error",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/swallow-close-error/close-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/swallow-close-error",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "name": "swallow-close-error",
+      "replacement": {
+        "path": "temp-file.hpp",
+        "before": "return FileApi::close(file);",
+        "after": "(void)FileApi::close(file); return 0;"
+      },
+      "source_sha256": {
+        "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+        "temp-file.hpp": "3c654c76eca5bdfef136131f215ecb5f2a3131917613c67f116c0ec3d562e582",
+        "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+        "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+        "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+        "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+        "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f",
+        "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+        "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+        "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+        "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+        "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b"
+      }
+    },
+    {
+      "source": "cleanup-paths.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "cleanup-paths.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/omit-destructor-close/cleanup-paths-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/omit-destructor-close",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/omit-destructor-close/cleanup-paths-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/omit-destructor-close",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "omit-destructor-close",
+      "replacement": {
+        "path": "temp-file.hpp",
+        "before": "~TempFile() noexcept { (void)close(); }",
+        "after": "~TempFile() noexcept {}"
+      },
+      "source_sha256": {
+        "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+        "temp-file.hpp": "01274a050013ebf330afd0414db8a2df0da7d5a8d0ffb1d16243b6141ce9d737",
+        "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+        "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+        "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+        "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+        "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f",
+        "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+        "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+        "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+        "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+        "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b"
+      }
+    },
+    {
+      "source": "close-failure.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "close-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/swallow-close-error/close-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/swallow-close-error",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/swallow-close-error/close-failure-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/swallow-close-error",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 1,
+      "expected_stdout": "",
+      "name": "swallow-close-error",
+      "replacement": {
+        "path": "temp-file.hpp",
+        "before": "return FileApi::close(file);",
+        "after": "(void)FileApi::close(file); return 0;"
+      },
+      "source_sha256": {
+        "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+        "temp-file.hpp": "3c654c76eca5bdfef136131f215ecb5f2a3131917613c67f116c0ec3d562e582",
+        "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+        "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+        "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+        "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+        "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f",
+        "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+        "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+        "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+        "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+        "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b"
+      }
+    }
+  ],
+  "performance": "NOT RUN",
+  "concurrency": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "physical_io_faults": "NOT INJECTED",
+  "asan_positive_control": "NOT RUN",
+  "leak_sanitizer": "DISABLED",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1:abort_on_error=0:exitcode=86:symbolize=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=0"
+  },
+  "sanitizer_probes": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g2-rework-c3myalx6/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ],
+  "completed_at_utc": "2026-10-01T11:18:57.287404+00:00",
+  "result_counts": {
+    "O0:PASS": 16,
+    "O2:PASS": 16,
+    "compile_fail:PASS": 2,
+    "sanitized:CLEAN_OBSERVED": 16
+  },
+  "mutation_counts": {
+    "REJECTED_AS_EXPECTED": 4
+  },
+  "status": "COMPLETE"
+}
