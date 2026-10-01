@@ -75,7 +75,9 @@ clang++ -std=c++23 -O0 -g -Wall -Wextra -Wpedantic representation-copy.cpp -o re
 
 别名（aliasing）描述的是不同访问路径涉及同一个对象的关系，不意味着这些路径本身都错。例如第一单元的 `Reading*` 和 `Reading&` 就合法指向同一对象。真正要检查的是：当前这次访问所用的类型，是否允许访问目标对象的值。
 
-C++23 的相关规则允许对象自身的相似类型、对应的有符号或无符号类型，以及 `char`、`unsigned char`、`std::byte` 这几类表示访问。这里的“相似类型”是标准术语，不是“大小或字段看起来差不多”；常见的增加 const 限定不能与换成无关类型混淆。`signed char` 不在任意对象表示访问的这份名单里，也不能因为某个类型恰好占一个字节，就赋予它相同权限。[类型化访问规则](https://timsong-cpp.github.io/cppwp/n4950/basic.lval#11)
+C++23 的相关规则允许与对象动态类型相似的类型、对应的有符号或无符号类型，以及 `char`、`unsigned char`、`std::byte` 这几类表示访问。这里的“相似类型”是标准术语，不是“大小或字段看起来差不多”；常见的增加 const 限定不能与换成无关类型混淆。`signed char` 不在任意对象表示访问的这份名单里，也不能因为某个类型恰好占一个字节，就赋予它相同权限。[类型化访问规则](https://timsong-cpp.github.io/cppwp/n4950/basic.lval#11)
+
+工程资料常把这组类型化访问限制称为严格别名规则（strict aliasing）。本文以 C++ 的访问规则为准，不把 `-fno-strict-aliasing` 等编译器选项当作另一套可移植的语言语义。[Clang 的相关说明](https://clang.llvm.org/docs/UsersManual.html#strict-aliasing)
 
 考虑一个活着的 `float measured`。**反例，不执行：** 即使地址同时满足浮点和整数的大小、对齐要求，把 `&measured` 转为 `std::uint32_t*`，再通过 `*reinterpret_cast<std::uint32_t*>(&measured)` 读取，也没有获得整数访问权限。目标仍是那个浮点对象；整数不是它对应的有符号或无符号类型，也不是上述字节访问类型。这次读值违反类型化访问规则，而不只是“可能读到一个奇怪数字”。
 

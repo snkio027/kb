@@ -1,6 +1,6 @@
 # G1 新稿的实验与验证边界
 
-本记录对应[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)及新增的[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)。`6fcfbd0` 的前两个单元已获精读方向认可，未发现阻断性技术问题，但并未最终冻结。以下各节至“精读后校准与第三单元”之前保留该提交的执行与检查历史；本次修改和重跑另记在文末，不把旧结果摘要解释为新正文摘要。
+本记录对应[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)及[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)。当前状态为 **G1 Content v2 — ACCEPTED / FROZEN**。以下至“精读后校准与第三单元”之前保留 `6fcfbd0` 的两单元执行历史，该节保留 `2cad5b4` 的三单元实施与执行历史；本次接受及两处文字校准另记在末节。历史结果不追写为当前正文摘要，也不因接受而成为重新执行或 CI 结果。
 
 ## 输入与执行方式
 
@@ -64,7 +64,7 @@ python3 c++/rework/verify_g1.py \
 
 ## 2026-10-01 精读后校准与第三单元
 
-本轮以 `6fcfbd0bed109565e1064eab68e2c87edff26b96` 为起点，补明借用术语与存储持续期，将 `fixed_handle` 改为 `const_view`，并明确局部作用域只限制旧名字的可见性，不会向容器释放运行时借用。用户随后确认在本批完成短第三单元，由 G1 主讲类型化访问与对象表示，不延至 G6。四项校准与第三单元均待本轮精读，不登记最终冻结；G2 未启动。
+`2cad5b4` 以 `6fcfbd0bed109565e1064eab68e2c87edff26b96` 为起点，补明借用术语与存储持续期，将 `fixed_handle` 改为 `const_view`，并明确局部作用域只限制旧名字的可见性，不会向容器释放运行时借用。用户随后确认在该批完成短第三单元，由 G1 主讲类型化访问与对象表示，不延至 G6。该提交时四项校准与第三单元待精读，尚未登记最终冻结；G2 未启动。本节其余内容保留当时的检查口径。
 
 原九份提取源码中，`array-span.cpp` 只改局部变量名，`vector-borrows.cpp` 只改一条注释，其余七份源码不变。原有预期输出、编译负例诊断、ASan 反例退出码及判据均保留；前两单元的迁移题与参考答案未修改，只调整了第二单元末尾的后续入口。
 
@@ -95,3 +95,21 @@ python3 c++/rework/verify_g1.py \
 文档检查命令 `python3 c++/learning/check_docs.py` 本次解析 47 份 Markdown、检查 852 处本地链接，错误为 0；仍报告旧章节的 16 项分页风险，不构成新稿 PDF 验收。临时只读核对确认七份重编 Markdown 的单一 H1、H1–H3 连续层级、显式锚点唯一性、围栏闭合及无 HTML 折叠依赖；三份正文、十一份源码、脚本和辅助文件与最终结果摘要一致。
 
 另以精确字符串替换比较原九份源码，确认仅有更名和注释变化；以 Python AST 比较执行器，确认除说明、章节列表和输出表外机制未变。前两单元原有迁移题与答案也逐字节相同。以 `6fcfbd0` 为基线，13 篇 v1 G 章节、10 篇 FM 与两份正式发布 PDF 共 25 个文件未变；G0、历史 JSON 和复用进程辅助文件同样未变。没有修改出版系统或重建 PDF，也没有启动 G2。
+
+## 2026-10-01 G1 接受与内容冻结
+
+用户精读 `2cad5b4d31dd5038fcd51d01339d788c62caa4a2` 的三份正文、验证记录与差异后，接受 G1 的技术深度、中文论述、章节组织和证据整合，未发现阻断项。本次仅完成两处非阻断文字校准：第三单元 §4 将“相似类型”明确为“与对象动态类型相似的类型”，并补入 strict aliasing 与编译器选项的术语边界。G1 Content v2 由此登记为 **ACCEPTED / FROZEN**，不扩张为全系列或全部平台的技术验收。
+
+冻结正文的 SHA-256 如下；它们标识本次收口字节，不追写到历史执行 JSON 中。
+
+| 正文 | SHA-256 |
+| --- | --- |
+| `g01-storage-and-lifetime.md` | `ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef` |
+| `g01-borrowing-and-invalidation.md` | `d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a` |
+| `g01-representation-and-typed-access.md` | `7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35` |
+
+本次以 `git show 2cad5b4d31dd5038fcd51d01339d788c62caa4a2:<path>` 读取旧字节，用临时只读 Python 核对三单元的 20 个围栏块、十一份提取源码和三处迁移题／答案及后续文字，均未变。旧正文摘要与 `g01-review-results.json` 的历史绑定一致，当前提取源码、执行器和辅助文件也仍匹配该记录；前两份正文完整字节不变，第三份仅有上述文字差异。两份 G1 结果 JSON、G0 正文及其记录均保留原字节。
+
+本次运行 `python3 c++/learning/check_docs.py`：47 份 Markdown、852 处本地链接，错误为 0；旧章节的 16 项分页风险仍保留。临时只读核对另确认七份重编 Markdown 的单一 H1、H1–H3 连续层级、显式锚点唯一性、围栏闭合及无 HTML 折叠依赖；`git diff --check` 无错误。相对上述基线，13 篇 v1 G、10 篇 FM 和两份正式发布 PDF 共 25 个文件逐字节未变，修改范围仅为两份导航、第三单元及本说明。
+
+本次 C++ 编译／运行、编译负例与 sanitizer 重跑均为 **NOT RUN**；32 项 PASS、2 项编译负例 PASS、16 项 CLEAN_OBSERVED、2 项 DETECTED_AS_EXPECTED 仍是 `2cad5b4` 的历史本地证据，不是新增执行或 CI 结果。性能、并发动态检测与其他平台仍未验证；PDF 为 **NOT BUILT / NOT VALIDATED**。没有修改出版系统，G2 未启动。
