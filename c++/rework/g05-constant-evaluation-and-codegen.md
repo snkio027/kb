@@ -266,7 +266,7 @@ clang++ count-client.o positive-count.o -o count-client
 ./count-client
 ```
 
-正常输出为 `the provider supplies the requested int specialization`。extern template 是显式实例化声明，不是实现本身；提供方没有 extern 的那一行才是相应显式实例化定义。对这里所需的函数特化，提供方必须能看到模板定义。只把 extern 写进头文件，不会让链接器从无到有执行 C++ 模板推导。[显式实例化](https://timsong-cpp.github.io/cppwp/n4950/temp.explicit)
+正常输出为 `the provider supplies the requested int specialization`。`extern template ...;` 是显式实例化声明（explicit instantiation declaration），在这里抑制客户端对所指定函数特化的隐式实例化；提供方中的 `template ...;` 则是显式实例化定义（explicit instantiation definition），明确要求从可见的模板定义实例化这里支持的 int 特化定义。声明本身不提供实现，也不会让链接器从无到有执行 C++ 模板推导。[显式实例化](https://timsong-cpp.github.io/cppwp/n4950/temp.explicit)
 
 nm 用于观察本机目标文件中的定义与未解析引用。我们关心 `count_positive<int>` 如何由提供方供给，不固定其 ABI 拼写、地址、符号类型字母或总数。执行器同时保留 O0/O2 对象大小与摘要，数字属于工件观察，不是编译性能或运行速度结果。[LLVM nm 的观察范围](https://llvm.org/docs/CommandGuide/llvm-nm.html)
 

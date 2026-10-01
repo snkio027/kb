@@ -1,6 +1,6 @@
 # G5 新稿的实验与验证边界
 
-本记录对应[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)。§1～§5 保留从 `c4c74736de7dcfa6cc286f32866aa593384f3744` 起步、提交于 `c9d17a1317cf2a7e940723727f0d2d9e8921e307` 的历史执行记录，其中“本批”“最终正文”均指该次提交，不指后来的理论补充。读者已接受其工程叙述、实验／证据与技术方向，要求冻结前补齐理论模型。当前 G5 Content v2 为 **理论补充待精读审核，尚未冻结**，本轮修改与证据绑定见 §6。
+本记录对应[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)。§1～§5 保留从 `c4c74736de7dcfa6cc286f32866aa593384f3744` 起步、提交于 `c9d17a1317cf2a7e940723727f0d2d9e8921e307` 的历史执行记录，其中“本批”“最终正文”均指该次提交，不指后来的理论补充。§6 保留 `950c9764e02b48e5423054fae91dee3a4973b650` 的理论补充记录与当时摘要，不追写为本轮结果。读者现已接受工程叙述、正式理论骨架及证据绑定；经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与接受边界见 §7。
 
 ## 1 输入与复现方式
 
@@ -120,3 +120,21 @@ sorted_snapshot 未注入分配、迭代或构造失败；动态用例覆盖 vec
 另执行 `/tmp/kb-g5-theory-audit.SZKo3n/check_references.py`，以公开网页的 HTTP 状态及 HTML id 核对本轮正文新增引用中的 15 个不同 URL：全部返回 200，所写片段锚点存在。自查中修正了三个标准整章页面的片段地址；这项可达性检查不证明全文技术正确，也没有归档第三方正文。两个临时脚本只作本次检查工具，不加入课程执行器或长期框架。
 
 仓库差异仅含三篇 G5 正文、此验证说明和两个 README，共六份 Markdown；`git diff --check` 无错误。G0～G4、FM、v1、出版系统、历史 PDF／dist 均未修改。本轮 **C++ 编译／负例诊断、多文件链接、工件观察、ASan/UBSan、错误变体及执行判据自检均 NOT RUN**，不生成新的 PASS 或 SKIP 数量。性能、并发动态检测仍未执行；**PDF：NOT BUILT / NOT VALIDATED**。没有启动 G6。
+
+## 7 精读接受与冻结收口
+
+2026-10-02，读者对 `950c9764e02b48e5423054fae91dee3a4973b650` 完成精读，接受工程叙述、正式理论骨架、Definition / Relation / Rule / Boundary 覆盖及历史证据绑定，未发现技术阻断项。本轮仅将第三单元 §4 的口语说明校准为“显式实例化声明／显式实例化定义”，明确当前客户端的抑制作用与提供方的定义责任；不扩充 G5 理论或实验。
+
+G5 Content v2 据此登记为 **ACCEPTED / FROZEN**。第一、第二单元保持 `950c976` 原字节；第三单元只有上述一处正文段落变化。当前冻结摘要如下，§6 的旧摘要仍对应理论补充提交，`g05-results.json` 仍对应 `c9d17a1` 的历史执行输入，不追写旧记录。
+
+| 当前冻结正文 | SHA-256 |
+| --- | --- |
+| `g05-call-and-deduction.md` | `5e36fa32e00c9e8a5db70ac4d2b064fe925d51f673ddec5f52a356bf8d34c126` |
+| `g05-constraints-and-instantiation.md` | `7c8756b57f6ed2aa6cb7a291cd19aeab2b6d6185238831127d6387d36715b3c0` |
+| `g05-constant-evaluation-and-codegen.md` | `131b68cb68d3dbdbe697271a912608c7f0b7dc64bb8d7b6b5076e5d16c43125d` |
+
+本轮实际使用 `/Users/nekoreb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3` 执行 `c++/learning/check_docs.py`：61 份 Markdown、930 处本地链接，错误为 0；v1 的 16 项既有分页风险保留。另用同一 Python 的只读内联检查，调用 Pandoc GFM AST、`extract()` 与 `protected_binding()`：21 份重编 Markdown 的标题层级、锚点、围栏与无折叠依赖检查通过，四份 G5 Markdown 无原始 HTML 节点；25 份提取源码与历史摘要相同，27 个围栏块、6 个题目／答案区域及 36 个既有标题锚点相对 `950c976` 保持不变。执行器、辅助文件、历史 JSON、§1～§6 历史正文及原登记的 53 个受保护文件均未改写。
+
+`git diff --check` 无错误，范围仅为第三单元、此记录和两个 README，共四份 Markdown。**C++ 编译／诊断、多文件链接、工件观察、sanitizer、错误变体与判据自检未重跑**；性能和并发动态检测仍为 NOT RUN。接受与冻结不升级为全实例、跨平台技术证明；**PDF：NOT BUILT / NOT VALIDATED**，旧出版物保持原字节。
+
+本轮到此收口，没有启动 G6。后续 G6 应先建立性能概念的定义、关系、规则与边界，再用具体工作负载的测量检验实现选择；不以 benchmark 数值代替理论，也不把这个方向登记为已执行。

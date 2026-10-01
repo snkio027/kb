@@ -6,7 +6,7 @@
 
 **从 [G0 从源文件到可执行程序](g00-native-toolchain.md)进入，再依次读 G1 的[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)，随后读 G2 的[资源责任与确定性清理](g02-resource-lifecycle.md)和[借用与所有权交接](g02-ownership-and-handoff.md)。** G0 在 `d45f9a7` 的方向与深度已经获得读者接受，局部校准见 `6fcfbd0`；继续作为 Content v2 的深度与叙述质量标定候选。G1 三单元在 `2cad5b4` 获得精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 两单元在 `729e9c2` 获得精读接受，文字收口见 `9276e3e` 和 [G2 验证说明](g02-verification.md)，G2 Content v2 为 **ACCEPTED / FROZEN**。[v1 章节](../README.md)和已发布 PDF 保持原字节，历史实验记录不继承为新稿的执行证明。
 
-G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，`c9d17a1` 的工程叙述、实验／证据及技术方向已获接受；当前为 **理论补充待精读审核，尚未冻结**，G6 及后续尚未重编。
+G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，三单元及理论补充在 `950c976` 获精读接受，经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**；G6 及后续尚未重编。
 
 ## 全书的组织方向
 
@@ -36,7 +36,7 @@ G0 精读反馈进一步确定了写作尺度：一个主问题贯穿章节，�
 
 写作时从案例与观察进入正式模型，再把模型用于解释原案例及变化后的条件。模型可以是一段完整论述、少量关系步骤或必要的对照表，不要求每节机械使用四个标签，更不把章节改成标准条文摘要。关键语言规则引用固定版本依据；系统机制区分抽象合同与实现选择；实验说明它支持的具体命题，不能代替完整规则。增加深度优先补足关系和推导，不默认增加主题、代码数量或实验矩阵。
 
-这项要求集中维护在本节，补充 Content v2 的内容深度标准，不另建一份平行 Editorial Profile，不追改 v1 冻结稿或历史证据。G5 本轮先做紧凑理论补充；G6～G12 后续按同一标准审核，但不因此在本批启动。
+这项要求集中维护在本节，补充 Content v2 的内容深度标准，不另建一份平行 Editorial Profile，不追改 v1 冻结稿或历史证据。G5 的理论补充已获精读接受；G6～G12 后续按同一标准审核，但不因此在本批启动。
 
 章节结尾保留少量需要迁移推理的题目，并给出完整答案。不要再连续安排“统一模型、十五条原则、审查协议、常见误判、Final Gate”五种重复总结。进阶材料可以回查，但首次主线必须能够直接顺序读完。
 
@@ -110,7 +110,7 @@ G5 继续使用 Reading 与读数批次。第一单元从 vector、const 范围�
 
 [G5 验证说明](g05-verification.md)分别登记正常编译运行、八类目标编译诊断、多文件链接、工件观察、ASan/UBSan 与两个错误变体。三单元各有六道迁移题及普通章节中的推理答案。读者接受了 `c9d17a1` 的工程叙述、实验／证据和技术方向，同时要求冻结前补齐正式理论模型；这不是对后续新增文字的预先接受。
 
-本轮保留案例和实验，集中补齐推导／替换、约束／重载／实例化、常量求值、模板实体到目标文件四套模型。新增内容按 C++23/N4950 规则说明，原实验字节与判据不变，历史结果不追写为新正文执行记录。当前为 **理论补充待精读审核，尚未冻结**；实际检查及摘要关系见 [G5 理论补充记录](g05-verification.md#6-理论补充与历史证据绑定)。
+`950c976` 保留案例和实验，集中补齐推导／替换、约束／重载／实例化、常量求值、模板实体到目标文件四套模型，已获精读接受。冻结前仅将第三单元的 extern template 说明校准为正式的“显式实例化声明／定义”表述；当前 G5 Content v2 为 **ACCEPTED / FROZEN**。原实验字节与判据不变，历史结果不追写为新正文执行记录；理论补充检查保留在 §6，冻结摘要及接受边界见 [G5 冻结记录](g05-verification.md#7-精读接受与冻结收口)。
 
 旧 G5 的完整类型技巧、跨语言对照及泛型预算清单保留回查；本批不展开完整 ADL、类模板实参推导、元编程框架或特化技巧大全。机器成本交给 G6，ABI 归 G8，完整构建传播归 G9。G0～G4 正文、执行器与历史 JSON、v1 源稿及已发布 PDF 保持原字节；不启动 G6，不构建 PDF。
 
