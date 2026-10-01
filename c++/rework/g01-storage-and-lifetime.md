@@ -52,6 +52,8 @@ struct Reading {
 
 这条声明已经建立了字节数组对象，不能说它“没有创建任何对象”。更准确的描述是：字节数组存在，但本例的 `Reading` 尚未构造。C++23 允许某些操作隐式创建特定类别的对象；我们的 `Reading` 不属于这里可以靠字节数组声明隐式启动生命的类型，因此选择显式构造能把实验边界说清楚。[对象模型与字节数组提供存储的规则](https://timsong-cpp.github.io/cppwp/n4950/intro.object)
 
+这里可以给两种时间范围各自命名。存储持续期（storage duration）描述承载对象的存储至少可能维持多久，分为自动、静态、线程和动态四类；对象生命周期（object lifetime）则回答某个具体对象何时在这片存储上存在。知道存储持续期，不能单独判断其中的某个对象现在是否仍活着。下面程序中，局部字节数组具有自动存储持续期，而先后建立的两个 `Reading` 只在这片存储上各占据一段更短的生命区间。[存储持续期分类](https://timsong-cpp.github.io/cppwp/n4950/basic.stc)与[对象生命周期](https://timsong-cpp.github.io/cppwp/n4950/basic.life)描述的是不同属性。
+
 随后把 `storage` 转换成 `Reading*`，也没有补上构造。指针类型告诉编译器后续表达式应按什么类型分析，不会因为换了一个类型名字就执行初始化。这里需要的是在这处存储建立对象的操作，而不是更多次强制转换。
 
 `std::construct_at` 接收位置和构造实参，在指定位置初始化对象，并返回指向新对象的指针。它不替调用者取得一块新的存储，也不检查任意地址是否有足够空间；本例用字节数组的大小和对齐先满足前提。[construct_at 的定义](https://timsong-cpp.github.io/cppwp/n4950/specialized.construct)

@@ -1,0 +1,2243 @@
+{
+  "started_at_utc": "2026-10-01T10:27:26.635484+00:00",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "macOS": "26.7",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "documents": {
+    "g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+    "g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+    "g01-representation-and-typed-access.md": "09b7c832286f7f19275866dc034f94dfa72cac0a4606862c3f9843b50b6e5aa6"
+  },
+  "source_sha256": {
+    "reading.hpp": "61cb3ea6715a8b6cc5c903d97ac18b2cee2839d640a97ed8f7b21a3af0c6e5d1",
+    "lifecycle.cpp": "3e963b54ab2f8b7296bcbf1894fe8633d6f7911260d9ff97a28fac476f3d4b34",
+    "const-access.cpp": "8be429cd9bf59f654c4af77e8654ab6e253606d818b25e5530d5ed914624e431",
+    "constructor-failure.cpp": "89dc1995bda65ce74b3182282b441eb049ba8d513c934249099876c3f5c9b397",
+    "reference-lifetime.cpp": "6a974dcffdd240f3aa22bdcedd11fa53980c1047e8d654f4168395dc64b53897",
+    "array-span.cpp": "d62b363151e1abea2a9d79c36d5b9232b2e79f4f42f83c3e5e763a163a0d57bb",
+    "vector-borrows.cpp": "0ea9fa0d93654c293f10c4c671e3ada8e30e0abc606f652506a8c66ba24212f1",
+    "erase-position.cpp": "936ecc65000d2ff674eea65101d2184923eb7c2c0c9ddae88594f459b25701bc",
+    "stale-borrow.cpp": "5063d6346401c24dbecf6a5e811d3c99f344381d4ca58be1c141ea15bc41b382",
+    "representation-copy.cpp": "bd9ce2ce6d55c84f8aed04004cd1e9d6a049c46e54d21cbc60c386a59de09bad",
+    "representation-value.cpp": "c45ec8ab3b3a07603d46902f341ab66d127e3da081d824ac8e75818130368a24"
+  },
+  "runner_sha256": "df0b468f9be9d47f5222cf3a076fa32e737c1fbb2265035690ed27e1ad34ba0d",
+  "process_helper": "c++/learning/verify_g.py",
+  "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+  "g0_editorial_binding": {
+    "historical_commit": "d45f9a7020c2888dda15445e63b64478d5c09ec4",
+    "old_chapter_sha256": "04b93e7db52e811b6813ead272c0085c3cd9e6a9bca781bbebb324551661a8d8",
+    "current_chapter_sha256": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+    "fenced_blocks_unchanged": 31,
+    "source_files_unchanged": 9,
+    "execution_rerun": "NOT RUN",
+    "historical_result_sha256": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8"
+  },
+  "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/usr/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 220106",
+        "#define __cplusplus 202302L"
+      ]
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/opt/homebrew/opt/llvm/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 230102",
+        "#define __cplusplus 202302L"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "source": "lifecycle.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "lifecycle.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "const-access.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "const-access.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/const-access-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "const-access.cpp:6:21: error: cannot assign to variable 'observer' with const-qualified type 'const Reading *'\n    6 |     observer->value = 99; // Expected compile error: this access path is const.\n      |     ~~~~~~~~~~~~~~~ ^\nconst-access.cpp:5:20: note: variable 'observer' declared const here\n    5 |     const Reading* observer = &reading;\n      |     ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "cannot assign to (?:variable|non-static data member).*const-qualified"
+    },
+    {
+      "source": "lifecycle.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/lifecycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/constructor-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/reference-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/array-span-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/vector-borrows-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/erase-position-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-copy-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/representation-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "stale-borrow.cpp",
+      "mode": "asan_negative",
+      "compiler": "/usr/bin/clang++",
+      "status": "DETECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fsanitize=address",
+            "-fno-omit-frame-pointer",
+            "stale-borrow.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+          "timed_out": false,
+          "returncode": 86,
+          "stdout": "",
+          "stderr": "=================================================================\n==20894==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000290 at pc 0x0001041d88f8 bp 0x00016bc260a0 sp 0x00016bc26098\nREAD of size 4 at 0x602000000290 thread T0\n    #0 0x0001041d88f4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x1000008f4)\n    #1 0x0001041d8b5c  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100000b5c)\n    #2 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\n0x602000000290 is located 0 bytes inside of 12-byte region [0x602000000290,0x60200000029c)\nfreed by thread T0 here:\n    #0 0x000104a1c558  (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64e+0x50558)\n    #1 0x0001041dcdf4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100004df4)\n    #2 0x0001041dcd94  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100004d94)\n    #3 0x0001041dcc58  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100004c58)\n    #4 0x0001041dd99c  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x10000599c)\n    #5 0x0001041dd454  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100005454)\n    #6 0x0001041d92c4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x1000012c4)\n    #7 0x0001041d8b50  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100000b50)\n    #8 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\npreviously allocated by thread T0 here:\n    #0 0x000104a1c150  (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64e+0x50150)\n    #1 0x0001041da790  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100002790)\n    #2 0x0001041da6d0  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x1000026d0)\n    #3 0x0001041da668  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100002668)\n    #4 0x0001041da5f0  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x1000025f0)\n    #5 0x0001041da378  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100002378)\n    #6 0x0001041d9c40  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100001c40)\n    #7 0x0001041d9890  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100001890)\n    #8 0x0001041d965c  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x10000165c)\n    #9 0x0001041d8d14  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100000d14)\n    #10 0x0001041d8ad4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x100000ad4)\n    #11 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\nSUMMARY: AddressSanitizer: heap-use-after-free (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/stale-borrow-asan_negative:arm64+0x1000008f4) \nShadow bytes around the buggy address:\n  0x602000000000: fa fa fd fa fa fa fd fd fa fa fd fd fa fa 00 00\n  0x602000000080: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd\n  0x602000000100: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000180: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000200: fa fa fd fa fa fa 00 07 fa fa 00 00 fa fa 00 04\n=>0x602000000280: fa fa[fd]fd fa fa 00 04 fa fa fa fa fa fa fa fa\n  0x602000000300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n  Left alloca redzone:     ca\n  Right alloca redzone:    cb\n==20894==ABORTING\n"
+        }
+      ],
+      "expected_exit": 86,
+      "expected_diagnostic": "AddressSanitizer: heap-use-after-free"
+    },
+    {
+      "source": "lifecycle.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "lifecycle.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "const-access.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "const-access.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/const-access-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "const-access.cpp:6:21: error: cannot assign to variable 'observer' with const-qualified type 'const Reading *'\n    6 |     observer->value = 99; // Expected compile error: this access path is const.\n      |     ~~~~~~~~~~~~~~~ ^\nconst-access.cpp:5:20: note: variable 'observer' declared const here\n    5 |     const Reading* observer = &reading;\n      |     ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic": "cannot assign to (?:variable|non-static data member).*const-qualified"
+    },
+    {
+      "source": "lifecycle.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "lifecycle.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/lifecycle-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\nrebuilt live=1 sequence=2\nfinal live=0 constructed=2 destroyed=2\n"
+    },
+    {
+      "source": "constructor-failure.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "constructor-failure.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/constructor-failure-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "rejected outer-destroyed=0 member-destroyed=1\nretry outer-destroyed=1 member-destroyed=2\n"
+    },
+    {
+      "source": "reference-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "reference-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/reference-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "direct live=1\nforwarded live=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "direct live=1\nforwarded live=0\n"
+    },
+    {
+      "source": "array-span.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "array-span.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/array-span-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "array sum=105\nmiddle sum=55\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "array sum=105\nmiddle sum=55\n"
+    },
+    {
+      "source": "vector-borrows.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "vector-borrows.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/vector-borrows-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "append owner-size=3 borrowed-size=2\nreallocated owner-alive size=3\ncleared size=0; capacity-retained\n"
+    },
+    {
+      "source": "erase-position.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "erase-position.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/erase-position-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "after erase next=30 old-index-now=40\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "after erase next=30 old-index-now=40\n"
+    },
+    {
+      "source": "representation-copy.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "representation-copy.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-copy-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view tracks source; snapshot restores value\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "view tracks source; snapshot restores value\n"
+    },
+    {
+      "source": "representation-value.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "representation-value.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/representation-value-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
+          "stderr": ""
+        }
+      ],
+      "expected_stdout": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n"
+    },
+    {
+      "source": "stale-borrow.cpp",
+      "mode": "asan_negative",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "DETECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "-fsanitize=address",
+            "-fno-omit-frame-pointer",
+            "stale-borrow.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+          "timed_out": false,
+          "returncode": 86,
+          "stdout": "",
+          "stderr": "=================================================================\n==21036==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000000290 at pc 0x000100f688a0 bp 0x00016ee960c0 sp 0x00016ee960b8\nREAD of size 4 at 0x602000000290 thread T0\n    #0 0x000100f6889c  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x10000089c)\n    #1 0x000100f68aec  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100000aec)\n    #2 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\n0x602000000290 is located 0 bytes inside of 12-byte region [0x602000000290,0x60200000029c)\nfreed by thread T0 here:\n    #0 0x000101421854  (/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64+0x65854)\n    #1 0x000100f6bde8  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100003de8)\n    #2 0x000100f6bd80  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100003d80)\n    #3 0x000100f6bc80  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100003c80)\n    #4 0x000100f6ccf8  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100004cf8)\n    #5 0x000100f6c234  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100004234)\n    #6 0x000100f69114  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100001114)\n    #7 0x000100f68ae0  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100000ae0)\n    #8 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\npreviously allocated by thread T0 here:\n    #0 0x00010142145c  (/opt/homebrew/Cellar/llvm/23.1.2/lib/clang/23/lib/darwin/libclang_rt.asan_osx_dynamic.dylib:arm64+0x6545c)\n    #1 0x000100f6a5c8  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x1000025c8)\n    #2 0x000100f6a508  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100002508)\n    #3 0x000100f6a4a0  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x1000024a0)\n    #4 0x000100f6a428  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100002428)\n    #5 0x000100f6a098  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100002098)\n    #6 0x000100f69a6c  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100001a6c)\n    #7 0x000100f69610  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100001610)\n    #8 0x000100f693e4  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x1000013e4)\n    #9 0x000100f68c88  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100000c88)\n    #10 0x000100f68a68  (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x100000a68)\n    #11 0x00018dc244e0  (/usr/lib/dyld:arm64e+0x204e0)\n\nSUMMARY: AddressSanitizer: heap-use-after-free (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/stale-borrow-asan_negative:arm64+0x10000089c) \nShadow bytes around the buggy address:\n  0x602000000000: fa fa fd fa fa fa fd fd fa fa fd fd fa fa 00 00\n  0x602000000080: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd\n  0x602000000100: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000180: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fa\n  0x602000000200: fa fa fd fa fa fa 00 07 fa fa 00 00 fa fa 00 04\n=>0x602000000280: fa fa[fd]fd fa fa 00 04 fa fa fa fa fa fa fa fa\n  0x602000000300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\n  0x602000000500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\nShadow byte legend (one shadow byte represents 8 application bytes):\n  Addressable:           00\n  Partially addressable: 01 02 03 04 05 06 07 \n  Heap left redzone:       fa\n  Freed heap region:       fd\n  Stack left redzone:      f1\n  Stack mid redzone:       f2\n  Stack right redzone:     f3\n  Stack after return:      f5\n  Stack use after scope:   f8\n  Global redzone:          f9\n  Global init order:       f6\n  Poisoned by user:        f7\n  Container overflow:      fc\n  Array cookie:            ac\n  Intra object redzone:    bb\n  ASan internal:           fe\n  Left alloca redzone:     ca\n  Right alloca redzone:    cb\n==21036==ABORTING\n"
+        }
+      ],
+      "expected_exit": 86,
+      "expected_diagnostic": "AddressSanitizer: heap-use-after-free"
+    }
+  ],
+  "performance": "NOT RUN",
+  "concurrency": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1:abort_on_error=0:exitcode=86:symbolize=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=0"
+  },
+  "sanitizer_probes": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "mode": "sanitized",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "mode": "asan_negative",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O0",
+          "-g",
+          "-fsanitize=address",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "mode": "sanitized",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "mode": "asan_negative",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O0",
+          "-g",
+          "-fsanitize=address",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g1-rework-a25esl1w/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ],
+  "completed_at_utc": "2026-10-01T10:28:07.397575+00:00",
+  "status": "COMPLETE"
+}

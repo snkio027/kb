@@ -2,6 +2,8 @@
 
 [第一单元](g01-storage-and-lifetime.md)研究了一个对象在同一块存储上的建立和结束。现在把读数收集成一批，交给另一个函数处理。调用方不想复制整批数据，接收方也不应负责释放它，于是双方通过指针、引用或 `std::span` 共享访问。
 
+本书把“不拥有目标，只在约定期间通过某条路径访问目标”的关系称为借用（borrowing）。这是工程分析术语，不是 C++ 核心语言提供的一套借用检查机制。指针、引用和 `span` 只能表达其中一部分信息；目标的生命周期、允许的操作和失效条件，仍需由接口合同及其使用者保证。
+
 问题随之变成：接收方什么时候还能使用这条访问路径？容器仍然存在，只说明容器对象本身没有结束生命；其中的元素可能已经搬到新存储、被删除，或者不再对应原来的逻辑记录。本单元用一批整数读数逐步改变这些条件，重点放在访问有效性，不展开容器的性能选型和类类型移动策略。
 
 ## 1 从单个地址到一段范围
@@ -34,9 +36,9 @@ int main() {
     static_assert(std::is_same_v<decltype(samples), int[4]>);
     static_assert(std::is_same_v<decltype(&samples), int (*)[4]>);
 
-    const std::span<int> fixed_handle{samples};
+    const std::span<int> const_view{samples};
     std::span<const int> readonly{samples};
-    fixed_handle[1] = 25;
+    const_view[1] = 25;
     auto middle = readonly.subspan(1, 2);
     bool good = readonly.size() == 4 && readonly[1] == 25;
     good = good && middle.size() == 2 && middle[0] == 25 && middle[1] == 30;
@@ -56,7 +58,7 @@ clang++ -std=c++23 -O0 -g -Wall -Wextra -Wpedantic array-span.cpp -o array-span
 
 ### 1.1 const 限制的是哪一层
 
-`fixed_handle` 是一个不能重新赋值的 span 对象，但它的元素类型是 `int`，所以仍可通过它修改元素。`readonly` 的元素类型是 `const int`，不能经由它执行同样的写入；不过它仍然看到别的合法路径刚写入的 25。
+`const_view` 的 `const` 修饰 span 对象本身，而不是它的元素类型：这个 span 不能重新赋值，但元素类型仍是 `int`，所以仍可通过它修改元素。`readonly` 的元素类型是 `const int`，不能经由它执行同样的写入；不过它仍然看到别的合法路径刚写入的 25。
 
 这与上一单元的 `const Reading*` 相同：限制一条访问路径，不等于冻结目标的所有别名。复制 span 通常复制的是范围描述，不是数据快照；若需要一个不会随后续修改而改变的独立值，应当明确复制数据或设计其他一致性机制。
 
@@ -117,7 +119,7 @@ int main() {
         if (*first != 10 || prefix.size() != 2 || prefix[1] != 20) return 3;
         std::cout << "append owner-size=" << samples.size()
                   << " borrowed-size=" << prefix.size() << '\n';
-    } // End the old borrows before the next operation.
+    } // Stop using these access paths before the invalidating operation.
 
     const auto before_growth = samples.capacity();
     if (before_growth == samples.max_size()) return 4;
@@ -169,7 +171,9 @@ vector 对象：始终是 samples
                        ↑ 重新取得的借用
 ```
 
-图中数值相同，不代表三个旧元素的访问路径自动跟随搬迁。重新分配会使旧元素的引用、指针和迭代器失效；使用者必须重新取得它们。本例在重新分配前结束了旧借用变量的作用域，随后建立 `renewed`，因此没有通过失效指针比较新旧地址或访问旧元素。
+图中数值相同，不代表三个旧元素的访问路径自动跟随搬迁。重新分配会使旧元素的引用、指针和迭代器失效；使用者必须重新取得它们。本例用局部作用域让旧访问路径的名字在重新分配前退出可见范围，随后建立 `renewed`，因此没有通过失效指针比较新旧地址或访问旧元素。
+
+这个作用域只是减少误用的代码组织手段。指针和 span 退出作用域，不会通知 `vector`、释放元素或改变容器状态，也没有解除某种运行时借用登记。如果事先把旧指针复制到外部变量，作用域结束仍不能阻止程序后来误用它；有效性始终由对象和容器的合同决定。
 
 这也不同于第一单元的同址透明替换：这里不是在仍保留的原存储上用同类型完整对象覆盖原对象，不能借用透明替换规则“追踪”容器搬迁。
 
@@ -274,4 +278,4 @@ int main() {
 
 **第五题。** 不够。借用使用时间已经延长，必须有明确的存活及失效约束，或者改为交付独立数据或合适的拥有关系。仅把参数从指针换成 span，不会解决延迟使用问题。
 
-到这里，G1 回答了“何时能访问”，却还没有把“谁负责结束和释放”封装成可靠接口。下一步 G2 会沿一个资源句柄处理清理责任、借用与提前退出；值类别的系统讲解则放到 G3 的复制、移动与返回主线，不在这里再开启一轮术语罗列。
+前两个单元已经建立了生命区间和借用失效的模型，还剩一项访问前提：即使对象活着，也不能随意换一种类型读取它。[第三单元](g01-representation-and-typed-access.md)先说明对象表示与类型化访问，再交给 G2 处理清理责任、借用与提前退出；值类别仍放到 G3 的复制、移动与返回主线。

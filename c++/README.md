@@ -1,6 +1,6 @@
 # Modern C++ 工程学习手册
 
-**2026-10-01 内容重编进行中。** 从 [G 系列重编入口](rework/README.md)阅读。G0 的方向与深度已获精读认可，本轮完成局部校准；新 G1 已分为[存储、对象与生命周期](rework/g01-storage-and-lifetime.md)及[借用、范围与访问失效](rework/g01-borrowing-and-invalidation.md)两个单元，待精读审核。G2 及后续尚未重编。下面的章节和接受记录继续描述 v1 源稿历史，不把历史接受等同新的学习质量验收，也不覆盖已发布 PDF。
+**2026-10-01 内容重编进行中。** 从 [G 系列重编入口](rework/README.md)阅读。G0 的方向与深度已获精读认可；G1 的[存储、对象与生命周期](rework/g01-storage-and-lifetime.md)及[借用、范围与访问失效](rework/g01-borrowing-and-invalidation.md)在 `6fcfbd0` 获方向认可。本轮完成四项校准，并按确认新增短第三单元[对象表示、类型化访问与别名](rework/g01-representation-and-typed-access.md)，待精读审核，尚未最终冻结。G2 及后续尚未重编。下面的章节和接受记录继续描述 v1 源稿历史，不把历史接受等同新的学习质量验收，也不覆盖已发布 PDF。
 
 这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 

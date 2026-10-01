@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the two reworked G1 units; preserve historical G0 execution records."""
+"""Verify the three reworked G1 units; preserve historical execution records."""
 
 import argparse
 from datetime import datetime, timezone
@@ -23,7 +23,8 @@ spec = importlib.util.spec_from_file_location("g_verification_helpers", HELPER)
 helpers = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(helpers)
 BASE = "d45f9a7020c2888dda15445e63b64478d5c09ec4"
-CHAPTERS = ["g01-storage-and-lifetime.md", "g01-borrowing-and-invalidation.md"]
+CHAPTERS = ["g01-storage-and-lifetime.md", "g01-borrowing-and-invalidation.md",
+            "g01-representation-and-typed-access.md"]
 FILE_BLOCK = re.compile(r"\*\*文件 `([^`]+)`\*\*\n\n```cpp\n(.*?)\n```", re.S)
 OUTPUTS = {
     "lifecycle.cpp": "raw live=0\nconstructed live=1 value=42\ndestroyed live=0\n"
@@ -35,6 +36,8 @@ OUTPUTS = {
     "vector-borrows.cpp": "append owner-size=3 borrowed-size=2\n"
                           "reallocated owner-alive size=3\ncleared size=0; capacity-retained\n",
     "erase-position.cpp": "after erase next=30 old-index-now=40\n",
+    "representation-copy.cpp": "view tracks source; snapshot restores value\n",
+    "representation-value.cpp": "numeric=1; restored=1.5\nsource=2.5; restored=1.5\n",
 }
 SAN_FLAGS = ["-O1", "-g", "-fsanitize=address,undefined", "-fno-sanitize-recover=all",
              "-fno-omit-frame-pointer"]
