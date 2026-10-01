@@ -1,6 +1,6 @@
 # Modern C++ 工程学习手册
 
-**2026-10-01 内容重编进行中。** 从 [G 系列重编入口](rework/README.md)阅读。G0 的方向与深度已获精读认可；G1 的[存储、对象与生命周期](rework/g01-storage-and-lifetime.md)、[借用、范围与访问失效](rework/g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](rework/g01-representation-and-typed-access.md)在 `2cad5b4` 获三单元精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 新稿分为[资源责任与确定性清理](rework/g02-resource-lifecycle.md)和[借用与所有权交接](rework/g02-ownership-and-handoff.md)，已完成本批实现与本地验证，**待精读审核，尚未冻结**；G3 及后续尚未重编。下面的章节和接受记录继续描述 v1 源稿历史，不把历史接受等同新的学习质量验收，也不覆盖已发布 PDF。
+**2026-10-01 内容重编进行中。** 从 [G 系列重编入口](rework/README.md)阅读。G0 的方向与深度已获精读认可；G1 的[存储、对象与生命周期](rework/g01-storage-and-lifetime.md)、[借用、范围与访问失效](rework/g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](rework/g01-representation-and-typed-access.md)在 `2cad5b4` 获三单元精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 新稿分为[资源责任与确定性清理](rework/g02-resource-lifecycle.md)和[借用与所有权交接](rework/g02-ownership-and-handoff.md)，两单元在 `729e9c2` 获精读接受，经三处文字校准后，G2 Content v2 为 **ACCEPTED / FROZEN**；G3 及后续尚未重编。下面的章节和接受记录继续描述 v1 源稿历史，不把历史接受等同新的学习质量验收，也不覆盖已发布 PDF。
 
 这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
