@@ -1,0 +1,3771 @@
+{
+  "started_at_utc": "2026-10-01T13:32:47.240883+00:00",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "macOS": "26.7",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "documents": {
+    "g04-sequences-and-identity.md": "b27dd65ae57ac9c3b7da0a6c2f6eda1e77913552d1c2329d2ac0e12e58a2b394",
+    "g04-algorithms-and-views.md": "9ff952815df31d388eb843d575e4df90ed5d19749567925e629d8928f4cfeaeb",
+    "g04-lookup-and-indexes.md": "e6c25ada6aaecbffd27ac638f16cddb9a136f3f168681643d1b7050e7e9b7039"
+  },
+  "source_sha256": {
+    "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+    "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+    "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+    "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+    "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+    "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+    "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+    "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+    "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+    "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+    "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+    "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+    "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+    "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+    "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+    "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+  },
+  "runner_sha256": "48370c42edd05ee1ae88204f632e77d1cb417bf1faba621523f8d891bbab2948",
+  "process_helper": "c++/learning/verify_g.py",
+  "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+  "protected_binding": {
+    "base": "c5d3b17cf66fd4bb6f6cfef705d0c7cf95e16af7",
+    "status": "UNCHANGED",
+    "files_sha256": {
+      "c++/failure-model/fm0-failure-model.md": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "c++/failure-model/fm1-contracts-assertions-ub.md": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "c++/failure-model/fm2-value-based-failure.md": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "c++/failure-model/fm3-exception-semantics.md": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "c++/failure-model/fm4-raii-exception-safety.md": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "c++/failure-model/fm5-noexcept-move-copy.md": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "c++/failure-model/fm6-construction-destruction-allocation.md": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "c++/failure-model/fm7-error-code-system-error.md": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "c++/failure-model/fm8-failure-boundaries.md": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "c++/failure-model/fm9-project-failure-profile.md": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "c++/g00-native-toolchain.md": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "c++/g01-object-model.md": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "c++/g02-raii-and-ownership.md": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "c++/g03-value-semantics-and-performance.md": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "c++/g04-stl-and-ranges.md": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "c++/g05-generics-and-compile-time.md": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "c++/g06-memory-and-performance.md": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "c++/g07-concurrency-and-memory-model.md": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "c++/g08-abi-and-c-interop.md": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "c++/g09-build-and-native-ecosystem.md": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "c++/g10-systems-runtime-project.md": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "c++/g11-robotics.md": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "c++/g12-cpp-zig-rust.md": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "c++/learning/verify_g.py": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "c++/rework/g00-native-toolchain.md": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+      "c++/rework/g00-results.json": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8",
+      "c++/rework/g00-verification.md": "f4591db5ba6a36edc89e5a5a2d37f617c2268c4d1d544be37f115cb7cc744c61",
+      "c++/rework/g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+      "c++/rework/g01-representation-and-typed-access.md": "7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35",
+      "c++/rework/g01-results.json": "f5f43f6362d363e197b88943a5e708436af619a2b3d3b6fd213cdaa7ca178eab",
+      "c++/rework/g01-review-results.json": "fdd10a605cbe31a3c4d4e04951eb91c01e374d4f8b72c42bcbbc5f2e4aa2e7f5",
+      "c++/rework/g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+      "c++/rework/g01-verification.md": "01d877d09de782ef15cc07aba88ce37226eb05d356d9168b5917ce5865724477",
+      "c++/rework/g02-ownership-and-handoff.md": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88",
+      "c++/rework/g02-resource-lifecycle.md": "ecccff7759cad454bdeb8341ee21a8389c7ef839aec99cc7a1fb9b3e2ab6426b",
+      "c++/rework/g02-results.json": "31499bca59ddb6676f78f93bb15003065004e1bdf203053348504ef346c00f68",
+      "c++/rework/g02-verification.md": "a66572a3d75f810f4534e848207a0253c0535271ed3440e3273b847167eef78e",
+      "c++/rework/g03-expressions-and-return.md": "4b86c508377a2651e57fd49a7615cb8d03f33e0a21de05887807a7d3ff7108b1",
+      "c++/rework/g03-results.json": "9334eda778542a71308b20163488e08be85944df5e292f5719b3c8a7012beccd",
+      "c++/rework/g03-value-copy-and-move.md": "17252f214ffe89e13c1915ee53a37d1d7b1ae339b5ee771ada4f587a72fa14c5",
+      "c++/rework/g03-verification.md": "ad6396d1de746c93435b25b8838e162148e4fd077bf70cb418ca16d12db9585a",
+      "c++/rework/verify_g0.py": "97a4b97899e2791948a1bf03af79f0a2396e4295f5a8bd4b99f4426c70024027",
+      "c++/rework/verify_g1.py": "df0b468f9be9d47f5222cf3a076fa32e737c1fbb2265035690ed27e1ad34ba0d",
+      "c++/rework/verify_g2.py": "0d099d40ca5c9a27bbbb3b8360c55cc5ff6b74145de2d67ed95866aa46f6fbcf",
+      "c++/rework/verify_g3.py": "0fd6b55e5384f4f8389a3f73ec3dcf8ca189e3682125beac4e5038e30a39201b",
+      "publication/releases/cpp-failure-model/v1.0.0/output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+      "publication/releases/cpp-handbook/v1.0.0/output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+    },
+    "historical_execution_rerun": "NOT RUN"
+  },
+  "oracle_selftests": {
+    "exact_output": true,
+    "wrong_output_rejected": true,
+    "stderr_rejected": true,
+    "timeout_rejected": true,
+    "crash_not_mutation_rejection": true,
+    "wrong_mutation_exit_rejected": true,
+    "observation_format": true,
+    "different_counts_allowed": true,
+    "extra_observation_output_rejected": true,
+    "negative_count_rejected": true,
+    "target_diagnostic": true,
+    "missing_header_not_diagnostic": true,
+    "diagnostic_timeout_rejected": true,
+    "diagnostic_signal_rejected": true
+  },
+  "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/usr/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 220106",
+        "#define __cplusplus 202302L"
+      ]
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": ""
+      },
+      "identity_command": [
+        "/opt/homebrew/opt/llvm/bin/clang++",
+        "-std=c++23",
+        "-dM",
+        "-E",
+        "identity.cpp"
+      ],
+      "library_macros": [
+        "#define _LIBCPP_VERSION 230102",
+        "#define __cplusplus 202302L"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "O0",
+      "compiler": "/usr/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    },
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "O2",
+      "compiler": "/usr/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    },
+    {
+      "source": "dangling-result.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "dangling-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/dangling-result-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "dangling-result.cpp:6:12: error: indirection requires pointer operand ('borrowed_iterator_t<std::vector<int, std::allocator<int>>>' (aka 'std::ranges::dangling') invalid)\n    6 |     return *result;\n      |            ^~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic_patterns": [
+        "error:.*(?:indirection|invalid argument type).*dangling"
+      ]
+    },
+    {
+      "source": "sort-filter.cpp",
+      "mode": "compile_fail",
+      "compiler": "/usr/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "sort-filter.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-filter-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "sort-filter.cpp:8:5: error: no matching function for call to object of type 'const __sort'\n    8 |     std::ranges::sort(positive);\n      |     ^~~~~~~~~~~~~~~~~\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:64:3: note: candidate template ignored: constraints not satisfied [with _Range = invoke_result_t<std::ranges::__pipeable<std::__bind_back_t<std::ranges::views::__filter::__fn, std::tuple<(lambda at sort-filter.cpp:7:49)>>>, std::vector<int, std::allocator<int>> &> &, _Comp = ranges::less, _Proj = identity]\n   64 |   operator()(_Range&& __r, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:61:13: note: because 'std::ranges::filter_view<std::ranges::ref_view<std::vector<int>>, (lambda at sort-filter.cpp:7:49)> &' does not satisfy 'random_access_range'\n   61 |   template <random_access_range _Range, class _Comp = ranges::less, class _Proj = identity>\n      |             ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__ranges/concepts.h:116:59: note: because 'iterator_t<std::ranges::filter_view<std::ranges::ref_view<std::vector<int, std::allocator<int>>>, (lambda at sort-filter.cpp:7:49)> &>' (aka 'std::ranges::filter_view<std::ranges::ref_view<std::vector<int>>, (lambda at sort-filter.cpp:7:49)>::__iterator') does not satisfy 'random_access_iterator'\n  116 | concept random_access_range = bidirectional_range<_Tp> && random_access_iterator<iterator_t<_Tp>>;\n      |                                                           ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/concepts.h:219:36: note: because 'derived_from<_ITER_CONCEPT<std::ranges::filter_view<std::ranges::ref_view<std::vector<int, std::allocator<int>>>, (lambda at sort-filter.cpp:7:49)>::__iterator>, random_access_iterator_tag>' evaluated to false\n  219 |     bidirectional_iterator<_Ip> && derived_from<_ITER_CONCEPT<_Ip>, random_access_iterator_tag> &&\n      |                                    ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/derived_from.h:27:24: note: because 'is_base_of_v<std::random_access_iterator_tag, std::bidirectional_iterator_tag>' evaluated to false\n   27 | concept derived_from = is_base_of_v<_Bp, _Dp> && is_convertible_v<const volatile _Dp*, const volatile _Bp*>;\n      |                        ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_sort.h:57:3: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided\n   57 |   operator()(_Iter __first, _Sent __last, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic_patterns": [
+        "error:.*(?:no matching function|constraints not satisfied)",
+        "random_access_(?:range|iterator)",
+        "sort"
+      ]
+    },
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sequence-edit-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/stable-storage-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/single-pass-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/sort-identity-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/compact-records-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/lazy-and-owned-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/range-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/ordered-lookup-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/map-operations-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/hash-references-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/indexed-replacement-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "sanitized",
+      "compiler": "/usr/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/relocation-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    },
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "O0",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-O0"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    },
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "O2",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O2",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-O2"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    },
+    {
+      "source": "dangling-result.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "dangling-result.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/dangling-result-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "dangling-result.cpp:6:12: error: indirection requires pointer operand ('borrowed_iterator_t<std::vector<int, std::allocator<int>>>' (aka 'dangling') invalid)\n    6 |     return *result;\n      |            ^~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic_patterns": [
+        "error:.*(?:indirection|invalid argument type).*dangling"
+      ]
+    },
+    {
+      "source": "sort-filter.cpp",
+      "mode": "compile_fail",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "PASS",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-c",
+            "sort-filter.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-filter-compile_fail"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 1,
+          "stdout": "",
+          "stderr": "sort-filter.cpp:8:5: error: no matching function for call to object of type 'const __sort'\n    8 |     std::ranges::sort(positive);\n      |     ^~~~~~~~~~~~~~~~~\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:64:3: note: candidate template ignored: constraints not satisfied [with _Range = invoke_result_t<std::ranges::__pipeable<std::__bind_back_t<std::ranges::views::__filter::__fn, std::tuple<(lambda at sort-filter.cpp:7:49)>>>, std::vector<int, std::allocator<int>> &> &, _Comp = ranges::less, _Proj = identity]\n   64 |   operator()(_Range&& __r, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:61:13: note: because 'std::ranges::filter_view<std::ranges::ref_view<std::vector<int>>, (lambda at sort-filter.cpp:7:49)> &' does not satisfy 'random_access_range'\n   61 |   template <random_access_range _Range, class _Comp = ranges::less, class _Proj = identity>\n      |             ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__ranges/concepts.h:116:59: note: because 'iterator_t<std::ranges::filter_view<std::ranges::ref_view<std::vector<int, std::allocator<int>>>, (lambda at sort-filter.cpp:7:49)> &>' (aka '__iterator') does not satisfy 'random_access_iterator'\n  116 | concept random_access_range = bidirectional_range<_Tp> && random_access_iterator<iterator_t<_Tp>>;\n      |                                                           ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__iterator/concepts.h:218:36: note: because 'derived_from<_ITER_CONCEPT<std::ranges::filter_view<std::ranges::ref_view<std::vector<int, std::allocator<int> > >, (lambda at sort-filter.cpp:7:49)>::__iterator>, random_access_iterator_tag>' evaluated to false\n  218 |     bidirectional_iterator<_Ip> && derived_from<_ITER_CONCEPT<_Ip>, random_access_iterator_tag> &&\n      |                                    ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__concepts/derived_from.h:27:24: note: because 'is_base_of_v<std::random_access_iterator_tag, std::bidirectional_iterator_tag>' evaluated to false\n   27 | concept derived_from = is_base_of_v<_Bp, _Dp> && is_convertible_v<const volatile _Dp*, const volatile _Bp*>;\n      |                        ^\n/opt/homebrew/Cellar/llvm/23.1.2/bin/../include/c++/v1/__algorithm/ranges_sort.h:57:3: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided\n   57 |   operator()(_Iter __first, _Sent __last, _Comp __comp = {}, _Proj __proj = {}) const {\n      |   ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+        }
+      ],
+      "expected_diagnostic_patterns": [
+        "error:.*(?:no matching function|constraints not satisfied)",
+        "random_access_(?:range|iterator)",
+        "sort"
+      ]
+    },
+    {
+      "source": "sequence-edit.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "sequence-edit.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sequence-edit-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "sequence edits preserve values and renew positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "sequence edits preserve values and renew positions\n"
+    },
+    {
+      "source": "stable-storage.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "stable-storage.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/stable-storage-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "target identity follows the chosen storage contract\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "target identity follows the chosen storage contract\n"
+    },
+    {
+      "source": "single-pass.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "single-pass.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/single-pass-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "input is consumed once; stored values support repeated passes\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "input is consumed once; stored values support repeated passes\n"
+    },
+    {
+      "source": "sort-identity.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "sort-identity.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/sort-identity-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "stable ordering preserves ties, not selected positions\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "stable ordering preserves ties, not selected positions\n"
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/compact-records-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "compaction selects the prefix; erase changes container size\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "compaction selects the prefix; erase changes container size\n"
+    },
+    {
+      "source": "lazy-and-owned.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "lazy-and-owned.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/lazy-and-owned-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "view observes source; materialized values form a snapshot\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "view observes source; materialized values form a snapshot\n"
+    },
+    {
+      "source": "range-lifetime.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "range-lifetime.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/range-lifetime-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "borrowed range concerns the wrapper, not immortal elements\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "borrowed range concerns the wrapper, not immortal elements\n"
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/ordered-lookup-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "ordered lookup checks both boundary and key equality\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "ordered lookup checks both boundary and key equality\n"
+    },
+    {
+      "source": "map-operations.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "map-operations.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/map-operations-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "lookup, conditional insertion and replacement are distinct\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "lookup, conditional insertion and replacement are distinct\n"
+    },
+    {
+      "source": "hash-references.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "hash-references.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/hash-references-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rehash renews iterators but preserves element references\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rehash renews iterators but preserves element references\n"
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/indexed-replacement-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "rows and index commit together; rejected input preserves old state\n",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout": "rows and index commit together; rejected input preserves old state\n"
+    },
+    {
+      "source": "relocation-observation.cpp",
+      "mode": "sanitized",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "CLEAN_OBSERVED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O1",
+            "-g",
+            "-fsanitize=address,undefined",
+            "-fno-sanitize-recover=all",
+            "-fno-omit-frame-pointer",
+            "relocation-observation.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/relocation-observation-sanitized"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "nothrow copies=0 moves=3\npotentially-throwing copies=3 moves=0\n",
+          "stderr": ""
+        }
+      ],
+      "expected_output_pattern": "nothrow copies=([0-9]+) moves=([0-9]+)\\npotentially-throwing copies=([0-9]+) moves=([0-9]+)\\n",
+      "observed_counts": {
+        "nothrow_copies": 0,
+        "nothrow_moves": 3,
+        "potentially_throwing_copies": 3,
+        "potentially_throwing_moves": 0
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "source": "compact-records.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-tail-erasure/compact-records-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-tail-erasure",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-tail-erasure/compact-records-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-tail-erasure",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "omit-tail-erasure",
+      "replacement": {
+        "path": "compact-records.cpp",
+        "before": "rows.erase(tail.begin(), tail.end());",
+        "after": "// Incorrect: leave the compacted tail in the container."
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "1851f16bbf6efbf257aea70030217bf34070d3ffb88936bf878db101aa158b43",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-next-key/ordered-lookup-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-next-key",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-next-key/ordered-lookup-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-next-key",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "accept-next-key",
+      "replacement": {
+        "path": "ordered-lookup.cpp",
+        "before": "it == rows.end() || it->id != id",
+        "after": "it == rows.end()"
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "682095158bac661d277abb77a0e514ba5889fc8eb327dfc235e92175b7124337",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-last-index-entry/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-last-index-entry",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-last-index-entry/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/omit-last-index-entry",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "omit-last-index-entry",
+      "replacement": {
+        "path": "indexed-batch.hpp",
+        "before": "i < rows.size()",
+        "after": "i + 1 < rows.size()"
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "6be7311d038741d7d88552093e058514bb9e946a7038ba2c407cf4aca09cb727",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "mutation",
+      "compiler": "/usr/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/usr/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-duplicate-key/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-duplicate-key",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-duplicate-key/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/accept-duplicate-key",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "accept-duplicate-key",
+      "replacement": {
+        "path": "indexed-batch.hpp",
+        "before": "if (!index.emplace(rows[i].id, i).second)\n                    throw std::invalid_argument(\"duplicate reading id\");",
+        "after": "index.emplace(rows[i].id, i); // Incorrect: silently accept a duplicate."
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "1cdb10d9633db6e7041cca3276f63808e0941e69431c0b29eb74d14bc4a887c8",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "compact-records.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "compact-records.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-tail-erasure/compact-records-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-tail-erasure",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-tail-erasure/compact-records-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-tail-erasure",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "omit-tail-erasure",
+      "replacement": {
+        "path": "compact-records.cpp",
+        "before": "rows.erase(tail.begin(), tail.end());",
+        "after": "// Incorrect: leave the compacted tail in the container."
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "1851f16bbf6efbf257aea70030217bf34070d3ffb88936bf878db101aa158b43",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "ordered-lookup.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "ordered-lookup.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-next-key/ordered-lookup-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-next-key",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-next-key/ordered-lookup-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-next-key",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "accept-next-key",
+      "replacement": {
+        "path": "ordered-lookup.cpp",
+        "before": "it == rows.end() || it->id != id",
+        "after": "it == rows.end()"
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "682095158bac661d277abb77a0e514ba5889fc8eb327dfc235e92175b7124337",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-last-index-entry/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-last-index-entry",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-last-index-entry/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/omit-last-index-entry",
+          "timed_out": false,
+          "returncode": 2,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 2,
+      "expected_stdout": "",
+      "name": "omit-last-index-entry",
+      "replacement": {
+        "path": "indexed-batch.hpp",
+        "before": "i < rows.size()",
+        "after": "i + 1 < rows.size()"
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "6be7311d038741d7d88552093e058514bb9e946a7038ba2c407cf4aca09cb727",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    },
+    {
+      "source": "indexed-replacement.cpp",
+      "mode": "mutation",
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "REJECTED_AS_EXPECTED",
+      "steps": [
+        {
+          "command": [
+            "/opt/homebrew/opt/llvm/bin/clang++",
+            "-std=c++23",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-O0",
+            "-g",
+            "indexed-replacement.cpp",
+            "-o",
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-duplicate-key/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-duplicate-key",
+          "timed_out": false,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-duplicate-key/indexed-replacement-mutation"
+          ],
+          "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/accept-duplicate-key",
+          "timed_out": false,
+          "returncode": 3,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "expected_exit": 3,
+      "expected_stdout": "",
+      "name": "accept-duplicate-key",
+      "replacement": {
+        "path": "indexed-batch.hpp",
+        "before": "if (!index.emplace(rows[i].id, i).second)\n                    throw std::invalid_argument(\"duplicate reading id\");",
+        "after": "index.emplace(rows[i].id, i); // Incorrect: silently accept a duplicate."
+      },
+      "source_sha256": {
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b",
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "1cdb10d9633db6e7041cca3276f63808e0941e69431c0b29eb74d14bc4a887c8",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27"
+      }
+    }
+  ],
+  "performance": "NOT RUN",
+  "concurrency": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "allocation_failure_injection": "NOT RUN",
+  "asan_positive_control": "NOT RUN",
+  "leak_sanitizer": "DISABLED",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1:abort_on_error=0:exitcode=86:symbolize=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=0"
+  },
+  "sanitizer_probes": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "status": "AVAILABLE",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-O1",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1/probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g4-rework-u62q0399/1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ],
+  "completed_at_utc": "2026-10-01T13:33:59.519761+00:00",
+  "result_counts": {
+    "O0:PASS": 22,
+    "O0:OBSERVED": 2,
+    "O2:PASS": 22,
+    "O2:OBSERVED": 2,
+    "compile_fail:PASS": 4,
+    "sanitized:CLEAN_OBSERVED": 24
+  },
+  "mutation_counts": {
+    "REJECTED_AS_EXPECTED": 8
+  },
+  "status": "COMPLETE"
+}
