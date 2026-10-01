@@ -6,7 +6,7 @@
 
 **从 [G0 从源文件到可执行程序](g00-native-toolchain.md)进入，再依次读 G1 的[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)，随后读 G2 的[资源责任与确定性清理](g02-resource-lifecycle.md)和[借用与所有权交接](g02-ownership-and-handoff.md)。** G0 在 `d45f9a7` 的方向与深度已经获得读者接受，局部校准见 `6fcfbd0`；继续作为 Content v2 的深度与叙述质量标定候选。G1 三单元在 `2cad5b4` 获得精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 两单元在 `729e9c2` 获得精读接受，文字收口见 `9276e3e` 和 [G2 验证说明](g02-verification.md)，G2 Content v2 为 **ACCEPTED / FROZEN**。[v1 章节](../README.md)和已发布 PDF 保持原字节，历史实验记录不继承为新稿的执行证明。
 
-G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，三单元及理论补充在 `950c976` 获精读接受，经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**；G6 新稿分为[布局与访问成本](g06-layout-and-access.md)和[分配策略与性能测量](g06-allocation-and-measurement.md)，已完成本批正文及分项本地验证，状态为 **PENDING READER REVIEW / NOT FROZEN**；G7 及后续尚未重编。
+G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，三单元及理论补充在 `950c976` 获精读接受，经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**；G6 新稿分为[布局与访问成本](g06-layout-and-access.md)和[分配策略与性能测量](g06-allocation-and-measurement.md)，两单元在 `7b1fdf0` 获精读接受，经 working set、Roofline 模型和编译目标证据边界收口，G6 Content v2 为 **ACCEPTED / FROZEN**；G7 及后续尚未重编。
 
 ## 全书的组织方向
 
@@ -120,9 +120,13 @@ G6 从“同一批读数、同一求和结果，为何机器成本不同”开�
 
 第二单元把同一任务接回资源生命周期，观察每批重建、容量复用、arena 逐项释放与整体回收，再解释微基准、端到端测量、采样和跟踪各回答什么问题。计时主程序与扫描内核独立编译，不开启 LTO；三种规模、两种输入顺序、交替的成对测量及三个独立进程保留原始结果。首次观察中 SoA 并未普遍获胜，正文进一步用实际条件跳转与交错处理说明，布局密度不足以单独预测速度。
 
-[G6 验证说明](g06-verification.md)分开登记正确性运行、布局／资源观察、生成代码观察、性能计时和 ASan/UBSan。三个错误变体分别检验遗漏末值、损坏记录编号与遗漏 clear；计时记录另查完整矩阵和校验和，不用性能排名作为通过条件。两个单元各有六道迁移题及完整推理答案，G6 Content v2 当前为 **PENDING READER REVIEW / NOT FROZEN**，不以本地执行替代精读接受。
+[G6 验证说明](g06-verification.md)分开登记正确性运行、布局／资源观察、生成代码观察、性能计时和 ASan/UBSan。三个错误变体分别检验遗漏末值、损坏记录编号与遗漏 clear；计时记录另查完整矩阵和校验和，不用性能排名作为通过条件。两个单元各有六道迁移题及完整推理答案，`7b1fdf0` 的理论骨架、中文叙述和证据整合已获精读接受。
+
+冻结前仅精确化 working set 的访问窗口与非重复访问边界，补明 Roofline 风格模型的等价关系，并说明默认编译目标不代表 M5 专门调优。G6 Content v2 据此登记为 **ACCEPTED / FROZEN**；实验、判据、反向性能结果及历史 JSON 保持原字节，没有重跑 504 条计时或其他 C++ 检查。冻结摘要与旧执行输入的区别见 [G6 冻结记录](g06-verification.md#6-精读接受与冻结收口)。
 
 旧 G6 中的大页／mmap 操作、池实现、完整 coherence 实验、硬件计数器平台指南及跨语言对照保留回查，不声称已在新稿中完成对应实测。新稿解释 TLB 与伪共享的必要模型，但不扩成操作系统或并发专题；完整共享协议归 G7，项目全路径优化归 G10。G0～G5 正文、执行器及历史证据、v1、FM、出版系统和已发布 PDF 均保持原字节。
+
+本轮 G6 收口不启动 G7。后续 G7 先建立 sequenced-before、同步操作、synchronizes-with、happens-before 与 data race 的关系，再进入 worker、condition variable、atomic 和 shutdown；可见性结论必须来自具体规则和同步关系，不能以动态实验反过来定义 C++ 内存模型。这是后续方向，不是已经执行或验收的 G7 内容。
 
 ## 参考的采用边界
 

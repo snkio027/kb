@@ -1,6 +1,6 @@
 # G6 新稿的实验与验证边界
 
-本批从 `baeeadf58a75f68555c587f317f382f49b0ba2fc` 启动，正文为[布局与访问成本](g06-layout-and-access.md)、[分配策略与性能测量](g06-allocation-and-measurement.md)。G6 Content v2 当前为 **PENDING READER REVIEW / NOT FROZEN**。编译运行、生成物观察与性能记录不能替代精读接受，也不沿用 v1 的接受状态。
+本记录对应[布局与访问成本](g06-layout-and-access.md)、[分配策略与性能测量](g06-allocation-and-measurement.md)。§1～§5 保留从 `baeeadf58a75f68555c587f317f382f49b0ba2fc` 启动、提交于 `7b1fdf0dfe25114802bd865f04f09751ead51cbc` 的历史执行记录，其中“本批”“最终正文”均指该次提交。读者已接受 G6 的理论骨架、中文叙述和证据整合；经三项轻量收口，G6 Content v2 为 **ACCEPTED / FROZEN**，当前摘要与历史证据的关系见 [§6](#6-精读接受与冻结收口)。本轮没有重跑实验，也不把接受扩张为全平台或 PDF 验收。
 
 ## 1 输入与复现
 
@@ -122,3 +122,26 @@ g06-allocation-and-measurement.md
 新稿另检查了全部八个代码块的长度与显示宽度：readings.hpp 69 行、reuse.cpp 56 行、arena.cpp 55 行、benchmark.cpp 52 行，需未来出版层处理续页；benchmark 最宽一行为 96 显示列。保留完整实验，不为尚未启动的 PDF 拆坏源码。这些是源稿分页风险登记，不是已发生的 PDF 裁切，也不宣称 Visual Profile 已对新稿验收。
 
 内容规则以固定的 C++23/N4950 为依据，系统机制引用 Arm、LLVM、Google Benchmark 与 Linux 内核的原始技术资料；在线页面不等于本地不可变归档，结构检查不把它们计入本地链接通过数。缓存层级与依赖载入资料只用于一般机制，不作为 Apple M5 的规格证据。
+
+## 6 精读接受与冻结收口
+
+2026-10-02，读者对 `7b1fdf0dfe25114802bd865f04f09751ead51cbc` 完成精读，接受 G6 的理论完整度、中文技术论述、两单元结构与反向观察处理，未发现技术阻断项。本轮按复审意见仅完成三项收口，G6 Content v2 据此登记为 **ACCEPTED / FROZEN**。
+
+第一单元 §2.1 将 working set 明确为给定时间窗口／阶段的活跃访问集合，不再要求反复访问，并区分扫描足迹与同时驻留需求；§3 将现有时间下界命名为 Roofline 风格模型，补齐 `I = W/B`、`W/T ≤ min(P, I×D)` 与 `T ≥ max(W/P, B/D)` 的关系、单位和层级前提。参考 Denning 工作集原文与 Berkeley Roofline 技术报告，只补充理论说明，不增加实验或硬件归因。
+
+第三项补充的是 §2 历史配置的解释边界：**性能构建没有显式指定 `-mcpu=native` 或其他 host-specific CPU tuning 选项。** 汇编和优化备注绑定于 JSON 中记录的实际编译命令及其默认目标设置；Apple M5 是执行主机身份，不表示编译器针对 M5 的全部微架构特性做了专门调优，也不构成“M5 最优代码”的证明。本轮只读取旧命令，不另行探测或改变 target，不重新生成汇编。
+
+第二单元保持 `7b1fdf0` 原字节，第一单元仅有上述理论段落变化。当前冻结正文 SHA-256 如下；§5 及 `g06-results.json` 中的旧正文摘要仍对应 `7b1fdf0` 的历史执行输入，不追写为当前摘要。
+
+| 当前冻结正文 | SHA-256 |
+| --- | --- |
+| `g06-layout-and-access.md` | `eefe5cb1dae41885de33e9481967471081ee6ff9f0e80972f24a57ad0de91041` |
+| `g06-allocation-and-measurement.md` | `99c040faf1215c4a99c21b748889d6c0d95ff2d354c45a4777fba51e00584393` |
+
+本轮实际使用 §1 的 Python 路径执行 `c++/learning/check_docs.py`：64 份 Markdown、948 处本地链接，errors 为空；v1 的 16 个既有分页风险保留。另执行同一 Python 的只读内联审计，调用 Pandoc GFM AST、`extract()` 与 `protected_binding()`：24 份 rework Markdown 的标题层级、锚点唯一、围栏及无 details 检查通过；相对 `7b1fdf0`，两篇正文的 9 个围栏块、4 个迁移题／答案区域和 39 个标题锚点不变，8 份提取源码与历史摘要 MATCH。执行器、辅助文件、结果 JSON、第二单元及本记录 §1～§5 原字节不变，原登记的 59 份保护文件也未变。
+
+只读审计另核对历史性能构建／汇编命令没有显式 CPU tuning 或 target 参数，未调用编译器。`git diff --check` 无错误；差异仅为第一单元、此验证说明与两个 README，共四份 Markdown。新增两个理论引用经原始论文核对，不归档第三方全文；本地链接检查不将其当作联网验证结果。
+
+本轮 **C++ 编译／运行、编译诊断、布局与资源观察、工件生成、ASan/UBSan、错误变体、判据自检及性能计时均未重跑**。12 项正确性运行、6 项变体拒绝、6 项 sanitizer 观察和 504 条计时继续作为 `7b1fdf0` 的历史本地证据，不称为本次执行或 CI。CPU sampling、硬件计数器、并发动态检测仍未执行；**PDF：NOT BUILT / NOT VALIDATED**。
+
+G0～G5、FM、v1、出版系统、历史 PDF／dist 不随本次冻结改变。本轮到此收口，未启动 G7；后续先明确 C++ 同步与先行关系，再用动态实验观察特定实现路径，不让运行结果替代内存模型。
