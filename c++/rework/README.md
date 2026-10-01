@@ -6,7 +6,7 @@
 
 **从 [G0 从源文件到可执行程序](g00-native-toolchain.md)进入，再依次读 G1 的[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)，随后读 G2 的[资源责任与确定性清理](g02-resource-lifecycle.md)和[借用与所有权交接](g02-ownership-and-handoff.md)。** G0 在 `d45f9a7` 的方向与深度已经获得读者接受，局部校准见 `6fcfbd0`；继续作为 Content v2 的深度与叙述质量标定候选。G1 三单元在 `2cad5b4` 获得精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 两单元在 `729e9c2` 获得精读接受，文字收口见 `9276e3e` 和 [G2 验证说明](g02-verification.md)，G2 Content v2 为 **ACCEPTED / FROZEN**。[v1 章节](../README.md)和已发布 PDF 保持原字节，历史实验记录不继承为新稿的执行证明。
 
-G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 及后续尚未重编。
+G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，**待精读审核，尚未冻结**；G6 及后续尚未重编。
 
 ## 全书的组织方向
 
@@ -90,9 +90,21 @@ G4 让一批读数持续变化，而不是重新按容器类型罗列知识。�
 
 冻结前仅校准第一单元的记录身份标题及术语、明确 reserve 的 throwing-move 例外不再享有原无效果保证，并精确说明 borrowed_range 所关心的迭代器有效性。实验、判据和迁移题保持原字节；`e44219c` 的本地执行证据没有重跑，历史 JSON 未追写。
 
-旧 G4 的 string_view、mdspan、flat_map、代理引用细节保留为回查；新稿只在当前合同需要时解释相关边界，不宣称已经完成这些专题的全面重编。PMR 与机器成本归 G6，ABI 归 G8，并发归 G7/G10，optional/variant/expected 的完整失败建模仍由 FM 承担。G0～G3 正文、实验与历史记录保持原字节，本批不启动 G5，不构建 PDF。
+旧 G4 的 string_view、mdspan、flat_map、代理引用细节保留为回查；新稿只在当前合同需要时解释相关边界，不宣称已经完成这些专题的全面重编。PMR 与机器成本归 G6，ABI 归 G8，并发归 G7/G10，optional/variant/expected 的完整失败建模仍由 FM 承担。G4 批次保持 G0～G3 正文、实验与历史记录原字节，未启动 G5，也未构建 PDF。
 
-G5 的后续入口是 ranges::sort 为什么接受 vector 而拒绝 filter_view：沿调用表达式、类型推导、约束检查与实例化继续推理，不从模板语法目录重新开始。此处只登记方向，不表示 G5 已启动。
+`c4c7473` 的收口只登记了 G5 从 ranges::sort 的调用、推导、约束与实例化继续推理的方向，当时未启动 G5；本批进展见下节。
+
+## G5 如何承接 G4
+
+G5 继续使用 Reading 与读数批次。第一单元从 vector、const 范围及 filter_view 的 sort 可行性差异进入调用推导，分别检查 T、形参类型与表达式类别，再说明转发及返回类型怎样改变绑定和借用关系。不重复 G3 的移动实现，也不按模板语法排列知识点。
+
+第二单元实现 sorted_snapshot：输入只需产生 Reading，结果用独立 vector 排序。由实际操作推导约束后，继续区分简单要求的表达式合法性、嵌套要求的条件为真、声明可调用与函数体成立。命名概念的重载关系和类模板成员按需实例化分别用具体实验解释，不把 concept 当作业务正确性证明。
+
+第三单元让同一份有效性规则服务于固定配置与运行读数，区分 constexpr、consteval、模板参数和 if constexpr；随后通过提供方与客户端的独立编译、显式实例化、缺定义链接及符号观察接回 G0。工件大小只记录观察，不推导性能结论，静态与动态的边界由任务需要决定。
+
+[G5 验证说明](g05-verification.md)分别登记正常编译运行、八类目标编译诊断、多文件链接、工件观察、ASan/UBSan 与两个错误变体。三单元各有六道迁移题及普通章节中的推理答案。工具结果与讲解质量分开，当前仍待精读接受，不以实验完成自动冻结。
+
+旧 G5 的完整类型技巧、跨语言对照及泛型预算清单保留回查；本批不展开完整 ADL、类模板实参推导、元编程框架或特化技巧大全。机器成本交给 G6，ABI 归 G8，完整构建传播归 G9。G0～G4 正文、执行器与历史 JSON、v1 源稿及已发布 PDF 保持原字节；不启动 G6，不构建 PDF。
 
 ## 参考的采用边界
 
