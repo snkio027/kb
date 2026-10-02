@@ -1,0 +1,2059 @@
+{
+  "started_at_utc": "2026-10-02T06:07:17.563405+00:00",
+  "platform": "macOS-26.7-arm64-arm-64bit",
+  "macOS": "26.7",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "documents": {
+    "g07-shared-state-and-shutdown.md": "062837653443d1e2fcf37c6aded774bf56bb0253890bdd1990118dac27c4c5c3",
+    "g07-atomics-and-publication.md": "1f200fb1347a85dee7edb2c98b4e07fee063039180a3f13f5a810c90bd00af21"
+  },
+  "source_sha256": {
+    "channel.hpp": "9af01d7aa3d72752e911e26adbd22e159a028caf5272ecae0bfbedcce871c9fc",
+    "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+    "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+    "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+    "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+    "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+    "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+  },
+  "runner_sha256": "3184a62e5d6c81e87740e7b0425609604bfaf10105814e91fec468f38418443b",
+  "helper_sha256": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+  "process_helper": "c++/learning/verify_g.py",
+  "protected_binding": {
+    "base": "c1e8ab7a33f450ef5663085ecdd00ce41ce1692a",
+    "status": "UNCHANGED",
+    "files_sha256": {
+      "c++/failure-model/fm0-failure-model.md": "a00c746ca09ea0743d14f9276f5b018f4f32e66855a1929af3309de4707d31de",
+      "c++/failure-model/fm1-contracts-assertions-ub.md": "8f68e5c28eb597c516947eda3298f86c52d60d40ea1c957a0df22255df8f54aa",
+      "c++/failure-model/fm2-value-based-failure.md": "7232a6bceef7cd9b0ecf33c65120d84b15f8b6c204f25ba62a430ade46c69bb5",
+      "c++/failure-model/fm3-exception-semantics.md": "08c927bb33ea3d2a8fb44a1edb19b72d9f846fd0798f3ebab40c5edbb5ee545b",
+      "c++/failure-model/fm4-raii-exception-safety.md": "cd2160897b52611820f5df858a1b566173984c6f6b55db6600da5ffe135860ad",
+      "c++/failure-model/fm5-noexcept-move-copy.md": "4ca73c87b7fdb6bfa575f6022f94c09e5e80ddb4b3c43d1db431a5bf7109bdb1",
+      "c++/failure-model/fm6-construction-destruction-allocation.md": "9890155cb4a9ad661eec43b242cab5c4cda550416fa39e2c58e215b117cd2159",
+      "c++/failure-model/fm7-error-code-system-error.md": "0a5c893df6c5a5de99e3041d50503eb001022ae3363da0c1daf51325fa9cca60",
+      "c++/failure-model/fm8-failure-boundaries.md": "5ca73b850dfaf56b2433ffc4db8bd9b4b7e002e8d906b015117ba01af2cfbfc3",
+      "c++/failure-model/fm9-project-failure-profile.md": "d8b69e6774b221e3ba58dd76e13801382a9daa8a3ff8e574214d484356b2077e",
+      "c++/g00-native-toolchain.md": "49007f1ebfe3c09f370151d3981343684821360065115a578fa34a58344ffe4f",
+      "c++/g01-object-model.md": "6e5494789eb37e653eaa348efbdcc4db91f786e9a9227bfc27d3b105f072af63",
+      "c++/g02-raii-and-ownership.md": "da460e19cebe905fb0f80122461477efa4640535612f794d1a2b8088a6d79bc4",
+      "c++/g03-value-semantics-and-performance.md": "c7042c0b6295a8ba223e11ff7c63bcde15ba0e21e934b8f8ed4da7bab8f754d1",
+      "c++/g04-stl-and-ranges.md": "53dbd8b53b67bff52833ed7d248f58f4c0887ac6c0bea76e0d42d3fe2282d9ac",
+      "c++/g05-generics-and-compile-time.md": "102f54bf14ed4be0a48b2fe713e3ae10e129201758541c7706bc6ce1f7364ea1",
+      "c++/g06-memory-and-performance.md": "adcf479bb9e41ee6d87d2fcd94325c8399f142b1ae8221e21e0870a991105d66",
+      "c++/g07-concurrency-and-memory-model.md": "c3f8d4376cffb9bbc196905eb82e703ac5943ae629a89bade72089f2ed534730",
+      "c++/g08-abi-and-c-interop.md": "1ce5abaceb77a9f5a130d9358c1bdf0325adcf974029542aece870453d56553c",
+      "c++/g09-build-and-native-ecosystem.md": "0b1f75f2710424e0577cb6fa9930ec417c8263654bfa229aeccd5324138ecc08",
+      "c++/g10-systems-runtime-project.md": "9e979848f5cd994feef71bd375feaef05607be23b7bbb69ca74c4575b98f4bd2",
+      "c++/g11-robotics.md": "5da29496b72c0074189073c4dbce02b681f9519e6ff5540c895a985a949e88b8",
+      "c++/g12-cpp-zig-rust.md": "6d077a806ebe606f9ebac7474e960f0f2fef2c9100a16d266dbcb3cb89775dce",
+      "c++/learning/verify_g.py": "3579b778d657ea1b6b6f21f9b23b00d1031e6da94a85b03f82eeefd5c7394d1f",
+      "c++/rework/g00-native-toolchain.md": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+      "c++/rework/g00-results.json": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8",
+      "c++/rework/g00-verification.md": "f4591db5ba6a36edc89e5a5a2d37f617c2268c4d1d544be37f115cb7cc744c61",
+      "c++/rework/g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+      "c++/rework/g01-representation-and-typed-access.md": "7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35",
+      "c++/rework/g01-results.json": "f5f43f6362d363e197b88943a5e708436af619a2b3d3b6fd213cdaa7ca178eab",
+      "c++/rework/g01-review-results.json": "fdd10a605cbe31a3c4d4e04951eb91c01e374d4f8b72c42bcbbc5f2e4aa2e7f5",
+      "c++/rework/g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+      "c++/rework/g01-verification.md": "01d877d09de782ef15cc07aba88ce37226eb05d356d9168b5917ce5865724477",
+      "c++/rework/g02-ownership-and-handoff.md": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88",
+      "c++/rework/g02-resource-lifecycle.md": "ecccff7759cad454bdeb8341ee21a8389c7ef839aec99cc7a1fb9b3e2ab6426b",
+      "c++/rework/g02-results.json": "31499bca59ddb6676f78f93bb15003065004e1bdf203053348504ef346c00f68",
+      "c++/rework/g02-verification.md": "a66572a3d75f810f4534e848207a0253c0535271ed3440e3273b847167eef78e",
+      "c++/rework/g03-expressions-and-return.md": "4b86c508377a2651e57fd49a7615cb8d03f33e0a21de05887807a7d3ff7108b1",
+      "c++/rework/g03-results.json": "9334eda778542a71308b20163488e08be85944df5e292f5719b3c8a7012beccd",
+      "c++/rework/g03-value-copy-and-move.md": "17252f214ffe89e13c1915ee53a37d1d7b1ae339b5ee771ada4f587a72fa14c5",
+      "c++/rework/g03-verification.md": "ad6396d1de746c93435b25b8838e162148e4fd077bf70cb418ca16d12db9585a",
+      "c++/rework/g04-algorithms-and-views.md": "57b897c8c438925fd7d1ee99bf9687de59ac8f3acc0b71b89e9b1da873ac0994",
+      "c++/rework/g04-lookup-and-indexes.md": "e6c25ada6aaecbffd27ac638f16cddb9a136f3f168681643d1b7050e7e9b7039",
+      "c++/rework/g04-results.json": "bc08efc5343e48b95aace8fb72cf6178e6b35eec8f7241425cb0cacb8f8989b5",
+      "c++/rework/g04-sequences-and-identity.md": "39806b718373c2b9f2ae25b1b4ba74464d3f68f133b591165882d65cdff037ee",
+      "c++/rework/g04-verification.md": "be7134cd05ed64f0afdc2e97c1f42843a9ef61f8da622108bce232e8dd4b06c9",
+      "c++/rework/g05-call-and-deduction.md": "5e36fa32e00c9e8a5db70ac4d2b064fe925d51f673ddec5f52a356bf8d34c126",
+      "c++/rework/g05-constant-evaluation-and-codegen.md": "131b68cb68d3dbdbe697271a912608c7f0b7dc64bb8d7b6b5076e5d16c43125d",
+      "c++/rework/g05-constraints-and-instantiation.md": "7c8756b57f6ed2aa6cb7a291cd19aeab2b6d6185238831127d6387d36715b3c0",
+      "c++/rework/g05-results.json": "57b1e6a5dc333ba238dd65f4d0e5d9d9c5303e5bed4d868225664de95b2ee071",
+      "c++/rework/g05-verification.md": "14a3a51dfb7f4769ca3cfadd9129867ba3d53b5672e720f1eeada5e860e1594a",
+      "c++/rework/g06-allocation-and-measurement.md": "99c040faf1215c4a99c21b748889d6c0d95ff2d354c45a4777fba51e00584393",
+      "c++/rework/g06-layout-and-access.md": "eefe5cb1dae41885de33e9481967471081ee6ff9f0e80972f24a57ad0de91041",
+      "c++/rework/g06-results.json": "437f290fdda39b0a4e6e7e2d99e783014b73dd9519f3f0a8277410c04b1df326",
+      "c++/rework/g06-verification.md": "609d1d7e90c40db53ed9ae65c840742a412ab4773bc2f212768f26d394022ac9",
+      "c++/rework/verify_g0.py": "97a4b97899e2791948a1bf03af79f0a2396e4295f5a8bd4b99f4426c70024027",
+      "c++/rework/verify_g1.py": "df0b468f9be9d47f5222cf3a076fa32e737c1fbb2265035690ed27e1ad34ba0d",
+      "c++/rework/verify_g2.py": "0d099d40ca5c9a27bbbb3b8360c55cc5ff6b74145de2d67ed95866aa46f6fbcf",
+      "c++/rework/verify_g3.py": "0fd6b55e5384f4f8389a3f73ec3dcf8ca189e3682125beac4e5038e30a39201b",
+      "c++/rework/verify_g4.py": "48370c42edd05ee1ae88204f632e77d1cb417bf1faba621523f8d891bbab2948",
+      "c++/rework/verify_g5.py": "850e8880f2c56d6afd99a3f816121d3c92b03eaf1aeabc99360442d8ea3fe43f",
+      "c++/rework/verify_g6.py": "f6bbcb00d3eb0dda0d7622bd2155924e7f53d450f91d1696ddc34dca4ce6a08c",
+      "publication/releases/cpp-failure-model/v1.0.0/output/pdf/Modern-Cpp-Failure-Semantics-Handbook-v1.0.0.pdf": "2957aab0ad153873307a83af9383f08dabcfb3caae8c5f27750a6f48ee3c4e9c",
+      "publication/releases/cpp-handbook/v1.0.0/output/pdf/Modern-Cpp-Engineering-Handbook-v1.0.0.pdf": "ce4f6d5f6e4b8c1e2789eedd1fc151462d31e929b724ce2eb95c780f90766510"
+    },
+    "historical_execution_rerun": "NOT RUN"
+  },
+  "oracle_selftests": {
+    "exact_output_accepted": true,
+    "wrong_output_rejected": true,
+    "timeout_rejected": true,
+    "stderr_rejected": true,
+    "crash_not_logical_rejection": true,
+    "wrong_exit_rejected": true,
+    "target_race_accepted": true,
+    "missing_race_rejected": true,
+    "wrong_sanitizer_rejected": true,
+    "wrong_race_exit_rejected": true,
+    "race_timeout_rejected": true,
+    "race_crash_rejected": true,
+    "clean_not_positive_control": true
+  },
+  "temp_directory": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m",
+  "toolchains": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "version": {
+        "command": [
+          "/usr/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+        "stderr": ""
+      },
+      "identity_build": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "identity.cpp",
+          "-o",
+          "identity"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "25a9670075f0bb72a139e3a92ab35be885e01a7d32616cc9e93353d7a7b28917"
+      },
+      "identity_run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/identity"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "__cplusplus=202302\n_LIBCPP_VERSION=220106\n",
+        "stderr": ""
+      },
+      "tsan_probe_build": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "tsan-probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "3202fe7b0e0ddf743929602bcc3a3909151372d5c3e4f97ff843b487d39db42a"
+      },
+      "tsan_probe_run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/tsan-probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "tsan_probe_available": true
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "version": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "--version"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "Homebrew clang version 23.1.2\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.2/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.2/etc/clang/arm64-apple-darwin25.cfg\n",
+        "stderr": ""
+      },
+      "identity_build": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "identity.cpp",
+          "-o",
+          "identity"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "7f550a9e8bb82b36fa22eb21dbfd21ee6e7dbf366d6004eed877c76279144032"
+      },
+      "identity_run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/identity"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "__cplusplus=202302\n_LIBCPP_VERSION=230102\n",
+        "stderr": ""
+      },
+      "tsan_probe_build": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "probe.cpp",
+          "-o",
+          "tsan-probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "8d12a7b16d60e8348c675a92675d13ef65d4dc11e3cc30406b84635c682b4726"
+      },
+      "tsan_probe_run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/tsan-probe"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "tsan_probe_available": true
+    }
+  ],
+  "results": [
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "channel-contract.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "d0c5ab8af25aba40f3f0e4c74c6323db8a4bfc5a4923e0d4d3065d931274dd4d"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-contract-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "channel-contract.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "39cbd25ccc5fa9e3d8732589059f8d356279b00abc90b091ff1aef994a1b6013"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-contract-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "worker-failure.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fad9c57ed7bb5061e1e2ac42019ffe3f97f4bac18cdf14ab7438bf6271b7f696"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/worker-failure-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "worker-failure.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "b9a7b7164f0b613612b964496d337ba59221c8079c3f4eafb660020d6c825c52"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/worker-failure-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "cas-counter.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "a5bf373784f70984666b87f112b81dd1c229694f9f7d8e4aef1f952a88a8fb84"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/cas-counter-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "cas-counter.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "efb37a4f46ba77c164b5c24cdf1739206a4bbf2c5c85e25637b1725980a5171a"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "logical_negative",
+      "name": "atomic-lost-update",
+      "status": "REJECTED_AS_EXPECTED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "efb37a4f46ba77c164b5c24cdf1739206a4bbf2c5c85e25637b1725980a5171a"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/cas-counter-O2",
+          "--broken"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 21,
+        "stdout": "lost update rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "slot-handoff.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "350b1fde3aa109ce41a937b3cfb6d882c4ad14ee24f98a9eae4004596702807c"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/slot-handoff-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "contract",
+      "name": "slot-handoff.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e33f8bb42d7316f773cf86bbf4473bc00d3a6532f02fba31d1d4f5247ae93387"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/slot-handoff-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e264d69b3831a62d4e0ba11f33ae21464ec8dbb5948c6d26e635f3b2203e66e8"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 1,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e264d69b3831a62d4e0ba11f33ae21464ec8dbb5948c6d26e635f3b2203e66e8"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 2,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e264d69b3831a62d4e0ba11f33ae21464ec8dbb5948c6d26e635f3b2203e66e8"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "mutation",
+      "name": "accept-after-close",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "channel.hpp",
+      "before": "if (state_ != State::open) return false;",
+      "after": "if (state_ == State::aborted) return false;",
+      "source_sha256": {
+        "channel.hpp": "565bf19e8ec708ead0ce9364cb5213ce9ccbd5d5e798f83f9497a1b402daed70",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 3,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/accept-after-close",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e67a195237112d5f565616909576709f0581c109e25711fe625c24b0f746b67b"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/accept-after-close/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/accept-after-close",
+        "timed_out": false,
+        "returncode": 3,
+        "stdout": "contract failure=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "mutation",
+      "name": "omit-discard-accounting",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "channel.hpp",
+      "before": "discarded_ += size_;",
+      "after": "// Incorrect: omit discarded work from accounting.",
+      "source_sha256": {
+        "channel.hpp": "ea7ce4773f0ae5b3087304ddecaa02560a83336d8d020619313dcdc49b3939b4",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 12,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/omit-discard-accounting",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fc0c2840e187c870cf9b9139c558f9586ea33dda7f6be5185d888ff253c76e18"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/omit-discard-accounting/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/omit-discard-accounting",
+        "timed_out": false,
+        "returncode": 12,
+        "stdout": "contract failure=12\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "mutation",
+      "name": "wrong-slot-value",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "slot-handoff.cpp",
+      "before": "payload = {id, id * 17U + 3U};",
+      "after": "payload = {id, id * 17U + 4U};",
+      "source_sha256": {
+        "channel.hpp": "9af01d7aa3d72752e911e26adbd22e159a028caf5272ecae0bfbedcce871c9fc",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "fd6707052c78b1de06357806d4cf491663103224bc8b2a193aba05434dc27fd8",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 31,
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "slot-handoff.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/wrong-slot-value",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "7cdf895875ee2e874454f773788c7680b839b5963be7b0d87e3a7d39b7460805"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/wrong-slot-value/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/wrong-slot-value",
+        "timed_out": false,
+        "returncode": 31,
+        "stdout": "slot value rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan_positive_control",
+      "name": "race-control.cpp",
+      "status": "DETECTED_AS_EXPECTED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "race-control.cpp",
+          "-o",
+          "race-control-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "b9a755ec9d6e8330718751cff19c3afd78e6355d94859aee1a7d428938e2686a"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/race-control-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 66,
+        "stdout": "",
+        "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=47614)\n  Write of size 4 at 0x00016fafa2dc by main thread:\n    #0 <null> <null> (race-control-tsan:arm64+0x10000082c)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Previous write of size 4 at 0x00016fafa2dc by thread T1:\n    #0 <null> <null> (race-control-tsan:arm64+0x10000136c)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33b18)\n\n  Location is stack of main thread.\n\n  Thread T1 (tid=872831, finished) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x33bac)\n    #1 <null> <null> (race-control-tsan:arm64+0x1000007f8)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/race-control-tsan:arm64+0x10000082c) \n==================\n"
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan",
+      "name": "channel-contract.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "561307fac0726d5c693dfbb1795f837fed6044e8920a2f80890696fd9f646e15"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-contract-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan",
+      "name": "worker-failure.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "8b448e1c3fd7c939c35b42cf27fc774228c377dce8893a3df0b6152a628c4d48"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/worker-failure-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan",
+      "name": "cas-counter.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "4d8994c6eab8bc5d4c71c4df52e413b06a744b3464eb648cdf9a233deaeb829c"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan_logical_negative",
+      "name": "atomic-lost-update",
+      "status": "LOGIC_REJECTED_CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "4d8994c6eab8bc5d4c71c4df52e413b06a744b3464eb648cdf9a233deaeb829c"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/cas-counter-tsan",
+          "--broken"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 21,
+        "stdout": "lost update rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan",
+      "name": "slot-handoff.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "77ed6c5f18dc2c507e81326bd177b061ff1f68e21cde282ccbdc2d9aff3cc66f"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/slot-handoff-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/usr/bin/clang++",
+      "category": "tsan",
+      "name": "channel-stress.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/usr/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "1acc98cbc6860231fe0d2bcd1d153a19f8670640c59d1300dea128cfa5479dfa"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0/channel-stress-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-0",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "channel-contract.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "791cde3ba6b192b40114135c1b2ef1daa2581b9bdb17b29d9f0d1ff636b4cabf"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-contract-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "channel-contract.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "cacf35cc350c9eac5f4bbf7f4872a3d725c57ffbc58b526d5182b9c68a6c928d"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-contract-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "worker-failure.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "c6d93d80e175e35048ca1830d3593c81c04a1f8f03baf9d08d50eb28ab3558fc"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/worker-failure-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "worker-failure.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "821619b6a19c2a3771db4034a77311fff7d21d325122e799bc18079ee8710191"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/worker-failure-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "cas-counter.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "10d7745c7d31f6519d2dc2784978fa583cb86a8472d73a206f43ebf5f2d356d6"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/cas-counter-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "cas-counter.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "4b2df2ad515fcfef02b4bb0e5268574ef3361fb82e5b81f4000016deca8f8022"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "logical_negative",
+      "name": "atomic-lost-update",
+      "status": "REJECTED_AS_EXPECTED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "4b2df2ad515fcfef02b4bb0e5268574ef3361fb82e5b81f4000016deca8f8022"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/cas-counter-O2",
+          "--broken"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 21,
+        "stdout": "lost update rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "slot-handoff.cpp",
+      "status": "PASS",
+      "optimization": "-O0",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O0",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "7c39f8999415a3ad87124a5055f5b13d3f5bdf8042092d6d0b0e1272906e692d"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/slot-handoff-O0"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "contract",
+      "name": "slot-handoff.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "7fc7c71498ecd9e3d5ce5c25ea2fa0b482272eaf3f980637aa1d3c9fbdc1309b"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/slot-handoff-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 0,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fc70418f45695da093ff017c414cc904ac349ee305eb3461a44cb27a8fee3bc0"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 1,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fc70418f45695da093ff017c414cc904ac349ee305eb3461a44cb27a8fee3bc0"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "finite_stress",
+      "name": "channel-stress.cpp",
+      "status": "PASS",
+      "optimization": "-O2",
+      "process": 2,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fc70418f45695da093ff017c414cc904ac349ee305eb3461a44cb27a8fee3bc0"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-stress-O2"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "mutation",
+      "name": "accept-after-close",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "channel.hpp",
+      "before": "if (state_ != State::open) return false;",
+      "after": "if (state_ == State::aborted) return false;",
+      "source_sha256": {
+        "channel.hpp": "565bf19e8ec708ead0ce9364cb5213ce9ccbd5d5e798f83f9497a1b402daed70",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 3,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/accept-after-close",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "5815b5ff0e0a77219e0d741162200566388f7171480553b9ab9e90942163d027"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/accept-after-close/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/accept-after-close",
+        "timed_out": false,
+        "returncode": 3,
+        "stdout": "contract failure=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "mutation",
+      "name": "omit-discard-accounting",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "channel.hpp",
+      "before": "discarded_ += size_;",
+      "after": "// Incorrect: omit discarded work from accounting.",
+      "source_sha256": {
+        "channel.hpp": "ea7ce4773f0ae5b3087304ddecaa02560a83336d8d020619313dcdc49b3939b4",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 12,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "channel-contract.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/omit-discard-accounting",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "33ae96aba0e4f5b7330750f38bf24367682dbd380eb596884e71db8ba86a535a"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/omit-discard-accounting/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/omit-discard-accounting",
+        "timed_out": false,
+        "returncode": 12,
+        "stdout": "contract failure=12\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "mutation",
+      "name": "wrong-slot-value",
+      "status": "REJECTED_AS_EXPECTED",
+      "changed_file": "slot-handoff.cpp",
+      "before": "payload = {id, id * 17U + 3U};",
+      "after": "payload = {id, id * 17U + 4U};",
+      "source_sha256": {
+        "channel.hpp": "9af01d7aa3d72752e911e26adbd22e159a028caf5272ecae0bfbedcce871c9fc",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e",
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "fd6707052c78b1de06357806d4cf491663103224bc8b2a193aba05434dc27fd8",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa"
+      },
+      "expected_exit": 31,
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O2",
+          "slot-handoff.cpp",
+          "-o",
+          "mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/wrong-slot-value",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "427c4b8c8f10852b19a880645ced2ef8c90a2be7fde70a453149b9cf7fd759c4"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/wrong-slot-value/mutant"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/wrong-slot-value",
+        "timed_out": false,
+        "returncode": 31,
+        "stdout": "slot value rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan_positive_control",
+      "name": "race-control.cpp",
+      "status": "DETECTED_AS_EXPECTED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "race-control.cpp",
+          "-o",
+          "race-control-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "df915b9eaf6af4b1ee9d8614c14860024e5f86601265a9440e75186eb51920c9"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/race-control-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 66,
+        "stdout": "",
+        "stderr": "==================\nWARNING: ThreadSanitizer: data race (pid=47710)\n  Write of size 4 at 0x00016b1b62dc by main thread:\n    #0 <null> <null> (race-control-tsan:arm64+0x10000083c)\n    #1 <null> <null> (dyld:arm64e+0x204e0)\n\n  Previous write of size 4 at 0x00016b1b62dc by thread T1:\n    #0 <null> <null> (race-control-tsan:arm64+0x100001414)\n    #1 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32990)\n\n  Location is stack of main thread.\n\n  Thread T1 (tid=873760, finished) created by main thread at:\n    #0 <null> <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64+0x32a20)\n    #1 <null> <null> (race-control-tsan:arm64+0x100000804)\n    #2 <null> <null> (dyld:arm64e+0x204e0)\n\nSUMMARY: ThreadSanitizer: data race (/private/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/race-control-tsan:arm64+0x10000083c) \n==================\n"
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan",
+      "name": "channel-contract.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "channel-contract.cpp",
+          "-o",
+          "channel-contract-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "72fa13eaefc34245b88700b566353dbcadfde511ee0114ba9aec2c906bead6dd"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-contract-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "channel contract verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan",
+      "name": "worker-failure.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "worker-failure.cpp",
+          "-o",
+          "worker-failure-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "a6d178061fa558c0879fbe4243f1437e0dd15012b78d251567c9a2b90c1a606f"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/worker-failure-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "failure observed after join; delivered is not completed\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan",
+      "name": "cas-counter.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "73d029a6ffcad993874d9276e63b07f59fedd282108f20b33aa60aa13cb99868"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "cas count=2 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan_logical_negative",
+      "name": "atomic-lost-update",
+      "status": "LOGIC_REJECTED_CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "cas-counter.cpp",
+          "-o",
+          "cas-counter-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "73d029a6ffcad993874d9276e63b07f59fedd282108f20b33aa60aa13cb99868"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/cas-counter-tsan",
+          "--broken"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 21,
+        "stdout": "lost update rejected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan",
+      "name": "slot-handoff.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "slot-handoff.cpp",
+          "-o",
+          "slot-handoff-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "899062a48cb8773fa5991abf6e9080ceb7ac3f6530687efc27a48fdf6656f67d"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/slot-handoff-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "slot generations=20000 verified\n",
+        "stderr": ""
+      }
+    },
+    {
+      "compiler": "/opt/homebrew/opt/llvm/bin/clang++",
+      "category": "tsan",
+      "name": "channel-stress.cpp",
+      "status": "CLEAN_OBSERVED",
+      "compile": {
+        "command": [
+          "/opt/homebrew/opt/llvm/bin/clang++",
+          "-std=c++23",
+          "-Wall",
+          "-Wextra",
+          "-Wpedantic",
+          "-pthread",
+          "-O1",
+          "-g",
+          "-fsanitize=thread",
+          "-fno-omit-frame-pointer",
+          "channel-stress.cpp",
+          "-o",
+          "channel-stress-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "0b7baf0d90ac222f7c2d2376eae087eaf527ef065b2086441415a8a0714923a4"
+      },
+      "run": {
+        "command": [
+          "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1/channel-stress-tsan"
+        ],
+        "cwd": "/var/folders/yw/r8wxwlln4bg1d1r683y_3v9h0000gn/T/kb-g7-rework-nhfcjj1m/toolchain-1",
+        "timed_out": false,
+        "returncode": 0,
+        "stdout": "stress rounds=24 records=24000 verified\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "fixtures": {
+    "probe.cpp": "#include <thread>\nint main() { int value = 0; std::jthread t([&] { value = 1; });\n    t.join(); return value == 1 ? 0 : 1; }\n",
+    "identity.cpp": "#include <version>\n#include <iostream>\nint main() {\n    std::cout << \"__cplusplus=\" << __cplusplus << '\\n';\n#ifdef _LIBCPP_VERSION\n    std::cout << \"_LIBCPP_VERSION=\" << _LIBCPP_VERSION << '\\n';\n#endif\n#ifdef __GLIBCXX__\n    std::cout << \"__GLIBCXX__=\" << __GLIBCXX__ << '\\n';\n#endif\n}\n"
+  },
+  "tsan_options": "halt_on_error=1:abort_on_error=0:exitcode=66:symbolize=0",
+  "status": "COMPLETED",
+  "protocol_argument": "MANUAL / NOT MACHINE-CHECKED",
+  "performance": "NOT RUN",
+  "compile_negative": "NOT RUN",
+  "asan_ubsan": "NOT RUN",
+  "model_checker": "NOT RUN",
+  "cross_platform": "NOT ESTABLISHED",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "finished_at_utc": "2026-10-02T06:07:49.284976+00:00",
+  "summary": {
+    "contract": {
+      "PASS": 16
+    },
+    "finite_stress": {
+      "PASS": 6
+    },
+    "logical_negative": {
+      "REJECTED_AS_EXPECTED": 2
+    },
+    "mutation": {
+      "REJECTED_AS_EXPECTED": 6
+    },
+    "tsan": {
+      "CLEAN_OBSERVED": 10
+    },
+    "tsan_logical_negative": {
+      "LOGIC_REJECTED_CLEAN_OBSERVED": 2
+    },
+    "tsan_positive_control": {
+      "DETECTED_AS_EXPECTED": 2
+    }
+  }
+}
