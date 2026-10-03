@@ -1,6 +1,8 @@
 # Modern C++ 工程学习手册
 
-**2026-10-03：G0～G7 Content v2 已获集中内容审核接受，完成文字收口并整体冻结（ACCEPTED / FROZEN）。** 从 [Content v2 阅读入口](rework/README.md#g0g7-阅读与理论回查)进入 18 个单元。修订面向高级工程师，补足独立可查的理论模型，采用自然中文解释与稳定英文术语。受审版本为 `2d26bfb`，冻结前仅完成四项编辑校准；正文只涉及 G3/G5 的两处术语，不改实验源码、既有判据或 Gate。接受范围、冻结摘要与历史证据的关系见[收口记录](rework/theory-terminology-revision.md#4-集中审核与冻结收口)。未重跑 C++、性能或并发动态检测；G8 及后续未启动重编，PDF 未重建。
+**2026-10-03：G8 Content v2 三单元已形成，PENDING READER REVIEW / NOT FROZEN。** 从[二进制合同](rework/g08-binary-contracts.md)进入[不透明句柄与 C 边界](rework/g08-c-boundary-and-ownership.md)，再到[动态加载与兼容演进](rework/g08-loading-and-evolution.md)。同一读数处理案例连接 source-level interface、language linkage、ABI lowering、ownership 与 module lifetime；新实验与平台限制见 [G8 验证记录](rework/g08-verification.md)。不启动 G9，不构建 PDF。
+
+**G0～G7 Content v2 保持 ACCEPTED / FROZEN。** 从[既有阅读入口](rework/README.md#g0g7-阅读与理论回查)进入 18 个单元。`e035f59` 已完成集中审核后的文字收口，本批保留其正文、实验、Gate 与历史证据原字节；接受范围与冻结摘要见[收口记录](rework/theory-terminology-revision.md#4-集中审核与冻结收口)，不把本次 G8 运行称为 G0～G7 重跑。
 
 这套资料面向学习能力强、有工程经验的高级工程师：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
