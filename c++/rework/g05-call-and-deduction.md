@@ -75,7 +75,7 @@ clang++ -std=c++23 -O0 -g -Wall -Wextra -Wpedantic sort-capabilities.cpp -o sort
 
 ### 1.1 把编译器诊断还原成信息流
 
-一个泛型调用里，caller 提供表达式及其静态信息，callee 的声明给出 parameter pattern（形参模式）、约束和返回形式。deduction 从规定位置取得 template argument，substitution 将它们代入相应声明；overload resolution 决定本次调用选谁；需要定义时，instantiation 才把所需实现进一步具体化。这些英文名称对应不同职责，不能全部翻译成含混的“编译器推出来”。
+一个泛型调用里，caller 提供表达式及其静态信息，候选声明（candidate declarations）给出 parameter pattern（形参模式）、约束和返回形式。deduction 从规定位置取得 template argument，substitution 将它们代入相应声明；overload resolution 选出的函数才是本次调用的 callee；需要定义时，instantiation 才把所需实现进一步具体化。这些英文名称对应不同职责，不能全部翻译成含混的“编译器推出来”。
 
 理解诊断时应保留每一步的输入与输出。例如 rows 的表达式类型和 value category 是输入，R 是模板实参，折叠后的 R&& 是参数类型，函数体中的 rows 又是一个具名表达式。四者可能含有同一个基础类型，却不是同一个对象。把它们写到各自的位置，才能解释为什么 caller 提供右值，callee 内直接使用参数名时仍走左值重载。
 
