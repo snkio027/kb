@@ -69,6 +69,12 @@ weak 允许比较相等时伪失败，所以通常放在重试循环中；strong
 
 ## 2 内存序描述操作之间的约束
 
+### 内存模型的三种关系：MO、RF 与 HB
+
+分析原子协议时至少要区分三种关系。modification order（MO）排列同一 atomic object 的修改；reads-from（RF）在这里作为分析用名称，指出一次 load 取值来自哪次写；happens-before（HB）把线程内顺序与适用的同步关系接起来。MO 不是全部程序动作的时间线，RF 也不是只比较两个数值相等。
+
+例如标志多次写入 true，一次 load 返回 true 并没有直接标注“来自第几轮”。只有结合 MO、coherence 约束和状态机，才能证明它接收的是允许本次访问的发布。release/acquire 需要相应取值关系才建立所需 SW 边；两个操作在日志中看起来先后发生，不足以替代它。这正是本章从单次发布继续走到槽位复用的原因。[N4950：原子顺序](https://timsong-cpp.github.io/cppwp/n4950/atomics.order)、[一致性与 HB](https://timsong-cpp.github.io/cppwp/n4950/intro.races)
+
 ### 2.1 从读取标志推导到读取数据
 
 假设生产者先写普通 Reading，再对原子标志执行 release store；消费者执行 acquire load，并且确实读到了这次发布写入的值。这个读取关系建立 release 到 acquire 的同步边，于是先前的数据写入通过 SB、SW、SB 形成到后续数据读取的 HB 链。消费者可以按这个协议读取 Reading，而不需要把它的每个字段都改成 atomic。
@@ -106,6 +112,12 @@ release/acquire 常被简称为“让另一个线程看见数据”。更完整�
 
 类似地，acquire 到一个指针只解决此前初始化怎样到达读者的问题，不保证指针所指对象还活着。节点从某个原子链表摘除后，可能仍有读者保留旧指针；回收需要独立协议。G1 的访问有效性、G2 的释放责任，没有被一个 acquire 取代。
 
+### 2.4 Memory order 的强弱不能代替 protocol proof
+
+`seq_cst` 可以为相应 SC 操作提供更强的次序约束，却不会把“读标志、处理数据、再写标志”变成单个原子操作。若协议让两名 producer 同时获准写普通 payload，把所有标志访问换成 SC 仍没有分配唯一写入者。相反，一个经过完整论证的 SPSC 交接可以只需要 release/acquire，而不要求每个动作加入全局 SC 次序。
+
+选择内存序应从所需边倒推：哪次普通写需要先于哪次普通读，哪次读完成需要先于下一次覆盖，然后找能承载这些边的 atomic operations 及其取值关系。不能先选一个感觉安全的 memory order，再忽略状态许可、对象生命和轮次。relaxed 的理由也应明确为“不用这次操作发布其他对象”，而不是仅仅“本机运行没出错”。
+
 ## 3 一个槽位需要两次交接
 
 ### 3.1 把 full 解释成访问阶段
@@ -131,6 +143,10 @@ write(n+1)
 full 的值会反复经历 false、true、false，不能只看布尔值就认为任何时候都安全。这里还依赖单生产者、单消费者和每一轮严格交替：生产者在自己上一轮 true store 之后的 load，受同对象一致性约束，不能回读那之前的 false；它必须等到后续消费者归还的 false。消费者同理不能在自己上一轮 false store 后回读更早的 true。由初始状态开始归纳，才能把观察到的标志对应到当前交接轮次。
 
 如果增加第二个生产者，两人都可能看到 false 后同时写 payload；如果允许生产者不等归还而覆盖“最新值”，也破坏了归纳前提。把 bool 改成序号可以帮助检测代次，但序号本身并不允许对普通 payload 进行无同步读写。所谓 seqlock 风格的“读完发现版本变了就重试”，不能用事后重试抹去已经发生的 C++ 数据竞争。
+
+这个归纳可以落实到第 k 轮：producer 的 payload write，经 true 的 release/acquire，先于 consumer 的 payload read；consumer 读完后，经 false 的 release/acquire，先于第 k+1 轮的 overwrite。于是冲突的普通访问在两个方向上都有 HB 链。首轮的初始 false 是构造完成后的起始许可，后续 false 则必须是对端归还；两者的证明来源不同。
+
+这也给代码审查一个明确方法：删除某条 acquire、把归还提前，或者把 local value 改成指向槽位的 reference，都要重新画冲突访问之间的边。若边断了，有限运行中的值仍可能恰好正确，但语言论证已经不成立。下面的全值测试检查的是实现是否符合声明协议在这些执行中的结果，不能替作者补上断掉的边。
 
 **完整实验 G7-A2 · `slot-handoff.cpp` · 双向发布与逐代完整值检查**
 

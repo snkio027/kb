@@ -1,0 +1,351 @@
+{
+  "base": "b052f59f58582d7675e15ba96fed48f086744cec",
+  "checked_at_utc": "2026-10-03T11:41:59.218316+00:00",
+  "audit_sha256": "5a23cb139e80f4ef6aa750978b077da8c4dd0be5a676e0fa798fd3bdd117f933",
+  "python": "3.9.6",
+  "pandoc": "pandoc 3.11",
+  "documents": {
+    "c++/rework/g00-native-toolchain.md": {
+      "base_sha256": "2c5f1ba1ef420ce3fd08358dedeb2ad973ddd57e72b12f3720196f96c953be15",
+      "current_sha256": "90d5f3737c79496ad26d0682042b1a4f71c87f131b25a9d0eb3bed56237bf7b5",
+      "fences_unchanged": 31,
+      "old_anchors_retained": 28,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g01-borrowing-and-invalidation.md": {
+      "base_sha256": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+      "current_sha256": "6d8e84eedc752b3aeb113cbafc95a3103583737fe287835cc47457f54cec0d07",
+      "fences_unchanged": 7,
+      "old_anchors_retained": 15,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g01-representation-and-typed-access.md": {
+      "base_sha256": "7eb5a50c209710a59a79e3bb97c6e309717d730cde7cec88cac5d8950cf20b35",
+      "current_sha256": "88caf578ee16a0e3a9cc0c4cacc0e148770a0e70493b931d439de145913806db",
+      "fences_unchanged": 4,
+      "old_anchors_retained": 9,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g01-storage-and-lifetime.md": {
+      "base_sha256": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+      "current_sha256": "e4ae332b3301aa63e1260acc384a833ac022e7e81073279d34f6cf4475c3f186",
+      "fences_unchanged": 9,
+      "old_anchors_retained": 14,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g02-ownership-and-handoff.md": {
+      "base_sha256": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88",
+      "current_sha256": "a83a395920832f1bd586cb41c8b219b7fdee3ecdf957eded2b52b90abdc8a7d3",
+      "fences_unchanged": 6,
+      "old_anchors_retained": 11,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g02-resource-lifecycle.md": {
+      "base_sha256": "ecccff7759cad454bdeb8341ee21a8389c7ef839aec99cc7a1fb9b3e2ab6426b",
+      "current_sha256": "05ebaee955975bc4e73aa63e8a781d89be1f17000d30861ef783f1affe543075",
+      "fences_unchanged": 8,
+      "old_anchors_retained": 11,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g03-expressions-and-return.md": {
+      "base_sha256": "4b86c508377a2651e57fd49a7615cb8d03f33e0a21de05887807a7d3ff7108b1",
+      "current_sha256": "0057881644a76a215c6748861514709a0516c3cd605c24d84bd2a0dcde048494",
+      "fences_unchanged": 10,
+      "old_anchors_retained": 11,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g03-value-copy-and-move.md": {
+      "base_sha256": "17252f214ffe89e13c1915ee53a37d1d7b1ae339b5ee771ada4f587a72fa14c5",
+      "current_sha256": "53031064dca2f393ae75cd6522de04e19155522e5c5dc8173aa1743b8b3fbc7d",
+      "fences_unchanged": 7,
+      "old_anchors_retained": 11,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g04-algorithms-and-views.md": {
+      "base_sha256": "57b897c8c438925fd7d1ee99bf9687de59ac8f3acc0b71b89e9b1da873ac0994",
+      "current_sha256": "aaa9197fcf6a59ff1e9e30c82f2f5c191249a935d8261fab81372b6a6ca856a6",
+      "fences_unchanged": 7,
+      "old_anchors_retained": 13,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g04-lookup-and-indexes.md": {
+      "base_sha256": "e6c25ada6aaecbffd27ac638f16cddb9a136f3f168681643d1b7050e7e9b7039",
+      "current_sha256": "9a388aebccabf91318e14fa7b1b912d7273da930d17af79a603cf111a3324dc7",
+      "fences_unchanged": 5,
+      "old_anchors_retained": 12,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g04-sequences-and-identity.md": {
+      "base_sha256": "39806b718373c2b9f2ae25b1b4ba74464d3f68f133b591165882d65cdff037ee",
+      "current_sha256": "481617ed02fe6afb34027c151dc425288183d9d9c8105681f17e601307418725",
+      "fences_unchanged": 5,
+      "old_anchors_retained": 14,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g05-call-and-deduction.md": {
+      "base_sha256": "5e36fa32e00c9e8a5db70ac4d2b064fe925d51f673ddec5f52a356bf8d34c126",
+      "current_sha256": "562a486bc127a3d5d4c9585cbd13b78d5cc54e167b55369733b4c462698e45eb",
+      "fences_unchanged": 8,
+      "old_anchors_retained": 11,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g05-constant-evaluation-and-codegen.md": {
+      "base_sha256": "131b68cb68d3dbdbe697271a912608c7f0b7dc64bb8d7b6b5076e5d16c43125d",
+      "current_sha256": "ae5d888e4bae3356bede8549d98e9b74912ed94460b349ba352d4fbbb4854f1c",
+      "fences_unchanged": 11,
+      "old_anchors_retained": 13,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g05-constraints-and-instantiation.md": {
+      "base_sha256": "7c8756b57f6ed2aa6cb7a291cd19aeab2b6d6185238831127d6387d36715b3c0",
+      "current_sha256": "2eafbe2dd4c7ac5f4811085062aa2b4834a525e37a1c53ca195d46c0c20b3e81",
+      "fences_unchanged": 8,
+      "old_anchors_retained": 12,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g06-allocation-and-measurement.md": {
+      "base_sha256": "99c040faf1215c4a99c21b748889d6c0d95ff2d354c45a4777fba51e00584393",
+      "current_sha256": "37fc6f2ce032cff53445bc11630e25d3b39bacc28f257f6689b71985b7d16b77",
+      "fences_unchanged": 5,
+      "old_anchors_retained": 21,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g06-layout-and-access.md": {
+      "base_sha256": "eefe5cb1dae41885de33e9481967471081ee6ff9f0e80972f24a57ad0de91041",
+      "current_sha256": "24358d0b7e37592023e3e5832c75f99389886588716d6bcaffbeccbfc8924c8b",
+      "fences_unchanged": 4,
+      "old_anchors_retained": 18,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g07-atomics-and-publication.md": {
+      "base_sha256": "1f200fb1347a85dee7edb2c98b4e07fee063039180a3f13f5a810c90bd00af21",
+      "current_sha256": "0220bc0a7efc073396e2e618cc8742744120ec35117c8b51a69b5c31399a6689",
+      "fences_unchanged": 5,
+      "old_anchors_retained": 22,
+      "gate_to_eof_unchanged": true
+    },
+    "c++/rework/g07-shared-state-and-shutdown.md": {
+      "base_sha256": "062837653443d1e2fcf37c6aded774bf56bb0253890bdd1990118dac27c4c5c3",
+      "current_sha256": "a0e46466a9d7d87cf7a6d6a80dd78b652baa4281a7fbdf136ba8afc3179dc8cd",
+      "fences_unchanged": 5,
+      "old_anchors_retained": 23,
+      "gate_to_eof_unchanged": true
+    }
+  },
+  "historical_binding": {
+    "g00": {
+      "path": "c++/rework/g00-results.json",
+      "sha256": "e5812e46093f1971cba84f908bd34b30cc4c44cfb272560f532706af29951ac8",
+      "original_document_sha256": {
+        "g00-native-toolchain.md": "04b93e7db52e811b6813ead272c0085c3cd9e6a9bca781bbebb324551661a8d8"
+      },
+      "source_sha256": {
+        "calc.hpp": "314f4c32cb5917534feca670ff846745984b602b17a6cc0b373be75036a199c5",
+        "calc.cpp": "7ab21ad5501f8a21a8c4da3c4fa2e2f82bea11b08fd219001a118e46f4249e1b",
+        "main.cpp": "3328f4c697274a4c0b66d00fcc8d37d81b76aa4820929d7cb310c95f5a986553",
+        "conflicting-return.cpp": "19848084c13fbfe9e34302a298971d7866d90ef322c07f88506a3ac86cbbfce0",
+        "wrong-parameters.cpp": "b0f12400b3f4c6affad4fa0ba5a5ed0a6b0481971de1679f640201c92d1a2f22",
+        "header-definition.hpp": "fc4430243ff900d720b5ab914c29bc03ca5d4260104f26e84f13ddcac53bea83",
+        "aux.cpp": "423b13b55249d46519bc1b087aa3f9358292792836454ca0d6a76c4c3c824443",
+        "single.cpp": "db653a7f072bd22d8febe7e6d8e683e1ec20eb354665cd0b3cec009232e2a901",
+        "unused.cpp": "9d3279157f6c6e3b2ab00a6c22b2168f132ef3c92d10d5c528edfed059a8381a"
+      },
+      "binding": "MATCH"
+    },
+    "g01": {
+      "path": "c++/rework/g01-review-results.json",
+      "sha256": "fdd10a605cbe31a3c4d4e04951eb91c01e374d4f8b72c42bcbbc5f2e4aa2e7f5",
+      "original_document_sha256": {
+        "g01-storage-and-lifetime.md": "ea9567b222fd90632b9b8707d74a5960d159cf949072a5170463c7ecd655cdef",
+        "g01-borrowing-and-invalidation.md": "d02450af2593586cf1872cc884bbf383c0368ba37c47ca7264cc41f9ac56110a",
+        "g01-representation-and-typed-access.md": "09b7c832286f7f19275866dc034f94dfa72cac0a4606862c3f9843b50b6e5aa6"
+      },
+      "source_sha256": {
+        "array-span.cpp": "d62b363151e1abea2a9d79c36d5b9232b2e79f4f42f83c3e5e763a163a0d57bb",
+        "vector-borrows.cpp": "0ea9fa0d93654c293f10c4c671e3ada8e30e0abc606f652506a8c66ba24212f1",
+        "erase-position.cpp": "936ecc65000d2ff674eea65101d2184923eb7c2c0c9ddae88594f459b25701bc",
+        "stale-borrow.cpp": "5063d6346401c24dbecf6a5e811d3c99f344381d4ca58be1c141ea15bc41b382",
+        "representation-copy.cpp": "bd9ce2ce6d55c84f8aed04004cd1e9d6a049c46e54d21cbc60c386a59de09bad",
+        "representation-value.cpp": "c45ec8ab3b3a07603d46902f341ab66d127e3da081d824ac8e75818130368a24",
+        "reading.hpp": "61cb3ea6715a8b6cc5c903d97ac18b2cee2839d640a97ed8f7b21a3af0c6e5d1",
+        "lifecycle.cpp": "3e963b54ab2f8b7296bcbf1894fe8633d6f7911260d9ff97a28fac476f3d4b34",
+        "const-access.cpp": "8be429cd9bf59f654c4af77e8654ab6e253606d818b25e5530d5ed914624e431",
+        "constructor-failure.cpp": "89dc1995bda65ce74b3182282b441eb049ba8d513c934249099876c3f5c9b397",
+        "reference-lifetime.cpp": "6a974dcffdd240f3aa22bdcedd11fa53980c1047e8d654f4168395dc64b53897"
+      },
+      "binding": "MATCH"
+    },
+    "g02": {
+      "path": "c++/rework/g02-results.json",
+      "sha256": "31499bca59ddb6676f78f93bb15003065004e1bdf203053348504ef346c00f68",
+      "original_document_sha256": {
+        "g02-resource-lifecycle.md": "39bc6914cf93625166768292b688e14829a7905d467c3e3804b2530ad365c768",
+        "g02-ownership-and-handoff.md": "26eb9517ef290830870febb83c3a4662d4130c480bd38884b2fbb15a6c945f88"
+      },
+      "source_sha256": {
+        "batch.hpp": "1837100d94f2ff5ebb46db8bab6c97c936c2bbbf69f84059bb56ac56dbe8f575",
+        "unique-handoff.cpp": "9945f3c2f215c3947d98c2b3be5e0cb0b8ce30798b79baf4c2d416494d9f935c",
+        "shared-lifetime.cpp": "d470a0a4326a8f7c7e32f6fea4abbcfdd477963537fef6f09b085c8fcfd188d3",
+        "deferred-work.cpp": "1dc2bb69b1b8ac33a326149dce1d861ed6e70702f3fea1e6c9d388c938d5883d",
+        "ownership-cycle.cpp": "b351f3238fd29ff8ddd528dececb697ca99ca6309633c63a87a0acadd6083e6b",
+        "file-api.hpp": "d7fbc0416a5e7bc035ef0352881e21f0c593c4562b519392b7edf60d11103688",
+        "temp-file.hpp": "ccf021e7e7182d73c2f634d42f7386e4024d6a160eb22180b2f044f5f4a2142f",
+        "cleanup-paths.cpp": "0c9873263d1d9679ea4f2318cd8d8edb13e6ef9c6f0f1653d9e19c40fd744c15",
+        "member-failure.cpp": "85845da69004b3d25670b0e80211171ed22ba520929f738c419cf6c4c792012e",
+        "owner-transfer.cpp": "79e2697c9ce8212d7e05fa794e23cead47219cee4643971971815ebdc3cd452c",
+        "owner-copy.cpp": "4c9967ea81a790b53fedcae6a63adfd915ee884cfda8f1838d301e265872774d",
+        "close-failure.cpp": "d8d2813cd3fa1a71ae731096d7ffff793ab7c6e6da674288de36024e9c9ead9f"
+      },
+      "binding": "MATCH"
+    },
+    "g03": {
+      "path": "c++/rework/g03-results.json",
+      "sha256": "9334eda778542a71308b20163488e08be85944df5e292f5719b3c8a7012beccd",
+      "original_document_sha256": {
+        "g03-value-copy-and-move.md": "953f3f041897b15170a1df49732d7b7d2aa0abecd1d9018d7b12603a86eec100",
+        "g03-expressions-and-return.md": "25d43620c83859c0ff2056aa37e84ccfd248bee5fb58a5070220834857b6ca73"
+      },
+      "source_sha256": {
+        "parameter-value.cpp": "8d3d35ddf7615ae1c58c0cf8e7499809c33220b7a88d76c45b548638f404f4e9",
+        "move-selection.cpp": "0a57f7566c13a444f9af4f9780332b75f052efe3a5628e16d13815258e4af44a",
+        "deleted-move.cpp": "73a64144ac736ceda2a65de37c7cc5c852dadf43061729dcdf7f54dce2dd7696",
+        "pinned-batch.hpp": "7d063c27b34dedb577a049fe2010a10caf66f153d985e40c80ef36df362bcb4c",
+        "direct-result.cpp": "ee6f2740d076c137d861b500774b73424870e7f680abe8bbb04c556fe783d7e8",
+        "named-result-invalid.cpp": "2b7066a21bd3ffb783bb9508bce8ab172b678d3d7cfcf6e019757b03001c6771",
+        "return-observation.cpp": "5db098fce2fa4f2ea16766db1044d6628c2b31d229a28b747d693a4b5e701963",
+        "expression-model.cpp": "f2f327633ff998b2438684f2fdcbad8617efb2b722eefc4c434c5d590962a2ad",
+        "memberwise-value.cpp": "4b29131415c378e57800476a0a45ab5a0006116ffdf5d1150bb8795e54c72820",
+        "batch-storage.hpp": "c9fbcb363afd32d7ef6fa69132de758935bcb360ba4b45c535deed8741305b27",
+        "value-batch.hpp": "a02e0f9add33e619d433bf19a7a33b0540ca0f35ca345f0443f24fd15aec6476",
+        "copy-value.cpp": "6e8a65c7ae2dd74f0cc05607edfec18a58782c83c4bd0c2702711aa72851637b",
+        "copy-failure.cpp": "64514e29c67f5f6f7a2c28a93acec67adb01d91fe018140151d35aa000482372",
+        "move-state.cpp": "ad4e4c73aace58c47d8decd7d8589414498cee7947bc6a062fe4d8321d1a3109"
+      },
+      "binding": "MATCH"
+    },
+    "g04": {
+      "path": "c++/rework/g04-results.json",
+      "sha256": "bc08efc5343e48b95aace8fb72cf6178e6b35eec8f7241425cb0cacb8f8989b5",
+      "original_document_sha256": {
+        "g04-sequences-and-identity.md": "b27dd65ae57ac9c3b7da0a6c2f6eda1e77913552d1c2329d2ac0e12e58a2b394",
+        "g04-algorithms-and-views.md": "9ff952815df31d388eb843d575e4df90ed5d19749567925e629d8928f4cfeaeb",
+        "g04-lookup-and-indexes.md": "e6c25ada6aaecbffd27ac638f16cddb9a136f3f168681643d1b7050e7e9b7039"
+      },
+      "source_sha256": {
+        "single-pass.cpp": "ca5604020395ca41902d12d2c24840490e20d92046b0a25983500d36c520e563",
+        "sort-identity.cpp": "7d42ab9cad286fd7958625e1bd9fbf8cb87b025bf2a0663ec3c0bf91ad09d3c6",
+        "compact-records.cpp": "8507a412cdf1d0b608e81a2e01bd61b55b2f653cbebb2593e022cfe5f54a5a15",
+        "lazy-and-owned.cpp": "7f7bcf7211e7b9ea586fbb3c998e7451b2ff9b32a83b31f2a0396b9a214b73cb",
+        "range-lifetime.cpp": "b0be86141957d6a52f5b8c53e8b8cf0a18df26e058a6971770324b7ea1d57d13",
+        "dangling-result.cpp": "e9c989904575f43a59a4236fbcbabfe7571c1c297ddaa17ecf1e717483c2bf74",
+        "sort-filter.cpp": "3222e187a15c88e76ef2aaf366b39c5f80d6fa752a002d3510af16d639b3c332",
+        "ordered-lookup.cpp": "90bb9b1f8e163d748864541b65cfd6ef288855e9f9ccdce6ccd28ab05f703975",
+        "map-operations.cpp": "1157a750ef717ea7fce4bb562909caeea6af54146ec72dbedb1594b271331cd5",
+        "hash-references.cpp": "75722372dcc4a164aa1248c3f3e1751fea28e9110964e16f6449d842470b6b13",
+        "indexed-batch.hpp": "89fd49c00dc47991febea958be30a49623e4ec9abc2672e62ca2be01b361a57d",
+        "indexed-replacement.cpp": "abd834b2d7442386f08682a30ce7ef296e98113b5ab603d8f2738bd5ceaf6f27",
+        "reading.hpp": "7e7cb5bb42e99617ceb68c4bcee8a166792b87cbfd793008f26916ddfa571ac0",
+        "sequence-edit.cpp": "7479f41f382b716d643ff4eaf5dc99cf8117610dcab4e8defd7f4e3931d2e583",
+        "relocation-observation.cpp": "b79233c4503f3253d44d558e5462c0d65032cd8945eab713ee60e50225d76a94",
+        "stable-storage.cpp": "81c13a524275a4c45aad398c58b16e2bda2842a8970785e6e4cea9252f3f3c6b"
+      },
+      "binding": "MATCH"
+    },
+    "g05": {
+      "path": "c++/rework/g05-results.json",
+      "sha256": "57b1e6a5dc333ba238dd65f4d0e5d9d9c5303e5bed4d868225664de95b2ee071",
+      "original_document_sha256": {
+        "g05-call-and-deduction.md": "f0becd1275a71cf7a4c395997106d3e1733033fbeb0bf7186c2e13f6e6a0bb34",
+        "g05-constraints-and-instantiation.md": "963cd709c50a585b0a189efe8d191c3929c0e539a263b7615e6f1a4504e8b45d",
+        "g05-constant-evaluation-and-codegen.md": "9387928643543bf4ce05d2b9c2e18affb34575a78d1e363794ab8bb9b0303672"
+      },
+      "source_sha256": {
+        "reading.hpp": "447f2e647ed2c3b132f663899abb153a68d1c064e4ae1e9df1e7cf3a6d04ef8a",
+        "sort-capabilities.cpp": "7c6eba1267af819d2b63a4e7adeb0938daf951c403b9b590949ec853bffc21bf",
+        "deduction.cpp": "9607b0a708c678012bd50f1776bf85caf6d5dd678138013cb870251dc4fb610b",
+        "deduction-conflict.cpp": "81da7e7fe4242f49d3c42b25a4d4ccd366a13f4a0e5164ab41675b9e599426c8",
+        "forwarding.cpp": "b95a112a52ad7e2435c65e52ac5a270d6dac21db84c4c96a0fa9085b831278a1",
+        "fixed-rvalue.cpp": "172f4b92b83e390e1981a8da60bc40b8d17d97fe96b894ca0bdcbaa4887813ee",
+        "return-types.cpp": "7f947f6088c1e894ac1d64ba401d0dabaeb2bb3743724b6bc14d3fdf79bc9183",
+        "reading-limits.hpp": "0995199bfbad27bae8cdac499168d2f86757aeefc12431ffbc2d8aeddff3d2e4",
+        "constant-evaluation.cpp": "5db17b832e49a23c28c8758cb9a916915d105df407d0b6088a112f5e468240c9",
+        "invalid-limits.cpp": "2ee6a66391d966cdddd679df11b36c5629cbe31b4d263f22ae53fcb66cefd7d0",
+        "runtime-immediate.cpp": "476a8121d9792748793d080bb26b230adee57d305c5408fe3fa308193e00008d",
+        "count-elements.cpp": "593f20e915148fd98c70447f34499f7895e851ff24560b88ce2de0d477942ee6",
+        "ordinary-if.cpp": "a2c2f0ab0e918f1c9bcf1edf670f53b0153d8d32bd549c6e9f2b62aad0774aa3",
+        "positive-count.hpp": "11c4a85b2a85c572bbd2f56589c55362db6a8b8d4f100c317cc090900f2caae9",
+        "positive-count.cpp": "e2d48e2009ef15a974ab1ae5a81b4d188b5716b141ba65ef12639498672c0bfa",
+        "count-client.cpp": "7e15c5db28577e9fb54ef825eab4c83f15177f0c449b824f3590a6e0fcec1651",
+        "count-missing.cpp": "cc04c3b66936c34523f4c805edd88b50e9f644fadf175ff2f633776bd11b5665",
+        "reading-snapshot.hpp": "462cd9b88592e8b5d4a16f9a35224ddd8b2046716c5948c4681d4ff87cd7e728",
+        "snapshot.cpp": "2901b1e5aa5a4845a4b3e6c62f598ae4db46b76945a32e60285ef284c5055a79",
+        "requirement-kinds.cpp": "9bd8e57ca486d3a3fea086b920b862f2b7b52b495aca67b42c726373c0ae724f",
+        "constraint-failure.cpp": "f83896c62b60d27895a2aed4ebe81391a0d7a0335efed8ef328a00c9ba8043f5",
+        "body-failure.cpp": "6d5047fe6aba08f5b6dfe1115950781cfed68947ad500582ba2ed27cabebf20d",
+        "overload-selection.cpp": "90130978f8e465c222d09d7257a976c091ac8250ca6fa392fce5109a03fc6c4a",
+        "ambiguous-constraints.cpp": "48928a4629d2f8373724b0f4490615af0a63d13b9301129b01fddf1633265954",
+        "member-instantiation.cpp": "e6bf924d9793885851de5fdca966902f704ebcc3184503b362e4e2b9c4a41afa"
+      },
+      "binding": "MATCH"
+    },
+    "g06": {
+      "path": "c++/rework/g06-results.json",
+      "sha256": "437f290fdda39b0a4e6e7e2d99e783014b73dd9519f3f0a8277410c04b1df326",
+      "original_document_sha256": {
+        "g06-layout-and-access.md": "3247c87ffc24dcd2c478033c4238e5d68700dc876388ad6efe7c33bc43ed67ae",
+        "g06-allocation-and-measurement.md": "99c040faf1215c4a99c21b748889d6c0d95ff2d354c45a4777fba51e00584393"
+      },
+      "source_sha256": {
+        "counting-resource.hpp": "c5983fc9f7d69beb5bb2f5f777826203a70c3c7fd18b83f746ba1307ee8b1242",
+        "reuse.cpp": "f76ee50a84bc178930755d5ae26d4f404af5a8ea68cea9bb056029ed84eee8b9",
+        "arena.cpp": "de2386c2bc0524964bea4f2b60f3f80bb83f46467fd590be27d7b17eb5a793bd",
+        "benchmark.cpp": "f9ccb09eb6e5fc39a2ec0fed77bf8fec75ae6c5a26ec29465fe5297aa9297aee",
+        "layout.cpp": "cded567112f4290be4b0013877cf7b2c39e448dbc1066ef93da349896d590722",
+        "readings.hpp": "50620906096e21059a640d9d1f61e4fe32f5b8d34387b7c1a01212e408e84427",
+        "scan.cpp": "77f5b060eef61a447be195f3c68c422bee6bf8d1f1131f9d98b8d912a2f1ad7b",
+        "scan-contract.cpp": "b1deb66281945ff0f00d133d5d85edc58604672d25fac23fecab11b9ed30764e"
+      },
+      "binding": "MATCH"
+    },
+    "g07": {
+      "path": "c++/rework/g07-results.json",
+      "sha256": "013152b6a395e6cefe51d395cbcc04f3df7f03c8414f28cd73c010e1e4819764",
+      "original_document_sha256": {
+        "g07-shared-state-and-shutdown.md": "062837653443d1e2fcf37c6aded774bf56bb0253890bdd1990118dac27c4c5c3",
+        "g07-atomics-and-publication.md": "1f200fb1347a85dee7edb2c98b4e07fee063039180a3f13f5a810c90bd00af21"
+      },
+      "source_sha256": {
+        "cas-counter.cpp": "7e443c753dc586b4be44707be36b542c2a6d7938b673922ec203874585343251",
+        "slot-handoff.cpp": "77e53d25cbc89b1a8a1b1d65ac306f8cae00c1cbb5dc53a325eca629f637632e",
+        "race-control.cpp": "d68ae41184151b2f528fb5b42b7a8efd86be8612d9f4c87baa52441ef858b6fa",
+        "channel.hpp": "9af01d7aa3d72752e911e26adbd22e159a028caf5272ecae0bfbedcce871c9fc",
+        "channel-contract.cpp": "e06c961ed32e8d1de5db4823a311b84931fd5b0b87c0a12a59c464d3eb408336",
+        "channel-stress.cpp": "939dcdcb112e2d0b37613ffe18723e83a20a40a04405a82e5d42613a681e68d5",
+        "worker-failure.cpp": "51824e2f2aa07d3a59a2748de0e3d5b03a95ad0aeff03ab91fe01ed42d46ef2e"
+      },
+      "binding": "MATCH"
+    }
+  },
+  "errors": [],
+  "cpp_rerun": "NOT RUN",
+  "performance_rerun": "NOT RUN",
+  "concurrency_dynamic_rerun": "NOT RUN",
+  "pdf": "NOT BUILT / NOT VALIDATED",
+  "protected_tracked_files": 1150,
+  "outside_scope_changes": [],
+  "audit_selftests": {
+    "prose_allowed": true,
+    "code_rejected": true,
+    "gate_rejected": true,
+    "anchor_rejected": true,
+    "filename_rejected": true
+  },
+  "counts": {
+    "body_documents": 18,
+    "named_sources": 102,
+    "fenced_payloads": 145,
+    "old_anchors": 269,
+    "gate_regions": 18
+  },
+  "status": "PASS"
+}

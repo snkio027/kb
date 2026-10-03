@@ -2,11 +2,28 @@
 
 这一轮首先解决正文深度，不调整 PDF 排版。旧手册已经覆盖了许多术语，但若读者只能记住结论，不能解释一个程序为何这样编译、在什么条件下失效、修改方案又付出什么代价，讲解就仍不充分。
 
-新稿面向个人长期学习和工程回查。吸收“系统工程实验课”的案例推进方式，但不改成每日课程，也不要求每章机械出现同一组教学标签。正文要先成为可以连续阅读的文章，实验帮助检验理解，不能替代解释。
+新稿面向学习能力强、有工程经验的高级工程师，服务于长期学习和工程回查。采用连续案例建立模型，同时提供可独立定位的理论推导；中文负责解释，caller／callee、lifetime、ownership、deduction、happens-before 等专业术语稳定保留。写作标准唯一维护于 [Editorial Profile v1.1](../editorial-profile.md)。
 
-**从 [G0 从源文件到可执行程序](g00-native-toolchain.md)进入，再依次读 G1 的[存储、对象与生命周期](g01-storage-and-lifetime.md)、[借用、范围与访问失效](g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](g01-representation-and-typed-access.md)，随后读 G2 的[资源责任与确定性清理](g02-resource-lifecycle.md)和[借用与所有权交接](g02-ownership-and-handoff.md)。** G0 在 `d45f9a7` 的方向与深度已经获得读者接受，局部校准见 `6fcfbd0`；继续作为 Content v2 的深度与叙述质量标定候选。G1 三单元在 `2cad5b4` 获得精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 两单元在 `729e9c2` 获得精读接受，文字收口见 `9276e3e` 和 [G2 验证说明](g02-verification.md)，G2 Content v2 为 **ACCEPTED / FROZEN**。[v1 章节](../README.md)和已发布 PDF 保持原字节，历史实验记录不继承为新稿的执行证明。
+**2026-10-03：G0～G7 理论与术语修订候选，PENDING READER REVIEW / NOT FROZEN。** 本次授权重新打开 18 篇正文，不否定旧版本的接受，但新字节不自动继承旧状态。案例、实验源码、判据、迁移题与答案保持；C++、性能及并发历史结果不追写为重跑。范围、源码绑定和检查见[本批修订记录](theory-terminology-revision.md)。
 
-G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再读[参数、返回值与表达式类别](g03-expressions-and-return.md)。两单元沿同一个 Batch 推导独立值、失败后的目标状态与结果对象，在 `852545e` 获得精读接受；文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**，正文摘要与历史证据的关系见 [G3 验证说明](g03-verification.md#7-精读接受与文字收口)。G4 按[序列修改与记录身份](g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](g04-algorithms-and-views.md)、[按键查找与索引一致性](g04-lookup-and-indexes.md)顺序阅读，三单元在 `e44219c` 获得精读接受；经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**，冻结摘要与历史证据的关系见 [G4 验证说明](g04-verification.md#7-精读接受与文字收口)。G5 新稿按[调用表达式与类型推导](g05-call-and-deduction.md)、[约束、重载与实例化](g05-constraints-and-instantiation.md)、[常量求值与生成代码](g05-constant-evaluation-and-codegen.md)顺序阅读，三单元及理论补充在 `950c976` 获精读接受，经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**；G6 新稿分为[布局与访问成本](g06-layout-and-access.md)和[分配策略与性能测量](g06-allocation-and-measurement.md)，两单元在 `7b1fdf0` 获精读接受，经 working set、Roofline 模型和编译目标证据边界收口，G6 Content v2 为 **ACCEPTED / FROZEN**；G7 新稿分为[共享状态、条件等待与退出协议](g07-shared-state-and-shutdown.md)和[原子操作、数据发布与槽位复用](g07-atomics-and-publication.md)，已完成本批正文与分项验证，状态为 **PENDING READER REVIEW / NOT FROZEN**；G8 及后续尚未重编。
+## G0～G7 阅读与理论回查
+
+首次按表中顺序阅读，各单元中的理论小节可独立回查。G8 及后续尚未重编，本批不启动。
+
+| 章节 | 单元顺序 | 需要建立的推理模型 |
+| --- | --- | --- |
+| G0 | [从源文件到可执行程序](g00-native-toolchain.md) | caller／callee，declaration／entity／linkage，symbol／relocation，as-if rule |
+| G1 | [存储与生命](g01-storage-and-lifetime.md) → [借用与失效](g01-borrowing-and-invalidation.md) → [表示与访问](g01-representation-and-typed-access.md) | storage duration／lifetime／identity，borrow contract，value／representation／typed access |
+| G2 | [资源责任](g02-resource-lifecycle.md) → [所有权交接](g02-ownership-and-handoff.md) | resource invariant，cleanup／commit，ownership graph／access graph，handoff |
+| G3 | [复制与移动](g03-value-copy-and-move.md) → [参数与返回](g03-expressions-and-return.md) | abstraction function，state guarantee，value category，result object |
+| G4 | [序列与身份](g04-sequences-and-identity.md) → [算法与视图](g04-algorithms-and-views.md) → [查找与索引](g04-lookup-and-indexes.md) | invalidation，amortized complexity，ordering，dependency graph，关系不变量 |
+| G5 | [调用与推导](g05-call-and-deduction.md) → [约束与实例化](g05-constraints-and-instantiation.md) → [常量求值与生成物](g05-constant-evaluation-and-codegen.md) | deduction／substitution，satisfaction／modeling／subsumption，instantiation demand，binding time |
+| G6 | [布局与访问](g06-layout-and-access.md) → [分配与测量](g06-allocation-and-measurement.md) | footprint／traffic／reuse，latency／throughput，critical path，measurement validity |
+| G7 | [共享状态与退出](g07-shared-state-and-shutdown.md) → [原子与发布](g07-atomics-and-publication.md) | data-race freedom／linearizability／liveness，wait-for graph，MO／RF／HB，双向交接 |
+
+以下逐章说明保留此前重编的来龙去脉。其“接受／冻结”“本批未改前章”等表述均限定于所注明的历史批次；当前 18 篇修订状态以上面的本批记录为准。各 `gNN-verification.md` 和 JSON 继续记录原执行输入，不能直接当作当前正文摘要。
+
+历史执行器还保留原批次的输入保护：在当前重编工作树直接执行时，可能因前章摘要变化而拒绝运行。复现整套历史证据应使用验证说明对应的历史 checkout，不通过删除保护条件强行重跑；单个实验仍可按正文提取同字节源码手工运行。本批的 `audit_theory_revision.py` 只核对新文字与历史实验的绑定，不执行 C++。
 
 ## 全书的组织方向
 
@@ -28,7 +45,7 @@ G3 接着读[值的复制、赋值与移动](g03-value-copy-and-move.md)，再�
 
 关键实现不再长期藏在 `acquire()`、`build_state()`、`do_work()` 等占位函数后面。第一次建立模型可以省略细节，随后必须补齐真正影响结论的部分。反例先说明改了什么，再解释为何失败；不把偶发崩溃、特定性能数字或一次工具输出当作语言证明。
 
-中文以完整论述为主。术语首次出现给出必要英文，之后统一使用中文；标识符保留原样。保留决定结论的限制，删除反复出现却不增加理解的“本质”“核心”“不是……而是……”口号。连续的短句、流程块和清单应转成有因果关系的段落，不只是换一种排版。
+中文以完整论述为主，关键术语按 Editorial Profile 保留稳定英文定位，不再要求首次解释后全部中文化。连续短句、术语堆叠和清单应组织成有因果关系的段落；保留决定结论的限制，避免用反复强调替代理论。
 
 G0 精读反馈进一步确定了写作尺度：一个主问题贯穿章节，尽量沿同一个对象或程序改变条件；先用直观解释建立理解，再稳定专业术语。语言规则、实现机制和本机观察分层，关键机制由真实工件或状态变化解释，章节最后再压缩成回查模型和迁移题。后续继承这些方法，不要求相同节数、篇幅或实验数量。
 
@@ -36,7 +53,7 @@ G0 精读反馈进一步确定了写作尺度：一个主问题贯穿章节，�
 
 写作时从案例与观察进入正式模型，再把模型用于解释原案例及变化后的条件。模型可以是一段完整论述、少量关系步骤或必要的对照表，不要求每节机械使用四个标签，更不把章节改成标准条文摘要。关键语言规则引用固定版本依据；系统机制区分抽象合同与实现选择；实验说明它支持的具体命题，不能代替完整规则。增加深度优先补足关系和推导，不默认增加主题、代码数量或实验矩阵。
 
-这项要求集中维护在本节，补充 Content v2 的内容深度标准，不另建一份平行 Editorial Profile，不追改 v1 冻结稿或历史证据。G5 的理论补充已获精读接受；G6～G12 按同一标准审核，但标准本身不构成启动授权。本批依据后续明确授权启动 G7，不启动 G8～G12。
+这些方法已归入 Editorial Profile v1.1，本节只说明重编如何应用，不另立平行编辑标准。此前 G5 理论补充的接受仍是历史记录；本批 G0～G7 新增理论接受集中复审。标准本身不构成 G8～G12 的启动授权，不追改 v1 冻结稿或历史证据。
 
 章节结尾保留少量需要迁移推理的题目，并给出完整答案。不要再连续安排“统一模型、十五条原则、审查协议、常见误判、Final Gate”五种重复总结。进阶材料可以回查，但首次主线必须能够直接顺序读完。
 

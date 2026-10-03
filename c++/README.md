@@ -1,10 +1,10 @@
 # Modern C++ 工程学习手册
 
-**2026-10-02 内容重编进行中。** 从 [G 系列重编入口](rework/README.md)阅读。G0 的方向与深度已获精读认可；G1 的[存储、对象与生命周期](rework/g01-storage-and-lifetime.md)、[借用、范围与访问失效](rework/g01-borrowing-and-invalidation.md)、[对象表示、类型化访问与别名](rework/g01-representation-and-typed-access.md)在 `2cad5b4` 获三单元精读接受，文字收口见 `d071bf4`，G1 Content v2 为 **ACCEPTED / FROZEN**。G2 新稿分为[资源责任与确定性清理](rework/g02-resource-lifecycle.md)和[借用与所有权交接](rework/g02-ownership-and-handoff.md)，两单元在 `729e9c2` 获精读接受，文字收口见 `9276e3e`，G2 Content v2 为 **ACCEPTED / FROZEN**。G3 的[值的复制、赋值与移动](rework/g03-value-copy-and-move.md)和[参数、返回值与表达式类别](rework/g03-expressions-and-return.md)在 `852545e` 获精读接受，文字收口见 `c5d3b17`，G3 Content v2 为 **ACCEPTED / FROZEN**。G4 分为[序列修改与记录身份](rework/g04-sequences-and-identity.md)、[算法、遍历能力与惰性视图](rework/g04-algorithms-and-views.md)、[按键查找与索引一致性](rework/g04-lookup-and-indexes.md)，三单元在 `e44219c` 获精读接受，经文字校准，G4 Content v2 为 **ACCEPTED / FROZEN**。G5 新稿分为[调用表达式与类型推导](rework/g05-call-and-deduction.md)、[约束、重载与实例化](rework/g05-constraints-and-instantiation.md)、[常量求值与生成代码](rework/g05-constant-evaluation-and-codegen.md)，三单元及理论补充在 `950c976` 获精读接受，经最后一处措辞校准，G5 Content v2 为 **ACCEPTED / FROZEN**；G6 新稿分为[布局与访问成本](rework/g06-layout-and-access.md)和[分配策略与性能测量](rework/g06-allocation-and-measurement.md)，两单元在 `7b1fdf0` 获精读接受，经 working set、Roofline 模型和编译目标证据边界收口，G6 Content v2 为 **ACCEPTED / FROZEN**；G7 新稿分为[共享状态、条件等待与退出协议](rework/g07-shared-state-and-shutdown.md)和[原子操作、数据发布与槽位复用](rework/g07-atomics-and-publication.md)，已完成本批正文与分项验证，状态为 **PENDING READER REVIEW / NOT FROZEN**；G8 及后续尚未重编。下面的章节和接受记录继续描述 v1 源稿历史，不把历史接受等同新的学习质量验收，也不覆盖已发布 PDF。
+**2026-10-03：G0～G7 已完成本批理论与术语修订，待集中审核。** 从 [Content v2 阅读入口](rework/README.md#g0g7-阅读与理论回查)进入 18 个单元。修订面向高级工程师，补足独立可查的理论模型，采用自然中文解释与稳定英文术语，不改实验源码和既有判据。当前状态为 **PENDING READER REVIEW / NOT FROZEN**；历史接受、未变实验与新正文摘要的关系见[本批记录](rework/theory-terminology-revision.md)。G8 及后续未启动重编，PDF 未重建。
 
-这套资料面向已有基础、需要长期学习和工程回查的读者：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
+这套资料面向学习能力强、有工程经验的高级工程师：首次阅读建立模型，后续按问题查精确语义、成本与验证边界。G0～G12 是主线；[FM 失败模型](failure-model/README.md) 是异常、错误与恢复边界的专题。它不是 30 天课程教材，完成度不按天数或页数计算。
 
-[Editorial Profile v1.0](editorial-profile.md) 是全系列唯一编辑基线。[全书阅读约定与跨章索引](handbook-guide.md)统一术语主讲位置、章节交接、证据标签和引用版本，帮助将十三章作为一本手册使用。技术源稿历史与已接受的 Markdown 内容冻结基线分别登记，见[基线与证据状态](#基线与证据状态)。
+[Editorial Profile v1.1](editorial-profile.md) 是当前 Content v2 的唯一编辑规则入口；v1.0 及已出版正文不被追改。下面的导航、[全书阅读约定与跨章索引](handbook-guide.md)和[基线与证据状态](#基线与证据状态)继续描述 **v1 源稿历史**。当前重编的阅读路线与术语主讲位置见上面的 Content v2 入口；新文字不自动继承旧版本的接受或执行结论。
 
 ## 从哪里开始
 
@@ -73,7 +73,7 @@ G2～G12 的原始字节先由提交 `2dbaa95` 保存；G0/G1 与 FM 的修改�
 
 | 对象 | 已接受来源或本轮状态 |
 | --- | --- |
-| Editorial Profile v1.0 | ACTIVE BASELINE；本轮不改 |
+| Editorial Profile v1.0 | v1 源稿历史编辑基线；Content v2 当前采用 v1.1，不追改此历史 |
 | G0～G7 | `496d897` 已接受；[记录](learning/professional-revision.md#6-集中复审与非阻塞收口) |
 | G8～G9 | `e91e255` 已接受；[记录](learning/native-revision.md#5-集中复审接受与停止边界) |
 | G10～G12 | `bc4c8c9` 已接受；[记录](learning/synthesis-revision.md#6-集中复审接受与停止边界) |

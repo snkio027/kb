@@ -14,6 +14,10 @@
 
 ### 1.1 单遍输入不适合先数一遍再重读
 
+multi-pass guarantee（多遍保证）的关键不是 iterator 能不能复制，而是复制出的有效位置能否支持独立推进及重复读取。输入 iterator 即使在某个类型上可复制，也可能共享流的消费状态；推进副本不能据此视为不影响原来的遍历。forward iterator 增加的是语义要求，不能只根据是否存在 `operator++` 或复制构造判断。[N4950：forward iterator](https://timsong-cpp.github.io/cppwp/n4950/iterator.concept.forward)
+
+算法的约束同时包含表达式可形成与这些操作应满足的语义。类型通过某个 concept 的编译检查，只说明检查器能确认的部分成立，不表示编译器穷举验证了自定义 iterator 的多遍性质。这条边界在 G5 讨论 constraint satisfaction 时会再次出现；这里已经可以据此判断为什么一个“接口长得像 vector”的来源未必能交给相同算法。
+
 流输入能直观解释为什么 range 不必是容器。下面从字符串流中依次读取三个整数，输入尚未转换为可重复遍历的序列。
 
 **完整实验 `single-pass.cpp`**
@@ -52,6 +56,14 @@ int main() {
 需求是“按读数从小到大显示，同读数保持输入顺序”。投影（projection）`&Reading::value` 让算法从整条记录取出比较键，而无需先另建一个数值数组。实际被重排的仍是完整 Reading；如果只排序 value 字段，就会破坏它和 id 的对应关系。
 
 排序使用的比较必须建立严格弱序（strict weak ordering）。直观上，不能把自己排在自己前面，先后关系应能传递，互相都不在对方前面的等价关系也应能传递。`a.value <= b.value` 不满足第一项；随机结果、不断变化的外部阈值也不能形成稳定顺序。若未来换成浮点读数，含 NaN 的输入需要明确处理策略，不能直接把普通 `<` 当作覆盖全部浮点值的合法排序合同。[排序的关系要求](https://timsong-cpp.github.io/cppwp/n4950/alg.sorting)
+
+### 2.1 Strict weak ordering 怎样导出“等价组”
+
+令比较关系为 `comp(a, b)`，再定义 `equiv(a, b) = !comp(a, b) && !comp(b, a)`。strict weak ordering 要求 comp 非自反且可传递，equiv 也可传递；于是元素可按比较等价关系分组，组之间具有一致的先后。这比“比较器返回 bool”强得多，也解释了为什么比较等价不必等于 `operator==`。[N4950：strict weak ordering](https://timsong-cpp.github.io/cppwp/n4950/concept.strictweakorder)
+
+投影先选择参与关系的 key，因此本例不同 id 的记录可以因 value 相等而落入同一等价组。stable sort 只保留组内的输入相对次序，不能保留所有记录的原位置。若比较器依赖会在排序期间变化的阈值，就连组的划分都不稳定；这不是算法偶尔排错，而是 caller 没有提供算法要求的关系。模板约束无法证明任意 callback 在所有输入上的这类数学性质。
+
+### 2.2 用重复 key 检查稳定性，而不是地址稳定性
 
 **完整实验 `sort-identity.cpp`**
 
@@ -129,6 +141,10 @@ int main() {
 ## 4 视图保存的是遍历关系，不是结果快照
 
 现在不想删除原始读数，只希望展示有效项，并把显示值加上 10。`filter` 负责跳过不符合谓词的元素，`transform` 在解引用时产生转换结果。组合 view 不会在定义那一行就自动生成完整的输出 vector；转换何时发生，取决于何时真正访问元素。[transform 迭代器](https://timsong-cpp.github.io/cppwp/n4950/range.transform.iterator)
+
+可以把这条 pipeline 看成 dependency graph（依赖图）：底层 range 提供元素，predicate 决定哪些位置参与，transformation 决定解引用得到什么，view 对象还可能持有这些状态或缓存。materialization（物化）则在某次遍历时建立独立结果，把后续读取从部分原依赖中分离。两者的差别涉及求值时刻、重复工作和 lifetime，不只是有没有中间 vector。
+
+惰性也不承诺某个 callback 恰好调用一次。重复遍历可能重复求值，部分 adapter 又会缓存特定信息；带外部副作用的 predicate 很容易让读者把 pipeline 误当作命令执行序列。应先按具体 adapter 的语义与 callable 要求判断是否合法，再选择需要稳定快照还是持续观察源状态。下面的例子刻意只改变允许观察的读数值，不用输出次数来定义惰性算法的合同。
 
 **完整实验 `lazy-and-owned.cpp`**
 
